@@ -16187,18 +16187,20 @@ private constructor(
         class CardPushTransferAcceptance
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val amount: JsonField<Long>,
+            private val settlementAmount: JsonField<Long>,
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("settlement_amount")
+                @ExcludeMissing
+                settlementAmount: JsonField<Long> = JsonMissing.of(),
                 @JsonProperty("transfer_id")
                 @ExcludeMissing
                 transferId: JsonField<String> = JsonMissing.of(),
-            ) : this(amount, transferId, mutableMapOf())
+            ) : this(settlementAmount, transferId, mutableMapOf())
 
             /**
              * The transfer amount in USD cents.
@@ -16207,7 +16209,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun amount(): Long = amount.getRequired("amount")
+            fun settlementAmount(): Long = settlementAmount.getRequired("settlement_amount")
 
             /**
              * The identifier of the Card Push Transfer that led to this Transaction.
@@ -16219,11 +16221,14 @@ private constructor(
             fun transferId(): String = transferId.getRequired("transfer_id")
 
             /**
-             * Returns the raw JSON value of [amount].
+             * Returns the raw JSON value of [settlementAmount].
              *
-             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             * Unlike [settlementAmount], this method doesn't throw if the JSON field has an
+             * unexpected type.
              */
-            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+            @JsonProperty("settlement_amount")
+            @ExcludeMissing
+            fun _settlementAmount(): JsonField<Long> = settlementAmount
 
             /**
              * Returns the raw JSON value of [transferId].
@@ -16255,7 +16260,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
-                 * .amount()
+                 * .settlementAmount()
                  * .transferId()
                  * ```
                  */
@@ -16265,29 +16270,32 @@ private constructor(
             /** A builder for [CardPushTransferAcceptance]. */
             class Builder internal constructor() {
 
-                private var amount: JsonField<Long>? = null
+                private var settlementAmount: JsonField<Long>? = null
                 private var transferId: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(cardPushTransferAcceptance: CardPushTransferAcceptance) = apply {
-                    amount = cardPushTransferAcceptance.amount
+                    settlementAmount = cardPushTransferAcceptance.settlementAmount
                     transferId = cardPushTransferAcceptance.transferId
                     additionalProperties =
                         cardPushTransferAcceptance.additionalProperties.toMutableMap()
                 }
 
                 /** The transfer amount in USD cents. */
-                fun amount(amount: Long) = amount(JsonField.of(amount))
+                fun settlementAmount(settlementAmount: Long) =
+                    settlementAmount(JsonField.of(settlementAmount))
 
                 /**
-                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 * Sets [Builder.settlementAmount] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
+                 * You should usually call [Builder.settlementAmount] with a well-typed [Long] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+                fun settlementAmount(settlementAmount: JsonField<Long>) = apply {
+                    this.settlementAmount = settlementAmount
+                }
 
                 /** The identifier of the Card Push Transfer that led to this Transaction. */
                 fun transferId(transferId: String) = transferId(JsonField.of(transferId))
@@ -16332,7 +16340,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
-                 * .amount()
+                 * .settlementAmount()
                  * .transferId()
                  * ```
                  *
@@ -16340,7 +16348,7 @@ private constructor(
                  */
                 fun build(): CardPushTransferAcceptance =
                     CardPushTransferAcceptance(
-                        checkRequired("amount", amount),
+                        checkRequired("settlementAmount", settlementAmount),
                         checkRequired("transferId", transferId),
                         additionalProperties.toMutableMap(),
                     )
@@ -16353,7 +16361,7 @@ private constructor(
                     return@apply
                 }
 
-                amount()
+                settlementAmount()
                 transferId()
                 validated = true
             }
@@ -16374,7 +16382,7 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (if (amount.asKnown().isPresent) 1 else 0) +
+                (if (settlementAmount.asKnown().isPresent) 1 else 0) +
                     (if (transferId.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
@@ -16383,19 +16391,19 @@ private constructor(
                 }
 
                 return other is CardPushTransferAcceptance &&
-                    amount == other.amount &&
+                    settlementAmount == other.settlementAmount &&
                     transferId == other.transferId &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(amount, transferId, additionalProperties)
+                Objects.hash(settlementAmount, transferId, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardPushTransferAcceptance{amount=$amount, transferId=$transferId, additionalProperties=$additionalProperties}"
+                "CardPushTransferAcceptance{settlementAmount=$settlementAmount, transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**

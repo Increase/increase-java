@@ -30,14 +30,6 @@ private constructor(
 ) : Params {
 
     /**
-     * The transfer amount in USD cents. For Card Push transfers, must be positive.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun amount(): Long = body.amount()
-
-    /**
      * The Business Application Identifier describes the type of transaction being performed. Your
      * program must be approved for the specified Business Application Identifier in order to use
      * it.
@@ -111,6 +103,15 @@ private constructor(
     fun merchantState(): String = body.merchantState()
 
     /**
+     * The amount to transfer. The receiving bank will convert this to the cardholder's currency.
+     * The amount that is applied to your Increase account matches the currency of your account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun presentmentAmount(): PresentmentAmount = body.presentmentAmount()
+
+    /**
      * The name of the funds recipient.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -175,13 +176,6 @@ private constructor(
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
     /**
-     * Returns the raw JSON value of [amount].
-     *
-     * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _amount(): JsonField<Long> = body._amount()
-
-    /**
      * Returns the raw JSON value of [businessApplicationIdentifier].
      *
      * Unlike [businessApplicationIdentifier], this method doesn't throw if the JSON field has an
@@ -242,6 +236,14 @@ private constructor(
      * Unlike [merchantState], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _merchantState(): JsonField<String> = body._merchantState()
+
+    /**
+     * Returns the raw JSON value of [presentmentAmount].
+     *
+     * Unlike [presentmentAmount], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _presentmentAmount(): JsonField<PresentmentAmount> = body._presentmentAmount()
 
     /**
      * Returns the raw JSON value of [recipientName].
@@ -321,7 +323,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .amount()
          * .businessApplicationIdentifier()
          * .cardTokenId()
          * .merchantCategoryCode()
@@ -330,6 +331,7 @@ private constructor(
          * .merchantNamePrefix()
          * .merchantPostalCode()
          * .merchantState()
+         * .presentmentAmount()
          * .recipientName()
          * .senderAddressCity()
          * .senderAddressLine1()
@@ -361,25 +363,14 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [amount]
          * - [businessApplicationIdentifier]
          * - [cardTokenId]
          * - [merchantCategoryCode]
          * - [merchantCityName]
+         * - [merchantName]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        /** The transfer amount in USD cents. For Card Push transfers, must be positive. */
-        fun amount(amount: Long) = apply { body.amount(amount) }
-
-        /**
-         * Sets [Builder.amount] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
         /**
          * The Business Application Identifier describes the type of transaction being performed.
@@ -518,6 +509,26 @@ private constructor(
          */
         fun merchantState(merchantState: JsonField<String>) = apply {
             body.merchantState(merchantState)
+        }
+
+        /**
+         * The amount to transfer. The receiving bank will convert this to the cardholder's
+         * currency. The amount that is applied to your Increase account matches the currency of
+         * your account.
+         */
+        fun presentmentAmount(presentmentAmount: PresentmentAmount) = apply {
+            body.presentmentAmount(presentmentAmount)
+        }
+
+        /**
+         * Sets [Builder.presentmentAmount] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.presentmentAmount] with a well-typed [PresentmentAmount]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun presentmentAmount(presentmentAmount: JsonField<PresentmentAmount>) = apply {
+            body.presentmentAmount(presentmentAmount)
         }
 
         /** The name of the funds recipient. */
@@ -766,7 +777,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .amount()
          * .businessApplicationIdentifier()
          * .cardTokenId()
          * .merchantCategoryCode()
@@ -775,6 +785,7 @@ private constructor(
          * .merchantNamePrefix()
          * .merchantPostalCode()
          * .merchantState()
+         * .presentmentAmount()
          * .recipientName()
          * .senderAddressCity()
          * .senderAddressLine1()
@@ -803,7 +814,6 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val amount: JsonField<Long>,
         private val businessApplicationIdentifier: JsonField<BusinessApplicationIdentifier>,
         private val cardTokenId: JsonField<String>,
         private val merchantCategoryCode: JsonField<String>,
@@ -812,6 +822,7 @@ private constructor(
         private val merchantNamePrefix: JsonField<String>,
         private val merchantPostalCode: JsonField<String>,
         private val merchantState: JsonField<String>,
+        private val presentmentAmount: JsonField<PresentmentAmount>,
         private val recipientName: JsonField<String>,
         private val senderAddressCity: JsonField<String>,
         private val senderAddressLine1: JsonField<String>,
@@ -825,7 +836,6 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("business_application_identifier")
             @ExcludeMissing
             businessApplicationIdentifier: JsonField<BusinessApplicationIdentifier> =
@@ -851,6 +861,9 @@ private constructor(
             @JsonProperty("merchant_state")
             @ExcludeMissing
             merchantState: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("presentment_amount")
+            @ExcludeMissing
+            presentmentAmount: JsonField<PresentmentAmount> = JsonMissing.of(),
             @JsonProperty("recipient_name")
             @ExcludeMissing
             recipientName: JsonField<String> = JsonMissing.of(),
@@ -876,7 +889,6 @@ private constructor(
             @ExcludeMissing
             requireApproval: JsonField<Boolean> = JsonMissing.of(),
         ) : this(
-            amount,
             businessApplicationIdentifier,
             cardTokenId,
             merchantCategoryCode,
@@ -885,6 +897,7 @@ private constructor(
             merchantNamePrefix,
             merchantPostalCode,
             merchantState,
+            presentmentAmount,
             recipientName,
             senderAddressCity,
             senderAddressLine1,
@@ -895,14 +908,6 @@ private constructor(
             requireApproval,
             mutableMapOf(),
         )
-
-        /**
-         * The transfer amount in USD cents. For Card Push transfers, must be positive.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun amount(): Long = amount.getRequired("amount")
 
         /**
          * The Business Application Identifier describes the type of transaction being performed.
@@ -980,6 +985,17 @@ private constructor(
         fun merchantState(): String = merchantState.getRequired("merchant_state")
 
         /**
+         * The amount to transfer. The receiving bank will convert this to the cardholder's
+         * currency. The amount that is applied to your Increase account matches the currency of
+         * your account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun presentmentAmount(): PresentmentAmount =
+            presentmentAmount.getRequired("presentment_amount")
+
+        /**
          * The name of the funds recipient.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -1044,13 +1060,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
-
-        /**
-         * Returns the raw JSON value of [amount].
-         *
-         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * Returns the raw JSON value of [businessApplicationIdentifier].
@@ -1131,6 +1140,16 @@ private constructor(
         @JsonProperty("merchant_state")
         @ExcludeMissing
         fun _merchantState(): JsonField<String> = merchantState
+
+        /**
+         * Returns the raw JSON value of [presentmentAmount].
+         *
+         * Unlike [presentmentAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("presentment_amount")
+        @ExcludeMissing
+        fun _presentmentAmount(): JsonField<PresentmentAmount> = presentmentAmount
 
         /**
          * Returns the raw JSON value of [recipientName].
@@ -1230,7 +1249,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .amount()
              * .businessApplicationIdentifier()
              * .cardTokenId()
              * .merchantCategoryCode()
@@ -1239,6 +1257,7 @@ private constructor(
              * .merchantNamePrefix()
              * .merchantPostalCode()
              * .merchantState()
+             * .presentmentAmount()
              * .recipientName()
              * .senderAddressCity()
              * .senderAddressLine1()
@@ -1254,7 +1273,6 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var amount: JsonField<Long>? = null
             private var businessApplicationIdentifier: JsonField<BusinessApplicationIdentifier>? =
                 null
             private var cardTokenId: JsonField<String>? = null
@@ -1264,6 +1282,7 @@ private constructor(
             private var merchantNamePrefix: JsonField<String>? = null
             private var merchantPostalCode: JsonField<String>? = null
             private var merchantState: JsonField<String>? = null
+            private var presentmentAmount: JsonField<PresentmentAmount>? = null
             private var recipientName: JsonField<String>? = null
             private var senderAddressCity: JsonField<String>? = null
             private var senderAddressLine1: JsonField<String>? = null
@@ -1276,7 +1295,6 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                amount = body.amount
                 businessApplicationIdentifier = body.businessApplicationIdentifier
                 cardTokenId = body.cardTokenId
                 merchantCategoryCode = body.merchantCategoryCode
@@ -1285,6 +1303,7 @@ private constructor(
                 merchantNamePrefix = body.merchantNamePrefix
                 merchantPostalCode = body.merchantPostalCode
                 merchantState = body.merchantState
+                presentmentAmount = body.presentmentAmount
                 recipientName = body.recipientName
                 senderAddressCity = body.senderAddressCity
                 senderAddressLine1 = body.senderAddressLine1
@@ -1295,18 +1314,6 @@ private constructor(
                 requireApproval = body.requireApproval
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
-
-            /** The transfer amount in USD cents. For Card Push transfers, must be positive. */
-            fun amount(amount: Long) = amount(JsonField.of(amount))
-
-            /**
-             * Sets [Builder.amount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
-             * method is primarily for setting the field to an undocumented or not yet supported
-             * value.
-             */
-            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /**
              * The Business Application Identifier describes the type of transaction being
@@ -1443,6 +1450,25 @@ private constructor(
              */
             fun merchantState(merchantState: JsonField<String>) = apply {
                 this.merchantState = merchantState
+            }
+
+            /**
+             * The amount to transfer. The receiving bank will convert this to the cardholder's
+             * currency. The amount that is applied to your Increase account matches the currency of
+             * your account.
+             */
+            fun presentmentAmount(presentmentAmount: PresentmentAmount) =
+                presentmentAmount(JsonField.of(presentmentAmount))
+
+            /**
+             * Sets [Builder.presentmentAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.presentmentAmount] with a well-typed
+             * [PresentmentAmount] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun presentmentAmount(presentmentAmount: JsonField<PresentmentAmount>) = apply {
+                this.presentmentAmount = presentmentAmount
             }
 
             /** The name of the funds recipient. */
@@ -1587,7 +1613,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .amount()
              * .businessApplicationIdentifier()
              * .cardTokenId()
              * .merchantCategoryCode()
@@ -1596,6 +1621,7 @@ private constructor(
              * .merchantNamePrefix()
              * .merchantPostalCode()
              * .merchantState()
+             * .presentmentAmount()
              * .recipientName()
              * .senderAddressCity()
              * .senderAddressLine1()
@@ -1609,7 +1635,6 @@ private constructor(
              */
             fun build(): Body =
                 Body(
-                    checkRequired("amount", amount),
                     checkRequired("businessApplicationIdentifier", businessApplicationIdentifier),
                     checkRequired("cardTokenId", cardTokenId),
                     checkRequired("merchantCategoryCode", merchantCategoryCode),
@@ -1618,6 +1643,7 @@ private constructor(
                     checkRequired("merchantNamePrefix", merchantNamePrefix),
                     checkRequired("merchantPostalCode", merchantPostalCode),
                     checkRequired("merchantState", merchantState),
+                    checkRequired("presentmentAmount", presentmentAmount),
                     checkRequired("recipientName", recipientName),
                     checkRequired("senderAddressCity", senderAddressCity),
                     checkRequired("senderAddressLine1", senderAddressLine1),
@@ -1637,7 +1663,6 @@ private constructor(
                 return@apply
             }
 
-            amount()
             businessApplicationIdentifier().validate()
             cardTokenId()
             merchantCategoryCode()
@@ -1646,6 +1671,7 @@ private constructor(
             merchantNamePrefix()
             merchantPostalCode()
             merchantState()
+            presentmentAmount().validate()
             recipientName()
             senderAddressCity()
             senderAddressLine1()
@@ -1673,8 +1699,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (amount.asKnown().isPresent) 1 else 0) +
-                (businessApplicationIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
+            (businessApplicationIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (cardTokenId.asKnown().isPresent) 1 else 0) +
                 (if (merchantCategoryCode.asKnown().isPresent) 1 else 0) +
                 (if (merchantCityName.asKnown().isPresent) 1 else 0) +
@@ -1682,6 +1707,7 @@ private constructor(
                 (if (merchantNamePrefix.asKnown().isPresent) 1 else 0) +
                 (if (merchantPostalCode.asKnown().isPresent) 1 else 0) +
                 (if (merchantState.asKnown().isPresent) 1 else 0) +
+                (presentmentAmount.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (recipientName.asKnown().isPresent) 1 else 0) +
                 (if (senderAddressCity.asKnown().isPresent) 1 else 0) +
                 (if (senderAddressLine1.asKnown().isPresent) 1 else 0) +
@@ -1697,7 +1723,6 @@ private constructor(
             }
 
             return other is Body &&
-                amount == other.amount &&
                 businessApplicationIdentifier == other.businessApplicationIdentifier &&
                 cardTokenId == other.cardTokenId &&
                 merchantCategoryCode == other.merchantCategoryCode &&
@@ -1706,6 +1731,7 @@ private constructor(
                 merchantNamePrefix == other.merchantNamePrefix &&
                 merchantPostalCode == other.merchantPostalCode &&
                 merchantState == other.merchantState &&
+                presentmentAmount == other.presentmentAmount &&
                 recipientName == other.recipientName &&
                 senderAddressCity == other.senderAddressCity &&
                 senderAddressLine1 == other.senderAddressLine1 &&
@@ -1719,7 +1745,6 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                amount,
                 businessApplicationIdentifier,
                 cardTokenId,
                 merchantCategoryCode,
@@ -1728,6 +1753,7 @@ private constructor(
                 merchantNamePrefix,
                 merchantPostalCode,
                 merchantState,
+                presentmentAmount,
                 recipientName,
                 senderAddressCity,
                 senderAddressLine1,
@@ -1743,7 +1769,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, businessApplicationIdentifier=$businessApplicationIdentifier, cardTokenId=$cardTokenId, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
+            "Body{businessApplicationIdentifier=$businessApplicationIdentifier, cardTokenId=$cardTokenId, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2000,6 +2026,1779 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * The amount to transfer. The receiving bank will convert this to the cardholder's currency.
+     * The amount that is applied to your Increase account matches the currency of your account.
+     */
+    class PresentmentAmount
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val currency: JsonField<Currency>,
+        private val value: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("currency")
+            @ExcludeMissing
+            currency: JsonField<Currency> = JsonMissing.of(),
+            @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
+        ) : this(currency, value, mutableMapOf())
+
+        /**
+         * The ISO 4217 currency code representing the currency of the amount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun currency(): Currency = currency.getRequired("currency")
+
+        /**
+         * The amount value as a decimal string in the currency's major unit. For example, for USD,
+         * '1234.56' represents 1234 dollars and 56 cents. For JPY, '1234' represents 1234 yen. A
+         * currency with minor units requires at least one decimal place and supports up to the
+         * number of decimal places defined by the currency's minor units. A currency without minor
+         * units does not support any decimal places.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun value(): String = value.getRequired("value")
+
+        /**
+         * Returns the raw JSON value of [currency].
+         *
+         * Unlike [currency], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("currency") @ExcludeMissing fun _currency(): JsonField<Currency> = currency
+
+        /**
+         * Returns the raw JSON value of [value].
+         *
+         * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [PresentmentAmount].
+             *
+             * The following fields are required:
+             * ```java
+             * .currency()
+             * .value()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [PresentmentAmount]. */
+        class Builder internal constructor() {
+
+            private var currency: JsonField<Currency>? = null
+            private var value: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(presentmentAmount: PresentmentAmount) = apply {
+                currency = presentmentAmount.currency
+                value = presentmentAmount.value
+                additionalProperties = presentmentAmount.additionalProperties.toMutableMap()
+            }
+
+            /** The ISO 4217 currency code representing the currency of the amount. */
+            fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+            /**
+             * Sets [Builder.currency] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.currency] with a well-typed [Currency] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+            /**
+             * The amount value as a decimal string in the currency's major unit. For example, for
+             * USD, '1234.56' represents 1234 dollars and 56 cents. For JPY, '1234' represents 1234
+             * yen. A currency with minor units requires at least one decimal place and supports up
+             * to the number of decimal places defined by the currency's minor units. A currency
+             * without minor units does not support any decimal places.
+             */
+            fun value(value: String) = value(JsonField.of(value))
+
+            /**
+             * Sets [Builder.value] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.value] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun value(value: JsonField<String>) = apply { this.value = value }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [PresentmentAmount].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .currency()
+             * .value()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): PresentmentAmount =
+                PresentmentAmount(
+                    checkRequired("currency", currency),
+                    checkRequired("value", value),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): PresentmentAmount = apply {
+            if (validated) {
+                return@apply
+            }
+
+            currency().validate()
+            value()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (currency.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (value.asKnown().isPresent) 1 else 0)
+
+        /** The ISO 4217 currency code representing the currency of the amount. */
+        class Currency @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** AFN */
+                @JvmField val AFN = of("AFN")
+
+                /** EUR */
+                @JvmField val EUR = of("EUR")
+
+                /** ALL */
+                @JvmField val ALL = of("ALL")
+
+                /** DZD */
+                @JvmField val DZD = of("DZD")
+
+                /** USD */
+                @JvmField val USD = of("USD")
+
+                /** AOA */
+                @JvmField val AOA = of("AOA")
+
+                /** ARS */
+                @JvmField val ARS = of("ARS")
+
+                /** AMD */
+                @JvmField val AMD = of("AMD")
+
+                /** AWG */
+                @JvmField val AWG = of("AWG")
+
+                /** AUD */
+                @JvmField val AUD = of("AUD")
+
+                /** AZN */
+                @JvmField val AZN = of("AZN")
+
+                /** BSD */
+                @JvmField val BSD = of("BSD")
+
+                /** BHD */
+                @JvmField val BHD = of("BHD")
+
+                /** BDT */
+                @JvmField val BDT = of("BDT")
+
+                /** BBD */
+                @JvmField val BBD = of("BBD")
+
+                /** BYN */
+                @JvmField val BYN = of("BYN")
+
+                /** BZD */
+                @JvmField val BZD = of("BZD")
+
+                /** BMD */
+                @JvmField val BMD = of("BMD")
+
+                /** INR */
+                @JvmField val INR = of("INR")
+
+                /** BTN */
+                @JvmField val BTN = of("BTN")
+
+                /** BOB */
+                @JvmField val BOB = of("BOB")
+
+                /** BOV */
+                @JvmField val BOV = of("BOV")
+
+                /** BAM */
+                @JvmField val BAM = of("BAM")
+
+                /** BWP */
+                @JvmField val BWP = of("BWP")
+
+                /** NOK */
+                @JvmField val NOK = of("NOK")
+
+                /** BRL */
+                @JvmField val BRL = of("BRL")
+
+                /** BND */
+                @JvmField val BND = of("BND")
+
+                /** BGN */
+                @JvmField val BGN = of("BGN")
+
+                /** BIF */
+                @JvmField val BIF = of("BIF")
+
+                /** CVE */
+                @JvmField val CVE = of("CVE")
+
+                /** KHR */
+                @JvmField val KHR = of("KHR")
+
+                /** CAD */
+                @JvmField val CAD = of("CAD")
+
+                /** KYD */
+                @JvmField val KYD = of("KYD")
+
+                /** CLP */
+                @JvmField val CLP = of("CLP")
+
+                /** CLF */
+                @JvmField val CLF = of("CLF")
+
+                /** CNY */
+                @JvmField val CNY = of("CNY")
+
+                /** COP */
+                @JvmField val COP = of("COP")
+
+                /** COU */
+                @JvmField val COU = of("COU")
+
+                /** KMF */
+                @JvmField val KMF = of("KMF")
+
+                /** CDF */
+                @JvmField val CDF = of("CDF")
+
+                /** NZD */
+                @JvmField val NZD = of("NZD")
+
+                /** CRC */
+                @JvmField val CRC = of("CRC")
+
+                /** CUP */
+                @JvmField val CUP = of("CUP")
+
+                /** CZK */
+                @JvmField val CZK = of("CZK")
+
+                /** DKK */
+                @JvmField val DKK = of("DKK")
+
+                /** DJF */
+                @JvmField val DJF = of("DJF")
+
+                /** DOP */
+                @JvmField val DOP = of("DOP")
+
+                /** EGP */
+                @JvmField val EGP = of("EGP")
+
+                /** SVC */
+                @JvmField val SVC = of("SVC")
+
+                /** ERN */
+                @JvmField val ERN = of("ERN")
+
+                /** SZL */
+                @JvmField val SZL = of("SZL")
+
+                /** ETB */
+                @JvmField val ETB = of("ETB")
+
+                /** FKP */
+                @JvmField val FKP = of("FKP")
+
+                /** FJD */
+                @JvmField val FJD = of("FJD")
+
+                /** GMD */
+                @JvmField val GMD = of("GMD")
+
+                /** GEL */
+                @JvmField val GEL = of("GEL")
+
+                /** GHS */
+                @JvmField val GHS = of("GHS")
+
+                /** GIP */
+                @JvmField val GIP = of("GIP")
+
+                /** GTQ */
+                @JvmField val GTQ = of("GTQ")
+
+                /** GBP */
+                @JvmField val GBP = of("GBP")
+
+                /** GNF */
+                @JvmField val GNF = of("GNF")
+
+                /** GYD */
+                @JvmField val GYD = of("GYD")
+
+                /** HTG */
+                @JvmField val HTG = of("HTG")
+
+                /** HNL */
+                @JvmField val HNL = of("HNL")
+
+                /** HKD */
+                @JvmField val HKD = of("HKD")
+
+                /** HUF */
+                @JvmField val HUF = of("HUF")
+
+                /** ISK */
+                @JvmField val ISK = of("ISK")
+
+                /** IDR */
+                @JvmField val IDR = of("IDR")
+
+                /** IRR */
+                @JvmField val IRR = of("IRR")
+
+                /** IQD */
+                @JvmField val IQD = of("IQD")
+
+                /** ILS */
+                @JvmField val ILS = of("ILS")
+
+                /** JMD */
+                @JvmField val JMD = of("JMD")
+
+                /** JPY */
+                @JvmField val JPY = of("JPY")
+
+                /** JOD */
+                @JvmField val JOD = of("JOD")
+
+                /** KZT */
+                @JvmField val KZT = of("KZT")
+
+                /** KES */
+                @JvmField val KES = of("KES")
+
+                /** KPW */
+                @JvmField val KPW = of("KPW")
+
+                /** KRW */
+                @JvmField val KRW = of("KRW")
+
+                /** KWD */
+                @JvmField val KWD = of("KWD")
+
+                /** KGS */
+                @JvmField val KGS = of("KGS")
+
+                /** LAK */
+                @JvmField val LAK = of("LAK")
+
+                /** LBP */
+                @JvmField val LBP = of("LBP")
+
+                /** LSL */
+                @JvmField val LSL = of("LSL")
+
+                /** ZAR */
+                @JvmField val ZAR = of("ZAR")
+
+                /** LRD */
+                @JvmField val LRD = of("LRD")
+
+                /** LYD */
+                @JvmField val LYD = of("LYD")
+
+                /** CHF */
+                @JvmField val CHF = of("CHF")
+
+                /** MOP */
+                @JvmField val MOP = of("MOP")
+
+                /** MKD */
+                @JvmField val MKD = of("MKD")
+
+                /** MGA */
+                @JvmField val MGA = of("MGA")
+
+                /** MWK */
+                @JvmField val MWK = of("MWK")
+
+                /** MYR */
+                @JvmField val MYR = of("MYR")
+
+                /** MVR */
+                @JvmField val MVR = of("MVR")
+
+                /** MRU */
+                @JvmField val MRU = of("MRU")
+
+                /** MUR */
+                @JvmField val MUR = of("MUR")
+
+                /** MXN */
+                @JvmField val MXN = of("MXN")
+
+                /** MXV */
+                @JvmField val MXV = of("MXV")
+
+                /** MDL */
+                @JvmField val MDL = of("MDL")
+
+                /** MNT */
+                @JvmField val MNT = of("MNT")
+
+                /** MAD */
+                @JvmField val MAD = of("MAD")
+
+                /** MZN */
+                @JvmField val MZN = of("MZN")
+
+                /** MMK */
+                @JvmField val MMK = of("MMK")
+
+                /** NAD */
+                @JvmField val NAD = of("NAD")
+
+                /** NPR */
+                @JvmField val NPR = of("NPR")
+
+                /** NIO */
+                @JvmField val NIO = of("NIO")
+
+                /** NGN */
+                @JvmField val NGN = of("NGN")
+
+                /** OMR */
+                @JvmField val OMR = of("OMR")
+
+                /** PKR */
+                @JvmField val PKR = of("PKR")
+
+                /** PAB */
+                @JvmField val PAB = of("PAB")
+
+                /** PGK */
+                @JvmField val PGK = of("PGK")
+
+                /** PYG */
+                @JvmField val PYG = of("PYG")
+
+                /** PEN */
+                @JvmField val PEN = of("PEN")
+
+                /** PHP */
+                @JvmField val PHP = of("PHP")
+
+                /** PLN */
+                @JvmField val PLN = of("PLN")
+
+                /** QAR */
+                @JvmField val QAR = of("QAR")
+
+                /** RON */
+                @JvmField val RON = of("RON")
+
+                /** RUB */
+                @JvmField val RUB = of("RUB")
+
+                /** RWF */
+                @JvmField val RWF = of("RWF")
+
+                /** SHP */
+                @JvmField val SHP = of("SHP")
+
+                /** WST */
+                @JvmField val WST = of("WST")
+
+                /** STN */
+                @JvmField val STN = of("STN")
+
+                /** SAR */
+                @JvmField val SAR = of("SAR")
+
+                /** RSD */
+                @JvmField val RSD = of("RSD")
+
+                /** SCR */
+                @JvmField val SCR = of("SCR")
+
+                /** SLE */
+                @JvmField val SLE = of("SLE")
+
+                /** SGD */
+                @JvmField val SGD = of("SGD")
+
+                /** SBD */
+                @JvmField val SBD = of("SBD")
+
+                /** SOS */
+                @JvmField val SOS = of("SOS")
+
+                /** SSP */
+                @JvmField val SSP = of("SSP")
+
+                /** LKR */
+                @JvmField val LKR = of("LKR")
+
+                /** SDG */
+                @JvmField val SDG = of("SDG")
+
+                /** SRD */
+                @JvmField val SRD = of("SRD")
+
+                /** SEK */
+                @JvmField val SEK = of("SEK")
+
+                /** CHE */
+                @JvmField val CHE = of("CHE")
+
+                /** CHW */
+                @JvmField val CHW = of("CHW")
+
+                /** SYP */
+                @JvmField val SYP = of("SYP")
+
+                /** TWD */
+                @JvmField val TWD = of("TWD")
+
+                /** TJS */
+                @JvmField val TJS = of("TJS")
+
+                /** TZS */
+                @JvmField val TZS = of("TZS")
+
+                /** THB */
+                @JvmField val THB = of("THB")
+
+                /** TOP */
+                @JvmField val TOP = of("TOP")
+
+                /** TTD */
+                @JvmField val TTD = of("TTD")
+
+                /** TND */
+                @JvmField val TND = of("TND")
+
+                /** TRY */
+                @JvmField val TRY = of("TRY")
+
+                /** TMT */
+                @JvmField val TMT = of("TMT")
+
+                /** UGX */
+                @JvmField val UGX = of("UGX")
+
+                /** UAH */
+                @JvmField val UAH = of("UAH")
+
+                /** AED */
+                @JvmField val AED = of("AED")
+
+                /** USN */
+                @JvmField val USN = of("USN")
+
+                /** UYU */
+                @JvmField val UYU = of("UYU")
+
+                /** UYI */
+                @JvmField val UYI = of("UYI")
+
+                /** UYW */
+                @JvmField val UYW = of("UYW")
+
+                /** UZS */
+                @JvmField val UZS = of("UZS")
+
+                /** VUV */
+                @JvmField val VUV = of("VUV")
+
+                /** VES */
+                @JvmField val VES = of("VES")
+
+                /** VED */
+                @JvmField val VED = of("VED")
+
+                /** VND */
+                @JvmField val VND = of("VND")
+
+                /** YER */
+                @JvmField val YER = of("YER")
+
+                /** ZMW */
+                @JvmField val ZMW = of("ZMW")
+
+                /** ZWG */
+                @JvmField val ZWG = of("ZWG")
+
+                @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+            }
+
+            /** An enum containing [Currency]'s known values. */
+            enum class Known {
+                /** AFN */
+                AFN,
+                /** EUR */
+                EUR,
+                /** ALL */
+                ALL,
+                /** DZD */
+                DZD,
+                /** USD */
+                USD,
+                /** AOA */
+                AOA,
+                /** ARS */
+                ARS,
+                /** AMD */
+                AMD,
+                /** AWG */
+                AWG,
+                /** AUD */
+                AUD,
+                /** AZN */
+                AZN,
+                /** BSD */
+                BSD,
+                /** BHD */
+                BHD,
+                /** BDT */
+                BDT,
+                /** BBD */
+                BBD,
+                /** BYN */
+                BYN,
+                /** BZD */
+                BZD,
+                /** BMD */
+                BMD,
+                /** INR */
+                INR,
+                /** BTN */
+                BTN,
+                /** BOB */
+                BOB,
+                /** BOV */
+                BOV,
+                /** BAM */
+                BAM,
+                /** BWP */
+                BWP,
+                /** NOK */
+                NOK,
+                /** BRL */
+                BRL,
+                /** BND */
+                BND,
+                /** BGN */
+                BGN,
+                /** BIF */
+                BIF,
+                /** CVE */
+                CVE,
+                /** KHR */
+                KHR,
+                /** CAD */
+                CAD,
+                /** KYD */
+                KYD,
+                /** CLP */
+                CLP,
+                /** CLF */
+                CLF,
+                /** CNY */
+                CNY,
+                /** COP */
+                COP,
+                /** COU */
+                COU,
+                /** KMF */
+                KMF,
+                /** CDF */
+                CDF,
+                /** NZD */
+                NZD,
+                /** CRC */
+                CRC,
+                /** CUP */
+                CUP,
+                /** CZK */
+                CZK,
+                /** DKK */
+                DKK,
+                /** DJF */
+                DJF,
+                /** DOP */
+                DOP,
+                /** EGP */
+                EGP,
+                /** SVC */
+                SVC,
+                /** ERN */
+                ERN,
+                /** SZL */
+                SZL,
+                /** ETB */
+                ETB,
+                /** FKP */
+                FKP,
+                /** FJD */
+                FJD,
+                /** GMD */
+                GMD,
+                /** GEL */
+                GEL,
+                /** GHS */
+                GHS,
+                /** GIP */
+                GIP,
+                /** GTQ */
+                GTQ,
+                /** GBP */
+                GBP,
+                /** GNF */
+                GNF,
+                /** GYD */
+                GYD,
+                /** HTG */
+                HTG,
+                /** HNL */
+                HNL,
+                /** HKD */
+                HKD,
+                /** HUF */
+                HUF,
+                /** ISK */
+                ISK,
+                /** IDR */
+                IDR,
+                /** IRR */
+                IRR,
+                /** IQD */
+                IQD,
+                /** ILS */
+                ILS,
+                /** JMD */
+                JMD,
+                /** JPY */
+                JPY,
+                /** JOD */
+                JOD,
+                /** KZT */
+                KZT,
+                /** KES */
+                KES,
+                /** KPW */
+                KPW,
+                /** KRW */
+                KRW,
+                /** KWD */
+                KWD,
+                /** KGS */
+                KGS,
+                /** LAK */
+                LAK,
+                /** LBP */
+                LBP,
+                /** LSL */
+                LSL,
+                /** ZAR */
+                ZAR,
+                /** LRD */
+                LRD,
+                /** LYD */
+                LYD,
+                /** CHF */
+                CHF,
+                /** MOP */
+                MOP,
+                /** MKD */
+                MKD,
+                /** MGA */
+                MGA,
+                /** MWK */
+                MWK,
+                /** MYR */
+                MYR,
+                /** MVR */
+                MVR,
+                /** MRU */
+                MRU,
+                /** MUR */
+                MUR,
+                /** MXN */
+                MXN,
+                /** MXV */
+                MXV,
+                /** MDL */
+                MDL,
+                /** MNT */
+                MNT,
+                /** MAD */
+                MAD,
+                /** MZN */
+                MZN,
+                /** MMK */
+                MMK,
+                /** NAD */
+                NAD,
+                /** NPR */
+                NPR,
+                /** NIO */
+                NIO,
+                /** NGN */
+                NGN,
+                /** OMR */
+                OMR,
+                /** PKR */
+                PKR,
+                /** PAB */
+                PAB,
+                /** PGK */
+                PGK,
+                /** PYG */
+                PYG,
+                /** PEN */
+                PEN,
+                /** PHP */
+                PHP,
+                /** PLN */
+                PLN,
+                /** QAR */
+                QAR,
+                /** RON */
+                RON,
+                /** RUB */
+                RUB,
+                /** RWF */
+                RWF,
+                /** SHP */
+                SHP,
+                /** WST */
+                WST,
+                /** STN */
+                STN,
+                /** SAR */
+                SAR,
+                /** RSD */
+                RSD,
+                /** SCR */
+                SCR,
+                /** SLE */
+                SLE,
+                /** SGD */
+                SGD,
+                /** SBD */
+                SBD,
+                /** SOS */
+                SOS,
+                /** SSP */
+                SSP,
+                /** LKR */
+                LKR,
+                /** SDG */
+                SDG,
+                /** SRD */
+                SRD,
+                /** SEK */
+                SEK,
+                /** CHE */
+                CHE,
+                /** CHW */
+                CHW,
+                /** SYP */
+                SYP,
+                /** TWD */
+                TWD,
+                /** TJS */
+                TJS,
+                /** TZS */
+                TZS,
+                /** THB */
+                THB,
+                /** TOP */
+                TOP,
+                /** TTD */
+                TTD,
+                /** TND */
+                TND,
+                /** TRY */
+                TRY,
+                /** TMT */
+                TMT,
+                /** UGX */
+                UGX,
+                /** UAH */
+                UAH,
+                /** AED */
+                AED,
+                /** USN */
+                USN,
+                /** UYU */
+                UYU,
+                /** UYI */
+                UYI,
+                /** UYW */
+                UYW,
+                /** UZS */
+                UZS,
+                /** VUV */
+                VUV,
+                /** VES */
+                VES,
+                /** VED */
+                VED,
+                /** VND */
+                VND,
+                /** YER */
+                YER,
+                /** ZMW */
+                ZMW,
+                /** ZWG */
+                ZWG,
+            }
+
+            /**
+             * An enum containing [Currency]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Currency] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** AFN */
+                AFN,
+                /** EUR */
+                EUR,
+                /** ALL */
+                ALL,
+                /** DZD */
+                DZD,
+                /** USD */
+                USD,
+                /** AOA */
+                AOA,
+                /** ARS */
+                ARS,
+                /** AMD */
+                AMD,
+                /** AWG */
+                AWG,
+                /** AUD */
+                AUD,
+                /** AZN */
+                AZN,
+                /** BSD */
+                BSD,
+                /** BHD */
+                BHD,
+                /** BDT */
+                BDT,
+                /** BBD */
+                BBD,
+                /** BYN */
+                BYN,
+                /** BZD */
+                BZD,
+                /** BMD */
+                BMD,
+                /** INR */
+                INR,
+                /** BTN */
+                BTN,
+                /** BOB */
+                BOB,
+                /** BOV */
+                BOV,
+                /** BAM */
+                BAM,
+                /** BWP */
+                BWP,
+                /** NOK */
+                NOK,
+                /** BRL */
+                BRL,
+                /** BND */
+                BND,
+                /** BGN */
+                BGN,
+                /** BIF */
+                BIF,
+                /** CVE */
+                CVE,
+                /** KHR */
+                KHR,
+                /** CAD */
+                CAD,
+                /** KYD */
+                KYD,
+                /** CLP */
+                CLP,
+                /** CLF */
+                CLF,
+                /** CNY */
+                CNY,
+                /** COP */
+                COP,
+                /** COU */
+                COU,
+                /** KMF */
+                KMF,
+                /** CDF */
+                CDF,
+                /** NZD */
+                NZD,
+                /** CRC */
+                CRC,
+                /** CUP */
+                CUP,
+                /** CZK */
+                CZK,
+                /** DKK */
+                DKK,
+                /** DJF */
+                DJF,
+                /** DOP */
+                DOP,
+                /** EGP */
+                EGP,
+                /** SVC */
+                SVC,
+                /** ERN */
+                ERN,
+                /** SZL */
+                SZL,
+                /** ETB */
+                ETB,
+                /** FKP */
+                FKP,
+                /** FJD */
+                FJD,
+                /** GMD */
+                GMD,
+                /** GEL */
+                GEL,
+                /** GHS */
+                GHS,
+                /** GIP */
+                GIP,
+                /** GTQ */
+                GTQ,
+                /** GBP */
+                GBP,
+                /** GNF */
+                GNF,
+                /** GYD */
+                GYD,
+                /** HTG */
+                HTG,
+                /** HNL */
+                HNL,
+                /** HKD */
+                HKD,
+                /** HUF */
+                HUF,
+                /** ISK */
+                ISK,
+                /** IDR */
+                IDR,
+                /** IRR */
+                IRR,
+                /** IQD */
+                IQD,
+                /** ILS */
+                ILS,
+                /** JMD */
+                JMD,
+                /** JPY */
+                JPY,
+                /** JOD */
+                JOD,
+                /** KZT */
+                KZT,
+                /** KES */
+                KES,
+                /** KPW */
+                KPW,
+                /** KRW */
+                KRW,
+                /** KWD */
+                KWD,
+                /** KGS */
+                KGS,
+                /** LAK */
+                LAK,
+                /** LBP */
+                LBP,
+                /** LSL */
+                LSL,
+                /** ZAR */
+                ZAR,
+                /** LRD */
+                LRD,
+                /** LYD */
+                LYD,
+                /** CHF */
+                CHF,
+                /** MOP */
+                MOP,
+                /** MKD */
+                MKD,
+                /** MGA */
+                MGA,
+                /** MWK */
+                MWK,
+                /** MYR */
+                MYR,
+                /** MVR */
+                MVR,
+                /** MRU */
+                MRU,
+                /** MUR */
+                MUR,
+                /** MXN */
+                MXN,
+                /** MXV */
+                MXV,
+                /** MDL */
+                MDL,
+                /** MNT */
+                MNT,
+                /** MAD */
+                MAD,
+                /** MZN */
+                MZN,
+                /** MMK */
+                MMK,
+                /** NAD */
+                NAD,
+                /** NPR */
+                NPR,
+                /** NIO */
+                NIO,
+                /** NGN */
+                NGN,
+                /** OMR */
+                OMR,
+                /** PKR */
+                PKR,
+                /** PAB */
+                PAB,
+                /** PGK */
+                PGK,
+                /** PYG */
+                PYG,
+                /** PEN */
+                PEN,
+                /** PHP */
+                PHP,
+                /** PLN */
+                PLN,
+                /** QAR */
+                QAR,
+                /** RON */
+                RON,
+                /** RUB */
+                RUB,
+                /** RWF */
+                RWF,
+                /** SHP */
+                SHP,
+                /** WST */
+                WST,
+                /** STN */
+                STN,
+                /** SAR */
+                SAR,
+                /** RSD */
+                RSD,
+                /** SCR */
+                SCR,
+                /** SLE */
+                SLE,
+                /** SGD */
+                SGD,
+                /** SBD */
+                SBD,
+                /** SOS */
+                SOS,
+                /** SSP */
+                SSP,
+                /** LKR */
+                LKR,
+                /** SDG */
+                SDG,
+                /** SRD */
+                SRD,
+                /** SEK */
+                SEK,
+                /** CHE */
+                CHE,
+                /** CHW */
+                CHW,
+                /** SYP */
+                SYP,
+                /** TWD */
+                TWD,
+                /** TJS */
+                TJS,
+                /** TZS */
+                TZS,
+                /** THB */
+                THB,
+                /** TOP */
+                TOP,
+                /** TTD */
+                TTD,
+                /** TND */
+                TND,
+                /** TRY */
+                TRY,
+                /** TMT */
+                TMT,
+                /** UGX */
+                UGX,
+                /** UAH */
+                UAH,
+                /** AED */
+                AED,
+                /** USN */
+                USN,
+                /** UYU */
+                UYU,
+                /** UYI */
+                UYI,
+                /** UYW */
+                UYW,
+                /** UZS */
+                UZS,
+                /** VUV */
+                VUV,
+                /** VES */
+                VES,
+                /** VED */
+                VED,
+                /** VND */
+                VND,
+                /** YER */
+                YER,
+                /** ZMW */
+                ZMW,
+                /** ZWG */
+                ZWG,
+                /**
+                 * An enum member indicating that [Currency] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    AFN -> Value.AFN
+                    EUR -> Value.EUR
+                    ALL -> Value.ALL
+                    DZD -> Value.DZD
+                    USD -> Value.USD
+                    AOA -> Value.AOA
+                    ARS -> Value.ARS
+                    AMD -> Value.AMD
+                    AWG -> Value.AWG
+                    AUD -> Value.AUD
+                    AZN -> Value.AZN
+                    BSD -> Value.BSD
+                    BHD -> Value.BHD
+                    BDT -> Value.BDT
+                    BBD -> Value.BBD
+                    BYN -> Value.BYN
+                    BZD -> Value.BZD
+                    BMD -> Value.BMD
+                    INR -> Value.INR
+                    BTN -> Value.BTN
+                    BOB -> Value.BOB
+                    BOV -> Value.BOV
+                    BAM -> Value.BAM
+                    BWP -> Value.BWP
+                    NOK -> Value.NOK
+                    BRL -> Value.BRL
+                    BND -> Value.BND
+                    BGN -> Value.BGN
+                    BIF -> Value.BIF
+                    CVE -> Value.CVE
+                    KHR -> Value.KHR
+                    CAD -> Value.CAD
+                    KYD -> Value.KYD
+                    CLP -> Value.CLP
+                    CLF -> Value.CLF
+                    CNY -> Value.CNY
+                    COP -> Value.COP
+                    COU -> Value.COU
+                    KMF -> Value.KMF
+                    CDF -> Value.CDF
+                    NZD -> Value.NZD
+                    CRC -> Value.CRC
+                    CUP -> Value.CUP
+                    CZK -> Value.CZK
+                    DKK -> Value.DKK
+                    DJF -> Value.DJF
+                    DOP -> Value.DOP
+                    EGP -> Value.EGP
+                    SVC -> Value.SVC
+                    ERN -> Value.ERN
+                    SZL -> Value.SZL
+                    ETB -> Value.ETB
+                    FKP -> Value.FKP
+                    FJD -> Value.FJD
+                    GMD -> Value.GMD
+                    GEL -> Value.GEL
+                    GHS -> Value.GHS
+                    GIP -> Value.GIP
+                    GTQ -> Value.GTQ
+                    GBP -> Value.GBP
+                    GNF -> Value.GNF
+                    GYD -> Value.GYD
+                    HTG -> Value.HTG
+                    HNL -> Value.HNL
+                    HKD -> Value.HKD
+                    HUF -> Value.HUF
+                    ISK -> Value.ISK
+                    IDR -> Value.IDR
+                    IRR -> Value.IRR
+                    IQD -> Value.IQD
+                    ILS -> Value.ILS
+                    JMD -> Value.JMD
+                    JPY -> Value.JPY
+                    JOD -> Value.JOD
+                    KZT -> Value.KZT
+                    KES -> Value.KES
+                    KPW -> Value.KPW
+                    KRW -> Value.KRW
+                    KWD -> Value.KWD
+                    KGS -> Value.KGS
+                    LAK -> Value.LAK
+                    LBP -> Value.LBP
+                    LSL -> Value.LSL
+                    ZAR -> Value.ZAR
+                    LRD -> Value.LRD
+                    LYD -> Value.LYD
+                    CHF -> Value.CHF
+                    MOP -> Value.MOP
+                    MKD -> Value.MKD
+                    MGA -> Value.MGA
+                    MWK -> Value.MWK
+                    MYR -> Value.MYR
+                    MVR -> Value.MVR
+                    MRU -> Value.MRU
+                    MUR -> Value.MUR
+                    MXN -> Value.MXN
+                    MXV -> Value.MXV
+                    MDL -> Value.MDL
+                    MNT -> Value.MNT
+                    MAD -> Value.MAD
+                    MZN -> Value.MZN
+                    MMK -> Value.MMK
+                    NAD -> Value.NAD
+                    NPR -> Value.NPR
+                    NIO -> Value.NIO
+                    NGN -> Value.NGN
+                    OMR -> Value.OMR
+                    PKR -> Value.PKR
+                    PAB -> Value.PAB
+                    PGK -> Value.PGK
+                    PYG -> Value.PYG
+                    PEN -> Value.PEN
+                    PHP -> Value.PHP
+                    PLN -> Value.PLN
+                    QAR -> Value.QAR
+                    RON -> Value.RON
+                    RUB -> Value.RUB
+                    RWF -> Value.RWF
+                    SHP -> Value.SHP
+                    WST -> Value.WST
+                    STN -> Value.STN
+                    SAR -> Value.SAR
+                    RSD -> Value.RSD
+                    SCR -> Value.SCR
+                    SLE -> Value.SLE
+                    SGD -> Value.SGD
+                    SBD -> Value.SBD
+                    SOS -> Value.SOS
+                    SSP -> Value.SSP
+                    LKR -> Value.LKR
+                    SDG -> Value.SDG
+                    SRD -> Value.SRD
+                    SEK -> Value.SEK
+                    CHE -> Value.CHE
+                    CHW -> Value.CHW
+                    SYP -> Value.SYP
+                    TWD -> Value.TWD
+                    TJS -> Value.TJS
+                    TZS -> Value.TZS
+                    THB -> Value.THB
+                    TOP -> Value.TOP
+                    TTD -> Value.TTD
+                    TND -> Value.TND
+                    TRY -> Value.TRY
+                    TMT -> Value.TMT
+                    UGX -> Value.UGX
+                    UAH -> Value.UAH
+                    AED -> Value.AED
+                    USN -> Value.USN
+                    UYU -> Value.UYU
+                    UYI -> Value.UYI
+                    UYW -> Value.UYW
+                    UZS -> Value.UZS
+                    VUV -> Value.VUV
+                    VES -> Value.VES
+                    VED -> Value.VED
+                    VND -> Value.VND
+                    YER -> Value.YER
+                    ZMW -> Value.ZMW
+                    ZWG -> Value.ZWG
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    AFN -> Known.AFN
+                    EUR -> Known.EUR
+                    ALL -> Known.ALL
+                    DZD -> Known.DZD
+                    USD -> Known.USD
+                    AOA -> Known.AOA
+                    ARS -> Known.ARS
+                    AMD -> Known.AMD
+                    AWG -> Known.AWG
+                    AUD -> Known.AUD
+                    AZN -> Known.AZN
+                    BSD -> Known.BSD
+                    BHD -> Known.BHD
+                    BDT -> Known.BDT
+                    BBD -> Known.BBD
+                    BYN -> Known.BYN
+                    BZD -> Known.BZD
+                    BMD -> Known.BMD
+                    INR -> Known.INR
+                    BTN -> Known.BTN
+                    BOB -> Known.BOB
+                    BOV -> Known.BOV
+                    BAM -> Known.BAM
+                    BWP -> Known.BWP
+                    NOK -> Known.NOK
+                    BRL -> Known.BRL
+                    BND -> Known.BND
+                    BGN -> Known.BGN
+                    BIF -> Known.BIF
+                    CVE -> Known.CVE
+                    KHR -> Known.KHR
+                    CAD -> Known.CAD
+                    KYD -> Known.KYD
+                    CLP -> Known.CLP
+                    CLF -> Known.CLF
+                    CNY -> Known.CNY
+                    COP -> Known.COP
+                    COU -> Known.COU
+                    KMF -> Known.KMF
+                    CDF -> Known.CDF
+                    NZD -> Known.NZD
+                    CRC -> Known.CRC
+                    CUP -> Known.CUP
+                    CZK -> Known.CZK
+                    DKK -> Known.DKK
+                    DJF -> Known.DJF
+                    DOP -> Known.DOP
+                    EGP -> Known.EGP
+                    SVC -> Known.SVC
+                    ERN -> Known.ERN
+                    SZL -> Known.SZL
+                    ETB -> Known.ETB
+                    FKP -> Known.FKP
+                    FJD -> Known.FJD
+                    GMD -> Known.GMD
+                    GEL -> Known.GEL
+                    GHS -> Known.GHS
+                    GIP -> Known.GIP
+                    GTQ -> Known.GTQ
+                    GBP -> Known.GBP
+                    GNF -> Known.GNF
+                    GYD -> Known.GYD
+                    HTG -> Known.HTG
+                    HNL -> Known.HNL
+                    HKD -> Known.HKD
+                    HUF -> Known.HUF
+                    ISK -> Known.ISK
+                    IDR -> Known.IDR
+                    IRR -> Known.IRR
+                    IQD -> Known.IQD
+                    ILS -> Known.ILS
+                    JMD -> Known.JMD
+                    JPY -> Known.JPY
+                    JOD -> Known.JOD
+                    KZT -> Known.KZT
+                    KES -> Known.KES
+                    KPW -> Known.KPW
+                    KRW -> Known.KRW
+                    KWD -> Known.KWD
+                    KGS -> Known.KGS
+                    LAK -> Known.LAK
+                    LBP -> Known.LBP
+                    LSL -> Known.LSL
+                    ZAR -> Known.ZAR
+                    LRD -> Known.LRD
+                    LYD -> Known.LYD
+                    CHF -> Known.CHF
+                    MOP -> Known.MOP
+                    MKD -> Known.MKD
+                    MGA -> Known.MGA
+                    MWK -> Known.MWK
+                    MYR -> Known.MYR
+                    MVR -> Known.MVR
+                    MRU -> Known.MRU
+                    MUR -> Known.MUR
+                    MXN -> Known.MXN
+                    MXV -> Known.MXV
+                    MDL -> Known.MDL
+                    MNT -> Known.MNT
+                    MAD -> Known.MAD
+                    MZN -> Known.MZN
+                    MMK -> Known.MMK
+                    NAD -> Known.NAD
+                    NPR -> Known.NPR
+                    NIO -> Known.NIO
+                    NGN -> Known.NGN
+                    OMR -> Known.OMR
+                    PKR -> Known.PKR
+                    PAB -> Known.PAB
+                    PGK -> Known.PGK
+                    PYG -> Known.PYG
+                    PEN -> Known.PEN
+                    PHP -> Known.PHP
+                    PLN -> Known.PLN
+                    QAR -> Known.QAR
+                    RON -> Known.RON
+                    RUB -> Known.RUB
+                    RWF -> Known.RWF
+                    SHP -> Known.SHP
+                    WST -> Known.WST
+                    STN -> Known.STN
+                    SAR -> Known.SAR
+                    RSD -> Known.RSD
+                    SCR -> Known.SCR
+                    SLE -> Known.SLE
+                    SGD -> Known.SGD
+                    SBD -> Known.SBD
+                    SOS -> Known.SOS
+                    SSP -> Known.SSP
+                    LKR -> Known.LKR
+                    SDG -> Known.SDG
+                    SRD -> Known.SRD
+                    SEK -> Known.SEK
+                    CHE -> Known.CHE
+                    CHW -> Known.CHW
+                    SYP -> Known.SYP
+                    TWD -> Known.TWD
+                    TJS -> Known.TJS
+                    TZS -> Known.TZS
+                    THB -> Known.THB
+                    TOP -> Known.TOP
+                    TTD -> Known.TTD
+                    TND -> Known.TND
+                    TRY -> Known.TRY
+                    TMT -> Known.TMT
+                    UGX -> Known.UGX
+                    UAH -> Known.UAH
+                    AED -> Known.AED
+                    USN -> Known.USN
+                    UYU -> Known.UYU
+                    UYI -> Known.UYI
+                    UYW -> Known.UYW
+                    UZS -> Known.UZS
+                    VUV -> Known.VUV
+                    VES -> Known.VES
+                    VED -> Known.VED
+                    VND -> Known.VND
+                    YER -> Known.YER
+                    ZMW -> Known.ZMW
+                    ZWG -> Known.ZWG
+                    else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Currency = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Currency && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is PresentmentAmount &&
+                currency == other.currency &&
+                value == other.value &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(currency, value, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "PresentmentAmount{currency=$currency, value=$value, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
