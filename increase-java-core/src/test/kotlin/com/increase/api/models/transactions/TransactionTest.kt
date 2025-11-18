@@ -283,7 +283,7 @@ internal class TransactionTest {
                         )
                         .cardPushTransferAcceptance(
                             Transaction.Source.CardPushTransferAcceptance.builder()
-                                .amount(100L)
+                                .settlementAmount(100L)
                                 .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                                 .build()
                         )
@@ -1274,7 +1274,7 @@ internal class TransactionTest {
                     )
                     .cardPushTransferAcceptance(
                         Transaction.Source.CardPushTransferAcceptance.builder()
-                            .amount(100L)
+                            .settlementAmount(100L)
                             .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                             .build()
                     )
@@ -2237,7 +2237,7 @@ internal class TransactionTest {
                         )
                         .cardPushTransferAcceptance(
                             Transaction.Source.CardPushTransferAcceptance.builder()
-                                .amount(100L)
+                                .settlementAmount(100L)
                                 .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                                 .build()
                         )

@@ -10,7 +10,6 @@ internal class CardPushTransferCreateParamsTest {
     @Test
     fun create() {
         CardPushTransferCreateParams.builder()
-            .amount(100L)
             .businessApplicationIdentifier(
                 CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
             )
@@ -21,6 +20,12 @@ internal class CardPushTransferCreateParamsTest {
             .merchantNamePrefix("Acme")
             .merchantPostalCode("10045")
             .merchantState("NY")
+            .presentmentAmount(
+                CardPushTransferCreateParams.PresentmentAmount.builder()
+                    .currency(CardPushTransferCreateParams.PresentmentAmount.Currency.USD)
+                    .value("1234.56")
+                    .build()
+            )
             .recipientName("Ian Crease")
             .senderAddressCity("New York")
             .senderAddressLine1("33 Liberty Street")
@@ -36,7 +41,6 @@ internal class CardPushTransferCreateParamsTest {
     fun body() {
         val params =
             CardPushTransferCreateParams.builder()
-                .amount(100L)
                 .businessApplicationIdentifier(
                     CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
                 )
@@ -47,6 +51,12 @@ internal class CardPushTransferCreateParamsTest {
                 .merchantNamePrefix("Acme")
                 .merchantPostalCode("10045")
                 .merchantState("NY")
+                .presentmentAmount(
+                    CardPushTransferCreateParams.PresentmentAmount.builder()
+                        .currency(CardPushTransferCreateParams.PresentmentAmount.Currency.USD)
+                        .value("1234.56")
+                        .build()
+                )
                 .recipientName("Ian Crease")
                 .senderAddressCity("New York")
                 .senderAddressLine1("33 Liberty Street")
@@ -59,7 +69,6 @@ internal class CardPushTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.businessApplicationIdentifier())
             .isEqualTo(
                 CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
@@ -71,6 +80,13 @@ internal class CardPushTransferCreateParamsTest {
         assertThat(body.merchantNamePrefix()).isEqualTo("Acme")
         assertThat(body.merchantPostalCode()).isEqualTo("10045")
         assertThat(body.merchantState()).isEqualTo("NY")
+        assertThat(body.presentmentAmount())
+            .isEqualTo(
+                CardPushTransferCreateParams.PresentmentAmount.builder()
+                    .currency(CardPushTransferCreateParams.PresentmentAmount.Currency.USD)
+                    .value("1234.56")
+                    .build()
+            )
         assertThat(body.recipientName()).isEqualTo("Ian Crease")
         assertThat(body.senderAddressCity()).isEqualTo("New York")
         assertThat(body.senderAddressLine1()).isEqualTo("33 Liberty Street")
@@ -85,7 +101,6 @@ internal class CardPushTransferCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             CardPushTransferCreateParams.builder()
-                .amount(100L)
                 .businessApplicationIdentifier(
                     CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
                 )
@@ -96,6 +111,12 @@ internal class CardPushTransferCreateParamsTest {
                 .merchantNamePrefix("Acme")
                 .merchantPostalCode("10045")
                 .merchantState("NY")
+                .presentmentAmount(
+                    CardPushTransferCreateParams.PresentmentAmount.builder()
+                        .currency(CardPushTransferCreateParams.PresentmentAmount.Currency.USD)
+                        .value("1234.56")
+                        .build()
+                )
                 .recipientName("Ian Crease")
                 .senderAddressCity("New York")
                 .senderAddressLine1("33 Liberty Street")
@@ -107,7 +128,6 @@ internal class CardPushTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.businessApplicationIdentifier())
             .isEqualTo(
                 CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
@@ -119,6 +139,13 @@ internal class CardPushTransferCreateParamsTest {
         assertThat(body.merchantNamePrefix()).isEqualTo("Acme")
         assertThat(body.merchantPostalCode()).isEqualTo("10045")
         assertThat(body.merchantState()).isEqualTo("NY")
+        assertThat(body.presentmentAmount())
+            .isEqualTo(
+                CardPushTransferCreateParams.PresentmentAmount.builder()
+                    .currency(CardPushTransferCreateParams.PresentmentAmount.Currency.USD)
+                    .value("1234.56")
+                    .build()
+            )
         assertThat(body.recipientName()).isEqualTo("Ian Crease")
         assertThat(body.senderAddressCity()).isEqualTo("New York")
         assertThat(body.senderAddressLine1()).isEqualTo("33 Liberty Street")
