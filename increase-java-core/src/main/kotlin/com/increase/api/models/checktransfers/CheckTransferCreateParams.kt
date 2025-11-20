@@ -2000,6 +2000,7 @@ private constructor(
             private val postalCode: JsonField<String>,
             private val state: JsonField<String>,
             private val line2: JsonField<String>,
+            private val name: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -2012,7 +2013,8 @@ private constructor(
                 postalCode: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
-            ) : this(city, line1, postalCode, state, line2, mutableMapOf())
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            ) : this(city, line1, postalCode, state, line2, name, mutableMapOf())
 
             /**
              * The city component of the check's destination address.
@@ -2059,6 +2061,15 @@ private constructor(
             fun line2(): Optional<String> = line2.getOptional("line2")
 
             /**
+             * The name component of the check's destination address. Defaults to the provided
+             * `recipient_name` parameter if `name` is not provided.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun name(): Optional<String> = name.getOptional("name")
+
+            /**
              * Returns the raw JSON value of [city].
              *
              * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
@@ -2096,6 +2107,13 @@ private constructor(
              */
             @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -2132,6 +2150,7 @@ private constructor(
                 private var postalCode: JsonField<String>? = null
                 private var state: JsonField<String>? = null
                 private var line2: JsonField<String> = JsonMissing.of()
+                private var name: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -2141,6 +2160,7 @@ private constructor(
                     postalCode = mailingAddress.postalCode
                     state = mailingAddress.state
                     line2 = mailingAddress.line2
+                    name = mailingAddress.name
                     additionalProperties = mailingAddress.additionalProperties.toMutableMap()
                 }
 
@@ -2206,6 +2226,21 @@ private constructor(
                  */
                 fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
+                /**
+                 * The name component of the check's destination address. Defaults to the provided
+                 * `recipient_name` parameter if `name` is not provided.
+                 */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -2250,6 +2285,7 @@ private constructor(
                         checkRequired("postalCode", postalCode),
                         checkRequired("state", state),
                         line2,
+                        name,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -2266,6 +2302,7 @@ private constructor(
                 postalCode()
                 state()
                 line2()
+                name()
                 validated = true
             }
 
@@ -2289,7 +2326,8 @@ private constructor(
                     (if (line1.asKnown().isPresent) 1 else 0) +
                     (if (postalCode.asKnown().isPresent) 1 else 0) +
                     (if (state.asKnown().isPresent) 1 else 0) +
-                    (if (line2.asKnown().isPresent) 1 else 0)
+                    (if (line2.asKnown().isPresent) 1 else 0) +
+                    (if (name.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2302,17 +2340,18 @@ private constructor(
                     postalCode == other.postalCode &&
                     state == other.state &&
                     line2 == other.line2 &&
+                    name == other.name &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(city, line1, postalCode, state, line2, additionalProperties)
+                Objects.hash(city, line1, postalCode, state, line2, name, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, additionalProperties=$additionalProperties}"
+                "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, name=$name, additionalProperties=$additionalProperties}"
         }
 
         class Payer
