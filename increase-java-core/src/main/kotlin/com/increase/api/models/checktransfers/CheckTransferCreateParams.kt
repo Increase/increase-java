@@ -2001,6 +2001,7 @@ private constructor(
             private val state: JsonField<String>,
             private val line2: JsonField<String>,
             private val name: JsonField<String>,
+            private val phone: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -2014,7 +2015,8 @@ private constructor(
                 @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            ) : this(city, line1, postalCode, state, line2, name, mutableMapOf())
+                @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
+            ) : this(city, line1, postalCode, state, line2, name, phone, mutableMapOf())
 
             /**
              * The city component of the check's destination address.
@@ -2070,6 +2072,16 @@ private constructor(
             fun name(): Optional<String> = name.getOptional("name")
 
             /**
+             * The phone number to associate with the check's destination address. Will be supplied
+             * to FedEx as the contact phone number for the recipient to be used in case of delivery
+             * issues.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun phone(): Optional<String> = phone.getOptional("phone")
+
+            /**
              * Returns the raw JSON value of [city].
              *
              * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
@@ -2114,6 +2126,13 @@ private constructor(
              */
             @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
 
+            /**
+             * Returns the raw JSON value of [phone].
+             *
+             * Unlike [phone], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
+
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
                 additionalProperties.put(key, value)
@@ -2151,6 +2170,7 @@ private constructor(
                 private var state: JsonField<String>? = null
                 private var line2: JsonField<String> = JsonMissing.of()
                 private var name: JsonField<String> = JsonMissing.of()
+                private var phone: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -2161,6 +2181,7 @@ private constructor(
                     state = mailingAddress.state
                     line2 = mailingAddress.line2
                     name = mailingAddress.name
+                    phone = mailingAddress.phone
                     additionalProperties = mailingAddress.additionalProperties.toMutableMap()
                 }
 
@@ -2241,6 +2262,22 @@ private constructor(
                  */
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
+                /**
+                 * The phone number to associate with the check's destination address. Will be
+                 * supplied to FedEx as the contact phone number for the recipient to be used in
+                 * case of delivery issues.
+                 */
+                fun phone(phone: String) = phone(JsonField.of(phone))
+
+                /**
+                 * Sets [Builder.phone] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.phone] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun phone(phone: JsonField<String>) = apply { this.phone = phone }
+
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
                     putAllAdditionalProperties(additionalProperties)
@@ -2286,6 +2323,7 @@ private constructor(
                         checkRequired("state", state),
                         line2,
                         name,
+                        phone,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -2303,6 +2341,7 @@ private constructor(
                 state()
                 line2()
                 name()
+                phone()
                 validated = true
             }
 
@@ -2327,7 +2366,8 @@ private constructor(
                     (if (postalCode.asKnown().isPresent) 1 else 0) +
                     (if (state.asKnown().isPresent) 1 else 0) +
                     (if (line2.asKnown().isPresent) 1 else 0) +
-                    (if (name.asKnown().isPresent) 1 else 0)
+                    (if (name.asKnown().isPresent) 1 else 0) +
+                    (if (phone.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -2341,17 +2381,27 @@ private constructor(
                     state == other.state &&
                     line2 == other.line2 &&
                     name == other.name &&
+                    phone == other.phone &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(city, line1, postalCode, state, line2, name, additionalProperties)
+                Objects.hash(
+                    city,
+                    line1,
+                    postalCode,
+                    state,
+                    line2,
+                    name,
+                    phone,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, name=$name, additionalProperties=$additionalProperties}"
+                "MailingAddress{city=$city, line1=$line1, postalCode=$postalCode, state=$state, line2=$line2, name=$name, phone=$phone, additionalProperties=$additionalProperties}"
         }
 
         class Payer

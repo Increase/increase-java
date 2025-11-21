@@ -41,6 +41,7 @@ internal class CheckTransferServiceTest {
                                     .state("NY")
                                     .line2("x")
                                     .name("Ian Crease")
+                                    .phone("+16505046304")
                                     .build()
                             )
                             .memo("Check payment")
