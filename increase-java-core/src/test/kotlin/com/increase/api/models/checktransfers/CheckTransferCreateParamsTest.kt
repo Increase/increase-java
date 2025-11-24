@@ -33,6 +33,7 @@ internal class CheckTransferCreateParamsTest {
                     .memo("Check payment")
                     .recipientName("Ian Crease")
                     .attachmentFileId("attachment_file_id")
+                    .checkVoucherImageFileId("check_voucher_image_file_id")
                     .note("x")
                     .addPayer(
                         CheckTransferCreateParams.PhysicalCheck.Payer.builder()
@@ -87,6 +88,7 @@ internal class CheckTransferCreateParamsTest {
                         .memo("Check payment")
                         .recipientName("Ian Crease")
                         .attachmentFileId("attachment_file_id")
+                        .checkVoucherImageFileId("check_voucher_image_file_id")
                         .note("x")
                         .addPayer(
                             CheckTransferCreateParams.PhysicalCheck.Payer.builder()
@@ -142,6 +144,7 @@ internal class CheckTransferCreateParamsTest {
                     .memo("Check payment")
                     .recipientName("Ian Crease")
                     .attachmentFileId("attachment_file_id")
+                    .checkVoucherImageFileId("check_voucher_image_file_id")
                     .note("x")
                     .addPayer(
                         CheckTransferCreateParams.PhysicalCheck.Payer.builder()
