@@ -612,6 +612,12 @@ private constructor(
              */
             @JvmField val CHECK_ATTACHMENT = of("check_attachment")
 
+            /**
+             * An image to be used as the check voucher image, which is printed in the middle of the
+             * trifold area of a check. This must be a 2550x1100 pixel PNG.
+             */
+            @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
+
             /** IRS Form SS-4. */
             @JvmField val FORM_SS_4 = of("form_ss_4")
 
@@ -689,6 +695,11 @@ private constructor(
              * requested Increase print.
              */
             CHECK_ATTACHMENT,
+            /**
+             * An image to be used as the check voucher image, which is printed in the middle of the
+             * trifold area of a check. This must be a 2550x1100 pixel PNG.
+             */
+            CHECK_VOUCHER_IMAGE,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -755,6 +766,11 @@ private constructor(
              * requested Increase print.
              */
             CHECK_ATTACHMENT,
+            /**
+             * An image to be used as the check voucher image, which is printed in the middle of the
+             * trifold area of a check. This must be a 2550x1100 pixel PNG.
+             */
+            CHECK_VOUCHER_IMAGE,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -814,6 +830,7 @@ private constructor(
                 CHECK_IMAGE_BACK -> Value.CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 CHECK_ATTACHMENT -> Value.CHECK_ATTACHMENT
+                CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
                 LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT ->
@@ -848,6 +865,7 @@ private constructor(
                 CHECK_IMAGE_BACK -> Known.CHECK_IMAGE_BACK
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 CHECK_ATTACHMENT -> Known.CHECK_ATTACHMENT
+                CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
                 LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT ->

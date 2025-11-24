@@ -3383,6 +3383,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val attachmentFileId: JsonField<String>,
+        private val checkVoucherImageFileId: JsonField<String>,
         private val mailingAddress: JsonField<MailingAddress>,
         private val memo: JsonField<String>,
         private val note: JsonField<String>,
@@ -3400,6 +3401,9 @@ private constructor(
             @JsonProperty("attachment_file_id")
             @ExcludeMissing
             attachmentFileId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("check_voucher_image_file_id")
+            @ExcludeMissing
+            checkVoucherImageFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("mailing_address")
             @ExcludeMissing
             mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
@@ -3423,6 +3427,7 @@ private constructor(
             trackingUpdates: JsonField<List<TrackingUpdate>> = JsonMissing.of(),
         ) : this(
             attachmentFileId,
+            checkVoucherImageFileId,
             mailingAddress,
             memo,
             note,
@@ -3443,6 +3448,15 @@ private constructor(
          */
         fun attachmentFileId(): Optional<String> =
             attachmentFileId.getOptional("attachment_file_id")
+
+        /**
+         * The ID of the file for the check voucher image.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun checkVoucherImageFileId(): Optional<String> =
+            checkVoucherImageFileId.getOptional("check_voucher_image_file_id")
 
         /**
          * Details for where Increase will mail the check.
@@ -3529,6 +3543,16 @@ private constructor(
         @JsonProperty("attachment_file_id")
         @ExcludeMissing
         fun _attachmentFileId(): JsonField<String> = attachmentFileId
+
+        /**
+         * Returns the raw JSON value of [checkVoucherImageFileId].
+         *
+         * Unlike [checkVoucherImageFileId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("check_voucher_image_file_id")
+        @ExcludeMissing
+        fun _checkVoucherImageFileId(): JsonField<String> = checkVoucherImageFileId
 
         /**
          * Returns the raw JSON value of [mailingAddress].
@@ -3631,6 +3655,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .attachmentFileId()
+             * .checkVoucherImageFileId()
              * .mailingAddress()
              * .memo()
              * .note()
@@ -3649,6 +3674,7 @@ private constructor(
         class Builder internal constructor() {
 
             private var attachmentFileId: JsonField<String>? = null
+            private var checkVoucherImageFileId: JsonField<String>? = null
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var memo: JsonField<String>? = null
             private var note: JsonField<String>? = null
@@ -3663,6 +3689,7 @@ private constructor(
             @JvmSynthetic
             internal fun from(physicalCheck: PhysicalCheck) = apply {
                 attachmentFileId = physicalCheck.attachmentFileId
+                checkVoucherImageFileId = physicalCheck.checkVoucherImageFileId
                 mailingAddress = physicalCheck.mailingAddress
                 memo = physicalCheck.memo
                 note = physicalCheck.note
@@ -3694,6 +3721,28 @@ private constructor(
              */
             fun attachmentFileId(attachmentFileId: JsonField<String>) = apply {
                 this.attachmentFileId = attachmentFileId
+            }
+
+            /** The ID of the file for the check voucher image. */
+            fun checkVoucherImageFileId(checkVoucherImageFileId: String?) =
+                checkVoucherImageFileId(JsonField.ofNullable(checkVoucherImageFileId))
+
+            /**
+             * Alias for calling [Builder.checkVoucherImageFileId] with
+             * `checkVoucherImageFileId.orElse(null)`.
+             */
+            fun checkVoucherImageFileId(checkVoucherImageFileId: Optional<String>) =
+                checkVoucherImageFileId(checkVoucherImageFileId.getOrNull())
+
+            /**
+             * Sets [Builder.checkVoucherImageFileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.checkVoucherImageFileId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun checkVoucherImageFileId(checkVoucherImageFileId: JsonField<String>) = apply {
+                this.checkVoucherImageFileId = checkVoucherImageFileId
             }
 
             /** Details for where Increase will mail the check. */
@@ -3898,6 +3947,7 @@ private constructor(
              * The following fields are required:
              * ```java
              * .attachmentFileId()
+             * .checkVoucherImageFileId()
              * .mailingAddress()
              * .memo()
              * .note()
@@ -3914,6 +3964,7 @@ private constructor(
             fun build(): PhysicalCheck =
                 PhysicalCheck(
                     checkRequired("attachmentFileId", attachmentFileId),
+                    checkRequired("checkVoucherImageFileId", checkVoucherImageFileId),
                     checkRequired("mailingAddress", mailingAddress),
                     checkRequired("memo", memo),
                     checkRequired("note", note),
@@ -3935,6 +3986,7 @@ private constructor(
             }
 
             attachmentFileId()
+            checkVoucherImageFileId()
             mailingAddress().validate()
             memo()
             note()
@@ -3964,6 +4016,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (attachmentFileId.asKnown().isPresent) 1 else 0) +
+                (if (checkVoucherImageFileId.asKnown().isPresent) 1 else 0) +
                 (mailingAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (memo.asKnown().isPresent) 1 else 0) +
                 (if (note.asKnown().isPresent) 1 else 0) +
@@ -5513,6 +5566,7 @@ private constructor(
 
             return other is PhysicalCheck &&
                 attachmentFileId == other.attachmentFileId &&
+                checkVoucherImageFileId == other.checkVoucherImageFileId &&
                 mailingAddress == other.mailingAddress &&
                 memo == other.memo &&
                 note == other.note &&
@@ -5528,6 +5582,7 @@ private constructor(
         private val hashCode: Int by lazy {
             Objects.hash(
                 attachmentFileId,
+                checkVoucherImageFileId,
                 mailingAddress,
                 memo,
                 note,
@@ -5544,7 +5599,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{attachmentFileId=$attachmentFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */
