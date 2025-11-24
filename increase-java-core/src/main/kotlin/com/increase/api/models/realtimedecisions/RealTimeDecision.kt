@@ -5963,13 +5963,13 @@ private constructor(
         class Decline
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val reason: JsonField<String>,
+            private val reason: JsonField<Reason>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("reason") @ExcludeMissing reason: JsonField<String> = JsonMissing.of()
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of()
             ) : this(reason, mutableMapOf())
 
             /**
@@ -5979,14 +5979,14 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun reason(): String = reason.getRequired("reason")
+            fun reason(): Reason = reason.getRequired("reason")
 
             /**
              * Returns the raw JSON value of [reason].
              *
              * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<String> = reason
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -6016,7 +6016,7 @@ private constructor(
             /** A builder for [Decline]. */
             class Builder internal constructor() {
 
-                private var reason: JsonField<String>? = null
+                private var reason: JsonField<Reason>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -6026,16 +6026,16 @@ private constructor(
                 }
 
                 /** The reason the authorization was declined. */
-                fun reason(reason: String) = reason(JsonField.of(reason))
+                fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /**
                  * Sets [Builder.reason] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.reason] with a well-typed [String] value
+                 * You should usually call [Builder.reason] with a well-typed [Reason] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun reason(reason: JsonField<String>) = apply { this.reason = reason }
+                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -6082,7 +6082,7 @@ private constructor(
                     return@apply
                 }
 
-                reason()
+                reason().validate()
                 validated = true
             }
 
@@ -6100,7 +6100,236 @@ private constructor(
              *
              * Used for best match union deserialization.
              */
-            @JvmSynthetic internal fun validity(): Int = (if (reason.asKnown().isPresent) 1 else 0)
+            @JvmSynthetic
+            internal fun validity(): Int = (reason.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** The reason the authorization was declined. */
+            class Reason @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
+                    @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
+
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
+                    @JvmField val TRANSACTION_NEVER_ALLOWED = of("transaction_never_allowed")
+
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
+                    @JvmField val EXCEEDS_APPROVAL_LIMIT = of("exceeds_approval_limit")
+
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
+                    @JvmField val CARD_TEMPORARILY_DISABLED = of("card_temporarily_disabled")
+
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
+                    @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
+
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
+                    @JvmField val OTHER = of("other")
+
+                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                }
+
+                /** An enum containing [Reason]'s known values. */
+                enum class Known {
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
+                    INSUFFICIENT_FUNDS,
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
+                    TRANSACTION_NEVER_ALLOWED,
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
+                    EXCEEDS_APPROVAL_LIMIT,
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
+                    CARD_TEMPORARILY_DISABLED,
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
+                    SUSPECTED_FRAUD,
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
+                    OTHER,
+                }
+
+                /**
+                 * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Reason] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The cardholder does not have sufficient funds to cover the transaction. The
+                     * merchant may attempt to process the transaction again.
+                     */
+                    INSUFFICIENT_FUNDS,
+                    /**
+                     * This type of transaction is not allowed for this card. This transaction
+                     * should not be retried.
+                     */
+                    TRANSACTION_NEVER_ALLOWED,
+                    /**
+                     * The transaction amount exceeds the cardholder's approval limit. The merchant
+                     * may attempt to process the transaction again.
+                     */
+                    EXCEEDS_APPROVAL_LIMIT,
+                    /**
+                     * The card has been temporarily disabled or not yet activated. The merchant may
+                     * attempt to process the transaction again.
+                     */
+                    CARD_TEMPORARILY_DISABLED,
+                    /**
+                     * The transaction is suspected to be fraudulent. The merchant may attempt to
+                     * process the transaction again.
+                     */
+                    SUSPECTED_FRAUD,
+                    /**
+                     * The transaction was declined for another reason. The merchant may attempt to
+                     * process the transaction again. This should be used sparingly.
+                     */
+                    OTHER,
+                    /**
+                     * An enum member indicating that [Reason] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                        TRANSACTION_NEVER_ALLOWED -> Value.TRANSACTION_NEVER_ALLOWED
+                        EXCEEDS_APPROVAL_LIMIT -> Value.EXCEEDS_APPROVAL_LIMIT
+                        CARD_TEMPORARILY_DISABLED -> Value.CARD_TEMPORARILY_DISABLED
+                        SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                        TRANSACTION_NEVER_ALLOWED -> Known.TRANSACTION_NEVER_ALLOWED
+                        EXCEEDS_APPROVAL_LIMIT -> Known.EXCEEDS_APPROVAL_LIMIT
+                        CARD_TEMPORARILY_DISABLED -> Known.CARD_TEMPORARILY_DISABLED
+                        SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                        OTHER -> Known.OTHER
+                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Reason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Reason && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
