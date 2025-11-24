@@ -116,7 +116,10 @@ internal class RealTimeDecisionTest {
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .decline(
                             RealTimeDecision.CardAuthorization.Decline.builder()
-                                .reason("reason")
+                                .reason(
+                                    RealTimeDecision.CardAuthorization.Decline.Reason
+                                        .INSUFFICIENT_FUNDS
+                                )
                                 .build()
                         )
                         .digitalWalletTokenId(null)
@@ -366,7 +369,9 @@ internal class RealTimeDecisionTest {
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                     .decline(
                         RealTimeDecision.CardAuthorization.Decline.builder()
-                            .reason("reason")
+                            .reason(
+                                RealTimeDecision.CardAuthorization.Decline.Reason.INSUFFICIENT_FUNDS
+                            )
                             .build()
                     )
                     .digitalWalletTokenId(null)
@@ -621,7 +626,10 @@ internal class RealTimeDecisionTest {
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .decline(
                             RealTimeDecision.CardAuthorization.Decline.builder()
-                                .reason("reason")
+                                .reason(
+                                    RealTimeDecision.CardAuthorization.Decline.Reason
+                                        .INSUFFICIENT_FUNDS
+                                )
                                 .build()
                         )
                         .digitalWalletTokenId(null)
