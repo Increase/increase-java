@@ -70,6 +70,7 @@ internal class CheckTransferListPageResponseTest {
                         .physicalCheck(
                             CheckTransfer.PhysicalCheck.builder()
                                 .attachmentFileId(null)
+                                .checkVoucherImageFileId(null)
                                 .mailingAddress(
                                     CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                         .city("New York")
@@ -224,6 +225,7 @@ internal class CheckTransferListPageResponseTest {
                     .physicalCheck(
                         CheckTransfer.PhysicalCheck.builder()
                             .attachmentFileId(null)
+                            .checkVoucherImageFileId(null)
                             .mailingAddress(
                                 CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                     .city("New York")
@@ -378,6 +380,7 @@ internal class CheckTransferListPageResponseTest {
                         .physicalCheck(
                             CheckTransfer.PhysicalCheck.builder()
                                 .attachmentFileId(null)
+                                .checkVoucherImageFileId(null)
                                 .mailingAddress(
                                     CheckTransfer.PhysicalCheck.MailingAddress.builder()
                                         .city("New York")
