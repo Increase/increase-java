@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageAsync
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -64,7 +65,7 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
     override fun list(
         params: EventSubscriptionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EventSubscriptionListResponse> =
+    ): CompletableFuture<EventSubscriptionListPageAsync> =
         // get /event_subscriptions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -179,13 +180,13 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
                 }
         }
 
-        private val listHandler: Handler<EventSubscriptionListResponse> =
-            jsonHandler<EventSubscriptionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventSubscriptionListPageResponse> =
+            jsonHandler<EventSubscriptionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EventSubscriptionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EventSubscriptionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -204,6 +205,14 @@ internal constructor(private val clientOptions: ClientOptions) : EventSubscripti
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                EventSubscriptionListPageAsync.builder()
+                                    .service(EventSubscriptionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

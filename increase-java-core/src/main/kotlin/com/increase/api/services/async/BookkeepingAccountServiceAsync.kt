@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPageAsync
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 import java.util.concurrent.CompletableFuture
@@ -68,22 +68,22 @@ interface BookkeepingAccountServiceAsync {
     ): CompletableFuture<BookkeepingAccount>
 
     /** List Bookkeeping Accounts */
-    fun list(): CompletableFuture<BookkeepingAccountListResponse> =
+    fun list(): CompletableFuture<BookkeepingAccountListPageAsync> =
         list(BookkeepingAccountListParams.none())
 
     /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<BookkeepingAccountListResponse>
+    ): CompletableFuture<BookkeepingAccountListPageAsync>
 
     /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
-    ): CompletableFuture<BookkeepingAccountListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<BookkeepingAccountListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingAccountListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<BookkeepingAccountListPageAsync> =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
@@ -193,25 +193,25 @@ interface BookkeepingAccountServiceAsync {
          * Returns a raw HTTP response for `get /bookkeeping_accounts`, but is otherwise the same as
          * [BookkeepingAccountServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<BookkeepingAccountListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
             list(BookkeepingAccountListParams.none())
 
         /** @see list */
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListResponse>>
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>>
 
         /** @see list */
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
-        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListResponse>> =
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListResponse>> =
+        ): CompletableFuture<HttpResponseFor<BookkeepingAccountListPageAsync>> =
             list(BookkeepingAccountListParams.none(), requestOptions)
 
         /**

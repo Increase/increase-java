@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPageAsync
 import com.increase.api.models.accountstatements.AccountStatementListParams
-import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -63,22 +63,22 @@ interface AccountStatementServiceAsync {
         retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
     /** List Account Statements */
-    fun list(): CompletableFuture<AccountStatementListResponse> =
+    fun list(): CompletableFuture<AccountStatementListPageAsync> =
         list(AccountStatementListParams.none())
 
     /** @see list */
     fun list(
         params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AccountStatementListResponse>
+    ): CompletableFuture<AccountStatementListPageAsync>
 
     /** @see list */
     fun list(
         params: AccountStatementListParams = AccountStatementListParams.none()
-    ): CompletableFuture<AccountStatementListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<AccountStatementListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AccountStatementListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountStatementListPageAsync> =
         list(AccountStatementListParams.none(), requestOptions)
 
     /**
@@ -146,25 +146,25 @@ interface AccountStatementServiceAsync {
          * Returns a raw HTTP response for `get /account_statements`, but is otherwise the same as
          * [AccountStatementServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AccountStatementListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
             list(AccountStatementListParams.none())
 
         /** @see list */
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccountStatementListResponse>>
+        ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>>
 
         /** @see list */
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none()
-        ): CompletableFuture<HttpResponseFor<AccountStatementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AccountStatementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> =
             list(AccountStatementListParams.none(), requestOptions)
     }
 }

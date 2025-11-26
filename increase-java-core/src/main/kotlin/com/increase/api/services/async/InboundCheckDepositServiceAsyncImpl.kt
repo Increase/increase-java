@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageAsync
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import java.util.concurrent.CompletableFuture
@@ -53,7 +54,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     override fun list(
         params: InboundCheckDepositListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundCheckDepositListResponse> =
+    ): CompletableFuture<InboundCheckDepositListPageAsync> =
         // get /inbound_check_deposits
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -117,13 +118,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                 }
         }
 
-        private val listHandler: Handler<InboundCheckDepositListResponse> =
-            jsonHandler<InboundCheckDepositListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundCheckDepositListPageResponse> =
+            jsonHandler<InboundCheckDepositListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundCheckDepositListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundCheckDepositListResponse>> {
+        ): CompletableFuture<HttpResponseFor<InboundCheckDepositListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -142,6 +143,14 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                InboundCheckDepositListPageAsync.builder()
+                                    .service(InboundCheckDepositServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

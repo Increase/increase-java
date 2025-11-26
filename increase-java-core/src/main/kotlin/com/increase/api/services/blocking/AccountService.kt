@@ -10,8 +10,8 @@ import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
+import com.increase.api.models.accounts.AccountListPage
 import com.increase.api.models.accounts.AccountListParams
-import com.increase.api.models.accounts.AccountListResponse
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
@@ -99,20 +99,20 @@ interface AccountService {
         update(accountId, AccountUpdateParams.none(), requestOptions)
 
     /** List Accounts */
-    fun list(): AccountListResponse = list(AccountListParams.none())
+    fun list(): AccountListPage = list(AccountListParams.none())
 
     /** @see list */
     fun list(
         params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountListResponse
+    ): AccountListPage
 
     /** @see list */
-    fun list(params: AccountListParams = AccountListParams.none()): AccountListResponse =
+    fun list(params: AccountListParams = AccountListParams.none()): AccountListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountListResponse =
+    fun list(requestOptions: RequestOptions): AccountListPage =
         list(AccountListParams.none(), requestOptions)
 
     /**
@@ -286,25 +286,24 @@ interface AccountService {
          * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
          * [AccountService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<AccountListResponse> = list(AccountListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<AccountListPage> = list(AccountListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccountListParams = AccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountListResponse>
+        ): HttpResponseFor<AccountListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccountListParams = AccountListParams.none()
-        ): HttpResponseFor<AccountListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AccountListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountListPage> =
             list(AccountListParams.none(), requestOptions)
 
         /**

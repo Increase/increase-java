@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPage
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
-import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 import java.util.function.Consumer
 
@@ -76,21 +76,21 @@ interface WireDrawdownRequestService {
         retrieve(wireDrawdownRequestId, WireDrawdownRequestRetrieveParams.none(), requestOptions)
 
     /** List Wire Drawdown Requests */
-    fun list(): WireDrawdownRequestListResponse = list(WireDrawdownRequestListParams.none())
+    fun list(): WireDrawdownRequestListPage = list(WireDrawdownRequestListParams.none())
 
     /** @see list */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WireDrawdownRequestListResponse
+    ): WireDrawdownRequestListPage
 
     /** @see list */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
-    ): WireDrawdownRequestListResponse = list(params, RequestOptions.none())
+    ): WireDrawdownRequestListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WireDrawdownRequestListResponse =
+    fun list(requestOptions: RequestOptions): WireDrawdownRequestListPage =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
     /**
@@ -181,7 +181,7 @@ interface WireDrawdownRequestService {
          * as [WireDrawdownRequestService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<WireDrawdownRequestListResponse> =
+        fun list(): HttpResponseFor<WireDrawdownRequestListPage> =
             list(WireDrawdownRequestListParams.none())
 
         /** @see list */
@@ -189,17 +189,17 @@ interface WireDrawdownRequestService {
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WireDrawdownRequestListResponse>
+        ): HttpResponseFor<WireDrawdownRequestListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
-        ): HttpResponseFor<WireDrawdownRequestListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<WireDrawdownRequestListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequestListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WireDrawdownRequestListPage> =
             list(WireDrawdownRequestListParams.none(), requestOptions)
     }
 }

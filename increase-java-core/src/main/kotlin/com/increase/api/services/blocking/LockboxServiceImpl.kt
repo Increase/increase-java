@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPage
+import com.increase.api.models.lockboxes.LockboxListPageResponse
 import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxListResponse
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.function.Consumer
@@ -49,10 +50,7 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
         // patch /lockboxes/{lockbox_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: LockboxListParams,
-        requestOptions: RequestOptions,
-    ): LockboxListResponse =
+    override fun list(params: LockboxListParams, requestOptions: RequestOptions): LockboxListPage =
         // get /lockboxes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -156,13 +154,13 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<LockboxListResponse> =
-            jsonHandler<LockboxListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LockboxListPageResponse> =
+            jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: LockboxListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LockboxListResponse> {
+        ): HttpResponseFor<LockboxListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -179,6 +177,13 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        LockboxListPage.builder()
+                            .service(LockboxServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

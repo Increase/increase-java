@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardvalidations.CardValidation
 import com.increase.api.models.cardvalidations.CardValidationCreateParams
+import com.increase.api.models.cardvalidations.CardValidationListPage
 import com.increase.api.models.cardvalidations.CardValidationListParams
-import com.increase.api.models.cardvalidations.CardValidationListResponse
 import com.increase.api.models.cardvalidations.CardValidationRetrieveParams
 import java.util.function.Consumer
 
@@ -70,21 +70,21 @@ interface CardValidationService {
         retrieve(cardValidationId, CardValidationRetrieveParams.none(), requestOptions)
 
     /** List Card Validations */
-    fun list(): CardValidationListResponse = list(CardValidationListParams.none())
+    fun list(): CardValidationListPage = list(CardValidationListParams.none())
 
     /** @see list */
     fun list(
         params: CardValidationListParams = CardValidationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardValidationListResponse
+    ): CardValidationListPage
 
     /** @see list */
     fun list(
         params: CardValidationListParams = CardValidationListParams.none()
-    ): CardValidationListResponse = list(params, RequestOptions.none())
+    ): CardValidationListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardValidationListResponse =
+    fun list(requestOptions: RequestOptions): CardValidationListPage =
         list(CardValidationListParams.none(), requestOptions)
 
     /**
@@ -166,25 +166,24 @@ interface CardValidationService {
          * [CardValidationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CardValidationListResponse> =
-            list(CardValidationListParams.none())
+        fun list(): HttpResponseFor<CardValidationListPage> = list(CardValidationListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardValidationListParams = CardValidationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardValidationListResponse>
+        ): HttpResponseFor<CardValidationListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardValidationListParams = CardValidationListParams.none()
-        ): HttpResponseFor<CardValidationListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CardValidationListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardValidationListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardValidationListPage> =
             list(CardValidationListParams.none(), requestOptions)
     }
 }

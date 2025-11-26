@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
-import com.increase.api.models.externalaccounts.ExternalAccountListParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -83,21 +82,8 @@ internal class ExternalAccountServiceTest {
                 .build()
         val externalAccountService = client.externalAccounts()
 
-        val externalAccounts =
-            externalAccountService.list(
-                ExternalAccountListParams.builder()
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .routingNumber("xxxxxxxxx")
-                    .status(
-                        ExternalAccountListParams.Status.builder()
-                            .addIn(ExternalAccountListParams.Status.In.ACTIVE)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = externalAccountService.list()
 
-        externalAccounts.validate()
+        page.response().validate()
     }
 }

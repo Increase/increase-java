@@ -22,8 +22,9 @@ import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
+import com.increase.api.models.entities.EntityListPage
+import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
-import com.increase.api.models.entities.EntityListResponse
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
@@ -56,10 +57,7 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
         // patch /entities/{entity_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(
-        params: EntityListParams,
-        requestOptions: RequestOptions,
-    ): EntityListResponse =
+    override fun list(params: EntityListParams, requestOptions: RequestOptions): EntityListPage =
         // get /entities
         withRawResponse().list(params, requestOptions).parse()
 
@@ -205,13 +203,13 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val listHandler: Handler<EntityListResponse> =
-            jsonHandler<EntityListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EntityListPageResponse> =
+            jsonHandler<EntityListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EntityListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EntityListResponse> {
+        ): HttpResponseFor<EntityListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -228,6 +226,13 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EntityListPage.builder()
+                            .service(EntityServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

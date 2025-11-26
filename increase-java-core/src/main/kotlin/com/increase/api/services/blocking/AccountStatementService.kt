@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPage
 import com.increase.api.models.accountstatements.AccountStatementListParams
-import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 import java.util.function.Consumer
 
@@ -59,21 +59,21 @@ interface AccountStatementService {
         retrieve(accountStatementId, AccountStatementRetrieveParams.none(), requestOptions)
 
     /** List Account Statements */
-    fun list(): AccountStatementListResponse = list(AccountStatementListParams.none())
+    fun list(): AccountStatementListPage = list(AccountStatementListParams.none())
 
     /** @see list */
     fun list(
         params: AccountStatementListParams = AccountStatementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountStatementListResponse
+    ): AccountStatementListPage
 
     /** @see list */
     fun list(
         params: AccountStatementListParams = AccountStatementListParams.none()
-    ): AccountStatementListResponse = list(params, RequestOptions.none())
+    ): AccountStatementListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountStatementListResponse =
+    fun list(requestOptions: RequestOptions): AccountStatementListPage =
         list(AccountStatementListParams.none(), requestOptions)
 
     /**
@@ -144,7 +144,7 @@ interface AccountStatementService {
          * [AccountStatementService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AccountStatementListResponse> =
+        fun list(): HttpResponseFor<AccountStatementListPage> =
             list(AccountStatementListParams.none())
 
         /** @see list */
@@ -152,17 +152,17 @@ interface AccountStatementService {
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountStatementListResponse>
+        ): HttpResponseFor<AccountStatementListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccountStatementListParams = AccountStatementListParams.none()
-        ): HttpResponseFor<AccountStatementListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AccountStatementListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountStatementListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountStatementListPage> =
             list(AccountStatementListParams.none(), requestOptions)
     }
 }

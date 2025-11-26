@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.oauthconnections.OAuthConnection
+import com.increase.api.models.oauthconnections.OAuthConnectionListPage
+import com.increase.api.models.oauthconnections.OAuthConnectionListPageResponse
 import com.increase.api.models.oauthconnections.OAuthConnectionListParams
-import com.increase.api.models.oauthconnections.OAuthConnectionListResponse
 import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -44,7 +45,7 @@ class OAuthConnectionServiceImpl internal constructor(private val clientOptions:
     override fun list(
         params: OAuthConnectionListParams,
         requestOptions: RequestOptions,
-    ): OAuthConnectionListResponse =
+    ): OAuthConnectionListPage =
         // get /oauth_connections
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ class OAuthConnectionServiceImpl internal constructor(private val clientOptions:
             }
         }
 
-        private val listHandler: Handler<OAuthConnectionListResponse> =
-            jsonHandler<OAuthConnectionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthConnectionListPageResponse> =
+            jsonHandler<OAuthConnectionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OAuthConnectionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthConnectionListResponse> {
+        ): HttpResponseFor<OAuthConnectionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ class OAuthConnectionServiceImpl internal constructor(private val clientOptions:
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        OAuthConnectionListPage.builder()
+                            .service(OAuthConnectionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

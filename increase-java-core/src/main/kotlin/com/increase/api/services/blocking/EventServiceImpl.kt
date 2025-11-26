@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.events.Event
+import com.increase.api.models.events.EventListPage
+import com.increase.api.models.events.EventListPageResponse
 import com.increase.api.models.events.EventListParams
-import com.increase.api.models.events.EventListResponse
 import com.increase.api.models.events.EventRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -38,7 +39,7 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
         // get /events/{event_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: EventListParams, requestOptions: RequestOptions): EventListResponse =
+    override fun list(params: EventListParams, requestOptions: RequestOptions): EventListPage =
         // get /events
         withRawResponse().list(params, requestOptions).parse()
 
@@ -84,13 +85,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
             }
         }
 
-        private val listHandler: Handler<EventListResponse> =
-            jsonHandler<EventListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EventListPageResponse> =
+            jsonHandler<EventListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EventListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<EventListResponse> {
+        ): HttpResponseFor<EventListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -107,6 +108,13 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        EventListPage.builder()
+                            .service(EventServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

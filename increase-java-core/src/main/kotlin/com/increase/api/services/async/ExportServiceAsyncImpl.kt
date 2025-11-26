@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
+import com.increase.api.models.exports.ExportListPageAsync
+import com.increase.api.models.exports.ExportListPageResponse
 import com.increase.api.models.exports.ExportListParams
-import com.increase.api.models.exports.ExportListResponse
 import com.increase.api.models.exports.ExportRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -54,7 +55,7 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: ExportListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ExportListResponse> =
+    ): CompletableFuture<ExportListPageAsync> =
         // get /exports
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -133,13 +134,13 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<ExportListResponse> =
-            jsonHandler<ExportListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExportListPageResponse> =
+            jsonHandler<ExportListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExportListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ExportListResponse>> {
+        ): CompletableFuture<HttpResponseFor<ExportListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -158,6 +159,14 @@ class ExportServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                ExportListPageAsync.builder()
+                                    .service(ExportServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

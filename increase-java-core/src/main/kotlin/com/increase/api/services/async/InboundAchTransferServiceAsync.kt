@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageAsync
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
-import com.increase.api.models.inboundachtransfers.InboundAchTransferListResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 import java.util.concurrent.CompletableFuture
@@ -69,22 +69,22 @@ interface InboundAchTransferServiceAsync {
         retrieve(inboundAchTransferId, InboundAchTransferRetrieveParams.none(), requestOptions)
 
     /** List Inbound ACH Transfers */
-    fun list(): CompletableFuture<InboundAchTransferListResponse> =
+    fun list(): CompletableFuture<InboundAchTransferListPageAsync> =
         list(InboundAchTransferListParams.none())
 
     /** @see list */
     fun list(
         params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InboundAchTransferListResponse>
+    ): CompletableFuture<InboundAchTransferListPageAsync>
 
     /** @see list */
     fun list(
         params: InboundAchTransferListParams = InboundAchTransferListParams.none()
-    ): CompletableFuture<InboundAchTransferListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<InboundAchTransferListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<InboundAchTransferListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundAchTransferListPageAsync> =
         list(InboundAchTransferListParams.none(), requestOptions)
 
     /** Create a notification of change for an Inbound ACH Transfer */
@@ -272,25 +272,25 @@ interface InboundAchTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_ach_transfers`, but is otherwise the same
          * as [InboundAchTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InboundAchTransferListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>> =
             list(InboundAchTransferListParams.none())
 
         /** @see list */
         fun list(
             params: InboundAchTransferListParams = InboundAchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundAchTransferListResponse>>
+        ): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>>
 
         /** @see list */
         fun list(
             params: InboundAchTransferListParams = InboundAchTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<InboundAchTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InboundAchTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>> =
             list(InboundAchTransferListParams.none(), requestOptions)
 
         /**

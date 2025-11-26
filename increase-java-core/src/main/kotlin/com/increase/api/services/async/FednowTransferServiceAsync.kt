@@ -9,8 +9,8 @@ import com.increase.api.models.fednowtransfers.FednowTransfer
 import com.increase.api.models.fednowtransfers.FednowTransferApproveParams
 import com.increase.api.models.fednowtransfers.FednowTransferCancelParams
 import com.increase.api.models.fednowtransfers.FednowTransferCreateParams
+import com.increase.api.models.fednowtransfers.FednowTransferListPageAsync
 import com.increase.api.models.fednowtransfers.FednowTransferListParams
-import com.increase.api.models.fednowtransfers.FednowTransferListResponse
 import com.increase.api.models.fednowtransfers.FednowTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -75,22 +75,22 @@ interface FednowTransferServiceAsync {
         retrieve(fednowTransferId, FednowTransferRetrieveParams.none(), requestOptions)
 
     /** List FedNow Transfers */
-    fun list(): CompletableFuture<FednowTransferListResponse> =
+    fun list(): CompletableFuture<FednowTransferListPageAsync> =
         list(FednowTransferListParams.none())
 
     /** @see list */
     fun list(
         params: FednowTransferListParams = FednowTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FednowTransferListResponse>
+    ): CompletableFuture<FednowTransferListPageAsync>
 
     /** @see list */
     fun list(
         params: FednowTransferListParams = FednowTransferListParams.none()
-    ): CompletableFuture<FednowTransferListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<FednowTransferListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FednowTransferListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<FednowTransferListPageAsync> =
         list(FednowTransferListParams.none(), requestOptions)
 
     /** Approve a FedNow Transfer */
@@ -238,25 +238,25 @@ interface FednowTransferServiceAsync {
          * Returns a raw HTTP response for `get /fednow_transfers`, but is otherwise the same as
          * [FednowTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<FednowTransferListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<FednowTransferListPageAsync>> =
             list(FednowTransferListParams.none())
 
         /** @see list */
         fun list(
             params: FednowTransferListParams = FednowTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FednowTransferListResponse>>
+        ): CompletableFuture<HttpResponseFor<FednowTransferListPageAsync>>
 
         /** @see list */
         fun list(
             params: FednowTransferListParams = FednowTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<FednowTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FednowTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FednowTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FednowTransferListPageAsync>> =
             list(FednowTransferListParams.none(), requestOptions)
 
         /**

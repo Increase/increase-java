@@ -5,9 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxListParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -83,25 +81,9 @@ internal class LockboxServiceAsyncTest {
                 .build()
         val lockboxServiceAsync = client.lockboxes()
 
-        val lockboxesFuture =
-            lockboxServiceAsync.list(
-                LockboxListParams.builder()
-                    .accountId("account_id")
-                    .createdAt(
-                        LockboxListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
-            )
+        val pageFuture = lockboxServiceAsync.list()
 
-        val lockboxes = lockboxesFuture.get()
-        lockboxes.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

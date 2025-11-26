@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
+import com.increase.api.models.checkdeposits.CheckDepositListPageAsync
 import com.increase.api.models.checkdeposits.CheckDepositListParams
-import com.increase.api.models.checkdeposits.CheckDepositListResponse
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -73,21 +73,21 @@ interface CheckDepositServiceAsync {
         retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Check Deposits */
-    fun list(): CompletableFuture<CheckDepositListResponse> = list(CheckDepositListParams.none())
+    fun list(): CompletableFuture<CheckDepositListPageAsync> = list(CheckDepositListParams.none())
 
     /** @see list */
     fun list(
         params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CheckDepositListResponse>
+    ): CompletableFuture<CheckDepositListPageAsync>
 
     /** @see list */
     fun list(
         params: CheckDepositListParams = CheckDepositListParams.none()
-    ): CompletableFuture<CheckDepositListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CheckDepositListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CheckDepositListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CheckDepositListPageAsync> =
         list(CheckDepositListParams.none(), requestOptions)
 
     /**
@@ -164,25 +164,25 @@ interface CheckDepositServiceAsync {
          * Returns a raw HTTP response for `get /check_deposits`, but is otherwise the same as
          * [CheckDepositServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CheckDepositListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
             list(CheckDepositListParams.none())
 
         /** @see list */
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CheckDepositListResponse>>
+        ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>>
 
         /** @see list */
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none()
-        ): CompletableFuture<HttpResponseFor<CheckDepositListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CheckDepositListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> =
             list(CheckDepositListParams.none(), requestOptions)
     }
 }

@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPage
+import com.increase.api.models.accountstatements.AccountStatementListPageResponse
 import com.increase.api.models.accountstatements.AccountStatementListParams
-import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -44,7 +45,7 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: AccountStatementListParams,
         requestOptions: RequestOptions,
-    ): AccountStatementListResponse =
+    ): AccountStatementListPage =
         // get /account_statements
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +92,13 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<AccountStatementListResponse> =
-            jsonHandler<AccountStatementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountStatementListPageResponse> =
+            jsonHandler<AccountStatementListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccountStatementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountStatementListResponse> {
+        ): HttpResponseFor<AccountStatementListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,6 +115,13 @@ class AccountStatementServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        AccountStatementListPage.builder()
+                            .service(AccountStatementServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

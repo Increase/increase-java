@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPageAsync
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -114,22 +114,22 @@ interface EventSubscriptionServiceAsync {
         update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
     /** List Event Subscriptions */
-    fun list(): CompletableFuture<EventSubscriptionListResponse> =
+    fun list(): CompletableFuture<EventSubscriptionListPageAsync> =
         list(EventSubscriptionListParams.none())
 
     /** @see list */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EventSubscriptionListResponse>
+    ): CompletableFuture<EventSubscriptionListPageAsync>
 
     /** @see list */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none()
-    ): CompletableFuture<EventSubscriptionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<EventSubscriptionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EventSubscriptionListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EventSubscriptionListPageAsync> =
         list(EventSubscriptionListParams.none(), requestOptions)
 
     /**
@@ -258,25 +258,25 @@ interface EventSubscriptionServiceAsync {
          * Returns a raw HTTP response for `get /event_subscriptions`, but is otherwise the same as
          * [EventSubscriptionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EventSubscriptionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>> =
             list(EventSubscriptionListParams.none())
 
         /** @see list */
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EventSubscriptionListResponse>>
+        ): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>>
 
         /** @see list */
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none()
-        ): CompletableFuture<HttpResponseFor<EventSubscriptionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EventSubscriptionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<EventSubscriptionListPageAsync>> =
             list(EventSubscriptionListParams.none(), requestOptions)
     }
 }

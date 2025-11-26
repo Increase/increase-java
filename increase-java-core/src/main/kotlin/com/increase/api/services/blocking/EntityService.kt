@@ -12,8 +12,8 @@ import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
+import com.increase.api.models.entities.EntityListPage
 import com.increase.api.models.entities.EntityListParams
-import com.increase.api.models.entities.EntityListResponse
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
@@ -101,20 +101,20 @@ interface EntityService {
         update(entityId, EntityUpdateParams.none(), requestOptions)
 
     /** List Entities */
-    fun list(): EntityListResponse = list(EntityListParams.none())
+    fun list(): EntityListPage = list(EntityListParams.none())
 
     /** @see list */
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EntityListResponse
+    ): EntityListPage
 
     /** @see list */
-    fun list(params: EntityListParams = EntityListParams.none()): EntityListResponse =
+    fun list(params: EntityListParams = EntityListParams.none()): EntityListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EntityListResponse =
+    fun list(requestOptions: RequestOptions): EntityListPage =
         list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
@@ -401,25 +401,24 @@ interface EntityService {
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
          * [EntityService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<EntityListResponse> = list(EntityListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<EntityListPage> = list(EntityListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EntityListResponse>
+        ): HttpResponseFor<EntityListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EntityListParams = EntityListParams.none()
-        ): HttpResponseFor<EntityListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EntityListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EntityListPage> =
             list(EntityListParams.none(), requestOptions)
 
         /**

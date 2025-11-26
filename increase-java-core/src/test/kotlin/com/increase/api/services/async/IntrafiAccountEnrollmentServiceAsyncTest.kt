@@ -5,7 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -60,23 +59,10 @@ internal class IntrafiAccountEnrollmentServiceAsyncTest {
                 .build()
         val intrafiAccountEnrollmentServiceAsync = client.intrafiAccountEnrollments()
 
-        val intrafiAccountEnrollmentsFuture =
-            intrafiAccountEnrollmentServiceAsync.list(
-                IntrafiAccountEnrollmentListParams.builder()
-                    .accountId("account_id")
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        IntrafiAccountEnrollmentListParams.Status.builder()
-                            .addIn(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING)
-                            .build()
-                    )
-                    .build()
-            )
+        val pageFuture = intrafiAccountEnrollmentServiceAsync.list()
 
-        val intrafiAccountEnrollments = intrafiAccountEnrollmentsFuture.get()
-        intrafiAccountEnrollments.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Test

@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -55,17 +54,9 @@ internal class IntrafiExclusionServiceTest {
                 .build()
         val intrafiExclusionService = client.intrafiExclusions()
 
-        val intrafiExclusions =
-            intrafiExclusionService.list(
-                IntrafiExclusionListParams.builder()
-                    .cursor("cursor")
-                    .entityId("entity_id")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
-            )
+        val page = intrafiExclusionService.list()
 
-        intrafiExclusions.validate()
+        page.response().validate()
     }
 
     @Test
