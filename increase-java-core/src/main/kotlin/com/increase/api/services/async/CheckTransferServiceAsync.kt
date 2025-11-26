@@ -9,8 +9,8 @@ import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.checktransfers.CheckTransferApproveParams
 import com.increase.api.models.checktransfers.CheckTransferCancelParams
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
+import com.increase.api.models.checktransfers.CheckTransferListPageAsync
 import com.increase.api.models.checktransfers.CheckTransferListParams
-import com.increase.api.models.checktransfers.CheckTransferListResponse
 import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
 import java.util.concurrent.CompletableFuture
@@ -76,21 +76,21 @@ interface CheckTransferServiceAsync {
         retrieve(checkTransferId, CheckTransferRetrieveParams.none(), requestOptions)
 
     /** List Check Transfers */
-    fun list(): CompletableFuture<CheckTransferListResponse> = list(CheckTransferListParams.none())
+    fun list(): CompletableFuture<CheckTransferListPageAsync> = list(CheckTransferListParams.none())
 
     /** @see list */
     fun list(
         params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CheckTransferListResponse>
+    ): CompletableFuture<CheckTransferListPageAsync>
 
     /** @see list */
     fun list(
         params: CheckTransferListParams = CheckTransferListParams.none()
-    ): CompletableFuture<CheckTransferListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CheckTransferListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CheckTransferListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CheckTransferListPageAsync> =
         list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
@@ -276,25 +276,25 @@ interface CheckTransferServiceAsync {
          * Returns a raw HTTP response for `get /check_transfers`, but is otherwise the same as
          * [CheckTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CheckTransferListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>> =
             list(CheckTransferListParams.none())
 
         /** @see list */
         fun list(
             params: CheckTransferListParams = CheckTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CheckTransferListResponse>>
+        ): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>>
 
         /** @see list */
         fun list(
             params: CheckTransferListParams = CheckTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<CheckTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CheckTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CheckTransferListPageAsync>> =
             list(CheckTransferListParams.none(), requestOptions)
 
         /**

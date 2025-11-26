@@ -57,6 +57,8 @@ IncreaseClient client = IncreaseOkHttpClient.fromEnv();
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
 Account account = client.accounts().create(params);
 ```
@@ -159,6 +161,8 @@ IncreaseClient client = IncreaseOkHttpClient.fromEnv();
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
 CompletableFuture<Account> account = client.async().accounts().create(params);
 ```
@@ -178,6 +182,8 @@ IncreaseClientAsync client = IncreaseOkHttpClientAsync.fromEnv();
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
 CompletableFuture<Account> account = client.accounts().create(params);
 ```
@@ -262,6 +268,8 @@ import com.increase.api.models.accounts.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name("New Account!")
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
 HttpResponseFor<Account> account = client.accounts().withRawResponse().create(params);
 
@@ -301,6 +309,106 @@ The SDK throws custom unchecked exception types:
 - [`IncreaseInvalidDataException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseInvalidDataException.kt): Failure to interpret successfully parsed data. For example, when accessing a property that's supposed to be required, but the API unexpectedly omitted it from the response.
 
 - [`IncreaseException`](increase-java-core/src/main/kotlin/com/increase/api/errors/IncreaseException.kt): Base class for all exceptions. Most errors will result in one of the previously mentioned ones, but completely generic errors may be thrown using the base class.
+
+## Pagination
+
+The SDK defines methods that return a paginated lists of results. It provides convenient ways to access the results either one page at a time or item-by-item across all pages.
+
+### Auto-pagination
+
+To iterate through all results across all pages, use the `autoPager()` method, which automatically fetches more pages as needed.
+
+When using the synchronous client, the method returns an [`Iterable`](https://docs.oracle.com/javase/8/docs/api/java/lang/Iterable.html)
+
+```java
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountListPage;
+
+AccountListPage page = client.accounts().list();
+
+// Process as an Iterable
+for (Account account : page.autoPager()) {
+    System.out.println(account);
+}
+
+// Process as a Stream
+page.autoPager()
+    .stream()
+    .limit(50)
+    .forEach(account -> System.out.println(account));
+```
+
+When using the asynchronous client, the method returns an [`AsyncStreamResponse`](increase-java-core/src/main/kotlin/com/increase/api/core/http/AsyncStreamResponse.kt):
+
+```java
+import com.increase.api.core.http.AsyncStreamResponse;
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountListPageAsync;
+import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
+
+CompletableFuture<AccountListPageAsync> pageFuture = client.async().accounts().list();
+
+pageFuture.thenRun(page -> page.autoPager().subscribe(account -> {
+    System.out.println(account);
+}));
+
+// If you need to handle errors or completion of the stream
+pageFuture.thenRun(page -> page.autoPager().subscribe(new AsyncStreamResponse.Handler<>() {
+    @Override
+    public void onNext(Account account) {
+        System.out.println(account);
+    }
+
+    @Override
+    public void onComplete(Optional<Throwable> error) {
+        if (error.isPresent()) {
+            System.out.println("Something went wrong!");
+            throw new RuntimeException(error.get());
+        } else {
+            System.out.println("No more!");
+        }
+    }
+}));
+
+// Or use futures
+pageFuture.thenRun(page -> page.autoPager()
+    .subscribe(account -> {
+        System.out.println(account);
+    })
+    .onCompleteFuture()
+    .whenComplete((unused, error) -> {
+        if (error != null) {
+            System.out.println("Something went wrong!");
+            throw new RuntimeException(error);
+        } else {
+            System.out.println("No more!");
+        }
+    }));
+```
+
+### Manual pagination
+
+To access individual page items and manually request the next page, use the `items()`,
+`hasNextPage()`, and `nextPage()` methods:
+
+```java
+import com.increase.api.models.accounts.Account;
+import com.increase.api.models.accounts.AccountListPage;
+
+AccountListPage page = client.accounts().list();
+while (true) {
+    for (Account account : page.items()) {
+        System.out.println(account);
+    }
+
+    if (!page.hasNextPage()) {
+        break;
+    }
+
+    page = page.nextPage();
+}
+```
 
 ## Logging
 
@@ -510,6 +618,8 @@ import com.increase.api.models.accounts.AccountCreateParams;
 
 AccountCreateParams params = AccountCreateParams.builder()
     .name(JsonValue.from(42))
+    .entityId("entity_n8y8tnk2p9339ti393yi")
+    .programId("program_i2v2os4mwza1oetokh9i")
     .build();
 ```
 

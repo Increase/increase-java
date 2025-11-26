@@ -10,8 +10,8 @@ import com.increase.api.models.achtransfers.AchTransfer
 import com.increase.api.models.achtransfers.AchTransferApproveParams
 import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
+import com.increase.api.models.achtransfers.AchTransferListPage
 import com.increase.api.models.achtransfers.AchTransferListParams
-import com.increase.api.models.achtransfers.AchTransferListResponse
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.util.function.Consumer
 
@@ -71,21 +71,20 @@ interface AchTransferService {
         retrieve(achTransferId, AchTransferRetrieveParams.none(), requestOptions)
 
     /** List ACH Transfers */
-    fun list(): AchTransferListResponse = list(AchTransferListParams.none())
+    fun list(): AchTransferListPage = list(AchTransferListParams.none())
 
     /** @see list */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AchTransferListResponse
+    ): AchTransferListPage
 
     /** @see list */
-    fun list(
-        params: AchTransferListParams = AchTransferListParams.none()
-    ): AchTransferListResponse = list(params, RequestOptions.none())
+    fun list(params: AchTransferListParams = AchTransferListParams.none()): AchTransferListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AchTransferListResponse =
+    fun list(requestOptions: RequestOptions): AchTransferListPage =
         list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
@@ -228,24 +227,24 @@ interface AchTransferService {
          * [AchTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AchTransferListResponse> = list(AchTransferListParams.none())
+        fun list(): HttpResponseFor<AchTransferListPage> = list(AchTransferListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AchTransferListResponse>
+        ): HttpResponseFor<AchTransferListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AchTransferListParams = AchTransferListParams.none()
-        ): HttpResponseFor<AchTransferListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AchTransferListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AchTransferListPage> =
             list(AchTransferListParams.none(), requestOptions)
 
         /**

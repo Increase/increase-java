@@ -5,8 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -38,25 +36,10 @@ internal class InboundMailItemServiceAsyncTest {
                 .build()
         val inboundMailItemServiceAsync = client.inboundMailItems()
 
-        val inboundMailItemsFuture =
-            inboundMailItemServiceAsync.list(
-                InboundMailItemListParams.builder()
-                    .createdAt(
-                        InboundMailItemListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .limit(1L)
-                    .lockboxId("lockbox_id")
-                    .build()
-            )
+        val pageFuture = inboundMailItemServiceAsync.list()
 
-        val inboundMailItems = inboundMailItemsFuture.get()
-        inboundMailItems.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 
     @Test

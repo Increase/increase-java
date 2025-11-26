@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.cardvalidations.CardValidation
 import com.increase.api.models.cardvalidations.CardValidationCreateParams
+import com.increase.api.models.cardvalidations.CardValidationListPageAsync
+import com.increase.api.models.cardvalidations.CardValidationListPageResponse
 import com.increase.api.models.cardvalidations.CardValidationListParams
-import com.increase.api.models.cardvalidations.CardValidationListResponse
 import com.increase.api.models.cardvalidations.CardValidationRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -56,7 +57,7 @@ internal constructor(private val clientOptions: ClientOptions) : CardValidationS
     override fun list(
         params: CardValidationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CardValidationListResponse> =
+    ): CompletableFuture<CardValidationListPageAsync> =
         // get /card_validations
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -137,13 +138,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardValidationS
                 }
         }
 
-        private val listHandler: Handler<CardValidationListResponse> =
-            jsonHandler<CardValidationListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardValidationListPageResponse> =
+            jsonHandler<CardValidationListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardValidationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardValidationListResponse>> {
+        ): CompletableFuture<HttpResponseFor<CardValidationListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -162,6 +163,14 @@ internal constructor(private val clientOptions: ClientOptions) : CardValidationS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                CardValidationListPageAsync.builder()
+                                    .service(CardValidationServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

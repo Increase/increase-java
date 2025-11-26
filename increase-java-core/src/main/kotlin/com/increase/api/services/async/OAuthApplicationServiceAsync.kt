@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthapplications.OAuthApplication
+import com.increase.api.models.oauthapplications.OAuthApplicationListPageAsync
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
-import com.increase.api.models.oauthapplications.OAuthApplicationListResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -63,22 +63,22 @@ interface OAuthApplicationServiceAsync {
         retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
-    fun list(): CompletableFuture<OAuthApplicationListResponse> =
+    fun list(): CompletableFuture<OAuthApplicationListPageAsync> =
         list(OAuthApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OAuthApplicationListResponse>
+    ): CompletableFuture<OAuthApplicationListPageAsync>
 
     /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none()
-    ): CompletableFuture<OAuthApplicationListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<OAuthApplicationListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthApplicationListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthApplicationListPageAsync> =
         list(OAuthApplicationListParams.none(), requestOptions)
 
     /**
@@ -146,25 +146,25 @@ interface OAuthApplicationServiceAsync {
          * Returns a raw HTTP response for `get /oauth_applications`, but is otherwise the same as
          * [OAuthApplicationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<OAuthApplicationListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
             list(OAuthApplicationListParams.none())
 
         /** @see list */
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OAuthApplicationListResponse>>
+        ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>>
 
         /** @see list */
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none()
-        ): CompletableFuture<HttpResponseFor<OAuthApplicationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OAuthApplicationListResponse>> =
+        ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> =
             list(OAuthApplicationListParams.none(), requestOptions)
     }
 }

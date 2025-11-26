@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpayments.CardPayment
+import com.increase.api.models.cardpayments.CardPaymentListPage
 import com.increase.api.models.cardpayments.CardPaymentListParams
-import com.increase.api.models.cardpayments.CardPaymentListResponse
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import java.util.function.Consumer
 
@@ -59,21 +59,20 @@ interface CardPaymentService {
         retrieve(cardPaymentId, CardPaymentRetrieveParams.none(), requestOptions)
 
     /** List Card Payments */
-    fun list(): CardPaymentListResponse = list(CardPaymentListParams.none())
+    fun list(): CardPaymentListPage = list(CardPaymentListParams.none())
 
     /** @see list */
     fun list(
         params: CardPaymentListParams = CardPaymentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPaymentListResponse
+    ): CardPaymentListPage
 
     /** @see list */
-    fun list(
-        params: CardPaymentListParams = CardPaymentListParams.none()
-    ): CardPaymentListResponse = list(params, RequestOptions.none())
+    fun list(params: CardPaymentListParams = CardPaymentListParams.none()): CardPaymentListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardPaymentListResponse =
+    fun list(requestOptions: RequestOptions): CardPaymentListPage =
         list(CardPaymentListParams.none(), requestOptions)
 
     /**
@@ -139,24 +138,24 @@ interface CardPaymentService {
          * [CardPaymentService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CardPaymentListResponse> = list(CardPaymentListParams.none())
+        fun list(): HttpResponseFor<CardPaymentListPage> = list(CardPaymentListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPaymentListResponse>
+        ): HttpResponseFor<CardPaymentListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardPaymentListParams = CardPaymentListParams.none()
-        ): HttpResponseFor<CardPaymentListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CardPaymentListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPaymentListPage> =
             list(CardPaymentListParams.none(), requestOptions)
     }
 }

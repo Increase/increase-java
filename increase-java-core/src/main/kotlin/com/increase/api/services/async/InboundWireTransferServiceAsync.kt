@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPageAsync
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
-import com.increase.api.models.inboundwiretransfers.InboundWireTransferListResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 import java.util.concurrent.CompletableFuture
@@ -68,22 +68,22 @@ interface InboundWireTransferServiceAsync {
         retrieve(inboundWireTransferId, InboundWireTransferRetrieveParams.none(), requestOptions)
 
     /** List Inbound Wire Transfers */
-    fun list(): CompletableFuture<InboundWireTransferListResponse> =
+    fun list(): CompletableFuture<InboundWireTransferListPageAsync> =
         list(InboundWireTransferListParams.none())
 
     /** @see list */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InboundWireTransferListResponse>
+    ): CompletableFuture<InboundWireTransferListPageAsync>
 
     /** @see list */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none()
-    ): CompletableFuture<InboundWireTransferListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<InboundWireTransferListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<InboundWireTransferListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundWireTransferListPageAsync> =
         list(InboundWireTransferListParams.none(), requestOptions)
 
     /** Reverse an Inbound Wire Transfer */
@@ -183,25 +183,25 @@ interface InboundWireTransferServiceAsync {
          * Returns a raw HTTP response for `get /inbound_wire_transfers`, but is otherwise the same
          * as [InboundWireTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InboundWireTransferListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(InboundWireTransferListParams.none())
 
         /** @see list */
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundWireTransferListResponse>>
+        ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>>
 
         /** @see list */
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<InboundWireTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InboundWireTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<InboundWireTransferListPageAsync>> =
             list(InboundWireTransferListParams.none(), requestOptions)
 
         /**

@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPageAsync
+import com.increase.api.models.lockboxes.LockboxListPageResponse
 import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxListResponse
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -62,7 +63,7 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: LockboxListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<LockboxListResponse> =
+    ): CompletableFuture<LockboxListPageAsync> =
         // get /lockboxes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -175,13 +176,13 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<LockboxListResponse> =
-            jsonHandler<LockboxListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LockboxListPageResponse> =
+            jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: LockboxListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<LockboxListResponse>> {
+        ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -200,6 +201,14 @@ class LockboxServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                LockboxListPageAsync.builder()
+                                    .service(LockboxServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

@@ -8,8 +8,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageAsync
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -75,22 +75,22 @@ interface IntrafiExclusionServiceAsync {
         retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
     /** List IntraFi Exclusions */
-    fun list(): CompletableFuture<IntrafiExclusionListResponse> =
+    fun list(): CompletableFuture<IntrafiExclusionListPageAsync> =
         list(IntrafiExclusionListParams.none())
 
     /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntrafiExclusionListResponse>
+    ): CompletableFuture<IntrafiExclusionListPageAsync>
 
     /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
-    ): CompletableFuture<IntrafiExclusionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<IntrafiExclusionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<IntrafiExclusionListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<IntrafiExclusionListPageAsync> =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
@@ -209,25 +209,25 @@ interface IntrafiExclusionServiceAsync {
          * Returns a raw HTTP response for `get /intrafi_exclusions`, but is otherwise the same as
          * [IntrafiExclusionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<IntrafiExclusionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
             list(IntrafiExclusionListParams.none())
 
         /** @see list */
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListResponse>>
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>>
 
         /** @see list */
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
-        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntrafiExclusionListPageAsync>> =
             list(IntrafiExclusionListParams.none(), requestOptions)
 
         /**

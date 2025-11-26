@@ -5,8 +5,6 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
-import com.increase.api.models.checkdeposits.CheckDepositListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -62,25 +60,9 @@ internal class CheckDepositServiceAsyncTest {
                 .build()
         val checkDepositServiceAsync = client.checkDeposits()
 
-        val checkDepositsFuture =
-            checkDepositServiceAsync.list(
-                CheckDepositListParams.builder()
-                    .accountId("account_id")
-                    .createdAt(
-                        CheckDepositListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
-            )
+        val pageFuture = checkDepositServiceAsync.list()
 
-        val checkDeposits = checkDepositsFuture.get()
-        checkDeposits.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.externalaccounts.ExternalAccount
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
+import com.increase.api.models.externalaccounts.ExternalAccountListPageAsync
 import com.increase.api.models.externalaccounts.ExternalAccountListParams
-import com.increase.api.models.externalaccounts.ExternalAccountListResponse
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -110,22 +110,22 @@ interface ExternalAccountServiceAsync {
         update(externalAccountId, ExternalAccountUpdateParams.none(), requestOptions)
 
     /** List External Accounts */
-    fun list(): CompletableFuture<ExternalAccountListResponse> =
+    fun list(): CompletableFuture<ExternalAccountListPageAsync> =
         list(ExternalAccountListParams.none())
 
     /** @see list */
     fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<ExternalAccountListResponse>
+    ): CompletableFuture<ExternalAccountListPageAsync>
 
     /** @see list */
     fun list(
         params: ExternalAccountListParams = ExternalAccountListParams.none()
-    ): CompletableFuture<ExternalAccountListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<ExternalAccountListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<ExternalAccountListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<ExternalAccountListPageAsync> =
         list(ExternalAccountListParams.none(), requestOptions)
 
     /**
@@ -249,25 +249,25 @@ interface ExternalAccountServiceAsync {
          * Returns a raw HTTP response for `get /external_accounts`, but is otherwise the same as
          * [ExternalAccountServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<ExternalAccountListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
             list(ExternalAccountListParams.none())
 
         /** @see list */
         fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<ExternalAccountListResponse>>
+        ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>>
 
         /** @see list */
         fun list(
             params: ExternalAccountListParams = ExternalAccountListParams.none()
-        ): CompletableFuture<HttpResponseFor<ExternalAccountListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<ExternalAccountListResponse>> =
+        ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> =
             list(ExternalAccountListParams.none(), requestOptions)
     }
 }

@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetCreateParams
-import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -69,16 +68,8 @@ internal class BookkeepingEntrySetServiceTest {
                 .build()
         val bookkeepingEntrySetService = client.bookkeepingEntrySets()
 
-        val bookkeepingEntrySets =
-            bookkeepingEntrySetService.list(
-                BookkeepingEntrySetListParams.builder()
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .transactionId("transaction_id")
-                    .build()
-            )
+        val page = bookkeepingEntrySetService.list()
 
-        bookkeepingEntrySets.validate()
+        page.response().validate()
     }
 }

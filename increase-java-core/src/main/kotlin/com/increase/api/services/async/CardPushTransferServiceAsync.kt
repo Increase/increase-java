@@ -9,8 +9,8 @@ import com.increase.api.models.cardpushtransfers.CardPushTransfer
 import com.increase.api.models.cardpushtransfers.CardPushTransferApproveParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCancelParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
+import com.increase.api.models.cardpushtransfers.CardPushTransferListPageAsync
 import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -76,22 +76,22 @@ interface CardPushTransferServiceAsync {
         retrieve(cardPushTransferId, CardPushTransferRetrieveParams.none(), requestOptions)
 
     /** List Card Push Transfers */
-    fun list(): CompletableFuture<CardPushTransferListResponse> =
+    fun list(): CompletableFuture<CardPushTransferListPageAsync> =
         list(CardPushTransferListParams.none())
 
     /** @see list */
     fun list(
         params: CardPushTransferListParams = CardPushTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CardPushTransferListResponse>
+    ): CompletableFuture<CardPushTransferListPageAsync>
 
     /** @see list */
     fun list(
         params: CardPushTransferListParams = CardPushTransferListParams.none()
-    ): CompletableFuture<CardPushTransferListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CardPushTransferListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CardPushTransferListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardPushTransferListPageAsync> =
         list(CardPushTransferListParams.none(), requestOptions)
 
     /** Approves a Card Push Transfer in a pending_approval state. */
@@ -246,25 +246,25 @@ interface CardPushTransferServiceAsync {
          * Returns a raw HTTP response for `get /card_push_transfers`, but is otherwise the same as
          * [CardPushTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CardPushTransferListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CardPushTransferListPageAsync>> =
             list(CardPushTransferListParams.none())
 
         /** @see list */
         fun list(
             params: CardPushTransferListParams = CardPushTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CardPushTransferListResponse>>
+        ): CompletableFuture<HttpResponseFor<CardPushTransferListPageAsync>>
 
         /** @see list */
         fun list(
             params: CardPushTransferListParams = CardPushTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<CardPushTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CardPushTransferListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CardPushTransferListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CardPushTransferListPageAsync>> =
             list(CardPushTransferListParams.none(), requestOptions)
 
         /**

@@ -10,8 +10,8 @@ import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.checktransfers.CheckTransferApproveParams
 import com.increase.api.models.checktransfers.CheckTransferCancelParams
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
+import com.increase.api.models.checktransfers.CheckTransferListPage
 import com.increase.api.models.checktransfers.CheckTransferListParams
-import com.increase.api.models.checktransfers.CheckTransferListResponse
 import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
 import java.util.function.Consumer
@@ -73,21 +73,21 @@ interface CheckTransferService {
         retrieve(checkTransferId, CheckTransferRetrieveParams.none(), requestOptions)
 
     /** List Check Transfers */
-    fun list(): CheckTransferListResponse = list(CheckTransferListParams.none())
+    fun list(): CheckTransferListPage = list(CheckTransferListParams.none())
 
     /** @see list */
     fun list(
         params: CheckTransferListParams = CheckTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CheckTransferListResponse
+    ): CheckTransferListPage
 
     /** @see list */
     fun list(
         params: CheckTransferListParams = CheckTransferListParams.none()
-    ): CheckTransferListResponse = list(params, RequestOptions.none())
+    ): CheckTransferListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CheckTransferListResponse =
+    fun list(requestOptions: RequestOptions): CheckTransferListPage =
         list(CheckTransferListParams.none(), requestOptions)
 
     /** Approve a Check Transfer */
@@ -267,25 +267,24 @@ interface CheckTransferService {
          * [CheckTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CheckTransferListResponse> =
-            list(CheckTransferListParams.none())
+        fun list(): HttpResponseFor<CheckTransferListPage> = list(CheckTransferListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CheckTransferListParams = CheckTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CheckTransferListResponse>
+        ): HttpResponseFor<CheckTransferListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CheckTransferListParams = CheckTransferListParams.none()
-        ): HttpResponseFor<CheckTransferListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CheckTransferListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckTransferListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckTransferListPage> =
             list(CheckTransferListParams.none(), requestOptions)
 
         /**

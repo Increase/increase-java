@@ -10,8 +10,8 @@ import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfe
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPage
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListResponse
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 import java.util.function.Consumer
 
@@ -85,22 +85,21 @@ interface RealTimePaymentsTransferService {
         )
 
     /** List Real-Time Payments Transfers */
-    fun list(): RealTimePaymentsTransferListResponse =
-        list(RealTimePaymentsTransferListParams.none())
+    fun list(): RealTimePaymentsTransferListPage = list(RealTimePaymentsTransferListParams.none())
 
     /** @see list */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RealTimePaymentsTransferListResponse
+    ): RealTimePaymentsTransferListPage
 
     /** @see list */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
-    ): RealTimePaymentsTransferListResponse = list(params, RequestOptions.none())
+    ): RealTimePaymentsTransferListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListResponse =
+    fun list(requestOptions: RequestOptions): RealTimePaymentsTransferListPage =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
     /** Approves a Real-Time Payments Transfer in a pending_approval state. */
@@ -282,7 +281,7 @@ interface RealTimePaymentsTransferService {
          * same as [RealTimePaymentsTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<RealTimePaymentsTransferListResponse> =
+        fun list(): HttpResponseFor<RealTimePaymentsTransferListPage> =
             list(RealTimePaymentsTransferListParams.none())
 
         /** @see list */
@@ -290,20 +289,19 @@ interface RealTimePaymentsTransferService {
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RealTimePaymentsTransferListResponse>
+        ): HttpResponseFor<RealTimePaymentsTransferListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
-        ): HttpResponseFor<RealTimePaymentsTransferListResponse> =
-            list(params, RequestOptions.none())
+        ): HttpResponseFor<RealTimePaymentsTransferListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<RealTimePaymentsTransferListResponse> =
+        ): HttpResponseFor<RealTimePaymentsTransferListPage> =
             list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
         /**

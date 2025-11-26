@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
+import com.increase.api.models.physicalcards.PhysicalCardListPage
 import com.increase.api.models.physicalcards.PhysicalCardListParams
-import com.increase.api.models.physicalcards.PhysicalCardListResponse
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 import java.util.function.Consumer
@@ -93,21 +93,20 @@ interface PhysicalCardService {
     ): PhysicalCard
 
     /** List Physical Cards */
-    fun list(): PhysicalCardListResponse = list(PhysicalCardListParams.none())
+    fun list(): PhysicalCardListPage = list(PhysicalCardListParams.none())
 
     /** @see list */
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): PhysicalCardListResponse
+    ): PhysicalCardListPage
 
     /** @see list */
-    fun list(
-        params: PhysicalCardListParams = PhysicalCardListParams.none()
-    ): PhysicalCardListResponse = list(params, RequestOptions.none())
+    fun list(params: PhysicalCardListParams = PhysicalCardListParams.none()): PhysicalCardListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): PhysicalCardListResponse =
+    fun list(requestOptions: RequestOptions): PhysicalCardListPage =
         list(PhysicalCardListParams.none(), requestOptions)
 
     /**
@@ -219,24 +218,24 @@ interface PhysicalCardService {
          * [PhysicalCardService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<PhysicalCardListResponse> = list(PhysicalCardListParams.none())
+        fun list(): HttpResponseFor<PhysicalCardListPage> = list(PhysicalCardListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<PhysicalCardListResponse>
+        ): HttpResponseFor<PhysicalCardListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none()
-        ): HttpResponseFor<PhysicalCardListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<PhysicalCardListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<PhysicalCardListPage> =
             list(PhysicalCardListParams.none(), requestOptions)
     }
 }

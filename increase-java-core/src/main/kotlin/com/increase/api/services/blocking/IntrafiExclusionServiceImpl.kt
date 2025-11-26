@@ -19,8 +19,9 @@ import com.increase.api.core.prepare
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPageResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,7 +55,7 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: IntrafiExclusionListParams,
         requestOptions: RequestOptions,
-    ): IntrafiExclusionListResponse =
+    ): IntrafiExclusionListPage =
         // get /intrafi_exclusions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -136,13 +137,13 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<IntrafiExclusionListResponse> =
-            jsonHandler<IntrafiExclusionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntrafiExclusionListPageResponse> =
+            jsonHandler<IntrafiExclusionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IntrafiExclusionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<IntrafiExclusionListResponse> {
+        ): HttpResponseFor<IntrafiExclusionListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -159,6 +160,13 @@ class IntrafiExclusionServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        IntrafiExclusionListPage.builder()
+                            .service(IntrafiExclusionServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -19,8 +19,9 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundachtransfers.InboundAchTransfer
 import com.increase.api.models.inboundachtransfers.InboundAchTransferCreateNotificationOfChangeParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferDeclineParams
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageAsync
+import com.increase.api.models.inboundachtransfers.InboundAchTransferListPageResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferListParams
-import com.increase.api.models.inboundachtransfers.InboundAchTransferListResponse
 import com.increase.api.models.inboundachtransfers.InboundAchTransferRetrieveParams
 import com.increase.api.models.inboundachtransfers.InboundAchTransferTransferReturnParams
 import java.util.concurrent.CompletableFuture
@@ -53,7 +54,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
     override fun list(
         params: InboundAchTransferListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundAchTransferListResponse> =
+    ): CompletableFuture<InboundAchTransferListPageAsync> =
         // get /inbound_ach_transfers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -126,13 +127,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
                 }
         }
 
-        private val listHandler: Handler<InboundAchTransferListResponse> =
-            jsonHandler<InboundAchTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundAchTransferListPageResponse> =
+            jsonHandler<InboundAchTransferListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundAchTransferListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundAchTransferListResponse>> {
+        ): CompletableFuture<HttpResponseFor<InboundAchTransferListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -151,6 +152,14 @@ internal constructor(private val clientOptions: ClientOptions) : InboundAchTrans
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                InboundAchTransferListPageAsync.builder()
+                                    .service(InboundAchTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

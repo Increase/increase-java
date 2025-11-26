@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentCreateParams
+import com.increase.api.models.documents.DocumentListPageAsync
+import com.increase.api.models.documents.DocumentListPageResponse
 import com.increase.api.models.documents.DocumentListParams
-import com.increase.api.models.documents.DocumentListResponse
 import com.increase.api.models.documents.DocumentRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -54,7 +55,7 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
     override fun list(
         params: DocumentListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DocumentListResponse> =
+    ): CompletableFuture<DocumentListPageAsync> =
         // get /documents
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -135,13 +136,13 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                 }
         }
 
-        private val listHandler: Handler<DocumentListResponse> =
-            jsonHandler<DocumentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListPageResponse> =
+            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DocumentListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DocumentListResponse>> {
+        ): CompletableFuture<HttpResponseFor<DocumentListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -160,6 +161,14 @@ class DocumentServiceAsyncImpl internal constructor(private val clientOptions: C
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                DocumentListPageAsync.builder()
+                                    .service(DocumentServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

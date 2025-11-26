@@ -18,8 +18,9 @@ import com.increase.api.core.prepare
 import com.increase.api.models.cardtokens.CardToken
 import com.increase.api.models.cardtokens.CardTokenCapabilities
 import com.increase.api.models.cardtokens.CardTokenCapabilitiesParams
+import com.increase.api.models.cardtokens.CardTokenListPage
+import com.increase.api.models.cardtokens.CardTokenListPageResponse
 import com.increase.api.models.cardtokens.CardTokenListParams
-import com.increase.api.models.cardtokens.CardTokenListResponse
 import com.increase.api.models.cardtokens.CardTokenRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -46,7 +47,7 @@ class CardTokenServiceImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: CardTokenListParams,
         requestOptions: RequestOptions,
-    ): CardTokenListResponse =
+    ): CardTokenListPage =
         // get /card_tokens
         withRawResponse().list(params, requestOptions).parse()
 
@@ -100,13 +101,13 @@ class CardTokenServiceImpl internal constructor(private val clientOptions: Clien
             }
         }
 
-        private val listHandler: Handler<CardTokenListResponse> =
-            jsonHandler<CardTokenListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardTokenListPageResponse> =
+            jsonHandler<CardTokenListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardTokenListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardTokenListResponse> {
+        ): HttpResponseFor<CardTokenListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,6 +124,13 @@ class CardTokenServiceImpl internal constructor(private val clientOptions: Clien
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CardTokenListPage.builder()
+                            .service(CardTokenServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

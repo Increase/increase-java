@@ -20,8 +20,9 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfile
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchiveParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPage
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPageResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
-import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -57,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
     override fun list(
         params: PhysicalCardProfileListParams,
         requestOptions: RequestOptions,
-    ): PhysicalCardProfileListResponse =
+    ): PhysicalCardProfileListPage =
         // get /physical_card_profiles
         withRawResponse().list(params, requestOptions).parse()
 
@@ -146,13 +147,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
             }
         }
 
-        private val listHandler: Handler<PhysicalCardProfileListResponse> =
-            jsonHandler<PhysicalCardProfileListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PhysicalCardProfileListPageResponse> =
+            jsonHandler<PhysicalCardProfileListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PhysicalCardProfileListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PhysicalCardProfileListResponse> {
+        ): HttpResponseFor<PhysicalCardProfileListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -169,6 +170,13 @@ internal constructor(private val clientOptions: ClientOptions) : PhysicalCardPro
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        PhysicalCardProfileListPage.builder()
+                            .service(PhysicalCardProfileServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.pendingtransactions.PendingTransaction
 import com.increase.api.models.pendingtransactions.PendingTransactionCreateParams
+import com.increase.api.models.pendingtransactions.PendingTransactionListPageAsync
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
-import com.increase.api.models.pendingtransactions.PendingTransactionListResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionReleaseParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
@@ -83,22 +83,22 @@ interface PendingTransactionServiceAsync {
         retrieve(pendingTransactionId, PendingTransactionRetrieveParams.none(), requestOptions)
 
     /** List Pending Transactions */
-    fun list(): CompletableFuture<PendingTransactionListResponse> =
+    fun list(): CompletableFuture<PendingTransactionListPageAsync> =
         list(PendingTransactionListParams.none())
 
     /** @see list */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PendingTransactionListResponse>
+    ): CompletableFuture<PendingTransactionListPageAsync>
 
     /** @see list */
     fun list(
         params: PendingTransactionListParams = PendingTransactionListParams.none()
-    ): CompletableFuture<PendingTransactionListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PendingTransactionListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PendingTransactionListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PendingTransactionListPageAsync> =
         list(PendingTransactionListParams.none(), requestOptions)
 
     /**
@@ -224,25 +224,25 @@ interface PendingTransactionServiceAsync {
          * Returns a raw HTTP response for `get /pending_transactions`, but is otherwise the same as
          * [PendingTransactionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PendingTransactionListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
             list(PendingTransactionListParams.none())
 
         /** @see list */
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PendingTransactionListResponse>>
+        ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>>
 
         /** @see list */
         fun list(
             params: PendingTransactionListParams = PendingTransactionListParams.none()
-        ): CompletableFuture<HttpResponseFor<PendingTransactionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PendingTransactionListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PendingTransactionListPageAsync>> =
             list(PendingTransactionListParams.none(), requestOptions)
 
         /**

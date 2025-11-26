@@ -42,17 +42,12 @@ internal class SupplementalDocumentServiceAsyncTest {
                 .build()
         val supplementalDocumentServiceAsync = client.supplementalDocuments()
 
-        val supplementalDocumentsFuture =
+        val pageFuture =
             supplementalDocumentServiceAsync.list(
-                SupplementalDocumentListParams.builder()
-                    .entityId("entity_id")
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
+                SupplementalDocumentListParams.builder().entityId("entity_id").build()
             )
 
-        val supplementalDocuments = supplementalDocumentsFuture.get()
-        supplementalDocuments.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

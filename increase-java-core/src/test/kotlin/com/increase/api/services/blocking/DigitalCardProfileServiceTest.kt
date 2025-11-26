@@ -6,7 +6,6 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -70,21 +69,9 @@ internal class DigitalCardProfileServiceTest {
                 .build()
         val digitalCardProfileService = client.digitalCardProfiles()
 
-        val digitalCardProfiles =
-            digitalCardProfileService.list(
-                DigitalCardProfileListParams.builder()
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        DigitalCardProfileListParams.Status.builder()
-                            .addIn(DigitalCardProfileListParams.Status.In.PENDING)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = digitalCardProfileService.list()
 
-        digitalCardProfiles.validate()
+        page.response().validate()
     }
 
     @Test

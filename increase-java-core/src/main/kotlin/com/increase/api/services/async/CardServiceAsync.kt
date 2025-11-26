@@ -11,8 +11,8 @@ import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
 import com.increase.api.models.cards.CardIframeUrl
+import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListParams
-import com.increase.api.models.cards.CardListResponse
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -105,20 +105,20 @@ interface CardServiceAsync {
         update(cardId, CardUpdateParams.none(), requestOptions)
 
     /** List Cards */
-    fun list(): CompletableFuture<CardListResponse> = list(CardListParams.none())
+    fun list(): CompletableFuture<CardListPageAsync> = list(CardListParams.none())
 
     /** @see list */
     fun list(
         params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CardListResponse>
+    ): CompletableFuture<CardListPageAsync>
 
     /** @see list */
-    fun list(params: CardListParams = CardListParams.none()): CompletableFuture<CardListResponse> =
+    fun list(params: CardListParams = CardListParams.none()): CompletableFuture<CardListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CardListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardListPageAsync> =
         list(CardListParams.none(), requestOptions)
 
     /**
@@ -321,25 +321,25 @@ interface CardServiceAsync {
          * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
          * [CardServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CardListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CardListPageAsync>> =
             list(CardListParams.none())
 
         /** @see list */
         fun list(
             params: CardListParams = CardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CardListResponse>>
+        ): CompletableFuture<HttpResponseFor<CardListPageAsync>>
 
         /** @see list */
         fun list(
             params: CardListParams = CardListParams.none()
-        ): CompletableFuture<HttpResponseFor<CardListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CardListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CardListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CardListPageAsync>> =
             list(CardListParams.none(), requestOptions)
 
         /**

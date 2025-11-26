@@ -10,8 +10,8 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPage
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import java.util.function.Consumer
 
@@ -75,21 +75,21 @@ interface DigitalCardProfileService {
         retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
     /** List Card Profiles */
-    fun list(): DigitalCardProfileListResponse = list(DigitalCardProfileListParams.none())
+    fun list(): DigitalCardProfileListPage = list(DigitalCardProfileListParams.none())
 
     /** @see list */
     fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalCardProfileListResponse
+    ): DigitalCardProfileListPage
 
     /** @see list */
     fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
-    ): DigitalCardProfileListResponse = list(params, RequestOptions.none())
+    ): DigitalCardProfileListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DigitalCardProfileListResponse =
+    fun list(requestOptions: RequestOptions): DigitalCardProfileListPage =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
@@ -243,7 +243,7 @@ interface DigitalCardProfileService {
          * as [DigitalCardProfileService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DigitalCardProfileListResponse> =
+        fun list(): HttpResponseFor<DigitalCardProfileListPage> =
             list(DigitalCardProfileListParams.none())
 
         /** @see list */
@@ -251,17 +251,17 @@ interface DigitalCardProfileService {
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalCardProfileListResponse>
+        ): HttpResponseFor<DigitalCardProfileListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
-        ): HttpResponseFor<DigitalCardProfileListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DigitalCardProfileListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalCardProfileListPage> =
             list(DigitalCardProfileListParams.none(), requestOptions)
 
         /**

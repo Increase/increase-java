@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportListParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -127,33 +126,8 @@ internal class ExportServiceTest {
                 .build()
         val exportService = client.exports()
 
-        val exports =
-            exportService.list(
-                ExportListParams.builder()
-                    .category(
-                        ExportListParams.Category.builder()
-                            .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
-                            .build()
-                    )
-                    .createdAt(
-                        ExportListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        ExportListParams.Status.builder()
-                            .addIn(ExportListParams.Status.In.PENDING)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = exportService.list()
 
-        exports.validate()
+        page.response().validate()
     }
 }

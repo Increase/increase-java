@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundwiretransfers.InboundWireTransfer
+import com.increase.api.models.inboundwiretransfers.InboundWireTransferListPage
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferListParams
-import com.increase.api.models.inboundwiretransfers.InboundWireTransferListResponse
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferRetrieveParams
 import com.increase.api.models.inboundwiretransfers.InboundWireTransferReverseParams
 import java.util.function.Consumer
@@ -66,21 +66,21 @@ interface InboundWireTransferService {
         retrieve(inboundWireTransferId, InboundWireTransferRetrieveParams.none(), requestOptions)
 
     /** List Inbound Wire Transfers */
-    fun list(): InboundWireTransferListResponse = list(InboundWireTransferListParams.none())
+    fun list(): InboundWireTransferListPage = list(InboundWireTransferListParams.none())
 
     /** @see list */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundWireTransferListResponse
+    ): InboundWireTransferListPage
 
     /** @see list */
     fun list(
         params: InboundWireTransferListParams = InboundWireTransferListParams.none()
-    ): InboundWireTransferListResponse = list(params, RequestOptions.none())
+    ): InboundWireTransferListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundWireTransferListResponse =
+    fun list(requestOptions: RequestOptions): InboundWireTransferListPage =
         list(InboundWireTransferListParams.none(), requestOptions)
 
     /** Reverse an Inbound Wire Transfer */
@@ -183,7 +183,7 @@ interface InboundWireTransferService {
          * as [InboundWireTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<InboundWireTransferListResponse> =
+        fun list(): HttpResponseFor<InboundWireTransferListPage> =
             list(InboundWireTransferListParams.none())
 
         /** @see list */
@@ -191,17 +191,17 @@ interface InboundWireTransferService {
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundWireTransferListResponse>
+        ): HttpResponseFor<InboundWireTransferListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InboundWireTransferListParams = InboundWireTransferListParams.none()
-        ): HttpResponseFor<InboundWireTransferListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<InboundWireTransferListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundWireTransferListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundWireTransferListPage> =
             list(InboundWireTransferListParams.none(), requestOptions)
 
         /**

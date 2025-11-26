@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.physicalcards.PhysicalCard
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
+import com.increase.api.models.physicalcards.PhysicalCardListPageAsync
 import com.increase.api.models.physicalcards.PhysicalCardListParams
-import com.increase.api.models.physicalcards.PhysicalCardListResponse
 import com.increase.api.models.physicalcards.PhysicalCardRetrieveParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -98,21 +98,21 @@ interface PhysicalCardServiceAsync {
     ): CompletableFuture<PhysicalCard>
 
     /** List Physical Cards */
-    fun list(): CompletableFuture<PhysicalCardListResponse> = list(PhysicalCardListParams.none())
+    fun list(): CompletableFuture<PhysicalCardListPageAsync> = list(PhysicalCardListParams.none())
 
     /** @see list */
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhysicalCardListResponse>
+    ): CompletableFuture<PhysicalCardListPageAsync>
 
     /** @see list */
     fun list(
         params: PhysicalCardListParams = PhysicalCardListParams.none()
-    ): CompletableFuture<PhysicalCardListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PhysicalCardListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardListPageAsync> =
         list(PhysicalCardListParams.none(), requestOptions)
 
     /**
@@ -218,25 +218,25 @@ interface PhysicalCardServiceAsync {
          * Returns a raw HTTP response for `get /physical_cards`, but is otherwise the same as
          * [PhysicalCardServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PhysicalCardListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>> =
             list(PhysicalCardListParams.none())
 
         /** @see list */
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhysicalCardListResponse>>
+        ): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>>
 
         /** @see list */
         fun list(
             params: PhysicalCardListParams = PhysicalCardListParams.none()
-        ): CompletableFuture<HttpResponseFor<PhysicalCardListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PhysicalCardListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhysicalCardListPageAsync>> =
             list(PhysicalCardListParams.none(), requestOptions)
     }
 }

@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.accountstatements.AccountStatement
+import com.increase.api.models.accountstatements.AccountStatementListPageAsync
+import com.increase.api.models.accountstatements.AccountStatementListPageResponse
 import com.increase.api.models.accountstatements.AccountStatementListParams
-import com.increase.api.models.accountstatements.AccountStatementListResponse
 import com.increase.api.models.accountstatements.AccountStatementRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -47,7 +48,7 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
     override fun list(
         params: AccountStatementListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AccountStatementListResponse> =
+    ): CompletableFuture<AccountStatementListPageAsync> =
         // get /account_statements
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -97,13 +98,13 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
                 }
         }
 
-        private val listHandler: Handler<AccountStatementListResponse> =
-            jsonHandler<AccountStatementListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountStatementListPageResponse> =
+            jsonHandler<AccountStatementListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccountStatementListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AccountStatementListResponse>> {
+        ): CompletableFuture<HttpResponseFor<AccountStatementListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -122,6 +123,14 @@ internal constructor(private val clientOptions: ClientOptions) : AccountStatemen
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                AccountStatementListPageAsync.builder()
+                                    .service(AccountStatementServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

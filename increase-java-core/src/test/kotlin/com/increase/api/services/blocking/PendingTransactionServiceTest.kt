@@ -5,8 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.pendingtransactions.PendingTransactionCreateParams
-import com.increase.api.models.pendingtransactions.PendingTransactionListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -58,38 +56,9 @@ internal class PendingTransactionServiceTest {
                 .build()
         val pendingTransactionService = client.pendingTransactions()
 
-        val pendingTransactions =
-            pendingTransactionService.list(
-                PendingTransactionListParams.builder()
-                    .accountId("account_id")
-                    .category(
-                        PendingTransactionListParams.Category.builder()
-                            .addIn(
-                                PendingTransactionListParams.Category.In
-                                    .ACCOUNT_TRANSFER_INSTRUCTION
-                            )
-                            .build()
-                    )
-                    .createdAt(
-                        PendingTransactionListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .limit(1L)
-                    .routeId("route_id")
-                    .status(
-                        PendingTransactionListParams.Status.builder()
-                            .addIn(PendingTransactionListParams.Status.In.PENDING)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = pendingTransactionService.list()
 
-        pendingTransactions.validate()
+        page.response().validate()
     }
 
     @Test
