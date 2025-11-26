@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.accountnumbers.AccountNumber
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
-import com.increase.api.models.accountnumbers.AccountNumberListPage
-import com.increase.api.models.accountnumbers.AccountNumberListPageResponse
 import com.increase.api.models.accountnumbers.AccountNumberListParams
+import com.increase.api.models.accountnumbers.AccountNumberListResponse
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 import java.util.function.Consumer
@@ -62,7 +61,7 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: AccountNumberListParams,
         requestOptions: RequestOptions,
-    ): AccountNumberListPage =
+    ): AccountNumberListResponse =
         // get /account_numbers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -168,13 +167,13 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<AccountNumberListPageResponse> =
-            jsonHandler<AccountNumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountNumberListResponse> =
+            jsonHandler<AccountNumberListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccountNumberListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountNumberListPage> {
+        ): HttpResponseFor<AccountNumberListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -191,13 +190,6 @@ class AccountNumberServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AccountNumberListPage.builder()
-                            .service(AccountNumberServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

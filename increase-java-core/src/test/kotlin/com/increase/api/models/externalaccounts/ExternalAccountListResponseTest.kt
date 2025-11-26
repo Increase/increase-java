@@ -1,0 +1,82 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.increase.api.models.externalaccounts
+
+import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
+import com.increase.api.core.jsonMapper
+import java.time.OffsetDateTime
+import org.assertj.core.api.Assertions.assertThat
+import org.junit.jupiter.api.Test
+
+internal class ExternalAccountListResponseTest {
+
+    @Test
+    fun create() {
+        val externalAccountListResponse =
+            ExternalAccountListResponse.builder()
+                .addData(
+                    ExternalAccount.builder()
+                        .id("external_account_ukk55lr923a3ac0pp7iv")
+                        .accountHolder(ExternalAccount.AccountHolder.BUSINESS)
+                        .accountNumber("987654321")
+                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .description("Landlord")
+                        .funding(ExternalAccount.Funding.CHECKING)
+                        .idempotencyKey(null)
+                        .routingNumber("101050001")
+                        .status(ExternalAccount.Status.ACTIVE)
+                        .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
+                        .build()
+                )
+                .nextCursor("v57w5d")
+                .build()
+
+        assertThat(externalAccountListResponse.data())
+            .containsExactly(
+                ExternalAccount.builder()
+                    .id("external_account_ukk55lr923a3ac0pp7iv")
+                    .accountHolder(ExternalAccount.AccountHolder.BUSINESS)
+                    .accountNumber("987654321")
+                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .description("Landlord")
+                    .funding(ExternalAccount.Funding.CHECKING)
+                    .idempotencyKey(null)
+                    .routingNumber("101050001")
+                    .status(ExternalAccount.Status.ACTIVE)
+                    .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
+                    .build()
+            )
+        assertThat(externalAccountListResponse.nextCursor()).contains("v57w5d")
+    }
+
+    @Test
+    fun roundtrip() {
+        val jsonMapper = jsonMapper()
+        val externalAccountListResponse =
+            ExternalAccountListResponse.builder()
+                .addData(
+                    ExternalAccount.builder()
+                        .id("external_account_ukk55lr923a3ac0pp7iv")
+                        .accountHolder(ExternalAccount.AccountHolder.BUSINESS)
+                        .accountNumber("987654321")
+                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .description("Landlord")
+                        .funding(ExternalAccount.Funding.CHECKING)
+                        .idempotencyKey(null)
+                        .routingNumber("101050001")
+                        .status(ExternalAccount.Status.ACTIVE)
+                        .type(ExternalAccount.Type.EXTERNAL_ACCOUNT)
+                        .build()
+                )
+                .nextCursor("v57w5d")
+                .build()
+
+        val roundtrippedExternalAccountListResponse =
+            jsonMapper.readValue(
+                jsonMapper.writeValueAsString(externalAccountListResponse),
+                jacksonTypeRef<ExternalAccountListResponse>(),
+            )
+
+        assertThat(roundtrippedExternalAccountListResponse).isEqualTo(externalAccountListResponse)
+    }
+}

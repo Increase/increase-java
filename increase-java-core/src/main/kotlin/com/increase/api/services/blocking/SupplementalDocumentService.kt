@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
-import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPage
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListResponse
 import java.util.function.Consumer
 
 interface SupplementalDocumentService {
@@ -37,14 +37,14 @@ interface SupplementalDocumentService {
     ): EntitySupplementalDocument
 
     /** List Entity Supplemental Document Submissions */
-    fun list(params: SupplementalDocumentListParams): SupplementalDocumentListPage =
+    fun list(params: SupplementalDocumentListParams): SupplementalDocumentListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): SupplementalDocumentListPage
+    ): SupplementalDocumentListResponse
 
     /**
      * A view of [SupplementalDocumentService] that provides access to raw HTTP responses for each
@@ -84,13 +84,13 @@ interface SupplementalDocumentService {
         @MustBeClosed
         fun list(
             params: SupplementalDocumentListParams
-        ): HttpResponseFor<SupplementalDocumentListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<SupplementalDocumentListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: SupplementalDocumentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<SupplementalDocumentListPage>
+        ): HttpResponseFor<SupplementalDocumentListResponse>
     }
 }

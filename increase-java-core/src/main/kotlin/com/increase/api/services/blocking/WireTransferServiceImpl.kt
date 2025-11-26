@@ -20,9 +20,8 @@ import com.increase.api.models.wiretransfers.WireTransfer
 import com.increase.api.models.wiretransfers.WireTransferApproveParams
 import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferListPage
-import com.increase.api.models.wiretransfers.WireTransferListPageResponse
 import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferListResponse
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -56,7 +55,7 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: WireTransferListParams,
         requestOptions: RequestOptions,
-    ): WireTransferListPage =
+    ): WireTransferListResponse =
         // get /wire_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -145,13 +144,13 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
             }
         }
 
-        private val listHandler: Handler<WireTransferListPageResponse> =
-            jsonHandler<WireTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireTransferListResponse> =
+            jsonHandler<WireTransferListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WireTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<WireTransferListPage> {
+        ): HttpResponseFor<WireTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -168,13 +167,6 @@ class WireTransferServiceImpl internal constructor(private val clientOptions: Cl
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        WireTransferListPage.builder()
-                            .service(WireTransferServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

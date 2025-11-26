@@ -9,8 +9,8 @@ import com.increase.api.models.achtransfers.AchTransfer
 import com.increase.api.models.achtransfers.AchTransferApproveParams
 import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
-import com.increase.api.models.achtransfers.AchTransferListPageAsync
 import com.increase.api.models.achtransfers.AchTransferListParams
+import com.increase.api.models.achtransfers.AchTransferListResponse
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -75,21 +75,21 @@ interface AchTransferServiceAsync {
         retrieve(achTransferId, AchTransferRetrieveParams.none(), requestOptions)
 
     /** List ACH Transfers */
-    fun list(): CompletableFuture<AchTransferListPageAsync> = list(AchTransferListParams.none())
+    fun list(): CompletableFuture<AchTransferListResponse> = list(AchTransferListParams.none())
 
     /** @see list */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchTransferListPageAsync>
+    ): CompletableFuture<AchTransferListResponse>
 
     /** @see list */
     fun list(
         params: AchTransferListParams = AchTransferListParams.none()
-    ): CompletableFuture<AchTransferListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AchTransferListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AchTransferListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AchTransferListResponse> =
         list(AchTransferListParams.none(), requestOptions)
 
     /** Approves an ACH Transfer in a pending_approval state. */
@@ -235,25 +235,25 @@ interface AchTransferServiceAsync {
          * Returns a raw HTTP response for `get /ach_transfers`, but is otherwise the same as
          * [AchTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AchTransferListResponse>> =
             list(AchTransferListParams.none())
 
         /** @see list */
         fun list(
             params: AchTransferListParams = AchTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AchTransferListResponse>>
 
         /** @see list */
         fun list(
             params: AchTransferListParams = AchTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AchTransferListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AchTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AchTransferListResponse>> =
             list(AchTransferListParams.none(), requestOptions)
 
         /**

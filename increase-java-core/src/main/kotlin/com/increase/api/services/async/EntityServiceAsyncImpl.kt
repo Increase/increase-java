@@ -22,9 +22,8 @@ import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityListPageAsync
-import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
+import com.increase.api.models.entities.EntityListResponse
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
@@ -70,7 +69,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: EntityListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<EntityListPageAsync> =
+    ): CompletableFuture<EntityListResponse> =
         // get /entities
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -233,13 +232,13 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val listHandler: Handler<EntityListPageResponse> =
-            jsonHandler<EntityListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<EntityListResponse> =
+            jsonHandler<EntityListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: EntityListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<EntityListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -258,14 +257,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                EntityListPageAsync.builder()
-                                    .service(EntityServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

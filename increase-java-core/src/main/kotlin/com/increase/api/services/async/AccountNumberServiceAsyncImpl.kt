@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.accountnumbers.AccountNumber
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
-import com.increase.api.models.accountnumbers.AccountNumberListPageAsync
-import com.increase.api.models.accountnumbers.AccountNumberListPageResponse
 import com.increase.api.models.accountnumbers.AccountNumberListParams
+import com.increase.api.models.accountnumbers.AccountNumberListResponse
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -63,7 +62,7 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
     override fun list(
         params: AccountNumberListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<AccountNumberListPageAsync> =
+    ): CompletableFuture<AccountNumberListResponse> =
         // get /account_numbers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -178,13 +177,13 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
                 }
         }
 
-        private val listHandler: Handler<AccountNumberListPageResponse> =
-            jsonHandler<AccountNumberListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountNumberListResponse> =
+            jsonHandler<AccountNumberListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccountNumberListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<AccountNumberListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<AccountNumberListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -203,14 +202,6 @@ class AccountNumberServiceAsyncImpl internal constructor(private val clientOptio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                AccountNumberListPageAsync.builder()
-                                    .service(AccountNumberServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

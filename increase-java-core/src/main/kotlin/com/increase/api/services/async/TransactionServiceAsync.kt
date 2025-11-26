@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.transactions.Transaction
-import com.increase.api.models.transactions.TransactionListPageAsync
 import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionListResponse
 import com.increase.api.models.transactions.TransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -62,21 +62,21 @@ interface TransactionServiceAsync {
         retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
     /** List Transactions */
-    fun list(): CompletableFuture<TransactionListPageAsync> = list(TransactionListParams.none())
+    fun list(): CompletableFuture<TransactionListResponse> = list(TransactionListParams.none())
 
     /** @see list */
     fun list(
         params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<TransactionListPageAsync>
+    ): CompletableFuture<TransactionListResponse>
 
     /** @see list */
     fun list(
         params: TransactionListParams = TransactionListParams.none()
-    ): CompletableFuture<TransactionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<TransactionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<TransactionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<TransactionListResponse> =
         list(TransactionListParams.none(), requestOptions)
 
     /**
@@ -138,25 +138,25 @@ interface TransactionServiceAsync {
          * Returns a raw HTTP response for `get /transactions`, but is otherwise the same as
          * [TransactionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<TransactionListResponse>> =
             list(TransactionListParams.none())
 
         /** @see list */
         fun list(
             params: TransactionListParams = TransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<TransactionListResponse>>
 
         /** @see list */
         fun list(
             params: TransactionListParams = TransactionListParams.none()
-        ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TransactionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<TransactionListResponse>> =
             list(TransactionListParams.none(), requestOptions)
     }
 }

@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.transactions.Transaction
-import com.increase.api.models.transactions.TransactionListPage
 import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionListResponse
 import com.increase.api.models.transactions.TransactionRetrieveParams
 import java.util.function.Consumer
 
@@ -59,20 +59,21 @@ interface TransactionService {
         retrieve(transactionId, TransactionRetrieveParams.none(), requestOptions)
 
     /** List Transactions */
-    fun list(): TransactionListPage = list(TransactionListParams.none())
+    fun list(): TransactionListResponse = list(TransactionListParams.none())
 
     /** @see list */
     fun list(
         params: TransactionListParams = TransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): TransactionListPage
+    ): TransactionListResponse
 
     /** @see list */
-    fun list(params: TransactionListParams = TransactionListParams.none()): TransactionListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: TransactionListParams = TransactionListParams.none()
+    ): TransactionListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): TransactionListPage =
+    fun list(requestOptions: RequestOptions): TransactionListResponse =
         list(TransactionListParams.none(), requestOptions)
 
     /**
@@ -138,24 +139,24 @@ interface TransactionService {
          * [TransactionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<TransactionListPage> = list(TransactionListParams.none())
+        fun list(): HttpResponseFor<TransactionListResponse> = list(TransactionListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TransactionListParams = TransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<TransactionListPage>
+        ): HttpResponseFor<TransactionListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: TransactionListParams = TransactionListParams.none()
-        ): HttpResponseFor<TransactionListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<TransactionListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<TransactionListResponse> =
             list(TransactionListParams.none(), requestOptions)
     }
 }

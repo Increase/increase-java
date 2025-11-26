@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.transactions.Transaction
-import com.increase.api.models.transactions.TransactionListPage
-import com.increase.api.models.transactions.TransactionListPageResponse
 import com.increase.api.models.transactions.TransactionListParams
+import com.increase.api.models.transactions.TransactionListResponse
 import com.increase.api.models.transactions.TransactionRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,7 +44,7 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: TransactionListParams,
         requestOptions: RequestOptions,
-    ): TransactionListPage =
+    ): TransactionListResponse =
         // get /transactions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<TransactionListPageResponse> =
-            jsonHandler<TransactionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TransactionListResponse> =
+            jsonHandler<TransactionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TransactionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<TransactionListPage> {
+        ): HttpResponseFor<TransactionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class TransactionServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        TransactionListPage.builder()
-                            .service(TransactionServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

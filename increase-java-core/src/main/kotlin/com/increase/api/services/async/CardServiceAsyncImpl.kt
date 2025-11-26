@@ -22,9 +22,8 @@ import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
 import com.increase.api.models.cards.CardIframeUrl
-import com.increase.api.models.cards.CardListPageAsync
-import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardListResponse
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -68,7 +67,7 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
     override fun list(
         params: CardListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CardListPageAsync> =
+    ): CompletableFuture<CardListResponse> =
         // get /cards
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -201,13 +200,13 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                 }
         }
 
-        private val listHandler: Handler<CardListPageResponse> =
-            jsonHandler<CardListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardListResponse> =
+            jsonHandler<CardListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CardListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -226,14 +225,6 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CardListPageAsync.builder()
-                                    .service(CardServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

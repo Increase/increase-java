@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.programs.Program
-import com.increase.api.models.programs.ProgramListPageAsync
-import com.increase.api.models.programs.ProgramListPageResponse
 import com.increase.api.models.programs.ProgramListParams
+import com.increase.api.models.programs.ProgramListResponse
 import com.increase.api.models.programs.ProgramRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -46,7 +45,7 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
     override fun list(
         params: ProgramListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ProgramListPageAsync> =
+    ): CompletableFuture<ProgramListResponse> =
         // get /programs
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -96,13 +95,13 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
                 }
         }
 
-        private val listHandler: Handler<ProgramListPageResponse> =
-            jsonHandler<ProgramListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ProgramListResponse> =
+            jsonHandler<ProgramListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ProgramListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ProgramListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ProgramListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -121,14 +120,6 @@ class ProgramServiceAsyncImpl internal constructor(private val clientOptions: Cl
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ProgramListPageAsync.builder()
-                                    .service(ProgramServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

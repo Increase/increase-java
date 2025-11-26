@@ -10,8 +10,8 @@ import com.increase.api.models.wiretransfers.WireTransfer
 import com.increase.api.models.wiretransfers.WireTransferApproveParams
 import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferListPage
 import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferListResponse
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 import java.util.function.Consumer
 
@@ -72,20 +72,21 @@ interface WireTransferService {
         retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
     /** List Wire Transfers */
-    fun list(): WireTransferListPage = list(WireTransferListParams.none())
+    fun list(): WireTransferListResponse = list(WireTransferListParams.none())
 
     /** @see list */
     fun list(
         params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): WireTransferListPage
+    ): WireTransferListResponse
 
     /** @see list */
-    fun list(params: WireTransferListParams = WireTransferListParams.none()): WireTransferListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: WireTransferListParams = WireTransferListParams.none()
+    ): WireTransferListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): WireTransferListPage =
+    fun list(requestOptions: RequestOptions): WireTransferListResponse =
         list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
@@ -230,24 +231,24 @@ interface WireTransferService {
          * [WireTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<WireTransferListPage> = list(WireTransferListParams.none())
+        fun list(): HttpResponseFor<WireTransferListResponse> = list(WireTransferListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WireTransferListParams = WireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<WireTransferListPage>
+        ): HttpResponseFor<WireTransferListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: WireTransferListParams = WireTransferListParams.none()
-        ): HttpResponseFor<WireTransferListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<WireTransferListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<WireTransferListResponse> =
             list(WireTransferListParams.none(), requestOptions)
 
         /**

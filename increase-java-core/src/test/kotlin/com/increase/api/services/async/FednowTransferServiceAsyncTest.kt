@@ -5,6 +5,8 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.fednowtransfers.FednowTransferCreateParams
+import com.increase.api.models.fednowtransfers.FednowTransferListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -81,10 +83,32 @@ internal class FednowTransferServiceAsyncTest {
                 .build()
         val fednowTransferServiceAsync = client.fednowTransfers()
 
-        val pageFuture = fednowTransferServiceAsync.list()
+        val fednowTransfersFuture =
+            fednowTransferServiceAsync.list(
+                FednowTransferListParams.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        FednowTransferListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .externalAccountId("external_account_id")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        FednowTransferListParams.Status.builder()
+                            .addIn(FednowTransferListParams.Status.In.PENDING_REVIEWING)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val fednowTransfers = fednowTransfersFuture.get()
+        fednowTransfers.validate()
     }
 
     @Test

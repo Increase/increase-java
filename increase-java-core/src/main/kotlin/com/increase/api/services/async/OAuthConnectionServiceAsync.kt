@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthconnections.OAuthConnection
-import com.increase.api.models.oauthconnections.OAuthConnectionListPageAsync
 import com.increase.api.models.oauthconnections.OAuthConnectionListParams
+import com.increase.api.models.oauthconnections.OAuthConnectionListResponse
 import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -63,22 +63,22 @@ interface OAuthConnectionServiceAsync {
         retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
     /** List OAuth Connections */
-    fun list(): CompletableFuture<OAuthConnectionListPageAsync> =
+    fun list(): CompletableFuture<OAuthConnectionListResponse> =
         list(OAuthConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<OAuthConnectionListPageAsync>
+    ): CompletableFuture<OAuthConnectionListResponse>
 
     /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none()
-    ): CompletableFuture<OAuthConnectionListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<OAuthConnectionListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthConnectionListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<OAuthConnectionListResponse> =
         list(OAuthConnectionListParams.none(), requestOptions)
 
     /**
@@ -146,25 +146,25 @@ interface OAuthConnectionServiceAsync {
          * Returns a raw HTTP response for `get /oauth_connections`, but is otherwise the same as
          * [OAuthConnectionServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<OAuthConnectionListResponse>> =
             list(OAuthConnectionListParams.none())
 
         /** @see list */
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<OAuthConnectionListResponse>>
 
         /** @see list */
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none()
-        ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OAuthConnectionListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<OAuthConnectionListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<OAuthConnectionListResponse>> =
             list(OAuthConnectionListParams.none(), requestOptions)
     }
 }

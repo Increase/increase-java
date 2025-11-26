@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
-import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageAsync
-import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -53,7 +52,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: InboundRealTimePaymentsTransferListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
+    ): CompletableFuture<InboundRealTimePaymentsTransferListResponse> =
         // get /inbound_real_time_payments_transfers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -106,13 +105,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<InboundRealTimePaymentsTransferListPageResponse> =
-            jsonHandler<InboundRealTimePaymentsTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundRealTimePaymentsTransferListResponse> =
+            jsonHandler<InboundRealTimePaymentsTransferListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundRealTimePaymentsTransferListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -131,18 +130,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                InboundRealTimePaymentsTransferListPageAsync.builder()
-                                    .service(
-                                        InboundRealTimePaymentsTransferServiceAsyncImpl(
-                                            clientOptions
-                                        )
-                                    )
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

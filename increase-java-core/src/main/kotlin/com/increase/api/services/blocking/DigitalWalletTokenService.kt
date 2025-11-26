@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.function.Consumer
 
@@ -62,21 +62,21 @@ interface DigitalWalletTokenService {
         retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
     /** List Digital Wallet Tokens */
-    fun list(): DigitalWalletTokenListPage = list(DigitalWalletTokenListParams.none())
+    fun list(): DigitalWalletTokenListResponse = list(DigitalWalletTokenListParams.none())
 
     /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DigitalWalletTokenListPage
+    ): DigitalWalletTokenListResponse
 
     /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
-    ): DigitalWalletTokenListPage = list(params, RequestOptions.none())
+    ): DigitalWalletTokenListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
+    fun list(requestOptions: RequestOptions): DigitalWalletTokenListResponse =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
     /**
@@ -148,7 +148,7 @@ interface DigitalWalletTokenService {
          * as [DigitalWalletTokenService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DigitalWalletTokenListPage> =
+        fun list(): HttpResponseFor<DigitalWalletTokenListResponse> =
             list(DigitalWalletTokenListParams.none())
 
         /** @see list */
@@ -156,17 +156,17 @@ interface DigitalWalletTokenService {
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DigitalWalletTokenListPage>
+        ): HttpResponseFor<DigitalWalletTokenListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
-        ): HttpResponseFor<DigitalWalletTokenListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DigitalWalletTokenListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListResponse> =
             list(DigitalWalletTokenListParams.none(), requestOptions)
     }
 }

@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
-import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageAsync
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -78,22 +78,22 @@ interface WireDrawdownRequestServiceAsync {
         retrieve(wireDrawdownRequestId, WireDrawdownRequestRetrieveParams.none(), requestOptions)
 
     /** List Wire Drawdown Requests */
-    fun list(): CompletableFuture<WireDrawdownRequestListPageAsync> =
+    fun list(): CompletableFuture<WireDrawdownRequestListResponse> =
         list(WireDrawdownRequestListParams.none())
 
     /** @see list */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WireDrawdownRequestListPageAsync>
+    ): CompletableFuture<WireDrawdownRequestListResponse>
 
     /** @see list */
     fun list(
         params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
-    ): CompletableFuture<WireDrawdownRequestListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<WireDrawdownRequestListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<WireDrawdownRequestListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<WireDrawdownRequestListResponse> =
         list(WireDrawdownRequestListParams.none(), requestOptions)
 
     /**
@@ -180,25 +180,25 @@ interface WireDrawdownRequestServiceAsync {
          * Returns a raw HTTP response for `get /wire_drawdown_requests`, but is otherwise the same
          * as [WireDrawdownRequestServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<WireDrawdownRequestListResponse>> =
             list(WireDrawdownRequestListParams.none())
 
         /** @see list */
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListResponse>>
 
         /** @see list */
         fun list(
             params: WireDrawdownRequestListParams = WireDrawdownRequestListParams.none()
-        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListResponse>> =
             list(WireDrawdownRequestListParams.none(), requestOptions)
     }
 }

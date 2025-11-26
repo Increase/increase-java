@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPage
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -47,7 +46,7 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
     override fun list(
         params: CardPurchaseSupplementListParams,
         requestOptions: RequestOptions,
-    ): CardPurchaseSupplementListPage =
+    ): CardPurchaseSupplementListResponse =
         // get /card_purchase_supplements
         withRawResponse().list(params, requestOptions).parse()
 
@@ -94,13 +93,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
             }
         }
 
-        private val listHandler: Handler<CardPurchaseSupplementListPageResponse> =
-            jsonHandler<CardPurchaseSupplementListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPurchaseSupplementListResponse> =
+            jsonHandler<CardPurchaseSupplementListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardPurchaseSupplementListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPurchaseSupplementListPage> {
+        ): HttpResponseFor<CardPurchaseSupplementListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -117,13 +116,6 @@ internal constructor(private val clientOptions: ClientOptions) : CardPurchaseSup
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardPurchaseSupplementListPage.builder()
-                            .service(CardPurchaseSupplementServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

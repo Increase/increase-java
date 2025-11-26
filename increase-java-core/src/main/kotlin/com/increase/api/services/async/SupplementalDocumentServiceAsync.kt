@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
-import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageAsync
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -40,13 +40,13 @@ interface SupplementalDocumentServiceAsync {
     /** List Entity Supplemental Document Submissions */
     fun list(
         params: SupplementalDocumentListParams
-    ): CompletableFuture<SupplementalDocumentListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<SupplementalDocumentListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<SupplementalDocumentListPageAsync>
+    ): CompletableFuture<SupplementalDocumentListResponse>
 
     /**
      * A view of [SupplementalDocumentServiceAsync] that provides access to raw HTTP responses for
@@ -84,13 +84,13 @@ interface SupplementalDocumentServiceAsync {
          */
         fun list(
             params: SupplementalDocumentListParams
-        ): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<SupplementalDocumentListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: SupplementalDocumentListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<SupplementalDocumentListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<SupplementalDocumentListResponse>>
     }
 }

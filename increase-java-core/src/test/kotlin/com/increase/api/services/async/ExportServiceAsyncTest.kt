@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.exports.ExportCreateParams
+import com.increase.api.models.exports.ExportListParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
@@ -128,9 +129,34 @@ internal class ExportServiceAsyncTest {
                 .build()
         val exportServiceAsync = client.exports()
 
-        val pageFuture = exportServiceAsync.list()
+        val exportsFuture =
+            exportServiceAsync.list(
+                ExportListParams.builder()
+                    .category(
+                        ExportListParams.Category.builder()
+                            .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
+                            .build()
+                    )
+                    .createdAt(
+                        ExportListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        ExportListParams.Status.builder()
+                            .addIn(ExportListParams.Status.In.PENDING)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val exports = exportsFuture.get()
+        exports.validate()
     }
 }

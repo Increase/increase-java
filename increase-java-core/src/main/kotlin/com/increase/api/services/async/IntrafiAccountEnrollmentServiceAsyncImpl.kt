@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageAsync
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import java.util.concurrent.CompletableFuture
@@ -62,7 +61,7 @@ internal constructor(private val clientOptions: ClientOptions) :
     override fun list(
         params: IntrafiAccountEnrollmentListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
+    ): CompletableFuture<IntrafiAccountEnrollmentListResponse> =
         // get /intrafi_account_enrollments
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -153,13 +152,13 @@ internal constructor(private val clientOptions: ClientOptions) :
                 }
         }
 
-        private val listHandler: Handler<IntrafiAccountEnrollmentListPageResponse> =
-            jsonHandler<IntrafiAccountEnrollmentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<IntrafiAccountEnrollmentListResponse> =
+            jsonHandler<IntrafiAccountEnrollmentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: IntrafiAccountEnrollmentListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -178,16 +177,6 @@ internal constructor(private val clientOptions: ClientOptions) :
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                IntrafiAccountEnrollmentListPageAsync.builder()
-                                    .service(
-                                        IntrafiAccountEnrollmentServiceAsyncImpl(clientOptions)
-                                    )
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

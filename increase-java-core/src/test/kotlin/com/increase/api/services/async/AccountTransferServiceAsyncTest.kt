@@ -5,6 +5,8 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
+import com.increase.api.models.accounttransfers.AccountTransferListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -60,10 +62,26 @@ internal class AccountTransferServiceAsyncTest {
                 .build()
         val accountTransferServiceAsync = client.accountTransfers()
 
-        val pageFuture = accountTransferServiceAsync.list()
+        val accountTransfersFuture =
+            accountTransferServiceAsync.list(
+                AccountTransferListParams.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        AccountTransferListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val accountTransfers = accountTransfersFuture.get()
+        accountTransfers.validate()
     }
 
     @Test

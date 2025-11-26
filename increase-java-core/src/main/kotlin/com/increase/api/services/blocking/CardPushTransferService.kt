@@ -10,8 +10,8 @@ import com.increase.api.models.cardpushtransfers.CardPushTransfer
 import com.increase.api.models.cardpushtransfers.CardPushTransferApproveParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCancelParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListPage
 import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
+import com.increase.api.models.cardpushtransfers.CardPushTransferListResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferRetrieveParams
 import java.util.function.Consumer
 
@@ -72,21 +72,21 @@ interface CardPushTransferService {
         retrieve(cardPushTransferId, CardPushTransferRetrieveParams.none(), requestOptions)
 
     /** List Card Push Transfers */
-    fun list(): CardPushTransferListPage = list(CardPushTransferListParams.none())
+    fun list(): CardPushTransferListResponse = list(CardPushTransferListParams.none())
 
     /** @see list */
     fun list(
         params: CardPushTransferListParams = CardPushTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPushTransferListPage
+    ): CardPushTransferListResponse
 
     /** @see list */
     fun list(
         params: CardPushTransferListParams = CardPushTransferListParams.none()
-    ): CardPushTransferListPage = list(params, RequestOptions.none())
+    ): CardPushTransferListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardPushTransferListPage =
+    fun list(requestOptions: RequestOptions): CardPushTransferListResponse =
         list(CardPushTransferListParams.none(), requestOptions)
 
     /** Approves a Card Push Transfer in a pending_approval state. */
@@ -236,7 +236,7 @@ interface CardPushTransferService {
          * [CardPushTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CardPushTransferListPage> =
+        fun list(): HttpResponseFor<CardPushTransferListResponse> =
             list(CardPushTransferListParams.none())
 
         /** @see list */
@@ -244,17 +244,17 @@ interface CardPushTransferService {
         fun list(
             params: CardPushTransferListParams = CardPushTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPushTransferListPage>
+        ): HttpResponseFor<CardPushTransferListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardPushTransferListParams = CardPushTransferListParams.none()
-        ): HttpResponseFor<CardPushTransferListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CardPushTransferListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPushTransferListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPushTransferListResponse> =
             list(CardPushTransferListParams.none(), requestOptions)
 
         /**

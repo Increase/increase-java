@@ -22,9 +22,8 @@ import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
 import com.increase.api.models.cards.CardIframeUrl
-import com.increase.api.models.cards.CardListPage
-import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardListResponse
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -54,7 +53,7 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
         // patch /cards/{card_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: CardListParams, requestOptions: RequestOptions): CardListPage =
+    override fun list(params: CardListParams, requestOptions: RequestOptions): CardListResponse =
         // get /cards
         withRawResponse().list(params, requestOptions).parse()
 
@@ -175,13 +174,13 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             }
         }
 
-        private val listHandler: Handler<CardListPageResponse> =
-            jsonHandler<CardListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardListResponse> =
+            jsonHandler<CardListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardListPage> {
+        ): HttpResponseFor<CardListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -198,13 +197,6 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardListPage.builder()
-                            .service(CardServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

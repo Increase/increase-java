@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.pendingtransactions.PendingTransaction
 import com.increase.api.models.pendingtransactions.PendingTransactionCreateParams
-import com.increase.api.models.pendingtransactions.PendingTransactionListPage
-import com.increase.api.models.pendingtransactions.PendingTransactionListPageResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionListParams
+import com.increase.api.models.pendingtransactions.PendingTransactionListResponse
 import com.increase.api.models.pendingtransactions.PendingTransactionReleaseParams
 import com.increase.api.models.pendingtransactions.PendingTransactionRetrieveParams
 import java.util.function.Consumer
@@ -55,7 +54,7 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: PendingTransactionListParams,
         requestOptions: RequestOptions,
-    ): PendingTransactionListPage =
+    ): PendingTransactionListResponse =
         // get /pending_transactions
         withRawResponse().list(params, requestOptions).parse()
 
@@ -137,13 +136,13 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<PendingTransactionListPageResponse> =
-            jsonHandler<PendingTransactionListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<PendingTransactionListResponse> =
+            jsonHandler<PendingTransactionListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: PendingTransactionListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<PendingTransactionListPage> {
+        ): HttpResponseFor<PendingTransactionListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -160,13 +159,6 @@ class PendingTransactionServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        PendingTransactionListPage.builder()
-                            .service(PendingTransactionServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

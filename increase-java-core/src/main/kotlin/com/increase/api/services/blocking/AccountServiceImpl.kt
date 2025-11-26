@@ -20,9 +20,8 @@ import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
-import com.increase.api.models.accounts.AccountListPage
-import com.increase.api.models.accounts.AccountListPageResponse
 import com.increase.api.models.accounts.AccountListParams
+import com.increase.api.models.accounts.AccountListResponse
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
@@ -53,7 +52,10 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
         // patch /accounts/{account_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: AccountListParams, requestOptions: RequestOptions): AccountListPage =
+    override fun list(
+        params: AccountListParams,
+        requestOptions: RequestOptions,
+    ): AccountListResponse =
         // get /accounts
         withRawResponse().list(params, requestOptions).parse()
 
@@ -168,13 +170,13 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<AccountListPageResponse> =
-            jsonHandler<AccountListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AccountListResponse> =
+            jsonHandler<AccountListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AccountListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AccountListPage> {
+        ): HttpResponseFor<AccountListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -191,13 +193,6 @@ class AccountServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AccountListPage.builder()
-                            .service(AccountServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

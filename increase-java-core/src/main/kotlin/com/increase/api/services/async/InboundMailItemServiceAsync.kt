@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemListResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -64,22 +64,22 @@ interface InboundMailItemServiceAsync {
         retrieve(inboundMailItemId, InboundMailItemRetrieveParams.none(), requestOptions)
 
     /** List Inbound Mail Items */
-    fun list(): CompletableFuture<InboundMailItemListPageAsync> =
+    fun list(): CompletableFuture<InboundMailItemListResponse> =
         list(InboundMailItemListParams.none())
 
     /** @see list */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<InboundMailItemListPageAsync>
+    ): CompletableFuture<InboundMailItemListResponse>
 
     /** @see list */
     fun list(
         params: InboundMailItemListParams = InboundMailItemListParams.none()
-    ): CompletableFuture<InboundMailItemListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<InboundMailItemListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListResponse> =
         list(InboundMailItemListParams.none(), requestOptions)
 
     /** Action a Inbound Mail Item */
@@ -171,25 +171,25 @@ interface InboundMailItemServiceAsync {
          * Returns a raw HTTP response for `get /inbound_mail_items`, but is otherwise the same as
          * [InboundMailItemServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<InboundMailItemListResponse>> =
             list(InboundMailItemListParams.none())
 
         /** @see list */
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<InboundMailItemListResponse>>
 
         /** @see list */
         fun list(
             params: InboundMailItemListParams = InboundMailItemListParams.none()
-        ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InboundMailItemListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<InboundMailItemListResponse>> =
             list(InboundMailItemListParams.none(), requestOptions)
 
         /**

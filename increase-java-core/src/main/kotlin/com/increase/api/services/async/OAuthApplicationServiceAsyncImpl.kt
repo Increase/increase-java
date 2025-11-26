@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.oauthapplications.OAuthApplication
-import com.increase.api.models.oauthapplications.OAuthApplicationListPageAsync
-import com.increase.api.models.oauthapplications.OAuthApplicationListPageResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
+import com.increase.api.models.oauthapplications.OAuthApplicationListResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -48,7 +47,7 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
     override fun list(
         params: OAuthApplicationListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<OAuthApplicationListPageAsync> =
+    ): CompletableFuture<OAuthApplicationListResponse> =
         // get /oauth_applications
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -98,13 +97,13 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
                 }
         }
 
-        private val listHandler: Handler<OAuthApplicationListPageResponse> =
-            jsonHandler<OAuthApplicationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthApplicationListResponse> =
+            jsonHandler<OAuthApplicationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OAuthApplicationListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<OAuthApplicationListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<OAuthApplicationListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -123,14 +122,6 @@ internal constructor(private val clientOptions: ClientOptions) : OAuthApplicatio
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                OAuthApplicationListPageAsync.builder()
-                                    .service(OAuthApplicationServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.oauthapplications.OAuthApplication
-import com.increase.api.models.oauthapplications.OAuthApplicationListPage
-import com.increase.api.models.oauthapplications.OAuthApplicationListPageResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
+import com.increase.api.models.oauthapplications.OAuthApplicationListResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,7 +44,7 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: OAuthApplicationListParams,
         requestOptions: RequestOptions,
-    ): OAuthApplicationListPage =
+    ): OAuthApplicationListResponse =
         // get /oauth_applications
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<OAuthApplicationListPageResponse> =
-            jsonHandler<OAuthApplicationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<OAuthApplicationListResponse> =
+            jsonHandler<OAuthApplicationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: OAuthApplicationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<OAuthApplicationListPage> {
+        ): HttpResponseFor<OAuthApplicationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class OAuthApplicationServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        OAuthApplicationListPage.builder()
-                            .service(OAuthApplicationServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

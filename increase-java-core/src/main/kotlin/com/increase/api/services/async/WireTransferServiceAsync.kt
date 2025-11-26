@@ -9,8 +9,8 @@ import com.increase.api.models.wiretransfers.WireTransfer
 import com.increase.api.models.wiretransfers.WireTransferApproveParams
 import com.increase.api.models.wiretransfers.WireTransferCancelParams
 import com.increase.api.models.wiretransfers.WireTransferCreateParams
-import com.increase.api.models.wiretransfers.WireTransferListPageAsync
 import com.increase.api.models.wiretransfers.WireTransferListParams
+import com.increase.api.models.wiretransfers.WireTransferListResponse
 import com.increase.api.models.wiretransfers.WireTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -75,21 +75,21 @@ interface WireTransferServiceAsync {
         retrieve(wireTransferId, WireTransferRetrieveParams.none(), requestOptions)
 
     /** List Wire Transfers */
-    fun list(): CompletableFuture<WireTransferListPageAsync> = list(WireTransferListParams.none())
+    fun list(): CompletableFuture<WireTransferListResponse> = list(WireTransferListParams.none())
 
     /** @see list */
     fun list(
         params: WireTransferListParams = WireTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<WireTransferListPageAsync>
+    ): CompletableFuture<WireTransferListResponse>
 
     /** @see list */
     fun list(
         params: WireTransferListParams = WireTransferListParams.none()
-    ): CompletableFuture<WireTransferListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<WireTransferListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<WireTransferListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<WireTransferListResponse> =
         list(WireTransferListParams.none(), requestOptions)
 
     /** Approve a Wire Transfer */
@@ -236,25 +236,25 @@ interface WireTransferServiceAsync {
          * Returns a raw HTTP response for `get /wire_transfers`, but is otherwise the same as
          * [WireTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<WireTransferListResponse>> =
             list(WireTransferListParams.none())
 
         /** @see list */
         fun list(
             params: WireTransferListParams = WireTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<WireTransferListResponse>>
 
         /** @see list */
         fun list(
             params: WireTransferListParams = WireTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireTransferListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<WireTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<WireTransferListResponse>> =
             list(WireTransferListParams.none(), requestOptions)
 
         /**

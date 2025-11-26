@@ -20,9 +20,8 @@ import com.increase.api.models.checktransfers.CheckTransfer
 import com.increase.api.models.checktransfers.CheckTransferApproveParams
 import com.increase.api.models.checktransfers.CheckTransferCancelParams
 import com.increase.api.models.checktransfers.CheckTransferCreateParams
-import com.increase.api.models.checktransfers.CheckTransferListPage
-import com.increase.api.models.checktransfers.CheckTransferListPageResponse
 import com.increase.api.models.checktransfers.CheckTransferListParams
+import com.increase.api.models.checktransfers.CheckTransferListResponse
 import com.increase.api.models.checktransfers.CheckTransferRetrieveParams
 import com.increase.api.models.checktransfers.CheckTransferStopPaymentParams
 import java.util.function.Consumer
@@ -57,7 +56,7 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
     override fun list(
         params: CheckTransferListParams,
         requestOptions: RequestOptions,
-    ): CheckTransferListPage =
+    ): CheckTransferListResponse =
         // get /check_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -153,13 +152,13 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
             }
         }
 
-        private val listHandler: Handler<CheckTransferListPageResponse> =
-            jsonHandler<CheckTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CheckTransferListResponse> =
+            jsonHandler<CheckTransferListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CheckTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CheckTransferListPage> {
+        ): HttpResponseFor<CheckTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -176,13 +175,6 @@ class CheckTransferServiceImpl internal constructor(private val clientOptions: C
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CheckTransferListPage.builder()
-                            .service(CheckTransferServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

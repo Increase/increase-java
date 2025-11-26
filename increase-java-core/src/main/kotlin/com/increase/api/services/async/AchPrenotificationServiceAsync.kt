@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.achprenotifications.AchPrenotification
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
-import com.increase.api.models.achprenotifications.AchPrenotificationListPageAsync
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
+import com.increase.api.models.achprenotifications.AchPrenotificationListResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -77,22 +77,22 @@ interface AchPrenotificationServiceAsync {
         retrieve(achPrenotificationId, AchPrenotificationRetrieveParams.none(), requestOptions)
 
     /** List ACH Prenotifications */
-    fun list(): CompletableFuture<AchPrenotificationListPageAsync> =
+    fun list(): CompletableFuture<AchPrenotificationListResponse> =
         list(AchPrenotificationListParams.none())
 
     /** @see list */
     fun list(
         params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AchPrenotificationListPageAsync>
+    ): CompletableFuture<AchPrenotificationListResponse>
 
     /** @see list */
     fun list(
         params: AchPrenotificationListParams = AchPrenotificationListParams.none()
-    ): CompletableFuture<AchPrenotificationListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AchPrenotificationListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AchPrenotificationListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AchPrenotificationListResponse> =
         list(AchPrenotificationListParams.none(), requestOptions)
 
     /**
@@ -175,25 +175,25 @@ interface AchPrenotificationServiceAsync {
          * Returns a raw HTTP response for `get /ach_prenotifications`, but is otherwise the same as
          * [AchPrenotificationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AchPrenotificationListResponse>> =
             list(AchPrenotificationListParams.none())
 
         /** @see list */
         fun list(
             params: AchPrenotificationListParams = AchPrenotificationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AchPrenotificationListResponse>>
 
         /** @see list */
         fun list(
             params: AchPrenotificationListParams = AchPrenotificationListParams.none()
-        ): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AchPrenotificationListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AchPrenotificationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AchPrenotificationListResponse>> =
             list(AchPrenotificationListParams.none(), requestOptions)
     }
 }

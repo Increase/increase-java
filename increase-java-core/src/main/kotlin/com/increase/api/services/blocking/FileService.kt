@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.files.File
 import com.increase.api.models.files.FileCreateParams
-import com.increase.api.models.files.FileListPage
 import com.increase.api.models.files.FileListParams
+import com.increase.api.models.files.FileListResponse
 import com.increase.api.models.files.FileRetrieveParams
 import java.util.function.Consumer
 
@@ -68,20 +68,20 @@ interface FileService {
         retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
-    fun list(): FileListPage = list(FileListParams.none())
+    fun list(): FileListResponse = list(FileListParams.none())
 
     /** @see list */
     fun list(
         params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FileListPage
+    ): FileListResponse
 
     /** @see list */
-    fun list(params: FileListParams = FileListParams.none()): FileListPage =
+    fun list(params: FileListParams = FileListParams.none()): FileListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FileListPage =
+    fun list(requestOptions: RequestOptions): FileListResponse =
         list(FileListParams.none(), requestOptions)
 
     /** A view of [FileService] that provides access to raw HTTP responses for each method. */
@@ -154,23 +154,24 @@ interface FileService {
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as
          * [FileService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<FileListPage> = list(FileListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<FileListResponse> = list(FileListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FileListParams = FileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FileListPage>
+        ): HttpResponseFor<FileListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: FileListParams = FileListParams.none()): HttpResponseFor<FileListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: FileListParams = FileListParams.none()
+        ): HttpResponseFor<FileListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FileListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FileListResponse> =
             list(FileListParams.none(), requestOptions)
     }
 }
