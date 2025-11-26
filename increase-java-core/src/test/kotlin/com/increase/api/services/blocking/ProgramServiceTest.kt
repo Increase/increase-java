@@ -4,7 +4,6 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.programs.ProgramListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -34,9 +33,8 @@ internal class ProgramServiceTest {
                 .build()
         val programService = client.programs()
 
-        val programs =
-            programService.list(ProgramListParams.builder().cursor("cursor").limit(1L).build())
+        val page = programService.list()
 
-        programs.validate()
+        page.response().validate()
     }
 }

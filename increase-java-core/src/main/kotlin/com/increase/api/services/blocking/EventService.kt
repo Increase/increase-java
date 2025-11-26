@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.events.Event
+import com.increase.api.models.events.EventListPage
 import com.increase.api.models.events.EventListParams
-import com.increase.api.models.events.EventListResponse
 import com.increase.api.models.events.EventRetrieveParams
 import java.util.function.Consumer
 
@@ -54,20 +54,20 @@ interface EventService {
         retrieve(eventId, EventRetrieveParams.none(), requestOptions)
 
     /** List Events */
-    fun list(): EventListResponse = list(EventListParams.none())
+    fun list(): EventListPage = list(EventListParams.none())
 
     /** @see list */
     fun list(
         params: EventListParams = EventListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventListResponse
+    ): EventListPage
 
     /** @see list */
-    fun list(params: EventListParams = EventListParams.none()): EventListResponse =
+    fun list(params: EventListParams = EventListParams.none()): EventListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EventListResponse =
+    fun list(requestOptions: RequestOptions): EventListPage =
         list(EventListParams.none(), requestOptions)
 
     /** A view of [EventService] that provides access to raw HTTP responses for each method. */
@@ -125,24 +125,23 @@ interface EventService {
          * Returns a raw HTTP response for `get /events`, but is otherwise the same as
          * [EventService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<EventListResponse> = list(EventListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<EventListPage> = list(EventListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EventListParams = EventListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventListResponse>
+        ): HttpResponseFor<EventListPage>
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            params: EventListParams = EventListParams.none()
-        ): HttpResponseFor<EventListResponse> = list(params, RequestOptions.none())
+        fun list(params: EventListParams = EventListParams.none()): HttpResponseFor<EventListPage> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EventListPage> =
             list(EventListParams.none(), requestOptions)
     }
 }

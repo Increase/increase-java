@@ -9,8 +9,8 @@ import com.increase.api.models.physicalcardprofiles.PhysicalCardProfile
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileArchiveParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCloneParams
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileCreateParams
+import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListPageAsync
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListParams
-import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileListResponse
 import com.increase.api.models.physicalcardprofiles.PhysicalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -80,22 +80,22 @@ interface PhysicalCardProfileServiceAsync {
         retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none(), requestOptions)
 
     /** List Physical Card Profiles */
-    fun list(): CompletableFuture<PhysicalCardProfileListResponse> =
+    fun list(): CompletableFuture<PhysicalCardProfileListPageAsync> =
         list(PhysicalCardProfileListParams.none())
 
     /** @see list */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<PhysicalCardProfileListResponse>
+    ): CompletableFuture<PhysicalCardProfileListPageAsync>
 
     /** @see list */
     fun list(
         params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
-    ): CompletableFuture<PhysicalCardProfileListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<PhysicalCardProfileListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardProfileListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<PhysicalCardProfileListPageAsync> =
         list(PhysicalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Physical Card Profile */
@@ -260,25 +260,25 @@ interface PhysicalCardProfileServiceAsync {
          * Returns a raw HTTP response for `get /physical_card_profiles`, but is otherwise the same
          * as [PhysicalCardProfileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<PhysicalCardProfileListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>> =
             list(PhysicalCardProfileListParams.none())
 
         /** @see list */
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListResponse>>
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>>
 
         /** @see list */
         fun list(
             params: PhysicalCardProfileListParams = PhysicalCardProfileListParams.none()
-        ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<PhysicalCardProfileListPageAsync>> =
             list(PhysicalCardProfileListParams.none(), requestOptions)
 
         /**

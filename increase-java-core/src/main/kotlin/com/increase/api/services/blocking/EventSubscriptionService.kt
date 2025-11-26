@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.eventsubscriptions.EventSubscription
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListPage
 import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListResponse
 import com.increase.api.models.eventsubscriptions.EventSubscriptionRetrieveParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import java.util.function.Consumer
@@ -106,21 +106,21 @@ interface EventSubscriptionService {
         update(eventSubscriptionId, EventSubscriptionUpdateParams.none(), requestOptions)
 
     /** List Event Subscriptions */
-    fun list(): EventSubscriptionListResponse = list(EventSubscriptionListParams.none())
+    fun list(): EventSubscriptionListPage = list(EventSubscriptionListParams.none())
 
     /** @see list */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): EventSubscriptionListResponse
+    ): EventSubscriptionListPage
 
     /** @see list */
     fun list(
         params: EventSubscriptionListParams = EventSubscriptionListParams.none()
-    ): EventSubscriptionListResponse = list(params, RequestOptions.none())
+    ): EventSubscriptionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): EventSubscriptionListResponse =
+    fun list(requestOptions: RequestOptions): EventSubscriptionListPage =
         list(EventSubscriptionListParams.none(), requestOptions)
 
     /**
@@ -254,7 +254,7 @@ interface EventSubscriptionService {
          * [EventSubscriptionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<EventSubscriptionListResponse> =
+        fun list(): HttpResponseFor<EventSubscriptionListPage> =
             list(EventSubscriptionListParams.none())
 
         /** @see list */
@@ -262,17 +262,17 @@ interface EventSubscriptionService {
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<EventSubscriptionListResponse>
+        ): HttpResponseFor<EventSubscriptionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: EventSubscriptionListParams = EventSubscriptionListParams.none()
-        ): HttpResponseFor<EventSubscriptionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<EventSubscriptionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<EventSubscriptionListPage> =
             list(EventSubscriptionListParams.none(), requestOptions)
     }
 }

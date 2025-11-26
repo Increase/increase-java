@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentCreateParams
+import com.increase.api.models.documents.DocumentListPage
+import com.increase.api.models.documents.DocumentListPageResponse
 import com.increase.api.models.documents.DocumentListParams
-import com.increase.api.models.documents.DocumentListResponse
 import com.increase.api.models.documents.DocumentRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -50,7 +51,7 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
     override fun list(
         params: DocumentListParams,
         requestOptions: RequestOptions,
-    ): DocumentListResponse =
+    ): DocumentListPage =
         // get /documents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -125,13 +126,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
             }
         }
 
-        private val listHandler: Handler<DocumentListResponse> =
-            jsonHandler<DocumentListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DocumentListPageResponse> =
+            jsonHandler<DocumentListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DocumentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<DocumentListResponse> {
+        ): HttpResponseFor<DocumentListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -148,6 +149,13 @@ class DocumentServiceImpl internal constructor(private val clientOptions: Client
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        DocumentListPage.builder()
+                            .service(DocumentServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

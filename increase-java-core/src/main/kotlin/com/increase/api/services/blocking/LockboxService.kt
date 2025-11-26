@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPage
 import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxListResponse
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.function.Consumer
@@ -96,20 +96,20 @@ interface LockboxService {
         update(lockboxId, LockboxUpdateParams.none(), requestOptions)
 
     /** List Lockboxes */
-    fun list(): LockboxListResponse = list(LockboxListParams.none())
+    fun list(): LockboxListPage = list(LockboxListParams.none())
 
     /** @see list */
     fun list(
         params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): LockboxListResponse
+    ): LockboxListPage
 
     /** @see list */
-    fun list(params: LockboxListParams = LockboxListParams.none()): LockboxListResponse =
+    fun list(params: LockboxListParams = LockboxListParams.none()): LockboxListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): LockboxListResponse =
+    fun list(requestOptions: RequestOptions): LockboxListPage =
         list(LockboxListParams.none(), requestOptions)
 
     /** A view of [LockboxService] that provides access to raw HTTP responses for each method. */
@@ -223,25 +223,24 @@ interface LockboxService {
          * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
          * [LockboxService.list].
          */
-        @MustBeClosed
-        fun list(): HttpResponseFor<LockboxListResponse> = list(LockboxListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<LockboxListPage> = list(LockboxListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: LockboxListParams = LockboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<LockboxListResponse>
+        ): HttpResponseFor<LockboxListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: LockboxListParams = LockboxListParams.none()
-        ): HttpResponseFor<LockboxListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<LockboxListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<LockboxListPage> =
             list(LockboxListParams.none(), requestOptions)
     }
 }

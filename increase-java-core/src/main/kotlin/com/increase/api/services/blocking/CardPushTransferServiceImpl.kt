@@ -20,8 +20,9 @@ import com.increase.api.models.cardpushtransfers.CardPushTransfer
 import com.increase.api.models.cardpushtransfers.CardPushTransferApproveParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCancelParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
+import com.increase.api.models.cardpushtransfers.CardPushTransferListPage
+import com.increase.api.models.cardpushtransfers.CardPushTransferListPageResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -55,7 +56,7 @@ class CardPushTransferServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: CardPushTransferListParams,
         requestOptions: RequestOptions,
-    ): CardPushTransferListResponse =
+    ): CardPushTransferListPage =
         // get /card_push_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -144,13 +145,13 @@ class CardPushTransferServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<CardPushTransferListResponse> =
-            jsonHandler<CardPushTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPushTransferListPageResponse> =
+            jsonHandler<CardPushTransferListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardPushTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPushTransferListResponse> {
+        ): HttpResponseFor<CardPushTransferListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -167,6 +168,13 @@ class CardPushTransferServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
+                    }
+                    .let {
+                        CardPushTransferListPage.builder()
+                            .service(CardPushTransferServiceImpl(clientOptions))
+                            .params(params)
+                            .response(it)
+                            .build()
                     }
             }
         }

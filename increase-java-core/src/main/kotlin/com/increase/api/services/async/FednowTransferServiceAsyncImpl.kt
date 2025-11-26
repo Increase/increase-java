@@ -20,8 +20,9 @@ import com.increase.api.models.fednowtransfers.FednowTransfer
 import com.increase.api.models.fednowtransfers.FednowTransferApproveParams
 import com.increase.api.models.fednowtransfers.FednowTransferCancelParams
 import com.increase.api.models.fednowtransfers.FednowTransferCreateParams
+import com.increase.api.models.fednowtransfers.FednowTransferListPageAsync
+import com.increase.api.models.fednowtransfers.FednowTransferListPageResponse
 import com.increase.api.models.fednowtransfers.FednowTransferListParams
-import com.increase.api.models.fednowtransfers.FednowTransferListResponse
 import com.increase.api.models.fednowtransfers.FednowTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -58,7 +59,7 @@ internal constructor(private val clientOptions: ClientOptions) : FednowTransferS
     override fun list(
         params: FednowTransferListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<FednowTransferListResponse> =
+    ): CompletableFuture<FednowTransferListPageAsync> =
         // get /fednow_transfers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -153,13 +154,13 @@ internal constructor(private val clientOptions: ClientOptions) : FednowTransferS
                 }
         }
 
-        private val listHandler: Handler<FednowTransferListResponse> =
-            jsonHandler<FednowTransferListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<FednowTransferListPageResponse> =
+            jsonHandler<FednowTransferListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: FednowTransferListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<FednowTransferListResponse>> {
+        ): CompletableFuture<HttpResponseFor<FednowTransferListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -178,6 +179,14 @@ internal constructor(private val clientOptions: ClientOptions) : FednowTransferS
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                FednowTransferListPageAsync.builder()
+                                    .service(FednowTransferServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

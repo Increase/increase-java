@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPageAsync
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -71,24 +71,24 @@ interface CardPurchaseSupplementServiceAsync {
         )
 
     /** List Card Purchase Supplements */
-    fun list(): CompletableFuture<CardPurchaseSupplementListResponse> =
+    fun list(): CompletableFuture<CardPurchaseSupplementListPageAsync> =
         list(CardPurchaseSupplementListParams.none())
 
     /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CardPurchaseSupplementListResponse>
+    ): CompletableFuture<CardPurchaseSupplementListPageAsync>
 
     /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
-    ): CompletableFuture<CardPurchaseSupplementListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<CardPurchaseSupplementListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<CardPurchaseSupplementListResponse> =
+    ): CompletableFuture<CardPurchaseSupplementListPageAsync> =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
     /**
@@ -163,25 +163,25 @@ interface CardPurchaseSupplementServiceAsync {
          * Returns a raw HTTP response for `get /card_purchase_supplements`, but is otherwise the
          * same as [CardPurchaseSupplementServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(CardPurchaseSupplementListParams.none())
 
         /** @see list */
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListResponse>>
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>>
 
         /** @see list */
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
-        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListResponse>> =
+        ): CompletableFuture<HttpResponseFor<CardPurchaseSupplementListPageAsync>> =
             list(CardPurchaseSupplementListParams.none(), requestOptions)
     }
 }

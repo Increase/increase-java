@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthconnections.OAuthConnection
+import com.increase.api.models.oauthconnections.OAuthConnectionListPage
 import com.increase.api.models.oauthconnections.OAuthConnectionListParams
-import com.increase.api.models.oauthconnections.OAuthConnectionListResponse
 import com.increase.api.models.oauthconnections.OAuthConnectionRetrieveParams
 import java.util.function.Consumer
 
@@ -59,21 +59,21 @@ interface OAuthConnectionService {
         retrieve(oauthConnectionId, OAuthConnectionRetrieveParams.none(), requestOptions)
 
     /** List OAuth Connections */
-    fun list(): OAuthConnectionListResponse = list(OAuthConnectionListParams.none())
+    fun list(): OAuthConnectionListPage = list(OAuthConnectionListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthConnectionListResponse
+    ): OAuthConnectionListPage
 
     /** @see list */
     fun list(
         params: OAuthConnectionListParams = OAuthConnectionListParams.none()
-    ): OAuthConnectionListResponse = list(params, RequestOptions.none())
+    ): OAuthConnectionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OAuthConnectionListResponse =
+    fun list(requestOptions: RequestOptions): OAuthConnectionListPage =
         list(OAuthConnectionListParams.none(), requestOptions)
 
     /**
@@ -144,7 +144,7 @@ interface OAuthConnectionService {
          * [OAuthConnectionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<OAuthConnectionListResponse> =
+        fun list(): HttpResponseFor<OAuthConnectionListPage> =
             list(OAuthConnectionListParams.none())
 
         /** @see list */
@@ -152,17 +152,17 @@ interface OAuthConnectionService {
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthConnectionListResponse>
+        ): HttpResponseFor<OAuthConnectionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthConnectionListParams = OAuthConnectionListParams.none()
-        ): HttpResponseFor<OAuthConnectionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<OAuthConnectionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthConnectionListPage> =
             list(OAuthConnectionListParams.none(), requestOptions)
     }
 }

@@ -20,8 +20,9 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageAsync
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -60,7 +61,7 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
     override fun list(
         params: DigitalCardProfileListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DigitalCardProfileListResponse> =
+    ): CompletableFuture<DigitalCardProfileListPageAsync> =
         // get /digital_card_profiles
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -155,13 +156,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
                 }
         }
 
-        private val listHandler: Handler<DigitalCardProfileListResponse> =
-            jsonHandler<DigitalCardProfileListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DigitalCardProfileListPageResponse> =
+            jsonHandler<DigitalCardProfileListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DigitalCardProfileListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListResponse>> {
+        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -180,6 +181,14 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalCardProf
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                DigitalCardProfileListPageAsync.builder()
+                                    .service(DigitalCardProfileServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

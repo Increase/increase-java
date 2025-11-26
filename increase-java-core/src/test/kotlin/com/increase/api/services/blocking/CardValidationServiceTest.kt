@@ -5,8 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.cardvalidations.CardValidationCreateParams
-import com.increase.api.models.cardvalidations.CardValidationListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -67,29 +65,8 @@ internal class CardValidationServiceTest {
                 .build()
         val cardValidationService = client.cardValidations()
 
-        val cardValidations =
-            cardValidationService.list(
-                CardValidationListParams.builder()
-                    .accountId("account_id")
-                    .createdAt(
-                        CardValidationListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        CardValidationListParams.Status.builder()
-                            .addIn(CardValidationListParams.Status.In.REQUIRES_ATTENTION)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = cardValidationService.list()
 
-        cardValidations.validate()
+        page.response().validate()
     }
 }

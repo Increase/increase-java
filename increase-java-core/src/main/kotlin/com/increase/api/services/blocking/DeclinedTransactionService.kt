@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.declinedtransactions.DeclinedTransaction
+import com.increase.api.models.declinedtransactions.DeclinedTransactionListPage
 import com.increase.api.models.declinedtransactions.DeclinedTransactionListParams
-import com.increase.api.models.declinedtransactions.DeclinedTransactionListResponse
 import com.increase.api.models.declinedtransactions.DeclinedTransactionRetrieveParams
 import java.util.function.Consumer
 
@@ -65,21 +65,21 @@ interface DeclinedTransactionService {
         retrieve(declinedTransactionId, DeclinedTransactionRetrieveParams.none(), requestOptions)
 
     /** List Declined Transactions */
-    fun list(): DeclinedTransactionListResponse = list(DeclinedTransactionListParams.none())
+    fun list(): DeclinedTransactionListPage = list(DeclinedTransactionListParams.none())
 
     /** @see list */
     fun list(
         params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DeclinedTransactionListResponse
+    ): DeclinedTransactionListPage
 
     /** @see list */
     fun list(
         params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()
-    ): DeclinedTransactionListResponse = list(params, RequestOptions.none())
+    ): DeclinedTransactionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DeclinedTransactionListResponse =
+    fun list(requestOptions: RequestOptions): DeclinedTransactionListPage =
         list(DeclinedTransactionListParams.none(), requestOptions)
 
     /**
@@ -155,7 +155,7 @@ interface DeclinedTransactionService {
          * as [DeclinedTransactionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DeclinedTransactionListResponse> =
+        fun list(): HttpResponseFor<DeclinedTransactionListPage> =
             list(DeclinedTransactionListParams.none())
 
         /** @see list */
@@ -163,17 +163,17 @@ interface DeclinedTransactionService {
         fun list(
             params: DeclinedTransactionListParams = DeclinedTransactionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DeclinedTransactionListResponse>
+        ): HttpResponseFor<DeclinedTransactionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DeclinedTransactionListParams = DeclinedTransactionListParams.none()
-        ): HttpResponseFor<DeclinedTransactionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DeclinedTransactionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DeclinedTransactionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DeclinedTransactionListPage> =
             list(DeclinedTransactionListParams.none(), requestOptions)
     }
 }

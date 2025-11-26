@@ -5,9 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
-import com.increase.api.models.achprenotifications.AchPrenotificationListParams
 import java.time.LocalDate
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -76,24 +74,9 @@ internal class AchPrenotificationServiceAsyncTest {
                 .build()
         val achPrenotificationServiceAsync = client.achPrenotifications()
 
-        val achPrenotificationsFuture =
-            achPrenotificationServiceAsync.list(
-                AchPrenotificationListParams.builder()
-                    .createdAt(
-                        AchPrenotificationListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
-            )
+        val pageFuture = achPrenotificationServiceAsync.list()
 
-        val achPrenotifications = achPrenotificationsFuture.get()
-        achPrenotifications.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

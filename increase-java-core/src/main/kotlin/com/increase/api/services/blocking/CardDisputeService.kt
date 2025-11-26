@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
+import com.increase.api.models.carddisputes.CardDisputeListPage
 import com.increase.api.models.carddisputes.CardDisputeListParams
-import com.increase.api.models.carddisputes.CardDisputeListResponse
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
@@ -71,21 +71,20 @@ interface CardDisputeService {
         retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
     /** List Card Disputes */
-    fun list(): CardDisputeListResponse = list(CardDisputeListParams.none())
+    fun list(): CardDisputeListPage = list(CardDisputeListParams.none())
 
     /** @see list */
     fun list(
         params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardDisputeListResponse
+    ): CardDisputeListPage
 
     /** @see list */
-    fun list(
-        params: CardDisputeListParams = CardDisputeListParams.none()
-    ): CardDisputeListResponse = list(params, RequestOptions.none())
+    fun list(params: CardDisputeListParams = CardDisputeListParams.none()): CardDisputeListPage =
+        list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardDisputeListResponse =
+    fun list(requestOptions: RequestOptions): CardDisputeListPage =
         list(CardDisputeListParams.none(), requestOptions)
 
     /** Submit a User Submission for a Card Dispute */
@@ -225,24 +224,24 @@ interface CardDisputeService {
          * [CardDisputeService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CardDisputeListResponse> = list(CardDisputeListParams.none())
+        fun list(): HttpResponseFor<CardDisputeListPage> = list(CardDisputeListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardDisputeListResponse>
+        ): HttpResponseFor<CardDisputeListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none()
-        ): HttpResponseFor<CardDisputeListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CardDisputeListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardDisputeListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardDisputeListPage> =
             list(CardDisputeListParams.none(), requestOptions)
 
         /**

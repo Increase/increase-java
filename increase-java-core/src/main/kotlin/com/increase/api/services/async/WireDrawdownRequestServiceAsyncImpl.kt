@@ -18,8 +18,9 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequest
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestCreateParams
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageAsync
+import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListPageResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListParams
-import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestListResponse
 import com.increase.api.models.wiredrawdownrequests.WireDrawdownRequestRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -59,7 +60,7 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
     override fun list(
         params: WireDrawdownRequestListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<WireDrawdownRequestListResponse> =
+    ): CompletableFuture<WireDrawdownRequestListPageAsync> =
         // get /wire_drawdown_requests
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -140,13 +141,13 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                 }
         }
 
-        private val listHandler: Handler<WireDrawdownRequestListResponse> =
-            jsonHandler<WireDrawdownRequestListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<WireDrawdownRequestListPageResponse> =
+            jsonHandler<WireDrawdownRequestListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: WireDrawdownRequestListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListResponse>> {
+        ): CompletableFuture<HttpResponseFor<WireDrawdownRequestListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -165,6 +166,14 @@ internal constructor(private val clientOptions: ClientOptions) : WireDrawdownReq
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                WireDrawdownRequestListPageAsync.builder()
+                                    .service(WireDrawdownRequestServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

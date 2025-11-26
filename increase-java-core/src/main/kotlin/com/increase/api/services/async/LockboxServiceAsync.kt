@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.lockboxes.Lockbox
 import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListPageAsync
 import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxListResponse
 import com.increase.api.models.lockboxes.LockboxRetrieveParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -103,21 +103,21 @@ interface LockboxServiceAsync {
         update(lockboxId, LockboxUpdateParams.none(), requestOptions)
 
     /** List Lockboxes */
-    fun list(): CompletableFuture<LockboxListResponse> = list(LockboxListParams.none())
+    fun list(): CompletableFuture<LockboxListPageAsync> = list(LockboxListParams.none())
 
     /** @see list */
     fun list(
         params: LockboxListParams = LockboxListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<LockboxListResponse>
+    ): CompletableFuture<LockboxListPageAsync>
 
     /** @see list */
     fun list(
         params: LockboxListParams = LockboxListParams.none()
-    ): CompletableFuture<LockboxListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<LockboxListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<LockboxListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<LockboxListPageAsync> =
         list(LockboxListParams.none(), requestOptions)
 
     /**
@@ -229,25 +229,25 @@ interface LockboxServiceAsync {
          * Returns a raw HTTP response for `get /lockboxes`, but is otherwise the same as
          * [LockboxServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<LockboxListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> =
             list(LockboxListParams.none())
 
         /** @see list */
         fun list(
             params: LockboxListParams = LockboxListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<LockboxListResponse>>
+        ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>>
 
         /** @see list */
         fun list(
             params: LockboxListParams = LockboxListParams.none()
-        ): CompletableFuture<HttpResponseFor<LockboxListResponse>> =
+        ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<LockboxListResponse>> =
+        ): CompletableFuture<HttpResponseFor<LockboxListPageAsync>> =
             list(LockboxListParams.none(), requestOptions)
     }
 }

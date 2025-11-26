@@ -6,8 +6,8 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.models.routingnumbers.RoutingNumberListPage
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
-import com.increase.api.models.routingnumbers.RoutingNumberListResponse
 import java.util.function.Consumer
 
 interface RoutingNumberService {
@@ -30,14 +30,14 @@ interface RoutingNumberService {
      * will always return 0 or 1 entry. In Sandbox, the only valid routing number for this method
      * is 110000000.
      */
-    fun list(params: RoutingNumberListParams): RoutingNumberListResponse =
+    fun list(params: RoutingNumberListParams): RoutingNumberListPage =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): RoutingNumberListResponse
+    ): RoutingNumberListPage
 
     /**
      * A view of [RoutingNumberService] that provides access to raw HTTP responses for each method.
@@ -58,7 +58,7 @@ interface RoutingNumberService {
          * [RoutingNumberService.list].
          */
         @MustBeClosed
-        fun list(params: RoutingNumberListParams): HttpResponseFor<RoutingNumberListResponse> =
+        fun list(params: RoutingNumberListParams): HttpResponseFor<RoutingNumberListPage> =
             list(params, RequestOptions.none())
 
         /** @see list */
@@ -66,6 +66,6 @@ interface RoutingNumberService {
         fun list(
             params: RoutingNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<RoutingNumberListResponse>
+        ): HttpResponseFor<RoutingNumberListPage>
     }
 }

@@ -8,7 +8,6 @@ import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
@@ -567,29 +566,9 @@ internal class EntityServiceTest {
                 .build()
         val entityService = client.entities()
 
-        val entities =
-            entityService.list(
-                EntityListParams.builder()
-                    .createdAt(
-                        EntityListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        EntityListParams.Status.builder()
-                            .addIn(EntityListParams.Status.In.ACTIVE)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = entityService.list()
 
-        entities.validate()
+        page.response().validate()
     }
 
     @Test

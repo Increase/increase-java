@@ -9,8 +9,8 @@ import com.increase.api.models.digitalcardprofiles.DigitalCardProfile
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileArchiveParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListPageAsync
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
-import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListResponse
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -79,22 +79,22 @@ interface DigitalCardProfileServiceAsync {
         retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
     /** List Card Profiles */
-    fun list(): CompletableFuture<DigitalCardProfileListResponse> =
+    fun list(): CompletableFuture<DigitalCardProfileListPageAsync> =
         list(DigitalCardProfileListParams.none())
 
     /** @see list */
     fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DigitalCardProfileListResponse>
+    ): CompletableFuture<DigitalCardProfileListPageAsync>
 
     /** @see list */
     fun list(
         params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
-    ): CompletableFuture<DigitalCardProfileListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<DigitalCardProfileListPageAsync> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DigitalCardProfileListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<DigitalCardProfileListPageAsync> =
         list(DigitalCardProfileListParams.none(), requestOptions)
 
     /** Archive a Digital Card Profile */
@@ -252,25 +252,25 @@ interface DigitalCardProfileServiceAsync {
          * Returns a raw HTTP response for `get /digital_card_profiles`, but is otherwise the same
          * as [DigitalCardProfileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DigitalCardProfileListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> =
             list(DigitalCardProfileListParams.none())
 
         /** @see list */
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListResponse>>
+        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>>
 
         /** @see list */
         fun list(
             params: DigitalCardProfileListParams = DigitalCardProfileListParams.none()
-        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<DigitalCardProfileListPageAsync>> =
             list(DigitalCardProfileListParams.none(), requestOptions)
 
         /**

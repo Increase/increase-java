@@ -5,7 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
-import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -82,15 +81,8 @@ internal class EventSubscriptionServiceTest {
                 .build()
         val eventSubscriptionService = client.eventSubscriptions()
 
-        val eventSubscriptions =
-            eventSubscriptionService.list(
-                EventSubscriptionListParams.builder()
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .build()
-            )
+        val page = eventSubscriptionService.list()
 
-        eventSubscriptions.validate()
+        page.response().validate()
     }
 }

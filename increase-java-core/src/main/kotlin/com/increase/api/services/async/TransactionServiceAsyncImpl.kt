@@ -16,8 +16,9 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.transactions.Transaction
+import com.increase.api.models.transactions.TransactionListPageAsync
+import com.increase.api.models.transactions.TransactionListPageResponse
 import com.increase.api.models.transactions.TransactionListParams
-import com.increase.api.models.transactions.TransactionListResponse
 import com.increase.api.models.transactions.TransactionRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -45,7 +46,7 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: TransactionListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<TransactionListResponse> =
+    ): CompletableFuture<TransactionListPageAsync> =
         // get /transactions
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -95,13 +96,13 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<TransactionListResponse> =
-            jsonHandler<TransactionListResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<TransactionListPageResponse> =
+            jsonHandler<TransactionListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: TransactionListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<TransactionListResponse>> {
+        ): CompletableFuture<HttpResponseFor<TransactionListPageAsync>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -120,6 +121,14 @@ class TransactionServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
+                            }
+                            .let {
+                                TransactionListPageAsync.builder()
+                                    .service(TransactionServiceAsyncImpl(clientOptions))
+                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
+                                    .params(params)
+                                    .response(it)
+                                    .build()
                             }
                     }
                 }

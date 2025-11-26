@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -36,16 +35,9 @@ internal class BookkeepingEntryServiceAsyncTest {
                 .build()
         val bookkeepingEntryServiceAsync = client.bookkeepingEntries()
 
-        val bookkeepingEntriesFuture =
-            bookkeepingEntryServiceAsync.list(
-                BookkeepingEntryListParams.builder()
-                    .accountId("account_id")
-                    .cursor("cursor")
-                    .limit(1L)
-                    .build()
-            )
+        val pageFuture = bookkeepingEntryServiceAsync.list()
 
-        val bookkeepingEntries = bookkeepingEntriesFuture.get()
-        bookkeepingEntries.validate()
+        val page = pageFuture.get()
+        page.response().validate()
     }
 }

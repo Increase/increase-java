@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPageAsync
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import java.util.concurrent.CompletableFuture
@@ -86,24 +86,25 @@ interface IntrafiAccountEnrollmentServiceAsync {
         )
 
     /** List IntraFi Account Enrollments */
-    fun list(): CompletableFuture<IntrafiAccountEnrollmentListResponse> =
+    fun list(): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
         list(IntrafiAccountEnrollmentListParams.none())
 
     /** @see list */
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<IntrafiAccountEnrollmentListResponse>
+    ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync>
 
     /** @see list */
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
-    ): CompletableFuture<IntrafiAccountEnrollmentListResponse> = list(params, RequestOptions.none())
+    ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
+        list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<IntrafiAccountEnrollmentListResponse> =
+    ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
@@ -239,25 +240,25 @@ interface IntrafiAccountEnrollmentServiceAsync {
          * Returns a raw HTTP response for `get /intrafi_account_enrollments`, but is otherwise the
          * same as [IntrafiAccountEnrollmentServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>> =
             list(IntrafiAccountEnrollmentListParams.none())
 
         /** @see list */
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListResponse>>
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>>
 
         /** @see list */
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
-        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListResponse>> =
+        ): CompletableFuture<HttpResponseFor<IntrafiAccountEnrollmentListPageAsync>> =
             list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
         /**

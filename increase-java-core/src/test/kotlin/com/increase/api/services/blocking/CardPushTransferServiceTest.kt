@@ -5,8 +5,6 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
-import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -80,30 +78,9 @@ internal class CardPushTransferServiceTest {
                 .build()
         val cardPushTransferService = client.cardPushTransfers()
 
-        val cardPushTransfers =
-            cardPushTransferService.list(
-                CardPushTransferListParams.builder()
-                    .accountId("account_id")
-                    .createdAt(
-                        CardPushTransferListParams.CreatedAt.builder()
-                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .build()
-                    )
-                    .cursor("cursor")
-                    .idempotencyKey("x")
-                    .limit(1L)
-                    .status(
-                        CardPushTransferListParams.Status.builder()
-                            .addIn(CardPushTransferListParams.Status.In.PENDING_APPROVAL)
-                            .build()
-                    )
-                    .build()
-            )
+        val page = cardPushTransferService.list()
 
-        cardPushTransfers.validate()
+        page.response().validate()
     }
 
     @Test

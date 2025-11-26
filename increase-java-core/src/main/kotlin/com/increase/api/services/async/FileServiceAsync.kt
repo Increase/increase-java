@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.files.File
 import com.increase.api.models.files.FileCreateParams
+import com.increase.api.models.files.FileListPageAsync
 import com.increase.api.models.files.FileListParams
-import com.increase.api.models.files.FileListResponse
 import com.increase.api.models.files.FileRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -73,20 +73,20 @@ interface FileServiceAsync {
         retrieve(fileId, FileRetrieveParams.none(), requestOptions)
 
     /** List Files */
-    fun list(): CompletableFuture<FileListResponse> = list(FileListParams.none())
+    fun list(): CompletableFuture<FileListPageAsync> = list(FileListParams.none())
 
     /** @see list */
     fun list(
         params: FileListParams = FileListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<FileListResponse>
+    ): CompletableFuture<FileListPageAsync>
 
     /** @see list */
-    fun list(params: FileListParams = FileListParams.none()): CompletableFuture<FileListResponse> =
+    fun list(params: FileListParams = FileListParams.none()): CompletableFuture<FileListPageAsync> =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<FileListResponse> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<FileListPageAsync> =
         list(FileListParams.none(), requestOptions)
 
     /** A view of [FileServiceAsync] that provides access to raw HTTP responses for each method. */
@@ -155,25 +155,25 @@ interface FileServiceAsync {
          * Returns a raw HTTP response for `get /files`, but is otherwise the same as
          * [FileServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<FileListResponse>> =
+        fun list(): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
             list(FileListParams.none())
 
         /** @see list */
         fun list(
             params: FileListParams = FileListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<FileListResponse>>
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>>
 
         /** @see list */
         fun list(
             params: FileListParams = FileListParams.none()
-        ): CompletableFuture<HttpResponseFor<FileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<FileListResponse>> =
+        ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
             list(FileListParams.none(), requestOptions)
     }
 }

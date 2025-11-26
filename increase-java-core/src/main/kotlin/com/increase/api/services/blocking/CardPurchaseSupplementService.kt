@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplement
+import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListPage
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListParams
-import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementListResponse
 import com.increase.api.models.cardpurchasesupplements.CardPurchaseSupplementRetrieveParams
 import java.util.function.Consumer
 
@@ -69,21 +69,21 @@ interface CardPurchaseSupplementService {
         )
 
     /** List Card Purchase Supplements */
-    fun list(): CardPurchaseSupplementListResponse = list(CardPurchaseSupplementListParams.none())
+    fun list(): CardPurchaseSupplementListPage = list(CardPurchaseSupplementListParams.none())
 
     /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardPurchaseSupplementListResponse
+    ): CardPurchaseSupplementListPage
 
     /** @see list */
     fun list(
         params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
-    ): CardPurchaseSupplementListResponse = list(params, RequestOptions.none())
+    ): CardPurchaseSupplementListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardPurchaseSupplementListResponse =
+    fun list(requestOptions: RequestOptions): CardPurchaseSupplementListPage =
         list(CardPurchaseSupplementListParams.none(), requestOptions)
 
     /**
@@ -162,7 +162,7 @@ interface CardPurchaseSupplementService {
          * same as [CardPurchaseSupplementService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CardPurchaseSupplementListResponse> =
+        fun list(): HttpResponseFor<CardPurchaseSupplementListPage> =
             list(CardPurchaseSupplementListParams.none())
 
         /** @see list */
@@ -170,19 +170,17 @@ interface CardPurchaseSupplementService {
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardPurchaseSupplementListResponse>
+        ): HttpResponseFor<CardPurchaseSupplementListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardPurchaseSupplementListParams = CardPurchaseSupplementListParams.none()
-        ): HttpResponseFor<CardPurchaseSupplementListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CardPurchaseSupplementListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(
-            requestOptions: RequestOptions
-        ): HttpResponseFor<CardPurchaseSupplementListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardPurchaseSupplementListPage> =
             list(CardPurchaseSupplementListParams.none(), requestOptions)
     }
 }

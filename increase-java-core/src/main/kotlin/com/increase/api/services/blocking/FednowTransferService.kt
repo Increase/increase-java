@@ -10,8 +10,8 @@ import com.increase.api.models.fednowtransfers.FednowTransfer
 import com.increase.api.models.fednowtransfers.FednowTransferApproveParams
 import com.increase.api.models.fednowtransfers.FednowTransferCancelParams
 import com.increase.api.models.fednowtransfers.FednowTransferCreateParams
+import com.increase.api.models.fednowtransfers.FednowTransferListPage
 import com.increase.api.models.fednowtransfers.FednowTransferListParams
-import com.increase.api.models.fednowtransfers.FednowTransferListResponse
 import com.increase.api.models.fednowtransfers.FednowTransferRetrieveParams
 import java.util.function.Consumer
 
@@ -72,21 +72,21 @@ interface FednowTransferService {
         retrieve(fednowTransferId, FednowTransferRetrieveParams.none(), requestOptions)
 
     /** List FedNow Transfers */
-    fun list(): FednowTransferListResponse = list(FednowTransferListParams.none())
+    fun list(): FednowTransferListPage = list(FednowTransferListParams.none())
 
     /** @see list */
     fun list(
         params: FednowTransferListParams = FednowTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): FednowTransferListResponse
+    ): FednowTransferListPage
 
     /** @see list */
     fun list(
         params: FednowTransferListParams = FednowTransferListParams.none()
-    ): FednowTransferListResponse = list(params, RequestOptions.none())
+    ): FednowTransferListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): FednowTransferListResponse =
+    fun list(requestOptions: RequestOptions): FednowTransferListPage =
         list(FednowTransferListParams.none(), requestOptions)
 
     /** Approve a FedNow Transfer */
@@ -232,25 +232,24 @@ interface FednowTransferService {
          * [FednowTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<FednowTransferListResponse> =
-            list(FednowTransferListParams.none())
+        fun list(): HttpResponseFor<FednowTransferListPage> = list(FednowTransferListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FednowTransferListParams = FednowTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<FednowTransferListResponse>
+        ): HttpResponseFor<FednowTransferListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: FednowTransferListParams = FednowTransferListParams.none()
-        ): HttpResponseFor<FednowTransferListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<FednowTransferListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<FednowTransferListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<FednowTransferListPage> =
             list(FednowTransferListParams.none(), requestOptions)
 
         /**

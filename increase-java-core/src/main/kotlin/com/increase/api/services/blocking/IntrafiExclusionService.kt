@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiexclusions.IntrafiExclusion
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionArchiveParams
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionCreateParams
+import com.increase.api.models.intrafiexclusions.IntrafiExclusionListPage
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionListParams
-import com.increase.api.models.intrafiexclusions.IntrafiExclusionListResponse
 import com.increase.api.models.intrafiexclusions.IntrafiExclusionRetrieveParams
 import java.util.function.Consumer
 
@@ -71,21 +71,21 @@ interface IntrafiExclusionService {
         retrieve(intrafiExclusionId, IntrafiExclusionRetrieveParams.none(), requestOptions)
 
     /** List IntraFi Exclusions */
-    fun list(): IntrafiExclusionListResponse = list(IntrafiExclusionListParams.none())
+    fun list(): IntrafiExclusionListPage = list(IntrafiExclusionListParams.none())
 
     /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiExclusionListResponse
+    ): IntrafiExclusionListPage
 
     /** @see list */
     fun list(
         params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
-    ): IntrafiExclusionListResponse = list(params, RequestOptions.none())
+    ): IntrafiExclusionListPage = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IntrafiExclusionListResponse =
+    fun list(requestOptions: RequestOptions): IntrafiExclusionListPage =
         list(IntrafiExclusionListParams.none(), requestOptions)
 
     /** Archive an IntraFi Exclusion */
@@ -203,7 +203,7 @@ interface IntrafiExclusionService {
          * [IntrafiExclusionService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<IntrafiExclusionListResponse> =
+        fun list(): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none())
 
         /** @see list */
@@ -211,17 +211,17 @@ interface IntrafiExclusionService {
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiExclusionListResponse>
+        ): HttpResponseFor<IntrafiExclusionListPage>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: IntrafiExclusionListParams = IntrafiExclusionListParams.none()
-        ): HttpResponseFor<IntrafiExclusionListResponse> = list(params, RequestOptions.none())
+        ): HttpResponseFor<IntrafiExclusionListPage> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListResponse> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<IntrafiExclusionListPage> =
             list(IntrafiExclusionListParams.none(), requestOptions)
 
         /**
