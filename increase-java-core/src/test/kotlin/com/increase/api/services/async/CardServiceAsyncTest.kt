@@ -6,8 +6,10 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.cards.CardCreateDetailsIframeParams
 import com.increase.api.models.cards.CardCreateParams
+import com.increase.api.models.cards.CardListParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -115,10 +117,31 @@ internal class CardServiceAsyncTest {
                 .build()
         val cardServiceAsync = client.cards()
 
-        val pageFuture = cardServiceAsync.list()
+        val cardsFuture =
+            cardServiceAsync.list(
+                CardListParams.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        CardListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        CardListParams.Status.builder()
+                            .addIn(CardListParams.Status.In.ACTIVE)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val cards = cardsFuture.get()
+        cards.validate()
     }
 
     @Test

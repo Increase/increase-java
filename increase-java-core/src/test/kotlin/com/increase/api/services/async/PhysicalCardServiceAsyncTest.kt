@@ -5,7 +5,9 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
+import com.increase.api.models.physicalcards.PhysicalCardListParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -104,9 +106,25 @@ internal class PhysicalCardServiceAsyncTest {
                 .build()
         val physicalCardServiceAsync = client.physicalCards()
 
-        val pageFuture = physicalCardServiceAsync.list()
+        val physicalCardsFuture =
+            physicalCardServiceAsync.list(
+                PhysicalCardListParams.builder()
+                    .cardId("card_id")
+                    .createdAt(
+                        PhysicalCardListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val physicalCards = physicalCardsFuture.get()
+        physicalCards.validate()
     }
 }

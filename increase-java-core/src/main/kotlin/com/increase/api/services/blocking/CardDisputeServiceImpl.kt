@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeListPage
-import com.increase.api.models.carddisputes.CardDisputeListPageResponse
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeListResponse
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
@@ -56,7 +55,7 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: CardDisputeListParams,
         requestOptions: RequestOptions,
-    ): CardDisputeListPage =
+    ): CardDisputeListResponse =
         // get /card_disputes
         withRawResponse().list(params, requestOptions).parse()
 
@@ -145,13 +144,13 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<CardDisputeListPageResponse> =
-            jsonHandler<CardDisputeListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardDisputeListResponse> =
+            jsonHandler<CardDisputeListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardDisputeListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardDisputeListPage> {
+        ): HttpResponseFor<CardDisputeListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -168,13 +167,6 @@ class CardDisputeServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardDisputeListPage.builder()
-                            .service(CardDisputeServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

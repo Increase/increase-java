@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.documents.Document
 import com.increase.api.models.documents.DocumentCreateParams
-import com.increase.api.models.documents.DocumentListPage
 import com.increase.api.models.documents.DocumentListParams
+import com.increase.api.models.documents.DocumentListResponse
 import com.increase.api.models.documents.DocumentRetrieveParams
 import java.util.function.Consumer
 
@@ -66,20 +66,20 @@ interface DocumentService {
         retrieve(documentId, DocumentRetrieveParams.none(), requestOptions)
 
     /** List Documents */
-    fun list(): DocumentListPage = list(DocumentListParams.none())
+    fun list(): DocumentListResponse = list(DocumentListParams.none())
 
     /** @see list */
     fun list(
         params: DocumentListParams = DocumentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): DocumentListPage
+    ): DocumentListResponse
 
     /** @see list */
-    fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListPage =
+    fun list(params: DocumentListParams = DocumentListParams.none()): DocumentListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): DocumentListPage =
+    fun list(requestOptions: RequestOptions): DocumentListResponse =
         list(DocumentListParams.none(), requestOptions)
 
     /** A view of [DocumentService] that provides access to raw HTTP responses for each method. */
@@ -156,24 +156,24 @@ interface DocumentService {
          * [DocumentService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<DocumentListPage> = list(DocumentListParams.none())
+        fun list(): HttpResponseFor<DocumentListResponse> = list(DocumentListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<DocumentListPage>
+        ): HttpResponseFor<DocumentListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: DocumentListParams = DocumentListParams.none()
-        ): HttpResponseFor<DocumentListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<DocumentListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<DocumentListResponse> =
             list(DocumentListParams.none(), requestOptions)
     }
 }

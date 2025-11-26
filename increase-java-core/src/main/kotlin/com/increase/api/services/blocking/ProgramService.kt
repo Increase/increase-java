@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.programs.Program
-import com.increase.api.models.programs.ProgramListPage
 import com.increase.api.models.programs.ProgramListParams
+import com.increase.api.models.programs.ProgramListResponse
 import com.increase.api.models.programs.ProgramRetrieveParams
 import java.util.function.Consumer
 
@@ -56,20 +56,20 @@ interface ProgramService {
         retrieve(programId, ProgramRetrieveParams.none(), requestOptions)
 
     /** List Programs */
-    fun list(): ProgramListPage = list(ProgramListParams.none())
+    fun list(): ProgramListResponse = list(ProgramListParams.none())
 
     /** @see list */
     fun list(
         params: ProgramListParams = ProgramListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ProgramListPage
+    ): ProgramListResponse
 
     /** @see list */
-    fun list(params: ProgramListParams = ProgramListParams.none()): ProgramListPage =
+    fun list(params: ProgramListParams = ProgramListParams.none()): ProgramListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ProgramListPage =
+    fun list(requestOptions: RequestOptions): ProgramListResponse =
         list(ProgramListParams.none(), requestOptions)
 
     /** A view of [ProgramService] that provides access to raw HTTP responses for each method. */
@@ -127,24 +127,25 @@ interface ProgramService {
          * Returns a raw HTTP response for `get /programs`, but is otherwise the same as
          * [ProgramService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<ProgramListPage> = list(ProgramListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<ProgramListResponse> = list(ProgramListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ProgramListPage>
+        ): HttpResponseFor<ProgramListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ProgramListParams = ProgramListParams.none()
-        ): HttpResponseFor<ProgramListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ProgramListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ProgramListResponse> =
             list(ProgramListParams.none(), requestOptions)
     }
 }

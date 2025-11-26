@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundmailitems.InboundMailItem
 import com.increase.api.models.inboundmailitems.InboundMailItemActionParams
-import com.increase.api.models.inboundmailitems.InboundMailItemListPageAsync
-import com.increase.api.models.inboundmailitems.InboundMailItemListPageResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemListParams
+import com.increase.api.models.inboundmailitems.InboundMailItemListResponse
 import com.increase.api.models.inboundmailitems.InboundMailItemRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -50,7 +49,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
     override fun list(
         params: InboundMailItemListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<InboundMailItemListPageAsync> =
+    ): CompletableFuture<InboundMailItemListResponse> =
         // get /inbound_mail_items
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -107,13 +106,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
                 }
         }
 
-        private val listHandler: Handler<InboundMailItemListPageResponse> =
-            jsonHandler<InboundMailItemListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundMailItemListResponse> =
+            jsonHandler<InboundMailItemListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundMailItemListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<InboundMailItemListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<InboundMailItemListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -132,14 +131,6 @@ internal constructor(private val clientOptions: ClientOptions) : InboundMailItem
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                InboundMailItemListPageAsync.builder()
-                                    .service(InboundMailItemServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

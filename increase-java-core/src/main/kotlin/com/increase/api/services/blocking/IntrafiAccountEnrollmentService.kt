@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollment
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
-import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListPage
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListResponse
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentRetrieveParams
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentUnenrollParams
 import java.util.function.Consumer
@@ -84,21 +84,22 @@ interface IntrafiAccountEnrollmentService {
         )
 
     /** List IntraFi Account Enrollments */
-    fun list(): IntrafiAccountEnrollmentListPage = list(IntrafiAccountEnrollmentListParams.none())
+    fun list(): IntrafiAccountEnrollmentListResponse =
+        list(IntrafiAccountEnrollmentListParams.none())
 
     /** @see list */
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): IntrafiAccountEnrollmentListPage
+    ): IntrafiAccountEnrollmentListResponse
 
     /** @see list */
     fun list(
         params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
-    ): IntrafiAccountEnrollmentListPage = list(params, RequestOptions.none())
+    ): IntrafiAccountEnrollmentListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListPage =
+    fun list(requestOptions: RequestOptions): IntrafiAccountEnrollmentListResponse =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
     /** Unenroll an account from IntraFi */
@@ -240,7 +241,7 @@ interface IntrafiAccountEnrollmentService {
          * same as [IntrafiAccountEnrollmentService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<IntrafiAccountEnrollmentListPage> =
+        fun list(): HttpResponseFor<IntrafiAccountEnrollmentListResponse> =
             list(IntrafiAccountEnrollmentListParams.none())
 
         /** @see list */
@@ -248,19 +249,20 @@ interface IntrafiAccountEnrollmentService {
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<IntrafiAccountEnrollmentListPage>
+        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: IntrafiAccountEnrollmentListParams = IntrafiAccountEnrollmentListParams.none()
-        ): HttpResponseFor<IntrafiAccountEnrollmentListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse> =
+            list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             requestOptions: RequestOptions
-        ): HttpResponseFor<IntrafiAccountEnrollmentListPage> =
+        ): HttpResponseFor<IntrafiAccountEnrollmentListResponse> =
             list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
         /**

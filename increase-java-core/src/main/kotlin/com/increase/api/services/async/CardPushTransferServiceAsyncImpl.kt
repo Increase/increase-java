@@ -20,9 +20,8 @@ import com.increase.api.models.cardpushtransfers.CardPushTransfer
 import com.increase.api.models.cardpushtransfers.CardPushTransferApproveParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCancelParams
 import com.increase.api.models.cardpushtransfers.CardPushTransferCreateParams
-import com.increase.api.models.cardpushtransfers.CardPushTransferListPageAsync
-import com.increase.api.models.cardpushtransfers.CardPushTransferListPageResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferListParams
+import com.increase.api.models.cardpushtransfers.CardPushTransferListResponse
 import com.increase.api.models.cardpushtransfers.CardPushTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -59,7 +58,7 @@ internal constructor(private val clientOptions: ClientOptions) : CardPushTransfe
     override fun list(
         params: CardPushTransferListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CardPushTransferListPageAsync> =
+    ): CompletableFuture<CardPushTransferListResponse> =
         // get /card_push_transfers
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -154,13 +153,13 @@ internal constructor(private val clientOptions: ClientOptions) : CardPushTransfe
                 }
         }
 
-        private val listHandler: Handler<CardPushTransferListPageResponse> =
-            jsonHandler<CardPushTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPushTransferListResponse> =
+            jsonHandler<CardPushTransferListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardPushTransferListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardPushTransferListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CardPushTransferListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -179,14 +178,6 @@ internal constructor(private val clientOptions: ClientOptions) : CardPushTransfe
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CardPushTransferListPageAsync.builder()
-                                    .service(CardPushTransferServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

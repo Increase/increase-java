@@ -5,8 +5,8 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.routingnumbers.RoutingNumberListPageAsync
 import com.increase.api.models.routingnumbers.RoutingNumberListParams
+import com.increase.api.models.routingnumbers.RoutingNumberListResponse
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -30,14 +30,14 @@ interface RoutingNumberServiceAsync {
      * will always return 0 or 1 entry. In Sandbox, the only valid routing number for this method
      * is 110000000.
      */
-    fun list(params: RoutingNumberListParams): CompletableFuture<RoutingNumberListPageAsync> =
+    fun list(params: RoutingNumberListParams): CompletableFuture<RoutingNumberListResponse> =
         list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         params: RoutingNumberListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RoutingNumberListPageAsync>
+    ): CompletableFuture<RoutingNumberListResponse>
 
     /**
      * A view of [RoutingNumberServiceAsync] that provides access to raw HTTP responses for each
@@ -60,13 +60,13 @@ interface RoutingNumberServiceAsync {
          */
         fun list(
             params: RoutingNumberListParams
-        ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RoutingNumberListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             params: RoutingNumberListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RoutingNumberListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<RoutingNumberListResponse>>
     }
 }

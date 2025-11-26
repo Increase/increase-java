@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.externalaccounts.ExternalAccount
 import com.increase.api.models.externalaccounts.ExternalAccountCreateParams
-import com.increase.api.models.externalaccounts.ExternalAccountListPageAsync
-import com.increase.api.models.externalaccounts.ExternalAccountListPageResponse
 import com.increase.api.models.externalaccounts.ExternalAccountListParams
+import com.increase.api.models.externalaccounts.ExternalAccountListResponse
 import com.increase.api.models.externalaccounts.ExternalAccountRetrieveParams
 import com.increase.api.models.externalaccounts.ExternalAccountUpdateParams
 import java.util.concurrent.CompletableFuture
@@ -65,7 +64,7 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
     override fun list(
         params: ExternalAccountListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<ExternalAccountListPageAsync> =
+    ): CompletableFuture<ExternalAccountListResponse> =
         // get /external_accounts
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -180,13 +179,13 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                 }
         }
 
-        private val listHandler: Handler<ExternalAccountListPageResponse> =
-            jsonHandler<ExternalAccountListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ExternalAccountListResponse> =
+            jsonHandler<ExternalAccountListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ExternalAccountListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<ExternalAccountListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<ExternalAccountListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -205,14 +204,6 @@ internal constructor(private val clientOptions: ClientOptions) : ExternalAccount
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                ExternalAccountListPageAsync.builder()
-                                    .service(ExternalAccountServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

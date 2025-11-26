@@ -7,8 +7,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.oauthapplications.OAuthApplication
-import com.increase.api.models.oauthapplications.OAuthApplicationListPage
 import com.increase.api.models.oauthapplications.OAuthApplicationListParams
+import com.increase.api.models.oauthapplications.OAuthApplicationListResponse
 import com.increase.api.models.oauthapplications.OAuthApplicationRetrieveParams
 import java.util.function.Consumer
 
@@ -59,21 +59,21 @@ interface OAuthApplicationService {
         retrieve(oauthApplicationId, OAuthApplicationRetrieveParams.none(), requestOptions)
 
     /** List OAuth Applications */
-    fun list(): OAuthApplicationListPage = list(OAuthApplicationListParams.none())
+    fun list(): OAuthApplicationListResponse = list(OAuthApplicationListParams.none())
 
     /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): OAuthApplicationListPage
+    ): OAuthApplicationListResponse
 
     /** @see list */
     fun list(
         params: OAuthApplicationListParams = OAuthApplicationListParams.none()
-    ): OAuthApplicationListPage = list(params, RequestOptions.none())
+    ): OAuthApplicationListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): OAuthApplicationListPage =
+    fun list(requestOptions: RequestOptions): OAuthApplicationListResponse =
         list(OAuthApplicationListParams.none(), requestOptions)
 
     /**
@@ -144,7 +144,7 @@ interface OAuthApplicationService {
          * [OAuthApplicationService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<OAuthApplicationListPage> =
+        fun list(): HttpResponseFor<OAuthApplicationListResponse> =
             list(OAuthApplicationListParams.none())
 
         /** @see list */
@@ -152,17 +152,17 @@ interface OAuthApplicationService {
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<OAuthApplicationListPage>
+        ): HttpResponseFor<OAuthApplicationListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: OAuthApplicationListParams = OAuthApplicationListParams.none()
-        ): HttpResponseFor<OAuthApplicationListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<OAuthApplicationListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<OAuthApplicationListResponse> =
             list(OAuthApplicationListParams.none(), requestOptions)
     }
 }

@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySet
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetCreateParams
-import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPage
-import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListPageResponse
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListParams
+import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetListResponse
 import com.increase.api.models.bookkeepingentrysets.BookkeepingEntrySetRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -56,7 +55,7 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
     override fun list(
         params: BookkeepingEntrySetListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingEntrySetListPage =
+    ): BookkeepingEntrySetListResponse =
         // get /bookkeeping_entry_sets
         withRawResponse().list(params, requestOptions).parse()
 
@@ -131,13 +130,13 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
             }
         }
 
-        private val listHandler: Handler<BookkeepingEntrySetListPageResponse> =
-            jsonHandler<BookkeepingEntrySetListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingEntrySetListResponse> =
+            jsonHandler<BookkeepingEntrySetListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BookkeepingEntrySetListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BookkeepingEntrySetListPage> {
+        ): HttpResponseFor<BookkeepingEntrySetListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -154,13 +153,6 @@ internal constructor(private val clientOptions: ClientOptions) : BookkeepingEntr
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        BookkeepingEntrySetListPage.builder()
-                            .service(BookkeepingEntrySetServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

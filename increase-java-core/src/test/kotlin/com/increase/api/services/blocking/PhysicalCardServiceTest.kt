@@ -5,7 +5,9 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.physicalcards.PhysicalCardCreateParams
+import com.increase.api.models.physicalcards.PhysicalCardListParams
 import com.increase.api.models.physicalcards.PhysicalCardUpdateParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -100,8 +102,24 @@ internal class PhysicalCardServiceTest {
                 .build()
         val physicalCardService = client.physicalCards()
 
-        val page = physicalCardService.list()
+        val physicalCards =
+            physicalCardService.list(
+                PhysicalCardListParams.builder()
+                    .cardId("card_id")
+                    .createdAt(
+                        PhysicalCardListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        page.response().validate()
+        physicalCards.validate()
     }
 }

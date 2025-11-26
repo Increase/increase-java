@@ -13,29 +13,37 @@ internal class RoutingNumberListResponseTest {
     fun create() {
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
-                .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-                .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
-                .name("First Bank of the United States")
-                .realTimePaymentsTransfers(
-                    RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
+                .addData(
+                    RoutingNumberListResponse.Data.builder()
+                        .achTransfers(RoutingNumberListResponse.Data.AchTransfers.SUPPORTED)
+                        .fednowTransfers(RoutingNumberListResponse.Data.FednowTransfers.SUPPORTED)
+                        .name("First Bank of the United States")
+                        .realTimePaymentsTransfers(
+                            RoutingNumberListResponse.Data.RealTimePaymentsTransfers.SUPPORTED
+                        )
+                        .routingNumber("021000021")
+                        .type(RoutingNumberListResponse.Data.Type.ROUTING_NUMBER)
+                        .wireTransfers(RoutingNumberListResponse.Data.WireTransfers.SUPPORTED)
+                        .build()
                 )
-                .routingNumber("021000021")
-                .type(RoutingNumberListResponse.Type.ROUTING_NUMBER)
-                .wireTransfers(RoutingNumberListResponse.WireTransfers.SUPPORTED)
+                .nextCursor("v57w5d")
                 .build()
 
-        assertThat(routingNumberListResponse.achTransfers())
-            .isEqualTo(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-        assertThat(routingNumberListResponse.fednowTransfers())
-            .isEqualTo(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
-        assertThat(routingNumberListResponse.name()).isEqualTo("First Bank of the United States")
-        assertThat(routingNumberListResponse.realTimePaymentsTransfers())
-            .isEqualTo(RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED)
-        assertThat(routingNumberListResponse.routingNumber()).isEqualTo("021000021")
-        assertThat(routingNumberListResponse.type())
-            .isEqualTo(RoutingNumberListResponse.Type.ROUTING_NUMBER)
-        assertThat(routingNumberListResponse.wireTransfers())
-            .isEqualTo(RoutingNumberListResponse.WireTransfers.SUPPORTED)
+        assertThat(routingNumberListResponse.data())
+            .containsExactly(
+                RoutingNumberListResponse.Data.builder()
+                    .achTransfers(RoutingNumberListResponse.Data.AchTransfers.SUPPORTED)
+                    .fednowTransfers(RoutingNumberListResponse.Data.FednowTransfers.SUPPORTED)
+                    .name("First Bank of the United States")
+                    .realTimePaymentsTransfers(
+                        RoutingNumberListResponse.Data.RealTimePaymentsTransfers.SUPPORTED
+                    )
+                    .routingNumber("021000021")
+                    .type(RoutingNumberListResponse.Data.Type.ROUTING_NUMBER)
+                    .wireTransfers(RoutingNumberListResponse.Data.WireTransfers.SUPPORTED)
+                    .build()
+            )
+        assertThat(routingNumberListResponse.nextCursor()).contains("v57w5d")
     }
 
     @Test
@@ -43,15 +51,20 @@ internal class RoutingNumberListResponseTest {
         val jsonMapper = jsonMapper()
         val routingNumberListResponse =
             RoutingNumberListResponse.builder()
-                .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
-                .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
-                .name("First Bank of the United States")
-                .realTimePaymentsTransfers(
-                    RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
+                .addData(
+                    RoutingNumberListResponse.Data.builder()
+                        .achTransfers(RoutingNumberListResponse.Data.AchTransfers.SUPPORTED)
+                        .fednowTransfers(RoutingNumberListResponse.Data.FednowTransfers.SUPPORTED)
+                        .name("First Bank of the United States")
+                        .realTimePaymentsTransfers(
+                            RoutingNumberListResponse.Data.RealTimePaymentsTransfers.SUPPORTED
+                        )
+                        .routingNumber("021000021")
+                        .type(RoutingNumberListResponse.Data.Type.ROUTING_NUMBER)
+                        .wireTransfers(RoutingNumberListResponse.Data.WireTransfers.SUPPORTED)
+                        .build()
                 )
-                .routingNumber("021000021")
-                .type(RoutingNumberListResponse.Type.ROUTING_NUMBER)
-                .wireTransfers(RoutingNumberListResponse.WireTransfers.SUPPORTED)
+                .nextCursor("v57w5d")
                 .build()
 
         val roundtrippedRoutingNumberListResponse =

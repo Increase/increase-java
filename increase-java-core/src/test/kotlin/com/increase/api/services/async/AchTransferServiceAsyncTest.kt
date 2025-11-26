@@ -5,7 +5,9 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.achtransfers.AchTransferCreateParams
+import com.increase.api.models.achtransfers.AchTransferListParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -113,10 +115,32 @@ internal class AchTransferServiceAsyncTest {
                 .build()
         val achTransferServiceAsync = client.achTransfers()
 
-        val pageFuture = achTransferServiceAsync.list()
+        val achTransfersFuture =
+            achTransferServiceAsync.list(
+                AchTransferListParams.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        AchTransferListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .externalAccountId("external_account_id")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        AchTransferListParams.Status.builder()
+                            .addIn(AchTransferListParams.Status.In.PENDING_APPROVAL)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val achTransfers = achTransfersFuture.get()
+        achTransfers.validate()
     }
 
     @Test

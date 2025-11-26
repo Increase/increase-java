@@ -11,8 +11,8 @@ import com.increase.api.models.entities.EntityArchiveParams
 import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListParams
+import com.increase.api.models.entities.EntityListResponse
 import com.increase.api.models.entities.EntityRetrieveParams
 import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
@@ -110,21 +110,21 @@ interface EntityServiceAsync {
         update(entityId, EntityUpdateParams.none(), requestOptions)
 
     /** List Entities */
-    fun list(): CompletableFuture<EntityListPageAsync> = list(EntityListParams.none())
+    fun list(): CompletableFuture<EntityListResponse> = list(EntityListParams.none())
 
     /** @see list */
     fun list(
         params: EntityListParams = EntityListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<EntityListPageAsync>
+    ): CompletableFuture<EntityListResponse>
 
     /** @see list */
     fun list(
         params: EntityListParams = EntityListParams.none()
-    ): CompletableFuture<EntityListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<EntityListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<EntityListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<EntityListResponse> =
         list(EntityListParams.none(), requestOptions)
 
     /** Archive an Entity */
@@ -428,25 +428,25 @@ interface EntityServiceAsync {
          * Returns a raw HTTP response for `get /entities`, but is otherwise the same as
          * [EntityServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<EntityListResponse>> =
             list(EntityListParams.none())
 
         /** @see list */
         fun list(
             params: EntityListParams = EntityListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<EntityListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<EntityListResponse>>
 
         /** @see list */
         fun list(
             params: EntityListParams = EntityListParams.none()
-        ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<EntityListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<EntityListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<EntityListResponse>> =
             list(EntityListParams.none(), requestOptions)
 
         /**

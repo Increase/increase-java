@@ -4,6 +4,8 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.models.accountstatements.AccountStatementListParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -34,8 +36,23 @@ internal class AccountStatementServiceTest {
                 .build()
         val accountStatementService = client.accountStatements()
 
-        val page = accountStatementService.list()
+        val accountStatements =
+            accountStatementService.list(
+                AccountStatementListParams.builder()
+                    .accountId("account_id")
+                    .cursor("cursor")
+                    .limit(1L)
+                    .statementPeriodStart(
+                        AccountStatementListParams.StatementPeriodStart.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        accountStatements.validate()
     }
 }

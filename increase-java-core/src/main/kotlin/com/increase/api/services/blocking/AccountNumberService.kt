@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.accountnumbers.AccountNumber
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
-import com.increase.api.models.accountnumbers.AccountNumberListPage
 import com.increase.api.models.accountnumbers.AccountNumberListParams
+import com.increase.api.models.accountnumbers.AccountNumberListResponse
 import com.increase.api.models.accountnumbers.AccountNumberRetrieveParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
 import java.util.function.Consumer
@@ -103,21 +103,21 @@ interface AccountNumberService {
         update(accountNumberId, AccountNumberUpdateParams.none(), requestOptions)
 
     /** List Account Numbers */
-    fun list(): AccountNumberListPage = list(AccountNumberListParams.none())
+    fun list(): AccountNumberListResponse = list(AccountNumberListParams.none())
 
     /** @see list */
     fun list(
         params: AccountNumberListParams = AccountNumberListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountNumberListPage
+    ): AccountNumberListResponse
 
     /** @see list */
     fun list(
         params: AccountNumberListParams = AccountNumberListParams.none()
-    ): AccountNumberListPage = list(params, RequestOptions.none())
+    ): AccountNumberListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountNumberListPage =
+    fun list(requestOptions: RequestOptions): AccountNumberListResponse =
         list(AccountNumberListParams.none(), requestOptions)
 
     /**
@@ -242,24 +242,25 @@ interface AccountNumberService {
          * [AccountNumberService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AccountNumberListPage> = list(AccountNumberListParams.none())
+        fun list(): HttpResponseFor<AccountNumberListResponse> =
+            list(AccountNumberListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccountNumberListParams = AccountNumberListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountNumberListPage>
+        ): HttpResponseFor<AccountNumberListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccountNumberListParams = AccountNumberListParams.none()
-        ): HttpResponseFor<AccountNumberListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AccountNumberListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountNumberListResponse> =
             list(AccountNumberListParams.none(), requestOptions)
     }
 }

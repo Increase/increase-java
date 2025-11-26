@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.achprenotifications.AchPrenotification
 import com.increase.api.models.achprenotifications.AchPrenotificationCreateParams
-import com.increase.api.models.achprenotifications.AchPrenotificationListPage
-import com.increase.api.models.achprenotifications.AchPrenotificationListPageResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationListParams
+import com.increase.api.models.achprenotifications.AchPrenotificationListResponse
 import com.increase.api.models.achprenotifications.AchPrenotificationRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -54,7 +53,7 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
     override fun list(
         params: AchPrenotificationListParams,
         requestOptions: RequestOptions,
-    ): AchPrenotificationListPage =
+    ): AchPrenotificationListResponse =
         // get /ach_prenotifications
         withRawResponse().list(params, requestOptions).parse()
 
@@ -129,13 +128,13 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
             }
         }
 
-        private val listHandler: Handler<AchPrenotificationListPageResponse> =
-            jsonHandler<AchPrenotificationListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchPrenotificationListResponse> =
+            jsonHandler<AchPrenotificationListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AchPrenotificationListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AchPrenotificationListPage> {
+        ): HttpResponseFor<AchPrenotificationListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -152,13 +151,6 @@ class AchPrenotificationServiceImpl internal constructor(private val clientOptio
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AchPrenotificationListPage.builder()
-                            .service(AchPrenotificationServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

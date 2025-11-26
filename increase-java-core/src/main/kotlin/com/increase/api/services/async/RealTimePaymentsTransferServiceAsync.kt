@@ -9,8 +9,8 @@ import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfe
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListPageAsync
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListParams
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferListResponse
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -87,25 +87,24 @@ interface RealTimePaymentsTransferServiceAsync {
         )
 
     /** List Real-Time Payments Transfers */
-    fun list(): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
+    fun list(): CompletableFuture<RealTimePaymentsTransferListResponse> =
         list(RealTimePaymentsTransferListParams.none())
 
     /** @see list */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<RealTimePaymentsTransferListPageAsync>
+    ): CompletableFuture<RealTimePaymentsTransferListResponse>
 
     /** @see list */
     fun list(
         params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
-    ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
-        list(params, RequestOptions.none())
+    ): CompletableFuture<RealTimePaymentsTransferListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
     fun list(
         requestOptions: RequestOptions
-    ): CompletableFuture<RealTimePaymentsTransferListPageAsync> =
+    ): CompletableFuture<RealTimePaymentsTransferListResponse> =
         list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
     /** Approves a Real-Time Payments Transfer in a pending_approval state. */
@@ -284,25 +283,25 @@ interface RealTimePaymentsTransferServiceAsync {
          * Returns a raw HTTP response for `get /real_time_payments_transfers`, but is otherwise the
          * same as [RealTimePaymentsTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListResponse>> =
             list(RealTimePaymentsTransferListParams.none())
 
         /** @see list */
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListResponse>>
 
         /** @see list */
         fun list(
             params: RealTimePaymentsTransferListParams = RealTimePaymentsTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransferListResponse>> =
             list(RealTimePaymentsTransferListParams.none(), requestOptions)
 
         /**

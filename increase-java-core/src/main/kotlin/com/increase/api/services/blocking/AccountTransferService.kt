@@ -10,8 +10,8 @@ import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.accounttransfers.AccountTransferApproveParams
 import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
-import com.increase.api.models.accounttransfers.AccountTransferListPage
 import com.increase.api.models.accounttransfers.AccountTransferListParams
+import com.increase.api.models.accounttransfers.AccountTransferListResponse
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 import java.util.function.Consumer
 
@@ -72,21 +72,21 @@ interface AccountTransferService {
         retrieve(accountTransferId, AccountTransferRetrieveParams.none(), requestOptions)
 
     /** List Account Transfers */
-    fun list(): AccountTransferListPage = list(AccountTransferListParams.none())
+    fun list(): AccountTransferListResponse = list(AccountTransferListParams.none())
 
     /** @see list */
     fun list(
         params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): AccountTransferListPage
+    ): AccountTransferListResponse
 
     /** @see list */
     fun list(
         params: AccountTransferListParams = AccountTransferListParams.none()
-    ): AccountTransferListPage = list(params, RequestOptions.none())
+    ): AccountTransferListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): AccountTransferListPage =
+    fun list(requestOptions: RequestOptions): AccountTransferListResponse =
         list(AccountTransferListParams.none(), requestOptions)
 
     /** Approves an Account Transfer in status `pending_approval`. */
@@ -236,7 +236,7 @@ interface AccountTransferService {
          * [AccountTransferService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<AccountTransferListPage> =
+        fun list(): HttpResponseFor<AccountTransferListResponse> =
             list(AccountTransferListParams.none())
 
         /** @see list */
@@ -244,17 +244,17 @@ interface AccountTransferService {
         fun list(
             params: AccountTransferListParams = AccountTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<AccountTransferListPage>
+        ): HttpResponseFor<AccountTransferListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: AccountTransferListParams = AccountTransferListParams.none()
-        ): HttpResponseFor<AccountTransferListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<AccountTransferListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountTransferListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<AccountTransferListResponse> =
             list(AccountTransferListParams.none(), requestOptions)
 
         /**

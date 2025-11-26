@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
-import com.increase.api.models.checkdeposits.CheckDepositListPageAsync
-import com.increase.api.models.checkdeposits.CheckDepositListPageResponse
 import com.increase.api.models.checkdeposits.CheckDepositListParams
+import com.increase.api.models.checkdeposits.CheckDepositListResponse
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -55,7 +54,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
     override fun list(
         params: CheckDepositListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CheckDepositListPageAsync> =
+    ): CompletableFuture<CheckDepositListResponse> =
         // get /check_deposits
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -136,13 +135,13 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                 }
         }
 
-        private val listHandler: Handler<CheckDepositListPageResponse> =
-            jsonHandler<CheckDepositListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CheckDepositListResponse> =
+            jsonHandler<CheckDepositListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CheckDepositListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CheckDepositListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CheckDepositListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -161,14 +160,6 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CheckDepositListPageAsync.builder()
-                                    .service(CheckDepositServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

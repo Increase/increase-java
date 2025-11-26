@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.inboundwiredrawdownrequests.InboundWireDrawdownRequestListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -37,9 +38,12 @@ internal class InboundWireDrawdownRequestServiceAsyncTest {
                 .build()
         val inboundWireDrawdownRequestServiceAsync = client.inboundWireDrawdownRequests()
 
-        val pageFuture = inboundWireDrawdownRequestServiceAsync.list()
+        val inboundWireDrawdownRequestsFuture =
+            inboundWireDrawdownRequestServiceAsync.list(
+                InboundWireDrawdownRequestListParams.builder().cursor("cursor").limit(1L).build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val inboundWireDrawdownRequests = inboundWireDrawdownRequestsFuture.get()
+        inboundWireDrawdownRequests.validate()
     }
 }

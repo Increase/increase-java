@@ -5,7 +5,9 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.documents.DocumentCreateParams
+import com.increase.api.models.documents.DocumentListParams
 import java.time.LocalDate
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -67,9 +69,30 @@ internal class DocumentServiceAsyncTest {
                 .build()
         val documentServiceAsync = client.documents()
 
-        val pageFuture = documentServiceAsync.list()
+        val documentsFuture =
+            documentServiceAsync.list(
+                DocumentListParams.builder()
+                    .category(
+                        DocumentListParams.Category.builder()
+                            .addIn(DocumentListParams.Category.In.FORM_1099_INT)
+                            .build()
+                    )
+                    .createdAt(
+                        DocumentListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .entityId("entity_id")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val documents = documentsFuture.get()
+        documents.validate()
     }
 }

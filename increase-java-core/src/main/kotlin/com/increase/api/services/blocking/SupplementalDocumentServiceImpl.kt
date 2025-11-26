@@ -17,9 +17,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentCreateParams
-import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPage
-import com.increase.api.models.supplementaldocuments.SupplementalDocumentListPageResponse
 import com.increase.api.models.supplementaldocuments.SupplementalDocumentListParams
+import com.increase.api.models.supplementaldocuments.SupplementalDocumentListResponse
 import java.util.function.Consumer
 
 class SupplementalDocumentServiceImpl
@@ -46,7 +45,7 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
     override fun list(
         params: SupplementalDocumentListParams,
         requestOptions: RequestOptions,
-    ): SupplementalDocumentListPage =
+    ): SupplementalDocumentListResponse =
         // get /entity_supplemental_documents
         withRawResponse().list(params, requestOptions).parse()
 
@@ -91,13 +90,13 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
             }
         }
 
-        private val listHandler: Handler<SupplementalDocumentListPageResponse> =
-            jsonHandler<SupplementalDocumentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<SupplementalDocumentListResponse> =
+            jsonHandler<SupplementalDocumentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: SupplementalDocumentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<SupplementalDocumentListPage> {
+        ): HttpResponseFor<SupplementalDocumentListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -114,13 +113,6 @@ internal constructor(private val clientOptions: ClientOptions) : SupplementalDoc
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        SupplementalDocumentListPage.builder()
-                            .service(SupplementalDocumentServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

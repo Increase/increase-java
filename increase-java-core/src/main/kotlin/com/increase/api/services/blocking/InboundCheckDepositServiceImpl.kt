@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPage
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPageResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import java.util.function.Consumer
@@ -50,7 +49,7 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     override fun list(
         params: InboundCheckDepositListParams,
         requestOptions: RequestOptions,
-    ): InboundCheckDepositListPage =
+    ): InboundCheckDepositListResponse =
         // get /inbound_check_deposits
         withRawResponse().list(params, requestOptions).parse()
 
@@ -111,13 +110,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             }
         }
 
-        private val listHandler: Handler<InboundCheckDepositListPageResponse> =
-            jsonHandler<InboundCheckDepositListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<InboundCheckDepositListResponse> =
+            jsonHandler<InboundCheckDepositListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: InboundCheckDepositListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<InboundCheckDepositListPage> {
+        ): HttpResponseFor<InboundCheckDepositListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -134,13 +133,6 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        InboundCheckDepositListPage.builder()
-                            .service(InboundCheckDepositServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

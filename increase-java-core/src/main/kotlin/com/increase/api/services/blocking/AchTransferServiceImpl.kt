@@ -20,9 +20,8 @@ import com.increase.api.models.achtransfers.AchTransfer
 import com.increase.api.models.achtransfers.AchTransferApproveParams
 import com.increase.api.models.achtransfers.AchTransferCancelParams
 import com.increase.api.models.achtransfers.AchTransferCreateParams
-import com.increase.api.models.achtransfers.AchTransferListPage
-import com.increase.api.models.achtransfers.AchTransferListPageResponse
 import com.increase.api.models.achtransfers.AchTransferListParams
+import com.increase.api.models.achtransfers.AchTransferListResponse
 import com.increase.api.models.achtransfers.AchTransferRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -56,7 +55,7 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: AchTransferListParams,
         requestOptions: RequestOptions,
-    ): AchTransferListPage =
+    ): AchTransferListResponse =
         // get /ach_transfers
         withRawResponse().list(params, requestOptions).parse()
 
@@ -145,13 +144,13 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<AchTransferListPageResponse> =
-            jsonHandler<AchTransferListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<AchTransferListResponse> =
+            jsonHandler<AchTransferListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: AchTransferListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<AchTransferListPage> {
+        ): HttpResponseFor<AchTransferListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -168,13 +167,6 @@ class AchTransferServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        AchTransferListPage.builder()
-                            .service(AchTransferServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }
