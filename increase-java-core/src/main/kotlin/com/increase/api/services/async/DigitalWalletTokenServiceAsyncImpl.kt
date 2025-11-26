@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsync
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -50,7 +49,7 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
     override fun list(
         params: DigitalWalletTokenListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<DigitalWalletTokenListPageAsync> =
+    ): CompletableFuture<DigitalWalletTokenListResponse> =
         // get /digital_wallet_tokens
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -100,13 +99,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
                 }
         }
 
-        private val listHandler: Handler<DigitalWalletTokenListPageResponse> =
-            jsonHandler<DigitalWalletTokenListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<DigitalWalletTokenListResponse> =
+            jsonHandler<DigitalWalletTokenListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: DigitalWalletTokenListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -125,14 +124,6 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                DigitalWalletTokenListPageAsync.builder()
-                                    .service(DigitalWalletTokenServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

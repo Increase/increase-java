@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccount
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountBalanceParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountCreateParams
-import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListPage
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListParams
+import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountListResponse
 import com.increase.api.models.bookkeepingaccounts.BookkeepingAccountUpdateParams
 import com.increase.api.models.bookkeepingaccounts.BookkeepingBalanceLookup
 import java.util.function.Consumer
@@ -67,21 +67,21 @@ interface BookkeepingAccountService {
     ): BookkeepingAccount
 
     /** List Bookkeeping Accounts */
-    fun list(): BookkeepingAccountListPage = list(BookkeepingAccountListParams.none())
+    fun list(): BookkeepingAccountListResponse = list(BookkeepingAccountListParams.none())
 
     /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): BookkeepingAccountListPage
+    ): BookkeepingAccountListResponse
 
     /** @see list */
     fun list(
         params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
-    ): BookkeepingAccountListPage = list(params, RequestOptions.none())
+    ): BookkeepingAccountListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): BookkeepingAccountListPage =
+    fun list(requestOptions: RequestOptions): BookkeepingAccountListResponse =
         list(BookkeepingAccountListParams.none(), requestOptions)
 
     /** Retrieve a Bookkeeping Account Balance */
@@ -192,7 +192,7 @@ interface BookkeepingAccountService {
          * [BookkeepingAccountService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<BookkeepingAccountListPage> =
+        fun list(): HttpResponseFor<BookkeepingAccountListResponse> =
             list(BookkeepingAccountListParams.none())
 
         /** @see list */
@@ -200,17 +200,17 @@ interface BookkeepingAccountService {
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<BookkeepingAccountListPage>
+        ): HttpResponseFor<BookkeepingAccountListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: BookkeepingAccountListParams = BookkeepingAccountListParams.none()
-        ): HttpResponseFor<BookkeepingAccountListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<BookkeepingAccountListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<BookkeepingAccountListResponse> =
             list(BookkeepingAccountListParams.none(), requestOptions)
 
         /**

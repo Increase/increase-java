@@ -5,7 +5,9 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.lockboxes.LockboxCreateParams
+import com.increase.api.models.lockboxes.LockboxListParams
 import com.increase.api.models.lockboxes.LockboxUpdateParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -78,8 +80,24 @@ internal class LockboxServiceTest {
                 .build()
         val lockboxService = client.lockboxes()
 
-        val page = lockboxService.list()
+        val lockboxes =
+            lockboxService.list(
+                LockboxListParams.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        LockboxListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        page.response().validate()
+        lockboxes.validate()
     }
 }

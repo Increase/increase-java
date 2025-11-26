@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
 import com.increase.api.models.checkdeposits.CheckDepositCreateParams
-import com.increase.api.models.checkdeposits.CheckDepositListPage
 import com.increase.api.models.checkdeposits.CheckDepositListParams
+import com.increase.api.models.checkdeposits.CheckDepositListResponse
 import com.increase.api.models.checkdeposits.CheckDepositRetrieveParams
 import java.util.function.Consumer
 
@@ -70,20 +70,21 @@ interface CheckDepositService {
         retrieve(checkDepositId, CheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Check Deposits */
-    fun list(): CheckDepositListPage = list(CheckDepositListParams.none())
+    fun list(): CheckDepositListResponse = list(CheckDepositListParams.none())
 
     /** @see list */
     fun list(
         params: CheckDepositListParams = CheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CheckDepositListPage
+    ): CheckDepositListResponse
 
     /** @see list */
-    fun list(params: CheckDepositListParams = CheckDepositListParams.none()): CheckDepositListPage =
-        list(params, RequestOptions.none())
+    fun list(
+        params: CheckDepositListParams = CheckDepositListParams.none()
+    ): CheckDepositListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CheckDepositListPage =
+    fun list(requestOptions: RequestOptions): CheckDepositListResponse =
         list(CheckDepositListParams.none(), requestOptions)
 
     /**
@@ -164,24 +165,24 @@ interface CheckDepositService {
          * [CheckDepositService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CheckDepositListPage> = list(CheckDepositListParams.none())
+        fun list(): HttpResponseFor<CheckDepositListResponse> = list(CheckDepositListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CheckDepositListPage>
+        ): HttpResponseFor<CheckDepositListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CheckDepositListParams = CheckDepositListParams.none()
-        ): HttpResponseFor<CheckDepositListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CheckDepositListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CheckDepositListResponse> =
             list(CheckDepositListParams.none(), requestOptions)
     }
 }

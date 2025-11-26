@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.programs.Program
-import com.increase.api.models.programs.ProgramListPage
-import com.increase.api.models.programs.ProgramListPageResponse
 import com.increase.api.models.programs.ProgramListParams
+import com.increase.api.models.programs.ProgramListResponse
 import com.increase.api.models.programs.ProgramRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -39,7 +38,10 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
         // get /programs/{program_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun list(params: ProgramListParams, requestOptions: RequestOptions): ProgramListPage =
+    override fun list(
+        params: ProgramListParams,
+        requestOptions: RequestOptions,
+    ): ProgramListResponse =
         // get /programs
         withRawResponse().list(params, requestOptions).parse()
 
@@ -86,13 +88,13 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<ProgramListPageResponse> =
-            jsonHandler<ProgramListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<ProgramListResponse> =
+            jsonHandler<ProgramListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: ProgramListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<ProgramListPage> {
+        ): HttpResponseFor<ProgramListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -109,13 +111,6 @@ class ProgramServiceImpl internal constructor(private val clientOptions: ClientO
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        ProgramListPage.builder()
-                            .service(ProgramServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

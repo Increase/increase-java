@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.exports.Export
 import com.increase.api.models.exports.ExportCreateParams
-import com.increase.api.models.exports.ExportListPage
 import com.increase.api.models.exports.ExportListParams
+import com.increase.api.models.exports.ExportListResponse
 import com.increase.api.models.exports.ExportRetrieveParams
 import java.util.function.Consumer
 
@@ -66,20 +66,20 @@ interface ExportService {
         retrieve(exportId, ExportRetrieveParams.none(), requestOptions)
 
     /** List Exports */
-    fun list(): ExportListPage = list(ExportListParams.none())
+    fun list(): ExportListResponse = list(ExportListParams.none())
 
     /** @see list */
     fun list(
         params: ExportListParams = ExportListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): ExportListPage
+    ): ExportListResponse
 
     /** @see list */
-    fun list(params: ExportListParams = ExportListParams.none()): ExportListPage =
+    fun list(params: ExportListParams = ExportListParams.none()): ExportListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): ExportListPage =
+    fun list(requestOptions: RequestOptions): ExportListResponse =
         list(ExportListParams.none(), requestOptions)
 
     /** A view of [ExportService] that provides access to raw HTTP responses for each method. */
@@ -152,24 +152,25 @@ interface ExportService {
          * Returns a raw HTTP response for `get /exports`, but is otherwise the same as
          * [ExportService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<ExportListPage> = list(ExportListParams.none())
+        @MustBeClosed
+        fun list(): HttpResponseFor<ExportListResponse> = list(ExportListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ExportListParams = ExportListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<ExportListPage>
+        ): HttpResponseFor<ExportListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: ExportListParams = ExportListParams.none()
-        ): HttpResponseFor<ExportListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<ExportListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<ExportListResponse> =
             list(ExportListParams.none(), requestOptions)
     }
 }

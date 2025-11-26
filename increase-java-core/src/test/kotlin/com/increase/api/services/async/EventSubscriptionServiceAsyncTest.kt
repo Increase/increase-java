@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.eventsubscriptions.EventSubscriptionCreateParams
+import com.increase.api.models.eventsubscriptions.EventSubscriptionListParams
 import com.increase.api.models.eventsubscriptions.EventSubscriptionUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -84,9 +85,16 @@ internal class EventSubscriptionServiceAsyncTest {
                 .build()
         val eventSubscriptionServiceAsync = client.eventSubscriptions()
 
-        val pageFuture = eventSubscriptionServiceAsync.list()
+        val eventSubscriptionsFuture =
+            eventSubscriptionServiceAsync.list(
+                EventSubscriptionListParams.builder()
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val eventSubscriptions = eventSubscriptionsFuture.get()
+        eventSubscriptions.validate()
     }
 }

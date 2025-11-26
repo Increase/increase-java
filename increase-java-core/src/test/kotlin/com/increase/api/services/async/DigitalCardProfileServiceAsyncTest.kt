@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCloneParams
 import com.increase.api.models.digitalcardprofiles.DigitalCardProfileCreateParams
+import com.increase.api.models.digitalcardprofiles.DigitalCardProfileListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -71,10 +72,22 @@ internal class DigitalCardProfileServiceAsyncTest {
                 .build()
         val digitalCardProfileServiceAsync = client.digitalCardProfiles()
 
-        val pageFuture = digitalCardProfileServiceAsync.list()
+        val digitalCardProfilesFuture =
+            digitalCardProfileServiceAsync.list(
+                DigitalCardProfileListParams.builder()
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        DigitalCardProfileListParams.Status.builder()
+                            .addIn(DigitalCardProfileListParams.Status.In.PENDING)
+                            .build()
+                    )
+                    .build()
+            )
 
-        val page = pageFuture.get()
-        page.response().validate()
+        val digitalCardProfiles = digitalCardProfilesFuture.get()
+        digitalCardProfiles.validate()
     }
 
     @Test

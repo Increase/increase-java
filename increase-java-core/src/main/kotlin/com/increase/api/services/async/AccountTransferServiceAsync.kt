@@ -9,8 +9,8 @@ import com.increase.api.models.accounttransfers.AccountTransfer
 import com.increase.api.models.accounttransfers.AccountTransferApproveParams
 import com.increase.api.models.accounttransfers.AccountTransferCancelParams
 import com.increase.api.models.accounttransfers.AccountTransferCreateParams
-import com.increase.api.models.accounttransfers.AccountTransferListPageAsync
 import com.increase.api.models.accounttransfers.AccountTransferListParams
+import com.increase.api.models.accounttransfers.AccountTransferListResponse
 import com.increase.api.models.accounttransfers.AccountTransferRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -76,22 +76,22 @@ interface AccountTransferServiceAsync {
         retrieve(accountTransferId, AccountTransferRetrieveParams.none(), requestOptions)
 
     /** List Account Transfers */
-    fun list(): CompletableFuture<AccountTransferListPageAsync> =
+    fun list(): CompletableFuture<AccountTransferListResponse> =
         list(AccountTransferListParams.none())
 
     /** @see list */
     fun list(
         params: AccountTransferListParams = AccountTransferListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AccountTransferListPageAsync>
+    ): CompletableFuture<AccountTransferListResponse>
 
     /** @see list */
     fun list(
         params: AccountTransferListParams = AccountTransferListParams.none()
-    ): CompletableFuture<AccountTransferListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AccountTransferListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AccountTransferListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountTransferListResponse> =
         list(AccountTransferListParams.none(), requestOptions)
 
     /** Approves an Account Transfer in status `pending_approval`. */
@@ -245,25 +245,25 @@ interface AccountTransferServiceAsync {
          * Returns a raw HTTP response for `get /account_transfers`, but is otherwise the same as
          * [AccountTransferServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AccountTransferListResponse>> =
             list(AccountTransferListParams.none())
 
         /** @see list */
         fun list(
             params: AccountTransferListParams = AccountTransferListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AccountTransferListResponse>>
 
         /** @see list */
         fun list(
             params: AccountTransferListParams = AccountTransferListParams.none()
-        ): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AccountTransferListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AccountTransferListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AccountTransferListResponse>> =
             list(AccountTransferListParams.none(), requestOptions)
 
         /**

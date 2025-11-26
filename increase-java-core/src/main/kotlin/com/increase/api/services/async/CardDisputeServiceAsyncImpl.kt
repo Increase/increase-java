@@ -18,9 +18,8 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeListPageAsync
-import com.increase.api.models.carddisputes.CardDisputeListPageResponse
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeListResponse
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
@@ -57,7 +56,7 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
     override fun list(
         params: CardDisputeListParams,
         requestOptions: RequestOptions,
-    ): CompletableFuture<CardDisputeListPageAsync> =
+    ): CompletableFuture<CardDisputeListResponse> =
         // get /card_disputes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
@@ -152,13 +151,13 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                 }
         }
 
-        private val listHandler: Handler<CardDisputeListPageResponse> =
-            jsonHandler<CardDisputeListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardDisputeListResponse> =
+            jsonHandler<CardDisputeListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardDisputeListParams,
             requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> {
+        ): CompletableFuture<HttpResponseFor<CardDisputeListResponse>> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -177,14 +176,6 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
                                 }
-                            }
-                            .let {
-                                CardDisputeListPageAsync.builder()
-                                    .service(CardDisputeServiceAsyncImpl(clientOptions))
-                                    .streamHandlerExecutor(clientOptions.streamHandlerExecutor)
-                                    .params(params)
-                                    .response(it)
-                                    .build()
                             }
                     }
                 }

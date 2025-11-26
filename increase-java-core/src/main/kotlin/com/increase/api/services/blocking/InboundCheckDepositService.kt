@@ -8,8 +8,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositDeclineParams
-import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListPage
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListParams
+import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositListResponse
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositRetrieveParams
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDepositReturnParams
 import java.util.function.Consumer
@@ -67,21 +67,21 @@ interface InboundCheckDepositService {
         retrieve(inboundCheckDepositId, InboundCheckDepositRetrieveParams.none(), requestOptions)
 
     /** List Inbound Check Deposits */
-    fun list(): InboundCheckDepositListPage = list(InboundCheckDepositListParams.none())
+    fun list(): InboundCheckDepositListResponse = list(InboundCheckDepositListParams.none())
 
     /** @see list */
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): InboundCheckDepositListPage
+    ): InboundCheckDepositListResponse
 
     /** @see list */
     fun list(
         params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
-    ): InboundCheckDepositListPage = list(params, RequestOptions.none())
+    ): InboundCheckDepositListResponse = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): InboundCheckDepositListPage =
+    fun list(requestOptions: RequestOptions): InboundCheckDepositListResponse =
         list(InboundCheckDepositListParams.none(), requestOptions)
 
     /** Decline an Inbound Check Deposit */
@@ -222,7 +222,7 @@ interface InboundCheckDepositService {
          * as [InboundCheckDepositService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<InboundCheckDepositListPage> =
+        fun list(): HttpResponseFor<InboundCheckDepositListResponse> =
             list(InboundCheckDepositListParams.none())
 
         /** @see list */
@@ -230,17 +230,17 @@ interface InboundCheckDepositService {
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<InboundCheckDepositListPage>
+        ): HttpResponseFor<InboundCheckDepositListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: InboundCheckDepositListParams = InboundCheckDepositListParams.none()
-        ): HttpResponseFor<InboundCheckDepositListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<InboundCheckDepositListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<InboundCheckDepositListResponse> =
             list(InboundCheckDepositListParams.none(), requestOptions)
 
         /**

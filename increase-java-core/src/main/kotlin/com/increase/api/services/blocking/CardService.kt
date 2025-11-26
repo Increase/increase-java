@@ -12,8 +12,8 @@ import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
 import com.increase.api.models.cards.CardIframeUrl
-import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardListResponse
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -97,20 +97,20 @@ interface CardService {
         update(cardId, CardUpdateParams.none(), requestOptions)
 
     /** List Cards */
-    fun list(): CardListPage = list(CardListParams.none())
+    fun list(): CardListResponse = list(CardListParams.none())
 
     /** @see list */
     fun list(
         params: CardListParams = CardListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardListPage
+    ): CardListResponse
 
     /** @see list */
-    fun list(params: CardListParams = CardListParams.none()): CardListPage =
+    fun list(params: CardListParams = CardListParams.none()): CardListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardListPage =
+    fun list(requestOptions: RequestOptions): CardListResponse =
         list(CardListParams.none(), requestOptions)
 
     /**
@@ -308,23 +308,24 @@ interface CardService {
          * Returns a raw HTTP response for `get /cards`, but is otherwise the same as
          * [CardService.list].
          */
-        @MustBeClosed fun list(): HttpResponseFor<CardListPage> = list(CardListParams.none())
+        @MustBeClosed fun list(): HttpResponseFor<CardListResponse> = list(CardListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardListParams = CardListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardListPage>
+        ): HttpResponseFor<CardListResponse>
 
         /** @see list */
         @MustBeClosed
-        fun list(params: CardListParams = CardListParams.none()): HttpResponseFor<CardListPage> =
-            list(params, RequestOptions.none())
+        fun list(
+            params: CardListParams = CardListParams.none()
+        ): HttpResponseFor<CardListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardListResponse> =
             list(CardListParams.none(), requestOptions)
 
         /**

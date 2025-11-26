@@ -9,8 +9,8 @@ import com.increase.api.models.accounts.Account
 import com.increase.api.models.accounts.AccountBalanceParams
 import com.increase.api.models.accounts.AccountCloseParams
 import com.increase.api.models.accounts.AccountCreateParams
-import com.increase.api.models.accounts.AccountListPageAsync
 import com.increase.api.models.accounts.AccountListParams
+import com.increase.api.models.accounts.AccountListResponse
 import com.increase.api.models.accounts.AccountRetrieveParams
 import com.increase.api.models.accounts.AccountUpdateParams
 import com.increase.api.models.accounts.BalanceLookup
@@ -106,21 +106,21 @@ interface AccountServiceAsync {
         update(accountId, AccountUpdateParams.none(), requestOptions)
 
     /** List Accounts */
-    fun list(): CompletableFuture<AccountListPageAsync> = list(AccountListParams.none())
+    fun list(): CompletableFuture<AccountListResponse> = list(AccountListParams.none())
 
     /** @see list */
     fun list(
         params: AccountListParams = AccountListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<AccountListPageAsync>
+    ): CompletableFuture<AccountListResponse>
 
     /** @see list */
     fun list(
         params: AccountListParams = AccountListParams.none()
-    ): CompletableFuture<AccountListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<AccountListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<AccountListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<AccountListResponse> =
         list(AccountListParams.none(), requestOptions)
 
     /**
@@ -302,25 +302,25 @@ interface AccountServiceAsync {
          * Returns a raw HTTP response for `get /accounts`, but is otherwise the same as
          * [AccountServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<AccountListResponse>> =
             list(AccountListParams.none())
 
         /** @see list */
         fun list(
             params: AccountListParams = AccountListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<AccountListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<AccountListResponse>>
 
         /** @see list */
         fun list(
             params: AccountListParams = AccountListParams.none()
-        ): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AccountListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<AccountListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<AccountListResponse>> =
             list(AccountListParams.none(), requestOptions)
 
         /**

@@ -20,11 +20,15 @@ internal class RoutingNumberServiceTest {
                 .build()
         val routingNumberService = client.routingNumbers()
 
-        val page =
+        val routingNumbers =
             routingNumberService.list(
-                RoutingNumberListParams.builder().routingNumber("xxxxxxxxx").build()
+                RoutingNumberListParams.builder()
+                    .routingNumber("xxxxxxxxx")
+                    .cursor("cursor")
+                    .limit(1L)
+                    .build()
             )
 
-        page.response().validate()
+        routingNumbers.validate()
     }
 }

@@ -6,8 +6,8 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
-import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsync
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -66,22 +66,22 @@ interface DigitalWalletTokenServiceAsync {
         retrieve(digitalWalletTokenId, DigitalWalletTokenRetrieveParams.none(), requestOptions)
 
     /** List Digital Wallet Tokens */
-    fun list(): CompletableFuture<DigitalWalletTokenListPageAsync> =
+    fun list(): CompletableFuture<DigitalWalletTokenListResponse> =
         list(DigitalWalletTokenListParams.none())
 
     /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<DigitalWalletTokenListPageAsync>
+    ): CompletableFuture<DigitalWalletTokenListResponse>
 
     /** @see list */
     fun list(
         params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
-    ): CompletableFuture<DigitalWalletTokenListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<DigitalWalletTokenListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<DigitalWalletTokenListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<DigitalWalletTokenListResponse> =
         list(DigitalWalletTokenListParams.none(), requestOptions)
 
     /**
@@ -149,25 +149,25 @@ interface DigitalWalletTokenServiceAsync {
          * Returns a raw HTTP response for `get /digital_wallet_tokens`, but is otherwise the same
          * as [DigitalWalletTokenServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<DigitalWalletTokenListResponse>> =
             list(DigitalWalletTokenListParams.none())
 
         /** @see list */
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListResponse>>
 
         /** @see list */
         fun list(
             params: DigitalWalletTokenListParams = DigitalWalletTokenListParams.none()
-        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListResponse>> =
             list(DigitalWalletTokenListParams.none(), requestOptions)
     }
 }

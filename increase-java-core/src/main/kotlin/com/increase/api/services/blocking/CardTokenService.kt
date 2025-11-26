@@ -9,8 +9,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardtokens.CardToken
 import com.increase.api.models.cardtokens.CardTokenCapabilities
 import com.increase.api.models.cardtokens.CardTokenCapabilitiesParams
-import com.increase.api.models.cardtokens.CardTokenListPage
 import com.increase.api.models.cardtokens.CardTokenListParams
+import com.increase.api.models.cardtokens.CardTokenListResponse
 import com.increase.api.models.cardtokens.CardTokenRetrieveParams
 import java.util.function.Consumer
 
@@ -60,20 +60,20 @@ interface CardTokenService {
         retrieve(cardTokenId, CardTokenRetrieveParams.none(), requestOptions)
 
     /** List Card Tokens */
-    fun list(): CardTokenListPage = list(CardTokenListParams.none())
+    fun list(): CardTokenListResponse = list(CardTokenListParams.none())
 
     /** @see list */
     fun list(
         params: CardTokenListParams = CardTokenListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CardTokenListPage
+    ): CardTokenListResponse
 
     /** @see list */
-    fun list(params: CardTokenListParams = CardTokenListParams.none()): CardTokenListPage =
+    fun list(params: CardTokenListParams = CardTokenListParams.none()): CardTokenListResponse =
         list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CardTokenListPage =
+    fun list(requestOptions: RequestOptions): CardTokenListResponse =
         list(CardTokenListParams.none(), requestOptions)
 
     /**
@@ -171,24 +171,24 @@ interface CardTokenService {
          * [CardTokenService.list].
          */
         @MustBeClosed
-        fun list(): HttpResponseFor<CardTokenListPage> = list(CardTokenListParams.none())
+        fun list(): HttpResponseFor<CardTokenListResponse> = list(CardTokenListParams.none())
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardTokenListParams = CardTokenListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<CardTokenListPage>
+        ): HttpResponseFor<CardTokenListResponse>
 
         /** @see list */
         @MustBeClosed
         fun list(
             params: CardTokenListParams = CardTokenListParams.none()
-        ): HttpResponseFor<CardTokenListPage> = list(params, RequestOptions.none())
+        ): HttpResponseFor<CardTokenListResponse> = list(params, RequestOptions.none())
 
         /** @see list */
         @MustBeClosed
-        fun list(requestOptions: RequestOptions): HttpResponseFor<CardTokenListPage> =
+        fun list(requestOptions: RequestOptions): HttpResponseFor<CardTokenListResponse> =
             list(CardTokenListParams.none(), requestOptions)
 
         /**

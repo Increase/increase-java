@@ -5,7 +5,9 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.accountnumbers.AccountNumberCreateParams
+import com.increase.api.models.accountnumbers.AccountNumberListParams
 import com.increase.api.models.accountnumbers.AccountNumberUpdateParams
+import java.time.OffsetDateTime
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -96,8 +98,34 @@ internal class AccountNumberServiceTest {
                 .build()
         val accountNumberService = client.accountNumbers()
 
-        val page = accountNumberService.list()
+        val accountNumbers =
+            accountNumberService.list(
+                AccountNumberListParams.builder()
+                    .accountId("account_id")
+                    .achDebitStatus(
+                        AccountNumberListParams.AchDebitStatus.builder()
+                            .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
+                            .build()
+                    )
+                    .createdAt(
+                        AccountNumberListParams.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        AccountNumberListParams.Status.builder()
+                            .addIn(AccountNumberListParams.Status.In.ACTIVE)
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        accountNumbers.validate()
     }
 }

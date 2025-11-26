@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.carddisputes.CardDispute
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
-import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeListResponse
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
@@ -75,21 +75,21 @@ interface CardDisputeServiceAsync {
         retrieve(cardDisputeId, CardDisputeRetrieveParams.none(), requestOptions)
 
     /** List Card Disputes */
-    fun list(): CompletableFuture<CardDisputeListPageAsync> = list(CardDisputeListParams.none())
+    fun list(): CompletableFuture<CardDisputeListResponse> = list(CardDisputeListParams.none())
 
     /** @see list */
     fun list(
         params: CardDisputeListParams = CardDisputeListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CardDisputeListPageAsync>
+    ): CompletableFuture<CardDisputeListResponse>
 
     /** @see list */
     fun list(
         params: CardDisputeListParams = CardDisputeListParams.none()
-    ): CompletableFuture<CardDisputeListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<CardDisputeListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CardDisputeListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardDisputeListResponse> =
         list(CardDisputeListParams.none(), requestOptions)
 
     /** Submit a User Submission for a Card Dispute */
@@ -229,25 +229,25 @@ interface CardDisputeServiceAsync {
          * Returns a raw HTTP response for `get /card_disputes`, but is otherwise the same as
          * [CardDisputeServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<CardDisputeListResponse>> =
             list(CardDisputeListParams.none())
 
         /** @see list */
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CardDisputeListResponse>>
 
         /** @see list */
         fun list(
             params: CardDisputeListParams = CardDisputeListParams.none()
-        ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CardDisputeListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CardDisputeListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CardDisputeListResponse>> =
             list(CardDisputeListParams.none(), requestOptions)
 
         /**

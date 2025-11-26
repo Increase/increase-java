@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.bookkeepingentries.BookkeepingEntry
-import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPage
-import com.increase.api.models.bookkeepingentries.BookkeepingEntryListPageResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryListParams
+import com.increase.api.models.bookkeepingentries.BookkeepingEntryListResponse
 import com.increase.api.models.bookkeepingentries.BookkeepingEntryRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,7 +44,7 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
     override fun list(
         params: BookkeepingEntryListParams,
         requestOptions: RequestOptions,
-    ): BookkeepingEntryListPage =
+    ): BookkeepingEntryListResponse =
         // get /bookkeeping_entries
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
             }
         }
 
-        private val listHandler: Handler<BookkeepingEntryListPageResponse> =
-            jsonHandler<BookkeepingEntryListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<BookkeepingEntryListResponse> =
+            jsonHandler<BookkeepingEntryListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: BookkeepingEntryListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<BookkeepingEntryListPage> {
+        ): HttpResponseFor<BookkeepingEntryListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class BookkeepingEntryServiceImpl internal constructor(private val clientOptions
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        BookkeepingEntryListPage.builder()
-                            .service(BookkeepingEntryServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }

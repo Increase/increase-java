@@ -7,8 +7,8 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cardvalidations.CardValidation
 import com.increase.api.models.cardvalidations.CardValidationCreateParams
-import com.increase.api.models.cardvalidations.CardValidationListPageAsync
 import com.increase.api.models.cardvalidations.CardValidationListParams
+import com.increase.api.models.cardvalidations.CardValidationListResponse
 import com.increase.api.models.cardvalidations.CardValidationRetrieveParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -73,22 +73,22 @@ interface CardValidationServiceAsync {
         retrieve(cardValidationId, CardValidationRetrieveParams.none(), requestOptions)
 
     /** List Card Validations */
-    fun list(): CompletableFuture<CardValidationListPageAsync> =
+    fun list(): CompletableFuture<CardValidationListResponse> =
         list(CardValidationListParams.none())
 
     /** @see list */
     fun list(
         params: CardValidationListParams = CardValidationListParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<CardValidationListPageAsync>
+    ): CompletableFuture<CardValidationListResponse>
 
     /** @see list */
     fun list(
         params: CardValidationListParams = CardValidationListParams.none()
-    ): CompletableFuture<CardValidationListPageAsync> = list(params, RequestOptions.none())
+    ): CompletableFuture<CardValidationListResponse> = list(params, RequestOptions.none())
 
     /** @see list */
-    fun list(requestOptions: RequestOptions): CompletableFuture<CardValidationListPageAsync> =
+    fun list(requestOptions: RequestOptions): CompletableFuture<CardValidationListResponse> =
         list(CardValidationListParams.none(), requestOptions)
 
     /**
@@ -166,25 +166,25 @@ interface CardValidationServiceAsync {
          * Returns a raw HTTP response for `get /card_validations`, but is otherwise the same as
          * [CardValidationServiceAsync.list].
          */
-        fun list(): CompletableFuture<HttpResponseFor<CardValidationListPageAsync>> =
+        fun list(): CompletableFuture<HttpResponseFor<CardValidationListResponse>> =
             list(CardValidationListParams.none())
 
         /** @see list */
         fun list(
             params: CardValidationListParams = CardValidationListParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<CardValidationListPageAsync>>
+        ): CompletableFuture<HttpResponseFor<CardValidationListResponse>>
 
         /** @see list */
         fun list(
             params: CardValidationListParams = CardValidationListParams.none()
-        ): CompletableFuture<HttpResponseFor<CardValidationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CardValidationListResponse>> =
             list(params, RequestOptions.none())
 
         /** @see list */
         fun list(
             requestOptions: RequestOptions
-        ): CompletableFuture<HttpResponseFor<CardValidationListPageAsync>> =
+        ): CompletableFuture<HttpResponseFor<CardValidationListResponse>> =
             list(CardValidationListParams.none(), requestOptions)
     }
 }

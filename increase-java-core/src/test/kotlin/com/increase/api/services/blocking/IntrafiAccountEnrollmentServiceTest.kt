@@ -5,6 +5,7 @@ package com.increase.api.services.blocking
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentCreateParams
+import com.increase.api.models.intrafiaccountenrollments.IntrafiAccountEnrollmentListParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -57,9 +58,22 @@ internal class IntrafiAccountEnrollmentServiceTest {
                 .build()
         val intrafiAccountEnrollmentService = client.intrafiAccountEnrollments()
 
-        val page = intrafiAccountEnrollmentService.list()
+        val intrafiAccountEnrollments =
+            intrafiAccountEnrollmentService.list(
+                IntrafiAccountEnrollmentListParams.builder()
+                    .accountId("account_id")
+                    .cursor("cursor")
+                    .idempotencyKey("x")
+                    .limit(1L)
+                    .status(
+                        IntrafiAccountEnrollmentListParams.Status.builder()
+                            .addIn(IntrafiAccountEnrollmentListParams.Status.In.PENDING_ENROLLING)
+                            .build()
+                    )
+                    .build()
+            )
 
-        page.response().validate()
+        intrafiAccountEnrollments.validate()
     }
 
     @Test

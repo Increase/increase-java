@@ -16,9 +16,8 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cardpayments.CardPayment
-import com.increase.api.models.cardpayments.CardPaymentListPage
-import com.increase.api.models.cardpayments.CardPaymentListPageResponse
 import com.increase.api.models.cardpayments.CardPaymentListParams
+import com.increase.api.models.cardpayments.CardPaymentListResponse
 import com.increase.api.models.cardpayments.CardPaymentRetrieveParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -45,7 +44,7 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
     override fun list(
         params: CardPaymentListParams,
         requestOptions: RequestOptions,
-    ): CardPaymentListPage =
+    ): CardPaymentListResponse =
         // get /card_payments
         withRawResponse().list(params, requestOptions).parse()
 
@@ -92,13 +91,13 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
             }
         }
 
-        private val listHandler: Handler<CardPaymentListPageResponse> =
-            jsonHandler<CardPaymentListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<CardPaymentListResponse> =
+            jsonHandler<CardPaymentListResponse>(clientOptions.jsonMapper)
 
         override fun list(
             params: CardPaymentListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<CardPaymentListPage> {
+        ): HttpResponseFor<CardPaymentListResponse> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
@@ -115,13 +114,6 @@ class CardPaymentServiceImpl internal constructor(private val clientOptions: Cli
                         if (requestOptions.responseValidation!!) {
                             it.validate()
                         }
-                    }
-                    .let {
-                        CardPaymentListPage.builder()
-                            .service(CardPaymentServiceImpl(clientOptions))
-                            .params(params)
-                            .response(it)
-                            .build()
                     }
             }
         }
