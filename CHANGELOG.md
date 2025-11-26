@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.370.1 (2025-11-26)
+
+Full Changelog: [v0.370.0...v0.370.1](https://github.com/Increase/increase-java/compare/v0.370.0...v0.370.1)
+
+### Bug Fixes
+
+* **client:** cancel okhttp call when future cancelled ([ecf3201](https://github.com/Increase/increase-java/commit/ecf32018d966ad54d6ec26b479acf0ebe7fc2fb3))
+
 ## 0.370.0 (2025-11-26)
 
 Full Changelog: [v0.369.0...v0.370.0](https://github.com/Increase/increase-java/compare/v0.369.0...v0.370.0)
