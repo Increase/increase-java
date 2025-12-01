@@ -2122,9 +2122,9 @@ private constructor(
             fun name(): Optional<String> = name.getOptional("name")
 
             /**
-             * The phone number to associate with the check's destination address. Only used if
-             * shipping method is `fedex_overnight`. Will be supplied to FedEx as the contact phone
-             * number for the recipient to be used in case of delivery issues.
+             * The phone number to associate with the check's destination address. The number is
+             * only used when `shipping_method` is `fedex_overnight` and will be supplied to FedEx
+             * to be used in case of delivery issues.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -2313,9 +2313,9 @@ private constructor(
                 fun name(name: JsonField<String>) = apply { this.name = name }
 
                 /**
-                 * The phone number to associate with the check's destination address. Only used if
-                 * shipping method is `fedex_overnight`. Will be supplied to FedEx as the contact
-                 * phone number for the recipient to be used in case of delivery issues.
+                 * The phone number to associate with the check's destination address. The number is
+                 * only used when `shipping_method` is `fedex_overnight` and will be supplied to
+                 * FedEx to be used in case of delivery issues.
                  */
                 fun phone(phone: String) = phone(JsonField.of(phone))
 
