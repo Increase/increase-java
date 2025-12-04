@@ -44,6 +44,7 @@ internal class RealTimeDecisionActionParamsTest {
                                     )
                                     .build()
                             )
+                            .partialAmount(1L)
                             .build()
                     )
                     .decline(
@@ -137,6 +138,7 @@ internal class RealTimeDecisionActionParamsTest {
                                         )
                                         .build()
                                 )
+                                .partialAmount(1L)
                                 .build()
                         )
                         .decline(
@@ -218,6 +220,7 @@ internal class RealTimeDecisionActionParamsTest {
                                     )
                                     .build()
                             )
+                            .partialAmount(1L)
                             .build()
                     )
                     .decline(
