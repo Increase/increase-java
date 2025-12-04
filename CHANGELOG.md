@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.372.0 (2025-12-04)
+
+Full Changelog: [v0.371.0...v0.372.0](https://github.com/Increase/increase-java/compare/v0.371.0...v0.372.0)
+
+### Features
+
+* **api:** api update ([713c527](https://github.com/Increase/increase-java/commit/713c527943e32f2e0ccdbcfff824bc2f6ef55cf7))
+
+
+### Documentation
+
+* remove `$` for better copy-pasteabality ([90af4bf](https://github.com/Increase/increase-java/commit/90af4bff3c195690cf9de4c09c0920addc48e282))
+
 ## 0.371.0 (2025-12-01)
 
 Full Changelog: [v0.370.1...v0.371.0](https://github.com/Increase/increase-java/compare/v0.370.1...v0.371.0)
