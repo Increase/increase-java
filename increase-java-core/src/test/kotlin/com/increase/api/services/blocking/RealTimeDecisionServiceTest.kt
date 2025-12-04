@@ -81,6 +81,7 @@ internal class RealTimeDecisionServiceTest {
                                             )
                                             .build()
                                     )
+                                    .partialAmount(1L)
                                     .build()
                             )
                             .decline(

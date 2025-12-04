@@ -82,6 +82,7 @@ internal class RealTimeDecisionServiceAsyncTest {
                                             )
                                             .build()
                                     )
+                                    .partialAmount(1L)
                                     .build()
                             )
                             .decline(
