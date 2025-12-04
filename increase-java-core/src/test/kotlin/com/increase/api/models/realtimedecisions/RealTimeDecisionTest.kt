@@ -112,6 +112,11 @@ internal class RealTimeDecisionTest {
                                 )
                                 .build()
                         )
+                        .approval(
+                            RealTimeDecision.CardAuthorization.Approval.builder()
+                                .partialAmount(0L)
+                                .build()
+                        )
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .decline(
@@ -167,6 +172,10 @@ internal class RealTimeDecisionTest {
                                 .build()
                         )
                         .networkRiskScore(10L)
+                        .partialApprovalCapability(
+                            RealTimeDecision.CardAuthorization.PartialApprovalCapability
+                                .NOT_SUPPORTED
+                        )
                         .physicalCardId(null)
                         .presentmentAmount(100L)
                         .presentmentCurrency("USD")
@@ -365,6 +374,11 @@ internal class RealTimeDecisionTest {
                             )
                             .build()
                     )
+                    .approval(
+                        RealTimeDecision.CardAuthorization.Approval.builder()
+                            .partialAmount(0L)
+                            .build()
+                    )
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                     .decline(
@@ -418,6 +432,9 @@ internal class RealTimeDecisionTest {
                             .build()
                     )
                     .networkRiskScore(10L)
+                    .partialApprovalCapability(
+                        RealTimeDecision.CardAuthorization.PartialApprovalCapability.NOT_SUPPORTED
+                    )
                     .physicalCardId(null)
                     .presentmentAmount(100L)
                     .presentmentCurrency("USD")
@@ -622,6 +639,11 @@ internal class RealTimeDecisionTest {
                                 )
                                 .build()
                         )
+                        .approval(
+                            RealTimeDecision.CardAuthorization.Approval.builder()
+                                .partialAmount(0L)
+                                .build()
+                        )
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .decision(RealTimeDecision.CardAuthorization.Decision.APPROVE)
                         .decline(
@@ -677,6 +699,10 @@ internal class RealTimeDecisionTest {
                                 .build()
                         )
                         .networkRiskScore(10L)
+                        .partialApprovalCapability(
+                            RealTimeDecision.CardAuthorization.PartialApprovalCapability
+                                .NOT_SUPPORTED
+                        )
                         .physicalCardId(null)
                         .presentmentAmount(100L)
                         .presentmentCurrency("USD")
