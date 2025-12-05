@@ -21,9 +21,9 @@ import java.util.Optional
 
 /**
  * Creates a pending transaction on an account. This can be useful to hold funds for an external
- * payment or known future transaction outside of Increase. The resulting Pending Transaction will
- * have a `category` of `user_initiated_hold` and can be released via the API to unlock the held
- * funds.
+ * payment or known future transaction outside of Increase (only negative amounts are supported).
+ * The resulting Pending Transaction will have a `category` of `user_initiated_hold` and can be
+ * released via the API to unlock the held funds.
  */
 class PendingTransactionCreateParams
 private constructor(
