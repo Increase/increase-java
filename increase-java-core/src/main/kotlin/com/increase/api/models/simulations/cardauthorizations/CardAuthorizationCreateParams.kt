@@ -2833,6 +2833,12 @@ private constructor(
                  */
                 @JvmField val CASH_DISBURSEMENT = of("cash_disbursement")
 
+                /**
+                 * A balance inquiry transaction is used to check the balance of an account
+                 * associated with a card.
+                 */
+                @JvmField val BALANCE_INQUIRY = of("balance_inquiry")
+
                 @JvmStatic fun of(value: String) = Category(JsonField.of(value))
             }
 
@@ -2870,6 +2876,11 @@ private constructor(
                  * of sale.
                  */
                 CASH_DISBURSEMENT,
+                /**
+                 * A balance inquiry transaction is used to check the balance of an account
+                 * associated with a card.
+                 */
+                BALANCE_INQUIRY,
             }
 
             /**
@@ -2915,6 +2926,11 @@ private constructor(
                  */
                 CASH_DISBURSEMENT,
                 /**
+                 * A balance inquiry transaction is used to check the balance of an account
+                 * associated with a card.
+                 */
+                BALANCE_INQUIRY,
+                /**
                  * An enum member indicating that [Category] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
@@ -2937,6 +2953,7 @@ private constructor(
                     QUASI_CASH -> Value.QUASI_CASH
                     REFUND -> Value.REFUND
                     CASH_DISBURSEMENT -> Value.CASH_DISBURSEMENT
+                    BALANCE_INQUIRY -> Value.BALANCE_INQUIRY
                     else -> Value._UNKNOWN
                 }
 
@@ -2959,6 +2976,7 @@ private constructor(
                     QUASI_CASH -> Known.QUASI_CASH
                     REFUND -> Known.REFUND
                     CASH_DISBURSEMENT -> Known.CASH_DISBURSEMENT
+                    BALANCE_INQUIRY -> Known.BALANCE_INQUIRY
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
 
