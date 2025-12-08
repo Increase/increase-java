@@ -95,6 +95,18 @@ internal class RealTimeDecisionServiceTest {
                             )
                             .build()
                     )
+                    .cardBalanceInquiry(
+                        RealTimeDecisionActionParams.CardBalanceInquiry.builder()
+                            .decision(
+                                RealTimeDecisionActionParams.CardBalanceInquiry.Decision.APPROVE
+                            )
+                            .approval(
+                                RealTimeDecisionActionParams.CardBalanceInquiry.Approval.builder()
+                                    .balance(0L)
+                                    .build()
+                            )
+                            .build()
+                    )
                     .digitalWalletAuthentication(
                         RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
                             .result(
