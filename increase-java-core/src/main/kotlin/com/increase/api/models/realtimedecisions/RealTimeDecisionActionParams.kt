@@ -62,6 +62,15 @@ private constructor(
     fun cardAuthorization(): Optional<CardAuthorization> = body.cardAuthorization()
 
     /**
+     * If the Real-Time Decision relates to a card balance inquiry attempt, this object contains
+     * your response to the inquiry.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun cardBalanceInquiry(): Optional<CardBalanceInquiry> = body.cardBalanceInquiry()
+
+    /**
      * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
      * contains your response to the authentication.
      *
@@ -104,6 +113,14 @@ private constructor(
      * type.
      */
     fun _cardAuthorization(): JsonField<CardAuthorization> = body._cardAuthorization()
+
+    /**
+     * Returns the raw JSON value of [cardBalanceInquiry].
+     *
+     * Unlike [cardBalanceInquiry], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _cardBalanceInquiry(): JsonField<CardBalanceInquiry> = body._cardBalanceInquiry()
 
     /**
      * Returns the raw JSON value of [digitalWalletAuthentication].
@@ -177,8 +194,8 @@ private constructor(
          * - [cardAuthentication]
          * - [cardAuthenticationChallenge]
          * - [cardAuthorization]
+         * - [cardBalanceInquiry]
          * - [digitalWalletAuthentication]
-         * - [digitalWalletToken]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -239,6 +256,25 @@ private constructor(
          */
         fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
             body.cardAuthorization(cardAuthorization)
+        }
+
+        /**
+         * If the Real-Time Decision relates to a card balance inquiry attempt, this object contains
+         * your response to the inquiry.
+         */
+        fun cardBalanceInquiry(cardBalanceInquiry: CardBalanceInquiry) = apply {
+            body.cardBalanceInquiry(cardBalanceInquiry)
+        }
+
+        /**
+         * Sets [Builder.cardBalanceInquiry] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardBalanceInquiry] with a well-typed
+         * [CardBalanceInquiry] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun cardBalanceInquiry(cardBalanceInquiry: JsonField<CardBalanceInquiry>) = apply {
+            body.cardBalanceInquiry(cardBalanceInquiry)
         }
 
         /**
@@ -429,6 +465,7 @@ private constructor(
         private val cardAuthentication: JsonField<CardAuthentication>,
         private val cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge>,
         private val cardAuthorization: JsonField<CardAuthorization>,
+        private val cardBalanceInquiry: JsonField<CardBalanceInquiry>,
         private val digitalWalletAuthentication: JsonField<DigitalWalletAuthentication>,
         private val digitalWalletToken: JsonField<DigitalWalletToken>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -445,6 +482,9 @@ private constructor(
             @JsonProperty("card_authorization")
             @ExcludeMissing
             cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of(),
+            @JsonProperty("card_balance_inquiry")
+            @ExcludeMissing
+            cardBalanceInquiry: JsonField<CardBalanceInquiry> = JsonMissing.of(),
             @JsonProperty("digital_wallet_authentication")
             @ExcludeMissing
             digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> = JsonMissing.of(),
@@ -455,6 +495,7 @@ private constructor(
             cardAuthentication,
             cardAuthenticationChallenge,
             cardAuthorization,
+            cardBalanceInquiry,
             digitalWalletAuthentication,
             digitalWalletToken,
             mutableMapOf(),
@@ -489,6 +530,16 @@ private constructor(
          */
         fun cardAuthorization(): Optional<CardAuthorization> =
             cardAuthorization.getOptional("card_authorization")
+
+        /**
+         * If the Real-Time Decision relates to a card balance inquiry attempt, this object contains
+         * your response to the inquiry.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun cardBalanceInquiry(): Optional<CardBalanceInquiry> =
+            cardBalanceInquiry.getOptional("card_balance_inquiry")
 
         /**
          * If the Real-Time Decision relates to a digital wallet authentication attempt, this object
@@ -542,6 +593,16 @@ private constructor(
         fun _cardAuthorization(): JsonField<CardAuthorization> = cardAuthorization
 
         /**
+         * Returns the raw JSON value of [cardBalanceInquiry].
+         *
+         * Unlike [cardBalanceInquiry], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("card_balance_inquiry")
+        @ExcludeMissing
+        fun _cardBalanceInquiry(): JsonField<CardBalanceInquiry> = cardBalanceInquiry
+
+        /**
          * Returns the raw JSON value of [digitalWalletAuthentication].
          *
          * Unlike [digitalWalletAuthentication], this method doesn't throw if the JSON field has an
@@ -587,6 +648,7 @@ private constructor(
             private var cardAuthenticationChallenge: JsonField<CardAuthenticationChallenge> =
                 JsonMissing.of()
             private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
+            private var cardBalanceInquiry: JsonField<CardBalanceInquiry> = JsonMissing.of()
             private var digitalWalletAuthentication: JsonField<DigitalWalletAuthentication> =
                 JsonMissing.of()
             private var digitalWalletToken: JsonField<DigitalWalletToken> = JsonMissing.of()
@@ -597,6 +659,7 @@ private constructor(
                 cardAuthentication = body.cardAuthentication
                 cardAuthenticationChallenge = body.cardAuthenticationChallenge
                 cardAuthorization = body.cardAuthorization
+                cardBalanceInquiry = body.cardBalanceInquiry
                 digitalWalletAuthentication = body.digitalWalletAuthentication
                 digitalWalletToken = body.digitalWalletToken
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -655,6 +718,24 @@ private constructor(
              */
             fun cardAuthorization(cardAuthorization: JsonField<CardAuthorization>) = apply {
                 this.cardAuthorization = cardAuthorization
+            }
+
+            /**
+             * If the Real-Time Decision relates to a card balance inquiry attempt, this object
+             * contains your response to the inquiry.
+             */
+            fun cardBalanceInquiry(cardBalanceInquiry: CardBalanceInquiry) =
+                cardBalanceInquiry(JsonField.of(cardBalanceInquiry))
+
+            /**
+             * Sets [Builder.cardBalanceInquiry] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardBalanceInquiry] with a well-typed
+             * [CardBalanceInquiry] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun cardBalanceInquiry(cardBalanceInquiry: JsonField<CardBalanceInquiry>) = apply {
+                this.cardBalanceInquiry = cardBalanceInquiry
             }
 
             /**
@@ -723,6 +804,7 @@ private constructor(
                     cardAuthentication,
                     cardAuthenticationChallenge,
                     cardAuthorization,
+                    cardBalanceInquiry,
                     digitalWalletAuthentication,
                     digitalWalletToken,
                     additionalProperties.toMutableMap(),
@@ -739,6 +821,7 @@ private constructor(
             cardAuthentication().ifPresent { it.validate() }
             cardAuthenticationChallenge().ifPresent { it.validate() }
             cardAuthorization().ifPresent { it.validate() }
+            cardBalanceInquiry().ifPresent { it.validate() }
             digitalWalletAuthentication().ifPresent { it.validate() }
             digitalWalletToken().ifPresent { it.validate() }
             validated = true
@@ -763,6 +846,7 @@ private constructor(
             (cardAuthentication.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardAuthenticationChallenge.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardAuthorization.asKnown().getOrNull()?.validity() ?: 0) +
+                (cardBalanceInquiry.asKnown().getOrNull()?.validity() ?: 0) +
                 (digitalWalletAuthentication.asKnown().getOrNull()?.validity() ?: 0) +
                 (digitalWalletToken.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -775,6 +859,7 @@ private constructor(
                 cardAuthentication == other.cardAuthentication &&
                 cardAuthenticationChallenge == other.cardAuthenticationChallenge &&
                 cardAuthorization == other.cardAuthorization &&
+                cardBalanceInquiry == other.cardBalanceInquiry &&
                 digitalWalletAuthentication == other.digitalWalletAuthentication &&
                 digitalWalletToken == other.digitalWalletToken &&
                 additionalProperties == other.additionalProperties
@@ -785,6 +870,7 @@ private constructor(
                 cardAuthentication,
                 cardAuthenticationChallenge,
                 cardAuthorization,
+                cardBalanceInquiry,
                 digitalWalletAuthentication,
                 digitalWalletToken,
                 additionalProperties,
@@ -794,7 +880,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
+            "Body{cardAuthentication=$cardAuthentication, cardAuthenticationChallenge=$cardAuthenticationChallenge, cardAuthorization=$cardAuthorization, cardBalanceInquiry=$cardBalanceInquiry, digitalWalletAuthentication=$digitalWalletAuthentication, digitalWalletToken=$digitalWalletToken, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -2994,6 +3080,515 @@ private constructor(
 
         override fun toString() =
             "CardAuthorization{decision=$decision, approval=$approval, decline=$decline, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * If the Real-Time Decision relates to a card balance inquiry attempt, this object contains
+     * your response to the inquiry.
+     */
+    class CardBalanceInquiry
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val decision: JsonField<Decision>,
+        private val approval: JsonField<Approval>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("decision")
+            @ExcludeMissing
+            decision: JsonField<Decision> = JsonMissing.of(),
+            @JsonProperty("approval")
+            @ExcludeMissing
+            approval: JsonField<Approval> = JsonMissing.of(),
+        ) : this(decision, approval, mutableMapOf())
+
+        /**
+         * Whether the card balance inquiry should be approved or declined.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun decision(): Decision = decision.getRequired("decision")
+
+        /**
+         * If your application approves the balance inquiry, this contains metadata about your
+         * decision to approve.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun approval(): Optional<Approval> = approval.getOptional("approval")
+
+        /**
+         * Returns the raw JSON value of [decision].
+         *
+         * Unlike [decision], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("decision") @ExcludeMissing fun _decision(): JsonField<Decision> = decision
+
+        /**
+         * Returns the raw JSON value of [approval].
+         *
+         * Unlike [approval], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("approval") @ExcludeMissing fun _approval(): JsonField<Approval> = approval
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [CardBalanceInquiry].
+             *
+             * The following fields are required:
+             * ```java
+             * .decision()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [CardBalanceInquiry]. */
+        class Builder internal constructor() {
+
+            private var decision: JsonField<Decision>? = null
+            private var approval: JsonField<Approval> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(cardBalanceInquiry: CardBalanceInquiry) = apply {
+                decision = cardBalanceInquiry.decision
+                approval = cardBalanceInquiry.approval
+                additionalProperties = cardBalanceInquiry.additionalProperties.toMutableMap()
+            }
+
+            /** Whether the card balance inquiry should be approved or declined. */
+            fun decision(decision: Decision) = decision(JsonField.of(decision))
+
+            /**
+             * Sets [Builder.decision] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.decision] with a well-typed [Decision] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun decision(decision: JsonField<Decision>) = apply { this.decision = decision }
+
+            /**
+             * If your application approves the balance inquiry, this contains metadata about your
+             * decision to approve.
+             */
+            fun approval(approval: Approval) = approval(JsonField.of(approval))
+
+            /**
+             * Sets [Builder.approval] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.approval] with a well-typed [Approval] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun approval(approval: JsonField<Approval>) = apply { this.approval = approval }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [CardBalanceInquiry].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .decision()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): CardBalanceInquiry =
+                CardBalanceInquiry(
+                    checkRequired("decision", decision),
+                    approval,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): CardBalanceInquiry = apply {
+            if (validated) {
+                return@apply
+            }
+
+            decision().validate()
+            approval().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (decision.asKnown().getOrNull()?.validity() ?: 0) +
+                (approval.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** Whether the card balance inquiry should be approved or declined. */
+        class Decision @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** Approve the authorization. */
+                @JvmField val APPROVE = of("approve")
+
+                /** Decline the authorization. */
+                @JvmField val DECLINE = of("decline")
+
+                @JvmStatic fun of(value: String) = Decision(JsonField.of(value))
+            }
+
+            /** An enum containing [Decision]'s known values. */
+            enum class Known {
+                /** Approve the authorization. */
+                APPROVE,
+                /** Decline the authorization. */
+                DECLINE,
+            }
+
+            /**
+             * An enum containing [Decision]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Decision] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** Approve the authorization. */
+                APPROVE,
+                /** Decline the authorization. */
+                DECLINE,
+                /**
+                 * An enum member indicating that [Decision] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    APPROVE -> Value.APPROVE
+                    DECLINE -> Value.DECLINE
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    APPROVE -> Known.APPROVE
+                    DECLINE -> Known.DECLINE
+                    else -> throw IncreaseInvalidDataException("Unknown Decision: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Decision = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Decision && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /**
+         * If your application approves the balance inquiry, this contains metadata about your
+         * decision to approve.
+         */
+        class Approval
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val balance: JsonField<Long>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("balance") @ExcludeMissing balance: JsonField<Long> = JsonMissing.of()
+            ) : this(balance, mutableMapOf())
+
+            /**
+             * The balance on the card in the settlement currency of the transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun balance(): Long = balance.getRequired("balance")
+
+            /**
+             * Returns the raw JSON value of [balance].
+             *
+             * Unlike [balance], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("balance") @ExcludeMissing fun _balance(): JsonField<Long> = balance
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Approval].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .balance()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Approval]. */
+            class Builder internal constructor() {
+
+                private var balance: JsonField<Long>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(approval: Approval) = apply {
+                    balance = approval.balance
+                    additionalProperties = approval.additionalProperties.toMutableMap()
+                }
+
+                /** The balance on the card in the settlement currency of the transaction. */
+                fun balance(balance: Long) = balance(JsonField.of(balance))
+
+                /**
+                 * Sets [Builder.balance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.balance] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun balance(balance: JsonField<Long>) = apply { this.balance = balance }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Approval].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .balance()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Approval =
+                    Approval(checkRequired("balance", balance), additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Approval = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                balance()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = (if (balance.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Approval &&
+                    balance == other.balance &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(balance, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Approval{balance=$balance, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is CardBalanceInquiry &&
+                decision == other.decision &&
+                approval == other.approval &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(decision, approval, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "CardBalanceInquiry{decision=$decision, approval=$approval, additionalProperties=$additionalProperties}"
     }
 
     /**

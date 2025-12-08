@@ -1032,6 +1032,14 @@ private constructor(
                 of("real_time_decision.card_authorization_requested")
 
             /**
+             * Occurs whenever a Real-Time Decision is created in response to a card balance
+             * inquiry.
+             */
+            @JvmField
+            val REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED =
+                of("real_time_decision.card_balance_inquiry_requested")
+
+            /**
              * Occurs whenever a Real-Time Decision is created in response to a digital wallet
              * provisioning attempt.
              */
@@ -1282,6 +1290,11 @@ private constructor(
              */
             REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
             /**
+             * Occurs whenever a Real-Time Decision is created in response to a card balance
+             * inquiry.
+             */
+            REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED,
+            /**
              * Occurs whenever a Real-Time Decision is created in response to a digital wallet
              * provisioning attempt.
              */
@@ -1511,6 +1524,11 @@ private constructor(
              */
             REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED,
             /**
+             * Occurs whenever a Real-Time Decision is created in response to a card balance
+             * inquiry.
+             */
+            REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED,
+            /**
              * Occurs whenever a Real-Time Decision is created in response to a digital wallet
              * provisioning attempt.
              */
@@ -1657,6 +1675,8 @@ private constructor(
                     Value.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
                 REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                     Value.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
+                REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED ->
+                    Value.REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED
                 REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
                     Value.REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED
                 REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
@@ -1782,6 +1802,8 @@ private constructor(
                     Known.PROOF_OF_AUTHORIZATION_REQUEST_UPDATED
                 REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED ->
                     Known.REAL_TIME_DECISION_CARD_AUTHORIZATION_REQUESTED
+                REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED ->
+                    Known.REAL_TIME_DECISION_CARD_BALANCE_INQUIRY_REQUESTED
                 REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED ->
                     Known.REAL_TIME_DECISION_DIGITAL_WALLET_TOKEN_REQUESTED
                 REAL_TIME_DECISION_DIGITAL_WALLET_AUTHENTICATION_REQUESTED ->
