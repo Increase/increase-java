@@ -57,6 +57,16 @@ internal class RealTimeDecisionActionParamsTest {
                     )
                     .build()
             )
+            .cardBalanceInquiry(
+                RealTimeDecisionActionParams.CardBalanceInquiry.builder()
+                    .decision(RealTimeDecisionActionParams.CardBalanceInquiry.Decision.APPROVE)
+                    .approval(
+                        RealTimeDecisionActionParams.CardBalanceInquiry.Approval.builder()
+                            .balance(0L)
+                            .build()
+                    )
+                    .build()
+            )
             .digitalWalletAuthentication(
                 RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
                     .result(RealTimeDecisionActionParams.DigitalWalletAuthentication.Result.SUCCESS)
@@ -151,6 +161,16 @@ internal class RealTimeDecisionActionParamsTest {
                         )
                         .build()
                 )
+                .cardBalanceInquiry(
+                    RealTimeDecisionActionParams.CardBalanceInquiry.builder()
+                        .decision(RealTimeDecisionActionParams.CardBalanceInquiry.Decision.APPROVE)
+                        .approval(
+                            RealTimeDecisionActionParams.CardBalanceInquiry.Approval.builder()
+                                .balance(0L)
+                                .build()
+                        )
+                        .build()
+                )
                 .digitalWalletAuthentication(
                     RealTimeDecisionActionParams.DigitalWalletAuthentication.builder()
                         .result(
@@ -229,6 +249,17 @@ internal class RealTimeDecisionActionParamsTest {
                                 RealTimeDecisionActionParams.CardAuthorization.Decline.Reason
                                     .INSUFFICIENT_FUNDS
                             )
+                            .build()
+                    )
+                    .build()
+            )
+        assertThat(body.cardBalanceInquiry())
+            .contains(
+                RealTimeDecisionActionParams.CardBalanceInquiry.builder()
+                    .decision(RealTimeDecisionActionParams.CardBalanceInquiry.Decision.APPROVE)
+                    .approval(
+                        RealTimeDecisionActionParams.CardBalanceInquiry.Approval.builder()
+                            .balance(0L)
                             .build()
                     )
                     .build()
