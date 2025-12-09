@@ -13,6 +13,8 @@ import com.increase.api.services.blocking.simulations.CardAuthorizationExpiratio
 import com.increase.api.services.blocking.simulations.CardAuthorizationExpirationServiceImpl
 import com.increase.api.services.blocking.simulations.CardAuthorizationService
 import com.increase.api.services.blocking.simulations.CardAuthorizationServiceImpl
+import com.increase.api.services.blocking.simulations.CardBalanceInquiryService
+import com.increase.api.services.blocking.simulations.CardBalanceInquiryServiceImpl
 import com.increase.api.services.blocking.simulations.CardDisputeService
 import com.increase.api.services.blocking.simulations.CardDisputeServiceImpl
 import com.increase.api.services.blocking.simulations.CardFuelConfirmationService
@@ -82,6 +84,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val cardAuthorizations: CardAuthorizationService by lazy {
         CardAuthorizationServiceImpl(clientOptions)
+    }
+
+    private val cardBalanceInquiries: CardBalanceInquiryService by lazy {
+        CardBalanceInquiryServiceImpl(clientOptions)
     }
 
     private val cardAuthorizationExpirations: CardAuthorizationExpirationService by lazy {
@@ -191,6 +197,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun cardAuthorizations(): CardAuthorizationService = cardAuthorizations
 
+    override fun cardBalanceInquiries(): CardBalanceInquiryService = cardBalanceInquiries
+
     override fun cardAuthorizationExpirations(): CardAuthorizationExpirationService =
         cardAuthorizationExpirations
 
@@ -263,6 +271,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         private val cardAuthorizations: CardAuthorizationService.WithRawResponse by lazy {
             CardAuthorizationServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardBalanceInquiries: CardBalanceInquiryService.WithRawResponse by lazy {
+            CardBalanceInquiryServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardAuthorizationExpirations:
@@ -391,6 +403,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         override fun cardAuthorizations(): CardAuthorizationService.WithRawResponse =
             cardAuthorizations
+
+        override fun cardBalanceInquiries(): CardBalanceInquiryService.WithRawResponse =
+            cardBalanceInquiries
 
         override fun cardAuthorizationExpirations():
             CardAuthorizationExpirationService.WithRawResponse = cardAuthorizationExpirations
