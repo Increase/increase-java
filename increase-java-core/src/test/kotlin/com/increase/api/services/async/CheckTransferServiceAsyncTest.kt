@@ -62,6 +62,7 @@ internal class CheckTransferServiceAsyncTest {
                                     .postalCode("x")
                                     .state("x")
                                     .line2("x")
+                                    .phone("x")
                                     .build()
                             )
                             .shippingMethod(
