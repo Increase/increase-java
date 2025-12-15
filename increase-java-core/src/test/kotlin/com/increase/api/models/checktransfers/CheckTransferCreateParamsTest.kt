@@ -48,6 +48,7 @@ internal class CheckTransferCreateParamsTest {
                             .postalCode("x")
                             .state("x")
                             .line2("x")
+                            .phone("x")
                             .build()
                     )
                     .shippingMethod(
@@ -103,6 +104,7 @@ internal class CheckTransferCreateParamsTest {
                                 .postalCode("x")
                                 .state("x")
                                 .line2("x")
+                                .phone("x")
                                 .build()
                         )
                         .shippingMethod(
@@ -159,6 +161,7 @@ internal class CheckTransferCreateParamsTest {
                             .postalCode("x")
                             .state("x")
                             .line2("x")
+                            .phone("x")
                             .build()
                     )
                     .shippingMethod(
