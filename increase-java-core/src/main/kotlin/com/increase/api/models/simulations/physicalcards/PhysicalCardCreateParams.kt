@@ -745,6 +745,13 @@ private constructor(
             /** The physical card has been delivered. */
             @JvmField val DELIVERED = of("delivered")
 
+            /**
+             * There is an issue preventing delivery. The delivery will be attempted again if
+             * possible. If the issue cannot be resolved, the physical card will be returned to
+             * sender.
+             */
+            @JvmField val DELIVERY_ISSUE = of("delivery_issue")
+
             /** Delivery failed and the physical card was returned to sender. */
             @JvmField val RETURNED_TO_SENDER = of("returned_to_sender")
 
@@ -759,6 +766,12 @@ private constructor(
             PROCESSED_FOR_DELIVERY,
             /** The physical card has been delivered. */
             DELIVERED,
+            /**
+             * There is an issue preventing delivery. The delivery will be attempted again if
+             * possible. If the issue cannot be resolved, the physical card will be returned to
+             * sender.
+             */
+            DELIVERY_ISSUE,
             /** Delivery failed and the physical card was returned to sender. */
             RETURNED_TO_SENDER,
         }
@@ -779,6 +792,12 @@ private constructor(
             PROCESSED_FOR_DELIVERY,
             /** The physical card has been delivered. */
             DELIVERED,
+            /**
+             * There is an issue preventing delivery. The delivery will be attempted again if
+             * possible. If the issue cannot be resolved, the physical card will be returned to
+             * sender.
+             */
+            DELIVERY_ISSUE,
             /** Delivery failed and the physical card was returned to sender. */
             RETURNED_TO_SENDER,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
@@ -797,6 +816,7 @@ private constructor(
                 IN_TRANSIT -> Value.IN_TRANSIT
                 PROCESSED_FOR_DELIVERY -> Value.PROCESSED_FOR_DELIVERY
                 DELIVERED -> Value.DELIVERED
+                DELIVERY_ISSUE -> Value.DELIVERY_ISSUE
                 RETURNED_TO_SENDER -> Value.RETURNED_TO_SENDER
                 else -> Value._UNKNOWN
             }
@@ -815,6 +835,7 @@ private constructor(
                 IN_TRANSIT -> Known.IN_TRANSIT
                 PROCESSED_FOR_DELIVERY -> Known.PROCESSED_FOR_DELIVERY
                 DELIVERED -> Known.DELIVERED
+                DELIVERY_ISSUE -> Known.DELIVERY_ISSUE
                 RETURNED_TO_SENDER -> Known.RETURNED_TO_SENDER
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
