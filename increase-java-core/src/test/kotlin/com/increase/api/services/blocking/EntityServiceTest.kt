@@ -140,6 +140,7 @@ internal class EntityServiceTest {
                                 EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                                     .REGULATED_FINANCIAL_INSTITUTION
                             )
+                            .email("dev@stainless.com")
                             .incorporationState("NY")
                             .industryCode("x")
                             .website("https://example.com")
@@ -492,6 +493,7 @@ internal class EntityServiceTest {
                                     .line2("Unit 2")
                                     .build()
                             )
+                            .email("dev@stainless.com")
                             .industryCode("x")
                             .name("x")
                             .build()
