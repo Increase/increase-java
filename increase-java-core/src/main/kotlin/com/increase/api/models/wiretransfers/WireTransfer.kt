@@ -5131,9 +5131,8 @@ private constructor(
             returnReasonAdditionalInformation.getOptional("return_reason_additional_information")
 
         /**
-         * A code provided by the sending bank giving a reason for the reversal. It will generally
-         * be one of the codes defined in the ISO20022 `ExternalReturnReason1Code` code set, but
-         * this is not enforced by the network.
+         * A code provided by the sending bank giving a reason for the reversal. The common return
+         * reason codes are [documented here](/documentation/wire-reversals#reversal-reason-codes).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5553,9 +5552,9 @@ private constructor(
             ) = apply { this.returnReasonAdditionalInformation = returnReasonAdditionalInformation }
 
             /**
-             * A code provided by the sending bank giving a reason for the reversal. It will
-             * generally be one of the codes defined in the ISO20022 `ExternalReturnReason1Code`
-             * code set, but this is not enforced by the network.
+             * A code provided by the sending bank giving a reason for the reversal. The common
+             * return reason codes are
+             * [documented here](/documentation/wire-reversals#reversal-reason-codes).
              */
             fun returnReasonCode(returnReasonCode: String?) =
                 returnReasonCode(JsonField.ofNullable(returnReasonCode))
