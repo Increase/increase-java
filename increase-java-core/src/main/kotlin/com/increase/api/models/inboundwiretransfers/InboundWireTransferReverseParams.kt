@@ -448,6 +448,9 @@ private constructor(
             /** The recipient of the wire transfer requested the funds be returned to the sender. */
             @JvmField val CREDITOR_REQUEST = of("creditor_request")
 
+            /** The account cannot currently receive inbound wires. */
+            @JvmField val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
+
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }
 
@@ -457,6 +460,8 @@ private constructor(
             DUPLICATE,
             /** The recipient of the wire transfer requested the funds be returned to the sender. */
             CREDITOR_REQUEST,
+            /** The account cannot currently receive inbound wires. */
+            TRANSACTION_FORBIDDEN,
         }
 
         /**
@@ -473,6 +478,8 @@ private constructor(
             DUPLICATE,
             /** The recipient of the wire transfer requested the funds be returned to the sender. */
             CREDITOR_REQUEST,
+            /** The account cannot currently receive inbound wires. */
+            TRANSACTION_FORBIDDEN,
             /** An enum member indicating that [Reason] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -488,6 +495,7 @@ private constructor(
             when (this) {
                 DUPLICATE -> Value.DUPLICATE
                 CREDITOR_REQUEST -> Value.CREDITOR_REQUEST
+                TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
                 else -> Value._UNKNOWN
             }
 
@@ -504,6 +512,7 @@ private constructor(
             when (this) {
                 DUPLICATE -> Known.DUPLICATE
                 CREDITOR_REQUEST -> Known.CREDITOR_REQUEST
+                TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
                 else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
             }
 
