@@ -525,6 +525,18 @@ private constructor(
              */
             @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
 
+            /** A PDF of an account verification letter. */
+            @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
+
+            /** A PDF of funding instructions. */
+            @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
+
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            @JvmField val FORM_1099_INT = of("form_1099_int")
+
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            @JvmField val FORM_1099_MISC = of("form_1099_misc")
+
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -555,6 +567,14 @@ private constructor(
              * via the API.
              */
             DASHBOARD_TABLE_CSV,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            FORM_1099_INT,
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
         }
 
         /**
@@ -592,6 +612,14 @@ private constructor(
              * via the API.
              */
             DASHBOARD_TABLE_CSV,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            FORM_1099_INT,
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -613,6 +641,10 @@ private constructor(
                 ENTITY_CSV -> Value.ENTITY_CSV
                 VENDOR_CSV -> Value.VENDOR_CSV
                 DASHBOARD_TABLE_CSV -> Value.DASHBOARD_TABLE_CSV
+                ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
+                FORM_1099_INT -> Value.FORM_1099_INT
+                FORM_1099_MISC -> Value.FORM_1099_MISC
                 else -> Value._UNKNOWN
             }
 
@@ -635,6 +667,10 @@ private constructor(
                 ENTITY_CSV -> Known.ENTITY_CSV
                 VENDOR_CSV -> Known.VENDOR_CSV
                 DASHBOARD_TABLE_CSV -> Known.DASHBOARD_TABLE_CSV
+                ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
+                FORM_1099_INT -> Known.FORM_1099_INT
+                FORM_1099_MISC -> Known.FORM_1099_MISC
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
