@@ -19,7 +19,6 @@ import com.increase.api.services.blocking.simulations.CardTokenService
 import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
-import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.ExportService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
@@ -109,8 +108,6 @@ interface SimulationService {
 
     fun accountStatements(): AccountStatementService
 
-    fun documents(): DocumentService
-
     fun exports(): ExportService
 
     fun cardTokens(): CardTokenService
@@ -185,8 +182,6 @@ interface SimulationService {
         fun programs(): ProgramService.WithRawResponse
 
         fun accountStatements(): AccountStatementService.WithRawResponse
-
-        fun documents(): DocumentService.WithRawResponse
 
         fun exports(): ExportService.WithRawResponse
 

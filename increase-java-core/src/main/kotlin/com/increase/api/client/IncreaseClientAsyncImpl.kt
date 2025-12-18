@@ -46,8 +46,6 @@ import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsyncImpl
 import com.increase.api.services.async.DigitalWalletTokenServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenServiceAsyncImpl
-import com.increase.api.services.async.DocumentServiceAsync
-import com.increase.api.services.async.DocumentServiceAsyncImpl
 import com.increase.api.services.async.EntityServiceAsync
 import com.increase.api.services.async.EntityServiceAsyncImpl
 import com.increase.api.services.async.EventServiceAsync
@@ -288,10 +286,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         FileLinkServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val documents: DocumentServiceAsync by lazy {
-        DocumentServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val exports: ExportServiceAsync by lazy {
         ExportServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -453,8 +447,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun files(): FileServiceAsync = files
 
     override fun fileLinks(): FileLinkServiceAsync = fileLinks
-
-    override fun documents(): DocumentServiceAsync = documents
 
     override fun exports(): ExportServiceAsync = exports
 
@@ -658,10 +650,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             FileLinkServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val documents: DocumentServiceAsync.WithRawResponse by lazy {
-            DocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val exports: ExportServiceAsync.WithRawResponse by lazy {
             ExportServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -838,8 +826,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         override fun files(): FileServiceAsync.WithRawResponse = files
 
         override fun fileLinks(): FileLinkServiceAsync.WithRawResponse = fileLinks
-
-        override fun documents(): DocumentServiceAsync.WithRawResponse = documents
 
         override fun exports(): ExportServiceAsync.WithRawResponse = exports
 
