@@ -20,6 +20,7 @@ import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DocumentService
+import com.increase.api.services.blocking.simulations.ExportService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
 import com.increase.api.services.blocking.simulations.InboundFednowTransferService
@@ -110,6 +111,8 @@ interface SimulationService {
 
     fun documents(): DocumentService
 
+    fun exports(): ExportService
+
     fun cardTokens(): CardTokenService
 
     /** A view of [SimulationService] that provides access to raw HTTP responses for each method. */
@@ -184,6 +187,8 @@ interface SimulationService {
         fun accountStatements(): AccountStatementService.WithRawResponse
 
         fun documents(): DocumentService.WithRawResponse
+
+        fun exports(): ExportService.WithRawResponse
 
         fun cardTokens(): CardTokenService.WithRawResponse
     }

@@ -33,6 +33,12 @@ internal class ExportCreateParamsTest {
                     )
                     .build()
             )
+            .accountVerificationLetter(
+                ExportCreateParams.AccountVerificationLetter.builder()
+                    .accountNumberId("account_number_id")
+                    .balanceDate(LocalDate.parse("2019-12-27"))
+                    .build()
+            )
             .balanceCsv(
                 ExportCreateParams.BalanceCsv.builder()
                     .accountId("account_id")
@@ -67,6 +73,11 @@ internal class ExportCreateParamsTest {
                             .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                             .build()
                     )
+                    .build()
+            )
+            .fundingInstructions(
+                ExportCreateParams.FundingInstructions.builder()
+                    .accountNumberId("account_number_id")
                     .build()
             )
             .transactionCsv(
@@ -112,6 +123,12 @@ internal class ExportCreateParamsTest {
                         )
                         .build()
                 )
+                .accountVerificationLetter(
+                    ExportCreateParams.AccountVerificationLetter.builder()
+                        .accountNumberId("account_number_id")
+                        .balanceDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
                 .balanceCsv(
                     ExportCreateParams.BalanceCsv.builder()
                         .accountId("account_id")
@@ -146,6 +163,11 @@ internal class ExportCreateParamsTest {
                                 .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                                 .build()
                         )
+                        .build()
+                )
+                .fundingInstructions(
+                    ExportCreateParams.FundingInstructions.builder()
+                        .accountNumberId("account_number_id")
                         .build()
                 )
                 .transactionCsv(
@@ -190,6 +212,13 @@ internal class ExportCreateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.accountVerificationLetter())
+            .contains(
+                ExportCreateParams.AccountVerificationLetter.builder()
+                    .accountNumberId("account_number_id")
+                    .balanceDate(LocalDate.parse("2019-12-27"))
+                    .build()
+            )
         assertThat(body.balanceCsv())
             .contains(
                 ExportCreateParams.BalanceCsv.builder()
@@ -227,6 +256,12 @@ internal class ExportCreateParamsTest {
                             .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                             .build()
                     )
+                    .build()
+            )
+        assertThat(body.fundingInstructions())
+            .contains(
+                ExportCreateParams.FundingInstructions.builder()
+                    .accountNumberId("account_number_id")
                     .build()
             )
         assertThat(body.transactionCsv())
