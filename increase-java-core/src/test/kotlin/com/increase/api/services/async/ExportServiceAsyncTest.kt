@@ -46,6 +46,12 @@ internal class ExportServiceAsyncTest {
                             )
                             .build()
                     )
+                    .accountVerificationLetter(
+                        ExportCreateParams.AccountVerificationLetter.builder()
+                            .accountNumberId("account_number_id")
+                            .balanceDate(LocalDate.parse("2019-12-27"))
+                            .build()
+                    )
                     .balanceCsv(
                         ExportCreateParams.BalanceCsv.builder()
                             .accountId("account_id")
@@ -80,6 +86,11 @@ internal class ExportServiceAsyncTest {
                                     .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
                                     .build()
                             )
+                            .build()
+                    )
+                    .fundingInstructions(
+                        ExportCreateParams.FundingInstructions.builder()
+                            .accountNumberId("account_number_id")
                             .build()
                     )
                     .transactionCsv(
