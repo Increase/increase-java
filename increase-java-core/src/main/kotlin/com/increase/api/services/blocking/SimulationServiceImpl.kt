@@ -37,6 +37,8 @@ import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestS
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestServiceImpl
 import com.increase.api.services.blocking.simulations.DocumentService
 import com.increase.api.services.blocking.simulations.DocumentServiceImpl
+import com.increase.api.services.blocking.simulations.ExportService
+import com.increase.api.services.blocking.simulations.ExportServiceImpl
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundAchTransferServiceImpl
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
@@ -184,6 +186,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val documents: DocumentService by lazy { DocumentServiceImpl(clientOptions) }
 
+    private val exports: ExportService by lazy { ExportServiceImpl(clientOptions) }
+
     private val cardTokens: CardTokenService by lazy { CardTokenServiceImpl(clientOptions) }
 
     override fun withRawResponse(): SimulationService.WithRawResponse = withRawResponse
@@ -255,6 +259,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     override fun accountStatements(): AccountStatementService = accountStatements
 
     override fun documents(): DocumentService = documents
+
+    override fun exports(): ExportService = exports
 
     override fun cardTokens(): CardTokenService = cardTokens
 
@@ -386,6 +392,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             DocumentServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val exports: ExportService.WithRawResponse by lazy {
+            ExportServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val cardTokens: CardTokenService.WithRawResponse by lazy {
             CardTokenServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -472,6 +482,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             accountStatements
 
         override fun documents(): DocumentService.WithRawResponse = documents
+
+        override fun exports(): ExportService.WithRawResponse = exports
 
         override fun cardTokens(): CardTokenService.WithRawResponse = cardTokens
     }

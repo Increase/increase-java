@@ -58,6 +58,16 @@ private constructor(
     fun accountStatementOfx(): Optional<AccountStatementOfx> = body.accountStatementOfx()
 
     /**
+     * Options for the created export. Required if `category` is equal to
+     * `account_verification_letter`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountVerificationLetter(): Optional<AccountVerificationLetter> =
+        body.accountVerificationLetter()
+
+    /**
      * Options for the created export. Required if `category` is equal to `balance_csv`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -82,6 +92,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun entityCsv(): Optional<EntityCsv> = body.entityCsv()
+
+    /**
+     * Options for the created export. Required if `category` is equal to `funding_instructions`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun fundingInstructions(): Optional<FundingInstructions> = body.fundingInstructions()
 
     /**
      * Options for the created export. Required if `category` is equal to `transaction_csv`.
@@ -123,6 +141,15 @@ private constructor(
     fun _accountStatementOfx(): JsonField<AccountStatementOfx> = body._accountStatementOfx()
 
     /**
+     * Returns the raw JSON value of [accountVerificationLetter].
+     *
+     * Unlike [accountVerificationLetter], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _accountVerificationLetter(): JsonField<AccountVerificationLetter> =
+        body._accountVerificationLetter()
+
+    /**
      * Returns the raw JSON value of [balanceCsv].
      *
      * Unlike [balanceCsv], this method doesn't throw if the JSON field has an unexpected type.
@@ -144,6 +171,14 @@ private constructor(
      * Unlike [entityCsv], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _entityCsv(): JsonField<EntityCsv> = body._entityCsv()
+
+    /**
+     * Returns the raw JSON value of [fundingInstructions].
+     *
+     * Unlike [fundingInstructions], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _fundingInstructions(): JsonField<FundingInstructions> = body._fundingInstructions()
 
     /**
      * Returns the raw JSON value of [transactionCsv].
@@ -204,8 +239,8 @@ private constructor(
          * - [category]
          * - [accountStatementBai2]
          * - [accountStatementOfx]
+         * - [accountVerificationLetter]
          * - [balanceCsv]
-         * - [bookkeepingAccountBalanceCsv]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -260,6 +295,26 @@ private constructor(
             body.accountStatementOfx(accountStatementOfx)
         }
 
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `account_verification_letter`.
+         */
+        fun accountVerificationLetter(accountVerificationLetter: AccountVerificationLetter) =
+            apply {
+                body.accountVerificationLetter(accountVerificationLetter)
+            }
+
+        /**
+         * Sets [Builder.accountVerificationLetter] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountVerificationLetter] with a well-typed
+         * [AccountVerificationLetter] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun accountVerificationLetter(
+            accountVerificationLetter: JsonField<AccountVerificationLetter>
+        ) = apply { body.accountVerificationLetter(accountVerificationLetter) }
+
         /** Options for the created export. Required if `category` is equal to `balance_csv`. */
         fun balanceCsv(balanceCsv: BalanceCsv) = apply { body.balanceCsv(balanceCsv) }
 
@@ -302,6 +357,25 @@ private constructor(
          * value.
          */
         fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { body.entityCsv(entityCsv) }
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `funding_instructions`.
+         */
+        fun fundingInstructions(fundingInstructions: FundingInstructions) = apply {
+            body.fundingInstructions(fundingInstructions)
+        }
+
+        /**
+         * Sets [Builder.fundingInstructions] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.fundingInstructions] with a well-typed
+         * [FundingInstructions] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun fundingInstructions(fundingInstructions: JsonField<FundingInstructions>) = apply {
+            body.fundingInstructions(fundingInstructions)
+        }
 
         /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
         fun transactionCsv(transactionCsv: TransactionCsv) = apply {
@@ -480,9 +554,11 @@ private constructor(
         private val category: JsonField<Category>,
         private val accountStatementBai2: JsonField<AccountStatementBai2>,
         private val accountStatementOfx: JsonField<AccountStatementOfx>,
+        private val accountVerificationLetter: JsonField<AccountVerificationLetter>,
         private val balanceCsv: JsonField<BalanceCsv>,
         private val bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>,
         private val entityCsv: JsonField<EntityCsv>,
+        private val fundingInstructions: JsonField<FundingInstructions>,
         private val transactionCsv: JsonField<TransactionCsv>,
         private val vendorCsv: JsonField<VendorCsv>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -499,6 +575,9 @@ private constructor(
             @JsonProperty("account_statement_ofx")
             @ExcludeMissing
             accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of(),
+            @JsonProperty("account_verification_letter")
+            @ExcludeMissing
+            accountVerificationLetter: JsonField<AccountVerificationLetter> = JsonMissing.of(),
             @JsonProperty("balance_csv")
             @ExcludeMissing
             balanceCsv: JsonField<BalanceCsv> = JsonMissing.of(),
@@ -509,6 +588,9 @@ private constructor(
             @JsonProperty("entity_csv")
             @ExcludeMissing
             entityCsv: JsonField<EntityCsv> = JsonMissing.of(),
+            @JsonProperty("funding_instructions")
+            @ExcludeMissing
+            fundingInstructions: JsonField<FundingInstructions> = JsonMissing.of(),
             @JsonProperty("transaction_csv")
             @ExcludeMissing
             transactionCsv: JsonField<TransactionCsv> = JsonMissing.of(),
@@ -519,9 +601,11 @@ private constructor(
             category,
             accountStatementBai2,
             accountStatementOfx,
+            accountVerificationLetter,
             balanceCsv,
             bookkeepingAccountBalanceCsv,
             entityCsv,
+            fundingInstructions,
             transactionCsv,
             vendorCsv,
             mutableMapOf(),
@@ -556,6 +640,16 @@ private constructor(
             accountStatementOfx.getOptional("account_statement_ofx")
 
         /**
+         * Options for the created export. Required if `category` is equal to
+         * `account_verification_letter`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountVerificationLetter(): Optional<AccountVerificationLetter> =
+            accountVerificationLetter.getOptional("account_verification_letter")
+
+        /**
          * Options for the created export. Required if `category` is equal to `balance_csv`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -580,6 +674,16 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun entityCsv(): Optional<EntityCsv> = entityCsv.getOptional("entity_csv")
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `funding_instructions`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun fundingInstructions(): Optional<FundingInstructions> =
+            fundingInstructions.getOptional("funding_instructions")
 
         /**
          * Options for the created export. Required if `category` is equal to `transaction_csv`.
@@ -626,6 +730,17 @@ private constructor(
         fun _accountStatementOfx(): JsonField<AccountStatementOfx> = accountStatementOfx
 
         /**
+         * Returns the raw JSON value of [accountVerificationLetter].
+         *
+         * Unlike [accountVerificationLetter], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("account_verification_letter")
+        @ExcludeMissing
+        fun _accountVerificationLetter(): JsonField<AccountVerificationLetter> =
+            accountVerificationLetter
+
+        /**
          * Returns the raw JSON value of [balanceCsv].
          *
          * Unlike [balanceCsv], this method doesn't throw if the JSON field has an unexpected type.
@@ -653,6 +768,16 @@ private constructor(
         @JsonProperty("entity_csv")
         @ExcludeMissing
         fun _entityCsv(): JsonField<EntityCsv> = entityCsv
+
+        /**
+         * Returns the raw JSON value of [fundingInstructions].
+         *
+         * Unlike [fundingInstructions], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("funding_instructions")
+        @ExcludeMissing
+        fun _fundingInstructions(): JsonField<FundingInstructions> = fundingInstructions
 
         /**
          * Returns the raw JSON value of [transactionCsv].
@@ -704,10 +829,13 @@ private constructor(
             private var category: JsonField<Category>? = null
             private var accountStatementBai2: JsonField<AccountStatementBai2> = JsonMissing.of()
             private var accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of()
+            private var accountVerificationLetter: JsonField<AccountVerificationLetter> =
+                JsonMissing.of()
             private var balanceCsv: JsonField<BalanceCsv> = JsonMissing.of()
             private var bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
                 JsonMissing.of()
             private var entityCsv: JsonField<EntityCsv> = JsonMissing.of()
+            private var fundingInstructions: JsonField<FundingInstructions> = JsonMissing.of()
             private var transactionCsv: JsonField<TransactionCsv> = JsonMissing.of()
             private var vendorCsv: JsonField<VendorCsv> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -717,9 +845,11 @@ private constructor(
                 category = body.category
                 accountStatementBai2 = body.accountStatementBai2
                 accountStatementOfx = body.accountStatementOfx
+                accountVerificationLetter = body.accountVerificationLetter
                 balanceCsv = body.balanceCsv
                 bookkeepingAccountBalanceCsv = body.bookkeepingAccountBalanceCsv
                 entityCsv = body.entityCsv
+                fundingInstructions = body.fundingInstructions
                 transactionCsv = body.transactionCsv
                 vendorCsv = body.vendorCsv
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -774,6 +904,24 @@ private constructor(
                 this.accountStatementOfx = accountStatementOfx
             }
 
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `account_verification_letter`.
+             */
+            fun accountVerificationLetter(accountVerificationLetter: AccountVerificationLetter) =
+                accountVerificationLetter(JsonField.of(accountVerificationLetter))
+
+            /**
+             * Sets [Builder.accountVerificationLetter] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountVerificationLetter] with a well-typed
+             * [AccountVerificationLetter] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun accountVerificationLetter(
+                accountVerificationLetter: JsonField<AccountVerificationLetter>
+            ) = apply { this.accountVerificationLetter = accountVerificationLetter }
+
             /** Options for the created export. Required if `category` is equal to `balance_csv`. */
             fun balanceCsv(balanceCsv: BalanceCsv) = balanceCsv(JsonField.of(balanceCsv))
 
@@ -818,6 +966,24 @@ private constructor(
              * supported value.
              */
             fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { this.entityCsv = entityCsv }
+
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `funding_instructions`.
+             */
+            fun fundingInstructions(fundingInstructions: FundingInstructions) =
+                fundingInstructions(JsonField.of(fundingInstructions))
+
+            /**
+             * Sets [Builder.fundingInstructions] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fundingInstructions] with a well-typed
+             * [FundingInstructions] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun fundingInstructions(fundingInstructions: JsonField<FundingInstructions>) = apply {
+                this.fundingInstructions = fundingInstructions
+            }
 
             /**
              * Options for the created export. Required if `category` is equal to `transaction_csv`.
@@ -884,9 +1050,11 @@ private constructor(
                     checkRequired("category", category),
                     accountStatementBai2,
                     accountStatementOfx,
+                    accountVerificationLetter,
                     balanceCsv,
                     bookkeepingAccountBalanceCsv,
                     entityCsv,
+                    fundingInstructions,
                     transactionCsv,
                     vendorCsv,
                     additionalProperties.toMutableMap(),
@@ -903,9 +1071,11 @@ private constructor(
             category().validate()
             accountStatementBai2().ifPresent { it.validate() }
             accountStatementOfx().ifPresent { it.validate() }
+            accountVerificationLetter().ifPresent { it.validate() }
             balanceCsv().ifPresent { it.validate() }
             bookkeepingAccountBalanceCsv().ifPresent { it.validate() }
             entityCsv().ifPresent { it.validate() }
+            fundingInstructions().ifPresent { it.validate() }
             transactionCsv().ifPresent { it.validate() }
             vendorCsv().ifPresent { it.validate() }
             validated = true
@@ -930,9 +1100,11 @@ private constructor(
             (category.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountStatementBai2.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountStatementOfx.asKnown().getOrNull()?.validity() ?: 0) +
+                (accountVerificationLetter.asKnown().getOrNull()?.validity() ?: 0) +
                 (balanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (bookkeepingAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (entityCsv.asKnown().getOrNull()?.validity() ?: 0) +
+                (fundingInstructions.asKnown().getOrNull()?.validity() ?: 0) +
                 (transactionCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (vendorCsv.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -945,9 +1117,11 @@ private constructor(
                 category == other.category &&
                 accountStatementBai2 == other.accountStatementBai2 &&
                 accountStatementOfx == other.accountStatementOfx &&
+                accountVerificationLetter == other.accountVerificationLetter &&
                 balanceCsv == other.balanceCsv &&
                 bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
                 entityCsv == other.entityCsv &&
+                fundingInstructions == other.fundingInstructions &&
                 transactionCsv == other.transactionCsv &&
                 vendorCsv == other.vendorCsv &&
                 additionalProperties == other.additionalProperties
@@ -958,9 +1132,11 @@ private constructor(
                 category,
                 accountStatementBai2,
                 accountStatementOfx,
+                accountVerificationLetter,
                 balanceCsv,
                 bookkeepingAccountBalanceCsv,
                 entityCsv,
+                fundingInstructions,
                 transactionCsv,
                 vendorCsv,
                 additionalProperties,
@@ -970,7 +1146,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
+            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Export to create. */
@@ -1015,6 +1191,12 @@ private constructor(
             /** Export a CSV of vendors added to the third-party risk management dashboard. */
             @JvmField val VENDOR_CSV = of("vendor_csv")
 
+            /** A PDF of an account verification letter. */
+            @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
+
+            /** A PDF of funding instructions. */
+            @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
+
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -1040,6 +1222,10 @@ private constructor(
             ENTITY_CSV,
             /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
         }
 
         /**
@@ -1072,6 +1258,10 @@ private constructor(
             ENTITY_CSV,
             /** Export a CSV of vendors added to the third-party risk management dashboard. */
             VENDOR_CSV,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1092,6 +1282,8 @@ private constructor(
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Value.ENTITY_CSV
                 VENDOR_CSV -> Value.VENDOR_CSV
+                ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
                 else -> Value._UNKNOWN
             }
 
@@ -1113,6 +1305,8 @@ private constructor(
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
                 ENTITY_CSV -> Known.ENTITY_CSV
                 VENDOR_CSV -> Known.VENDOR_CSV
+                ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
@@ -1916,6 +2110,223 @@ private constructor(
 
         override fun toString() =
             "AccountStatementOfx{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Options for the created export. Required if `category` is equal to
+     * `account_verification_letter`.
+     */
+    class AccountVerificationLetter
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val balanceDate: JsonField<LocalDate>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("balance_date")
+            @ExcludeMissing
+            balanceDate: JsonField<LocalDate> = JsonMissing.of(),
+        ) : this(accountNumberId, balanceDate, mutableMapOf())
+
+        /**
+         * The Account Number to create a letter for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * The date of the balance to include in the letter. Defaults to the current date.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun balanceDate(): Optional<LocalDate> = balanceDate.getOptional("balance_date")
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        /**
+         * Returns the raw JSON value of [balanceDate].
+         *
+         * Unlike [balanceDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("balance_date")
+        @ExcludeMissing
+        fun _balanceDate(): JsonField<LocalDate> = balanceDate
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [AccountVerificationLetter].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [AccountVerificationLetter]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var balanceDate: JsonField<LocalDate> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(accountVerificationLetter: AccountVerificationLetter) = apply {
+                accountNumberId = accountVerificationLetter.accountNumberId
+                balanceDate = accountVerificationLetter.balanceDate
+                additionalProperties = accountVerificationLetter.additionalProperties.toMutableMap()
+            }
+
+            /** The Account Number to create a letter for. */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            /** The date of the balance to include in the letter. Defaults to the current date. */
+            fun balanceDate(balanceDate: LocalDate) = balanceDate(JsonField.of(balanceDate))
+
+            /**
+             * Sets [Builder.balanceDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.balanceDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun balanceDate(balanceDate: JsonField<LocalDate>) = apply {
+                this.balanceDate = balanceDate
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [AccountVerificationLetter].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): AccountVerificationLetter =
+                AccountVerificationLetter(
+                    checkRequired("accountNumberId", accountNumberId),
+                    balanceDate,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): AccountVerificationLetter = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            balanceDate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountNumberId.asKnown().isPresent) 1 else 0) +
+                (if (balanceDate.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is AccountVerificationLetter &&
+                accountNumberId == other.accountNumberId &&
+                balanceDate == other.balanceDate &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(accountNumberId, balanceDate, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "AccountVerificationLetter{accountNumberId=$accountNumberId, balanceDate=$balanceDate, additionalProperties=$additionalProperties}"
     }
 
     /** Options for the created export. Required if `category` is equal to `balance_csv`. */
@@ -3407,6 +3818,177 @@ private constructor(
 
         override fun toString() =
             "EntityCsv{status=$status, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Options for the created export. Required if `category` is equal to `funding_instructions`.
+     */
+    class FundingInstructions
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val accountNumberId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_number_id")
+            @ExcludeMissing
+            accountNumberId: JsonField<String> = JsonMissing.of()
+        ) : this(accountNumberId, mutableMapOf())
+
+        /**
+         * The Account Number to create funding instructions for.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
+
+        /**
+         * Returns the raw JSON value of [accountNumberId].
+         *
+         * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number_id")
+        @ExcludeMissing
+        fun _accountNumberId(): JsonField<String> = accountNumberId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [FundingInstructions].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [FundingInstructions]. */
+        class Builder internal constructor() {
+
+            private var accountNumberId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(fundingInstructions: FundingInstructions) = apply {
+                accountNumberId = fundingInstructions.accountNumberId
+                additionalProperties = fundingInstructions.additionalProperties.toMutableMap()
+            }
+
+            /** The Account Number to create funding instructions for. */
+            fun accountNumberId(accountNumberId: String) =
+                accountNumberId(JsonField.of(accountNumberId))
+
+            /**
+             * Sets [Builder.accountNumberId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumberId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumberId(accountNumberId: JsonField<String>) = apply {
+                this.accountNumberId = accountNumberId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [FundingInstructions].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountNumberId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): FundingInstructions =
+                FundingInstructions(
+                    checkRequired("accountNumberId", accountNumberId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): FundingInstructions = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountNumberId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int = (if (accountNumberId.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FundingInstructions &&
+                accountNumberId == other.accountNumberId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(accountNumberId, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "FundingInstructions{accountNumberId=$accountNumberId, additionalProperties=$additionalProperties}"
     }
 
     /** Options for the created export. Required if `category` is equal to `transaction_csv`. */
