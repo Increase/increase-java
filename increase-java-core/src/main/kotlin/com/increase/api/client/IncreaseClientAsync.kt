@@ -24,7 +24,6 @@ import com.increase.api.services.async.CheckTransferServiceAsync
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenServiceAsync
-import com.increase.api.services.async.DocumentServiceAsync
 import com.increase.api.services.async.EntityServiceAsync
 import com.increase.api.services.async.EventServiceAsync
 import com.increase.api.services.async.EventSubscriptionServiceAsync
@@ -174,8 +173,6 @@ interface IncreaseClientAsync {
 
     fun fileLinks(): FileLinkServiceAsync
 
-    fun documents(): DocumentServiceAsync
-
     fun exports(): ExportServiceAsync
 
     fun events(): EventServiceAsync
@@ -315,8 +312,6 @@ interface IncreaseClientAsync {
         fun files(): FileServiceAsync.WithRawResponse
 
         fun fileLinks(): FileLinkServiceAsync.WithRawResponse
-
-        fun documents(): DocumentServiceAsync.WithRawResponse
 
         fun exports(): ExportServiceAsync.WithRawResponse
 

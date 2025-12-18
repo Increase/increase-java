@@ -46,8 +46,6 @@ import com.increase.api.services.blocking.DigitalCardProfileService
 import com.increase.api.services.blocking.DigitalCardProfileServiceImpl
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import com.increase.api.services.blocking.DigitalWalletTokenServiceImpl
-import com.increase.api.services.blocking.DocumentService
-import com.increase.api.services.blocking.DocumentServiceImpl
 import com.increase.api.services.blocking.EntityService
 import com.increase.api.services.blocking.EntityServiceImpl
 import com.increase.api.services.blocking.EventService
@@ -277,10 +275,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         FileLinkServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val documents: DocumentService by lazy {
-        DocumentServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val exports: ExportService by lazy { ExportServiceImpl(clientOptionsWithUserAgent) }
 
     private val events: EventService by lazy { EventServiceImpl(clientOptionsWithUserAgent) }
@@ -432,8 +426,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun files(): FileService = files
 
     override fun fileLinks(): FileLinkService = fileLinks
-
-    override fun documents(): DocumentService = documents
 
     override fun exports(): ExportService = exports
 
@@ -632,10 +624,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             FileLinkServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val documents: DocumentService.WithRawResponse by lazy {
-            DocumentServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val exports: ExportService.WithRawResponse by lazy {
             ExportServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -809,8 +797,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         override fun files(): FileService.WithRawResponse = files
 
         override fun fileLinks(): FileLinkService.WithRawResponse = fileLinks
-
-        override fun documents(): DocumentService.WithRawResponse = documents
 
         override fun exports(): ExportService.WithRawResponse = exports
 

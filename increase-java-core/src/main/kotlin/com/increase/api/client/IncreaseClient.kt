@@ -24,7 +24,6 @@ import com.increase.api.services.blocking.CheckTransferService
 import com.increase.api.services.blocking.DeclinedTransactionService
 import com.increase.api.services.blocking.DigitalCardProfileService
 import com.increase.api.services.blocking.DigitalWalletTokenService
-import com.increase.api.services.blocking.DocumentService
 import com.increase.api.services.blocking.EntityService
 import com.increase.api.services.blocking.EventService
 import com.increase.api.services.blocking.EventSubscriptionService
@@ -174,8 +173,6 @@ interface IncreaseClient {
 
     fun fileLinks(): FileLinkService
 
-    fun documents(): DocumentService
-
     fun exports(): ExportService
 
     fun events(): EventService
@@ -311,8 +308,6 @@ interface IncreaseClient {
         fun files(): FileService.WithRawResponse
 
         fun fileLinks(): FileLinkService.WithRawResponse
-
-        fun documents(): DocumentService.WithRawResponse
 
         fun exports(): ExportService.WithRawResponse
 

@@ -87,7 +87,6 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.accountStatements()).isNotNull()
         assertThat(client.files()).isNotNull()
         assertThat(client.fileLinks()).isNotNull()
-        assertThat(client.documents()).isNotNull()
         assertThat(client.exports()).isNotNull()
         assertThat(client.events()).isNotNull()
         assertThat(client.eventSubscriptions()).isNotNull()
