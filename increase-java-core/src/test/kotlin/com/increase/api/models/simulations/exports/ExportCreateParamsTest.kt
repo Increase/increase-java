@@ -9,15 +9,46 @@ internal class ExportCreateParamsTest {
 
     @Test
     fun create() {
-        ExportCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+        ExportCreateParams.builder()
+            .category(ExportCreateParams.Category.FORM_1099_INT)
+            .form1099Int(
+                ExportCreateParams.Form1099Int.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .build()
+            )
+            .build()
     }
 
     @Test
     fun body() {
-        val params = ExportCreateParams.builder().accountId("account_in71c4amph0vgo2qllky").build()
+        val params =
+            ExportCreateParams.builder()
+                .category(ExportCreateParams.Category.FORM_1099_INT)
+                .form1099Int(
+                    ExportCreateParams.Form1099Int.builder()
+                        .accountId("account_in71c4amph0vgo2qllky")
+                        .build()
+                )
+                .build()
 
         val body = params._body()
 
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.FORM_1099_INT)
+        assertThat(body.form1099Int())
+            .contains(
+                ExportCreateParams.Form1099Int.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .build()
+            )
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            ExportCreateParams.builder().category(ExportCreateParams.Category.FORM_1099_INT).build()
+
+        val body = params._body()
+
+        assertThat(body.category()).isEqualTo(ExportCreateParams.Category.FORM_1099_INT)
     }
 }

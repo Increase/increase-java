@@ -24,7 +24,12 @@ interface ExportService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): ExportService
 
-    /** Simulates a tax form export being generated. */
+    /**
+     * Many exports are created by you via POST /exports or in the Dashboard. Some exports are
+     * created automatically by Increase. For example, tax documents are published once a year. In
+     * sandbox, you can trigger the arrival of an export that would normally only be created
+     * automatically via this simulation.
+     */
     fun create(params: ExportCreateParams): Export = create(params, RequestOptions.none())
 
     /** @see create */
