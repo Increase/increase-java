@@ -69,6 +69,15 @@ private constructor(
     fun attachmentFiles(): Optional<List<AttachmentFile>> = body.attachmentFiles()
 
     /**
+     * The free-form explanation provided to Increase to provide more context for the user
+     * submission. This field is not sent directly to the card networks.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun explanation(): Optional<String> = body.explanation()
+
+    /**
      * The Visa-specific parameters for the dispute. Required if and only if `network` is `visa`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -104,6 +113,13 @@ private constructor(
      * Unlike [attachmentFiles], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _attachmentFiles(): JsonField<List<AttachmentFile>> = body._attachmentFiles()
+
+    /**
+     * Returns the raw JSON value of [explanation].
+     *
+     * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _explanation(): JsonField<String> = body._explanation()
 
     /**
      * Returns the raw JSON value of [visa].
@@ -159,7 +175,7 @@ private constructor(
          * - [network]
          * - [amount]
          * - [attachmentFiles]
-         * - [visa]
+         * - [explanation]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -236,6 +252,21 @@ private constructor(
         fun addAttachmentFile(attachmentFile: AttachmentFile) = apply {
             body.addAttachmentFile(attachmentFile)
         }
+
+        /**
+         * The free-form explanation provided to Increase to provide more context for the user
+         * submission. This field is not sent directly to the card networks.
+         */
+        fun explanation(explanation: String) = apply { body.explanation(explanation) }
+
+        /**
+         * Sets [Builder.explanation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.explanation] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun explanation(explanation: JsonField<String>) = apply { body.explanation(explanation) }
 
         /**
          * The Visa-specific parameters for the dispute. Required if and only if `network` is
@@ -402,6 +433,7 @@ private constructor(
         private val network: JsonField<Network>,
         private val amount: JsonField<Long>,
         private val attachmentFiles: JsonField<List<AttachmentFile>>,
+        private val explanation: JsonField<String>,
         private val visa: JsonField<Visa>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -416,8 +448,19 @@ private constructor(
             @JsonProperty("attachment_files")
             @ExcludeMissing
             attachmentFiles: JsonField<List<AttachmentFile>> = JsonMissing.of(),
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            explanation: JsonField<String> = JsonMissing.of(),
             @JsonProperty("visa") @ExcludeMissing visa: JsonField<Visa> = JsonMissing.of(),
-        ) : this(disputedTransactionId, network, amount, attachmentFiles, visa, mutableMapOf())
+        ) : this(
+            disputedTransactionId,
+            network,
+            amount,
+            attachmentFiles,
+            explanation,
+            visa,
+            mutableMapOf(),
+        )
 
         /**
          * The Transaction you wish to dispute. This Transaction must have a `source_type` of
@@ -456,6 +499,15 @@ private constructor(
          */
         fun attachmentFiles(): Optional<List<AttachmentFile>> =
             attachmentFiles.getOptional("attachment_files")
+
+        /**
+         * The free-form explanation provided to Increase to provide more context for the user
+         * submission. This field is not sent directly to the card networks.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun explanation(): Optional<String> = explanation.getOptional("explanation")
 
         /**
          * The Visa-specific parameters for the dispute. Required if and only if `network` is
@@ -501,6 +553,15 @@ private constructor(
         fun _attachmentFiles(): JsonField<List<AttachmentFile>> = attachmentFiles
 
         /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
+
+        /**
          * Returns the raw JSON value of [visa].
          *
          * Unlike [visa], this method doesn't throw if the JSON field has an unexpected type.
@@ -540,6 +601,7 @@ private constructor(
             private var network: JsonField<Network>? = null
             private var amount: JsonField<Long> = JsonMissing.of()
             private var attachmentFiles: JsonField<MutableList<AttachmentFile>>? = null
+            private var explanation: JsonField<String> = JsonMissing.of()
             private var visa: JsonField<Visa> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -549,6 +611,7 @@ private constructor(
                 network = body.network
                 amount = body.amount
                 attachmentFiles = body.attachmentFiles.map { it.toMutableList() }
+                explanation = body.explanation
                 visa = body.visa
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -630,6 +693,23 @@ private constructor(
             }
 
             /**
+             * The free-form explanation provided to Increase to provide more context for the user
+             * submission. This field is not sent directly to the card networks.
+             */
+            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
+
+            /**
              * The Visa-specific parameters for the dispute. Required if and only if `network` is
              * `visa`.
              */
@@ -682,6 +762,7 @@ private constructor(
                     checkRequired("network", network),
                     amount,
                     (attachmentFiles ?: JsonMissing.of()).map { it.toImmutable() },
+                    explanation,
                     visa,
                     additionalProperties.toMutableMap(),
                 )
@@ -698,6 +779,7 @@ private constructor(
             network().validate()
             amount()
             attachmentFiles().ifPresent { it.forEach { it.validate() } }
+            explanation()
             visa().ifPresent { it.validate() }
             validated = true
         }
@@ -722,6 +804,7 @@ private constructor(
                 (network.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (amount.asKnown().isPresent) 1 else 0) +
                 (attachmentFiles.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (if (explanation.asKnown().isPresent) 1 else 0) +
                 (visa.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
@@ -734,6 +817,7 @@ private constructor(
                 network == other.network &&
                 amount == other.amount &&
                 attachmentFiles == other.attachmentFiles &&
+                explanation == other.explanation &&
                 visa == other.visa &&
                 additionalProperties == other.additionalProperties
         }
@@ -744,6 +828,7 @@ private constructor(
                 network,
                 amount,
                 attachmentFiles,
+                explanation,
                 visa,
                 additionalProperties,
             )
@@ -752,7 +837,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{disputedTransactionId=$disputedTransactionId, network=$network, amount=$amount, attachmentFiles=$attachmentFiles, visa=$visa, additionalProperties=$additionalProperties}"
+            "Body{disputedTransactionId=$disputedTransactionId, network=$network, amount=$amount, attachmentFiles=$attachmentFiles, explanation=$explanation, visa=$visa, additionalProperties=$additionalProperties}"
     }
 
     /**
