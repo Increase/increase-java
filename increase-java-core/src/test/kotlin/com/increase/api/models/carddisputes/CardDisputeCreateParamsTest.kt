@@ -18,6 +18,7 @@ internal class CardDisputeCreateParamsTest {
             .addAttachmentFile(
                 CardDisputeCreateParams.AttachmentFile.builder().fileId("file_id").build()
             )
+            .explanation("x")
             .visa(
                 CardDisputeCreateParams.Visa.builder()
                     .category(CardDisputeCreateParams.Visa.Category.FRAUD)
@@ -700,6 +701,7 @@ internal class CardDisputeCreateParamsTest {
                 .addAttachmentFile(
                     CardDisputeCreateParams.AttachmentFile.builder().fileId("file_id").build()
                 )
+                .explanation("x")
                 .visa(
                     CardDisputeCreateParams.Visa.builder()
                         .category(CardDisputeCreateParams.Visa.Category.FRAUD)
@@ -1409,6 +1411,7 @@ internal class CardDisputeCreateParamsTest {
             .containsExactly(
                 CardDisputeCreateParams.AttachmentFile.builder().fileId("file_id").build()
             )
+        assertThat(body.explanation()).contains("x")
         assertThat(body.visa())
             .contains(
                 CardDisputeCreateParams.Visa.builder()
