@@ -31,6 +31,7 @@ internal class CardDisputeServiceAsyncTest {
                     .addAttachmentFile(
                         CardDisputeCreateParams.AttachmentFile.builder().fileId("file_id").build()
                     )
+                    .explanation("x")
                     .visa(
                         CardDisputeCreateParams.Visa.builder()
                             .category(CardDisputeCreateParams.Visa.Category.FRAUD)
@@ -810,6 +811,7 @@ internal class CardDisputeServiceAsyncTest {
                             .fileId("file_id")
                             .build()
                     )
+                    .explanation("x")
                     .visa(
                         CardDisputeSubmitUserSubmissionParams.Visa.builder()
                             .category(

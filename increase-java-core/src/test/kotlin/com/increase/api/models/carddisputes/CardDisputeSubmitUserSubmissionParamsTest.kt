@@ -20,6 +20,7 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                     .fileId("file_id")
                     .build()
             )
+            .explanation("x")
             .visa(
                 CardDisputeSubmitUserSubmissionParams.Visa.builder()
                     .category(
@@ -906,6 +907,7 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                         .fileId("file_id")
                         .build()
                 )
+                .explanation("x")
                 .visa(
                     CardDisputeSubmitUserSubmissionParams.Visa.builder()
                         .category(
@@ -1794,6 +1796,7 @@ internal class CardDisputeSubmitUserSubmissionParamsTest {
                     .fileId("file_id")
                     .build()
             )
+        assertThat(body.explanation()).contains("x")
         assertThat(body.visa())
             .contains(
                 CardDisputeSubmitUserSubmissionParams.Visa.builder()

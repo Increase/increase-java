@@ -1343,6 +1343,7 @@ internal class CardDisputeListPageResponseTest {
                                                 .build()
                                         )
                                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .explanation(null)
                                         .furtherInformationRequestedAt(null)
                                         .furtherInformationRequestedReason(null)
                                         .merchantPrearbitrationDecline(
@@ -2635,6 +2636,7 @@ internal class CardDisputeListPageResponseTest {
                                             .build()
                                     )
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .explanation(null)
                                     .furtherInformationRequestedAt(null)
                                     .furtherInformationRequestedReason(null)
                                     .merchantPrearbitrationDecline(
@@ -4020,6 +4022,7 @@ internal class CardDisputeListPageResponseTest {
                                                 .build()
                                         )
                                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .explanation(null)
                                         .furtherInformationRequestedAt(null)
                                         .furtherInformationRequestedReason(null)
                                         .merchantPrearbitrationDecline(
