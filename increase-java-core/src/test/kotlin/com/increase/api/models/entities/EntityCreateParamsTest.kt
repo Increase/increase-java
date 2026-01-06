@@ -253,6 +253,13 @@ internal class EntityCreateParamsTest {
                     .fileId("file_makxrc67oh9l6sg7w9yc")
                     .build()
             )
+            .addTermsAgreement(
+                EntityCreateParams.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("x")
+                    .termsUrl("x")
+                    .build()
+            )
             .thirdPartyVerification(
                 EntityCreateParams.ThirdPartyVerification.builder()
                     .reference("x")
@@ -658,6 +665,13 @@ internal class EntityCreateParamsTest {
                         .fileId("file_makxrc67oh9l6sg7w9yc")
                         .build()
                 )
+                .addTermsAgreement(
+                    EntityCreateParams.TermsAgreement.builder()
+                        .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .ipAddress("x")
+                        .termsUrl("x")
+                        .build()
+                )
                 .thirdPartyVerification(
                     EntityCreateParams.ThirdPartyVerification.builder()
                         .reference("x")
@@ -1057,6 +1071,14 @@ internal class EntityCreateParamsTest {
             .containsExactly(
                 EntityCreateParams.SupplementalDocument.builder()
                     .fileId("file_makxrc67oh9l6sg7w9yc")
+                    .build()
+            )
+        assertThat(body.termsAgreements().getOrNull())
+            .containsExactly(
+                EntityCreateParams.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("x")
+                    .termsUrl("x")
                     .build()
             )
         assertThat(body.thirdPartyVerification())
