@@ -172,6 +172,13 @@ internal class EntityTest {
                         .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
                         .build()
                 )
+                .addTermsAgreement(
+                    Entity.TermsAgreement.builder()
+                        .agreedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .ipAddress("128.32.0.1")
+                        .termsUrl("https://increase.com/example_terms")
+                        .build()
+                )
                 .thirdPartyVerification(
                     Entity.ThirdPartyVerification.builder()
                         .reference("reference")
@@ -411,6 +418,14 @@ internal class EntityTest {
                     .fileId("file_makxrc67oh9l6sg7w9yc")
                     .idempotencyKey(null)
                     .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                    .build()
+            )
+        assertThat(entity.termsAgreements())
+            .containsExactly(
+                Entity.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .ipAddress("128.32.0.1")
+                    .termsUrl("https://increase.com/example_terms")
                     .build()
             )
         assertThat(entity.thirdPartyVerification())
@@ -655,6 +670,13 @@ internal class EntityTest {
                         .fileId("file_makxrc67oh9l6sg7w9yc")
                         .idempotencyKey(null)
                         .type(EntitySupplementalDocument.Type.ENTITY_SUPPLEMENTAL_DOCUMENT)
+                        .build()
+                )
+                .addTermsAgreement(
+                    Entity.TermsAgreement.builder()
+                        .agreedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .ipAddress("128.32.0.1")
+                        .termsUrl("https://increase.com/example_terms")
                         .build()
                 )
                 .thirdPartyVerification(
