@@ -1202,6 +1202,7 @@ internal class CardDisputeListPageResponseTest {
                                                                 .reason("reason")
                                                                 .build()
                                                         )
+                                                        .explanation("explanation")
                                                         .merchantResolutionAttempted(
                                                             CardDispute.Visa.UserSubmission
                                                                 .Chargeback
@@ -2507,6 +2508,7 @@ internal class CardDisputeListPageResponseTest {
                                                             .reason("reason")
                                                             .build()
                                                     )
+                                                    .explanation("explanation")
                                                     .merchantResolutionAttempted(
                                                         CardDispute.Visa.UserSubmission.Chargeback
                                                             .ConsumerServicesNotAsDescribed
@@ -3881,6 +3883,7 @@ internal class CardDisputeListPageResponseTest {
                                                                 .reason("reason")
                                                                 .build()
                                                         )
+                                                        .explanation("explanation")
                                                         .merchantResolutionAttempted(
                                                             CardDispute.Visa.UserSubmission
                                                                 .Chargeback
