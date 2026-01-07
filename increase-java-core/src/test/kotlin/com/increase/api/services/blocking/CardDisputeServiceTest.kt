@@ -659,6 +659,7 @@ internal class CardDisputeServiceTest {
                                             .reason("x")
                                             .build()
                                     )
+                                    .explanation("x")
                                     .merchantResolutionAttempted(
                                         CardDisputeCreateParams.Visa.ConsumerServicesNotAsDescribed
                                             .MerchantResolutionAttempted
@@ -1596,6 +1597,7 @@ internal class CardDisputeServiceTest {
                                                     .reason("x")
                                                     .build()
                                             )
+                                            .explanation("x")
                                             .merchantResolutionAttempted(
                                                 CardDisputeSubmitUserSubmissionParams.Visa
                                                     .Chargeback
