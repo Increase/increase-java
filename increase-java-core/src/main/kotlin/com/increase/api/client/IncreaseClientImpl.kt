@@ -110,6 +110,8 @@ import com.increase.api.services.blocking.SimulationService
 import com.increase.api.services.blocking.SimulationServiceImpl
 import com.increase.api.services.blocking.SupplementalDocumentService
 import com.increase.api.services.blocking.SupplementalDocumentServiceImpl
+import com.increase.api.services.blocking.SwiftTransferService
+import com.increase.api.services.blocking.SwiftTransferServiceImpl
 import com.increase.api.services.blocking.TransactionService
 import com.increase.api.services.blocking.TransactionServiceImpl
 import com.increase.api.services.blocking.WireDrawdownRequestService
@@ -237,6 +239,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     private val inboundFednowTransfers: InboundFednowTransferService by lazy {
         InboundFednowTransferServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val swiftTransfers: SwiftTransferService by lazy {
+        SwiftTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val checkDeposits: CheckDepositService by lazy {
@@ -404,6 +410,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun fednowTransfers(): FednowTransferService = fednowTransfers
 
     override fun inboundFednowTransfers(): InboundFednowTransferService = inboundFednowTransfers
+
+    override fun swiftTransfers(): SwiftTransferService = swiftTransfers
 
     override fun checkDeposits(): CheckDepositService = checkDeposits
 
@@ -578,6 +586,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         private val inboundFednowTransfers: InboundFednowTransferService.WithRawResponse by lazy {
             InboundFednowTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val swiftTransfers: SwiftTransferService.WithRawResponse by lazy {
+            SwiftTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val checkDeposits: CheckDepositService.WithRawResponse by lazy {
@@ -773,6 +785,8 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun inboundFednowTransfers(): InboundFednowTransferService.WithRawResponse =
             inboundFednowTransfers
+
+        override fun swiftTransfers(): SwiftTransferService.WithRawResponse = swiftTransfers
 
         override fun checkDeposits(): CheckDepositService.WithRawResponse = checkDeposits
 
