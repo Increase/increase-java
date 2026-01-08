@@ -56,6 +56,7 @@ import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.RoutingNumberServiceAsync
 import com.increase.api.services.async.SimulationServiceAsync
 import com.increase.api.services.async.SupplementalDocumentServiceAsync
+import com.increase.api.services.async.SwiftTransferServiceAsync
 import com.increase.api.services.async.TransactionServiceAsync
 import com.increase.api.services.async.WebhookServiceAsync
 import com.increase.api.services.async.WireDrawdownRequestServiceAsync
@@ -151,6 +152,8 @@ interface IncreaseClientAsync {
     fun fednowTransfers(): FednowTransferServiceAsync
 
     fun inboundFednowTransfers(): InboundFednowTransferServiceAsync
+
+    fun swiftTransfers(): SwiftTransferServiceAsync
 
     fun checkDeposits(): CheckDepositServiceAsync
 
@@ -293,6 +296,8 @@ interface IncreaseClientAsync {
         fun fednowTransfers(): FednowTransferServiceAsync.WithRawResponse
 
         fun inboundFednowTransfers(): InboundFednowTransferServiceAsync.WithRawResponse
+
+        fun swiftTransfers(): SwiftTransferServiceAsync.WithRawResponse
 
         fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
 
