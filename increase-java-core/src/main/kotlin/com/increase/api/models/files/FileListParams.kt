@@ -687,6 +687,9 @@ private constructor(
                 /** The results of an Export you requested via the dashboard or API. */
                 @JvmField val EXPORT = of("export")
 
+                /** A fee statement. */
+                @JvmField val FEE_STATEMENT = of("fee_statement")
+
                 /** An attachment to an Unusual Activity Report. */
                 @JvmField
                 val UNUSUAL_ACTIVITY_REPORT_ATTACHMENT = of("unusual_activity_report_attachment")
@@ -792,6 +795,8 @@ private constructor(
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 /** The results of an Export you requested via the dashboard or API. */
                 EXPORT,
+                /** A fee statement. */
+                FEE_STATEMENT,
                 /** An attachment to an Unusual Activity Report. */
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
                 /** A document granting another entity access to the funds into your account. */
@@ -894,6 +899,8 @@ private constructor(
                 ENTITY_SUPPLEMENTAL_DOCUMENT,
                 /** The results of an Export you requested via the dashboard or API. */
                 EXPORT,
+                /** A fee statement. */
+                FEE_STATEMENT,
                 /** An attachment to an Unusual Activity Report. */
                 UNUSUAL_ACTIVITY_REPORT_ATTACHMENT,
                 /** A document granting another entity access to the funds into your account. */
@@ -948,6 +955,7 @@ private constructor(
                     DOCUMENT_REQUEST -> Value.DOCUMENT_REQUEST
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Value.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Value.EXPORT
+                    FEE_STATEMENT -> Value.FEE_STATEMENT
                     UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Value.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                     DEPOSIT_ACCOUNT_CONTROL_AGREEMENT -> Value.DEPOSIT_ACCOUNT_CONTROL_AGREEMENT
                     PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
@@ -995,6 +1003,7 @@ private constructor(
                     DOCUMENT_REQUEST -> Known.DOCUMENT_REQUEST
                     ENTITY_SUPPLEMENTAL_DOCUMENT -> Known.ENTITY_SUPPLEMENTAL_DOCUMENT
                     EXPORT -> Known.EXPORT
+                    FEE_STATEMENT -> Known.FEE_STATEMENT
                     UNUSUAL_ACTIVITY_REPORT_ATTACHMENT -> Known.UNUSUAL_ACTIVITY_REPORT_ATTACHMENT
                     DEPOSIT_ACCOUNT_CONTROL_AGREEMENT -> Known.DEPOSIT_ACCOUNT_CONTROL_AGREEMENT
                     PROOF_OF_AUTHORIZATION_REQUEST_SUBMISSION ->
