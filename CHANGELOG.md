@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.396.0 (2026-01-14)
+
+Full Changelog: [v0.395.0...v0.396.0](https://github.com/Increase/increase-java/compare/v0.395.0...v0.396.0)
+
+### Features
+
+* **api:** api update ([7a3f167](https://github.com/Increase/increase-java/commit/7a3f1676006a0ebdabcb9557b432b0068b9fc19b))
+* **client:** allow configuring dispatcher executor service ([cb9ec15](https://github.com/Increase/increase-java/commit/cb9ec1516cfc976ef1f7ac5256804193c569033a))
+
+
+### Chores
+
+* **internal:** support uploading Maven repo artifacts to stainless package server ([86f6e2f](https://github.com/Increase/increase-java/commit/86f6e2f373c8117a7ff2c84cb76c177b9945fb28))
+
 ## 0.395.0 (2026-01-08)
 
 Full Changelog: [v0.394.0...v0.395.0](https://github.com/Increase/increase-java/compare/v0.394.0...v0.395.0)
