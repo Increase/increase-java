@@ -1,5 +1,21 @@
 # Changelog
 
+## 0.397.1 (2026-01-16)
+
+Full Changelog: [v0.397.0...v0.397.1](https://github.com/Increase/increase-java/compare/v0.397.0...v0.397.1)
+
+### Bug Fixes
+
+* **client:** disallow coercion from float to int ([1ce4714](https://github.com/Increase/increase-java/commit/1ce4714a00e240befe036e481bdf05c15f105548))
+* date time deserialization leniency ([0c562b1](https://github.com/Increase/increase-java/commit/0c562b1e32380760e9120ce1ac934b323f0b5ca3))
+
+
+### Chores
+
+* **internal:** improve maven repo docs ([07b42be](https://github.com/Increase/increase-java/commit/07b42be3fc7dc39fa331aa7225219e9f52cc7304))
+* **internal:** update `actions/checkout` version ([54a30a6](https://github.com/Increase/increase-java/commit/54a30a6ffd819b19b55269356e186e93b700e91c))
+* test on Jackson 2.14.0 to avoid encountering FasterXML/jackson-databind[#3240](https://github.com/Increase/increase-java/issues/3240) in tests ([0c562b1](https://github.com/Increase/increase-java/commit/0c562b1e32380760e9120ce1ac934b323f0b5ca3))
+
 ## 0.397.0 (2026-01-16)
 
 Full Changelog: [v0.396.0...v0.397.0](https://github.com/Increase/increase-java/compare/v0.396.0...v0.397.0)
