@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.397.0 (2026-01-16)
+
+Full Changelog: [v0.396.0...v0.397.0](https://github.com/Increase/increase-java/compare/v0.396.0...v0.397.0)
+
+### Features
+
+* **api:** api update ([d270889](https://github.com/Increase/increase-java/commit/d270889d3821b24bce29d3b74cc2b7472fbc7db1))
+
+
+### Chores
+
+* **internal:** clean up maven repo artifact script and add html documentation to repo root ([cf9cda9](https://github.com/Increase/increase-java/commit/cf9cda9e2963052c860047c6d6795ae977b52c0b))
+
 ## 0.396.0 (2026-01-14)
 
 Full Changelog: [v0.395.0...v0.396.0](https://github.com/Increase/increase-java/compare/v0.395.0...v0.396.0)
