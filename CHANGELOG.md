@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.397.2 (2026-01-16)
+
+Full Changelog: [v0.397.1...v0.397.2](https://github.com/Increase/increase-java/compare/v0.397.1...v0.397.2)
+
+### Bug Fixes
+
+* **client:** fully respect max retries ([9bfdc06](https://github.com/Increase/increase-java/commit/9bfdc0664a531b57b07a47aaa03a3dbc573b9e9d))
+* **client:** send retry count header for max retries 0 ([9bfdc06](https://github.com/Increase/increase-java/commit/9bfdc0664a531b57b07a47aaa03a3dbc573b9e9d))
+
+
+### Chores
+
+* **internal:** depend on packages directly in example ([9bfdc06](https://github.com/Increase/increase-java/commit/9bfdc0664a531b57b07a47aaa03a3dbc573b9e9d))
+
 ## 0.397.1 (2026-01-16)
 
 Full Changelog: [v0.397.0...v0.397.1](https://github.com/Increase/increase-java/compare/v0.397.0...v0.397.1)
