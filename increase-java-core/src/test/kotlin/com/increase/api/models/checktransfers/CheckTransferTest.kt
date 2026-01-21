@@ -132,9 +132,6 @@ internal class CheckTransferTest {
                 )
                 .submission(
                     CheckTransfer.Submission.builder()
-                        .addressCorrectionAction(
-                            CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
-                        )
                         .submittedAddress(
                             CheckTransfer.Submission.SubmittedAddress.builder()
                                 .city("NEW YORK")
@@ -278,9 +275,6 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.submission())
             .contains(
                 CheckTransfer.Submission.builder()
-                    .addressCorrectionAction(
-                        CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
-                    )
                     .submittedAddress(
                         CheckTransfer.Submission.SubmittedAddress.builder()
                             .city("NEW YORK")
@@ -423,9 +417,6 @@ internal class CheckTransferTest {
                 )
                 .submission(
                     CheckTransfer.Submission.builder()
-                        .addressCorrectionAction(
-                            CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
-                        )
                         .submittedAddress(
                             CheckTransfer.Submission.SubmittedAddress.builder()
                                 .city("NEW YORK")

@@ -141,9 +141,6 @@ internal class CheckTransferListPageResponseTest {
                         )
                         .submission(
                             CheckTransfer.Submission.builder()
-                                .addressCorrectionAction(
-                                    CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
-                                )
                                 .submittedAddress(
                                     CheckTransfer.Submission.SubmittedAddress.builder()
                                         .city("NEW YORK")
@@ -295,9 +292,6 @@ internal class CheckTransferListPageResponseTest {
                     )
                     .submission(
                         CheckTransfer.Submission.builder()
-                            .addressCorrectionAction(
-                                CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
-                            )
                             .submittedAddress(
                                 CheckTransfer.Submission.SubmittedAddress.builder()
                                     .city("NEW YORK")
@@ -453,9 +447,6 @@ internal class CheckTransferListPageResponseTest {
                         )
                         .submission(
                             CheckTransfer.Submission.builder()
-                                .addressCorrectionAction(
-                                    CheckTransfer.Submission.AddressCorrectionAction.STANDARDIZATION
-                                )
                                 .submittedAddress(
                                     CheckTransfer.Submission.SubmittedAddress.builder()
                                         .city("NEW YORK")

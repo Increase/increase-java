@@ -6473,7 +6473,6 @@ private constructor(
     class Submission
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val addressCorrectionAction: JsonField<AddressCorrectionAction>,
         private val submittedAddress: JsonField<SubmittedAddress>,
         private val submittedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -6481,28 +6480,13 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("address_correction_action")
-            @ExcludeMissing
-            addressCorrectionAction: JsonField<AddressCorrectionAction> = JsonMissing.of(),
             @JsonProperty("submitted_address")
             @ExcludeMissing
             submittedAddress: JsonField<SubmittedAddress> = JsonMissing.of(),
             @JsonProperty("submitted_at")
             @ExcludeMissing
             submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        ) : this(addressCorrectionAction, submittedAddress, submittedAt, mutableMapOf())
-
-        /**
-         * Per USPS requirements, Increase will standardize the address to USPS standards and check
-         * it against the USPS National Change of Address (NCOA) database before mailing it. This
-         * indicates what modifications, if any, were made to the address before printing and
-         * mailing the check.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun addressCorrectionAction(): AddressCorrectionAction =
-            addressCorrectionAction.getRequired("address_correction_action")
+        ) : this(submittedAddress, submittedAt, mutableMapOf())
 
         /**
          * The address we submitted to the printer. This is what is physically printed on the check.
@@ -6513,22 +6497,12 @@ private constructor(
         fun submittedAddress(): SubmittedAddress = submittedAddress.getRequired("submitted_address")
 
         /**
-         * When this check transfer was submitted to our check printer.
+         * When this check was submitted to our check printer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun submittedAt(): OffsetDateTime = submittedAt.getRequired("submitted_at")
-
-        /**
-         * Returns the raw JSON value of [addressCorrectionAction].
-         *
-         * Unlike [addressCorrectionAction], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("address_correction_action")
-        @ExcludeMissing
-        fun _addressCorrectionAction(): JsonField<AddressCorrectionAction> = addressCorrectionAction
 
         /**
          * Returns the raw JSON value of [submittedAddress].
@@ -6568,7 +6542,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .addressCorrectionAction()
              * .submittedAddress()
              * .submittedAt()
              * ```
@@ -6579,38 +6552,16 @@ private constructor(
         /** A builder for [Submission]. */
         class Builder internal constructor() {
 
-            private var addressCorrectionAction: JsonField<AddressCorrectionAction>? = null
             private var submittedAddress: JsonField<SubmittedAddress>? = null
             private var submittedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
-                addressCorrectionAction = submission.addressCorrectionAction
                 submittedAddress = submission.submittedAddress
                 submittedAt = submission.submittedAt
                 additionalProperties = submission.additionalProperties.toMutableMap()
             }
-
-            /**
-             * Per USPS requirements, Increase will standardize the address to USPS standards and
-             * check it against the USPS National Change of Address (NCOA) database before mailing
-             * it. This indicates what modifications, if any, were made to the address before
-             * printing and mailing the check.
-             */
-            fun addressCorrectionAction(addressCorrectionAction: AddressCorrectionAction) =
-                addressCorrectionAction(JsonField.of(addressCorrectionAction))
-
-            /**
-             * Sets [Builder.addressCorrectionAction] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.addressCorrectionAction] with a well-typed
-             * [AddressCorrectionAction] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun addressCorrectionAction(
-                addressCorrectionAction: JsonField<AddressCorrectionAction>
-            ) = apply { this.addressCorrectionAction = addressCorrectionAction }
 
             /**
              * The address we submitted to the printer. This is what is physically printed on the
@@ -6630,7 +6581,7 @@ private constructor(
                 this.submittedAddress = submittedAddress
             }
 
-            /** When this check transfer was submitted to our check printer. */
+            /** When this check was submitted to our check printer. */
             fun submittedAt(submittedAt: OffsetDateTime) = submittedAt(JsonField.of(submittedAt))
 
             /**
@@ -6670,7 +6621,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .addressCorrectionAction()
              * .submittedAddress()
              * .submittedAt()
              * ```
@@ -6679,7 +6629,6 @@ private constructor(
              */
             fun build(): Submission =
                 Submission(
-                    checkRequired("addressCorrectionAction", addressCorrectionAction),
                     checkRequired("submittedAddress", submittedAddress),
                     checkRequired("submittedAt", submittedAt),
                     additionalProperties.toMutableMap(),
@@ -6693,7 +6642,6 @@ private constructor(
                 return@apply
             }
 
-            addressCorrectionAction().validate()
             submittedAddress().validate()
             submittedAt()
             validated = true
@@ -6715,192 +6663,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (addressCorrectionAction.asKnown().getOrNull()?.validity() ?: 0) +
-                (submittedAddress.asKnown().getOrNull()?.validity() ?: 0) +
+            (submittedAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (submittedAt.asKnown().isPresent) 1 else 0)
-
-        /**
-         * Per USPS requirements, Increase will standardize the address to USPS standards and check
-         * it against the USPS National Change of Address (NCOA) database before mailing it. This
-         * indicates what modifications, if any, were made to the address before printing and
-         * mailing the check.
-         */
-        class AddressCorrectionAction
-        @JsonCreator
-        private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** No address correction took place. */
-                @JvmField val NONE = of("none")
-
-                /** The address was standardized. */
-                @JvmField val STANDARDIZATION = of("standardization")
-
-                /**
-                 * The address was first standardized and then changed because the recipient moved.
-                 */
-                @JvmField
-                val STANDARDIZATION_WITH_ADDRESS_CHANGE = of("standardization_with_address_change")
-
-                /**
-                 * An error occurred while correcting the address. This typically means the USPS
-                 * could not find that address. The address was not changed.
-                 */
-                @JvmField val ERROR = of("error")
-
-                @JvmStatic fun of(value: String) = AddressCorrectionAction(JsonField.of(value))
-            }
-
-            /** An enum containing [AddressCorrectionAction]'s known values. */
-            enum class Known {
-                /** No address correction took place. */
-                NONE,
-                /** The address was standardized. */
-                STANDARDIZATION,
-                /**
-                 * The address was first standardized and then changed because the recipient moved.
-                 */
-                STANDARDIZATION_WITH_ADDRESS_CHANGE,
-                /**
-                 * An error occurred while correcting the address. This typically means the USPS
-                 * could not find that address. The address was not changed.
-                 */
-                ERROR,
-            }
-
-            /**
-             * An enum containing [AddressCorrectionAction]'s known values, as well as an [_UNKNOWN]
-             * member.
-             *
-             * An instance of [AddressCorrectionAction] can contain an unknown value in a couple of
-             * cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** No address correction took place. */
-                NONE,
-                /** The address was standardized. */
-                STANDARDIZATION,
-                /**
-                 * The address was first standardized and then changed because the recipient moved.
-                 */
-                STANDARDIZATION_WITH_ADDRESS_CHANGE,
-                /**
-                 * An error occurred while correcting the address. This typically means the USPS
-                 * could not find that address. The address was not changed.
-                 */
-                ERROR,
-                /**
-                 * An enum member indicating that [AddressCorrectionAction] was instantiated with an
-                 * unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    NONE -> Value.NONE
-                    STANDARDIZATION -> Value.STANDARDIZATION
-                    STANDARDIZATION_WITH_ADDRESS_CHANGE -> Value.STANDARDIZATION_WITH_ADDRESS_CHANGE
-                    ERROR -> Value.ERROR
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    NONE -> Known.NONE
-                    STANDARDIZATION -> Known.STANDARDIZATION
-                    STANDARDIZATION_WITH_ADDRESS_CHANGE -> Known.STANDARDIZATION_WITH_ADDRESS_CHANGE
-                    ERROR -> Known.ERROR
-                    else ->
-                        throw IncreaseInvalidDataException(
-                            "Unknown AddressCorrectionAction: $value"
-                        )
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): AddressCorrectionAction = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is AddressCorrectionAction && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
 
         /**
          * The address we submitted to the printer. This is what is physically printed on the check.
@@ -7278,25 +7042,19 @@ private constructor(
             }
 
             return other is Submission &&
-                addressCorrectionAction == other.addressCorrectionAction &&
                 submittedAddress == other.submittedAddress &&
                 submittedAt == other.submittedAt &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(
-                addressCorrectionAction,
-                submittedAddress,
-                submittedAt,
-                additionalProperties,
-            )
+            Objects.hash(submittedAddress, submittedAt, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Submission{addressCorrectionAction=$addressCorrectionAction, submittedAddress=$submittedAddress, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+            "Submission{submittedAddress=$submittedAddress, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
     }
 
     /**
