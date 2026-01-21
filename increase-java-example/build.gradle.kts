@@ -8,7 +8,8 @@ repositories {
 }
 
 dependencies {
-    implementation(project(":increase-java"))
+    implementation(project(":increase-java-core"))
+    implementation(project(":increase-java-client-okhttp"))
 }
 
 tasks.withType<JavaCompile>().configureEach {
