@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.399.0 (2026-01-21)
+
+Full Changelog: [v0.398.0...v0.399.0](https://github.com/Increase/increase-java/compare/v0.398.0...v0.399.0)
+
+### Features
+
+* **client:** send `X-Stainless-Kotlin-Version` header ([6f0a4b3](https://github.com/Increase/increase-java/commit/6f0a4b3946e2a8bec02d9d8df11be7579419b00d))
+
+
+### Chores
+
+* **internal:** update maven repo doc to include authentication ([2c42319](https://github.com/Increase/increase-java/commit/2c4231946f8ed09826d0efdd97354e6bc0202b28))
+
 ## 0.398.0 (2026-01-21)
 
 Full Changelog: [v0.397.2...v0.398.0](https://github.com/Increase/increase-java/compare/v0.397.2...v0.398.0)
