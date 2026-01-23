@@ -33,6 +33,7 @@ private constructor(
     private val cardholder: JsonField<Cardholder>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val device: JsonField<Device>,
+    private val dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>,
     private val status: JsonField<Status>,
     private val tokenRequestor: JsonField<TokenRequestor>,
     private val type: JsonField<Type>,
@@ -51,6 +52,9 @@ private constructor(
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("device") @ExcludeMissing device: JsonField<Device> = JsonMissing.of(),
+        @JsonProperty("dynamic_primary_account_number")
+        @ExcludeMissing
+        dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("token_requestor")
         @ExcludeMissing
@@ -63,6 +67,7 @@ private constructor(
         cardholder,
         createdAt,
         device,
+        dynamicPrimaryAccountNumber,
         status,
         tokenRequestor,
         type,
@@ -110,6 +115,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun device(): Device = device.getRequired("device")
+
+    /**
+     * The redacted Dynamic Primary Account Number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dynamicPrimaryAccountNumber(): Optional<DynamicPrimaryAccountNumber> =
+        dynamicPrimaryAccountNumber.getOptional("dynamic_primary_account_number")
 
     /**
      * This indicates if payments can be made with the Digital Wallet Token.
@@ -184,6 +198,17 @@ private constructor(
     @JsonProperty("device") @ExcludeMissing fun _device(): JsonField<Device> = device
 
     /**
+     * Returns the raw JSON value of [dynamicPrimaryAccountNumber].
+     *
+     * Unlike [dynamicPrimaryAccountNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("dynamic_primary_account_number")
+    @ExcludeMissing
+    fun _dynamicPrimaryAccountNumber(): JsonField<DynamicPrimaryAccountNumber> =
+        dynamicPrimaryAccountNumber
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -237,6 +262,7 @@ private constructor(
          * .cardholder()
          * .createdAt()
          * .device()
+         * .dynamicPrimaryAccountNumber()
          * .status()
          * .tokenRequestor()
          * .type()
@@ -254,6 +280,7 @@ private constructor(
         private var cardholder: JsonField<Cardholder>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var device: JsonField<Device>? = null
+        private var dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>? = null
         private var status: JsonField<Status>? = null
         private var tokenRequestor: JsonField<TokenRequestor>? = null
         private var type: JsonField<Type>? = null
@@ -267,6 +294,7 @@ private constructor(
             cardholder = digitalWalletToken.cardholder
             createdAt = digitalWalletToken.createdAt
             device = digitalWalletToken.device
+            dynamicPrimaryAccountNumber = digitalWalletToken.dynamicPrimaryAccountNumber
             status = digitalWalletToken.status
             tokenRequestor = digitalWalletToken.tokenRequestor
             type = digitalWalletToken.type
@@ -333,6 +361,29 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun device(device: JsonField<Device>) = apply { this.device = device }
+
+        /** The redacted Dynamic Primary Account Number. */
+        fun dynamicPrimaryAccountNumber(dynamicPrimaryAccountNumber: DynamicPrimaryAccountNumber?) =
+            dynamicPrimaryAccountNumber(JsonField.ofNullable(dynamicPrimaryAccountNumber))
+
+        /**
+         * Alias for calling [Builder.dynamicPrimaryAccountNumber] with
+         * `dynamicPrimaryAccountNumber.orElse(null)`.
+         */
+        fun dynamicPrimaryAccountNumber(
+            dynamicPrimaryAccountNumber: Optional<DynamicPrimaryAccountNumber>
+        ) = dynamicPrimaryAccountNumber(dynamicPrimaryAccountNumber.getOrNull())
+
+        /**
+         * Sets [Builder.dynamicPrimaryAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dynamicPrimaryAccountNumber] with a well-typed
+         * [DynamicPrimaryAccountNumber] value instead. This method is primarily for setting the
+         * field to an undocumented or not yet supported value.
+         */
+        fun dynamicPrimaryAccountNumber(
+            dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>
+        ) = apply { this.dynamicPrimaryAccountNumber = dynamicPrimaryAccountNumber }
 
         /** This indicates if payments can be made with the Digital Wallet Token. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -431,6 +482,7 @@ private constructor(
          * .cardholder()
          * .createdAt()
          * .device()
+         * .dynamicPrimaryAccountNumber()
          * .status()
          * .tokenRequestor()
          * .type()
@@ -446,6 +498,7 @@ private constructor(
                 checkRequired("cardholder", cardholder),
                 checkRequired("createdAt", createdAt),
                 checkRequired("device", device),
+                checkRequired("dynamicPrimaryAccountNumber", dynamicPrimaryAccountNumber),
                 checkRequired("status", status),
                 checkRequired("tokenRequestor", tokenRequestor),
                 checkRequired("type", type),
@@ -466,6 +519,7 @@ private constructor(
         cardholder().validate()
         createdAt()
         device().validate()
+        dynamicPrimaryAccountNumber().ifPresent { it.validate() }
         status().validate()
         tokenRequestor().validate()
         type().validate()
@@ -493,6 +547,7 @@ private constructor(
             (cardholder.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (device.asKnown().getOrNull()?.validity() ?: 0) +
+            (dynamicPrimaryAccountNumber.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (tokenRequestor.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1156,6 +1211,206 @@ private constructor(
 
         override fun toString() =
             "Device{deviceType=$deviceType, identifier=$identifier, ipAddress=$ipAddress, name=$name, additionalProperties=$additionalProperties}"
+    }
+
+    /** The redacted Dynamic Primary Account Number. */
+    class DynamicPrimaryAccountNumber
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val first6: JsonField<String>,
+        private val last4: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("first6") @ExcludeMissing first6: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("last4") @ExcludeMissing last4: JsonField<String> = JsonMissing.of(),
+        ) : this(first6, last4, mutableMapOf())
+
+        /**
+         * The first 6 digits of the token's Dynamic Primary Account Number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun first6(): String = first6.getRequired("first6")
+
+        /**
+         * The last 4 digits of the token's Dynamic Primary Account Number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun last4(): String = last4.getRequired("last4")
+
+        /**
+         * Returns the raw JSON value of [first6].
+         *
+         * Unlike [first6], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("first6") @ExcludeMissing fun _first6(): JsonField<String> = first6
+
+        /**
+         * Returns the raw JSON value of [last4].
+         *
+         * Unlike [last4], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("last4") @ExcludeMissing fun _last4(): JsonField<String> = last4
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of
+             * [DynamicPrimaryAccountNumber].
+             *
+             * The following fields are required:
+             * ```java
+             * .first6()
+             * .last4()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DynamicPrimaryAccountNumber]. */
+        class Builder internal constructor() {
+
+            private var first6: JsonField<String>? = null
+            private var last4: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(dynamicPrimaryAccountNumber: DynamicPrimaryAccountNumber) = apply {
+                first6 = dynamicPrimaryAccountNumber.first6
+                last4 = dynamicPrimaryAccountNumber.last4
+                additionalProperties =
+                    dynamicPrimaryAccountNumber.additionalProperties.toMutableMap()
+            }
+
+            /** The first 6 digits of the token's Dynamic Primary Account Number. */
+            fun first6(first6: String) = first6(JsonField.of(first6))
+
+            /**
+             * Sets [Builder.first6] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.first6] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun first6(first6: JsonField<String>) = apply { this.first6 = first6 }
+
+            /** The last 4 digits of the token's Dynamic Primary Account Number. */
+            fun last4(last4: String) = last4(JsonField.of(last4))
+
+            /**
+             * Sets [Builder.last4] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.last4] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun last4(last4: JsonField<String>) = apply { this.last4 = last4 }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DynamicPrimaryAccountNumber].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .first6()
+             * .last4()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DynamicPrimaryAccountNumber =
+                DynamicPrimaryAccountNumber(
+                    checkRequired("first6", first6),
+                    checkRequired("last4", last4),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DynamicPrimaryAccountNumber = apply {
+            if (validated) {
+                return@apply
+            }
+
+            first6()
+            last4()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (first6.asKnown().isPresent) 1 else 0) + (if (last4.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DynamicPrimaryAccountNumber &&
+                first6 == other.first6 &&
+                last4 == other.last4 &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(first6, last4, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DynamicPrimaryAccountNumber{first6=$first6, last4=$last4, additionalProperties=$additionalProperties}"
     }
 
     /** This indicates if payments can be made with the Digital Wallet Token. */
@@ -1982,6 +2237,7 @@ private constructor(
             cardholder == other.cardholder &&
             createdAt == other.createdAt &&
             device == other.device &&
+            dynamicPrimaryAccountNumber == other.dynamicPrimaryAccountNumber &&
             status == other.status &&
             tokenRequestor == other.tokenRequestor &&
             type == other.type &&
@@ -1996,6 +2252,7 @@ private constructor(
             cardholder,
             createdAt,
             device,
+            dynamicPrimaryAccountNumber,
             status,
             tokenRequestor,
             type,
@@ -2007,5 +2264,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalWalletToken{id=$id, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, device=$device, status=$status, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
+        "DigitalWalletToken{id=$id, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, status=$status, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
 }
