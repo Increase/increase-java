@@ -61,9 +61,7 @@ internal class CheckTransferListPageResponseTest {
                         .idempotencyKey(null)
                         .mailing(
                             CheckTransfer.Mailing.builder()
-                                .imageId(null)
                                 .mailedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .trackingNumber(null)
                                 .build()
                         )
                         .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -141,6 +139,7 @@ internal class CheckTransferListPageResponseTest {
                         )
                         .submission(
                             CheckTransfer.Submission.builder()
+                                .previewFileId(null)
                                 .submittedAddress(
                                     CheckTransfer.Submission.SubmittedAddress.builder()
                                         .city("NEW YORK")
@@ -152,6 +151,7 @@ internal class CheckTransferListPageResponseTest {
                                         .build()
                                 )
                                 .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .trackingNumber(null)
                                 .build()
                         )
                         .thirdParty(
@@ -214,9 +214,7 @@ internal class CheckTransferListPageResponseTest {
                     .idempotencyKey(null)
                     .mailing(
                         CheckTransfer.Mailing.builder()
-                            .imageId(null)
                             .mailedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .trackingNumber(null)
                             .build()
                     )
                     .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -292,6 +290,7 @@ internal class CheckTransferListPageResponseTest {
                     )
                     .submission(
                         CheckTransfer.Submission.builder()
+                            .previewFileId(null)
                             .submittedAddress(
                                 CheckTransfer.Submission.SubmittedAddress.builder()
                                     .city("NEW YORK")
@@ -303,6 +302,7 @@ internal class CheckTransferListPageResponseTest {
                                     .build()
                             )
                             .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .trackingNumber(null)
                             .build()
                     )
                     .thirdParty(
@@ -367,9 +367,7 @@ internal class CheckTransferListPageResponseTest {
                         .idempotencyKey(null)
                         .mailing(
                             CheckTransfer.Mailing.builder()
-                                .imageId(null)
                                 .mailedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .trackingNumber(null)
                                 .build()
                         )
                         .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -447,6 +445,7 @@ internal class CheckTransferListPageResponseTest {
                         )
                         .submission(
                             CheckTransfer.Submission.builder()
+                                .previewFileId(null)
                                 .submittedAddress(
                                     CheckTransfer.Submission.SubmittedAddress.builder()
                                         .city("NEW YORK")
@@ -458,6 +457,7 @@ internal class CheckTransferListPageResponseTest {
                                         .build()
                                 )
                                 .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .trackingNumber(null)
                                 .build()
                         )
                         .thirdParty(
