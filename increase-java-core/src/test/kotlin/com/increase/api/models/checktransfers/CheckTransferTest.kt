@@ -55,9 +55,7 @@ internal class CheckTransferTest {
                 .idempotencyKey(null)
                 .mailing(
                     CheckTransfer.Mailing.builder()
-                        .imageId(null)
                         .mailedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .trackingNumber(null)
                         .build()
                 )
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -132,6 +130,7 @@ internal class CheckTransferTest {
                 )
                 .submission(
                     CheckTransfer.Submission.builder()
+                        .previewFileId(null)
                         .submittedAddress(
                             CheckTransfer.Submission.SubmittedAddress.builder()
                                 .city("NEW YORK")
@@ -143,6 +142,7 @@ internal class CheckTransferTest {
                                 .build()
                         )
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .trackingNumber(null)
                         .build()
                 )
                 .thirdParty(
@@ -196,9 +196,7 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.mailing())
             .contains(
                 CheckTransfer.Mailing.builder()
-                    .imageId(null)
                     .mailedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .trackingNumber(null)
                     .build()
             )
         assertThat(checkTransfer.pendingTransactionId())
@@ -275,6 +273,7 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.submission())
             .contains(
                 CheckTransfer.Submission.builder()
+                    .previewFileId(null)
                     .submittedAddress(
                         CheckTransfer.Submission.SubmittedAddress.builder()
                             .city("NEW YORK")
@@ -286,6 +285,7 @@ internal class CheckTransferTest {
                             .build()
                     )
                     .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .trackingNumber(null)
                     .build()
             )
         assertThat(checkTransfer.thirdParty())
@@ -340,9 +340,7 @@ internal class CheckTransferTest {
                 .idempotencyKey(null)
                 .mailing(
                     CheckTransfer.Mailing.builder()
-                        .imageId(null)
                         .mailedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .trackingNumber(null)
                         .build()
                 )
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -417,6 +415,7 @@ internal class CheckTransferTest {
                 )
                 .submission(
                     CheckTransfer.Submission.builder()
+                        .previewFileId(null)
                         .submittedAddress(
                             CheckTransfer.Submission.SubmittedAddress.builder()
                                 .city("NEW YORK")
@@ -428,6 +427,7 @@ internal class CheckTransferTest {
                                 .build()
                         )
                         .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .trackingNumber(null)
                         .build()
                 )
                 .thirdParty(
