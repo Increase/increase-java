@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.400.1 (2026-01-23)
+
+Full Changelog: [v0.400.0...v0.400.1](https://github.com/Increase/increase-java/compare/v0.400.0...v0.400.1)
+
+### Bug Fixes
+
+* **client:** preserve time zone in lenient date-time parsing ([1e9fb40](https://github.com/Increase/increase-java/commit/1e9fb40a88e426e18a48f7f2566743fbe9d19963))
+
+
+### Chores
+
+* **internal:** correct cache invalidation for `SKIP_MOCK_TESTS` ([e63a9f9](https://github.com/Increase/increase-java/commit/e63a9f93f7d87ffc7c80fa005ee58e9ac689c1de))
+
 ## 0.400.0 (2026-01-22)
 
 Full Changelog: [v0.399.0...v0.400.0](https://github.com/Increase/increase-java/compare/v0.399.0...v0.400.0)
