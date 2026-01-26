@@ -457,6 +457,9 @@ private constructor(
             /** The check was not endorsed by the payee. */
             @JvmField val ENDORSEMENT_IRREGULAR = of("endorsement_irregular")
 
+            /** The maker of the check requested its return. */
+            @JvmField val REFER_TO_MAKER = of("refer_to_maker")
+
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }
 
@@ -472,6 +475,8 @@ private constructor(
             ENDORSEMENT_MISSING,
             /** The check was not endorsed by the payee. */
             ENDORSEMENT_IRREGULAR,
+            /** The maker of the check requested its return. */
+            REFER_TO_MAKER,
         }
 
         /**
@@ -494,6 +499,8 @@ private constructor(
             ENDORSEMENT_MISSING,
             /** The check was not endorsed by the payee. */
             ENDORSEMENT_IRREGULAR,
+            /** The maker of the check requested its return. */
+            REFER_TO_MAKER,
             /** An enum member indicating that [Reason] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -512,6 +519,7 @@ private constructor(
                 DUPLICATE_PRESENTMENT -> Value.DUPLICATE_PRESENTMENT
                 ENDORSEMENT_MISSING -> Value.ENDORSEMENT_MISSING
                 ENDORSEMENT_IRREGULAR -> Value.ENDORSEMENT_IRREGULAR
+                REFER_TO_MAKER -> Value.REFER_TO_MAKER
                 else -> Value._UNKNOWN
             }
 
@@ -531,6 +539,7 @@ private constructor(
                 DUPLICATE_PRESENTMENT -> Known.DUPLICATE_PRESENTMENT
                 ENDORSEMENT_MISSING -> Known.ENDORSEMENT_MISSING
                 ENDORSEMENT_IRREGULAR -> Known.ENDORSEMENT_IRREGULAR
+                REFER_TO_MAKER -> Known.REFER_TO_MAKER
                 else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
             }
 
