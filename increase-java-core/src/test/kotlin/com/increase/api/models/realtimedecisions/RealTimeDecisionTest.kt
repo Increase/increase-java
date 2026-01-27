@@ -240,6 +240,14 @@ internal class RealTimeDecisionTest {
                                         )
                                         .build()
                                 )
+                                .cardholderName(
+                                    RealTimeDecision.CardAuthorization.Verification.CardholderName
+                                        .builder()
+                                        .providedFirstName("provided_first_name")
+                                        .providedLastName("provided_last_name")
+                                        .providedMiddleName("provided_middle_name")
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -411,6 +419,14 @@ internal class RealTimeDecisionTest {
                                                 .Result
                                                 .NOT_CHECKED
                                         )
+                                        .build()
+                                )
+                                .cardholderName(
+                                    RealTimeDecision.CardBalanceInquiry.Verification.CardholderName
+                                        .builder()
+                                        .providedFirstName("provided_first_name")
+                                        .providedLastName("provided_last_name")
+                                        .providedMiddleName("provided_middle_name")
                                         .build()
                                 )
                                 .build()
@@ -668,6 +684,14 @@ internal class RealTimeDecisionTest {
                                     )
                                     .build()
                             )
+                            .cardholderName(
+                                RealTimeDecision.CardAuthorization.Verification.CardholderName
+                                    .builder()
+                                    .providedFirstName("provided_first_name")
+                                    .providedLastName("provided_last_name")
+                                    .providedMiddleName("provided_middle_name")
+                                    .build()
+                            )
                             .build()
                     )
                     .build()
@@ -834,6 +858,14 @@ internal class RealTimeDecisionTest {
                                             .Result
                                             .NOT_CHECKED
                                     )
+                                    .build()
+                            )
+                            .cardholderName(
+                                RealTimeDecision.CardBalanceInquiry.Verification.CardholderName
+                                    .builder()
+                                    .providedFirstName("provided_first_name")
+                                    .providedLastName("provided_last_name")
+                                    .providedMiddleName("provided_middle_name")
                                     .build()
                             )
                             .build()
@@ -1108,6 +1140,14 @@ internal class RealTimeDecisionTest {
                                         )
                                         .build()
                                 )
+                                .cardholderName(
+                                    RealTimeDecision.CardAuthorization.Verification.CardholderName
+                                        .builder()
+                                        .providedFirstName("provided_first_name")
+                                        .providedLastName("provided_last_name")
+                                        .providedMiddleName("provided_middle_name")
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -1279,6 +1319,14 @@ internal class RealTimeDecisionTest {
                                                 .Result
                                                 .NOT_CHECKED
                                         )
+                                        .build()
+                                )
+                                .cardholderName(
+                                    RealTimeDecision.CardBalanceInquiry.Verification.CardholderName
+                                        .builder()
+                                        .providedFirstName("provided_first_name")
+                                        .providedLastName("provided_last_name")
+                                        .providedMiddleName("provided_middle_name")
                                         .build()
                                 )
                                 .build()

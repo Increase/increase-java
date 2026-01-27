@@ -313,6 +313,15 @@ internal class TransactionListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
+                                                .cardholderName(
+                                                    Transaction.Source.CardFinancial.Verification
+                                                        .CardholderName
+                                                        .builder()
+                                                        .providedFirstName("provided_first_name")
+                                                        .providedLastName("provided_last_name")
+                                                        .providedMiddleName("provided_middle_name")
+                                                        .build()
+                                                )
                                                 .build()
                                         )
                                         .build()
@@ -1413,6 +1422,15 @@ internal class TransactionListPageResponseTest {
                                                     )
                                                     .build()
                                             )
+                                            .cardholderName(
+                                                Transaction.Source.CardFinancial.Verification
+                                                    .CardholderName
+                                                    .builder()
+                                                    .providedFirstName("provided_first_name")
+                                                    .providedLastName("provided_last_name")
+                                                    .providedMiddleName("provided_middle_name")
+                                                    .build()
+                                            )
                                             .build()
                                     )
                                     .build()
@@ -2490,6 +2508,15 @@ internal class TransactionListPageResponseTest {
                                                                 .Result
                                                                 .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                         )
+                                                        .build()
+                                                )
+                                                .cardholderName(
+                                                    Transaction.Source.CardFinancial.Verification
+                                                        .CardholderName
+                                                        .builder()
+                                                        .providedFirstName("provided_first_name")
+                                                        .providedLastName("provided_last_name")
+                                                        .providedMiddleName("provided_middle_name")
                                                         .build()
                                                 )
                                                 .build()
