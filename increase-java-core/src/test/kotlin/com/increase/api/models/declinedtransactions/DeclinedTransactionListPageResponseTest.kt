@@ -272,6 +272,16 @@ internal class DeclinedTransactionListPageResponseTest {
                                                         )
                                                         .build()
                                                 )
+                                                .cardholderName(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .Verification
+                                                        .CardholderName
+                                                        .builder()
+                                                        .providedFirstName("provided_first_name")
+                                                        .providedLastName("provided_last_name")
+                                                        .providedMiddleName("provided_middle_name")
+                                                        .build()
+                                                )
                                                 .build()
                                         )
                                         .build()
@@ -621,6 +631,15 @@ internal class DeclinedTransactionListPageResponseTest {
                                                             .Result
                                                             .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                     )
+                                                    .build()
+                                            )
+                                            .cardholderName(
+                                                DeclinedTransaction.Source.CardDecline.Verification
+                                                    .CardholderName
+                                                    .builder()
+                                                    .providedFirstName("provided_first_name")
+                                                    .providedLastName("provided_last_name")
+                                                    .providedMiddleName("provided_middle_name")
                                                     .build()
                                             )
                                             .build()
@@ -982,6 +1001,16 @@ internal class DeclinedTransactionListPageResponseTest {
                                                                 .Result
                                                                 .POSTAL_CODE_NO_MATCH_ADDRESS_MATCH
                                                         )
+                                                        .build()
+                                                )
+                                                .cardholderName(
+                                                    DeclinedTransaction.Source.CardDecline
+                                                        .Verification
+                                                        .CardholderName
+                                                        .builder()
+                                                        .providedFirstName("provided_first_name")
+                                                        .providedLastName("provided_last_name")
+                                                        .providedMiddleName("provided_middle_name")
                                                         .build()
                                                 )
                                                 .build()
