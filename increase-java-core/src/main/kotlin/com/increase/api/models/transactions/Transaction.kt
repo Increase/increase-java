@@ -46910,6 +46910,9 @@ private constructor(
                     /** Fees */
                     @JvmField val FEES = of("fees")
 
+                    /** General ledger transfer */
+                    @JvmField val GENERAL_LEDGER_TRANSFER = of("general_ledger_transfer")
+
                     /** Interest */
                     @JvmField val INTEREST = of("interest")
 
@@ -46953,6 +46956,8 @@ private constructor(
                     ERROR_CORRECTION,
                     /** Fees */
                     FEES,
+                    /** General ledger transfer */
+                    GENERAL_LEDGER_TRANSFER,
                     /** Interest */
                     INTEREST,
                     /** Negative balance forgiveness */
@@ -46999,6 +47004,8 @@ private constructor(
                     ERROR_CORRECTION,
                     /** Fees */
                     FEES,
+                    /** General ledger transfer */
+                    GENERAL_LEDGER_TRANSFER,
                     /** Interest */
                     INTEREST,
                     /** Negative balance forgiveness */
@@ -47037,6 +47044,7 @@ private constructor(
                         ERROR -> Value.ERROR
                         ERROR_CORRECTION -> Value.ERROR_CORRECTION
                         FEES -> Value.FEES
+                        GENERAL_LEDGER_TRANSFER -> Value.GENERAL_LEDGER_TRANSFER
                         INTEREST -> Value.INTEREST
                         NEGATIVE_BALANCE_FORGIVENESS -> Value.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
@@ -47069,6 +47077,7 @@ private constructor(
                         ERROR -> Known.ERROR
                         ERROR_CORRECTION -> Known.ERROR_CORRECTION
                         FEES -> Known.FEES
+                        GENERAL_LEDGER_TRANSFER -> Known.GENERAL_LEDGER_TRANSFER
                         INTEREST -> Known.INTEREST
                         NEGATIVE_BALANCE_FORGIVENESS -> Known.NEGATIVE_BALANCE_FORGIVENESS
                         SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
