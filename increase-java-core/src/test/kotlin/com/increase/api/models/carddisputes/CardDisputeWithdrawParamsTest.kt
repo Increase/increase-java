@@ -11,6 +11,7 @@ internal class CardDisputeWithdrawParamsTest {
     fun create() {
         CardDisputeWithdrawParams.builder()
             .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+            .explanation("The explanation for withdrawing the Card Dispute.")
             .build()
     }
 
@@ -24,5 +25,28 @@ internal class CardDisputeWithdrawParamsTest {
         assertThat(params._pathParam(0)).isEqualTo("card_dispute_h9sc95nbl1cgltpp7men")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
+    }
+
+    @Test
+    fun body() {
+        val params =
+            CardDisputeWithdrawParams.builder()
+                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                .explanation("The explanation for withdrawing the Card Dispute.")
+                .build()
+
+        val body = params._body()
+
+        assertThat(body.explanation()).contains("The explanation for withdrawing the Card Dispute.")
+    }
+
+    @Test
+    fun bodyWithoutOptionalFields() {
+        val params =
+            CardDisputeWithdrawParams.builder()
+                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                .build()
+
+        val body = params._body()
     }
 }
