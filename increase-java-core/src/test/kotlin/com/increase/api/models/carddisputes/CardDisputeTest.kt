@@ -1214,6 +1214,11 @@ internal class CardDisputeTest {
                         .wonAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
+                .withdrawal(
+                    CardDispute.Withdrawal.builder()
+                        .explanation("The cardholder requested a withdrawal of the dispute.")
+                        .build()
+                )
                 .build()
 
         assertThat(cardDispute.id()).isEqualTo("card_dispute_h9sc95nbl1cgltpp7men")
@@ -2365,6 +2370,12 @@ internal class CardDisputeTest {
             .contains(
                 CardDispute.Win.builder()
                     .wonAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .build()
+            )
+        assertThat(cardDispute.withdrawal())
+            .contains(
+                CardDispute.Withdrawal.builder()
+                    .explanation("The cardholder requested a withdrawal of the dispute.")
                     .build()
             )
     }
@@ -3571,6 +3582,11 @@ internal class CardDisputeTest {
                 .win(
                     CardDispute.Win.builder()
                         .wonAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
+                .withdrawal(
+                    CardDispute.Withdrawal.builder()
+                        .explanation("The cardholder requested a withdrawal of the dispute.")
                         .build()
                 )
                 .build()

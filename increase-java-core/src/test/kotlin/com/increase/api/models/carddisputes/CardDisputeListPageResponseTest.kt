@@ -1394,6 +1394,13 @@ internal class CardDisputeListPageResponseTest {
                                 .wonAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
+                        .withdrawal(
+                            CardDispute.Withdrawal.builder()
+                                .explanation(
+                                    "The cardholder requested a withdrawal of the dispute."
+                                )
+                                .build()
+                        )
                         .build()
                 )
                 .nextCursor("v57w5d")
@@ -2684,6 +2691,11 @@ internal class CardDisputeListPageResponseTest {
                     .win(
                         CardDispute.Win.builder()
                             .wonAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .build()
+                    )
+                    .withdrawal(
+                        CardDispute.Withdrawal.builder()
+                            .explanation("The cardholder requested a withdrawal of the dispute.")
                             .build()
                     )
                     .build()
@@ -4073,6 +4085,13 @@ internal class CardDisputeListPageResponseTest {
                         .win(
                             CardDispute.Win.builder()
                                 .wonAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .build()
+                        )
+                        .withdrawal(
+                            CardDispute.Withdrawal.builder()
+                                .explanation(
+                                    "The cardholder requested a withdrawal of the dispute."
+                                )
                                 .build()
                         )
                         .build()
