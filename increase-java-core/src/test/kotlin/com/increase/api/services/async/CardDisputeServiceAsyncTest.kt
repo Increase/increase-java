@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
+import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
 import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -1779,7 +1780,12 @@ internal class CardDisputeServiceAsyncTest {
         val cardDisputeServiceAsync = client.cardDisputes()
 
         val cardDisputeFuture =
-            cardDisputeServiceAsync.withdraw("card_dispute_h9sc95nbl1cgltpp7men")
+            cardDisputeServiceAsync.withdraw(
+                CardDisputeWithdrawParams.builder()
+                    .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                    .explanation("The explanation for withdrawing the Card Dispute.")
+                    .build()
+            )
 
         val cardDispute = cardDisputeFuture.get()
         cardDispute.validate()
