@@ -589,6 +589,9 @@ private constructor(
             /** The exclusion has been removed from the IntraFi network. */
             @JvmField val ARCHIVED = of("archived")
 
+            /** The exclusion wasn't eligible to be added to the IntraFi network. */
+            @JvmField val INELIGIBLE = of("ineligible")
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -600,6 +603,8 @@ private constructor(
             COMPLETED,
             /** The exclusion has been removed from the IntraFi network. */
             ARCHIVED,
+            /** The exclusion wasn't eligible to be added to the IntraFi network. */
+            INELIGIBLE,
         }
 
         /**
@@ -618,6 +623,8 @@ private constructor(
             COMPLETED,
             /** The exclusion has been removed from the IntraFi network. */
             ARCHIVED,
+            /** The exclusion wasn't eligible to be added to the IntraFi network. */
+            INELIGIBLE,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -634,6 +641,7 @@ private constructor(
                 PENDING -> Value.PENDING
                 COMPLETED -> Value.COMPLETED
                 ARCHIVED -> Value.ARCHIVED
+                INELIGIBLE -> Value.INELIGIBLE
                 else -> Value._UNKNOWN
             }
 
@@ -651,6 +659,7 @@ private constructor(
                 PENDING -> Known.PENDING
                 COMPLETED -> Known.COMPLETED
                 ARCHIVED -> Known.ARCHIVED
+                INELIGIBLE -> Known.INELIGIBLE
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
