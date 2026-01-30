@@ -87,10 +87,10 @@ private constructor(
     /**
      * The name of the excluded institution.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun bankName(): String = bankName.getRequired("bank_name")
+    fun bankName(): Optional<String> = bankName.getOptional("bank_name")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the exclusion
@@ -318,7 +318,10 @@ private constructor(
         fun id(id: JsonField<String>) = apply { this.id = id }
 
         /** The name of the excluded institution. */
-        fun bankName(bankName: String) = bankName(JsonField.of(bankName))
+        fun bankName(bankName: String?) = bankName(JsonField.ofNullable(bankName))
+
+        /** Alias for calling [Builder.bankName] with `bankName.orElse(null)`. */
+        fun bankName(bankName: Optional<String>) = bankName(bankName.getOrNull())
 
         /**
          * Sets [Builder.bankName] to an arbitrary JSON value.

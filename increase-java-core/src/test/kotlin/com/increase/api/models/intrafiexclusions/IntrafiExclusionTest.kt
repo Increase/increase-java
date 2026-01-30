@@ -27,7 +27,7 @@ internal class IntrafiExclusionTest {
                 .build()
 
         assertThat(intrafiExclusion.id()).isEqualTo("intrafi_exclusion_ygfqduuzpau3jqof6jyh")
-        assertThat(intrafiExclusion.bankName()).isEqualTo("Example Bank")
+        assertThat(intrafiExclusion.bankName()).contains("Example Bank")
         assertThat(intrafiExclusion.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(intrafiExclusion.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
