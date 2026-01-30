@@ -10,8 +10,8 @@ internal class IntrafiExclusionCreateParamsTest {
     @Test
     fun create() {
         IntrafiExclusionCreateParams.builder()
-            .bankName("Example Bank")
             .entityId("entity_n8y8tnk2p9339ti393yi")
+            .fdicCertificateNumber("314159")
             .build()
     }
 
@@ -19,13 +19,13 @@ internal class IntrafiExclusionCreateParamsTest {
     fun body() {
         val params =
             IntrafiExclusionCreateParams.builder()
-                .bankName("Example Bank")
                 .entityId("entity_n8y8tnk2p9339ti393yi")
+                .fdicCertificateNumber("314159")
                 .build()
 
         val body = params._body()
 
-        assertThat(body.bankName()).isEqualTo("Example Bank")
         assertThat(body.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
+        assertThat(body.fdicCertificateNumber()).isEqualTo("314159")
     }
 }
