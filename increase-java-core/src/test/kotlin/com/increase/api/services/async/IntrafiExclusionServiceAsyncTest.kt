@@ -23,8 +23,8 @@ internal class IntrafiExclusionServiceAsyncTest {
         val intrafiExclusionFuture =
             intrafiExclusionServiceAsync.create(
                 IntrafiExclusionCreateParams.builder()
-                    .bankName("Example Bank")
                     .entityId("entity_n8y8tnk2p9339ti393yi")
+                    .fdicCertificateNumber("314159")
                     .build()
             )
 
