@@ -34,11 +34,13 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val entityId: JsonField<String>,
+    private val funding: JsonField<Funding>,
     private val idempotencyKey: JsonField<String>,
     private val informationalEntityId: JsonField<String>,
     private val interestAccrued: JsonField<String>,
     private val interestAccruedAt: JsonField<LocalDate>,
     private val interestRate: JsonField<String>,
+    private val loan: JsonField<Loan>,
     private val name: JsonField<String>,
     private val programId: JsonField<String>,
     private val status: JsonField<Status>,
@@ -61,6 +63,7 @@ private constructor(
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("currency") @ExcludeMissing currency: JsonField<Currency> = JsonMissing.of(),
         @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("funding") @ExcludeMissing funding: JsonField<Funding> = JsonMissing.of(),
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -76,6 +79,7 @@ private constructor(
         @JsonProperty("interest_rate")
         @ExcludeMissing
         interestRate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("loan") @ExcludeMissing loan: JsonField<Loan> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("program_id") @ExcludeMissing programId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
@@ -88,11 +92,13 @@ private constructor(
         createdAt,
         currency,
         entityId,
+        funding,
         idempotencyKey,
         informationalEntityId,
         interestAccrued,
         interestAccruedAt,
         interestRate,
+        loan,
         name,
         programId,
         status,
@@ -160,6 +166,14 @@ private constructor(
     fun entityId(): String = entityId.getRequired("entity_id")
 
     /**
+     * Whether the Account is funded by a loan or by deposits.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun funding(): Optional<Funding> = funding.getOptional("funding")
+
+    /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
      * used to ensure that a request is only processed once. Learn more about
      * [idempotency](https://increase.com/documentation/idempotency-keys).
@@ -206,6 +220,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun interestRate(): String = interestRate.getRequired("interest_rate")
+
+    /**
+     * The Account's loan-related information, if the Account is a loan account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loan(): Optional<Loan> = loan.getOptional("loan")
 
     /**
      * The name you choose for the Account.
@@ -295,6 +317,13 @@ private constructor(
     @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
     /**
+     * Returns the raw JSON value of [funding].
+     *
+     * Unlike [funding], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("funding") @ExcludeMissing fun _funding(): JsonField<Funding> = funding
+
+    /**
      * Returns the raw JSON value of [idempotencyKey].
      *
      * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
@@ -340,6 +369,13 @@ private constructor(
     @JsonProperty("interest_rate")
     @ExcludeMissing
     fun _interestRate(): JsonField<String> = interestRate
+
+    /**
+     * Returns the raw JSON value of [loan].
+     *
+     * Unlike [loan], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("loan") @ExcludeMissing fun _loan(): JsonField<Loan> = loan
 
     /**
      * Returns the raw JSON value of [name].
@@ -395,11 +431,13 @@ private constructor(
          * .createdAt()
          * .currency()
          * .entityId()
+         * .funding()
          * .idempotencyKey()
          * .informationalEntityId()
          * .interestAccrued()
          * .interestAccruedAt()
          * .interestRate()
+         * .loan()
          * .name()
          * .programId()
          * .status()
@@ -419,11 +457,13 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var currency: JsonField<Currency>? = null
         private var entityId: JsonField<String>? = null
+        private var funding: JsonField<Funding>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var informationalEntityId: JsonField<String>? = null
         private var interestAccrued: JsonField<String>? = null
         private var interestAccruedAt: JsonField<LocalDate>? = null
         private var interestRate: JsonField<String>? = null
+        private var loan: JsonField<Loan>? = null
         private var name: JsonField<String>? = null
         private var programId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
@@ -439,11 +479,13 @@ private constructor(
             createdAt = account.createdAt
             currency = account.currency
             entityId = account.entityId
+            funding = account.funding
             idempotencyKey = account.idempotencyKey
             informationalEntityId = account.informationalEntityId
             interestAccrued = account.interestAccrued
             interestAccruedAt = account.interestAccruedAt
             interestRate = account.interestRate
+            loan = account.loan
             name = account.name
             programId = account.programId
             status = account.status
@@ -554,6 +596,20 @@ private constructor(
          */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
+        /** Whether the Account is funded by a loan or by deposits. */
+        fun funding(funding: Funding?) = funding(JsonField.ofNullable(funding))
+
+        /** Alias for calling [Builder.funding] with `funding.orElse(null)`. */
+        fun funding(funding: Optional<Funding>) = funding(funding.getOrNull())
+
+        /**
+         * Sets [Builder.funding] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.funding] with a well-typed [Funding] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
+
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
@@ -659,6 +715,20 @@ private constructor(
             this.interestRate = interestRate
         }
 
+        /** The Account's loan-related information, if the Account is a loan account. */
+        fun loan(loan: Loan?) = loan(JsonField.ofNullable(loan))
+
+        /** Alias for calling [Builder.loan] with `loan.orElse(null)`. */
+        fun loan(loan: Optional<Loan>) = loan(loan.getOrNull())
+
+        /**
+         * Sets [Builder.loan] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loan] with a well-typed [Loan] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun loan(loan: JsonField<Loan>) = apply { this.loan = loan }
+
         /** The name you choose for the Account. */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -742,11 +812,13 @@ private constructor(
          * .createdAt()
          * .currency()
          * .entityId()
+         * .funding()
          * .idempotencyKey()
          * .informationalEntityId()
          * .interestAccrued()
          * .interestAccruedAt()
          * .interestRate()
+         * .loan()
          * .name()
          * .programId()
          * .status()
@@ -764,11 +836,13 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("currency", currency),
                 checkRequired("entityId", entityId),
+                checkRequired("funding", funding),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("informationalEntityId", informationalEntityId),
                 checkRequired("interestAccrued", interestAccrued),
                 checkRequired("interestAccruedAt", interestAccruedAt),
                 checkRequired("interestRate", interestRate),
+                checkRequired("loan", loan),
                 checkRequired("name", name),
                 checkRequired("programId", programId),
                 checkRequired("status", status),
@@ -791,11 +865,13 @@ private constructor(
         createdAt()
         currency().validate()
         entityId()
+        funding().ifPresent { it.validate() }
         idempotencyKey()
         informationalEntityId()
         interestAccrued()
         interestAccruedAt()
         interestRate()
+        loan().ifPresent { it.validate() }
         name()
         programId()
         status().validate()
@@ -825,11 +901,13 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (entityId.asKnown().isPresent) 1 else 0) +
+            (funding.asKnown().getOrNull()?.validity() ?: 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (informationalEntityId.asKnown().isPresent) 1 else 0) +
             (if (interestAccrued.asKnown().isPresent) 1 else 0) +
             (if (interestAccruedAt.asKnown().isPresent) 1 else 0) +
             (if (interestRate.asKnown().isPresent) 1 else 0) +
+            (loan.asKnown().getOrNull()?.validity() ?: 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (if (programId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1103,6 +1181,678 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** Whether the Account is funded by a loan or by deposits. */
+    class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /**
+             * An account funded by a loan. Before opening a loan account, contact
+             * support@increase.com to set up a loan program.
+             */
+            @JvmField val LOAN = of("loan")
+
+            /** An account funded by deposits. */
+            @JvmField val DEPOSITS = of("deposits")
+
+            @JvmStatic fun of(value: String) = Funding(JsonField.of(value))
+        }
+
+        /** An enum containing [Funding]'s known values. */
+        enum class Known {
+            /**
+             * An account funded by a loan. Before opening a loan account, contact
+             * support@increase.com to set up a loan program.
+             */
+            LOAN,
+            /** An account funded by deposits. */
+            DEPOSITS,
+        }
+
+        /**
+         * An enum containing [Funding]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Funding] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /**
+             * An account funded by a loan. Before opening a loan account, contact
+             * support@increase.com to set up a loan program.
+             */
+            LOAN,
+            /** An account funded by deposits. */
+            DEPOSITS,
+            /** An enum member indicating that [Funding] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                LOAN -> Value.LOAN
+                DEPOSITS -> Value.DEPOSITS
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                LOAN -> Known.LOAN
+                DEPOSITS -> Known.DEPOSITS
+                else -> throw IncreaseInvalidDataException("Unknown Funding: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): Funding = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Funding && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** The Account's loan-related information, if the Account is a loan account. */
+    class Loan
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val creditLimit: JsonField<Long>,
+        private val gracePeriodDays: JsonField<Long>,
+        private val maturityDate: JsonField<LocalDate>,
+        private val statementDayOfMonth: JsonField<Long>,
+        private val statementPaymentType: JsonField<StatementPaymentType>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("credit_limit")
+            @ExcludeMissing
+            creditLimit: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("grace_period_days")
+            @ExcludeMissing
+            gracePeriodDays: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("maturity_date")
+            @ExcludeMissing
+            maturityDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("statement_day_of_month")
+            @ExcludeMissing
+            statementDayOfMonth: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("statement_payment_type")
+            @ExcludeMissing
+            statementPaymentType: JsonField<StatementPaymentType> = JsonMissing.of(),
+        ) : this(
+            creditLimit,
+            gracePeriodDays,
+            maturityDate,
+            statementDayOfMonth,
+            statementPaymentType,
+            mutableMapOf(),
+        )
+
+        /**
+         * The maximum amount of money that can be borrowed on the Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun creditLimit(): Long = creditLimit.getRequired("credit_limit")
+
+        /**
+         * The number of days after the statement date that the Account can be past due before being
+         * considered delinquent.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun gracePeriodDays(): Long = gracePeriodDays.getRequired("grace_period_days")
+
+        /**
+         * The date on which the loan matures.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun maturityDate(): Optional<LocalDate> = maturityDate.getOptional("maturity_date")
+
+        /**
+         * The day of the month on which the loan statement is generated.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun statementDayOfMonth(): Long = statementDayOfMonth.getRequired("statement_day_of_month")
+
+        /**
+         * The type of payment for the loan.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun statementPaymentType(): StatementPaymentType =
+            statementPaymentType.getRequired("statement_payment_type")
+
+        /**
+         * Returns the raw JSON value of [creditLimit].
+         *
+         * Unlike [creditLimit], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("credit_limit")
+        @ExcludeMissing
+        fun _creditLimit(): JsonField<Long> = creditLimit
+
+        /**
+         * Returns the raw JSON value of [gracePeriodDays].
+         *
+         * Unlike [gracePeriodDays], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("grace_period_days")
+        @ExcludeMissing
+        fun _gracePeriodDays(): JsonField<Long> = gracePeriodDays
+
+        /**
+         * Returns the raw JSON value of [maturityDate].
+         *
+         * Unlike [maturityDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("maturity_date")
+        @ExcludeMissing
+        fun _maturityDate(): JsonField<LocalDate> = maturityDate
+
+        /**
+         * Returns the raw JSON value of [statementDayOfMonth].
+         *
+         * Unlike [statementDayOfMonth], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("statement_day_of_month")
+        @ExcludeMissing
+        fun _statementDayOfMonth(): JsonField<Long> = statementDayOfMonth
+
+        /**
+         * Returns the raw JSON value of [statementPaymentType].
+         *
+         * Unlike [statementPaymentType], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("statement_payment_type")
+        @ExcludeMissing
+        fun _statementPaymentType(): JsonField<StatementPaymentType> = statementPaymentType
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Loan].
+             *
+             * The following fields are required:
+             * ```java
+             * .creditLimit()
+             * .gracePeriodDays()
+             * .maturityDate()
+             * .statementDayOfMonth()
+             * .statementPaymentType()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Loan]. */
+        class Builder internal constructor() {
+
+            private var creditLimit: JsonField<Long>? = null
+            private var gracePeriodDays: JsonField<Long>? = null
+            private var maturityDate: JsonField<LocalDate>? = null
+            private var statementDayOfMonth: JsonField<Long>? = null
+            private var statementPaymentType: JsonField<StatementPaymentType>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(loan: Loan) = apply {
+                creditLimit = loan.creditLimit
+                gracePeriodDays = loan.gracePeriodDays
+                maturityDate = loan.maturityDate
+                statementDayOfMonth = loan.statementDayOfMonth
+                statementPaymentType = loan.statementPaymentType
+                additionalProperties = loan.additionalProperties.toMutableMap()
+            }
+
+            /** The maximum amount of money that can be borrowed on the Account. */
+            fun creditLimit(creditLimit: Long) = creditLimit(JsonField.of(creditLimit))
+
+            /**
+             * Sets [Builder.creditLimit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.creditLimit] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun creditLimit(creditLimit: JsonField<Long>) = apply { this.creditLimit = creditLimit }
+
+            /**
+             * The number of days after the statement date that the Account can be past due before
+             * being considered delinquent.
+             */
+            fun gracePeriodDays(gracePeriodDays: Long) =
+                gracePeriodDays(JsonField.of(gracePeriodDays))
+
+            /**
+             * Sets [Builder.gracePeriodDays] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.gracePeriodDays] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun gracePeriodDays(gracePeriodDays: JsonField<Long>) = apply {
+                this.gracePeriodDays = gracePeriodDays
+            }
+
+            /** The date on which the loan matures. */
+            fun maturityDate(maturityDate: LocalDate?) =
+                maturityDate(JsonField.ofNullable(maturityDate))
+
+            /** Alias for calling [Builder.maturityDate] with `maturityDate.orElse(null)`. */
+            fun maturityDate(maturityDate: Optional<LocalDate>) =
+                maturityDate(maturityDate.getOrNull())
+
+            /**
+             * Sets [Builder.maturityDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maturityDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun maturityDate(maturityDate: JsonField<LocalDate>) = apply {
+                this.maturityDate = maturityDate
+            }
+
+            /** The day of the month on which the loan statement is generated. */
+            fun statementDayOfMonth(statementDayOfMonth: Long) =
+                statementDayOfMonth(JsonField.of(statementDayOfMonth))
+
+            /**
+             * Sets [Builder.statementDayOfMonth] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.statementDayOfMonth] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun statementDayOfMonth(statementDayOfMonth: JsonField<Long>) = apply {
+                this.statementDayOfMonth = statementDayOfMonth
+            }
+
+            /** The type of payment for the loan. */
+            fun statementPaymentType(statementPaymentType: StatementPaymentType) =
+                statementPaymentType(JsonField.of(statementPaymentType))
+
+            /**
+             * Sets [Builder.statementPaymentType] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.statementPaymentType] with a well-typed
+             * [StatementPaymentType] value instead. This method is primarily for setting the field
+             * to an undocumented or not yet supported value.
+             */
+            fun statementPaymentType(statementPaymentType: JsonField<StatementPaymentType>) =
+                apply {
+                    this.statementPaymentType = statementPaymentType
+                }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Loan].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .creditLimit()
+             * .gracePeriodDays()
+             * .maturityDate()
+             * .statementDayOfMonth()
+             * .statementPaymentType()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Loan =
+                Loan(
+                    checkRequired("creditLimit", creditLimit),
+                    checkRequired("gracePeriodDays", gracePeriodDays),
+                    checkRequired("maturityDate", maturityDate),
+                    checkRequired("statementDayOfMonth", statementDayOfMonth),
+                    checkRequired("statementPaymentType", statementPaymentType),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Loan = apply {
+            if (validated) {
+                return@apply
+            }
+
+            creditLimit()
+            gracePeriodDays()
+            maturityDate()
+            statementDayOfMonth()
+            statementPaymentType().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (creditLimit.asKnown().isPresent) 1 else 0) +
+                (if (gracePeriodDays.asKnown().isPresent) 1 else 0) +
+                (if (maturityDate.asKnown().isPresent) 1 else 0) +
+                (if (statementDayOfMonth.asKnown().isPresent) 1 else 0) +
+                (statementPaymentType.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The type of payment for the loan. */
+        class StatementPaymentType
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * The borrower must pay the full balance of the loan at the end of the statement
+                 * period.
+                 */
+                @JvmField val BALANCE = of("balance")
+
+                /**
+                 * The borrower must pay the accrued interest at the end of the statement period.
+                 */
+                @JvmField val INTEREST_UNTIL_MATURITY = of("interest_until_maturity")
+
+                @JvmStatic fun of(value: String) = StatementPaymentType(JsonField.of(value))
+            }
+
+            /** An enum containing [StatementPaymentType]'s known values. */
+            enum class Known {
+                /**
+                 * The borrower must pay the full balance of the loan at the end of the statement
+                 * period.
+                 */
+                BALANCE,
+                /**
+                 * The borrower must pay the accrued interest at the end of the statement period.
+                 */
+                INTEREST_UNTIL_MATURITY,
+            }
+
+            /**
+             * An enum containing [StatementPaymentType]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [StatementPaymentType] can contain an unknown value in a couple of
+             * cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * The borrower must pay the full balance of the loan at the end of the statement
+                 * period.
+                 */
+                BALANCE,
+                /**
+                 * The borrower must pay the accrued interest at the end of the statement period.
+                 */
+                INTEREST_UNTIL_MATURITY,
+                /**
+                 * An enum member indicating that [StatementPaymentType] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    BALANCE -> Value.BALANCE
+                    INTEREST_UNTIL_MATURITY -> Value.INTEREST_UNTIL_MATURITY
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    BALANCE -> Known.BALANCE
+                    INTEREST_UNTIL_MATURITY -> Known.INTEREST_UNTIL_MATURITY
+                    else ->
+                        throw IncreaseInvalidDataException("Unknown StatementPaymentType: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): StatementPaymentType = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is StatementPaymentType && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Loan &&
+                creditLimit == other.creditLimit &&
+                gracePeriodDays == other.gracePeriodDays &&
+                maturityDate == other.maturityDate &&
+                statementDayOfMonth == other.statementDayOfMonth &&
+                statementPaymentType == other.statementPaymentType &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                creditLimit,
+                gracePeriodDays,
+                maturityDate,
+                statementDayOfMonth,
+                statementPaymentType,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Loan{creditLimit=$creditLimit, gracePeriodDays=$gracePeriodDays, maturityDate=$maturityDate, statementDayOfMonth=$statementDayOfMonth, statementPaymentType=$statementPaymentType, additionalProperties=$additionalProperties}"
+    }
+
     /** The status of the Account. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1372,11 +2122,13 @@ private constructor(
             createdAt == other.createdAt &&
             currency == other.currency &&
             entityId == other.entityId &&
+            funding == other.funding &&
             idempotencyKey == other.idempotencyKey &&
             informationalEntityId == other.informationalEntityId &&
             interestAccrued == other.interestAccrued &&
             interestAccruedAt == other.interestAccruedAt &&
             interestRate == other.interestRate &&
+            loan == other.loan &&
             name == other.name &&
             programId == other.programId &&
             status == other.status &&
@@ -1393,11 +2145,13 @@ private constructor(
             createdAt,
             currency,
             entityId,
+            funding,
             idempotencyKey,
             informationalEntityId,
             interestAccrued,
             interestAccruedAt,
             interestRate,
+            loan,
             name,
             programId,
             status,
@@ -1409,5 +2163,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Account{id=$id, accountRevenueRate=$accountRevenueRate, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{id=$id, accountRevenueRate=$accountRevenueRate, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, funding=$funding, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, loan=$loan, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

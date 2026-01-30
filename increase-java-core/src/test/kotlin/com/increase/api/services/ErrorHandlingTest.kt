@@ -23,6 +23,7 @@ import com.increase.api.errors.UnauthorizedException
 import com.increase.api.errors.UnexpectedStatusCodeException
 import com.increase.api.errors.UnprocessableEntityException
 import com.increase.api.models.accounts.AccountCreateParams
+import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.assertj.core.api.Assertions.entry
 import org.junit.jupiter.api.BeforeEach
@@ -74,7 +75,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -101,7 +114,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -128,7 +153,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -155,7 +192,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -182,7 +231,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -209,7 +270,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -236,7 +309,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -263,7 +348,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -290,7 +387,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -317,7 +426,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -344,7 +465,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -371,7 +504,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -398,7 +543,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -425,7 +582,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -452,7 +621,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -479,7 +660,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )
@@ -504,7 +697,19 @@ internal class ErrorHandlingTest {
                     AccountCreateParams.builder()
                         .name("New Account!")
                         .entityId("entity_n8y8tnk2p9339ti393yi")
+                        .funding(AccountCreateParams.Funding.LOAN)
                         .informationalEntityId("informational_entity_id")
+                        .loan(
+                            AccountCreateParams.Loan.builder()
+                                .creditLimit(0L)
+                                .gracePeriodDays(0L)
+                                .statementDayOfMonth(1L)
+                                .statementPaymentType(
+                                    AccountCreateParams.Loan.StatementPaymentType.BALANCE
+                                )
+                                .maturityDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .programId("program_i2v2os4mwza1oetokh9i")
                         .build()
                 )

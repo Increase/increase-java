@@ -11,6 +11,7 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -32,12 +33,27 @@ private constructor(
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
     /**
+     * The loan details for the account.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loan(): Optional<Loan> = body.loan()
+
+    /**
      * The new name of the Account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun name(): Optional<String> = body.name()
+
+    /**
+     * Returns the raw JSON value of [loan].
+     *
+     * Unlike [loan], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _loan(): JsonField<Loan> = body._loan()
 
     /**
      * Returns the raw JSON value of [name].
@@ -91,9 +107,21 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [loan]
          * - [name]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /** The loan details for the account. */
+        fun loan(loan: Loan) = apply { body.loan(loan) }
+
+        /**
+         * Sets [Builder.loan] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loan] with a well-typed [Loan] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun loan(loan: JsonField<Loan>) = apply { body.loan(loan) }
 
         /** The new name of the Account. */
         fun name(name: String) = apply { body.name(name) }
@@ -252,14 +280,24 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val loan: JsonField<Loan>,
         private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of()
-        ) : this(name, mutableMapOf())
+            @JsonProperty("loan") @ExcludeMissing loan: JsonField<Loan> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        ) : this(loan, name, mutableMapOf())
+
+        /**
+         * The loan details for the account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun loan(): Optional<Loan> = loan.getOptional("loan")
 
         /**
          * The new name of the Account.
@@ -268,6 +306,13 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun name(): Optional<String> = name.getOptional("name")
+
+        /**
+         * Returns the raw JSON value of [loan].
+         *
+         * Unlike [loan], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("loan") @ExcludeMissing fun _loan(): JsonField<Loan> = loan
 
         /**
          * Returns the raw JSON value of [name].
@@ -297,14 +342,28 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var loan: JsonField<Loan> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                loan = body.loan
                 name = body.name
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
+
+            /** The loan details for the account. */
+            fun loan(loan: Loan) = loan(JsonField.of(loan))
+
+            /**
+             * Sets [Builder.loan] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.loan] with a well-typed [Loan] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun loan(loan: JsonField<Loan>) = apply { this.loan = loan }
 
             /** The new name of the Account. */
             fun name(name: String) = name(JsonField.of(name))
@@ -342,7 +401,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(name, additionalProperties.toMutableMap())
+            fun build(): Body = Body(loan, name, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -352,6 +411,7 @@ private constructor(
                 return@apply
             }
 
+            loan().ifPresent { it.validate() }
             name()
             validated = true
         }
@@ -370,7 +430,9 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (if (name.asKnown().isPresent) 1 else 0)
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (loan.asKnown().getOrNull()?.validity() ?: 0) + (if (name.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -378,15 +440,178 @@ private constructor(
             }
 
             return other is Body &&
+                loan == other.loan &&
                 name == other.name &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(name, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(loan, name, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{name=$name, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{loan=$loan, name=$name, additionalProperties=$additionalProperties}"
+    }
+
+    /** The loan details for the account. */
+    class Loan
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val creditLimit: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("credit_limit")
+            @ExcludeMissing
+            creditLimit: JsonField<Long> = JsonMissing.of()
+        ) : this(creditLimit, mutableMapOf())
+
+        /**
+         * The maximum amount of money that can be drawn from the Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun creditLimit(): Long = creditLimit.getRequired("credit_limit")
+
+        /**
+         * Returns the raw JSON value of [creditLimit].
+         *
+         * Unlike [creditLimit], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("credit_limit")
+        @ExcludeMissing
+        fun _creditLimit(): JsonField<Long> = creditLimit
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Loan].
+             *
+             * The following fields are required:
+             * ```java
+             * .creditLimit()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Loan]. */
+        class Builder internal constructor() {
+
+            private var creditLimit: JsonField<Long>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(loan: Loan) = apply {
+                creditLimit = loan.creditLimit
+                additionalProperties = loan.additionalProperties.toMutableMap()
+            }
+
+            /** The maximum amount of money that can be drawn from the Account. */
+            fun creditLimit(creditLimit: Long) = creditLimit(JsonField.of(creditLimit))
+
+            /**
+             * Sets [Builder.creditLimit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.creditLimit] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun creditLimit(creditLimit: JsonField<Long>) = apply { this.creditLimit = creditLimit }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Loan].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .creditLimit()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Loan =
+                Loan(checkRequired("creditLimit", creditLimit), additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Loan = apply {
+            if (validated) {
+                return@apply
+            }
+
+            creditLimit()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = (if (creditLimit.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Loan &&
+                creditLimit == other.creditLimit &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(creditLimit, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Loan{creditLimit=$creditLimit, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
