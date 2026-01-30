@@ -16,6 +16,7 @@ import com.increase.api.client.IncreaseClient
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
 import com.increase.api.core.JsonValue
 import com.increase.api.models.accounts.AccountCreateParams
+import java.time.LocalDate
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.parallel.ResourceLock
@@ -44,7 +45,17 @@ internal class ServiceParamsTest {
             AccountCreateParams.builder()
                 .name("New Account!")
                 .entityId("entity_n8y8tnk2p9339ti393yi")
+                .funding(AccountCreateParams.Funding.LOAN)
                 .informationalEntityId("informational_entity_id")
+                .loan(
+                    AccountCreateParams.Loan.builder()
+                        .creditLimit(0L)
+                        .gracePeriodDays(0L)
+                        .statementDayOfMonth(1L)
+                        .statementPaymentType(AccountCreateParams.Loan.StatementPaymentType.BALANCE)
+                        .maturityDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
                 .programId("program_i2v2os4mwza1oetokh9i")
                 .putAdditionalHeader("Secret-Header", "42")
                 .putAdditionalQueryParam("secret_query_param", "42")

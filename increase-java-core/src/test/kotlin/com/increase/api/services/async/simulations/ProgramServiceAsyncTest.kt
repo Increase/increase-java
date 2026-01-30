@@ -25,6 +25,7 @@ internal class ProgramServiceAsyncTest {
                 ProgramCreateParams.builder()
                     .name("For Benefit Of")
                     .bank(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+                    .lendingMaximumExtendableCredit(0L)
                     .reserveAccountId("reserve_account_id")
                     .build()
             )

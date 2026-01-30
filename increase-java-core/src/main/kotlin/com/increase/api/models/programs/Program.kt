@@ -34,6 +34,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val defaultDigitalCardProfileId: JsonField<String>,
     private val interestRate: JsonField<String>,
+    private val lending: JsonField<Lending>,
     private val name: JsonField<String>,
     private val type: JsonField<Type>,
     private val updatedAt: JsonField<OffsetDateTime>,
@@ -56,6 +57,7 @@ private constructor(
         @JsonProperty("interest_rate")
         @ExcludeMissing
         interestRate: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("lending") @ExcludeMissing lending: JsonField<Lending> = JsonMissing.of(),
         @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("updated_at")
@@ -68,6 +70,7 @@ private constructor(
         createdAt,
         defaultDigitalCardProfileId,
         interestRate,
+        lending,
         name,
         type,
         updatedAt,
@@ -123,6 +126,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun interestRate(): String = interestRate.getRequired("interest_rate")
+
+    /**
+     * The lending details for the program.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun lending(): Optional<Lending> = lending.getOptional("lending")
 
     /**
      * The name of the Program.
@@ -202,6 +213,13 @@ private constructor(
     fun _interestRate(): JsonField<String> = interestRate
 
     /**
+     * Returns the raw JSON value of [lending].
+     *
+     * Unlike [lending], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("lending") @ExcludeMissing fun _lending(): JsonField<Lending> = lending
+
+    /**
      * Returns the raw JSON value of [name].
      *
      * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
@@ -249,6 +267,7 @@ private constructor(
          * .createdAt()
          * .defaultDigitalCardProfileId()
          * .interestRate()
+         * .lending()
          * .name()
          * .type()
          * .updatedAt()
@@ -266,6 +285,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var defaultDigitalCardProfileId: JsonField<String>? = null
         private var interestRate: JsonField<String>? = null
+        private var lending: JsonField<Lending>? = null
         private var name: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var updatedAt: JsonField<OffsetDateTime>? = null
@@ -279,6 +299,7 @@ private constructor(
             createdAt = program.createdAt
             defaultDigitalCardProfileId = program.defaultDigitalCardProfileId
             interestRate = program.interestRate
+            lending = program.lending
             name = program.name
             type = program.type
             updatedAt = program.updatedAt
@@ -381,6 +402,20 @@ private constructor(
             this.interestRate = interestRate
         }
 
+        /** The lending details for the program. */
+        fun lending(lending: Lending?) = lending(JsonField.ofNullable(lending))
+
+        /** Alias for calling [Builder.lending] with `lending.orElse(null)`. */
+        fun lending(lending: Optional<Lending>) = lending(lending.getOrNull())
+
+        /**
+         * Sets [Builder.lending] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lending] with a well-typed [Lending] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun lending(lending: JsonField<Lending>) = apply { this.lending = lending }
+
         /** The name of the Program. */
         fun name(name: String) = name(JsonField.of(name))
 
@@ -452,6 +487,7 @@ private constructor(
          * .createdAt()
          * .defaultDigitalCardProfileId()
          * .interestRate()
+         * .lending()
          * .name()
          * .type()
          * .updatedAt()
@@ -467,6 +503,7 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("defaultDigitalCardProfileId", defaultDigitalCardProfileId),
                 checkRequired("interestRate", interestRate),
+                checkRequired("lending", lending),
                 checkRequired("name", name),
                 checkRequired("type", type),
                 checkRequired("updatedAt", updatedAt),
@@ -487,6 +524,7 @@ private constructor(
         createdAt()
         defaultDigitalCardProfileId()
         interestRate()
+        lending().ifPresent { it.validate() }
         name()
         type().validate()
         updatedAt()
@@ -514,6 +552,7 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (defaultDigitalCardProfileId.asKnown().isPresent) 1 else 0) +
             (if (interestRate.asKnown().isPresent) 1 else 0) +
+            (lending.asKnown().getOrNull()?.validity() ?: 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (updatedAt.asKnown().isPresent) 1 else 0)
@@ -661,6 +700,178 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The lending details for the program. */
+    class Lending
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val maximumExtendableCredit: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("maximum_extendable_credit")
+            @ExcludeMissing
+            maximumExtendableCredit: JsonField<Long> = JsonMissing.of()
+        ) : this(maximumExtendableCredit, mutableMapOf())
+
+        /**
+         * The maximum extendable credit of the program.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun maximumExtendableCredit(): Long =
+            maximumExtendableCredit.getRequired("maximum_extendable_credit")
+
+        /**
+         * Returns the raw JSON value of [maximumExtendableCredit].
+         *
+         * Unlike [maximumExtendableCredit], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("maximum_extendable_credit")
+        @ExcludeMissing
+        fun _maximumExtendableCredit(): JsonField<Long> = maximumExtendableCredit
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Lending].
+             *
+             * The following fields are required:
+             * ```java
+             * .maximumExtendableCredit()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Lending]. */
+        class Builder internal constructor() {
+
+            private var maximumExtendableCredit: JsonField<Long>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(lending: Lending) = apply {
+                maximumExtendableCredit = lending.maximumExtendableCredit
+                additionalProperties = lending.additionalProperties.toMutableMap()
+            }
+
+            /** The maximum extendable credit of the program. */
+            fun maximumExtendableCredit(maximumExtendableCredit: Long) =
+                maximumExtendableCredit(JsonField.of(maximumExtendableCredit))
+
+            /**
+             * Sets [Builder.maximumExtendableCredit] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maximumExtendableCredit] with a well-typed [Long]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun maximumExtendableCredit(maximumExtendableCredit: JsonField<Long>) = apply {
+                this.maximumExtendableCredit = maximumExtendableCredit
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Lending].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .maximumExtendableCredit()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Lending =
+                Lending(
+                    checkRequired("maximumExtendableCredit", maximumExtendableCredit),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Lending = apply {
+            if (validated) {
+                return@apply
+            }
+
+            maximumExtendableCredit()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int = (if (maximumExtendableCredit.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Lending &&
+                maximumExtendableCredit == other.maximumExtendableCredit &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(maximumExtendableCredit, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Lending{maximumExtendableCredit=$maximumExtendableCredit, additionalProperties=$additionalProperties}"
+    }
+
     /** A constant representing the object's type. For this resource it will always be `program`. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -795,6 +1006,7 @@ private constructor(
             createdAt == other.createdAt &&
             defaultDigitalCardProfileId == other.defaultDigitalCardProfileId &&
             interestRate == other.interestRate &&
+            lending == other.lending &&
             name == other.name &&
             type == other.type &&
             updatedAt == other.updatedAt &&
@@ -809,6 +1021,7 @@ private constructor(
             createdAt,
             defaultDigitalCardProfileId,
             interestRate,
+            lending,
             name,
             type,
             updatedAt,
@@ -819,5 +1032,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Program{id=$id, bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, interestRate=$interestRate, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
+        "Program{id=$id, bank=$bank, billingAccountId=$billingAccountId, createdAt=$createdAt, defaultDigitalCardProfileId=$defaultDigitalCardProfileId, interestRate=$interestRate, lending=$lending, name=$name, type=$type, updatedAt=$updatedAt, additionalProperties=$additionalProperties}"
 }
