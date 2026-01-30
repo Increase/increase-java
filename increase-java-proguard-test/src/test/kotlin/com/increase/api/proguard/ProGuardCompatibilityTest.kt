@@ -120,7 +120,7 @@ internal class ProGuardCompatibilityTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.USD)
                 .entityId("entity_n8y8tnk2p9339ti393yi")
-                .funding(null)
+                .funding(Account.Funding.DEPOSITS)
                 .idempotencyKey(null)
                 .informationalEntityId(null)
                 .interestAccrued("0.01")

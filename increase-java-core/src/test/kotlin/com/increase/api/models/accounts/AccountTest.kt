@@ -22,7 +22,7 @@ internal class AccountTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.USD)
                 .entityId("entity_n8y8tnk2p9339ti393yi")
-                .funding(null)
+                .funding(Account.Funding.DEPOSITS)
                 .idempotencyKey(null)
                 .informationalEntityId(null)
                 .interestAccrued("0.01")
@@ -50,7 +50,7 @@ internal class AccountTest {
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.USD)
         assertThat(account.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
-        assertThat(account.funding()).isEmpty
+        assertThat(account.funding()).isEqualTo(Account.Funding.DEPOSITS)
         assertThat(account.idempotencyKey()).isEmpty
         assertThat(account.informationalEntityId()).isEmpty
         assertThat(account.interestAccrued()).isEqualTo("0.01")
@@ -84,7 +84,7 @@ internal class AccountTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.USD)
                 .entityId("entity_n8y8tnk2p9339ti393yi")
-                .funding(null)
+                .funding(Account.Funding.DEPOSITS)
                 .idempotencyKey(null)
                 .informationalEntityId(null)
                 .interestAccrued("0.01")
