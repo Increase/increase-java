@@ -65,7 +65,6 @@ internal class AccountServiceAsyncTest {
             accountServiceAsync.update(
                 AccountUpdateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
-                    .creditLimit(0L)
                     .name("My renamed account")
                     .build()
             )
