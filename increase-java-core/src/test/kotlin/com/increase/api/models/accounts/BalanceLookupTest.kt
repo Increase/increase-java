@@ -4,6 +4,7 @@ package com.increase.api.models.accounts
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
+import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -16,12 +17,27 @@ internal class BalanceLookupTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .availableBalance(100L)
                 .currentBalance(100L)
+                .loan(
+                    BalanceLookup.Loan.builder()
+                        .dueAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .dueBalance(0L)
+                        .pastDueBalance(0L)
+                        .build()
+                )
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
                 .build()
 
         assertThat(balanceLookup.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(balanceLookup.availableBalance()).isEqualTo(100L)
         assertThat(balanceLookup.currentBalance()).isEqualTo(100L)
+        assertThat(balanceLookup.loan())
+            .contains(
+                BalanceLookup.Loan.builder()
+                    .dueAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .dueBalance(0L)
+                    .pastDueBalance(0L)
+                    .build()
+            )
         assertThat(balanceLookup.type()).isEqualTo(BalanceLookup.Type.BALANCE_LOOKUP)
     }
 
@@ -33,6 +49,13 @@ internal class BalanceLookupTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .availableBalance(100L)
                 .currentBalance(100L)
+                .loan(
+                    BalanceLookup.Loan.builder()
+                        .dueAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .dueBalance(0L)
+                        .pastDueBalance(0L)
+                        .build()
+                )
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
                 .build()
 

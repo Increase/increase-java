@@ -16,6 +16,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
 import java.util.Objects
+import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
@@ -30,6 +31,7 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val endingBalance: JsonField<Long>,
     private val fileId: JsonField<String>,
+    private val loan: JsonField<Loan>,
     private val startingBalance: JsonField<Long>,
     private val statementPeriodEnd: JsonField<OffsetDateTime>,
     private val statementPeriodStart: JsonField<OffsetDateTime>,
@@ -48,6 +50,7 @@ private constructor(
         @ExcludeMissing
         endingBalance: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("loan") @ExcludeMissing loan: JsonField<Loan> = JsonMissing.of(),
         @JsonProperty("starting_balance")
         @ExcludeMissing
         startingBalance: JsonField<Long> = JsonMissing.of(),
@@ -64,6 +67,7 @@ private constructor(
         createdAt,
         endingBalance,
         fileId,
+        loan,
         startingBalance,
         statementPeriodEnd,
         statementPeriodStart,
@@ -111,6 +115,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun fileId(): String = fileId.getRequired("file_id")
+
+    /**
+     * The loan balances.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loan(): Optional<Loan> = loan.getOptional("loan")
 
     /**
      * The Account's balance at the start of its statement period.
@@ -189,6 +201,13 @@ private constructor(
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
+     * Returns the raw JSON value of [loan].
+     *
+     * Unlike [loan], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("loan") @ExcludeMissing fun _loan(): JsonField<Loan> = loan
+
+    /**
      * Returns the raw JSON value of [startingBalance].
      *
      * Unlike [startingBalance], this method doesn't throw if the JSON field has an unexpected type.
@@ -248,6 +267,7 @@ private constructor(
          * .createdAt()
          * .endingBalance()
          * .fileId()
+         * .loan()
          * .startingBalance()
          * .statementPeriodEnd()
          * .statementPeriodStart()
@@ -265,6 +285,7 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var endingBalance: JsonField<Long>? = null
         private var fileId: JsonField<String>? = null
+        private var loan: JsonField<Loan>? = null
         private var startingBalance: JsonField<Long>? = null
         private var statementPeriodEnd: JsonField<OffsetDateTime>? = null
         private var statementPeriodStart: JsonField<OffsetDateTime>? = null
@@ -278,6 +299,7 @@ private constructor(
             createdAt = accountStatement.createdAt
             endingBalance = accountStatement.endingBalance
             fileId = accountStatement.fileId
+            loan = accountStatement.loan
             startingBalance = accountStatement.startingBalance
             statementPeriodEnd = accountStatement.statementPeriodEnd
             statementPeriodStart = accountStatement.statementPeriodStart
@@ -347,6 +369,20 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+        /** The loan balances. */
+        fun loan(loan: Loan?) = loan(JsonField.ofNullable(loan))
+
+        /** Alias for calling [Builder.loan] with `loan.orElse(null)`. */
+        fun loan(loan: Optional<Loan>) = loan(loan.getOrNull())
+
+        /**
+         * Sets [Builder.loan] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loan] with a well-typed [Loan] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun loan(loan: JsonField<Loan>) = apply { this.loan = loan }
 
         /** The Account's balance at the start of its statement period. */
         fun startingBalance(startingBalance: Long) = startingBalance(JsonField.of(startingBalance))
@@ -443,6 +479,7 @@ private constructor(
          * .createdAt()
          * .endingBalance()
          * .fileId()
+         * .loan()
          * .startingBalance()
          * .statementPeriodEnd()
          * .statementPeriodStart()
@@ -458,6 +495,7 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("endingBalance", endingBalance),
                 checkRequired("fileId", fileId),
+                checkRequired("loan", loan),
                 checkRequired("startingBalance", startingBalance),
                 checkRequired("statementPeriodEnd", statementPeriodEnd),
                 checkRequired("statementPeriodStart", statementPeriodStart),
@@ -478,6 +516,7 @@ private constructor(
         createdAt()
         endingBalance()
         fileId()
+        loan().ifPresent { it.validate() }
         startingBalance()
         statementPeriodEnd()
         statementPeriodStart()
@@ -505,10 +544,267 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (endingBalance.asKnown().isPresent) 1 else 0) +
             (if (fileId.asKnown().isPresent) 1 else 0) +
+            (loan.asKnown().getOrNull()?.validity() ?: 0) +
             (if (startingBalance.asKnown().isPresent) 1 else 0) +
             (if (statementPeriodEnd.asKnown().isPresent) 1 else 0) +
             (if (statementPeriodStart.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
+
+    /** The loan balances. */
+    class Loan
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val dueAt: JsonField<OffsetDateTime>,
+        private val dueBalance: JsonField<Long>,
+        private val pastDueBalance: JsonField<Long>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("due_at")
+            @ExcludeMissing
+            dueAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("due_balance")
+            @ExcludeMissing
+            dueBalance: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("past_due_balance")
+            @ExcludeMissing
+            pastDueBalance: JsonField<Long> = JsonMissing.of(),
+        ) : this(dueAt, dueBalance, pastDueBalance, mutableMapOf())
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the loan payment is
+         * due.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun dueAt(): Optional<OffsetDateTime> = dueAt.getOptional("due_at")
+
+        /**
+         * The total amount due on the loan.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun dueBalance(): Long = dueBalance.getRequired("due_balance")
+
+        /**
+         * The amount past due on the loan.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun pastDueBalance(): Long = pastDueBalance.getRequired("past_due_balance")
+
+        /**
+         * Returns the raw JSON value of [dueAt].
+         *
+         * Unlike [dueAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("due_at") @ExcludeMissing fun _dueAt(): JsonField<OffsetDateTime> = dueAt
+
+        /**
+         * Returns the raw JSON value of [dueBalance].
+         *
+         * Unlike [dueBalance], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("due_balance") @ExcludeMissing fun _dueBalance(): JsonField<Long> = dueBalance
+
+        /**
+         * Returns the raw JSON value of [pastDueBalance].
+         *
+         * Unlike [pastDueBalance], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("past_due_balance")
+        @ExcludeMissing
+        fun _pastDueBalance(): JsonField<Long> = pastDueBalance
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Loan].
+             *
+             * The following fields are required:
+             * ```java
+             * .dueAt()
+             * .dueBalance()
+             * .pastDueBalance()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Loan]. */
+        class Builder internal constructor() {
+
+            private var dueAt: JsonField<OffsetDateTime>? = null
+            private var dueBalance: JsonField<Long>? = null
+            private var pastDueBalance: JsonField<Long>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(loan: Loan) = apply {
+                dueAt = loan.dueAt
+                dueBalance = loan.dueBalance
+                pastDueBalance = loan.pastDueBalance
+                additionalProperties = loan.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the loan payment
+             * is due.
+             */
+            fun dueAt(dueAt: OffsetDateTime?) = dueAt(JsonField.ofNullable(dueAt))
+
+            /** Alias for calling [Builder.dueAt] with `dueAt.orElse(null)`. */
+            fun dueAt(dueAt: Optional<OffsetDateTime>) = dueAt(dueAt.getOrNull())
+
+            /**
+             * Sets [Builder.dueAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dueAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dueAt(dueAt: JsonField<OffsetDateTime>) = apply { this.dueAt = dueAt }
+
+            /** The total amount due on the loan. */
+            fun dueBalance(dueBalance: Long) = dueBalance(JsonField.of(dueBalance))
+
+            /**
+             * Sets [Builder.dueBalance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dueBalance] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dueBalance(dueBalance: JsonField<Long>) = apply { this.dueBalance = dueBalance }
+
+            /** The amount past due on the loan. */
+            fun pastDueBalance(pastDueBalance: Long) = pastDueBalance(JsonField.of(pastDueBalance))
+
+            /**
+             * Sets [Builder.pastDueBalance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pastDueBalance] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pastDueBalance(pastDueBalance: JsonField<Long>) = apply {
+                this.pastDueBalance = pastDueBalance
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Loan].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .dueAt()
+             * .dueBalance()
+             * .pastDueBalance()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Loan =
+                Loan(
+                    checkRequired("dueAt", dueAt),
+                    checkRequired("dueBalance", dueBalance),
+                    checkRequired("pastDueBalance", pastDueBalance),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Loan = apply {
+            if (validated) {
+                return@apply
+            }
+
+            dueAt()
+            dueBalance()
+            pastDueBalance()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (dueAt.asKnown().isPresent) 1 else 0) +
+                (if (dueBalance.asKnown().isPresent) 1 else 0) +
+                (if (pastDueBalance.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Loan &&
+                dueAt == other.dueAt &&
+                dueBalance == other.dueBalance &&
+                pastDueBalance == other.pastDueBalance &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(dueAt, dueBalance, pastDueBalance, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Loan{dueAt=$dueAt, dueBalance=$dueBalance, pastDueBalance=$pastDueBalance, additionalProperties=$additionalProperties}"
+    }
 
     /**
      * A constant representing the object's type. For this resource it will always be
@@ -646,6 +942,7 @@ private constructor(
             createdAt == other.createdAt &&
             endingBalance == other.endingBalance &&
             fileId == other.fileId &&
+            loan == other.loan &&
             startingBalance == other.startingBalance &&
             statementPeriodEnd == other.statementPeriodEnd &&
             statementPeriodStart == other.statementPeriodStart &&
@@ -660,6 +957,7 @@ private constructor(
             createdAt,
             endingBalance,
             fileId,
+            loan,
             startingBalance,
             statementPeriodEnd,
             statementPeriodStart,
@@ -671,5 +969,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "AccountStatement{id=$id, accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
+        "AccountStatement{id=$id, accountId=$accountId, createdAt=$createdAt, endingBalance=$endingBalance, fileId=$fileId, loan=$loan, startingBalance=$startingBalance, statementPeriodEnd=$statementPeriodEnd, statementPeriodStart=$statementPeriodStart, type=$type, additionalProperties=$additionalProperties}"
 }

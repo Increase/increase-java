@@ -11,6 +11,7 @@ internal class AccountUpdateParamsTest {
     fun create() {
         AccountUpdateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
+            .loan(AccountUpdateParams.Loan.builder().creditLimit(0L).build())
             .name("My renamed account")
             .build()
     }
@@ -29,11 +30,13 @@ internal class AccountUpdateParamsTest {
         val params =
             AccountUpdateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
+                .loan(AccountUpdateParams.Loan.builder().creditLimit(0L).build())
                 .name("My renamed account")
                 .build()
 
         val body = params._body()
 
+        assertThat(body.loan()).contains(AccountUpdateParams.Loan.builder().creditLimit(0L).build())
         assertThat(body.name()).contains("My renamed account")
     }
 

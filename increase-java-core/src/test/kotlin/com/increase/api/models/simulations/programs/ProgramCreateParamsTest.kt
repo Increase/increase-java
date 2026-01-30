@@ -12,6 +12,7 @@ internal class ProgramCreateParamsTest {
         ProgramCreateParams.builder()
             .name("For Benefit Of")
             .bank(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+            .lendingMaximumExtendableCredit(0L)
             .reserveAccountId("reserve_account_id")
             .build()
     }
@@ -22,6 +23,7 @@ internal class ProgramCreateParamsTest {
             ProgramCreateParams.builder()
                 .name("For Benefit Of")
                 .bank(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+                .lendingMaximumExtendableCredit(0L)
                 .reserveAccountId("reserve_account_id")
                 .build()
 
@@ -29,6 +31,7 @@ internal class ProgramCreateParamsTest {
 
         assertThat(body.name()).isEqualTo("For Benefit Of")
         assertThat(body.bank()).contains(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+        assertThat(body.lendingMaximumExtendableCredit()).contains(0L)
         assertThat(body.reserveAccountId()).contains("reserve_account_id")
     }
 
