@@ -2353,7 +2353,7 @@ private constructor(
         ) : this(accountId, createdAt, programId, mutableMapOf())
 
         /**
-         * Filter exported Transactions to the specified Account.
+         * Filter exported Balances to the specified Account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2369,7 +2369,7 @@ private constructor(
         fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
 
         /**
-         * Filter exported Transactions to the specified Program.
+         * Filter exported Balances to the specified Program.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2433,7 +2433,7 @@ private constructor(
                 additionalProperties = balanceCsv.additionalProperties.toMutableMap()
             }
 
-            /** Filter exported Transactions to the specified Account. */
+            /** Filter exported Balances to the specified Account. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
@@ -2457,7 +2457,7 @@ private constructor(
              */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
 
-            /** Filter exported Transactions to the specified Program. */
+            /** Filter exported Balances to the specified Program. */
             fun programId(programId: String) = programId(JsonField.of(programId))
 
             /**
@@ -2869,7 +2869,7 @@ private constructor(
         ) : this(bookkeepingAccountId, createdAt, mutableMapOf())
 
         /**
-         * Filter exported Transactions to the specified Bookkeeping Account.
+         * Filter exported Bookkeeping Account Balances to the specified Bookkeeping Account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2940,7 +2940,9 @@ private constructor(
                     bookkeepingAccountBalanceCsv.additionalProperties.toMutableMap()
             }
 
-            /** Filter exported Transactions to the specified Bookkeeping Account. */
+            /**
+             * Filter exported Bookkeeping Account Balances to the specified Bookkeeping Account.
+             */
             fun bookkeepingAccountId(bookkeepingAccountId: String) =
                 bookkeepingAccountId(JsonField.of(bookkeepingAccountId))
 
