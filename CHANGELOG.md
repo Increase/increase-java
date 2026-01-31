@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.413.0 (2026-01-31)
+
+Full Changelog: [v0.412.0...v0.413.0](https://github.com/Increase/increase-java/compare/v0.412.0...v0.413.0)
+
+### Features
+
+* **api:** api update ([0c3c59b](https://github.com/Increase/increase-java/commit/0c3c59bafd369d963bf9a669771adba7e2ba8288))
+
+
+### Chores
+
+* **internal:** allow passing args to `./scripts/test` ([6eb8c75](https://github.com/Increase/increase-java/commit/6eb8c75d57cfdd880030e565491855a9ce97d687))
+
 ## 0.412.0 (2026-01-30)
 
 Full Changelog: [v0.411.0...v0.412.0](https://github.com/Increase/increase-java/compare/v0.411.0...v0.412.0)
