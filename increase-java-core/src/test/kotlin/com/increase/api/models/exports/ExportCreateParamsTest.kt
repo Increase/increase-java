@@ -50,7 +50,6 @@ internal class ExportCreateParamsTest {
                             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
-                    .programId("program_id")
                     .build()
             )
             .bookkeepingAccountBalanceCsv(
@@ -131,7 +130,6 @@ internal class ExportCreateParamsTest {
                                 .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
                         )
-                        .programId("program_id")
                         .build()
                 )
                 .bookkeepingAccountBalanceCsv(
@@ -213,7 +211,6 @@ internal class ExportCreateParamsTest {
                             .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
                     )
-                    .programId("program_id")
                     .build()
             )
         assertThat(body.bookkeepingAccountBalanceCsv())
