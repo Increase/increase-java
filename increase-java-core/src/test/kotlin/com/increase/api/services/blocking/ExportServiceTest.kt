@@ -79,15 +79,7 @@ internal class ExportServiceTest {
                             )
                             .build()
                     )
-                    .entityCsv(
-                        ExportCreateParams.EntityCsv.builder()
-                            .status(
-                                ExportCreateParams.EntityCsv.Status.builder()
-                                    .addIn(ExportCreateParams.EntityCsv.Status.In.ACTIVE)
-                                    .build()
-                            )
-                            .build()
-                    )
+                    .entityCsv(ExportCreateParams.EntityCsv.builder().build())
                     .fundingInstructions(
                         ExportCreateParams.FundingInstructions.builder()
                             .accountNumberId("account_number_id")
