@@ -437,6 +437,28 @@ private constructor(
                 /** Occurs whenever an ACH Transfer is updated. */
                 @JvmField val ACH_TRANSFER_UPDATED = of("ach_transfer.updated")
 
+                /** Occurs whenever a Blockchain Address is created. */
+                @JvmField val BLOCKCHAIN_ADDRESS_CREATED = of("blockchain_address.created")
+
+                /** Occurs whenever a Blockchain Address is updated. */
+                @JvmField val BLOCKCHAIN_ADDRESS_UPDATED = of("blockchain_address.updated")
+
+                /** Occurs whenever a Blockchain Off-Ramp Transfer is created. */
+                @JvmField
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED = of("blockchain_offramp_transfer.created")
+
+                /** Occurs whenever a Blockchain Off-Ramp Transfer is updated. */
+                @JvmField
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED = of("blockchain_offramp_transfer.updated")
+
+                /** Occurs whenever a Blockchain On-Ramp Transfer is created. */
+                @JvmField
+                val BLOCKCHAIN_ONRAMP_TRANSFER_CREATED = of("blockchain_onramp_transfer.created")
+
+                /** Occurs whenever a Blockchain On-Ramp Transfer is updated. */
+                @JvmField
+                val BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED = of("blockchain_onramp_transfer.updated")
+
                 /** Occurs whenever a Bookkeeping Account is created. */
                 @JvmField val BOOKKEEPING_ACCOUNT_CREATED = of("bookkeeping_account.created")
 
@@ -795,6 +817,18 @@ private constructor(
                 ACH_TRANSFER_CREATED,
                 /** Occurs whenever an ACH Transfer is updated. */
                 ACH_TRANSFER_UPDATED,
+                /** Occurs whenever a Blockchain Address is created. */
+                BLOCKCHAIN_ADDRESS_CREATED,
+                /** Occurs whenever a Blockchain Address is updated. */
+                BLOCKCHAIN_ADDRESS_UPDATED,
+                /** Occurs whenever a Blockchain Off-Ramp Transfer is created. */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED,
+                /** Occurs whenever a Blockchain Off-Ramp Transfer is updated. */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED,
+                /** Occurs whenever a Blockchain On-Ramp Transfer is created. */
+                BLOCKCHAIN_ONRAMP_TRANSFER_CREATED,
+                /** Occurs whenever a Blockchain On-Ramp Transfer is updated. */
+                BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED,
                 /** Occurs whenever a Bookkeeping Account is created. */
                 BOOKKEEPING_ACCOUNT_CREATED,
                 /** Occurs whenever a Bookkeeping Account is updated. */
@@ -1034,6 +1068,18 @@ private constructor(
                 ACH_TRANSFER_CREATED,
                 /** Occurs whenever an ACH Transfer is updated. */
                 ACH_TRANSFER_UPDATED,
+                /** Occurs whenever a Blockchain Address is created. */
+                BLOCKCHAIN_ADDRESS_CREATED,
+                /** Occurs whenever a Blockchain Address is updated. */
+                BLOCKCHAIN_ADDRESS_UPDATED,
+                /** Occurs whenever a Blockchain Off-Ramp Transfer is created. */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED,
+                /** Occurs whenever a Blockchain Off-Ramp Transfer is updated. */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED,
+                /** Occurs whenever a Blockchain On-Ramp Transfer is created. */
+                BLOCKCHAIN_ONRAMP_TRANSFER_CREATED,
+                /** Occurs whenever a Blockchain On-Ramp Transfer is updated. */
+                BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED,
                 /** Occurs whenever a Bookkeeping Account is created. */
                 BOOKKEEPING_ACCOUNT_CREATED,
                 /** Occurs whenever a Bookkeeping Account is updated. */
@@ -1263,6 +1309,12 @@ private constructor(
                     ACH_PRENOTIFICATION_UPDATED -> Value.ACH_PRENOTIFICATION_UPDATED
                     ACH_TRANSFER_CREATED -> Value.ACH_TRANSFER_CREATED
                     ACH_TRANSFER_UPDATED -> Value.ACH_TRANSFER_UPDATED
+                    BLOCKCHAIN_ADDRESS_CREATED -> Value.BLOCKCHAIN_ADDRESS_CREATED
+                    BLOCKCHAIN_ADDRESS_UPDATED -> Value.BLOCKCHAIN_ADDRESS_UPDATED
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED -> Value.BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED -> Value.BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED
+                    BLOCKCHAIN_ONRAMP_TRANSFER_CREATED -> Value.BLOCKCHAIN_ONRAMP_TRANSFER_CREATED
+                    BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED -> Value.BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED
                     BOOKKEEPING_ACCOUNT_CREATED -> Value.BOOKKEEPING_ACCOUNT_CREATED
                     BOOKKEEPING_ACCOUNT_UPDATED -> Value.BOOKKEEPING_ACCOUNT_UPDATED
                     BOOKKEEPING_ENTRY_SET_UPDATED -> Value.BOOKKEEPING_ENTRY_SET_UPDATED
@@ -1393,6 +1445,12 @@ private constructor(
                     ACH_PRENOTIFICATION_UPDATED -> Known.ACH_PRENOTIFICATION_UPDATED
                     ACH_TRANSFER_CREATED -> Known.ACH_TRANSFER_CREATED
                     ACH_TRANSFER_UPDATED -> Known.ACH_TRANSFER_UPDATED
+                    BLOCKCHAIN_ADDRESS_CREATED -> Known.BLOCKCHAIN_ADDRESS_CREATED
+                    BLOCKCHAIN_ADDRESS_UPDATED -> Known.BLOCKCHAIN_ADDRESS_UPDATED
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED -> Known.BLOCKCHAIN_OFFRAMP_TRANSFER_CREATED
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED -> Known.BLOCKCHAIN_OFFRAMP_TRANSFER_UPDATED
+                    BLOCKCHAIN_ONRAMP_TRANSFER_CREATED -> Known.BLOCKCHAIN_ONRAMP_TRANSFER_CREATED
+                    BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED -> Known.BLOCKCHAIN_ONRAMP_TRANSFER_UPDATED
                     BOOKKEEPING_ACCOUNT_CREATED -> Known.BOOKKEEPING_ACCOUNT_CREATED
                     BOOKKEEPING_ACCOUNT_UPDATED -> Known.BOOKKEEPING_ACCOUNT_UPDATED
                     BOOKKEEPING_ENTRY_SET_UPDATED -> Known.BOOKKEEPING_ENTRY_SET_UPDATED
