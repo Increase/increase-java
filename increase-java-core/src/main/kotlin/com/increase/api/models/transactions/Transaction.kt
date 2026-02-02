@@ -830,6 +830,9 @@ private constructor(
         private val achTransferIntention: JsonField<AchTransferIntention>,
         private val achTransferRejection: JsonField<AchTransferRejection>,
         private val achTransferReturn: JsonField<AchTransferReturn>,
+        private val blockchainOfframpTransferSettlement:
+            JsonField<BlockchainOfframpTransferSettlement>,
+        private val blockchainOnrampTransferIntention: JsonField<BlockchainOnrampTransferIntention>,
         private val cardDisputeAcceptance: JsonField<CardDisputeAcceptance>,
         private val cardDisputeFinancial: JsonField<CardDisputeFinancial>,
         private val cardDisputeLoss: JsonField<CardDisputeLoss>,
@@ -885,6 +888,14 @@ private constructor(
             @JsonProperty("ach_transfer_return")
             @ExcludeMissing
             achTransferReturn: JsonField<AchTransferReturn> = JsonMissing.of(),
+            @JsonProperty("blockchain_offramp_transfer_settlement")
+            @ExcludeMissing
+            blockchainOfframpTransferSettlement: JsonField<BlockchainOfframpTransferSettlement> =
+                JsonMissing.of(),
+            @JsonProperty("blockchain_onramp_transfer_intention")
+            @ExcludeMissing
+            blockchainOnrampTransferIntention: JsonField<BlockchainOnrampTransferIntention> =
+                JsonMissing.of(),
             @JsonProperty("card_dispute_acceptance")
             @ExcludeMissing
             cardDisputeAcceptance: JsonField<CardDisputeAcceptance> = JsonMissing.of(),
@@ -993,6 +1004,8 @@ private constructor(
             achTransferIntention,
             achTransferRejection,
             achTransferReturn,
+            blockchainOfframpTransferSettlement,
+            blockchainOnrampTransferIntention,
             cardDisputeAcceptance,
             cardDisputeFinancial,
             cardDisputeLoss,
@@ -1088,6 +1101,28 @@ private constructor(
          */
         fun achTransferReturn(): Optional<AchTransferReturn> =
             achTransferReturn.getOptional("ach_transfer_return")
+
+        /**
+         * A Blockchain Off-Ramp Transfer Settlement object. This field will be present in the JSON
+         * response if and only if `category` is equal to `blockchain_offramp_transfer_settlement`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun blockchainOfframpTransferSettlement(): Optional<BlockchainOfframpTransferSettlement> =
+            blockchainOfframpTransferSettlement.getOptional(
+                "blockchain_offramp_transfer_settlement"
+            )
+
+        /**
+         * A Blockchain On-Ramp Transfer Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `blockchain_onramp_transfer_intention`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun blockchainOnrampTransferIntention(): Optional<BlockchainOnrampTransferIntention> =
+            blockchainOnrampTransferIntention.getOptional("blockchain_onramp_transfer_intention")
 
         /**
          * A Legacy Card Dispute Acceptance object. This field will be present in the JSON response
@@ -1513,6 +1548,28 @@ private constructor(
         fun _achTransferReturn(): JsonField<AchTransferReturn> = achTransferReturn
 
         /**
+         * Returns the raw JSON value of [blockchainOfframpTransferSettlement].
+         *
+         * Unlike [blockchainOfframpTransferSettlement], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("blockchain_offramp_transfer_settlement")
+        @ExcludeMissing
+        fun _blockchainOfframpTransferSettlement(): JsonField<BlockchainOfframpTransferSettlement> =
+            blockchainOfframpTransferSettlement
+
+        /**
+         * Returns the raw JSON value of [blockchainOnrampTransferIntention].
+         *
+         * Unlike [blockchainOnrampTransferIntention], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("blockchain_onramp_transfer_intention")
+        @ExcludeMissing
+        fun _blockchainOnrampTransferIntention(): JsonField<BlockchainOnrampTransferIntention> =
+            blockchainOnrampTransferIntention
+
+        /**
          * Returns the raw JSON value of [cardDisputeAcceptance].
          *
          * Unlike [cardDisputeAcceptance], this method doesn't throw if the JSON field has an
@@ -1857,6 +1914,8 @@ private constructor(
              * .achTransferIntention()
              * .achTransferRejection()
              * .achTransferReturn()
+             * .blockchainOfframpTransferSettlement()
+             * .blockchainOnrampTransferIntention()
              * .cardDisputeAcceptance()
              * .cardDisputeFinancial()
              * .cardDisputeLoss()
@@ -1902,6 +1961,12 @@ private constructor(
             private var achTransferIntention: JsonField<AchTransferIntention>? = null
             private var achTransferRejection: JsonField<AchTransferRejection>? = null
             private var achTransferReturn: JsonField<AchTransferReturn>? = null
+            private var blockchainOfframpTransferSettlement:
+                JsonField<BlockchainOfframpTransferSettlement>? =
+                null
+            private var blockchainOnrampTransferIntention:
+                JsonField<BlockchainOnrampTransferIntention>? =
+                null
             private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance>? = null
             private var cardDisputeFinancial: JsonField<CardDisputeFinancial>? = null
             private var cardDisputeLoss: JsonField<CardDisputeLoss>? = null
@@ -1954,6 +2019,8 @@ private constructor(
                 achTransferIntention = source.achTransferIntention
                 achTransferRejection = source.achTransferRejection
                 achTransferReturn = source.achTransferReturn
+                blockchainOfframpTransferSettlement = source.blockchainOfframpTransferSettlement
+                blockchainOnrampTransferIntention = source.blockchainOnrampTransferIntention
                 cardDisputeAcceptance = source.cardDisputeAcceptance
                 cardDisputeFinancial = source.cardDisputeFinancial
                 cardDisputeLoss = source.cardDisputeLoss
@@ -2129,6 +2196,70 @@ private constructor(
             fun achTransferReturn(achTransferReturn: JsonField<AchTransferReturn>) = apply {
                 this.achTransferReturn = achTransferReturn
             }
+
+            /**
+             * A Blockchain Off-Ramp Transfer Settlement object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `blockchain_offramp_transfer_settlement`.
+             */
+            fun blockchainOfframpTransferSettlement(
+                blockchainOfframpTransferSettlement: BlockchainOfframpTransferSettlement?
+            ) =
+                blockchainOfframpTransferSettlement(
+                    JsonField.ofNullable(blockchainOfframpTransferSettlement)
+                )
+
+            /**
+             * Alias for calling [Builder.blockchainOfframpTransferSettlement] with
+             * `blockchainOfframpTransferSettlement.orElse(null)`.
+             */
+            fun blockchainOfframpTransferSettlement(
+                blockchainOfframpTransferSettlement: Optional<BlockchainOfframpTransferSettlement>
+            ) = blockchainOfframpTransferSettlement(blockchainOfframpTransferSettlement.getOrNull())
+
+            /**
+             * Sets [Builder.blockchainOfframpTransferSettlement] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.blockchainOfframpTransferSettlement] with a
+             * well-typed [BlockchainOfframpTransferSettlement] value instead. This method is
+             * primarily for setting the field to an undocumented or not yet supported value.
+             */
+            fun blockchainOfframpTransferSettlement(
+                blockchainOfframpTransferSettlement: JsonField<BlockchainOfframpTransferSettlement>
+            ) = apply {
+                this.blockchainOfframpTransferSettlement = blockchainOfframpTransferSettlement
+            }
+
+            /**
+             * A Blockchain On-Ramp Transfer Intention object. This field will be present in the
+             * JSON response if and only if `category` is equal to
+             * `blockchain_onramp_transfer_intention`.
+             */
+            fun blockchainOnrampTransferIntention(
+                blockchainOnrampTransferIntention: BlockchainOnrampTransferIntention?
+            ) =
+                blockchainOnrampTransferIntention(
+                    JsonField.ofNullable(blockchainOnrampTransferIntention)
+                )
+
+            /**
+             * Alias for calling [Builder.blockchainOnrampTransferIntention] with
+             * `blockchainOnrampTransferIntention.orElse(null)`.
+             */
+            fun blockchainOnrampTransferIntention(
+                blockchainOnrampTransferIntention: Optional<BlockchainOnrampTransferIntention>
+            ) = blockchainOnrampTransferIntention(blockchainOnrampTransferIntention.getOrNull())
+
+            /**
+             * Sets [Builder.blockchainOnrampTransferIntention] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.blockchainOnrampTransferIntention] with a well-typed
+             * [BlockchainOnrampTransferIntention] value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun blockchainOnrampTransferIntention(
+                blockchainOnrampTransferIntention: JsonField<BlockchainOnrampTransferIntention>
+            ) = apply { this.blockchainOnrampTransferIntention = blockchainOnrampTransferIntention }
 
             /**
              * A Legacy Card Dispute Acceptance object. This field will be present in the JSON
@@ -3026,6 +3157,8 @@ private constructor(
              * .achTransferIntention()
              * .achTransferRejection()
              * .achTransferReturn()
+             * .blockchainOfframpTransferSettlement()
+             * .blockchainOnrampTransferIntention()
              * .cardDisputeAcceptance()
              * .cardDisputeFinancial()
              * .cardDisputeLoss()
@@ -3069,6 +3202,14 @@ private constructor(
                     checkRequired("achTransferIntention", achTransferIntention),
                     checkRequired("achTransferRejection", achTransferRejection),
                     checkRequired("achTransferReturn", achTransferReturn),
+                    checkRequired(
+                        "blockchainOfframpTransferSettlement",
+                        blockchainOfframpTransferSettlement,
+                    ),
+                    checkRequired(
+                        "blockchainOnrampTransferIntention",
+                        blockchainOnrampTransferIntention,
+                    ),
                     checkRequired("cardDisputeAcceptance", cardDisputeAcceptance),
                     checkRequired("cardDisputeFinancial", cardDisputeFinancial),
                     checkRequired("cardDisputeLoss", cardDisputeLoss),
@@ -3132,6 +3273,8 @@ private constructor(
             achTransferIntention().ifPresent { it.validate() }
             achTransferRejection().ifPresent { it.validate() }
             achTransferReturn().ifPresent { it.validate() }
+            blockchainOfframpTransferSettlement().ifPresent { it.validate() }
+            blockchainOnrampTransferIntention().ifPresent { it.validate() }
             cardDisputeAcceptance().ifPresent { it.validate() }
             cardDisputeFinancial().ifPresent { it.validate() }
             cardDisputeLoss().ifPresent { it.validate() }
@@ -3188,6 +3331,8 @@ private constructor(
                 (achTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferRejection.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
+                (blockchainOfframpTransferSettlement.asKnown().getOrNull()?.validity() ?: 0) +
+                (blockchainOnrampTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeFinancial.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDisputeLoss.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6347,6 +6492,472 @@ private constructor(
 
             override fun toString() =
                 "AchTransferReturn{createdAt=$createdAt, rawReturnReasonCode=$rawReturnReasonCode, returnReasonCode=$returnReasonCode, traceNumber=$traceNumber, transactionId=$transactionId, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A Blockchain Off-Ramp Transfer Settlement object. This field will be present in the JSON
+         * response if and only if `category` is equal to `blockchain_offramp_transfer_settlement`.
+         */
+        class BlockchainOfframpTransferSettlement
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val sourceBlockchainAddressId: JsonField<String>,
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("source_blockchain_address_id")
+                @ExcludeMissing
+                sourceBlockchainAddressId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of(),
+            ) : this(sourceBlockchainAddressId, transferId, mutableMapOf())
+
+            /**
+             * The identifier of the Blockchain Address the funds were received at.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun sourceBlockchainAddressId(): String =
+                sourceBlockchainAddressId.getRequired("source_blockchain_address_id")
+
+            /**
+             * The identifier of the Blockchain Off-Ramp Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [sourceBlockchainAddressId].
+             *
+             * Unlike [sourceBlockchainAddressId], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("source_blockchain_address_id")
+            @ExcludeMissing
+            fun _sourceBlockchainAddressId(): JsonField<String> = sourceBlockchainAddressId
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [BlockchainOfframpTransferSettlement].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .sourceBlockchainAddressId()
+                 * .transferId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [BlockchainOfframpTransferSettlement]. */
+            class Builder internal constructor() {
+
+                private var sourceBlockchainAddressId: JsonField<String>? = null
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    blockchainOfframpTransferSettlement: BlockchainOfframpTransferSettlement
+                ) = apply {
+                    sourceBlockchainAddressId =
+                        blockchainOfframpTransferSettlement.sourceBlockchainAddressId
+                    transferId = blockchainOfframpTransferSettlement.transferId
+                    additionalProperties =
+                        blockchainOfframpTransferSettlement.additionalProperties.toMutableMap()
+                }
+
+                /** The identifier of the Blockchain Address the funds were received at. */
+                fun sourceBlockchainAddressId(sourceBlockchainAddressId: String) =
+                    sourceBlockchainAddressId(JsonField.of(sourceBlockchainAddressId))
+
+                /**
+                 * Sets [Builder.sourceBlockchainAddressId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.sourceBlockchainAddressId] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun sourceBlockchainAddressId(sourceBlockchainAddressId: JsonField<String>) =
+                    apply {
+                        this.sourceBlockchainAddressId = sourceBlockchainAddressId
+                    }
+
+                /**
+                 * The identifier of the Blockchain Off-Ramp Transfer that led to this Transaction.
+                 */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [BlockchainOfframpTransferSettlement].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .sourceBlockchainAddressId()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): BlockchainOfframpTransferSettlement =
+                    BlockchainOfframpTransferSettlement(
+                        checkRequired("sourceBlockchainAddressId", sourceBlockchainAddressId),
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): BlockchainOfframpTransferSettlement = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                sourceBlockchainAddressId()
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (sourceBlockchainAddressId.asKnown().isPresent) 1 else 0) +
+                    (if (transferId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is BlockchainOfframpTransferSettlement &&
+                    sourceBlockchainAddressId == other.sourceBlockchainAddressId &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(sourceBlockchainAddressId, transferId, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "BlockchainOfframpTransferSettlement{sourceBlockchainAddressId=$sourceBlockchainAddressId, transferId=$transferId, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * A Blockchain On-Ramp Transfer Intention object. This field will be present in the JSON
+         * response if and only if `category` is equal to `blockchain_onramp_transfer_intention`.
+         */
+        class BlockchainOnrampTransferIntention
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val destinationBlockchainAddress: JsonField<String>,
+            private val transferId: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("destination_blockchain_address")
+                @ExcludeMissing
+                destinationBlockchainAddress: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("transfer_id")
+                @ExcludeMissing
+                transferId: JsonField<String> = JsonMissing.of(),
+            ) : this(destinationBlockchainAddress, transferId, mutableMapOf())
+
+            /**
+             * The blockchain address the funds were sent to.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun destinationBlockchainAddress(): String =
+                destinationBlockchainAddress.getRequired("destination_blockchain_address")
+
+            /**
+             * The identifier of the Blockchain On-Ramp Transfer that led to this Transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [destinationBlockchainAddress].
+             *
+             * Unlike [destinationBlockchainAddress], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("destination_blockchain_address")
+            @ExcludeMissing
+            fun _destinationBlockchainAddress(): JsonField<String> = destinationBlockchainAddress
+
+            /**
+             * Returns the raw JSON value of [transferId].
+             *
+             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("transfer_id")
+            @ExcludeMissing
+            fun _transferId(): JsonField<String> = transferId
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [BlockchainOnrampTransferIntention].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .destinationBlockchainAddress()
+                 * .transferId()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [BlockchainOnrampTransferIntention]. */
+            class Builder internal constructor() {
+
+                private var destinationBlockchainAddress: JsonField<String>? = null
+                private var transferId: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    blockchainOnrampTransferIntention: BlockchainOnrampTransferIntention
+                ) = apply {
+                    destinationBlockchainAddress =
+                        blockchainOnrampTransferIntention.destinationBlockchainAddress
+                    transferId = blockchainOnrampTransferIntention.transferId
+                    additionalProperties =
+                        blockchainOnrampTransferIntention.additionalProperties.toMutableMap()
+                }
+
+                /** The blockchain address the funds were sent to. */
+                fun destinationBlockchainAddress(destinationBlockchainAddress: String) =
+                    destinationBlockchainAddress(JsonField.of(destinationBlockchainAddress))
+
+                /**
+                 * Sets [Builder.destinationBlockchainAddress] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.destinationBlockchainAddress] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun destinationBlockchainAddress(destinationBlockchainAddress: JsonField<String>) =
+                    apply {
+                        this.destinationBlockchainAddress = destinationBlockchainAddress
+                    }
+
+                /**
+                 * The identifier of the Blockchain On-Ramp Transfer that led to this Transaction.
+                 */
+                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+
+                /**
+                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transferId(transferId: JsonField<String>) = apply {
+                    this.transferId = transferId
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [BlockchainOnrampTransferIntention].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .destinationBlockchainAddress()
+                 * .transferId()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): BlockchainOnrampTransferIntention =
+                    BlockchainOnrampTransferIntention(
+                        checkRequired("destinationBlockchainAddress", destinationBlockchainAddress),
+                        checkRequired("transferId", transferId),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): BlockchainOnrampTransferIntention = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                destinationBlockchainAddress()
+                transferId()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (destinationBlockchainAddress.asKnown().isPresent) 1 else 0) +
+                    (if (transferId.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is BlockchainOnrampTransferIntention &&
+                    destinationBlockchainAddress == other.destinationBlockchainAddress &&
+                    transferId == other.transferId &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(destinationBlockchainAddress, transferId, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "BlockchainOnrampTransferIntention{destinationBlockchainAddress=$destinationBlockchainAddress, transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -37532,6 +38143,22 @@ private constructor(
                  */
                 @JvmField val ACCOUNT_REVENUE_PAYMENT = of("account_revenue_payment")
 
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                @JvmField
+                val BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION =
+                    of("blockchain_onramp_transfer_intention")
+
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                @JvmField
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT =
+                    of("blockchain_offramp_transfer_settlement")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -37683,6 +38310,16 @@ private constructor(
                  * object.
                  */
                 ACCOUNT_REVENUE_PAYMENT,
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -37840,6 +38477,16 @@ private constructor(
                  * object.
                  */
                 ACCOUNT_REVENUE_PAYMENT,
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -37897,6 +38544,10 @@ private constructor(
                     SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
                     ACCOUNT_REVENUE_PAYMENT -> Value.ACCOUNT_REVENUE_PAYMENT
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
+                        Value.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
+                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -37952,6 +38603,10 @@ private constructor(
                     SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
                     CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
                     ACCOUNT_REVENUE_PAYMENT -> Known.ACCOUNT_REVENUE_PAYMENT
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
+                        Known.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
+                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -48928,6 +49583,8 @@ private constructor(
                 achTransferIntention == other.achTransferIntention &&
                 achTransferRejection == other.achTransferRejection &&
                 achTransferReturn == other.achTransferReturn &&
+                blockchainOfframpTransferSettlement == other.blockchainOfframpTransferSettlement &&
+                blockchainOnrampTransferIntention == other.blockchainOnrampTransferIntention &&
                 cardDisputeAcceptance == other.cardDisputeAcceptance &&
                 cardDisputeFinancial == other.cardDisputeFinancial &&
                 cardDisputeLoss == other.cardDisputeLoss &&
@@ -48972,6 +49629,8 @@ private constructor(
                 achTransferIntention,
                 achTransferRejection,
                 achTransferReturn,
+                blockchainOfframpTransferSettlement,
+                blockchainOnrampTransferIntention,
                 cardDisputeAcceptance,
                 cardDisputeFinancial,
                 cardDisputeLoss,
@@ -49011,7 +49670,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**
