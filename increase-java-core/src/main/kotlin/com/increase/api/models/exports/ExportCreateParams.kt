@@ -12,11 +12,9 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
-import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -3350,30 +3348,9 @@ private constructor(
     /** Options for the created export. Required if `category` is equal to `entity_csv`. */
     class EntityCsv
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val status: JsonField<Status>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
+    private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
 
-        @JsonCreator
-        private constructor(
-            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of()
-        ) : this(status, mutableMapOf())
-
-        /**
-         * Entity statuses to filter by.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun status(): Optional<Status> = status.getOptional("status")
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+        @JsonCreator private constructor() : this(mutableMapOf())
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3396,26 +3373,12 @@ private constructor(
         /** A builder for [EntityCsv]. */
         class Builder internal constructor() {
 
-            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(entityCsv: EntityCsv) = apply {
-                status = entityCsv.status
                 additionalProperties = entityCsv.additionalProperties.toMutableMap()
             }
-
-            /** Entity statuses to filter by. */
-            fun status(status: Status) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -3441,7 +3404,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): EntityCsv = EntityCsv(status, additionalProperties.toMutableMap())
+            fun build(): EntityCsv = EntityCsv(additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -3451,7 +3414,6 @@ private constructor(
                 return@apply
             }
 
-            status().ifPresent { it.validate() }
             validated = true
         }
 
@@ -3469,357 +3431,21 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (status.asKnown().getOrNull()?.validity() ?: 0)
-
-        /** Entity statuses to filter by. */
-        class Status
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val in_: JsonField<List<In>>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("in") @ExcludeMissing in_: JsonField<List<In>> = JsonMissing.of()
-            ) : this(in_, mutableMapOf())
-
-            /**
-             * Entity statuses to filter by. For GET requests, this should be encoded as a
-             * comma-delimited string, such as `?in=one,two,three`.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun in_(): List<In> = in_.getRequired("in")
-
-            /**
-             * Returns the raw JSON value of [in_].
-             *
-             * Unlike [in_], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("in") @ExcludeMissing fun _in_(): JsonField<List<In>> = in_
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of [Status].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .in_()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [Status]. */
-            class Builder internal constructor() {
-
-                private var in_: JsonField<MutableList<In>>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(status: Status) = apply {
-                    in_ = status.in_.map { it.toMutableList() }
-                    additionalProperties = status.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Entity statuses to filter by. For GET requests, this should be encoded as a
-                 * comma-delimited string, such as `?in=one,two,three`.
-                 */
-                fun in_(in_: List<In>) = in_(JsonField.of(in_))
-
-                /**
-                 * Sets [Builder.in_] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.in_] with a well-typed `List<In>` value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun in_(in_: JsonField<List<In>>) = apply {
-                    this.in_ = in_.map { it.toMutableList() }
-                }
-
-                /**
-                 * Adds a single [In] to [Builder.in_].
-                 *
-                 * @throws IllegalStateException if the field was previously set to a non-list.
-                 */
-                fun addIn(in_: In) = apply {
-                    this.in_ =
-                        (this.in_ ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("in_", it).add(in_)
-                        }
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [Status].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .in_()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): Status =
-                    Status(
-                        checkRequired("in_", in_).map { it.toImmutable() },
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): Status = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                in_().forEach { it.validate() }
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (in_.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
-
-            class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    /** The entity is active. */
-                    @JvmField val ACTIVE = of("active")
-
-                    /** The entity is archived, and can no longer be used to create accounts. */
-                    @JvmField val ARCHIVED = of("archived")
-
-                    /**
-                     * The entity is temporarily disabled and cannot be used for financial activity.
-                     */
-                    @JvmField val DISABLED = of("disabled")
-
-                    @JvmStatic fun of(value: String) = In(JsonField.of(value))
-                }
-
-                /** An enum containing [In]'s known values. */
-                enum class Known {
-                    /** The entity is active. */
-                    ACTIVE,
-                    /** The entity is archived, and can no longer be used to create accounts. */
-                    ARCHIVED,
-                    /**
-                     * The entity is temporarily disabled and cannot be used for financial activity.
-                     */
-                    DISABLED,
-                }
-
-                /**
-                 * An enum containing [In]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [In] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** The entity is active. */
-                    ACTIVE,
-                    /** The entity is archived, and can no longer be used to create accounts. */
-                    ARCHIVED,
-                    /**
-                     * The entity is temporarily disabled and cannot be used for financial activity.
-                     */
-                    DISABLED,
-                    /**
-                     * An enum member indicating that [In] was instantiated with an unknown value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ACTIVE -> Value.ACTIVE
-                        ARCHIVED -> Value.ARCHIVED
-                        DISABLED -> Value.DISABLED
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ACTIVE -> Known.ACTIVE
-                        ARCHIVED -> Known.ARCHIVED
-                        DISABLED -> Known.DISABLED
-                        else -> throw IncreaseInvalidDataException("Unknown In: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        IncreaseInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): In = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: IncreaseInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is In && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Status &&
-                    in_ == other.in_ &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
-        }
+        @JvmSynthetic internal fun validity(): Int = 0
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is EntityCsv &&
-                status == other.status &&
-                additionalProperties == other.additionalProperties
+            return other is EntityCsv && additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "EntityCsv{status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() = "EntityCsv{additionalProperties=$additionalProperties}"
     }
 
     /**
