@@ -46,6 +46,29 @@ internal class PendingTransactionListPageResponseTest {
                                         .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                         .build()
                                 )
+                                .blockchainOfframpTransferIntention(
+                                    PendingTransaction.Source.BlockchainOfframpTransferIntention
+                                        .builder()
+                                        .sourceBlockchainAddressId(
+                                            "blockchain_address_tijjpqp9t5d358ehydqi"
+                                        )
+                                        .transferId(
+                                            "blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m"
+                                        )
+                                        .build()
+                                )
+                                .blockchainOnrampTransferInstruction(
+                                    PendingTransaction.Source.BlockchainOnrampTransferInstruction
+                                        .builder()
+                                        .amount(10000L)
+                                        .destinationBlockchainAddress(
+                                            "0x0000000000000000000000000000000000000000"
+                                        )
+                                        .transferId(
+                                            "blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv"
+                                        )
+                                        .build()
+                                )
                                 .cardAuthorization(
                                     PendingTransaction.Source.CardAuthorization.builder()
                                         .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -428,6 +451,25 @@ internal class PendingTransactionListPageResponseTest {
                                     .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                     .build()
                             )
+                            .blockchainOfframpTransferIntention(
+                                PendingTransaction.Source.BlockchainOfframpTransferIntention
+                                    .builder()
+                                    .sourceBlockchainAddressId(
+                                        "blockchain_address_tijjpqp9t5d358ehydqi"
+                                    )
+                                    .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                    .build()
+                            )
+                            .blockchainOnrampTransferInstruction(
+                                PendingTransaction.Source.BlockchainOnrampTransferInstruction
+                                    .builder()
+                                    .amount(10000L)
+                                    .destinationBlockchainAddress(
+                                        "0x0000000000000000000000000000000000000000"
+                                    )
+                                    .transferId("blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv")
+                                    .build()
+                            )
                             .cardAuthorization(
                                 PendingTransaction.Source.CardAuthorization.builder()
                                     .id("card_authorization_6iqxap6ivd0fo5eu3i8x")
@@ -797,6 +839,29 @@ internal class PendingTransactionListPageResponseTest {
                                     PendingTransaction.Source.AchTransferInstruction.builder()
                                         .amount(100L)
                                         .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                                        .build()
+                                )
+                                .blockchainOfframpTransferIntention(
+                                    PendingTransaction.Source.BlockchainOfframpTransferIntention
+                                        .builder()
+                                        .sourceBlockchainAddressId(
+                                            "blockchain_address_tijjpqp9t5d358ehydqi"
+                                        )
+                                        .transferId(
+                                            "blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m"
+                                        )
+                                        .build()
+                                )
+                                .blockchainOnrampTransferInstruction(
+                                    PendingTransaction.Source.BlockchainOnrampTransferInstruction
+                                        .builder()
+                                        .amount(10000L)
+                                        .destinationBlockchainAddress(
+                                            "0x0000000000000000000000000000000000000000"
+                                        )
+                                        .transferId(
+                                            "blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv"
+                                        )
                                         .build()
                                 )
                                 .cardAuthorization(

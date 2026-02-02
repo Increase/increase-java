@@ -69,6 +69,20 @@ internal class TransactionTest {
                                 .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                 .build()
                         )
+                        .blockchainOfframpTransferSettlement(
+                            Transaction.Source.BlockchainOfframpTransferSettlement.builder()
+                                .sourceBlockchainAddressId(
+                                    "blockchain_address_tijjpqp9t5d358ehydqi"
+                                )
+                                .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                .build()
+                        )
+                        .blockchainOnrampTransferIntention(
+                            Transaction.Source.BlockchainOnrampTransferIntention.builder()
+                                .destinationBlockchainAddress("0xaabbccdd")
+                                .transferId("blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv")
+                                .build()
+                        )
                         .cardDisputeAcceptance(
                             Transaction.Source.CardDisputeAcceptance.builder()
                                 .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -1078,6 +1092,18 @@ internal class TransactionTest {
                             .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                             .build()
                     )
+                    .blockchainOfframpTransferSettlement(
+                        Transaction.Source.BlockchainOfframpTransferSettlement.builder()
+                            .sourceBlockchainAddressId("blockchain_address_tijjpqp9t5d358ehydqi")
+                            .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                            .build()
+                    )
+                    .blockchainOnrampTransferIntention(
+                        Transaction.Source.BlockchainOnrampTransferIntention.builder()
+                            .destinationBlockchainAddress("0xaabbccdd")
+                            .transferId("blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv")
+                            .build()
+                    )
                     .cardDisputeAcceptance(
                         Transaction.Source.CardDisputeAcceptance.builder()
                             .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -2038,6 +2064,20 @@ internal class TransactionTest {
                                 .traceNumber("111122223292834")
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                                .build()
+                        )
+                        .blockchainOfframpTransferSettlement(
+                            Transaction.Source.BlockchainOfframpTransferSettlement.builder()
+                                .sourceBlockchainAddressId(
+                                    "blockchain_address_tijjpqp9t5d358ehydqi"
+                                )
+                                .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                .build()
+                        )
+                        .blockchainOnrampTransferIntention(
+                            Transaction.Source.BlockchainOnrampTransferIntention.builder()
+                                .destinationBlockchainAddress("0xaabbccdd")
+                                .transferId("blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv")
                                 .build()
                         )
                         .cardDisputeAcceptance(
