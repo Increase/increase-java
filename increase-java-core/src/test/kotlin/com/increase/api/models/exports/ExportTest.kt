@@ -4,6 +4,7 @@ package com.increase.api.models.exports
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
+import java.time.LocalDate
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -15,23 +16,190 @@ internal class ExportTest {
         val export =
             Export.builder()
                 .id("export_8s4m48qz3bclzje0zwh9")
+                .accountStatementBai2(
+                    Export.AccountStatementBai2.builder()
+                        .accountId("account_id")
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .programId("program_id")
+                        .build()
+                )
+                .accountStatementOfx(
+                    Export.AccountStatementOfx.builder()
+                        .accountId("account_id")
+                        .createdAt(
+                            Export.AccountStatementOfx.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
+                .accountVerificationLetter(
+                    Export.AccountVerificationLetter.builder()
+                        .accountNumberId("account_number_id")
+                        .balanceDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
+                .balanceCsv(
+                    Export.BalanceCsv.builder()
+                        .accountId("account_id")
+                        .createdAt(
+                            Export.BalanceCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
+                .bookkeepingAccountBalanceCsv(
+                    Export.BookkeepingAccountBalanceCsv.builder()
+                        .bookkeepingAccountId("bookkeeping_account_id")
+                        .createdAt(
+                            Export.BookkeepingAccountBalanceCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .category(Export.Category.TRANSACTION_CSV)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
+                .entityCsv(Export.EntityCsv.builder().build())
                 .fileDownloadUrl("https://example.com/file")
                 .fileId("file_makxrc67oh9l6sg7w9yc")
+                .form1099Int(
+                    Export.Form1099Int.builder()
+                        .accountId("account_id")
+                        .corrected(true)
+                        .description("description")
+                        .year(0L)
+                        .build()
+                )
+                .form1099Misc(
+                    Export.Form1099Misc.builder()
+                        .accountId("account_id")
+                        .corrected(true)
+                        .year(0L)
+                        .build()
+                )
+                .fundingInstructions(
+                    Export.FundingInstructions.builder()
+                        .accountNumberId("account_number_id")
+                        .build()
+                )
                 .idempotencyKey(null)
                 .status(Export.Status.COMPLETE)
+                .transactionCsv(
+                    Export.TransactionCsv.builder()
+                        .accountId("account_in71c4amph0vgo2qllky")
+                        .createdAt(
+                            Export.TransactionCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .type(Export.Type.EXPORT)
+                .vendorCsv(Export.VendorCsv.builder().build())
                 .build()
 
         assertThat(export.id()).isEqualTo("export_8s4m48qz3bclzje0zwh9")
+        assertThat(export.accountStatementBai2())
+            .contains(
+                Export.AccountStatementBai2.builder()
+                    .accountId("account_id")
+                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .programId("program_id")
+                    .build()
+            )
+        assertThat(export.accountStatementOfx())
+            .contains(
+                Export.AccountStatementOfx.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        Export.AccountStatementOfx.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
+        assertThat(export.accountVerificationLetter())
+            .contains(
+                Export.AccountVerificationLetter.builder()
+                    .accountNumberId("account_number_id")
+                    .balanceDate(LocalDate.parse("2019-12-27"))
+                    .build()
+            )
+        assertThat(export.balanceCsv())
+            .contains(
+                Export.BalanceCsv.builder()
+                    .accountId("account_id")
+                    .createdAt(
+                        Export.BalanceCsv.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
+        assertThat(export.bookkeepingAccountBalanceCsv())
+            .contains(
+                Export.BookkeepingAccountBalanceCsv.builder()
+                    .bookkeepingAccountId("bookkeeping_account_id")
+                    .createdAt(
+                        Export.BookkeepingAccountBalanceCsv.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(export.category()).isEqualTo(Export.Category.TRANSACTION_CSV)
         assertThat(export.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(export.dashboardTableCsv()).contains(Export.DashboardTableCsv.builder().build())
+        assertThat(export.entityCsv()).contains(Export.EntityCsv.builder().build())
         assertThat(export.fileDownloadUrl()).contains("https://example.com/file")
         assertThat(export.fileId()).contains("file_makxrc67oh9l6sg7w9yc")
+        assertThat(export.form1099Int())
+            .contains(
+                Export.Form1099Int.builder()
+                    .accountId("account_id")
+                    .corrected(true)
+                    .description("description")
+                    .year(0L)
+                    .build()
+            )
+        assertThat(export.form1099Misc())
+            .contains(
+                Export.Form1099Misc.builder()
+                    .accountId("account_id")
+                    .corrected(true)
+                    .year(0L)
+                    .build()
+            )
+        assertThat(export.fundingInstructions())
+            .contains(
+                Export.FundingInstructions.builder().accountNumberId("account_number_id").build()
+            )
         assertThat(export.idempotencyKey()).isEmpty
         assertThat(export.status()).isEqualTo(Export.Status.COMPLETE)
+        assertThat(export.transactionCsv())
+            .contains(
+                Export.TransactionCsv.builder()
+                    .accountId("account_in71c4amph0vgo2qllky")
+                    .createdAt(
+                        Export.TransactionCsv.CreatedAt.builder()
+                            .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(export.type()).isEqualTo(Export.Type.EXPORT)
+        assertThat(export.vendorCsv()).contains(Export.VendorCsv.builder().build())
     }
 
     @Test
@@ -40,13 +208,93 @@ internal class ExportTest {
         val export =
             Export.builder()
                 .id("export_8s4m48qz3bclzje0zwh9")
+                .accountStatementBai2(
+                    Export.AccountStatementBai2.builder()
+                        .accountId("account_id")
+                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .programId("program_id")
+                        .build()
+                )
+                .accountStatementOfx(
+                    Export.AccountStatementOfx.builder()
+                        .accountId("account_id")
+                        .createdAt(
+                            Export.AccountStatementOfx.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
+                .accountVerificationLetter(
+                    Export.AccountVerificationLetter.builder()
+                        .accountNumberId("account_number_id")
+                        .balanceDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
+                .balanceCsv(
+                    Export.BalanceCsv.builder()
+                        .accountId("account_id")
+                        .createdAt(
+                            Export.BalanceCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
+                .bookkeepingAccountBalanceCsv(
+                    Export.BookkeepingAccountBalanceCsv.builder()
+                        .bookkeepingAccountId("bookkeeping_account_id")
+                        .createdAt(
+                            Export.BookkeepingAccountBalanceCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .category(Export.Category.TRANSACTION_CSV)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
+                .entityCsv(Export.EntityCsv.builder().build())
                 .fileDownloadUrl("https://example.com/file")
                 .fileId("file_makxrc67oh9l6sg7w9yc")
+                .form1099Int(
+                    Export.Form1099Int.builder()
+                        .accountId("account_id")
+                        .corrected(true)
+                        .description("description")
+                        .year(0L)
+                        .build()
+                )
+                .form1099Misc(
+                    Export.Form1099Misc.builder()
+                        .accountId("account_id")
+                        .corrected(true)
+                        .year(0L)
+                        .build()
+                )
+                .fundingInstructions(
+                    Export.FundingInstructions.builder()
+                        .accountNumberId("account_number_id")
+                        .build()
+                )
                 .idempotencyKey(null)
                 .status(Export.Status.COMPLETE)
+                .transactionCsv(
+                    Export.TransactionCsv.builder()
+                        .accountId("account_in71c4amph0vgo2qllky")
+                        .createdAt(
+                            Export.TransactionCsv.CreatedAt.builder()
+                                .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .type(Export.Type.EXPORT)
+                .vendorCsv(Export.VendorCsv.builder().build())
                 .build()
 
         val roundtrippedExport =
