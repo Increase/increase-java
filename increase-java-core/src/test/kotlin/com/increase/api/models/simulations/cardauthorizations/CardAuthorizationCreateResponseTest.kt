@@ -430,7 +430,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .builder()
                                         .amount(10000L)
                                         .destinationBlockchainAddress(
-                                            "0x0000000000000000000000000000000000000000"
+                                            "0x304a554a310C7e546dfe434669C62820b7D83490"
                                         )
                                         .transferId(
                                             "blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv"
@@ -1188,7 +1188,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .builder()
                                     .amount(10000L)
                                     .destinationBlockchainAddress(
-                                        "0x0000000000000000000000000000000000000000"
+                                        "0x304a554a310C7e546dfe434669C62820b7D83490"
                                     )
                                     .transferId("blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv")
                                     .build()
@@ -1949,7 +1949,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .builder()
                                         .amount(10000L)
                                         .destinationBlockchainAddress(
-                                            "0x0000000000000000000000000000000000000000"
+                                            "0x304a554a310C7e546dfe434669C62820b7D83490"
                                         )
                                         .transferId(
                                             "blockchain_onramp_transfer_sg8nzy569rk0dnfk28bv"
