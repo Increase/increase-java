@@ -68,8 +68,6 @@ internal class ExportListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                         .entityCsv(Export.EntityCsv.builder().build())
-                        .fileDownloadUrl("https://example.com/file")
-                        .fileId("file_makxrc67oh9l6sg7w9yc")
                         .form1099Int(
                             Export.Form1099Int.builder()
                                 .accountId("account_id")
@@ -91,6 +89,7 @@ internal class ExportListPageResponseTest {
                                 .build()
                         )
                         .idempotencyKey(null)
+                        .result(Export.Result.builder().fileId("file_makxrc67oh9l6sg7w9yc").build())
                         .status(Export.Status.COMPLETE)
                         .transactionCsv(
                             Export.TransactionCsv.builder()
@@ -164,8 +163,6 @@ internal class ExportListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                     .entityCsv(Export.EntityCsv.builder().build())
-                    .fileDownloadUrl("https://example.com/file")
-                    .fileId("file_makxrc67oh9l6sg7w9yc")
                     .form1099Int(
                         Export.Form1099Int.builder()
                             .accountId("account_id")
@@ -187,6 +184,7 @@ internal class ExportListPageResponseTest {
                             .build()
                     )
                     .idempotencyKey(null)
+                    .result(Export.Result.builder().fileId("file_makxrc67oh9l6sg7w9yc").build())
                     .status(Export.Status.COMPLETE)
                     .transactionCsv(
                         Export.TransactionCsv.builder()
@@ -264,8 +262,6 @@ internal class ExportListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                         .entityCsv(Export.EntityCsv.builder().build())
-                        .fileDownloadUrl("https://example.com/file")
-                        .fileId("file_makxrc67oh9l6sg7w9yc")
                         .form1099Int(
                             Export.Form1099Int.builder()
                                 .accountId("account_id")
@@ -287,6 +283,7 @@ internal class ExportListPageResponseTest {
                                 .build()
                         )
                         .idempotencyKey(null)
+                        .result(Export.Result.builder().fileId("file_makxrc67oh9l6sg7w9yc").build())
                         .status(Export.Status.COMPLETE)
                         .transactionCsv(
                             Export.TransactionCsv.builder()
