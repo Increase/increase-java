@@ -39,12 +39,11 @@ private constructor(
     private val createdAt: JsonField<OffsetDateTime>,
     private val dashboardTableCsv: JsonField<DashboardTableCsv>,
     private val entityCsv: JsonField<EntityCsv>,
-    private val fileDownloadUrl: JsonField<String>,
-    private val fileId: JsonField<String>,
     private val form1099Int: JsonField<Form1099Int>,
     private val form1099Misc: JsonField<Form1099Misc>,
     private val fundingInstructions: JsonField<FundingInstructions>,
     private val idempotencyKey: JsonField<String>,
+    private val result: JsonField<Result>,
     private val status: JsonField<Status>,
     private val transactionCsv: JsonField<TransactionCsv>,
     private val type: JsonField<Type>,
@@ -80,10 +79,6 @@ private constructor(
         @JsonProperty("entity_csv")
         @ExcludeMissing
         entityCsv: JsonField<EntityCsv> = JsonMissing.of(),
-        @JsonProperty("file_download_url")
-        @ExcludeMissing
-        fileDownloadUrl: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("form_1099_int")
         @ExcludeMissing
         form1099Int: JsonField<Form1099Int> = JsonMissing.of(),
@@ -96,6 +91,7 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("result") @ExcludeMissing result: JsonField<Result> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_csv")
         @ExcludeMissing
@@ -115,12 +111,11 @@ private constructor(
         createdAt,
         dashboardTableCsv,
         entityCsv,
-        fileDownloadUrl,
-        fileId,
         form1099Int,
         form1099Misc,
         fundingInstructions,
         idempotencyKey,
+        result,
         status,
         transactionCsv,
         type,
@@ -222,24 +217,6 @@ private constructor(
     fun entityCsv(): Optional<EntityCsv> = entityCsv.getOptional("entity_csv")
 
     /**
-     * A URL at which the Export's file can be downloaded. This will be present when the Export's
-     * status transitions to `complete`.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun fileDownloadUrl(): Optional<String> = fileDownloadUrl.getOptional("file_download_url")
-
-    /**
-     * The File containing the contents of the Export. This will be present when the Export's status
-     * transitions to `complete`.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun fileId(): Optional<String> = fileId.getOptional("file_id")
-
-    /**
      * Details of the Form 1099-INT export. This field will be present when the `category` is equal
      * to `form_1099_int`.
      *
@@ -276,6 +253,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
+
+    /**
+     * The result of the Export. This will be present when the Export's status transitions to
+     * `complete`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun result(): Optional<Result> = result.getOptional("result")
 
     /**
      * The status of the Export.
@@ -403,22 +389,6 @@ private constructor(
     @JsonProperty("entity_csv") @ExcludeMissing fun _entityCsv(): JsonField<EntityCsv> = entityCsv
 
     /**
-     * Returns the raw JSON value of [fileDownloadUrl].
-     *
-     * Unlike [fileDownloadUrl], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("file_download_url")
-    @ExcludeMissing
-    fun _fileDownloadUrl(): JsonField<String> = fileDownloadUrl
-
-    /**
-     * Returns the raw JSON value of [fileId].
-     *
-     * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
-
-    /**
      * Returns the raw JSON value of [form1099Int].
      *
      * Unlike [form1099Int], this method doesn't throw if the JSON field has an unexpected type.
@@ -454,6 +424,13 @@ private constructor(
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
+
+    /**
+     * Returns the raw JSON value of [result].
+     *
+     * Unlike [result], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
 
     /**
      * Returns the raw JSON value of [status].
@@ -514,12 +491,11 @@ private constructor(
          * .createdAt()
          * .dashboardTableCsv()
          * .entityCsv()
-         * .fileDownloadUrl()
-         * .fileId()
          * .form1099Int()
          * .form1099Misc()
          * .fundingInstructions()
          * .idempotencyKey()
+         * .result()
          * .status()
          * .transactionCsv()
          * .type()
@@ -542,12 +518,11 @@ private constructor(
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var dashboardTableCsv: JsonField<DashboardTableCsv>? = null
         private var entityCsv: JsonField<EntityCsv>? = null
-        private var fileDownloadUrl: JsonField<String>? = null
-        private var fileId: JsonField<String>? = null
         private var form1099Int: JsonField<Form1099Int>? = null
         private var form1099Misc: JsonField<Form1099Misc>? = null
         private var fundingInstructions: JsonField<FundingInstructions>? = null
         private var idempotencyKey: JsonField<String>? = null
+        private var result: JsonField<Result>? = null
         private var status: JsonField<Status>? = null
         private var transactionCsv: JsonField<TransactionCsv>? = null
         private var type: JsonField<Type>? = null
@@ -566,12 +541,11 @@ private constructor(
             createdAt = export.createdAt
             dashboardTableCsv = export.dashboardTableCsv
             entityCsv = export.entityCsv
-            fileDownloadUrl = export.fileDownloadUrl
-            fileId = export.fileId
             form1099Int = export.form1099Int
             form1099Misc = export.form1099Misc
             fundingInstructions = export.fundingInstructions
             idempotencyKey = export.idempotencyKey
+            result = export.result
             status = export.status
             transactionCsv = export.transactionCsv
             type = export.type
@@ -778,45 +752,6 @@ private constructor(
         fun entityCsv(entityCsv: JsonField<EntityCsv>) = apply { this.entityCsv = entityCsv }
 
         /**
-         * A URL at which the Export's file can be downloaded. This will be present when the
-         * Export's status transitions to `complete`.
-         */
-        fun fileDownloadUrl(fileDownloadUrl: String?) =
-            fileDownloadUrl(JsonField.ofNullable(fileDownloadUrl))
-
-        /** Alias for calling [Builder.fileDownloadUrl] with `fileDownloadUrl.orElse(null)`. */
-        fun fileDownloadUrl(fileDownloadUrl: Optional<String>) =
-            fileDownloadUrl(fileDownloadUrl.getOrNull())
-
-        /**
-         * Sets [Builder.fileDownloadUrl] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.fileDownloadUrl] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun fileDownloadUrl(fileDownloadUrl: JsonField<String>) = apply {
-            this.fileDownloadUrl = fileDownloadUrl
-        }
-
-        /**
-         * The File containing the contents of the Export. This will be present when the Export's
-         * status transitions to `complete`.
-         */
-        fun fileId(fileId: String?) = fileId(JsonField.ofNullable(fileId))
-
-        /** Alias for calling [Builder.fileId] with `fileId.orElse(null)`. */
-        fun fileId(fileId: Optional<String>) = fileId(fileId.getOrNull())
-
-        /**
-         * Sets [Builder.fileId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.fileId] with a well-typed [String] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
-
-        /**
          * Details of the Form 1099-INT export. This field will be present when the `category` is
          * equal to `form_1099_int`.
          */
@@ -904,6 +839,23 @@ private constructor(
         fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
             this.idempotencyKey = idempotencyKey
         }
+
+        /**
+         * The result of the Export. This will be present when the Export's status transitions to
+         * `complete`.
+         */
+        fun result(result: Result?) = result(JsonField.ofNullable(result))
+
+        /** Alias for calling [Builder.result] with `result.orElse(null)`. */
+        fun result(result: Optional<Result>) = result(result.getOrNull())
+
+        /**
+         * Sets [Builder.result] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.result] with a well-typed [Result] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun result(result: JsonField<Result>) = apply { this.result = result }
 
         /** The status of the Export. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -1005,12 +957,11 @@ private constructor(
          * .createdAt()
          * .dashboardTableCsv()
          * .entityCsv()
-         * .fileDownloadUrl()
-         * .fileId()
          * .form1099Int()
          * .form1099Misc()
          * .fundingInstructions()
          * .idempotencyKey()
+         * .result()
          * .status()
          * .transactionCsv()
          * .type()
@@ -1031,12 +982,11 @@ private constructor(
                 checkRequired("createdAt", createdAt),
                 checkRequired("dashboardTableCsv", dashboardTableCsv),
                 checkRequired("entityCsv", entityCsv),
-                checkRequired("fileDownloadUrl", fileDownloadUrl),
-                checkRequired("fileId", fileId),
                 checkRequired("form1099Int", form1099Int),
                 checkRequired("form1099Misc", form1099Misc),
                 checkRequired("fundingInstructions", fundingInstructions),
                 checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("result", result),
                 checkRequired("status", status),
                 checkRequired("transactionCsv", transactionCsv),
                 checkRequired("type", type),
@@ -1062,12 +1012,11 @@ private constructor(
         createdAt()
         dashboardTableCsv().ifPresent { it.validate() }
         entityCsv().ifPresent { it.validate() }
-        fileDownloadUrl()
-        fileId()
         form1099Int().ifPresent { it.validate() }
         form1099Misc().ifPresent { it.validate() }
         fundingInstructions().ifPresent { it.validate() }
         idempotencyKey()
+        result().ifPresent { it.validate() }
         status().validate()
         transactionCsv().ifPresent { it.validate() }
         type().validate()
@@ -1100,12 +1049,11 @@ private constructor(
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (dashboardTableCsv.asKnown().getOrNull()?.validity() ?: 0) +
             (entityCsv.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (fileDownloadUrl.asKnown().isPresent) 1 else 0) +
-            (if (fileId.asKnown().isPresent) 1 else 0) +
             (form1099Int.asKnown().getOrNull()?.validity() ?: 0) +
             (form1099Misc.asKnown().getOrNull()?.validity() ?: 0) +
             (fundingInstructions.asKnown().getOrNull()?.validity() ?: 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
+            (result.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (transactionCsv.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -4068,6 +4016,166 @@ private constructor(
             "FundingInstructions{accountNumberId=$accountNumberId, additionalProperties=$additionalProperties}"
     }
 
+    /**
+     * The result of the Export. This will be present when the Export's status transitions to
+     * `complete`.
+     */
+    class Result
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val fileId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of()
+        ) : this(fileId, mutableMapOf())
+
+        /**
+         * The File containing the contents of the Export.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun fileId(): String = fileId.getRequired("file_id")
+
+        /**
+         * Returns the raw JSON value of [fileId].
+         *
+         * Unlike [fileId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Result].
+             *
+             * The following fields are required:
+             * ```java
+             * .fileId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Result]. */
+        class Builder internal constructor() {
+
+            private var fileId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(result: Result) = apply {
+                fileId = result.fileId
+                additionalProperties = result.additionalProperties.toMutableMap()
+            }
+
+            /** The File containing the contents of the Export. */
+            fun fileId(fileId: String) = fileId(JsonField.of(fileId))
+
+            /**
+             * Sets [Builder.fileId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.fileId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Result].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .fileId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Result =
+                Result(checkRequired("fileId", fileId), additionalProperties.toMutableMap())
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Result = apply {
+            if (validated) {
+                return@apply
+            }
+
+            fileId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = (if (fileId.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Result &&
+                fileId == other.fileId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(fileId, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Result{fileId=$fileId, additionalProperties=$additionalProperties}"
+    }
+
     /** The status of the Export. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -4891,12 +4999,11 @@ private constructor(
             createdAt == other.createdAt &&
             dashboardTableCsv == other.dashboardTableCsv &&
             entityCsv == other.entityCsv &&
-            fileDownloadUrl == other.fileDownloadUrl &&
-            fileId == other.fileId &&
             form1099Int == other.form1099Int &&
             form1099Misc == other.form1099Misc &&
             fundingInstructions == other.fundingInstructions &&
             idempotencyKey == other.idempotencyKey &&
+            result == other.result &&
             status == other.status &&
             transactionCsv == other.transactionCsv &&
             type == other.type &&
@@ -4916,12 +5023,11 @@ private constructor(
             createdAt,
             dashboardTableCsv,
             entityCsv,
-            fileDownloadUrl,
-            fileId,
             form1099Int,
             form1099Misc,
             fundingInstructions,
             idempotencyKey,
+            result,
             status,
             transactionCsv,
             type,
@@ -4933,5 +5039,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Export{id=$id, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, category=$category, createdAt=$createdAt, dashboardTableCsv=$dashboardTableCsv, entityCsv=$entityCsv, fileDownloadUrl=$fileDownloadUrl, fileId=$fileId, form1099Int=$form1099Int, form1099Misc=$form1099Misc, fundingInstructions=$fundingInstructions, idempotencyKey=$idempotencyKey, status=$status, transactionCsv=$transactionCsv, type=$type, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
+        "Export{id=$id, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, category=$category, createdAt=$createdAt, dashboardTableCsv=$dashboardTableCsv, entityCsv=$entityCsv, form1099Int=$form1099Int, form1099Misc=$form1099Misc, fundingInstructions=$fundingInstructions, idempotencyKey=$idempotencyKey, result=$result, status=$status, transactionCsv=$transactionCsv, type=$type, vendorCsv=$vendorCsv, additionalProperties=$additionalProperties}"
 }
