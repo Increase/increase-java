@@ -86,7 +86,7 @@ private constructor(
     fun naturalPerson(): Optional<NaturalPerson> = body.naturalPerson()
 
     /**
-     * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+     * An assessment of the entity's potential risk of involvement in financial crimes, such as
      * money laundering.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -353,7 +353,7 @@ private constructor(
         }
 
         /**
-         * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+         * An assessment of the entity's potential risk of involvement in financial crimes, such as
          * money laundering.
          */
         fun riskRating(riskRating: RiskRating) = apply { body.riskRating(riskRating) }
@@ -712,7 +712,7 @@ private constructor(
         fun naturalPerson(): Optional<NaturalPerson> = naturalPerson.getOptional("natural_person")
 
         /**
-         * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+         * An assessment of the entity's potential risk of involvement in financial crimes, such as
          * money laundering.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -1009,7 +1009,7 @@ private constructor(
             }
 
             /**
-             * An assessment of the entity’s potential risk of involvement in financial crimes, such
+             * An assessment of the entity's potential risk of involvement in financial crimes, such
              * as money laundering.
              */
             fun riskRating(riskRating: RiskRating) = riskRating(JsonField.of(riskRating))
@@ -10709,7 +10709,7 @@ private constructor(
     }
 
     /**
-     * An assessment of the entity’s potential risk of involvement in financial crimes, such as
+     * An assessment of the entity's potential risk of involvement in financial crimes, such as
      * money laundering.
      */
     class RiskRating
