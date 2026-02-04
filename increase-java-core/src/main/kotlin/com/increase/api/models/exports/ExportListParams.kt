@@ -22,6 +22,8 @@ private constructor(
     private val category: Category?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
+    private val form1099Int: Form1099Int?,
+    private val form1099Misc: Form1099Misc?,
     private val idempotencyKey: String?,
     private val limit: Long?,
     private val status: Status?,
@@ -29,12 +31,17 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
+    /** Filter Exports for those with the specified category. */
     fun category(): Optional<Category> = Optional.ofNullable(category)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
     /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
+
+    fun form1099Int(): Optional<Form1099Int> = Optional.ofNullable(form1099Int)
+
+    fun form1099Misc(): Optional<Form1099Misc> = Optional.ofNullable(form1099Misc)
 
     /**
      * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -70,6 +77,8 @@ private constructor(
         private var category: Category? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
+        private var form1099Int: Form1099Int? = null
+        private var form1099Misc: Form1099Misc? = null
         private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var status: Status? = null
@@ -81,6 +90,8 @@ private constructor(
             category = exportListParams.category
             createdAt = exportListParams.createdAt
             cursor = exportListParams.cursor
+            form1099Int = exportListParams.form1099Int
+            form1099Misc = exportListParams.form1099Misc
             idempotencyKey = exportListParams.idempotencyKey
             limit = exportListParams.limit
             status = exportListParams.status
@@ -88,6 +99,7 @@ private constructor(
             additionalQueryParams = exportListParams.additionalQueryParams.toBuilder()
         }
 
+        /** Filter Exports for those with the specified category. */
         fun category(category: Category?) = apply { this.category = category }
 
         /** Alias for calling [Builder.category] with `category.orElse(null)`. */
@@ -103,6 +115,17 @@ private constructor(
 
         /** Alias for calling [Builder.cursor] with `cursor.orElse(null)`. */
         fun cursor(cursor: Optional<String>) = cursor(cursor.getOrNull())
+
+        fun form1099Int(form1099Int: Form1099Int?) = apply { this.form1099Int = form1099Int }
+
+        /** Alias for calling [Builder.form1099Int] with `form1099Int.orElse(null)`. */
+        fun form1099Int(form1099Int: Optional<Form1099Int>) = form1099Int(form1099Int.getOrNull())
+
+        fun form1099Misc(form1099Misc: Form1099Misc?) = apply { this.form1099Misc = form1099Misc }
+
+        /** Alias for calling [Builder.form1099Misc] with `form1099Misc.orElse(null)`. */
+        fun form1099Misc(form1099Misc: Optional<Form1099Misc>) =
+            form1099Misc(form1099Misc.getOrNull())
 
         /**
          * Filter records to the one with the specified `idempotency_key` you chose for that object.
@@ -244,6 +267,8 @@ private constructor(
                 category,
                 createdAt,
                 cursor,
+                form1099Int,
+                form1099Misc,
                 idempotencyKey,
                 limit,
                 status,
@@ -257,16 +282,7 @@ private constructor(
     override fun _queryParams(): QueryParams =
         QueryParams.builder()
             .apply {
-                category?.let {
-                    it.in_().ifPresent {
-                        put("category.in", it.joinToString(",") { it.toString() })
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("category.$key", value)
-                        }
-                    }
-                }
+                category?.let { put("category", it.toString()) }
                 createdAt?.let {
                     it.after().ifPresent {
                         put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
@@ -293,6 +309,22 @@ private constructor(
                     }
                 }
                 cursor?.let { put("cursor", it) }
+                form1099Int?.let {
+                    it.accountId().ifPresent { put("form_1099_int.account_id", it) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("form_1099_int.$key", value)
+                        }
+                    }
+                }
+                form1099Misc?.let {
+                    it.accountId().ifPresent { put("form_1099_misc.account_id", it) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("form_1099_misc.$key", value)
+                        }
+                    }
+                }
                 idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
                 status?.let {
@@ -307,379 +339,255 @@ private constructor(
             }
             .build()
 
-    class Category
-    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
+    /** Filter Exports for those with the specified category. */
+    class Category @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
-         * Filter Exports for those with the specified category or categories. For GET requests,
-         * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [Category]. */
-            @JvmStatic fun builder() = Builder()
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
+            @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
+
+            /**
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
+             */
+            @JvmField val ACCOUNT_STATEMENT_BAI2 = of("account_statement_bai2")
+
+            /** Export a CSV of all transactions for a given time range. */
+            @JvmField val TRANSACTION_CSV = of("transaction_csv")
+
+            /** Export a CSV of account balances for the dates in a given range. */
+            @JvmField val BALANCE_CSV = of("balance_csv")
+
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
+            @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
+
+            /** Export a CSV of entities with a given status. */
+            @JvmField val ENTITY_CSV = of("entity_csv")
+
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
+            @JvmField val VENDOR_CSV = of("vendor_csv")
+
+            /**
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
+             */
+            @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
+
+            /** A PDF of an account verification letter. */
+            @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
+
+            /** A PDF of funding instructions. */
+            @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
+
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            @JvmField val FORM_1099_INT = of("form_1099_int")
+
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            @JvmField val FORM_1099_MISC = of("form_1099_misc")
+
+            @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
 
-        /** A builder for [Category]. */
-        class Builder internal constructor() {
-
-            private var in_: MutableList<In>? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(category: Category) = apply {
-                in_ = category.in_?.toMutableList()
-                additionalProperties = category.additionalProperties.toBuilder()
-            }
-
+        /** An enum containing [Category]'s known values. */
+        enum class Known {
             /**
-             * Filter Exports for those with the specified category or categories. For GET requests,
-             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
              */
-            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
-
-            /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
-            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
-
+            ACCOUNT_STATEMENT_OFX,
             /**
-             * Adds a single [In] to [Builder.in_].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
              */
-            fun addIn(in_: In) = apply {
-                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
-            }
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
+            ACCOUNT_STATEMENT_BAI2,
+            /** Export a CSV of all transactions for a given time range. */
+            TRANSACTION_CSV,
+            /** Export a CSV of account balances for the dates in a given range. */
+            BALANCE_CSV,
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
+            BOOKKEEPING_ACCOUNT_BALANCE_CSV,
+            /** Export a CSV of entities with a given status. */
+            ENTITY_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
+            VENDOR_CSV,
             /**
-             * Returns an immutable instance of [Category].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
              */
-            fun build(): Category = Category(in_?.toImmutable(), additionalProperties.build())
+            DASHBOARD_TABLE_CSV,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            FORM_1099_INT,
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
         }
 
-        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
+        /**
+         * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Category] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
             /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
              */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /**
-                 * Export an Open Financial Exchange (OFX) file of transactions and balances for a
-                 * given time range and Account.
-                 */
-                @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
-
-                /**
-                 * Export a BAI2 file of transactions and balances for a given date and optional
-                 * Account.
-                 */
-                @JvmField val ACCOUNT_STATEMENT_BAI2 = of("account_statement_bai2")
-
-                /** Export a CSV of all transactions for a given time range. */
-                @JvmField val TRANSACTION_CSV = of("transaction_csv")
-
-                /** Export a CSV of account balances for the dates in a given range. */
-                @JvmField val BALANCE_CSV = of("balance_csv")
-
-                /** Export a CSV of bookkeeping account balances for the dates in a given range. */
-                @JvmField
-                val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
-
-                /** Export a CSV of entities with a given status. */
-                @JvmField val ENTITY_CSV = of("entity_csv")
-
-                /** Export a CSV of vendors added to the third-party risk management dashboard. */
-                @JvmField val VENDOR_CSV = of("vendor_csv")
-
-                /**
-                 * Certain dashboard tables are available as CSV exports. This export cannot be
-                 * created via the API.
-                 */
-                @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
-
-                /** A PDF of an account verification letter. */
-                @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
-
-                /** A PDF of funding instructions. */
-                @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
-
-                /** A PDF of an Internal Revenue Service Form 1099-INT. */
-                @JvmField val FORM_1099_INT = of("form_1099_int")
-
-                /** A PDF of an Internal Revenue Service Form 1099-MISC. */
-                @JvmField val FORM_1099_MISC = of("form_1099_misc")
-
-                @JvmStatic fun of(value: String) = In(JsonField.of(value))
-            }
-
-            /** An enum containing [In]'s known values. */
-            enum class Known {
-                /**
-                 * Export an Open Financial Exchange (OFX) file of transactions and balances for a
-                 * given time range and Account.
-                 */
-                ACCOUNT_STATEMENT_OFX,
-                /**
-                 * Export a BAI2 file of transactions and balances for a given date and optional
-                 * Account.
-                 */
-                ACCOUNT_STATEMENT_BAI2,
-                /** Export a CSV of all transactions for a given time range. */
-                TRANSACTION_CSV,
-                /** Export a CSV of account balances for the dates in a given range. */
-                BALANCE_CSV,
-                /** Export a CSV of bookkeeping account balances for the dates in a given range. */
-                BOOKKEEPING_ACCOUNT_BALANCE_CSV,
-                /** Export a CSV of entities with a given status. */
-                ENTITY_CSV,
-                /** Export a CSV of vendors added to the third-party risk management dashboard. */
-                VENDOR_CSV,
-                /**
-                 * Certain dashboard tables are available as CSV exports. This export cannot be
-                 * created via the API.
-                 */
-                DASHBOARD_TABLE_CSV,
-                /** A PDF of an account verification letter. */
-                ACCOUNT_VERIFICATION_LETTER,
-                /** A PDF of funding instructions. */
-                FUNDING_INSTRUCTIONS,
-                /** A PDF of an Internal Revenue Service Form 1099-INT. */
-                FORM_1099_INT,
-                /** A PDF of an Internal Revenue Service Form 1099-MISC. */
-                FORM_1099_MISC,
-            }
-
+            ACCOUNT_STATEMENT_OFX,
             /**
-             * An enum containing [In]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [In] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
+             * Export a BAI2 file of transactions and balances for a given date and optional
+             * Account.
              */
-            enum class Value {
-                /**
-                 * Export an Open Financial Exchange (OFX) file of transactions and balances for a
-                 * given time range and Account.
-                 */
-                ACCOUNT_STATEMENT_OFX,
-                /**
-                 * Export a BAI2 file of transactions and balances for a given date and optional
-                 * Account.
-                 */
-                ACCOUNT_STATEMENT_BAI2,
-                /** Export a CSV of all transactions for a given time range. */
-                TRANSACTION_CSV,
-                /** Export a CSV of account balances for the dates in a given range. */
-                BALANCE_CSV,
-                /** Export a CSV of bookkeeping account balances for the dates in a given range. */
-                BOOKKEEPING_ACCOUNT_BALANCE_CSV,
-                /** Export a CSV of entities with a given status. */
-                ENTITY_CSV,
-                /** Export a CSV of vendors added to the third-party risk management dashboard. */
-                VENDOR_CSV,
-                /**
-                 * Certain dashboard tables are available as CSV exports. This export cannot be
-                 * created via the API.
-                 */
-                DASHBOARD_TABLE_CSV,
-                /** A PDF of an account verification letter. */
-                ACCOUNT_VERIFICATION_LETTER,
-                /** A PDF of funding instructions. */
-                FUNDING_INSTRUCTIONS,
-                /** A PDF of an Internal Revenue Service Form 1099-INT. */
-                FORM_1099_INT,
-                /** A PDF of an Internal Revenue Service Form 1099-MISC. */
-                FORM_1099_MISC,
-                /** An enum member indicating that [In] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
+            ACCOUNT_STATEMENT_BAI2,
+            /** Export a CSV of all transactions for a given time range. */
+            TRANSACTION_CSV,
+            /** Export a CSV of account balances for the dates in a given range. */
+            BALANCE_CSV,
+            /** Export a CSV of bookkeeping account balances for the dates in a given range. */
+            BOOKKEEPING_ACCOUNT_BALANCE_CSV,
+            /** Export a CSV of entities with a given status. */
+            ENTITY_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
+            VENDOR_CSV,
             /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
              */
-            fun value(): Value =
-                when (this) {
-                    ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
-                    ACCOUNT_STATEMENT_BAI2 -> Value.ACCOUNT_STATEMENT_BAI2
-                    TRANSACTION_CSV -> Value.TRANSACTION_CSV
-                    BALANCE_CSV -> Value.BALANCE_CSV
-                    BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
-                    ENTITY_CSV -> Value.ENTITY_CSV
-                    VENDOR_CSV -> Value.VENDOR_CSV
-                    DASHBOARD_TABLE_CSV -> Value.DASHBOARD_TABLE_CSV
-                    ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
-                    FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
-                    FORM_1099_INT -> Value.FORM_1099_INT
-                    FORM_1099_MISC -> Value.FORM_1099_MISC
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
-                    ACCOUNT_STATEMENT_BAI2 -> Known.ACCOUNT_STATEMENT_BAI2
-                    TRANSACTION_CSV -> Known.TRANSACTION_CSV
-                    BALANCE_CSV -> Known.BALANCE_CSV
-                    BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
-                    ENTITY_CSV -> Known.ENTITY_CSV
-                    VENDOR_CSV -> Known.VENDOR_CSV
-                    DASHBOARD_TABLE_CSV -> Known.DASHBOARD_TABLE_CSV
-                    ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
-                    FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
-                    FORM_1099_INT -> Known.FORM_1099_INT
-                    FORM_1099_MISC -> Known.FORM_1099_MISC
-                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): In = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is In && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
+            DASHBOARD_TABLE_CSV,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            FORM_1099_INT,
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
+            /** An enum member indicating that [Category] was instantiated with an unknown value. */
+            _UNKNOWN,
         }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_STATEMENT_BAI2 -> Value.ACCOUNT_STATEMENT_BAI2
+                TRANSACTION_CSV -> Value.TRANSACTION_CSV
+                BALANCE_CSV -> Value.BALANCE_CSV
+                BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
+                ENTITY_CSV -> Value.ENTITY_CSV
+                VENDOR_CSV -> Value.VENDOR_CSV
+                DASHBOARD_TABLE_CSV -> Value.DASHBOARD_TABLE_CSV
+                ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
+                FORM_1099_INT -> Value.FORM_1099_INT
+                FORM_1099_MISC -> Value.FORM_1099_MISC
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_STATEMENT_BAI2 -> Known.ACCOUNT_STATEMENT_BAI2
+                TRANSACTION_CSV -> Known.TRANSACTION_CSV
+                BALANCE_CSV -> Known.BALANCE_CSV
+                BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
+                ENTITY_CSV -> Known.ENTITY_CSV
+                VENDOR_CSV -> Known.VENDOR_CSV
+                DASHBOARD_TABLE_CSV -> Known.DASHBOARD_TABLE_CSV
+                ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
+                FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
+                FORM_1099_INT -> Known.FORM_1099_INT
+                FORM_1099_MISC -> Known.FORM_1099_MISC
+                else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): Category = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is Category &&
-                in_ == other.in_ &&
-                additionalProperties == other.additionalProperties
+            return other is Category && value == other.value
         }
 
-        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+        override fun hashCode() = value.hashCode()
 
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() = "Category{in_=$in_, additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
     }
 
     class CreatedAt
@@ -858,6 +766,232 @@ private constructor(
 
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+    }
+
+    class Form1099Int
+    private constructor(
+        private val accountId: String?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /** Filter Form 1099-INT Exports to those for the specified Account. */
+        fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Form1099Int]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Form1099Int]. */
+        class Builder internal constructor() {
+
+            private var accountId: String? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(form1099Int: Form1099Int) = apply {
+                accountId = form1099Int.accountId
+                additionalProperties = form1099Int.additionalProperties.toBuilder()
+            }
+
+            /** Filter Form 1099-INT Exports to those for the specified Account. */
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+
+            /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
+            fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Form1099Int].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Form1099Int = Form1099Int(accountId, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Form1099Int &&
+                accountId == other.accountId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(accountId, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Form1099Int{accountId=$accountId, additionalProperties=$additionalProperties}"
+    }
+
+    class Form1099Misc
+    private constructor(
+        private val accountId: String?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /** Filter Form 1099-MISC Exports to those for the specified Account. */
+        fun accountId(): Optional<String> = Optional.ofNullable(accountId)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Form1099Misc]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Form1099Misc]. */
+        class Builder internal constructor() {
+
+            private var accountId: String? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(form1099Misc: Form1099Misc) = apply {
+                accountId = form1099Misc.accountId
+                additionalProperties = form1099Misc.additionalProperties.toBuilder()
+            }
+
+            /** Filter Form 1099-MISC Exports to those for the specified Account. */
+            fun accountId(accountId: String?) = apply { this.accountId = accountId }
+
+            /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
+            fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [Form1099Misc].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Form1099Misc = Form1099Misc(accountId, additionalProperties.build())
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Form1099Misc &&
+                accountId == other.accountId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(accountId, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Form1099Misc{accountId=$accountId, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1144,6 +1278,8 @@ private constructor(
             category == other.category &&
             createdAt == other.createdAt &&
             cursor == other.cursor &&
+            form1099Int == other.form1099Int &&
+            form1099Misc == other.form1099Misc &&
             idempotencyKey == other.idempotencyKey &&
             limit == other.limit &&
             status == other.status &&
@@ -1156,6 +1292,8 @@ private constructor(
             category,
             createdAt,
             cursor,
+            form1099Int,
+            form1099Misc,
             idempotencyKey,
             limit,
             status,
@@ -1164,5 +1302,5 @@ private constructor(
         )
 
     override fun toString() =
-        "ExportListParams{category=$category, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "ExportListParams{category=$category, createdAt=$createdAt, cursor=$cursor, form1099Int=$form1099Int, form1099Misc=$form1099Misc, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
