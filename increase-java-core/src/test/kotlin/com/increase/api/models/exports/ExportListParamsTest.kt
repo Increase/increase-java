@@ -12,11 +12,7 @@ internal class ExportListParamsTest {
     @Test
     fun create() {
         ExportListParams.builder()
-            .category(
-                ExportListParams.Category.builder()
-                    .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
-                    .build()
-            )
+            .category(ExportListParams.Category.ACCOUNT_STATEMENT_OFX)
             .createdAt(
                 ExportListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -26,6 +22,8 @@ internal class ExportListParamsTest {
                     .build()
             )
             .cursor("cursor")
+            .form1099Int(ExportListParams.Form1099Int.builder().accountId("account_id").build())
+            .form1099Misc(ExportListParams.Form1099Misc.builder().accountId("account_id").build())
             .idempotencyKey("x")
             .limit(1L)
             .status(
@@ -38,11 +36,7 @@ internal class ExportListParamsTest {
     fun queryParams() {
         val params =
             ExportListParams.builder()
-                .category(
-                    ExportListParams.Category.builder()
-                        .addIn(ExportListParams.Category.In.ACCOUNT_STATEMENT_OFX)
-                        .build()
-                )
+                .category(ExportListParams.Category.ACCOUNT_STATEMENT_OFX)
                 .createdAt(
                     ExportListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -52,6 +46,10 @@ internal class ExportListParamsTest {
                         .build()
                 )
                 .cursor("cursor")
+                .form1099Int(ExportListParams.Form1099Int.builder().accountId("account_id").build())
+                .form1099Misc(
+                    ExportListParams.Form1099Misc.builder().accountId("account_id").build()
+                )
                 .idempotencyKey("x")
                 .limit(1L)
                 .status(
@@ -66,12 +64,14 @@ internal class ExportListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("category.in", listOf("account_statement_ofx").joinToString(","))
+                    .put("category", "account_statement_ofx")
                     .put("created_at.after", "2019-12-27T18:11:19.117Z")
                     .put("created_at.before", "2019-12-27T18:11:19.117Z")
                     .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
                     .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
                     .put("cursor", "cursor")
+                    .put("form_1099_int.account_id", "account_id")
+                    .put("form_1099_misc.account_id", "account_id")
                     .put("idempotency_key", "x")
                     .put("limit", "1")
                     .put("status.in", listOf("pending").joinToString(","))
