@@ -521,14 +521,6 @@ private constructor(
                 val BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION =
                     of("blockchain_offramp_transfer_instruction")
 
-                /**
-                 * Blockchain Off-Ramp Transfer Intention: details will be under the
-                 * `blockchain_offramp_transfer_intention` object.
-                 */
-                @JvmField
-                val BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION =
-                    of("blockchain_offramp_transfer_intention")
-
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -603,11 +595,6 @@ private constructor(
                  * `blockchain_offramp_transfer_instruction` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
-                /**
-                 * Blockchain Off-Ramp Transfer Intention: details will be under the
-                 * `blockchain_offramp_transfer_intention` object.
-                 */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -688,11 +675,6 @@ private constructor(
                  * `blockchain_offramp_transfer_instruction` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
-                /**
-                 * Blockchain Off-Ramp Transfer Intention: details will be under the
-                 * `blockchain_offramp_transfer_intention` object.
-                 */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -726,8 +708,6 @@ private constructor(
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
                         Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION ->
-                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -761,8 +741,6 @@ private constructor(
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
                         Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION ->
-                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INTENTION
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
