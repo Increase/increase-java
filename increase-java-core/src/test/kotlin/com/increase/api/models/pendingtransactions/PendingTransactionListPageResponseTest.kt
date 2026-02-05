@@ -57,17 +57,6 @@ internal class PendingTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .blockchainOfframpTransferIntention(
-                                    PendingTransaction.Source.BlockchainOfframpTransferIntention
-                                        .builder()
-                                        .sourceBlockchainAddressId(
-                                            "blockchain_address_tijjpqp9t5d358ehydqi"
-                                        )
-                                        .transferId(
-                                            "blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m"
-                                        )
-                                        .build()
-                                )
                                 .blockchainOnrampTransferInstruction(
                                     PendingTransaction.Source.BlockchainOnrampTransferInstruction
                                         .builder()
@@ -471,15 +460,6 @@ internal class PendingTransactionListPageResponseTest {
                                     .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
                                     .build()
                             )
-                            .blockchainOfframpTransferIntention(
-                                PendingTransaction.Source.BlockchainOfframpTransferIntention
-                                    .builder()
-                                    .sourceBlockchainAddressId(
-                                        "blockchain_address_tijjpqp9t5d358ehydqi"
-                                    )
-                                    .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
-                                    .build()
-                            )
                             .blockchainOnrampTransferInstruction(
                                 PendingTransaction.Source.BlockchainOnrampTransferInstruction
                                     .builder()
@@ -863,17 +843,6 @@ internal class PendingTransactionListPageResponseTest {
                                 )
                                 .blockchainOfframpTransferInstruction(
                                     PendingTransaction.Source.BlockchainOfframpTransferInstruction
-                                        .builder()
-                                        .sourceBlockchainAddressId(
-                                            "blockchain_address_tijjpqp9t5d358ehydqi"
-                                        )
-                                        .transferId(
-                                            "blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m"
-                                        )
-                                        .build()
-                                )
-                                .blockchainOfframpTransferIntention(
-                                    PendingTransaction.Source.BlockchainOfframpTransferIntention
                                         .builder()
                                         .sourceBlockchainAddressId(
                                             "blockchain_address_tijjpqp9t5d358ehydqi"
