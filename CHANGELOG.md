@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.425.0 (2026-02-06)
+
+Full Changelog: [v0.424.0...v0.425.0](https://github.com/Increase/increase-java/compare/v0.424.0...v0.425.0)
+
+### Features
+
+* **api:** add webhook signature verification ([ede3f4c](https://github.com/Increase/increase-java/commit/ede3f4cc63647edcebf4426df3198a6c2a27eda6))
+
 ## 0.424.0 (2026-02-06)
 
 Full Changelog: [v0.423.0...v0.424.0](https://github.com/Increase/increase-java/compare/v0.423.0...v0.424.0)
