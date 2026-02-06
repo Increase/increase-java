@@ -11,7 +11,7 @@ internal class ProgramCreateParamsTest {
     fun create() {
         ProgramCreateParams.builder()
             .name("For Benefit Of")
-            .bank(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+            .bank(ProgramCreateParams.Bank.CORE_BANK)
             .lendingMaximumExtendableCredit(0L)
             .reserveAccountId("reserve_account_id")
             .build()
@@ -22,7 +22,7 @@ internal class ProgramCreateParamsTest {
         val params =
             ProgramCreateParams.builder()
                 .name("For Benefit Of")
-                .bank(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+                .bank(ProgramCreateParams.Bank.CORE_BANK)
                 .lendingMaximumExtendableCredit(0L)
                 .reserveAccountId("reserve_account_id")
                 .build()
@@ -30,7 +30,7 @@ internal class ProgramCreateParamsTest {
         val body = params._body()
 
         assertThat(body.name()).isEqualTo("For Benefit Of")
-        assertThat(body.bank()).contains(ProgramCreateParams.Bank.BLUE_RIDGE_BANK)
+        assertThat(body.bank()).contains(ProgramCreateParams.Bank.CORE_BANK)
         assertThat(body.lendingMaximumExtendableCredit()).contains(0L)
         assertThat(body.reserveAccountId()).contains("reserve_account_id")
     }
