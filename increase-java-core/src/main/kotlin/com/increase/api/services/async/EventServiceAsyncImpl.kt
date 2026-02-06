@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.UnwrapWebhookParams
 import com.increase.api.core.checkRequired
 import com.increase.api.core.handlers.errorBodyHandler
 import com.increase.api.core.handlers.errorHandler
@@ -15,7 +16,6 @@ import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
-import com.increase.api.errors.IncreaseInvalidDataException
 import com.increase.api.models.events.Event
 import com.increase.api.models.events.EventListPageAsync
 import com.increase.api.models.events.EventListPageResponse
@@ -53,13 +53,11 @@ class EventServiceAsyncImpl internal constructor(private val clientOptions: Clie
         // get /events
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
 
-    /**
-     * Unwraps a webhook event from its JSON representation.
-     *
-     * @throws IncreaseInvalidDataException if the body could not be parsed.
-     */
     override fun unwrap(body: String): UnwrapWebhookEvent =
         EventServiceImpl(clientOptions).unwrap(body)
+
+    override fun unwrap(unwrapParams: UnwrapWebhookParams): UnwrapWebhookEvent =
+        EventServiceImpl(clientOptions).unwrap(unwrapParams)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EventServiceAsync.WithRawResponse {
