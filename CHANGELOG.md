@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.426.0 (2026-02-07)
+
+Full Changelog: [v0.425.0...v0.426.0](https://github.com/Increase/increase-java/compare/v0.425.0...v0.426.0)
+
+### Features
+
+* **api:** api update ([8cce3f5](https://github.com/Increase/increase-java/commit/8cce3f5b9b8b10010953b2b6e2d9017fae724a8e))
+
+
+### Chores
+
+* **internal:** upgrade AssertJ ([bfba6a5](https://github.com/Increase/increase-java/commit/bfba6a58b6f3ab2dafdf1f42e09b98ddff81fa28))
+
 ## 0.425.0 (2026-02-06)
 
 Full Changelog: [v0.424.0...v0.425.0](https://github.com/Increase/increase-java/compare/v0.424.0...v0.425.0)
