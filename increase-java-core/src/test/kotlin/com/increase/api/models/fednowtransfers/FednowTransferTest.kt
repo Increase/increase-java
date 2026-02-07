@@ -26,12 +26,12 @@ internal class FednowTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     FednowTransfer.CreatedBy.builder()
+                        .category(FednowTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             FednowTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(FednowTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             FednowTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -85,10 +85,10 @@ internal class FednowTransferTest {
         assertThat(fednowTransfer.createdBy())
             .contains(
                 FednowTransfer.CreatedBy.builder()
+                    .category(FednowTransfer.CreatedBy.Category.USER)
                     .apiKey(
                         FednowTransfer.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(FednowTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         FednowTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
@@ -145,12 +145,12 @@ internal class FednowTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     FednowTransfer.CreatedBy.builder()
+                        .category(FednowTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             FednowTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(FednowTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             FednowTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )

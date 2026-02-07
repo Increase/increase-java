@@ -27,6 +27,7 @@ internal class PendingTransactionTest {
                 .routeType(PendingTransaction.RouteType.CARD)
                 .source(
                     PendingTransaction.Source.builder()
+                        .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .accountTransferInstruction(
                             PendingTransaction.Source.AccountTransferInstruction.builder()
                                 .amount(100L)
@@ -292,7 +293,6 @@ internal class PendingTransactionTest {
                                 .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                                 .build()
                         )
-                        .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
                                 .amount(100L)
@@ -387,6 +387,7 @@ internal class PendingTransactionTest {
         assertThat(pendingTransaction.source())
             .isEqualTo(
                 PendingTransaction.Source.builder()
+                    .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                     .accountTransferInstruction(
                         PendingTransaction.Source.AccountTransferInstruction.builder()
                             .amount(100L)
@@ -641,7 +642,6 @@ internal class PendingTransactionTest {
                             .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                             .build()
                     )
-                    .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                     .checkDepositInstruction(
                         PendingTransaction.Source.CheckDepositInstruction.builder()
                             .amount(100L)
@@ -736,6 +736,7 @@ internal class PendingTransactionTest {
                 .routeType(PendingTransaction.RouteType.CARD)
                 .source(
                     PendingTransaction.Source.builder()
+                        .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .accountTransferInstruction(
                             PendingTransaction.Source.AccountTransferInstruction.builder()
                                 .amount(100L)
@@ -1001,7 +1002,6 @@ internal class PendingTransactionTest {
                                 .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                                 .build()
                         )
-                        .category(PendingTransaction.Source.Category.ACH_TRANSFER_INSTRUCTION)
                         .checkDepositInstruction(
                             PendingTransaction.Source.CheckDepositInstruction.builder()
                                 .amount(100L)

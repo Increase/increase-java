@@ -34,12 +34,12 @@ internal class WireTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     WireTransfer.CreatedBy.builder()
+                        .category(WireTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             WireTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(WireTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             WireTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -156,10 +156,10 @@ internal class WireTransferTest {
         assertThat(wireTransfer.createdBy())
             .contains(
                 WireTransfer.CreatedBy.builder()
+                    .category(WireTransfer.CreatedBy.Category.USER)
                     .apiKey(
                         WireTransfer.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(WireTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         WireTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
@@ -282,12 +282,12 @@ internal class WireTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     WireTransfer.CreatedBy.builder()
+                        .category(WireTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             WireTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(WireTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             WireTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )

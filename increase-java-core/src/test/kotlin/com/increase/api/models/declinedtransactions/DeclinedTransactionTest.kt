@@ -24,6 +24,7 @@ internal class DeclinedTransactionTest {
                 .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     DeclinedTransaction.Source.builder()
+                        .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                         .achDecline(
                             DeclinedTransaction.Source.AchDecline.builder()
                                 .id("ach_decline_72v1mcwxudctq56efipa")
@@ -251,7 +252,6 @@ internal class DeclinedTransactionTest {
                                 )
                                 .build()
                         )
-                        .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                         .checkDecline(
                             DeclinedTransaction.Source.CheckDecline.builder()
                                 .amount(-1000L)
@@ -345,6 +345,7 @@ internal class DeclinedTransactionTest {
         assertThat(declinedTransaction.source())
             .isEqualTo(
                 DeclinedTransaction.Source.builder()
+                    .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                     .achDecline(
                         DeclinedTransaction.Source.AchDecline.builder()
                             .id("ach_decline_72v1mcwxudctq56efipa")
@@ -561,7 +562,6 @@ internal class DeclinedTransactionTest {
                             )
                             .build()
                     )
-                    .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                     .checkDecline(
                         DeclinedTransaction.Source.CheckDecline.builder()
                             .amount(-1000L)
@@ -650,6 +650,7 @@ internal class DeclinedTransactionTest {
                 .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     DeclinedTransaction.Source.builder()
+                        .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                         .achDecline(
                             DeclinedTransaction.Source.AchDecline.builder()
                                 .id("ach_decline_72v1mcwxudctq56efipa")
@@ -877,7 +878,6 @@ internal class DeclinedTransactionTest {
                                 )
                                 .build()
                         )
-                        .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                         .checkDecline(
                             DeclinedTransaction.Source.CheckDecline.builder()
                                 .amount(-1000L)

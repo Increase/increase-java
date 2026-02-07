@@ -25,6 +25,7 @@ internal class TransactionTest {
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
+                        .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                         .accountRevenuePayment(
                             Transaction.Source.AccountRevenuePayment.builder()
                                 .accruedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -806,7 +807,6 @@ internal class TransactionTest {
                                 .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                 .build()
                         )
-                        .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
                                 .accountNumber("987654321")
@@ -1048,6 +1048,7 @@ internal class TransactionTest {
         assertThat(transaction.source())
             .isEqualTo(
                 Transaction.Source.builder()
+                    .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                     .accountRevenuePayment(
                         Transaction.Source.AccountRevenuePayment.builder()
                             .accruedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -1781,7 +1782,6 @@ internal class TransactionTest {
                             .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                             .build()
                     )
-                    .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                     .checkDepositAcceptance(
                         Transaction.Source.CheckDepositAcceptance.builder()
                             .accountNumber("987654321")
@@ -2022,6 +2022,7 @@ internal class TransactionTest {
                 .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                 .source(
                     Transaction.Source.builder()
+                        .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                         .accountRevenuePayment(
                             Transaction.Source.AccountRevenuePayment.builder()
                                 .accruedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -2803,7 +2804,6 @@ internal class TransactionTest {
                                 .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                 .build()
                         )
-                        .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                         .checkDepositAcceptance(
                             Transaction.Source.CheckDepositAcceptance.builder()
                                 .accountNumber("987654321")

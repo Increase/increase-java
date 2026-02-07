@@ -1808,11 +1808,11 @@ private constructor(
         private constructor(
             private val attachmentFiles: JsonField<List<AttachmentFile>>,
             private val category: JsonField<Category>,
+            private val createdAt: JsonField<OffsetDateTime>,
+            private val disputeFinancialTransactionId: JsonField<String>,
             private val chargebackAccepted: JsonField<ChargebackAccepted>,
             private val chargebackSubmitted: JsonField<ChargebackSubmitted>,
             private val chargebackTimedOut: JsonField<ChargebackTimedOut>,
-            private val createdAt: JsonField<OffsetDateTime>,
-            private val disputeFinancialTransactionId: JsonField<String>,
             private val merchantPrearbitrationDeclineSubmitted:
                 JsonField<MerchantPrearbitrationDeclineSubmitted>,
             private val merchantPrearbitrationReceived: JsonField<MerchantPrearbitrationReceived>,
@@ -1835,6 +1835,12 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("dispute_financial_transaction_id")
+                @ExcludeMissing
+                disputeFinancialTransactionId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("chargeback_accepted")
                 @ExcludeMissing
                 chargebackAccepted: JsonField<ChargebackAccepted> = JsonMissing.of(),
@@ -1844,12 +1850,6 @@ private constructor(
                 @JsonProperty("chargeback_timed_out")
                 @ExcludeMissing
                 chargebackTimedOut: JsonField<ChargebackTimedOut> = JsonMissing.of(),
-                @JsonProperty("created_at")
-                @ExcludeMissing
-                createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("dispute_financial_transaction_id")
-                @ExcludeMissing
-                disputeFinancialTransactionId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("merchant_prearbitration_decline_submitted")
                 @ExcludeMissing
                 merchantPrearbitrationDeclineSubmitted:
@@ -1891,11 +1891,11 @@ private constructor(
             ) : this(
                 attachmentFiles,
                 category,
+                createdAt,
+                disputeFinancialTransactionId,
                 chargebackAccepted,
                 chargebackSubmitted,
                 chargebackTimedOut,
-                createdAt,
-                disputeFinancialTransactionId,
                 merchantPrearbitrationDeclineSubmitted,
                 merchantPrearbitrationReceived,
                 merchantPrearbitrationTimedOut,
@@ -1928,6 +1928,25 @@ private constructor(
              *   value).
              */
             fun category(): Category = category.getRequired("category")
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Visa Card Dispute Network Event was created.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            /**
+             * The dispute financial transaction that resulted from the network event, if any.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun disputeFinancialTransactionId(): Optional<String> =
+                disputeFinancialTransactionId.getOptional("dispute_financial_transaction_id")
 
             /**
              * A Card Dispute Chargeback Accepted Visa Network Event object. This field will be
@@ -1967,25 +1986,6 @@ private constructor(
              */
             fun chargebackTimedOut(): Optional<ChargebackTimedOut> =
                 chargebackTimedOut.getOptional("chargeback_timed_out")
-
-            /**
-             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-             * Visa Card Dispute Network Event was created.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-            /**
-             * The dispute financial transaction that resulted from the network event, if any.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun disputeFinancialTransactionId(): Optional<String> =
-                disputeFinancialTransactionId.getOptional("dispute_financial_transaction_id")
 
             /**
              * A Card Dispute Merchant Pre-Arbitration Decline Submitted Visa Network Event object.
@@ -2141,6 +2141,26 @@ private constructor(
             fun _category(): JsonField<Category> = category
 
             /**
+             * Returns the raw JSON value of [createdAt].
+             *
+             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+            /**
+             * Returns the raw JSON value of [disputeFinancialTransactionId].
+             *
+             * Unlike [disputeFinancialTransactionId], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("dispute_financial_transaction_id")
+            @ExcludeMissing
+            fun _disputeFinancialTransactionId(): JsonField<String> = disputeFinancialTransactionId
+
+            /**
              * Returns the raw JSON value of [chargebackAccepted].
              *
              * Unlike [chargebackAccepted], this method doesn't throw if the JSON field has an
@@ -2169,26 +2189,6 @@ private constructor(
             @JsonProperty("chargeback_timed_out")
             @ExcludeMissing
             fun _chargebackTimedOut(): JsonField<ChargebackTimedOut> = chargebackTimedOut
-
-            /**
-             * Returns the raw JSON value of [createdAt].
-             *
-             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
-
-            /**
-             * Returns the raw JSON value of [disputeFinancialTransactionId].
-             *
-             * Unlike [disputeFinancialTransactionId], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @JsonProperty("dispute_financial_transaction_id")
-            @ExcludeMissing
-            fun _disputeFinancialTransactionId(): JsonField<String> = disputeFinancialTransactionId
 
             /**
              * Returns the raw JSON value of [merchantPrearbitrationDeclineSubmitted].
@@ -2320,21 +2320,8 @@ private constructor(
                  * ```java
                  * .attachmentFiles()
                  * .category()
-                 * .chargebackAccepted()
-                 * .chargebackSubmitted()
-                 * .chargebackTimedOut()
                  * .createdAt()
                  * .disputeFinancialTransactionId()
-                 * .merchantPrearbitrationDeclineSubmitted()
-                 * .merchantPrearbitrationReceived()
-                 * .merchantPrearbitrationTimedOut()
-                 * .represented()
-                 * .representmentTimedOut()
-                 * .userPrearbitrationAccepted()
-                 * .userPrearbitrationDeclined()
-                 * .userPrearbitrationSubmitted()
-                 * .userPrearbitrationTimedOut()
-                 * .userWithdrawalSubmitted()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -2345,42 +2332,44 @@ private constructor(
 
                 private var attachmentFiles: JsonField<MutableList<AttachmentFile>>? = null
                 private var category: JsonField<Category>? = null
-                private var chargebackAccepted: JsonField<ChargebackAccepted>? = null
-                private var chargebackSubmitted: JsonField<ChargebackSubmitted>? = null
-                private var chargebackTimedOut: JsonField<ChargebackTimedOut>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
                 private var disputeFinancialTransactionId: JsonField<String>? = null
+                private var chargebackAccepted: JsonField<ChargebackAccepted> = JsonMissing.of()
+                private var chargebackSubmitted: JsonField<ChargebackSubmitted> = JsonMissing.of()
+                private var chargebackTimedOut: JsonField<ChargebackTimedOut> = JsonMissing.of()
                 private var merchantPrearbitrationDeclineSubmitted:
-                    JsonField<MerchantPrearbitrationDeclineSubmitted>? =
-                    null
+                    JsonField<MerchantPrearbitrationDeclineSubmitted> =
+                    JsonMissing.of()
                 private var merchantPrearbitrationReceived:
-                    JsonField<MerchantPrearbitrationReceived>? =
-                    null
+                    JsonField<MerchantPrearbitrationReceived> =
+                    JsonMissing.of()
                 private var merchantPrearbitrationTimedOut:
-                    JsonField<MerchantPrearbitrationTimedOut>? =
-                    null
-                private var represented: JsonField<Represented>? = null
-                private var representmentTimedOut: JsonField<RepresentmentTimedOut>? = null
-                private var userPrearbitrationAccepted: JsonField<UserPrearbitrationAccepted>? =
-                    null
-                private var userPrearbitrationDeclined: JsonField<UserPrearbitrationDeclined>? =
-                    null
-                private var userPrearbitrationSubmitted: JsonField<UserPrearbitrationSubmitted>? =
-                    null
-                private var userPrearbitrationTimedOut: JsonField<UserPrearbitrationTimedOut>? =
-                    null
-                private var userWithdrawalSubmitted: JsonField<UserWithdrawalSubmitted>? = null
+                    JsonField<MerchantPrearbitrationTimedOut> =
+                    JsonMissing.of()
+                private var represented: JsonField<Represented> = JsonMissing.of()
+                private var representmentTimedOut: JsonField<RepresentmentTimedOut> =
+                    JsonMissing.of()
+                private var userPrearbitrationAccepted: JsonField<UserPrearbitrationAccepted> =
+                    JsonMissing.of()
+                private var userPrearbitrationDeclined: JsonField<UserPrearbitrationDeclined> =
+                    JsonMissing.of()
+                private var userPrearbitrationSubmitted: JsonField<UserPrearbitrationSubmitted> =
+                    JsonMissing.of()
+                private var userPrearbitrationTimedOut: JsonField<UserPrearbitrationTimedOut> =
+                    JsonMissing.of()
+                private var userWithdrawalSubmitted: JsonField<UserWithdrawalSubmitted> =
+                    JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(networkEvent: NetworkEvent) = apply {
                     attachmentFiles = networkEvent.attachmentFiles.map { it.toMutableList() }
                     category = networkEvent.category
+                    createdAt = networkEvent.createdAt
+                    disputeFinancialTransactionId = networkEvent.disputeFinancialTransactionId
                     chargebackAccepted = networkEvent.chargebackAccepted
                     chargebackSubmitted = networkEvent.chargebackSubmitted
                     chargebackTimedOut = networkEvent.chargebackTimedOut
-                    createdAt = networkEvent.createdAt
-                    disputeFinancialTransactionId = networkEvent.disputeFinancialTransactionId
                     merchantPrearbitrationDeclineSubmitted =
                         networkEvent.merchantPrearbitrationDeclineSubmitted
                     merchantPrearbitrationReceived = networkEvent.merchantPrearbitrationReceived
@@ -2437,6 +2426,49 @@ private constructor(
                  * yet supported value.
                  */
                 fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * Visa Card Dispute Network Event was created.
+                 */
+                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                /**
+                 * Sets [Builder.createdAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                    this.createdAt = createdAt
+                }
+
+                /**
+                 * The dispute financial transaction that resulted from the network event, if any.
+                 */
+                fun disputeFinancialTransactionId(disputeFinancialTransactionId: String?) =
+                    disputeFinancialTransactionId(
+                        JsonField.ofNullable(disputeFinancialTransactionId)
+                    )
+
+                /**
+                 * Alias for calling [Builder.disputeFinancialTransactionId] with
+                 * `disputeFinancialTransactionId.orElse(null)`.
+                 */
+                fun disputeFinancialTransactionId(disputeFinancialTransactionId: Optional<String>) =
+                    disputeFinancialTransactionId(disputeFinancialTransactionId.getOrNull())
+
+                /**
+                 * Sets [Builder.disputeFinancialTransactionId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.disputeFinancialTransactionId] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun disputeFinancialTransactionId(
+                    disputeFinancialTransactionId: JsonField<String>
+                ) = apply { this.disputeFinancialTransactionId = disputeFinancialTransactionId }
 
                 /**
                  * A Card Dispute Chargeback Accepted Visa Network Event object. This field will be
@@ -2522,49 +2554,6 @@ private constructor(
                 fun chargebackTimedOut(chargebackTimedOut: JsonField<ChargebackTimedOut>) = apply {
                     this.chargebackTimedOut = chargebackTimedOut
                 }
-
-                /**
-                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-                 * Visa Card Dispute Network Event was created.
-                 */
-                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
-
-                /**
-                 * Sets [Builder.createdAt] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
-                    this.createdAt = createdAt
-                }
-
-                /**
-                 * The dispute financial transaction that resulted from the network event, if any.
-                 */
-                fun disputeFinancialTransactionId(disputeFinancialTransactionId: String?) =
-                    disputeFinancialTransactionId(
-                        JsonField.ofNullable(disputeFinancialTransactionId)
-                    )
-
-                /**
-                 * Alias for calling [Builder.disputeFinancialTransactionId] with
-                 * `disputeFinancialTransactionId.orElse(null)`.
-                 */
-                fun disputeFinancialTransactionId(disputeFinancialTransactionId: Optional<String>) =
-                    disputeFinancialTransactionId(disputeFinancialTransactionId.getOrNull())
-
-                /**
-                 * Sets [Builder.disputeFinancialTransactionId] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.disputeFinancialTransactionId] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun disputeFinancialTransactionId(
-                    disputeFinancialTransactionId: JsonField<String>
-                ) = apply { this.disputeFinancialTransactionId = disputeFinancialTransactionId }
 
                 /**
                  * A Card Dispute Merchant Pre-Arbitration Decline Submitted Visa Network Event
@@ -2908,21 +2897,8 @@ private constructor(
                  * ```java
                  * .attachmentFiles()
                  * .category()
-                 * .chargebackAccepted()
-                 * .chargebackSubmitted()
-                 * .chargebackTimedOut()
                  * .createdAt()
                  * .disputeFinancialTransactionId()
-                 * .merchantPrearbitrationDeclineSubmitted()
-                 * .merchantPrearbitrationReceived()
-                 * .merchantPrearbitrationTimedOut()
-                 * .represented()
-                 * .representmentTimedOut()
-                 * .userPrearbitrationAccepted()
-                 * .userPrearbitrationDeclined()
-                 * .userPrearbitrationSubmitted()
-                 * .userPrearbitrationTimedOut()
-                 * .userWithdrawalSubmitted()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -2931,33 +2907,24 @@ private constructor(
                     NetworkEvent(
                         checkRequired("attachmentFiles", attachmentFiles).map { it.toImmutable() },
                         checkRequired("category", category),
-                        checkRequired("chargebackAccepted", chargebackAccepted),
-                        checkRequired("chargebackSubmitted", chargebackSubmitted),
-                        checkRequired("chargebackTimedOut", chargebackTimedOut),
                         checkRequired("createdAt", createdAt),
                         checkRequired(
                             "disputeFinancialTransactionId",
                             disputeFinancialTransactionId,
                         ),
-                        checkRequired(
-                            "merchantPrearbitrationDeclineSubmitted",
-                            merchantPrearbitrationDeclineSubmitted,
-                        ),
-                        checkRequired(
-                            "merchantPrearbitrationReceived",
-                            merchantPrearbitrationReceived,
-                        ),
-                        checkRequired(
-                            "merchantPrearbitrationTimedOut",
-                            merchantPrearbitrationTimedOut,
-                        ),
-                        checkRequired("represented", represented),
-                        checkRequired("representmentTimedOut", representmentTimedOut),
-                        checkRequired("userPrearbitrationAccepted", userPrearbitrationAccepted),
-                        checkRequired("userPrearbitrationDeclined", userPrearbitrationDeclined),
-                        checkRequired("userPrearbitrationSubmitted", userPrearbitrationSubmitted),
-                        checkRequired("userPrearbitrationTimedOut", userPrearbitrationTimedOut),
-                        checkRequired("userWithdrawalSubmitted", userWithdrawalSubmitted),
+                        chargebackAccepted,
+                        chargebackSubmitted,
+                        chargebackTimedOut,
+                        merchantPrearbitrationDeclineSubmitted,
+                        merchantPrearbitrationReceived,
+                        merchantPrearbitrationTimedOut,
+                        represented,
+                        representmentTimedOut,
+                        userPrearbitrationAccepted,
+                        userPrearbitrationDeclined,
+                        userPrearbitrationSubmitted,
+                        userPrearbitrationTimedOut,
+                        userWithdrawalSubmitted,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -2971,11 +2938,11 @@ private constructor(
 
                 attachmentFiles().forEach { it.validate() }
                 category().validate()
+                createdAt()
+                disputeFinancialTransactionId()
                 chargebackAccepted().ifPresent { it.validate() }
                 chargebackSubmitted().ifPresent { it.validate() }
                 chargebackTimedOut().ifPresent { it.validate() }
-                createdAt()
-                disputeFinancialTransactionId()
                 merchantPrearbitrationDeclineSubmitted().ifPresent { it.validate() }
                 merchantPrearbitrationReceived().ifPresent { it.validate() }
                 merchantPrearbitrationTimedOut().ifPresent { it.validate() }
@@ -3007,11 +2974,11 @@ private constructor(
             internal fun validity(): Int =
                 (attachmentFiles.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (category.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (createdAt.asKnown().isPresent) 1 else 0) +
+                    (if (disputeFinancialTransactionId.asKnown().isPresent) 1 else 0) +
                     (chargebackAccepted.asKnown().getOrNull()?.validity() ?: 0) +
                     (chargebackSubmitted.asKnown().getOrNull()?.validity() ?: 0) +
                     (chargebackTimedOut.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (createdAt.asKnown().isPresent) 1 else 0) +
-                    (if (disputeFinancialTransactionId.asKnown().isPresent) 1 else 0) +
                     (merchantPrearbitrationDeclineSubmitted.asKnown().getOrNull()?.validity()
                         ?: 0) +
                     (merchantPrearbitrationReceived.asKnown().getOrNull()?.validity() ?: 0) +
@@ -11244,11 +11211,11 @@ private constructor(
                 return other is NetworkEvent &&
                     attachmentFiles == other.attachmentFiles &&
                     category == other.category &&
+                    createdAt == other.createdAt &&
+                    disputeFinancialTransactionId == other.disputeFinancialTransactionId &&
                     chargebackAccepted == other.chargebackAccepted &&
                     chargebackSubmitted == other.chargebackSubmitted &&
                     chargebackTimedOut == other.chargebackTimedOut &&
-                    createdAt == other.createdAt &&
-                    disputeFinancialTransactionId == other.disputeFinancialTransactionId &&
                     merchantPrearbitrationDeclineSubmitted ==
                         other.merchantPrearbitrationDeclineSubmitted &&
                     merchantPrearbitrationReceived == other.merchantPrearbitrationReceived &&
@@ -11267,11 +11234,11 @@ private constructor(
                 Objects.hash(
                     attachmentFiles,
                     category,
+                    createdAt,
+                    disputeFinancialTransactionId,
                     chargebackAccepted,
                     chargebackSubmitted,
                     chargebackTimedOut,
-                    createdAt,
-                    disputeFinancialTransactionId,
                     merchantPrearbitrationDeclineSubmitted,
                     merchantPrearbitrationReceived,
                     merchantPrearbitrationTimedOut,
@@ -11289,7 +11256,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "NetworkEvent{attachmentFiles=$attachmentFiles, category=$category, chargebackAccepted=$chargebackAccepted, chargebackSubmitted=$chargebackSubmitted, chargebackTimedOut=$chargebackTimedOut, createdAt=$createdAt, disputeFinancialTransactionId=$disputeFinancialTransactionId, merchantPrearbitrationDeclineSubmitted=$merchantPrearbitrationDeclineSubmitted, merchantPrearbitrationReceived=$merchantPrearbitrationReceived, merchantPrearbitrationTimedOut=$merchantPrearbitrationTimedOut, represented=$represented, representmentTimedOut=$representmentTimedOut, userPrearbitrationAccepted=$userPrearbitrationAccepted, userPrearbitrationDeclined=$userPrearbitrationDeclined, userPrearbitrationSubmitted=$userPrearbitrationSubmitted, userPrearbitrationTimedOut=$userPrearbitrationTimedOut, userWithdrawalSubmitted=$userWithdrawalSubmitted, additionalProperties=$additionalProperties}"
+                "NetworkEvent{attachmentFiles=$attachmentFiles, category=$category, createdAt=$createdAt, disputeFinancialTransactionId=$disputeFinancialTransactionId, chargebackAccepted=$chargebackAccepted, chargebackSubmitted=$chargebackSubmitted, chargebackTimedOut=$chargebackTimedOut, merchantPrearbitrationDeclineSubmitted=$merchantPrearbitrationDeclineSubmitted, merchantPrearbitrationReceived=$merchantPrearbitrationReceived, merchantPrearbitrationTimedOut=$merchantPrearbitrationTimedOut, represented=$represented, representmentTimedOut=$representmentTimedOut, userPrearbitrationAccepted=$userPrearbitrationAccepted, userPrearbitrationDeclined=$userPrearbitrationDeclined, userPrearbitrationSubmitted=$userPrearbitrationSubmitted, userPrearbitrationTimedOut=$userPrearbitrationTimedOut, userWithdrawalSubmitted=$userWithdrawalSubmitted, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -11458,14 +11425,14 @@ private constructor(
             private val amount: JsonField<Long>,
             private val attachmentFiles: JsonField<List<AttachmentFile>>,
             private val category: JsonField<Category>,
-            private val chargeback: JsonField<Chargeback>,
             private val createdAt: JsonField<OffsetDateTime>,
             private val explanation: JsonField<String>,
             private val furtherInformationRequestedAt: JsonField<OffsetDateTime>,
             private val furtherInformationRequestedReason: JsonField<String>,
-            private val merchantPrearbitrationDecline: JsonField<MerchantPrearbitrationDecline>,
             private val status: JsonField<Status>,
             private val updatedAt: JsonField<OffsetDateTime>,
+            private val chargeback: JsonField<Chargeback>,
+            private val merchantPrearbitrationDecline: JsonField<MerchantPrearbitrationDecline>,
             private val userPrearbitration: JsonField<UserPrearbitration>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -11482,9 +11449,6 @@ private constructor(
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
-                @JsonProperty("chargeback")
-                @ExcludeMissing
-                chargeback: JsonField<Chargeback> = JsonMissing.of(),
                 @JsonProperty("created_at")
                 @ExcludeMissing
                 createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -11497,16 +11461,19 @@ private constructor(
                 @JsonProperty("further_information_requested_reason")
                 @ExcludeMissing
                 furtherInformationRequestedReason: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("merchant_prearbitration_decline")
-                @ExcludeMissing
-                merchantPrearbitrationDecline: JsonField<MerchantPrearbitrationDecline> =
-                    JsonMissing.of(),
                 @JsonProperty("status")
                 @ExcludeMissing
                 status: JsonField<Status> = JsonMissing.of(),
                 @JsonProperty("updated_at")
                 @ExcludeMissing
                 updatedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("chargeback")
+                @ExcludeMissing
+                chargeback: JsonField<Chargeback> = JsonMissing.of(),
+                @JsonProperty("merchant_prearbitration_decline")
+                @ExcludeMissing
+                merchantPrearbitrationDecline: JsonField<MerchantPrearbitrationDecline> =
+                    JsonMissing.of(),
                 @JsonProperty("user_prearbitration")
                 @ExcludeMissing
                 userPrearbitration: JsonField<UserPrearbitration> = JsonMissing.of(),
@@ -11515,14 +11482,14 @@ private constructor(
                 amount,
                 attachmentFiles,
                 category,
-                chargeback,
                 createdAt,
                 explanation,
                 furtherInformationRequestedAt,
                 furtherInformationRequestedReason,
-                merchantPrearbitrationDecline,
                 status,
                 updatedAt,
+                chargeback,
+                merchantPrearbitrationDecline,
                 userPrearbitration,
                 mutableMapOf(),
             )
@@ -11566,17 +11533,6 @@ private constructor(
             fun category(): Category = category.getRequired("category")
 
             /**
-             * A Visa Card Dispute Chargeback User Submission Chargeback Details object. This field
-             * will be present in the JSON response if and only if `category` is equal to
-             * `chargeback`. Contains the details specific to a Visa chargeback User Submission for
-             * a Card Dispute.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun chargeback(): Optional<Chargeback> = chargeback.getOptional("chargeback")
-
-            /**
              * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
              * Visa Card Dispute User Submission was created.
              *
@@ -11618,18 +11574,6 @@ private constructor(
                 )
 
             /**
-             * A Visa Card Dispute Merchant Pre-Arbitration Decline User Submission object. This
-             * field will be present in the JSON response if and only if `category` is equal to
-             * `merchant_prearbitration_decline`. Contains the details specific to a merchant
-             * prearbitration decline Visa Card Dispute User Submission.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun merchantPrearbitrationDecline(): Optional<MerchantPrearbitrationDecline> =
-                merchantPrearbitrationDecline.getOptional("merchant_prearbitration_decline")
-
-            /**
              * The status of the Visa Card Dispute User Submission.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -11647,6 +11591,29 @@ private constructor(
              *   value).
              */
             fun updatedAt(): OffsetDateTime = updatedAt.getRequired("updated_at")
+
+            /**
+             * A Visa Card Dispute Chargeback User Submission Chargeback Details object. This field
+             * will be present in the JSON response if and only if `category` is equal to
+             * `chargeback`. Contains the details specific to a Visa chargeback User Submission for
+             * a Card Dispute.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun chargeback(): Optional<Chargeback> = chargeback.getOptional("chargeback")
+
+            /**
+             * A Visa Card Dispute Merchant Pre-Arbitration Decline User Submission object. This
+             * field will be present in the JSON response if and only if `category` is equal to
+             * `merchant_prearbitration_decline`. Contains the details specific to a merchant
+             * prearbitration decline Visa Card Dispute User Submission.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun merchantPrearbitrationDecline(): Optional<MerchantPrearbitrationDecline> =
+                merchantPrearbitrationDecline.getOptional("merchant_prearbitration_decline")
 
             /**
              * A Visa Card Dispute User-Initiated Pre-Arbitration User Submission object. This field
@@ -11698,16 +11665,6 @@ private constructor(
             fun _category(): JsonField<Category> = category
 
             /**
-             * Returns the raw JSON value of [chargeback].
-             *
-             * Unlike [chargeback], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("chargeback")
-            @ExcludeMissing
-            fun _chargeback(): JsonField<Chargeback> = chargeback
-
-            /**
              * Returns the raw JSON value of [createdAt].
              *
              * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
@@ -11750,17 +11707,6 @@ private constructor(
                 furtherInformationRequestedReason
 
             /**
-             * Returns the raw JSON value of [merchantPrearbitrationDecline].
-             *
-             * Unlike [merchantPrearbitrationDecline], this method doesn't throw if the JSON field
-             * has an unexpected type.
-             */
-            @JsonProperty("merchant_prearbitration_decline")
-            @ExcludeMissing
-            fun _merchantPrearbitrationDecline(): JsonField<MerchantPrearbitrationDecline> =
-                merchantPrearbitrationDecline
-
-            /**
              * Returns the raw JSON value of [status].
              *
              * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -11776,6 +11722,27 @@ private constructor(
             @JsonProperty("updated_at")
             @ExcludeMissing
             fun _updatedAt(): JsonField<OffsetDateTime> = updatedAt
+
+            /**
+             * Returns the raw JSON value of [chargeback].
+             *
+             * Unlike [chargeback], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("chargeback")
+            @ExcludeMissing
+            fun _chargeback(): JsonField<Chargeback> = chargeback
+
+            /**
+             * Returns the raw JSON value of [merchantPrearbitrationDecline].
+             *
+             * Unlike [merchantPrearbitrationDecline], this method doesn't throw if the JSON field
+             * has an unexpected type.
+             */
+            @JsonProperty("merchant_prearbitration_decline")
+            @ExcludeMissing
+            fun _merchantPrearbitrationDecline(): JsonField<MerchantPrearbitrationDecline> =
+                merchantPrearbitrationDecline
 
             /**
              * Returns the raw JSON value of [userPrearbitration].
@@ -11810,15 +11777,12 @@ private constructor(
                  * .amount()
                  * .attachmentFiles()
                  * .category()
-                 * .chargeback()
                  * .createdAt()
                  * .explanation()
                  * .furtherInformationRequestedAt()
                  * .furtherInformationRequestedReason()
-                 * .merchantPrearbitrationDecline()
                  * .status()
                  * .updatedAt()
-                 * .userPrearbitration()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -11831,17 +11795,17 @@ private constructor(
                 private var amount: JsonField<Long>? = null
                 private var attachmentFiles: JsonField<MutableList<AttachmentFile>>? = null
                 private var category: JsonField<Category>? = null
-                private var chargeback: JsonField<Chargeback>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
                 private var explanation: JsonField<String>? = null
                 private var furtherInformationRequestedAt: JsonField<OffsetDateTime>? = null
                 private var furtherInformationRequestedReason: JsonField<String>? = null
-                private var merchantPrearbitrationDecline:
-                    JsonField<MerchantPrearbitrationDecline>? =
-                    null
                 private var status: JsonField<Status>? = null
                 private var updatedAt: JsonField<OffsetDateTime>? = null
-                private var userPrearbitration: JsonField<UserPrearbitration>? = null
+                private var chargeback: JsonField<Chargeback> = JsonMissing.of()
+                private var merchantPrearbitrationDecline:
+                    JsonField<MerchantPrearbitrationDecline> =
+                    JsonMissing.of()
+                private var userPrearbitration: JsonField<UserPrearbitration> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -11850,15 +11814,15 @@ private constructor(
                     amount = userSubmission.amount
                     attachmentFiles = userSubmission.attachmentFiles.map { it.toMutableList() }
                     category = userSubmission.category
-                    chargeback = userSubmission.chargeback
                     createdAt = userSubmission.createdAt
                     explanation = userSubmission.explanation
                     furtherInformationRequestedAt = userSubmission.furtherInformationRequestedAt
                     furtherInformationRequestedReason =
                         userSubmission.furtherInformationRequestedReason
-                    merchantPrearbitrationDecline = userSubmission.merchantPrearbitrationDecline
                     status = userSubmission.status
                     updatedAt = userSubmission.updatedAt
+                    chargeback = userSubmission.chargeback
+                    merchantPrearbitrationDecline = userSubmission.merchantPrearbitrationDecline
                     userPrearbitration = userSubmission.userPrearbitration
                     additionalProperties = userSubmission.additionalProperties.toMutableMap()
                 }
@@ -11952,30 +11916,6 @@ private constructor(
                  * yet supported value.
                  */
                 fun category(category: JsonField<Category>) = apply { this.category = category }
-
-                /**
-                 * A Visa Card Dispute Chargeback User Submission Chargeback Details object. This
-                 * field will be present in the JSON response if and only if `category` is equal to
-                 * `chargeback`. Contains the details specific to a Visa chargeback User Submission
-                 * for a Card Dispute.
-                 */
-                fun chargeback(chargeback: Chargeback?) =
-                    chargeback(JsonField.ofNullable(chargeback))
-
-                /** Alias for calling [Builder.chargeback] with `chargeback.orElse(null)`. */
-                fun chargeback(chargeback: Optional<Chargeback>) =
-                    chargeback(chargeback.getOrNull())
-
-                /**
-                 * Sets [Builder.chargeback] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.chargeback] with a well-typed [Chargeback] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun chargeback(chargeback: JsonField<Chargeback>) = apply {
-                    this.chargeback = chargeback
-                }
 
                 /**
                  * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -12074,6 +12014,59 @@ private constructor(
                     this.furtherInformationRequestedReason = furtherInformationRequestedReason
                 }
 
+                /** The status of the Visa Card Dispute User Submission. */
+                fun status(status: Status) = status(JsonField.of(status))
+
+                /**
+                 * Sets [Builder.status] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.status] with a well-typed [Status] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun status(status: JsonField<Status>) = apply { this.status = status }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * Visa Card Dispute User Submission was updated.
+                 */
+                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
+
+                /**
+                 * Sets [Builder.updatedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
+                    this.updatedAt = updatedAt
+                }
+
+                /**
+                 * A Visa Card Dispute Chargeback User Submission Chargeback Details object. This
+                 * field will be present in the JSON response if and only if `category` is equal to
+                 * `chargeback`. Contains the details specific to a Visa chargeback User Submission
+                 * for a Card Dispute.
+                 */
+                fun chargeback(chargeback: Chargeback?) =
+                    chargeback(JsonField.ofNullable(chargeback))
+
+                /** Alias for calling [Builder.chargeback] with `chargeback.orElse(null)`. */
+                fun chargeback(chargeback: Optional<Chargeback>) =
+                    chargeback(chargeback.getOrNull())
+
+                /**
+                 * Sets [Builder.chargeback] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.chargeback] with a well-typed [Chargeback] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun chargeback(chargeback: JsonField<Chargeback>) = apply {
+                    this.chargeback = chargeback
+                }
+
                 /**
                  * A Visa Card Dispute Merchant Pre-Arbitration Decline User Submission object. This
                  * field will be present in the JSON response if and only if `category` is equal to
@@ -12105,35 +12098,6 @@ private constructor(
                 fun merchantPrearbitrationDecline(
                     merchantPrearbitrationDecline: JsonField<MerchantPrearbitrationDecline>
                 ) = apply { this.merchantPrearbitrationDecline = merchantPrearbitrationDecline }
-
-                /** The status of the Visa Card Dispute User Submission. */
-                fun status(status: Status) = status(JsonField.of(status))
-
-                /**
-                 * Sets [Builder.status] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.status] with a well-typed [Status] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun status(status: JsonField<Status>) = apply { this.status = status }
-
-                /**
-                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
-                 * Visa Card Dispute User Submission was updated.
-                 */
-                fun updatedAt(updatedAt: OffsetDateTime) = updatedAt(JsonField.of(updatedAt))
-
-                /**
-                 * Sets [Builder.updatedAt] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.updatedAt] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun updatedAt(updatedAt: JsonField<OffsetDateTime>) = apply {
-                    this.updatedAt = updatedAt
-                }
 
                 /**
                  * A Visa Card Dispute User-Initiated Pre-Arbitration User Submission object. This
@@ -12195,15 +12159,12 @@ private constructor(
                  * .amount()
                  * .attachmentFiles()
                  * .category()
-                 * .chargeback()
                  * .createdAt()
                  * .explanation()
                  * .furtherInformationRequestedAt()
                  * .furtherInformationRequestedReason()
-                 * .merchantPrearbitrationDecline()
                  * .status()
                  * .updatedAt()
-                 * .userPrearbitration()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -12214,7 +12175,6 @@ private constructor(
                         checkRequired("amount", amount),
                         checkRequired("attachmentFiles", attachmentFiles).map { it.toImmutable() },
                         checkRequired("category", category),
-                        checkRequired("chargeback", chargeback),
                         checkRequired("createdAt", createdAt),
                         checkRequired("explanation", explanation),
                         checkRequired(
@@ -12225,13 +12185,11 @@ private constructor(
                             "furtherInformationRequestedReason",
                             furtherInformationRequestedReason,
                         ),
-                        checkRequired(
-                            "merchantPrearbitrationDecline",
-                            merchantPrearbitrationDecline,
-                        ),
                         checkRequired("status", status),
                         checkRequired("updatedAt", updatedAt),
-                        checkRequired("userPrearbitration", userPrearbitration),
+                        chargeback,
+                        merchantPrearbitrationDecline,
+                        userPrearbitration,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -12247,14 +12205,14 @@ private constructor(
                 amount()
                 attachmentFiles().forEach { it.validate() }
                 category().validate()
-                chargeback().ifPresent { it.validate() }
                 createdAt()
                 explanation()
                 furtherInformationRequestedAt()
                 furtherInformationRequestedReason()
-                merchantPrearbitrationDecline().ifPresent { it.validate() }
                 status().validate()
                 updatedAt()
+                chargeback().ifPresent { it.validate() }
+                merchantPrearbitrationDecline().ifPresent { it.validate() }
                 userPrearbitration().ifPresent { it.validate() }
                 validated = true
             }
@@ -12279,14 +12237,14 @@ private constructor(
                     (if (amount.asKnown().isPresent) 1 else 0) +
                     (attachmentFiles.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (category.asKnown().getOrNull()?.validity() ?: 0) +
-                    (chargeback.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (createdAt.asKnown().isPresent) 1 else 0) +
                     (if (explanation.asKnown().isPresent) 1 else 0) +
                     (if (furtherInformationRequestedAt.asKnown().isPresent) 1 else 0) +
                     (if (furtherInformationRequestedReason.asKnown().isPresent) 1 else 0) +
-                    (merchantPrearbitrationDecline.asKnown().getOrNull()?.validity() ?: 0) +
                     (status.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (updatedAt.asKnown().isPresent) 1 else 0) +
+                    (chargeback.asKnown().getOrNull()?.validity() ?: 0) +
+                    (merchantPrearbitrationDecline.asKnown().getOrNull()?.validity() ?: 0) +
                     (userPrearbitration.asKnown().getOrNull()?.validity() ?: 0)
 
             class AttachmentFile
@@ -12627,6 +12585,172 @@ private constructor(
                     }
 
                     return other is Category && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** The status of the Visa Card Dispute User Submission. */
+            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The User Submission was abandoned. */
+                    @JvmField val ABANDONED = of("abandoned")
+
+                    /** The User Submission was accepted. */
+                    @JvmField val ACCEPTED = of("accepted")
+
+                    /**
+                     * Further information is requested, please resubmit with the requested
+                     * information.
+                     */
+                    @JvmField
+                    val FURTHER_INFORMATION_REQUESTED = of("further_information_requested")
+
+                    /** The User Submission is pending review. */
+                    @JvmField val PENDING_REVIEWING = of("pending_reviewing")
+
+                    @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+                }
+
+                /** An enum containing [Status]'s known values. */
+                enum class Known {
+                    /** The User Submission was abandoned. */
+                    ABANDONED,
+                    /** The User Submission was accepted. */
+                    ACCEPTED,
+                    /**
+                     * Further information is requested, please resubmit with the requested
+                     * information.
+                     */
+                    FURTHER_INFORMATION_REQUESTED,
+                    /** The User Submission is pending review. */
+                    PENDING_REVIEWING,
+                }
+
+                /**
+                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Status] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The User Submission was abandoned. */
+                    ABANDONED,
+                    /** The User Submission was accepted. */
+                    ACCEPTED,
+                    /**
+                     * Further information is requested, please resubmit with the requested
+                     * information.
+                     */
+                    FURTHER_INFORMATION_REQUESTED,
+                    /** The User Submission is pending review. */
+                    PENDING_REVIEWING,
+                    /**
+                     * An enum member indicating that [Status] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ABANDONED -> Value.ABANDONED
+                        ACCEPTED -> Value.ACCEPTED
+                        FURTHER_INFORMATION_REQUESTED -> Value.FURTHER_INFORMATION_REQUESTED
+                        PENDING_REVIEWING -> Value.PENDING_REVIEWING
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ABANDONED -> Known.ABANDONED
+                        ACCEPTED -> Known.ACCEPTED
+                        FURTHER_INFORMATION_REQUESTED -> Known.FURTHER_INFORMATION_REQUESTED
+                        PENDING_REVIEWING -> Known.PENDING_REVIEWING
+                        else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Status = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Status && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -40224,172 +40348,6 @@ private constructor(
                     "MerchantPrearbitrationDecline{reason=$reason, additionalProperties=$additionalProperties}"
             }
 
-            /** The status of the Visa Card Dispute User Submission. */
-            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
-                Enum {
-
-                /**
-                 * Returns this class instance's raw value.
-                 *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
-                 */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-                companion object {
-
-                    /** The User Submission was abandoned. */
-                    @JvmField val ABANDONED = of("abandoned")
-
-                    /** The User Submission was accepted. */
-                    @JvmField val ACCEPTED = of("accepted")
-
-                    /**
-                     * Further information is requested, please resubmit with the requested
-                     * information.
-                     */
-                    @JvmField
-                    val FURTHER_INFORMATION_REQUESTED = of("further_information_requested")
-
-                    /** The User Submission is pending review. */
-                    @JvmField val PENDING_REVIEWING = of("pending_reviewing")
-
-                    @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-                }
-
-                /** An enum containing [Status]'s known values. */
-                enum class Known {
-                    /** The User Submission was abandoned. */
-                    ABANDONED,
-                    /** The User Submission was accepted. */
-                    ACCEPTED,
-                    /**
-                     * Further information is requested, please resubmit with the requested
-                     * information.
-                     */
-                    FURTHER_INFORMATION_REQUESTED,
-                    /** The User Submission is pending review. */
-                    PENDING_REVIEWING,
-                }
-
-                /**
-                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-                 *
-                 * An instance of [Status] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** The User Submission was abandoned. */
-                    ABANDONED,
-                    /** The User Submission was accepted. */
-                    ACCEPTED,
-                    /**
-                     * Further information is requested, please resubmit with the requested
-                     * information.
-                     */
-                    FURTHER_INFORMATION_REQUESTED,
-                    /** The User Submission is pending review. */
-                    PENDING_REVIEWING,
-                    /**
-                     * An enum member indicating that [Status] was instantiated with an unknown
-                     * value.
-                     */
-                    _UNKNOWN,
-                }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        ABANDONED -> Value.ABANDONED
-                        ACCEPTED -> Value.ACCEPTED
-                        FURTHER_INFORMATION_REQUESTED -> Value.FURTHER_INFORMATION_REQUESTED
-                        PENDING_REVIEWING -> Value.PENDING_REVIEWING
-                        else -> Value._UNKNOWN
-                    }
-
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        ABANDONED -> Known.ABANDONED
-                        ACCEPTED -> Known.ACCEPTED
-                        FURTHER_INFORMATION_REQUESTED -> Known.FURTHER_INFORMATION_REQUESTED
-                        PENDING_REVIEWING -> Known.PENDING_REVIEWING
-                        else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-                    }
-
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        IncreaseInvalidDataException("Value is not a String")
-                    }
-
-                private var validated: Boolean = false
-
-                fun validate(): Status = apply {
-                    if (validated) {
-                        return@apply
-                    }
-
-                    known()
-                    validated = true
-                }
-
-                fun isValid(): Boolean =
-                    try {
-                        validate()
-                        true
-                    } catch (e: IncreaseInvalidDataException) {
-                        false
-                    }
-
-                /**
-                 * Returns a score indicating how many valid values are contained in this object
-                 * recursively.
-                 *
-                 * Used for best match union deserialization.
-                 */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-                override fun equals(other: Any?): Boolean {
-                    if (this === other) {
-                        return true
-                    }
-
-                    return other is Status && value == other.value
-                }
-
-                override fun hashCode() = value.hashCode()
-
-                override fun toString() = value.toString()
-            }
-
             /**
              * A Visa Card Dispute User-Initiated Pre-Arbitration User Submission object. This field
              * will be present in the JSON response if and only if `category` is equal to
@@ -41195,14 +41153,14 @@ private constructor(
                     amount == other.amount &&
                     attachmentFiles == other.attachmentFiles &&
                     category == other.category &&
-                    chargeback == other.chargeback &&
                     createdAt == other.createdAt &&
                     explanation == other.explanation &&
                     furtherInformationRequestedAt == other.furtherInformationRequestedAt &&
                     furtherInformationRequestedReason == other.furtherInformationRequestedReason &&
-                    merchantPrearbitrationDecline == other.merchantPrearbitrationDecline &&
                     status == other.status &&
                     updatedAt == other.updatedAt &&
+                    chargeback == other.chargeback &&
+                    merchantPrearbitrationDecline == other.merchantPrearbitrationDecline &&
                     userPrearbitration == other.userPrearbitration &&
                     additionalProperties == other.additionalProperties
             }
@@ -41213,14 +41171,14 @@ private constructor(
                     amount,
                     attachmentFiles,
                     category,
-                    chargeback,
                     createdAt,
                     explanation,
                     furtherInformationRequestedAt,
                     furtherInformationRequestedReason,
-                    merchantPrearbitrationDecline,
                     status,
                     updatedAt,
+                    chargeback,
+                    merchantPrearbitrationDecline,
                     userPrearbitration,
                     additionalProperties,
                 )
@@ -41229,7 +41187,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "UserSubmission{acceptedAt=$acceptedAt, amount=$amount, attachmentFiles=$attachmentFiles, category=$category, chargeback=$chargeback, createdAt=$createdAt, explanation=$explanation, furtherInformationRequestedAt=$furtherInformationRequestedAt, furtherInformationRequestedReason=$furtherInformationRequestedReason, merchantPrearbitrationDecline=$merchantPrearbitrationDecline, status=$status, updatedAt=$updatedAt, userPrearbitration=$userPrearbitration, additionalProperties=$additionalProperties}"
+                "UserSubmission{acceptedAt=$acceptedAt, amount=$amount, attachmentFiles=$attachmentFiles, category=$category, createdAt=$createdAt, explanation=$explanation, furtherInformationRequestedAt=$furtherInformationRequestedAt, furtherInformationRequestedReason=$furtherInformationRequestedReason, status=$status, updatedAt=$updatedAt, chargeback=$chargeback, merchantPrearbitrationDecline=$merchantPrearbitrationDecline, userPrearbitration=$userPrearbitration, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

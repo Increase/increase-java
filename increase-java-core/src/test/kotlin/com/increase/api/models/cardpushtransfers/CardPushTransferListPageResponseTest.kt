@@ -45,12 +45,12 @@ internal class CardPushTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             CardPushTransfer.CreatedBy.builder()
+                                .category(CardPushTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     CardPushTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(CardPushTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     CardPushTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")
@@ -140,12 +140,12 @@ internal class CardPushTransferListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .createdBy(
                         CardPushTransfer.CreatedBy.builder()
+                            .category(CardPushTransfer.CreatedBy.Category.USER)
                             .apiKey(
                                 CardPushTransfer.CreatedBy.ApiKey.builder()
                                     .description("description")
                                     .build()
                             )
-                            .category(CardPushTransfer.CreatedBy.Category.USER)
                             .oauthApplication(
                                 CardPushTransfer.CreatedBy.OAuthApplication.builder()
                                     .name("name")
@@ -239,12 +239,12 @@ internal class CardPushTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             CardPushTransfer.CreatedBy.builder()
+                                .category(CardPushTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     CardPushTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(CardPushTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     CardPushTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")
