@@ -46,6 +46,10 @@ internal class CardDisputeListPageResponseTest {
                                             CardDispute.Visa.NetworkEvent.Category
                                                 .CHARGEBACK_ACCEPTED
                                         )
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .disputeFinancialTransactionId(
+                                            "dispute_financial_transaction_id"
+                                        )
                                         .chargebackAccepted(
                                             CardDispute.Visa.NetworkEvent.ChargebackAccepted
                                                 .builder()
@@ -60,10 +64,6 @@ internal class CardDisputeListPageResponseTest {
                                             CardDispute.Visa.NetworkEvent.ChargebackTimedOut
                                                 .builder()
                                                 .build()
-                                        )
-                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .disputeFinancialTransactionId(
-                                            "dispute_financial_transaction_id"
                                         )
                                         .merchantPrearbitrationDeclineSubmitted(
                                             CardDispute.Visa.NetworkEvent
@@ -312,6 +312,14 @@ internal class CardDisputeListPageResponseTest {
                                         .category(
                                             CardDispute.Visa.UserSubmission.Category.CHARGEBACK
                                         )
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .explanation(null)
+                                        .furtherInformationRequestedAt(null)
+                                        .furtherInformationRequestedReason(null)
+                                        .status(
+                                            CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING
+                                        )
+                                        .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .chargeback(
                                             CardDispute.Visa.UserSubmission.Chargeback.builder()
                                                 .authorization(
@@ -1343,10 +1351,6 @@ internal class CardDisputeListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                        .explanation(null)
-                                        .furtherInformationRequestedAt(null)
-                                        .furtherInformationRequestedReason(null)
                                         .merchantPrearbitrationDecline(
                                             CardDispute.Visa.UserSubmission
                                                 .MerchantPrearbitrationDecline
@@ -1356,10 +1360,6 @@ internal class CardDisputeListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .status(
-                                            CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING
-                                        )
-                                        .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .userPrearbitration(
                                             CardDispute.Visa.UserSubmission.UserPrearbitration
                                                 .builder()
@@ -1437,6 +1437,10 @@ internal class CardDisputeListPageResponseTest {
                                     .category(
                                         CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_ACCEPTED
                                     )
+                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .disputeFinancialTransactionId(
+                                        "dispute_financial_transaction_id"
+                                    )
                                     .chargebackAccepted(
                                         CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder()
                                             .build()
@@ -1448,10 +1452,6 @@ internal class CardDisputeListPageResponseTest {
                                     .chargebackTimedOut(
                                         CardDispute.Visa.NetworkEvent.ChargebackTimedOut.builder()
                                             .build()
-                                    )
-                                    .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .disputeFinancialTransactionId(
-                                        "dispute_financial_transaction_id"
                                     )
                                     .merchantPrearbitrationDeclineSubmitted(
                                         CardDispute.Visa.NetworkEvent
@@ -1694,6 +1694,14 @@ internal class CardDisputeListPageResponseTest {
                                             .build()
                                     )
                                     .category(CardDispute.Visa.UserSubmission.Category.CHARGEBACK)
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .explanation(null)
+                                    .furtherInformationRequestedAt(null)
+                                    .furtherInformationRequestedReason(null)
+                                    .status(
+                                        CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING
+                                    )
+                                    .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                     .chargeback(
                                         CardDispute.Visa.UserSubmission.Chargeback.builder()
                                             .authorization(
@@ -2644,10 +2652,6 @@ internal class CardDisputeListPageResponseTest {
                                             )
                                             .build()
                                     )
-                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                    .explanation(null)
-                                    .furtherInformationRequestedAt(null)
-                                    .furtherInformationRequestedReason(null)
                                     .merchantPrearbitrationDecline(
                                         CardDispute.Visa.UserSubmission
                                             .MerchantPrearbitrationDecline
@@ -2657,10 +2661,6 @@ internal class CardDisputeListPageResponseTest {
                                             )
                                             .build()
                                     )
-                                    .status(
-                                        CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING
-                                    )
-                                    .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                     .userPrearbitration(
                                         CardDispute.Visa.UserSubmission.UserPrearbitration.builder()
                                             .categoryChange(
@@ -2739,6 +2739,10 @@ internal class CardDisputeListPageResponseTest {
                                             CardDispute.Visa.NetworkEvent.Category
                                                 .CHARGEBACK_ACCEPTED
                                         )
+                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .disputeFinancialTransactionId(
+                                            "dispute_financial_transaction_id"
+                                        )
                                         .chargebackAccepted(
                                             CardDispute.Visa.NetworkEvent.ChargebackAccepted
                                                 .builder()
@@ -2753,10 +2757,6 @@ internal class CardDisputeListPageResponseTest {
                                             CardDispute.Visa.NetworkEvent.ChargebackTimedOut
                                                 .builder()
                                                 .build()
-                                        )
-                                        .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .disputeFinancialTransactionId(
-                                            "dispute_financial_transaction_id"
                                         )
                                         .merchantPrearbitrationDeclineSubmitted(
                                             CardDispute.Visa.NetworkEvent
@@ -3005,6 +3005,14 @@ internal class CardDisputeListPageResponseTest {
                                         .category(
                                             CardDispute.Visa.UserSubmission.Category.CHARGEBACK
                                         )
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .explanation(null)
+                                        .furtherInformationRequestedAt(null)
+                                        .furtherInformationRequestedReason(null)
+                                        .status(
+                                            CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING
+                                        )
+                                        .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .chargeback(
                                             CardDispute.Visa.UserSubmission.Chargeback.builder()
                                                 .authorization(
@@ -4036,10 +4044,6 @@ internal class CardDisputeListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                        .explanation(null)
-                                        .furtherInformationRequestedAt(null)
-                                        .furtherInformationRequestedReason(null)
                                         .merchantPrearbitrationDecline(
                                             CardDispute.Visa.UserSubmission
                                                 .MerchantPrearbitrationDecline
@@ -4049,10 +4053,6 @@ internal class CardDisputeListPageResponseTest {
                                                 )
                                                 .build()
                                         )
-                                        .status(
-                                            CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING
-                                        )
-                                        .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                         .userPrearbitration(
                                             CardDispute.Visa.UserSubmission.UserPrearbitration
                                                 .builder()

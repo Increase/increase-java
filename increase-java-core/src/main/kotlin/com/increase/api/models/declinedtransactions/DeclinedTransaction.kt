@@ -825,9 +825,9 @@ private constructor(
     class Source
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val category: JsonField<Category>,
         private val achDecline: JsonField<AchDecline>,
         private val cardDecline: JsonField<CardDecline>,
-        private val category: JsonField<Category>,
         private val checkDecline: JsonField<CheckDecline>,
         private val checkDepositRejection: JsonField<CheckDepositRejection>,
         private val inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline>,
@@ -840,15 +840,15 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("ach_decline")
             @ExcludeMissing
             achDecline: JsonField<AchDecline> = JsonMissing.of(),
             @JsonProperty("card_decline")
             @ExcludeMissing
             cardDecline: JsonField<CardDecline> = JsonMissing.of(),
-            @JsonProperty("category")
-            @ExcludeMissing
-            category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("check_decline")
             @ExcludeMissing
             checkDecline: JsonField<CheckDecline> = JsonMissing.of(),
@@ -869,9 +869,9 @@ private constructor(
             @ExcludeMissing
             wireDecline: JsonField<WireDecline> = JsonMissing.of(),
         ) : this(
+            category,
             achDecline,
             cardDecline,
-            category,
             checkDecline,
             checkDepositRejection,
             inboundFednowTransferDecline,
@@ -880,6 +880,15 @@ private constructor(
             wireDecline,
             mutableMapOf(),
         )
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
 
         /**
          * An ACH Decline object. This field will be present in the JSON response if and only if
@@ -898,15 +907,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun cardDecline(): Optional<CardDecline> = cardDecline.getOptional("card_decline")
-
-        /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun category(): Category = category.getRequired("category")
 
         /**
          * A Check Decline object. This field will be present in the JSON response if and only if
@@ -970,6 +970,13 @@ private constructor(
         fun wireDecline(): Optional<WireDecline> = wireDecline.getOptional("wire_decline")
 
         /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
          * Returns the raw JSON value of [achDecline].
          *
          * Unlike [achDecline], this method doesn't throw if the JSON field has an unexpected type.
@@ -986,13 +993,6 @@ private constructor(
         @JsonProperty("card_decline")
         @ExcludeMissing
         fun _cardDecline(): JsonField<CardDecline> = cardDecline
-
-        /**
-         * Returns the raw JSON value of [category].
-         *
-         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /**
          * Returns the raw JSON value of [checkDecline].
@@ -1072,15 +1072,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .achDecline()
-             * .cardDecline()
              * .category()
-             * .checkDecline()
-             * .checkDepositRejection()
-             * .inboundFednowTransferDecline()
-             * .inboundRealTimePaymentsTransferDecline()
-             * .other()
-             * .wireDecline()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1089,25 +1081,25 @@ private constructor(
         /** A builder for [Source]. */
         class Builder internal constructor() {
 
-            private var achDecline: JsonField<AchDecline>? = null
-            private var cardDecline: JsonField<CardDecline>? = null
             private var category: JsonField<Category>? = null
-            private var checkDecline: JsonField<CheckDecline>? = null
-            private var checkDepositRejection: JsonField<CheckDepositRejection>? = null
-            private var inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline>? =
-                null
+            private var achDecline: JsonField<AchDecline> = JsonMissing.of()
+            private var cardDecline: JsonField<CardDecline> = JsonMissing.of()
+            private var checkDecline: JsonField<CheckDecline> = JsonMissing.of()
+            private var checkDepositRejection: JsonField<CheckDepositRejection> = JsonMissing.of()
+            private var inboundFednowTransferDecline: JsonField<InboundFednowTransferDecline> =
+                JsonMissing.of()
             private var inboundRealTimePaymentsTransferDecline:
-                JsonField<InboundRealTimePaymentsTransferDecline>? =
-                null
-            private var other: JsonField<Other>? = null
-            private var wireDecline: JsonField<WireDecline>? = null
+                JsonField<InboundRealTimePaymentsTransferDecline> =
+                JsonMissing.of()
+            private var other: JsonField<Other> = JsonMissing.of()
+            private var wireDecline: JsonField<WireDecline> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(source: Source) = apply {
+                category = source.category
                 achDecline = source.achDecline
                 cardDecline = source.cardDecline
-                category = source.category
                 checkDecline = source.checkDecline
                 checkDepositRejection = source.checkDepositRejection
                 inboundFednowTransferDecline = source.inboundFednowTransferDecline
@@ -1117,6 +1109,21 @@ private constructor(
                 wireDecline = source.wireDecline
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
+
+            /**
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
+             */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * An ACH Decline object. This field will be present in the JSON response if and only if
@@ -1159,21 +1166,6 @@ private constructor(
             fun cardDecline(cardDecline: JsonField<CardDecline>) = apply {
                 this.cardDecline = cardDecline
             }
-
-            /**
-             * The type of the resource. We may add additional possible values for this enum over
-             * time; your application should be able to handle such additions gracefully.
-             */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /**
-             * Sets [Builder.category] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.category] with a well-typed [Category] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * A Check Decline object. This field will be present in the JSON response if and only
@@ -1354,33 +1346,22 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .achDecline()
-             * .cardDecline()
              * .category()
-             * .checkDecline()
-             * .checkDepositRejection()
-             * .inboundFednowTransferDecline()
-             * .inboundRealTimePaymentsTransferDecline()
-             * .other()
-             * .wireDecline()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Source =
                 Source(
-                    checkRequired("achDecline", achDecline),
-                    checkRequired("cardDecline", cardDecline),
                     checkRequired("category", category),
-                    checkRequired("checkDecline", checkDecline),
-                    checkRequired("checkDepositRejection", checkDepositRejection),
-                    checkRequired("inboundFednowTransferDecline", inboundFednowTransferDecline),
-                    checkRequired(
-                        "inboundRealTimePaymentsTransferDecline",
-                        inboundRealTimePaymentsTransferDecline,
-                    ),
-                    checkRequired("other", other),
-                    checkRequired("wireDecline", wireDecline),
+                    achDecline,
+                    cardDecline,
+                    checkDecline,
+                    checkDepositRejection,
+                    inboundFednowTransferDecline,
+                    inboundRealTimePaymentsTransferDecline,
+                    other,
+                    wireDecline,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1392,9 +1373,9 @@ private constructor(
                 return@apply
             }
 
+            category().validate()
             achDecline().ifPresent { it.validate() }
             cardDecline().ifPresent { it.validate() }
-            category().validate()
             checkDecline().ifPresent { it.validate() }
             checkDepositRejection().ifPresent { it.validate() }
             inboundFednowTransferDecline().ifPresent { it.validate() }
@@ -1420,15 +1401,241 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (achDecline.asKnown().getOrNull()?.validity() ?: 0) +
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (achDecline.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardDecline.asKnown().getOrNull()?.validity() ?: 0) +
-                (category.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkDecline.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkDepositRejection.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundFednowTransferDecline.asKnown().getOrNull()?.validity() ?: 0) +
                 (inboundRealTimePaymentsTransferDecline.asKnown().getOrNull()?.validity() ?: 0) +
                 (other.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireDecline.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** ACH Decline: details will be under the `ach_decline` object. */
+                @JvmField val ACH_DECLINE = of("ach_decline")
+
+                /** Card Decline: details will be under the `card_decline` object. */
+                @JvmField val CARD_DECLINE = of("card_decline")
+
+                /** Check Decline: details will be under the `check_decline` object. */
+                @JvmField val CHECK_DECLINE = of("check_decline")
+
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
+                @JvmField
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
+                    of("inbound_real_time_payments_transfer_decline")
+
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                @JvmField
+                val INBOUND_FEDNOW_TRANSFER_DECLINE = of("inbound_fednow_transfer_decline")
+
+                /** Wire Decline: details will be under the `wire_decline` object. */
+                @JvmField val WIRE_DECLINE = of("wire_decline")
+
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
+                @JvmField val CHECK_DEPOSIT_REJECTION = of("check_deposit_rejection")
+
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
+                @JvmField val OTHER = of("other")
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /** ACH Decline: details will be under the `ach_decline` object. */
+                ACH_DECLINE,
+                /** Card Decline: details will be under the `card_decline` object. */
+                CARD_DECLINE,
+                /** Check Decline: details will be under the `check_decline` object. */
+                CHECK_DECLINE,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_DECLINE,
+                /** Wire Decline: details will be under the `wire_decline` object. */
+                WIRE_DECLINE,
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
+                CHECK_DEPOSIT_REJECTION,
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
+                OTHER,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** ACH Decline: details will be under the `ach_decline` object. */
+                ACH_DECLINE,
+                /** Card Decline: details will be under the `card_decline` object. */
+                CARD_DECLINE,
+                /** Check Decline: details will be under the `check_decline` object. */
+                CHECK_DECLINE,
+                /**
+                 * Inbound Real-Time Payments Transfer Decline: details will be under the
+                 * `inbound_real_time_payments_transfer_decline` object.
+                 */
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
+                /**
+                 * Inbound FedNow Transfer Decline: details will be under the
+                 * `inbound_fednow_transfer_decline` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_DECLINE,
+                /** Wire Decline: details will be under the `wire_decline` object. */
+                WIRE_DECLINE,
+                /**
+                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
+                 * object.
+                 */
+                CHECK_DEPOSIT_REJECTION,
+                /** The Declined Transaction was made for an undocumented or deprecated reason. */
+                OTHER,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ACH_DECLINE -> Value.ACH_DECLINE
+                    CARD_DECLINE -> Value.CARD_DECLINE
+                    CHECK_DECLINE -> Value.CHECK_DECLINE
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Value.INBOUND_FEDNOW_TRANSFER_DECLINE
+                    WIRE_DECLINE -> Value.WIRE_DECLINE
+                    CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ACH_DECLINE -> Known.ACH_DECLINE
+                    CARD_DECLINE -> Known.CARD_DECLINE
+                    CHECK_DECLINE -> Known.CHECK_DECLINE
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
+                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Known.INBOUND_FEDNOW_TRANSFER_DECLINE
+                    WIRE_DECLINE -> Known.WIRE_DECLINE
+                    CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /**
          * An ACH Decline object. This field will be present in the JSON response if and only if
@@ -12056,232 +12263,6 @@ private constructor(
         }
 
         /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         */
-        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** ACH Decline: details will be under the `ach_decline` object. */
-                @JvmField val ACH_DECLINE = of("ach_decline")
-
-                /** Card Decline: details will be under the `card_decline` object. */
-                @JvmField val CARD_DECLINE = of("card_decline")
-
-                /** Check Decline: details will be under the `check_decline` object. */
-                @JvmField val CHECK_DECLINE = of("check_decline")
-
-                /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                @JvmField
-                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE =
-                    of("inbound_real_time_payments_transfer_decline")
-
-                /**
-                 * Inbound FedNow Transfer Decline: details will be under the
-                 * `inbound_fednow_transfer_decline` object.
-                 */
-                @JvmField
-                val INBOUND_FEDNOW_TRANSFER_DECLINE = of("inbound_fednow_transfer_decline")
-
-                /** Wire Decline: details will be under the `wire_decline` object. */
-                @JvmField val WIRE_DECLINE = of("wire_decline")
-
-                /**
-                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
-                 * object.
-                 */
-                @JvmField val CHECK_DEPOSIT_REJECTION = of("check_deposit_rejection")
-
-                /** The Declined Transaction was made for an undocumented or deprecated reason. */
-                @JvmField val OTHER = of("other")
-
-                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
-            }
-
-            /** An enum containing [Category]'s known values. */
-            enum class Known {
-                /** ACH Decline: details will be under the `ach_decline` object. */
-                ACH_DECLINE,
-                /** Card Decline: details will be under the `card_decline` object. */
-                CARD_DECLINE,
-                /** Check Decline: details will be under the `check_decline` object. */
-                CHECK_DECLINE,
-                /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                /**
-                 * Inbound FedNow Transfer Decline: details will be under the
-                 * `inbound_fednow_transfer_decline` object.
-                 */
-                INBOUND_FEDNOW_TRANSFER_DECLINE,
-                /** Wire Decline: details will be under the `wire_decline` object. */
-                WIRE_DECLINE,
-                /**
-                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
-                 * object.
-                 */
-                CHECK_DEPOSIT_REJECTION,
-                /** The Declined Transaction was made for an undocumented or deprecated reason. */
-                OTHER,
-            }
-
-            /**
-             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Category] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** ACH Decline: details will be under the `ach_decline` object. */
-                ACH_DECLINE,
-                /** Card Decline: details will be under the `card_decline` object. */
-                CARD_DECLINE,
-                /** Check Decline: details will be under the `check_decline` object. */
-                CHECK_DECLINE,
-                /**
-                 * Inbound Real-Time Payments Transfer Decline: details will be under the
-                 * `inbound_real_time_payments_transfer_decline` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE,
-                /**
-                 * Inbound FedNow Transfer Decline: details will be under the
-                 * `inbound_fednow_transfer_decline` object.
-                 */
-                INBOUND_FEDNOW_TRANSFER_DECLINE,
-                /** Wire Decline: details will be under the `wire_decline` object. */
-                WIRE_DECLINE,
-                /**
-                 * Check Deposit Rejection: details will be under the `check_deposit_rejection`
-                 * object.
-                 */
-                CHECK_DEPOSIT_REJECTION,
-                /** The Declined Transaction was made for an undocumented or deprecated reason. */
-                OTHER,
-                /**
-                 * An enum member indicating that [Category] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ACH_DECLINE -> Value.ACH_DECLINE
-                    CARD_DECLINE -> Value.CARD_DECLINE
-                    CHECK_DECLINE -> Value.CHECK_DECLINE
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
-                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Value.INBOUND_FEDNOW_TRANSFER_DECLINE
-                    WIRE_DECLINE -> Value.WIRE_DECLINE
-                    CHECK_DEPOSIT_REJECTION -> Value.CHECK_DEPOSIT_REJECTION
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ACH_DECLINE -> Known.ACH_DECLINE
-                    CARD_DECLINE -> Known.CARD_DECLINE
-                    CHECK_DECLINE -> Known.CHECK_DECLINE
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE ->
-                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_DECLINE
-                    INBOUND_FEDNOW_TRANSFER_DECLINE -> Known.INBOUND_FEDNOW_TRANSFER_DECLINE
-                    WIRE_DECLINE -> Known.WIRE_DECLINE
-                    CHECK_DEPOSIT_REJECTION -> Known.CHECK_DEPOSIT_REJECTION
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): Category = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Category && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
          * A Check Decline object. This field will be present in the JSON response if and only if
          * `category` is equal to `check_decline`.
          */
@@ -15682,9 +15663,9 @@ private constructor(
             }
 
             return other is Source &&
+                category == other.category &&
                 achDecline == other.achDecline &&
                 cardDecline == other.cardDecline &&
-                category == other.category &&
                 checkDecline == other.checkDecline &&
                 checkDepositRejection == other.checkDepositRejection &&
                 inboundFednowTransferDecline == other.inboundFednowTransferDecline &&
@@ -15697,9 +15678,9 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                category,
                 achDecline,
                 cardDecline,
-                category,
                 checkDecline,
                 checkDepositRejection,
                 inboundFednowTransferDecline,
@@ -15713,7 +15694,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{achDecline=$achDecline, cardDecline=$cardDecline, category=$category, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundFednowTransferDecline=$inboundFednowTransferDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
+            "Source{category=$category, achDecline=$achDecline, cardDecline=$cardDecline, checkDecline=$checkDecline, checkDepositRejection=$checkDepositRejection, inboundFednowTransferDecline=$inboundFednowTransferDecline, inboundRealTimePaymentsTransferDecline=$inboundRealTimePaymentsTransferDecline, other=$other, wireDecline=$wireDecline, additionalProperties=$additionalProperties}"
     }
 
     /**

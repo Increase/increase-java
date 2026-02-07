@@ -29,6 +29,7 @@ internal class CardAuthorizationCreateResponseTest {
                         .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             DeclinedTransaction.Source.builder()
+                                .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                                 .achDecline(
                                     DeclinedTransaction.Source.AchDecline.builder()
                                         .id("ach_decline_72v1mcwxudctq56efipa")
@@ -289,7 +290,6 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                                 .checkDecline(
                                     DeclinedTransaction.Source.CheckDecline.builder()
                                         .amount(-1000L)
@@ -397,6 +397,7 @@ internal class CardAuthorizationCreateResponseTest {
                         .routeType(PendingTransaction.RouteType.CARD)
                         .source(
                             PendingTransaction.Source.builder()
+                                .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                                 .accountTransferInstruction(
                                     PendingTransaction.Source.AccountTransferInstruction.builder()
                                         .amount(100L)
@@ -686,7 +687,6 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                                 .checkDepositInstruction(
                                     PendingTransaction.Source.CheckDepositInstruction.builder()
                                         .amount(100L)
@@ -801,6 +801,7 @@ internal class CardAuthorizationCreateResponseTest {
                     .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         DeclinedTransaction.Source.builder()
+                            .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                             .achDecline(
                                 DeclinedTransaction.Source.AchDecline.builder()
                                     .id("ach_decline_72v1mcwxudctq56efipa")
@@ -1051,7 +1052,6 @@ internal class CardAuthorizationCreateResponseTest {
                                     )
                                     .build()
                             )
-                            .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                             .checkDecline(
                                 DeclinedTransaction.Source.CheckDecline.builder()
                                     .amount(-1000L)
@@ -1157,6 +1157,7 @@ internal class CardAuthorizationCreateResponseTest {
                     .routeType(PendingTransaction.RouteType.CARD)
                     .source(
                         PendingTransaction.Source.builder()
+                            .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                             .accountTransferInstruction(
                                 PendingTransaction.Source.AccountTransferInstruction.builder()
                                     .amount(100L)
@@ -1435,7 +1436,6 @@ internal class CardAuthorizationCreateResponseTest {
                                     .transferId("outbound_card_push_transfer_e0z9rdpamraczh4tvwye")
                                     .build()
                             )
-                            .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                             .checkDepositInstruction(
                                 PendingTransaction.Source.CheckDepositInstruction.builder()
                                     .amount(100L)
@@ -1548,6 +1548,7 @@ internal class CardAuthorizationCreateResponseTest {
                         .routeType(DeclinedTransaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             DeclinedTransaction.Source.builder()
+                                .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                                 .achDecline(
                                     DeclinedTransaction.Source.AchDecline.builder()
                                         .id("ach_decline_72v1mcwxudctq56efipa")
@@ -1808,7 +1809,6 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(DeclinedTransaction.Source.Category.ACH_DECLINE)
                                 .checkDecline(
                                     DeclinedTransaction.Source.CheckDecline.builder()
                                         .amount(-1000L)
@@ -1916,6 +1916,7 @@ internal class CardAuthorizationCreateResponseTest {
                         .routeType(PendingTransaction.RouteType.CARD)
                         .source(
                             PendingTransaction.Source.builder()
+                                .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                                 .accountTransferInstruction(
                                     PendingTransaction.Source.AccountTransferInstruction.builder()
                                         .amount(100L)
@@ -2205,7 +2206,6 @@ internal class CardAuthorizationCreateResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(PendingTransaction.Source.Category.CARD_AUTHORIZATION)
                                 .checkDepositInstruction(
                                     PendingTransaction.Source.CheckDepositInstruction.builder()
                                         .amount(100L)

@@ -71,12 +71,12 @@ internal class AchTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             AchTransfer.CreatedBy.builder()
+                                .category(AchTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     AchTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(AchTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     AchTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")
@@ -234,12 +234,12 @@ internal class AchTransferListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .createdBy(
                         AchTransfer.CreatedBy.builder()
+                            .category(AchTransfer.CreatedBy.Category.USER)
                             .apiKey(
                                 AchTransfer.CreatedBy.ApiKey.builder()
                                     .description("description")
                                     .build()
                             )
-                            .category(AchTransfer.CreatedBy.Category.USER)
                             .oauthApplication(
                                 AchTransfer.CreatedBy.OAuthApplication.builder()
                                     .name("name")
@@ -395,12 +395,12 @@ internal class AchTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             AchTransfer.CreatedBy.builder()
+                                .category(AchTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     AchTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(AchTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     AchTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")

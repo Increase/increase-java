@@ -32,12 +32,12 @@ internal class AccountTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     AccountTransfer.CreatedBy.builder()
+                        .category(AccountTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             AccountTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(AccountTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             AccountTransfer.CreatedBy.OAuthApplication.builder()
                                 .name("name")
@@ -83,12 +83,12 @@ internal class AccountTransferTest {
         assertThat(accountTransfer.createdBy())
             .contains(
                 AccountTransfer.CreatedBy.builder()
+                    .category(AccountTransfer.CreatedBy.Category.USER)
                     .apiKey(
                         AccountTransfer.CreatedBy.ApiKey.builder()
                             .description("description")
                             .build()
                     )
-                    .category(AccountTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         AccountTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
@@ -132,12 +132,12 @@ internal class AccountTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     AccountTransfer.CreatedBy.builder()
+                        .category(AccountTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             AccountTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(AccountTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             AccountTransfer.CreatedBy.OAuthApplication.builder()
                                 .name("name")
