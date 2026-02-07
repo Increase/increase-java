@@ -24,12 +24,12 @@ internal class SwiftTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             SwiftTransfer.CreatedBy.builder()
+                                .category(SwiftTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     SwiftTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(SwiftTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     SwiftTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")
@@ -91,12 +91,12 @@ internal class SwiftTransferListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .createdBy(
                         SwiftTransfer.CreatedBy.builder()
+                            .category(SwiftTransfer.CreatedBy.Category.USER)
                             .apiKey(
                                 SwiftTransfer.CreatedBy.ApiKey.builder()
                                     .description("description")
                                     .build()
                             )
-                            .category(SwiftTransfer.CreatedBy.Category.USER)
                             .oauthApplication(
                                 SwiftTransfer.CreatedBy.OAuthApplication.builder()
                                     .name("name")
@@ -162,12 +162,12 @@ internal class SwiftTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             SwiftTransfer.CreatedBy.builder()
+                                .category(SwiftTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     SwiftTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(SwiftTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     SwiftTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")

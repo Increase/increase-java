@@ -36,12 +36,12 @@ internal class CheckTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     CheckTransfer.CreatedBy.builder()
+                        .category(CheckTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             CheckTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(CheckTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             CheckTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -179,10 +179,10 @@ internal class CheckTransferTest {
         assertThat(checkTransfer.createdBy())
             .contains(
                 CheckTransfer.CreatedBy.builder()
+                    .category(CheckTransfer.CreatedBy.Category.USER)
                     .apiKey(
                         CheckTransfer.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(CheckTransfer.CreatedBy.Category.USER)
                     .oauthApplication(
                         CheckTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
@@ -321,12 +321,12 @@ internal class CheckTransferTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     CheckTransfer.CreatedBy.builder()
+                        .category(CheckTransfer.CreatedBy.Category.USER)
                         .apiKey(
                             CheckTransfer.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(CheckTransfer.CreatedBy.Category.USER)
                         .oauthApplication(
                             CheckTransfer.CreatedBy.OAuthApplication.builder().name("name").build()
                         )

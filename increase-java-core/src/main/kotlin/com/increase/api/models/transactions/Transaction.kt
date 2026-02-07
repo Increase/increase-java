@@ -825,6 +825,7 @@ private constructor(
     class Source
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val category: JsonField<Category>,
         private val accountRevenuePayment: JsonField<AccountRevenuePayment>,
         private val accountTransferIntention: JsonField<AccountTransferIntention>,
         private val achTransferIntention: JsonField<AchTransferIntention>,
@@ -842,7 +843,6 @@ private constructor(
         private val cardRevenuePayment: JsonField<CardRevenuePayment>,
         private val cardSettlement: JsonField<CardSettlement>,
         private val cashbackPayment: JsonField<CashbackPayment>,
-        private val category: JsonField<Category>,
         private val checkDepositAcceptance: JsonField<CheckDepositAcceptance>,
         private val checkDepositReturn: JsonField<CheckDepositReturn>,
         private val checkTransferDeposit: JsonField<CheckTransferDeposit>,
@@ -873,6 +873,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("account_revenue_payment")
             @ExcludeMissing
             accountRevenuePayment: JsonField<AccountRevenuePayment> = JsonMissing.of(),
@@ -923,9 +926,6 @@ private constructor(
             @JsonProperty("cashback_payment")
             @ExcludeMissing
             cashbackPayment: JsonField<CashbackPayment> = JsonMissing.of(),
-            @JsonProperty("category")
-            @ExcludeMissing
-            category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("check_deposit_acceptance")
             @ExcludeMissing
             checkDepositAcceptance: JsonField<CheckDepositAcceptance> = JsonMissing.of(),
@@ -999,6 +999,7 @@ private constructor(
             @ExcludeMissing
             wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of(),
         ) : this(
+            category,
             accountRevenuePayment,
             accountTransferIntention,
             achTransferIntention,
@@ -1015,7 +1016,6 @@ private constructor(
             cardRevenuePayment,
             cardSettlement,
             cashbackPayment,
-            category,
             checkDepositAcceptance,
             checkDepositReturn,
             checkTransferDeposit,
@@ -1040,6 +1040,15 @@ private constructor(
             wireTransferIntention,
             mutableMapOf(),
         )
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
 
         /**
          * An Account Revenue Payment object. This field will be present in the JSON response if and
@@ -1224,15 +1233,6 @@ private constructor(
          */
         fun cashbackPayment(): Optional<CashbackPayment> =
             cashbackPayment.getOptional("cashback_payment")
-
-        /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun category(): Category = category.getRequired("category")
 
         /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
@@ -1497,6 +1497,13 @@ private constructor(
             wireTransferIntention.getOptional("wire_transfer_intention")
 
         /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
          * Returns the raw JSON value of [accountRevenuePayment].
          *
          * Unlike [accountRevenuePayment], this method doesn't throw if the JSON field has an
@@ -1658,13 +1665,6 @@ private constructor(
         @JsonProperty("cashback_payment")
         @ExcludeMissing
         fun _cashbackPayment(): JsonField<CashbackPayment> = cashbackPayment
-
-        /**
-         * Returns the raw JSON value of [category].
-         *
-         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /**
          * Returns the raw JSON value of [checkDepositAcceptance].
@@ -1909,45 +1909,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .accountRevenuePayment()
-             * .accountTransferIntention()
-             * .achTransferIntention()
-             * .achTransferRejection()
-             * .achTransferReturn()
-             * .blockchainOfframpTransferSettlement()
-             * .blockchainOnrampTransferIntention()
-             * .cardDisputeAcceptance()
-             * .cardDisputeFinancial()
-             * .cardDisputeLoss()
-             * .cardFinancial()
-             * .cardPushTransferAcceptance()
-             * .cardRefund()
-             * .cardRevenuePayment()
-             * .cardSettlement()
-             * .cashbackPayment()
              * .category()
-             * .checkDepositAcceptance()
-             * .checkDepositReturn()
-             * .checkTransferDeposit()
-             * .fednowTransferAcknowledgement()
-             * .feePayment()
-             * .inboundAchTransfer()
-             * .inboundAchTransferReturnIntention()
-             * .inboundCheckAdjustment()
-             * .inboundCheckDepositReturnIntention()
-             * .inboundFednowTransferConfirmation()
-             * .inboundRealTimePaymentsTransferConfirmation()
-             * .inboundWireReversal()
-             * .inboundWireTransfer()
-             * .inboundWireTransferReversal()
-             * .interestPayment()
-             * .internalSource()
-             * .other()
-             * .realTimePaymentsTransferAcknowledgement()
-             * .sampleFunds()
-             * .swiftTransferIntention()
-             * .swiftTransferReturn()
-             * .wireTransferIntention()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1956,64 +1918,68 @@ private constructor(
         /** A builder for [Source]. */
         class Builder internal constructor() {
 
-            private var accountRevenuePayment: JsonField<AccountRevenuePayment>? = null
-            private var accountTransferIntention: JsonField<AccountTransferIntention>? = null
-            private var achTransferIntention: JsonField<AchTransferIntention>? = null
-            private var achTransferRejection: JsonField<AchTransferRejection>? = null
-            private var achTransferReturn: JsonField<AchTransferReturn>? = null
-            private var blockchainOfframpTransferSettlement:
-                JsonField<BlockchainOfframpTransferSettlement>? =
-                null
-            private var blockchainOnrampTransferIntention:
-                JsonField<BlockchainOnrampTransferIntention>? =
-                null
-            private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance>? = null
-            private var cardDisputeFinancial: JsonField<CardDisputeFinancial>? = null
-            private var cardDisputeLoss: JsonField<CardDisputeLoss>? = null
-            private var cardFinancial: JsonField<CardFinancial>? = null
-            private var cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance>? = null
-            private var cardRefund: JsonField<CardRefund>? = null
-            private var cardRevenuePayment: JsonField<CardRevenuePayment>? = null
-            private var cardSettlement: JsonField<CardSettlement>? = null
-            private var cashbackPayment: JsonField<CashbackPayment>? = null
             private var category: JsonField<Category>? = null
-            private var checkDepositAcceptance: JsonField<CheckDepositAcceptance>? = null
-            private var checkDepositReturn: JsonField<CheckDepositReturn>? = null
-            private var checkTransferDeposit: JsonField<CheckTransferDeposit>? = null
-            private var fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement>? =
-                null
-            private var feePayment: JsonField<FeePayment>? = null
-            private var inboundAchTransfer: JsonField<InboundAchTransfer>? = null
+            private var accountRevenuePayment: JsonField<AccountRevenuePayment> = JsonMissing.of()
+            private var accountTransferIntention: JsonField<AccountTransferIntention> =
+                JsonMissing.of()
+            private var achTransferIntention: JsonField<AchTransferIntention> = JsonMissing.of()
+            private var achTransferRejection: JsonField<AchTransferRejection> = JsonMissing.of()
+            private var achTransferReturn: JsonField<AchTransferReturn> = JsonMissing.of()
+            private var blockchainOfframpTransferSettlement:
+                JsonField<BlockchainOfframpTransferSettlement> =
+                JsonMissing.of()
+            private var blockchainOnrampTransferIntention:
+                JsonField<BlockchainOnrampTransferIntention> =
+                JsonMissing.of()
+            private var cardDisputeAcceptance: JsonField<CardDisputeAcceptance> = JsonMissing.of()
+            private var cardDisputeFinancial: JsonField<CardDisputeFinancial> = JsonMissing.of()
+            private var cardDisputeLoss: JsonField<CardDisputeLoss> = JsonMissing.of()
+            private var cardFinancial: JsonField<CardFinancial> = JsonMissing.of()
+            private var cardPushTransferAcceptance: JsonField<CardPushTransferAcceptance> =
+                JsonMissing.of()
+            private var cardRefund: JsonField<CardRefund> = JsonMissing.of()
+            private var cardRevenuePayment: JsonField<CardRevenuePayment> = JsonMissing.of()
+            private var cardSettlement: JsonField<CardSettlement> = JsonMissing.of()
+            private var cashbackPayment: JsonField<CashbackPayment> = JsonMissing.of()
+            private var checkDepositAcceptance: JsonField<CheckDepositAcceptance> = JsonMissing.of()
+            private var checkDepositReturn: JsonField<CheckDepositReturn> = JsonMissing.of()
+            private var checkTransferDeposit: JsonField<CheckTransferDeposit> = JsonMissing.of()
+            private var fednowTransferAcknowledgement: JsonField<FednowTransferAcknowledgement> =
+                JsonMissing.of()
+            private var feePayment: JsonField<FeePayment> = JsonMissing.of()
+            private var inboundAchTransfer: JsonField<InboundAchTransfer> = JsonMissing.of()
             private var inboundAchTransferReturnIntention:
-                JsonField<InboundAchTransferReturnIntention>? =
-                null
-            private var inboundCheckAdjustment: JsonField<InboundCheckAdjustment>? = null
+                JsonField<InboundAchTransferReturnIntention> =
+                JsonMissing.of()
+            private var inboundCheckAdjustment: JsonField<InboundCheckAdjustment> = JsonMissing.of()
             private var inboundCheckDepositReturnIntention:
-                JsonField<InboundCheckDepositReturnIntention>? =
-                null
+                JsonField<InboundCheckDepositReturnIntention> =
+                JsonMissing.of()
             private var inboundFednowTransferConfirmation:
-                JsonField<InboundFednowTransferConfirmation>? =
-                null
+                JsonField<InboundFednowTransferConfirmation> =
+                JsonMissing.of()
             private var inboundRealTimePaymentsTransferConfirmation:
-                JsonField<InboundRealTimePaymentsTransferConfirmation>? =
-                null
-            private var inboundWireReversal: JsonField<InboundWireReversal>? = null
-            private var inboundWireTransfer: JsonField<InboundWireTransfer>? = null
-            private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
-            private var interestPayment: JsonField<InterestPayment>? = null
-            private var internalSource: JsonField<InternalSource>? = null
-            private var other: JsonField<Other>? = null
+                JsonField<InboundRealTimePaymentsTransferConfirmation> =
+                JsonMissing.of()
+            private var inboundWireReversal: JsonField<InboundWireReversal> = JsonMissing.of()
+            private var inboundWireTransfer: JsonField<InboundWireTransfer> = JsonMissing.of()
+            private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal> =
+                JsonMissing.of()
+            private var interestPayment: JsonField<InterestPayment> = JsonMissing.of()
+            private var internalSource: JsonField<InternalSource> = JsonMissing.of()
+            private var other: JsonField<Other> = JsonMissing.of()
             private var realTimePaymentsTransferAcknowledgement:
-                JsonField<RealTimePaymentsTransferAcknowledgement>? =
-                null
-            private var sampleFunds: JsonField<SampleFunds>? = null
-            private var swiftTransferIntention: JsonField<SwiftTransferIntention>? = null
-            private var swiftTransferReturn: JsonField<SwiftTransferReturn>? = null
-            private var wireTransferIntention: JsonField<WireTransferIntention>? = null
+                JsonField<RealTimePaymentsTransferAcknowledgement> =
+                JsonMissing.of()
+            private var sampleFunds: JsonField<SampleFunds> = JsonMissing.of()
+            private var swiftTransferIntention: JsonField<SwiftTransferIntention> = JsonMissing.of()
+            private var swiftTransferReturn: JsonField<SwiftTransferReturn> = JsonMissing.of()
+            private var wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(source: Source) = apply {
+                category = source.category
                 accountRevenuePayment = source.accountRevenuePayment
                 accountTransferIntention = source.accountTransferIntention
                 achTransferIntention = source.achTransferIntention
@@ -2030,7 +1996,6 @@ private constructor(
                 cardRevenuePayment = source.cardRevenuePayment
                 cardSettlement = source.cardSettlement
                 cashbackPayment = source.cashbackPayment
-                category = source.category
                 checkDepositAcceptance = source.checkDepositAcceptance
                 checkDepositReturn = source.checkDepositReturn
                 checkTransferDeposit = source.checkTransferDeposit
@@ -2057,6 +2022,21 @@ private constructor(
                 wireTransferIntention = source.wireTransferIntention
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
+
+            /**
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
+             */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * An Account Revenue Payment object. This field will be present in the JSON response if
@@ -2486,21 +2466,6 @@ private constructor(
             fun cashbackPayment(cashbackPayment: JsonField<CashbackPayment>) = apply {
                 this.cashbackPayment = cashbackPayment
             }
-
-            /**
-             * The type of the resource. We may add additional possible values for this enum over
-             * time; your application should be able to handle such additions gracefully.
-             */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /**
-             * Sets [Builder.category] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.category] with a well-typed [Category] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * A Check Deposit Acceptance object. This field will be present in the JSON response if
@@ -3152,111 +3117,52 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .accountRevenuePayment()
-             * .accountTransferIntention()
-             * .achTransferIntention()
-             * .achTransferRejection()
-             * .achTransferReturn()
-             * .blockchainOfframpTransferSettlement()
-             * .blockchainOnrampTransferIntention()
-             * .cardDisputeAcceptance()
-             * .cardDisputeFinancial()
-             * .cardDisputeLoss()
-             * .cardFinancial()
-             * .cardPushTransferAcceptance()
-             * .cardRefund()
-             * .cardRevenuePayment()
-             * .cardSettlement()
-             * .cashbackPayment()
              * .category()
-             * .checkDepositAcceptance()
-             * .checkDepositReturn()
-             * .checkTransferDeposit()
-             * .fednowTransferAcknowledgement()
-             * .feePayment()
-             * .inboundAchTransfer()
-             * .inboundAchTransferReturnIntention()
-             * .inboundCheckAdjustment()
-             * .inboundCheckDepositReturnIntention()
-             * .inboundFednowTransferConfirmation()
-             * .inboundRealTimePaymentsTransferConfirmation()
-             * .inboundWireReversal()
-             * .inboundWireTransfer()
-             * .inboundWireTransferReversal()
-             * .interestPayment()
-             * .internalSource()
-             * .other()
-             * .realTimePaymentsTransferAcknowledgement()
-             * .sampleFunds()
-             * .swiftTransferIntention()
-             * .swiftTransferReturn()
-             * .wireTransferIntention()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Source =
                 Source(
-                    checkRequired("accountRevenuePayment", accountRevenuePayment),
-                    checkRequired("accountTransferIntention", accountTransferIntention),
-                    checkRequired("achTransferIntention", achTransferIntention),
-                    checkRequired("achTransferRejection", achTransferRejection),
-                    checkRequired("achTransferReturn", achTransferReturn),
-                    checkRequired(
-                        "blockchainOfframpTransferSettlement",
-                        blockchainOfframpTransferSettlement,
-                    ),
-                    checkRequired(
-                        "blockchainOnrampTransferIntention",
-                        blockchainOnrampTransferIntention,
-                    ),
-                    checkRequired("cardDisputeAcceptance", cardDisputeAcceptance),
-                    checkRequired("cardDisputeFinancial", cardDisputeFinancial),
-                    checkRequired("cardDisputeLoss", cardDisputeLoss),
-                    checkRequired("cardFinancial", cardFinancial),
-                    checkRequired("cardPushTransferAcceptance", cardPushTransferAcceptance),
-                    checkRequired("cardRefund", cardRefund),
-                    checkRequired("cardRevenuePayment", cardRevenuePayment),
-                    checkRequired("cardSettlement", cardSettlement),
-                    checkRequired("cashbackPayment", cashbackPayment),
                     checkRequired("category", category),
-                    checkRequired("checkDepositAcceptance", checkDepositAcceptance),
-                    checkRequired("checkDepositReturn", checkDepositReturn),
-                    checkRequired("checkTransferDeposit", checkTransferDeposit),
-                    checkRequired("fednowTransferAcknowledgement", fednowTransferAcknowledgement),
-                    checkRequired("feePayment", feePayment),
-                    checkRequired("inboundAchTransfer", inboundAchTransfer),
-                    checkRequired(
-                        "inboundAchTransferReturnIntention",
-                        inboundAchTransferReturnIntention,
-                    ),
-                    checkRequired("inboundCheckAdjustment", inboundCheckAdjustment),
-                    checkRequired(
-                        "inboundCheckDepositReturnIntention",
-                        inboundCheckDepositReturnIntention,
-                    ),
-                    checkRequired(
-                        "inboundFednowTransferConfirmation",
-                        inboundFednowTransferConfirmation,
-                    ),
-                    checkRequired(
-                        "inboundRealTimePaymentsTransferConfirmation",
-                        inboundRealTimePaymentsTransferConfirmation,
-                    ),
-                    checkRequired("inboundWireReversal", inboundWireReversal),
-                    checkRequired("inboundWireTransfer", inboundWireTransfer),
-                    checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
-                    checkRequired("interestPayment", interestPayment),
-                    checkRequired("internalSource", internalSource),
-                    checkRequired("other", other),
-                    checkRequired(
-                        "realTimePaymentsTransferAcknowledgement",
-                        realTimePaymentsTransferAcknowledgement,
-                    ),
-                    checkRequired("sampleFunds", sampleFunds),
-                    checkRequired("swiftTransferIntention", swiftTransferIntention),
-                    checkRequired("swiftTransferReturn", swiftTransferReturn),
-                    checkRequired("wireTransferIntention", wireTransferIntention),
+                    accountRevenuePayment,
+                    accountTransferIntention,
+                    achTransferIntention,
+                    achTransferRejection,
+                    achTransferReturn,
+                    blockchainOfframpTransferSettlement,
+                    blockchainOnrampTransferIntention,
+                    cardDisputeAcceptance,
+                    cardDisputeFinancial,
+                    cardDisputeLoss,
+                    cardFinancial,
+                    cardPushTransferAcceptance,
+                    cardRefund,
+                    cardRevenuePayment,
+                    cardSettlement,
+                    cashbackPayment,
+                    checkDepositAcceptance,
+                    checkDepositReturn,
+                    checkTransferDeposit,
+                    fednowTransferAcknowledgement,
+                    feePayment,
+                    inboundAchTransfer,
+                    inboundAchTransferReturnIntention,
+                    inboundCheckAdjustment,
+                    inboundCheckDepositReturnIntention,
+                    inboundFednowTransferConfirmation,
+                    inboundRealTimePaymentsTransferConfirmation,
+                    inboundWireReversal,
+                    inboundWireTransfer,
+                    inboundWireTransferReversal,
+                    interestPayment,
+                    internalSource,
+                    other,
+                    realTimePaymentsTransferAcknowledgement,
+                    sampleFunds,
+                    swiftTransferIntention,
+                    swiftTransferReturn,
+                    wireTransferIntention,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -3268,6 +3174,7 @@ private constructor(
                 return@apply
             }
 
+            category().validate()
             accountRevenuePayment().ifPresent { it.validate() }
             accountTransferIntention().ifPresent { it.validate() }
             achTransferIntention().ifPresent { it.validate() }
@@ -3284,7 +3191,6 @@ private constructor(
             cardRevenuePayment().ifPresent { it.validate() }
             cardSettlement().ifPresent { it.validate() }
             cashbackPayment().ifPresent { it.validate() }
-            category().validate()
             checkDepositAcceptance().ifPresent { it.validate() }
             checkDepositReturn().ifPresent { it.validate() }
             checkTransferDeposit().ifPresent { it.validate() }
@@ -3326,7 +3232,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (accountRevenuePayment.asKnown().getOrNull()?.validity() ?: 0) +
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (accountRevenuePayment.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferRejection.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3342,7 +3249,6 @@ private constructor(
                 (cardRevenuePayment.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardSettlement.asKnown().getOrNull()?.validity() ?: 0) +
                 (cashbackPayment.asKnown().getOrNull()?.validity() ?: 0) +
-                (category.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkDepositAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkDepositReturn.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkTransferDeposit.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3366,6 +3272,736 @@ private constructor(
                 (swiftTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferIntention.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
+                @JvmField val ACCOUNT_TRANSFER_INTENTION = of("account_transfer_intention")
+
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
+                @JvmField val ACH_TRANSFER_INTENTION = of("ach_transfer_intention")
+
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
+                @JvmField val ACH_TRANSFER_REJECTION = of("ach_transfer_rejection")
+
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
+                @JvmField val ACH_TRANSFER_RETURN = of("ach_transfer_return")
+
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
+                @JvmField val CASHBACK_PAYMENT = of("cashback_payment")
+
+                /**
+                 * Legacy Card Dispute Acceptance: details will be under the
+                 * `card_dispute_acceptance` object.
+                 */
+                @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
+
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                @JvmField val CARD_DISPUTE_FINANCIAL = of("card_dispute_financial")
+
+                /**
+                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
+                 */
+                @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
+
+                /** Card Refund: details will be under the `card_refund` object. */
+                @JvmField val CARD_REFUND = of("card_refund")
+
+                /** Card Settlement: details will be under the `card_settlement` object. */
+                @JvmField val CARD_SETTLEMENT = of("card_settlement")
+
+                /** Card Financial: details will be under the `card_financial` object. */
+                @JvmField val CARD_FINANCIAL = of("card_financial")
+
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
+                @JvmField val CARD_REVENUE_PAYMENT = of("card_revenue_payment")
+
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
+                @JvmField val CHECK_DEPOSIT_ACCEPTANCE = of("check_deposit_acceptance")
+
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
+                @JvmField val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
+
+                /**
+                 * FedNow Transfer Acknowledgement: details will be under the
+                 * `fednow_transfer_acknowledgement` object.
+                 */
+                @JvmField
+                val FEDNOW_TRANSFER_ACKNOWLEDGEMENT = of("fednow_transfer_acknowledgement")
+
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
+                @JvmField val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
+
+                /** Fee Payment: details will be under the `fee_payment` object. */
+                @JvmField val FEE_PAYMENT = of("fee_payment")
+
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
+                @JvmField val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
+
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
+                @JvmField
+                val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
+                    of("inbound_ach_transfer_return_intention")
+
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
+                @JvmField
+                val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
+                    of("inbound_check_deposit_return_intention")
+
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
+                @JvmField val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
+
+                /**
+                 * Inbound FedNow Transfer Confirmation: details will be under the
+                 * `inbound_fednow_transfer_confirmation` object.
+                 */
+                @JvmField
+                val INBOUND_FEDNOW_TRANSFER_CONFIRMATION =
+                    of("inbound_fednow_transfer_confirmation")
+
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
+                @JvmField
+                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
+                    of("inbound_real_time_payments_transfer_confirmation")
+
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
+                @JvmField val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
+
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
+                @JvmField val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
+
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
+                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
+
+                /** Interest Payment: details will be under the `interest_payment` object. */
+                @JvmField val INTEREST_PAYMENT = of("interest_payment")
+
+                /** Internal Source: details will be under the `internal_source` object. */
+                @JvmField val INTERNAL_SOURCE = of("internal_source")
+
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
+                @JvmField
+                val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
+                    of("real_time_payments_transfer_acknowledgement")
+
+                /** Sample Funds: details will be under the `sample_funds` object. */
+                @JvmField val SAMPLE_FUNDS = of("sample_funds")
+
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
+                @JvmField val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
+
+                /**
+                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
+                 * object.
+                 */
+                @JvmField val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
+
+                /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                @JvmField val SWIFT_TRANSFER_RETURN = of("swift_transfer_return")
+
+                /**
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
+                 */
+                @JvmField val CARD_PUSH_TRANSFER_ACCEPTANCE = of("card_push_transfer_acceptance")
+
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                @JvmField val ACCOUNT_REVENUE_PAYMENT = of("account_revenue_payment")
+
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                @JvmField
+                val BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION =
+                    of("blockchain_onramp_transfer_intention")
+
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                @JvmField
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT =
+                    of("blockchain_offramp_transfer_settlement")
+
+                /** The Transaction was made for an undocumented or deprecated reason. */
+                @JvmField val OTHER = of("other")
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
+                ACCOUNT_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
+                ACH_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
+                ACH_TRANSFER_REJECTION,
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
+                ACH_TRANSFER_RETURN,
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
+                CASHBACK_PAYMENT,
+                /**
+                 * Legacy Card Dispute Acceptance: details will be under the
+                 * `card_dispute_acceptance` object.
+                 */
+                CARD_DISPUTE_ACCEPTANCE,
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                CARD_DISPUTE_FINANCIAL,
+                /**
+                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
+                 */
+                CARD_DISPUTE_LOSS,
+                /** Card Refund: details will be under the `card_refund` object. */
+                CARD_REFUND,
+                /** Card Settlement: details will be under the `card_settlement` object. */
+                CARD_SETTLEMENT,
+                /** Card Financial: details will be under the `card_financial` object. */
+                CARD_FINANCIAL,
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
+                CARD_REVENUE_PAYMENT,
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
+                CHECK_DEPOSIT_ACCEPTANCE,
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
+                CHECK_DEPOSIT_RETURN,
+                /**
+                 * FedNow Transfer Acknowledgement: details will be under the
+                 * `fednow_transfer_acknowledgement` object.
+                 */
+                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
+                CHECK_TRANSFER_DEPOSIT,
+                /** Fee Payment: details will be under the `fee_payment` object. */
+                FEE_PAYMENT,
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
+                INBOUND_ACH_TRANSFER,
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
+                INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
+                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
+                INBOUND_CHECK_ADJUSTMENT,
+                /**
+                 * Inbound FedNow Transfer Confirmation: details will be under the
+                 * `inbound_fednow_transfer_confirmation` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
+                INBOUND_WIRE_REVERSAL,
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
+                INBOUND_WIRE_TRANSFER,
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
+                INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** Interest Payment: details will be under the `interest_payment` object. */
+                INTEREST_PAYMENT,
+                /** Internal Source: details will be under the `internal_source` object. */
+                INTERNAL_SOURCE,
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
+                REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                /** Sample Funds: details will be under the `sample_funds` object. */
+                SAMPLE_FUNDS,
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
+                WIRE_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
+                 * object.
+                 */
+                SWIFT_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                SWIFT_TRANSFER_RETURN,
+                /**
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
+                 */
+                CARD_PUSH_TRANSFER_ACCEPTANCE,
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                ACCOUNT_REVENUE_PAYMENT,
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
+                /** The Transaction was made for an undocumented or deprecated reason. */
+                OTHER,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * Account Transfer Intention: details will be under the
+                 * `account_transfer_intention` object.
+                 */
+                ACCOUNT_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
+                 * object.
+                 */
+                ACH_TRANSFER_INTENTION,
+                /**
+                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
+                 * object.
+                 */
+                ACH_TRANSFER_REJECTION,
+                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
+                ACH_TRANSFER_RETURN,
+                /** Cashback Payment: details will be under the `cashback_payment` object. */
+                CASHBACK_PAYMENT,
+                /**
+                 * Legacy Card Dispute Acceptance: details will be under the
+                 * `card_dispute_acceptance` object.
+                 */
+                CARD_DISPUTE_ACCEPTANCE,
+                /**
+                 * Card Dispute Financial: details will be under the `card_dispute_financial`
+                 * object.
+                 */
+                CARD_DISPUTE_FINANCIAL,
+                /**
+                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
+                 */
+                CARD_DISPUTE_LOSS,
+                /** Card Refund: details will be under the `card_refund` object. */
+                CARD_REFUND,
+                /** Card Settlement: details will be under the `card_settlement` object. */
+                CARD_SETTLEMENT,
+                /** Card Financial: details will be under the `card_financial` object. */
+                CARD_FINANCIAL,
+                /**
+                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
+                 */
+                CARD_REVENUE_PAYMENT,
+                /**
+                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
+                 * object.
+                 */
+                CHECK_DEPOSIT_ACCEPTANCE,
+                /**
+                 * Check Deposit Return: details will be under the `check_deposit_return` object.
+                 */
+                CHECK_DEPOSIT_RETURN,
+                /**
+                 * FedNow Transfer Acknowledgement: details will be under the
+                 * `fednow_transfer_acknowledgement` object.
+                 */
+                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
+                /**
+                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
+                 * object.
+                 */
+                CHECK_TRANSFER_DEPOSIT,
+                /** Fee Payment: details will be under the `fee_payment` object. */
+                FEE_PAYMENT,
+                /**
+                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
+                 * object.
+                 */
+                INBOUND_ACH_TRANSFER,
+                /**
+                 * Inbound ACH Transfer Return Intention: details will be under the
+                 * `inbound_ach_transfer_return_intention` object.
+                 */
+                INBOUND_ACH_TRANSFER_RETURN_INTENTION,
+                /**
+                 * Inbound Check Deposit Return Intention: details will be under the
+                 * `inbound_check_deposit_return_intention` object.
+                 */
+                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
+                /**
+                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
+                 * object.
+                 */
+                INBOUND_CHECK_ADJUSTMENT,
+                /**
+                 * Inbound FedNow Transfer Confirmation: details will be under the
+                 * `inbound_fednow_transfer_confirmation` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
+                 * `inbound_real_time_payments_transfer_confirmation` object.
+                 */
+                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
+                /**
+                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
+                 */
+                INBOUND_WIRE_REVERSAL,
+                /**
+                 * Inbound Wire Transfer Intention: details will be under the
+                 * `inbound_wire_transfer` object.
+                 */
+                INBOUND_WIRE_TRANSFER,
+                /**
+                 * Inbound Wire Transfer Reversal Intention: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
+                INBOUND_WIRE_TRANSFER_REVERSAL,
+                /** Interest Payment: details will be under the `interest_payment` object. */
+                INTEREST_PAYMENT,
+                /** Internal Source: details will be under the `internal_source` object. */
+                INTERNAL_SOURCE,
+                /**
+                 * Real-Time Payments Transfer Acknowledgement: details will be under the
+                 * `real_time_payments_transfer_acknowledgement` object.
+                 */
+                REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
+                /** Sample Funds: details will be under the `sample_funds` object. */
+                SAMPLE_FUNDS,
+                /**
+                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
+                 * object.
+                 */
+                WIRE_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
+                 * object.
+                 */
+                SWIFT_TRANSFER_INTENTION,
+                /**
+                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
+                 */
+                SWIFT_TRANSFER_RETURN,
+                /**
+                 * Card Push Transfer Acceptance: details will be under the
+                 * `card_push_transfer_acceptance` object.
+                 */
+                CARD_PUSH_TRANSFER_ACCEPTANCE,
+                /**
+                 * Account Revenue Payment: details will be under the `account_revenue_payment`
+                 * object.
+                 */
+                ACCOUNT_REVENUE_PAYMENT,
+                /**
+                 * Blockchain On-Ramp Transfer Intention: details will be under the
+                 * `blockchain_onramp_transfer_intention` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
+                 * `blockchain_offramp_transfer_settlement` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
+                /** The Transaction was made for an undocumented or deprecated reason. */
+                OTHER,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
+                    ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
+                    ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
+                    ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
+                    CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
+                    CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_FINANCIAL -> Value.CARD_DISPUTE_FINANCIAL
+                    CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
+                    CARD_REFUND -> Value.CARD_REFUND
+                    CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
+                    CARD_FINANCIAL -> Value.CARD_FINANCIAL
+                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
+                    CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
+                    CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
+                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
+                    CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
+                    FEE_PAYMENT -> Value.FEE_PAYMENT
+                    INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
+                    INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
+                        Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
+                        Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
+                    INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
+                        Value.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
+                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                    INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
+                    INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
+                    INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
+                    INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
+                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
+                        Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
+                    SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
+                    WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
+                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
+                    ACCOUNT_REVENUE_PAYMENT -> Value.ACCOUNT_REVENUE_PAYMENT
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
+                        Value.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
+                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
+                    ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
+                    ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
+                    ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
+                    CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
+                    CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
+                    CARD_DISPUTE_FINANCIAL -> Known.CARD_DISPUTE_FINANCIAL
+                    CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
+                    CARD_REFUND -> Known.CARD_REFUND
+                    CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
+                    CARD_FINANCIAL -> Known.CARD_FINANCIAL
+                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
+                    CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
+                    CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
+                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
+                    CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
+                    FEE_PAYMENT -> Known.FEE_PAYMENT
+                    INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
+                    INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
+                        Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
+                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
+                        Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
+                    INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
+                    INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
+                        Known.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
+                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
+                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
+                    INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
+                    INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
+                    INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
+                    INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
+                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
+                        Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
+                    SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
+                    WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
+                    SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
+                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
+                    ACCOUNT_REVENUE_PAYMENT -> Known.ACCOUNT_REVENUE_PAYMENT
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
+                        Known.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
+                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /**
          * An Account Revenue Payment object. This field will be present in the JSON response if and
@@ -37936,736 +38572,6 @@ private constructor(
         }
 
         /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         */
-        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /**
-                 * Account Transfer Intention: details will be under the
-                 * `account_transfer_intention` object.
-                 */
-                @JvmField val ACCOUNT_TRANSFER_INTENTION = of("account_transfer_intention")
-
-                /**
-                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
-                 * object.
-                 */
-                @JvmField val ACH_TRANSFER_INTENTION = of("ach_transfer_intention")
-
-                /**
-                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
-                 * object.
-                 */
-                @JvmField val ACH_TRANSFER_REJECTION = of("ach_transfer_rejection")
-
-                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
-                @JvmField val ACH_TRANSFER_RETURN = of("ach_transfer_return")
-
-                /** Cashback Payment: details will be under the `cashback_payment` object. */
-                @JvmField val CASHBACK_PAYMENT = of("cashback_payment")
-
-                /**
-                 * Legacy Card Dispute Acceptance: details will be under the
-                 * `card_dispute_acceptance` object.
-                 */
-                @JvmField val CARD_DISPUTE_ACCEPTANCE = of("card_dispute_acceptance")
-
-                /**
-                 * Card Dispute Financial: details will be under the `card_dispute_financial`
-                 * object.
-                 */
-                @JvmField val CARD_DISPUTE_FINANCIAL = of("card_dispute_financial")
-
-                /**
-                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
-                 */
-                @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
-
-                /** Card Refund: details will be under the `card_refund` object. */
-                @JvmField val CARD_REFUND = of("card_refund")
-
-                /** Card Settlement: details will be under the `card_settlement` object. */
-                @JvmField val CARD_SETTLEMENT = of("card_settlement")
-
-                /** Card Financial: details will be under the `card_financial` object. */
-                @JvmField val CARD_FINANCIAL = of("card_financial")
-
-                /**
-                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
-                 */
-                @JvmField val CARD_REVENUE_PAYMENT = of("card_revenue_payment")
-
-                /**
-                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
-                 * object.
-                 */
-                @JvmField val CHECK_DEPOSIT_ACCEPTANCE = of("check_deposit_acceptance")
-
-                /**
-                 * Check Deposit Return: details will be under the `check_deposit_return` object.
-                 */
-                @JvmField val CHECK_DEPOSIT_RETURN = of("check_deposit_return")
-
-                /**
-                 * FedNow Transfer Acknowledgement: details will be under the
-                 * `fednow_transfer_acknowledgement` object.
-                 */
-                @JvmField
-                val FEDNOW_TRANSFER_ACKNOWLEDGEMENT = of("fednow_transfer_acknowledgement")
-
-                /**
-                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
-                 * object.
-                 */
-                @JvmField val CHECK_TRANSFER_DEPOSIT = of("check_transfer_deposit")
-
-                /** Fee Payment: details will be under the `fee_payment` object. */
-                @JvmField val FEE_PAYMENT = of("fee_payment")
-
-                /**
-                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
-                 * object.
-                 */
-                @JvmField val INBOUND_ACH_TRANSFER = of("inbound_ach_transfer")
-
-                /**
-                 * Inbound ACH Transfer Return Intention: details will be under the
-                 * `inbound_ach_transfer_return_intention` object.
-                 */
-                @JvmField
-                val INBOUND_ACH_TRANSFER_RETURN_INTENTION =
-                    of("inbound_ach_transfer_return_intention")
-
-                /**
-                 * Inbound Check Deposit Return Intention: details will be under the
-                 * `inbound_check_deposit_return_intention` object.
-                 */
-                @JvmField
-                val INBOUND_CHECK_DEPOSIT_RETURN_INTENTION =
-                    of("inbound_check_deposit_return_intention")
-
-                /**
-                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
-                 * object.
-                 */
-                @JvmField val INBOUND_CHECK_ADJUSTMENT = of("inbound_check_adjustment")
-
-                /**
-                 * Inbound FedNow Transfer Confirmation: details will be under the
-                 * `inbound_fednow_transfer_confirmation` object.
-                 */
-                @JvmField
-                val INBOUND_FEDNOW_TRANSFER_CONFIRMATION =
-                    of("inbound_fednow_transfer_confirmation")
-
-                /**
-                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
-                 * `inbound_real_time_payments_transfer_confirmation` object.
-                 */
-                @JvmField
-                val INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION =
-                    of("inbound_real_time_payments_transfer_confirmation")
-
-                /**
-                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
-                 */
-                @JvmField val INBOUND_WIRE_REVERSAL = of("inbound_wire_reversal")
-
-                /**
-                 * Inbound Wire Transfer Intention: details will be under the
-                 * `inbound_wire_transfer` object.
-                 */
-                @JvmField val INBOUND_WIRE_TRANSFER = of("inbound_wire_transfer")
-
-                /**
-                 * Inbound Wire Transfer Reversal Intention: details will be under the
-                 * `inbound_wire_transfer_reversal` object.
-                 */
-                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
-
-                /** Interest Payment: details will be under the `interest_payment` object. */
-                @JvmField val INTEREST_PAYMENT = of("interest_payment")
-
-                /** Internal Source: details will be under the `internal_source` object. */
-                @JvmField val INTERNAL_SOURCE = of("internal_source")
-
-                /**
-                 * Real-Time Payments Transfer Acknowledgement: details will be under the
-                 * `real_time_payments_transfer_acknowledgement` object.
-                 */
-                @JvmField
-                val REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT =
-                    of("real_time_payments_transfer_acknowledgement")
-
-                /** Sample Funds: details will be under the `sample_funds` object. */
-                @JvmField val SAMPLE_FUNDS = of("sample_funds")
-
-                /**
-                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
-                 * object.
-                 */
-                @JvmField val WIRE_TRANSFER_INTENTION = of("wire_transfer_intention")
-
-                /**
-                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
-                 * object.
-                 */
-                @JvmField val SWIFT_TRANSFER_INTENTION = of("swift_transfer_intention")
-
-                /**
-                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
-                 */
-                @JvmField val SWIFT_TRANSFER_RETURN = of("swift_transfer_return")
-
-                /**
-                 * Card Push Transfer Acceptance: details will be under the
-                 * `card_push_transfer_acceptance` object.
-                 */
-                @JvmField val CARD_PUSH_TRANSFER_ACCEPTANCE = of("card_push_transfer_acceptance")
-
-                /**
-                 * Account Revenue Payment: details will be under the `account_revenue_payment`
-                 * object.
-                 */
-                @JvmField val ACCOUNT_REVENUE_PAYMENT = of("account_revenue_payment")
-
-                /**
-                 * Blockchain On-Ramp Transfer Intention: details will be under the
-                 * `blockchain_onramp_transfer_intention` object.
-                 */
-                @JvmField
-                val BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION =
-                    of("blockchain_onramp_transfer_intention")
-
-                /**
-                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
-                 * `blockchain_offramp_transfer_settlement` object.
-                 */
-                @JvmField
-                val BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT =
-                    of("blockchain_offramp_transfer_settlement")
-
-                /** The Transaction was made for an undocumented or deprecated reason. */
-                @JvmField val OTHER = of("other")
-
-                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
-            }
-
-            /** An enum containing [Category]'s known values. */
-            enum class Known {
-                /**
-                 * Account Transfer Intention: details will be under the
-                 * `account_transfer_intention` object.
-                 */
-                ACCOUNT_TRANSFER_INTENTION,
-                /**
-                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
-                 * object.
-                 */
-                ACH_TRANSFER_INTENTION,
-                /**
-                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
-                 * object.
-                 */
-                ACH_TRANSFER_REJECTION,
-                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
-                ACH_TRANSFER_RETURN,
-                /** Cashback Payment: details will be under the `cashback_payment` object. */
-                CASHBACK_PAYMENT,
-                /**
-                 * Legacy Card Dispute Acceptance: details will be under the
-                 * `card_dispute_acceptance` object.
-                 */
-                CARD_DISPUTE_ACCEPTANCE,
-                /**
-                 * Card Dispute Financial: details will be under the `card_dispute_financial`
-                 * object.
-                 */
-                CARD_DISPUTE_FINANCIAL,
-                /**
-                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
-                 */
-                CARD_DISPUTE_LOSS,
-                /** Card Refund: details will be under the `card_refund` object. */
-                CARD_REFUND,
-                /** Card Settlement: details will be under the `card_settlement` object. */
-                CARD_SETTLEMENT,
-                /** Card Financial: details will be under the `card_financial` object. */
-                CARD_FINANCIAL,
-                /**
-                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
-                 */
-                CARD_REVENUE_PAYMENT,
-                /**
-                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
-                 * object.
-                 */
-                CHECK_DEPOSIT_ACCEPTANCE,
-                /**
-                 * Check Deposit Return: details will be under the `check_deposit_return` object.
-                 */
-                CHECK_DEPOSIT_RETURN,
-                /**
-                 * FedNow Transfer Acknowledgement: details will be under the
-                 * `fednow_transfer_acknowledgement` object.
-                 */
-                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
-                /**
-                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
-                 * object.
-                 */
-                CHECK_TRANSFER_DEPOSIT,
-                /** Fee Payment: details will be under the `fee_payment` object. */
-                FEE_PAYMENT,
-                /**
-                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
-                 * object.
-                 */
-                INBOUND_ACH_TRANSFER,
-                /**
-                 * Inbound ACH Transfer Return Intention: details will be under the
-                 * `inbound_ach_transfer_return_intention` object.
-                 */
-                INBOUND_ACH_TRANSFER_RETURN_INTENTION,
-                /**
-                 * Inbound Check Deposit Return Intention: details will be under the
-                 * `inbound_check_deposit_return_intention` object.
-                 */
-                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
-                /**
-                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
-                 * object.
-                 */
-                INBOUND_CHECK_ADJUSTMENT,
-                /**
-                 * Inbound FedNow Transfer Confirmation: details will be under the
-                 * `inbound_fednow_transfer_confirmation` object.
-                 */
-                INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
-                /**
-                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
-                 * `inbound_real_time_payments_transfer_confirmation` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                /**
-                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
-                 */
-                INBOUND_WIRE_REVERSAL,
-                /**
-                 * Inbound Wire Transfer Intention: details will be under the
-                 * `inbound_wire_transfer` object.
-                 */
-                INBOUND_WIRE_TRANSFER,
-                /**
-                 * Inbound Wire Transfer Reversal Intention: details will be under the
-                 * `inbound_wire_transfer_reversal` object.
-                 */
-                INBOUND_WIRE_TRANSFER_REVERSAL,
-                /** Interest Payment: details will be under the `interest_payment` object. */
-                INTEREST_PAYMENT,
-                /** Internal Source: details will be under the `internal_source` object. */
-                INTERNAL_SOURCE,
-                /**
-                 * Real-Time Payments Transfer Acknowledgement: details will be under the
-                 * `real_time_payments_transfer_acknowledgement` object.
-                 */
-                REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
-                /** Sample Funds: details will be under the `sample_funds` object. */
-                SAMPLE_FUNDS,
-                /**
-                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
-                 * object.
-                 */
-                WIRE_TRANSFER_INTENTION,
-                /**
-                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
-                 * object.
-                 */
-                SWIFT_TRANSFER_INTENTION,
-                /**
-                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
-                 */
-                SWIFT_TRANSFER_RETURN,
-                /**
-                 * Card Push Transfer Acceptance: details will be under the
-                 * `card_push_transfer_acceptance` object.
-                 */
-                CARD_PUSH_TRANSFER_ACCEPTANCE,
-                /**
-                 * Account Revenue Payment: details will be under the `account_revenue_payment`
-                 * object.
-                 */
-                ACCOUNT_REVENUE_PAYMENT,
-                /**
-                 * Blockchain On-Ramp Transfer Intention: details will be under the
-                 * `blockchain_onramp_transfer_intention` object.
-                 */
-                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
-                /**
-                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
-                 * `blockchain_offramp_transfer_settlement` object.
-                 */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
-                /** The Transaction was made for an undocumented or deprecated reason. */
-                OTHER,
-            }
-
-            /**
-             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Category] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /**
-                 * Account Transfer Intention: details will be under the
-                 * `account_transfer_intention` object.
-                 */
-                ACCOUNT_TRANSFER_INTENTION,
-                /**
-                 * ACH Transfer Intention: details will be under the `ach_transfer_intention`
-                 * object.
-                 */
-                ACH_TRANSFER_INTENTION,
-                /**
-                 * ACH Transfer Rejection: details will be under the `ach_transfer_rejection`
-                 * object.
-                 */
-                ACH_TRANSFER_REJECTION,
-                /** ACH Transfer Return: details will be under the `ach_transfer_return` object. */
-                ACH_TRANSFER_RETURN,
-                /** Cashback Payment: details will be under the `cashback_payment` object. */
-                CASHBACK_PAYMENT,
-                /**
-                 * Legacy Card Dispute Acceptance: details will be under the
-                 * `card_dispute_acceptance` object.
-                 */
-                CARD_DISPUTE_ACCEPTANCE,
-                /**
-                 * Card Dispute Financial: details will be under the `card_dispute_financial`
-                 * object.
-                 */
-                CARD_DISPUTE_FINANCIAL,
-                /**
-                 * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
-                 */
-                CARD_DISPUTE_LOSS,
-                /** Card Refund: details will be under the `card_refund` object. */
-                CARD_REFUND,
-                /** Card Settlement: details will be under the `card_settlement` object. */
-                CARD_SETTLEMENT,
-                /** Card Financial: details will be under the `card_financial` object. */
-                CARD_FINANCIAL,
-                /**
-                 * Card Revenue Payment: details will be under the `card_revenue_payment` object.
-                 */
-                CARD_REVENUE_PAYMENT,
-                /**
-                 * Check Deposit Acceptance: details will be under the `check_deposit_acceptance`
-                 * object.
-                 */
-                CHECK_DEPOSIT_ACCEPTANCE,
-                /**
-                 * Check Deposit Return: details will be under the `check_deposit_return` object.
-                 */
-                CHECK_DEPOSIT_RETURN,
-                /**
-                 * FedNow Transfer Acknowledgement: details will be under the
-                 * `fednow_transfer_acknowledgement` object.
-                 */
-                FEDNOW_TRANSFER_ACKNOWLEDGEMENT,
-                /**
-                 * Check Transfer Deposit: details will be under the `check_transfer_deposit`
-                 * object.
-                 */
-                CHECK_TRANSFER_DEPOSIT,
-                /** Fee Payment: details will be under the `fee_payment` object. */
-                FEE_PAYMENT,
-                /**
-                 * Inbound ACH Transfer Intention: details will be under the `inbound_ach_transfer`
-                 * object.
-                 */
-                INBOUND_ACH_TRANSFER,
-                /**
-                 * Inbound ACH Transfer Return Intention: details will be under the
-                 * `inbound_ach_transfer_return_intention` object.
-                 */
-                INBOUND_ACH_TRANSFER_RETURN_INTENTION,
-                /**
-                 * Inbound Check Deposit Return Intention: details will be under the
-                 * `inbound_check_deposit_return_intention` object.
-                 */
-                INBOUND_CHECK_DEPOSIT_RETURN_INTENTION,
-                /**
-                 * Inbound Check Adjustment: details will be under the `inbound_check_adjustment`
-                 * object.
-                 */
-                INBOUND_CHECK_ADJUSTMENT,
-                /**
-                 * Inbound FedNow Transfer Confirmation: details will be under the
-                 * `inbound_fednow_transfer_confirmation` object.
-                 */
-                INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
-                /**
-                 * Inbound Real-Time Payments Transfer Confirmation: details will be under the
-                 * `inbound_real_time_payments_transfer_confirmation` object.
-                 */
-                INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION,
-                /**
-                 * Inbound Wire Reversal: details will be under the `inbound_wire_reversal` object.
-                 */
-                INBOUND_WIRE_REVERSAL,
-                /**
-                 * Inbound Wire Transfer Intention: details will be under the
-                 * `inbound_wire_transfer` object.
-                 */
-                INBOUND_WIRE_TRANSFER,
-                /**
-                 * Inbound Wire Transfer Reversal Intention: details will be under the
-                 * `inbound_wire_transfer_reversal` object.
-                 */
-                INBOUND_WIRE_TRANSFER_REVERSAL,
-                /** Interest Payment: details will be under the `interest_payment` object. */
-                INTEREST_PAYMENT,
-                /** Internal Source: details will be under the `internal_source` object. */
-                INTERNAL_SOURCE,
-                /**
-                 * Real-Time Payments Transfer Acknowledgement: details will be under the
-                 * `real_time_payments_transfer_acknowledgement` object.
-                 */
-                REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT,
-                /** Sample Funds: details will be under the `sample_funds` object. */
-                SAMPLE_FUNDS,
-                /**
-                 * Wire Transfer Intention: details will be under the `wire_transfer_intention`
-                 * object.
-                 */
-                WIRE_TRANSFER_INTENTION,
-                /**
-                 * Swift Transfer Intention: details will be under the `swift_transfer_intention`
-                 * object.
-                 */
-                SWIFT_TRANSFER_INTENTION,
-                /**
-                 * Swift Transfer Return: details will be under the `swift_transfer_return` object.
-                 */
-                SWIFT_TRANSFER_RETURN,
-                /**
-                 * Card Push Transfer Acceptance: details will be under the
-                 * `card_push_transfer_acceptance` object.
-                 */
-                CARD_PUSH_TRANSFER_ACCEPTANCE,
-                /**
-                 * Account Revenue Payment: details will be under the `account_revenue_payment`
-                 * object.
-                 */
-                ACCOUNT_REVENUE_PAYMENT,
-                /**
-                 * Blockchain On-Ramp Transfer Intention: details will be under the
-                 * `blockchain_onramp_transfer_intention` object.
-                 */
-                BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION,
-                /**
-                 * Blockchain Off-Ramp Transfer Settlement: details will be under the
-                 * `blockchain_offramp_transfer_settlement` object.
-                 */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
-                /** The Transaction was made for an undocumented or deprecated reason. */
-                OTHER,
-                /**
-                 * An enum member indicating that [Category] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ACCOUNT_TRANSFER_INTENTION -> Value.ACCOUNT_TRANSFER_INTENTION
-                    ACH_TRANSFER_INTENTION -> Value.ACH_TRANSFER_INTENTION
-                    ACH_TRANSFER_REJECTION -> Value.ACH_TRANSFER_REJECTION
-                    ACH_TRANSFER_RETURN -> Value.ACH_TRANSFER_RETURN
-                    CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
-                    CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
-                    CARD_DISPUTE_FINANCIAL -> Value.CARD_DISPUTE_FINANCIAL
-                    CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
-                    CARD_REFUND -> Value.CARD_REFUND
-                    CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
-                    CARD_FINANCIAL -> Value.CARD_FINANCIAL
-                    CARD_REVENUE_PAYMENT -> Value.CARD_REVENUE_PAYMENT
-                    CHECK_DEPOSIT_ACCEPTANCE -> Value.CHECK_DEPOSIT_ACCEPTANCE
-                    CHECK_DEPOSIT_RETURN -> Value.CHECK_DEPOSIT_RETURN
-                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Value.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
-                    CHECK_TRANSFER_DEPOSIT -> Value.CHECK_TRANSFER_DEPOSIT
-                    FEE_PAYMENT -> Value.FEE_PAYMENT
-                    INBOUND_ACH_TRANSFER -> Value.INBOUND_ACH_TRANSFER
-                    INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
-                        Value.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
-                        Value.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
-                    INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
-                    INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
-                        Value.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
-                        Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
-                    INBOUND_WIRE_TRANSFER -> Value.INBOUND_WIRE_TRANSFER
-                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
-                    INTEREST_PAYMENT -> Value.INTEREST_PAYMENT
-                    INTERNAL_SOURCE -> Value.INTERNAL_SOURCE
-                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
-                        Value.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
-                    SAMPLE_FUNDS -> Value.SAMPLE_FUNDS
-                    WIRE_TRANSFER_INTENTION -> Value.WIRE_TRANSFER_INTENTION
-                    SWIFT_TRANSFER_INTENTION -> Value.SWIFT_TRANSFER_INTENTION
-                    SWIFT_TRANSFER_RETURN -> Value.SWIFT_TRANSFER_RETURN
-                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Value.CARD_PUSH_TRANSFER_ACCEPTANCE
-                    ACCOUNT_REVENUE_PAYMENT -> Value.ACCOUNT_REVENUE_PAYMENT
-                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
-                        Value.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
-                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ACCOUNT_TRANSFER_INTENTION -> Known.ACCOUNT_TRANSFER_INTENTION
-                    ACH_TRANSFER_INTENTION -> Known.ACH_TRANSFER_INTENTION
-                    ACH_TRANSFER_REJECTION -> Known.ACH_TRANSFER_REJECTION
-                    ACH_TRANSFER_RETURN -> Known.ACH_TRANSFER_RETURN
-                    CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
-                    CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
-                    CARD_DISPUTE_FINANCIAL -> Known.CARD_DISPUTE_FINANCIAL
-                    CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
-                    CARD_REFUND -> Known.CARD_REFUND
-                    CARD_SETTLEMENT -> Known.CARD_SETTLEMENT
-                    CARD_FINANCIAL -> Known.CARD_FINANCIAL
-                    CARD_REVENUE_PAYMENT -> Known.CARD_REVENUE_PAYMENT
-                    CHECK_DEPOSIT_ACCEPTANCE -> Known.CHECK_DEPOSIT_ACCEPTANCE
-                    CHECK_DEPOSIT_RETURN -> Known.CHECK_DEPOSIT_RETURN
-                    FEDNOW_TRANSFER_ACKNOWLEDGEMENT -> Known.FEDNOW_TRANSFER_ACKNOWLEDGEMENT
-                    CHECK_TRANSFER_DEPOSIT -> Known.CHECK_TRANSFER_DEPOSIT
-                    FEE_PAYMENT -> Known.FEE_PAYMENT
-                    INBOUND_ACH_TRANSFER -> Known.INBOUND_ACH_TRANSFER
-                    INBOUND_ACH_TRANSFER_RETURN_INTENTION ->
-                        Known.INBOUND_ACH_TRANSFER_RETURN_INTENTION
-                    INBOUND_CHECK_DEPOSIT_RETURN_INTENTION ->
-                        Known.INBOUND_CHECK_DEPOSIT_RETURN_INTENTION
-                    INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
-                    INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
-                        Known.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
-                    INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
-                        Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
-                    INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL
-                    INBOUND_WIRE_TRANSFER -> Known.INBOUND_WIRE_TRANSFER
-                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
-                    INTEREST_PAYMENT -> Known.INTEREST_PAYMENT
-                    INTERNAL_SOURCE -> Known.INTERNAL_SOURCE
-                    REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT ->
-                        Known.REAL_TIME_PAYMENTS_TRANSFER_ACKNOWLEDGEMENT
-                    SAMPLE_FUNDS -> Known.SAMPLE_FUNDS
-                    WIRE_TRANSFER_INTENTION -> Known.WIRE_TRANSFER_INTENTION
-                    SWIFT_TRANSFER_INTENTION -> Known.SWIFT_TRANSFER_INTENTION
-                    SWIFT_TRANSFER_RETURN -> Known.SWIFT_TRANSFER_RETURN
-                    CARD_PUSH_TRANSFER_ACCEPTANCE -> Known.CARD_PUSH_TRANSFER_ACCEPTANCE
-                    ACCOUNT_REVENUE_PAYMENT -> Known.ACCOUNT_REVENUE_PAYMENT
-                    BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION ->
-                        Known.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
-                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): Category = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Category && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
          * A Check Deposit Acceptance object. This field will be present in the JSON response if and
          * only if `category` is equal to `check_deposit_acceptance`. A Check Deposit Acceptance is
          * created when a Check Deposit is processed and its details confirmed. Check Deposits may
@@ -49578,6 +49484,7 @@ private constructor(
             }
 
             return other is Source &&
+                category == other.category &&
                 accountRevenuePayment == other.accountRevenuePayment &&
                 accountTransferIntention == other.accountTransferIntention &&
                 achTransferIntention == other.achTransferIntention &&
@@ -49594,7 +49501,6 @@ private constructor(
                 cardRevenuePayment == other.cardRevenuePayment &&
                 cardSettlement == other.cardSettlement &&
                 cashbackPayment == other.cashbackPayment &&
-                category == other.category &&
                 checkDepositAcceptance == other.checkDepositAcceptance &&
                 checkDepositReturn == other.checkDepositReturn &&
                 checkTransferDeposit == other.checkTransferDeposit &&
@@ -49624,6 +49530,7 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                category,
                 accountRevenuePayment,
                 accountTransferIntention,
                 achTransferIntention,
@@ -49640,7 +49547,6 @@ private constructor(
                 cardRevenuePayment,
                 cardSettlement,
                 cashbackPayment,
-                category,
                 checkDepositAcceptance,
                 checkDepositReturn,
                 checkTransferDeposit,
@@ -49670,7 +49576,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, category=$category, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**

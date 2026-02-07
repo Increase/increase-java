@@ -39,12 +39,12 @@ internal class CardValidationTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     CardValidation.CreatedBy.builder()
+                        .category(CardValidation.CreatedBy.Category.USER)
                         .apiKey(
                             CardValidation.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(CardValidation.CreatedBy.Category.USER)
                         .oauthApplication(
                             CardValidation.CreatedBy.OAuthApplication.builder().name("name").build()
                         )
@@ -110,10 +110,10 @@ internal class CardValidationTest {
         assertThat(cardValidation.createdBy())
             .contains(
                 CardValidation.CreatedBy.builder()
+                    .category(CardValidation.CreatedBy.Category.USER)
                     .apiKey(
                         CardValidation.CreatedBy.ApiKey.builder().description("description").build()
                     )
-                    .category(CardValidation.CreatedBy.Category.USER)
                     .oauthApplication(
                         CardValidation.CreatedBy.OAuthApplication.builder().name("name").build()
                     )
@@ -176,12 +176,12 @@ internal class CardValidationTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     CardValidation.CreatedBy.builder()
+                        .category(CardValidation.CreatedBy.Category.USER)
                         .apiKey(
                             CardValidation.CreatedBy.ApiKey.builder()
                                 .description("description")
                                 .build()
                         )
-                        .category(CardValidation.CreatedBy.Category.USER)
                         .oauthApplication(
                             CardValidation.CreatedBy.OAuthApplication.builder().name("name").build()
                         )

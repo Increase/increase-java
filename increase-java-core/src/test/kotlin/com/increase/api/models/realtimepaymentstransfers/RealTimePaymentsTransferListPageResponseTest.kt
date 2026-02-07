@@ -39,12 +39,12 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             RealTimePaymentsTransfer.CreatedBy.builder()
+                                .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     RealTimePaymentsTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     RealTimePaymentsTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")
@@ -119,12 +119,12 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .createdBy(
                         RealTimePaymentsTransfer.CreatedBy.builder()
+                            .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                             .apiKey(
                                 RealTimePaymentsTransfer.CreatedBy.ApiKey.builder()
                                     .description("description")
                                     .build()
                             )
-                            .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                             .oauthApplication(
                                 RealTimePaymentsTransfer.CreatedBy.OAuthApplication.builder()
                                     .name("name")
@@ -202,12 +202,12 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .createdBy(
                             RealTimePaymentsTransfer.CreatedBy.builder()
+                                .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                                 .apiKey(
                                     RealTimePaymentsTransfer.CreatedBy.ApiKey.builder()
                                         .description("description")
                                         .build()
                                 )
-                                .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
                                 .oauthApplication(
                                     RealTimePaymentsTransfer.CreatedBy.OAuthApplication.builder()
                                         .name("name")

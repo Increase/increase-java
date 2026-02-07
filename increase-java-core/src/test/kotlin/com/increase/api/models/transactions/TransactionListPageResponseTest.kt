@@ -27,6 +27,7 @@ internal class TransactionListPageResponseTest {
                         .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             Transaction.Source.builder()
+                                .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                                 .accountRevenuePayment(
                                     Transaction.Source.AccountRevenuePayment.builder()
                                         .accruedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -898,7 +899,6 @@ internal class TransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                                 .checkDepositAcceptance(
                                     Transaction.Source.CheckDepositAcceptance.builder()
                                         .accountNumber("987654321")
@@ -1176,6 +1176,7 @@ internal class TransactionListPageResponseTest {
                     .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                     .source(
                         Transaction.Source.builder()
+                            .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                             .accountRevenuePayment(
                                 Transaction.Source.AccountRevenuePayment.builder()
                                     .accruedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -1986,7 +1987,6 @@ internal class TransactionListPageResponseTest {
                                     .periodStart(OffsetDateTime.parse("2025-06-01T00:00:00+00:00"))
                                     .build()
                             )
-                            .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                             .checkDepositAcceptance(
                                 Transaction.Source.CheckDepositAcceptance.builder()
                                     .accountNumber("987654321")
@@ -2256,6 +2256,7 @@ internal class TransactionListPageResponseTest {
                         .routeType(Transaction.RouteType.ACCOUNT_NUMBER)
                         .source(
                             Transaction.Source.builder()
+                                .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                                 .accountRevenuePayment(
                                     Transaction.Source.AccountRevenuePayment.builder()
                                         .accruedOnAccountId("account_in71c4amph0vgo2qllky")
@@ -3127,7 +3128,6 @@ internal class TransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
-                                .category(Transaction.Source.Category.INBOUND_ACH_TRANSFER)
                                 .checkDepositAcceptance(
                                     Transaction.Source.CheckDepositAcceptance.builder()
                                         .accountNumber("987654321")

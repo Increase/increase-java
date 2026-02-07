@@ -951,6 +951,7 @@ private constructor(
     class Source
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val category: JsonField<Category>,
         private val accountTransferInstruction: JsonField<AccountTransferInstruction>,
         private val achTransferInstruction: JsonField<AchTransferInstruction>,
         private val blockchainOfframpTransferInstruction:
@@ -959,7 +960,6 @@ private constructor(
             JsonField<BlockchainOnrampTransferInstruction>,
         private val cardAuthorization: JsonField<CardAuthorization>,
         private val cardPushTransferInstruction: JsonField<CardPushTransferInstruction>,
-        private val category: JsonField<Category>,
         private val checkDepositInstruction: JsonField<CheckDepositInstruction>,
         private val checkTransferInstruction: JsonField<CheckTransferInstruction>,
         private val fednowTransferInstruction: JsonField<FednowTransferInstruction>,
@@ -976,6 +976,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("category")
+            @ExcludeMissing
+            category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("account_transfer_instruction")
             @ExcludeMissing
             accountTransferInstruction: JsonField<AccountTransferInstruction> = JsonMissing.of(),
@@ -996,9 +999,6 @@ private constructor(
             @JsonProperty("card_push_transfer_instruction")
             @ExcludeMissing
             cardPushTransferInstruction: JsonField<CardPushTransferInstruction> = JsonMissing.of(),
-            @JsonProperty("category")
-            @ExcludeMissing
-            category: JsonField<Category> = JsonMissing.of(),
             @JsonProperty("check_deposit_instruction")
             @ExcludeMissing
             checkDepositInstruction: JsonField<CheckDepositInstruction> = JsonMissing.of(),
@@ -1029,13 +1029,13 @@ private constructor(
             @ExcludeMissing
             wireTransferInstruction: JsonField<WireTransferInstruction> = JsonMissing.of(),
         ) : this(
+            category,
             accountTransferInstruction,
             achTransferInstruction,
             blockchainOfframpTransferInstruction,
             blockchainOnrampTransferInstruction,
             cardAuthorization,
             cardPushTransferInstruction,
-            category,
             checkDepositInstruction,
             checkTransferInstruction,
             fednowTransferInstruction,
@@ -1048,6 +1048,15 @@ private constructor(
             wireTransferInstruction,
             mutableMapOf(),
         )
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun category(): Category = category.getRequired("category")
 
         /**
          * An Account Transfer Instruction object. This field will be present in the JSON response
@@ -1113,15 +1122,6 @@ private constructor(
          */
         fun cardPushTransferInstruction(): Optional<CardPushTransferInstruction> =
             cardPushTransferInstruction.getOptional("card_push_transfer_instruction")
-
-        /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun category(): Category = category.getRequired("category")
 
         /**
          * A Check Deposit Instruction object. This field will be present in the JSON response if
@@ -1230,6 +1230,13 @@ private constructor(
             wireTransferInstruction.getOptional("wire_transfer_instruction")
 
         /**
+         * Returns the raw JSON value of [category].
+         *
+         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
+
+        /**
          * Returns the raw JSON value of [accountTransferInstruction].
          *
          * Unlike [accountTransferInstruction], this method doesn't throw if the JSON field has an
@@ -1292,13 +1299,6 @@ private constructor(
         @ExcludeMissing
         fun _cardPushTransferInstruction(): JsonField<CardPushTransferInstruction> =
             cardPushTransferInstruction
-
-        /**
-         * Returns the raw JSON value of [category].
-         *
-         * Unlike [category], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("category") @ExcludeMissing fun _category(): JsonField<Category> = category
 
         /**
          * Returns the raw JSON value of [checkDepositInstruction].
@@ -1421,23 +1421,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .accountTransferInstruction()
-             * .achTransferInstruction()
-             * .blockchainOfframpTransferInstruction()
-             * .blockchainOnrampTransferInstruction()
-             * .cardAuthorization()
-             * .cardPushTransferInstruction()
              * .category()
-             * .checkDepositInstruction()
-             * .checkTransferInstruction()
-             * .fednowTransferInstruction()
-             * .inboundFundsHold()
-             * .inboundWireTransferReversal()
-             * .other()
-             * .realTimePaymentsTransferInstruction()
-             * .swiftTransferInstruction()
-             * .userInitiatedHold()
-             * .wireTransferInstruction()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1446,40 +1430,48 @@ private constructor(
         /** A builder for [Source]. */
         class Builder internal constructor() {
 
-            private var accountTransferInstruction: JsonField<AccountTransferInstruction>? = null
-            private var achTransferInstruction: JsonField<AchTransferInstruction>? = null
-            private var blockchainOfframpTransferInstruction:
-                JsonField<BlockchainOfframpTransferInstruction>? =
-                null
-            private var blockchainOnrampTransferInstruction:
-                JsonField<BlockchainOnrampTransferInstruction>? =
-                null
-            private var cardAuthorization: JsonField<CardAuthorization>? = null
-            private var cardPushTransferInstruction: JsonField<CardPushTransferInstruction>? = null
             private var category: JsonField<Category>? = null
-            private var checkDepositInstruction: JsonField<CheckDepositInstruction>? = null
-            private var checkTransferInstruction: JsonField<CheckTransferInstruction>? = null
-            private var fednowTransferInstruction: JsonField<FednowTransferInstruction>? = null
-            private var inboundFundsHold: JsonField<InboundFundsHold>? = null
-            private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal>? = null
-            private var other: JsonField<Other>? = null
+            private var accountTransferInstruction: JsonField<AccountTransferInstruction> =
+                JsonMissing.of()
+            private var achTransferInstruction: JsonField<AchTransferInstruction> = JsonMissing.of()
+            private var blockchainOfframpTransferInstruction:
+                JsonField<BlockchainOfframpTransferInstruction> =
+                JsonMissing.of()
+            private var blockchainOnrampTransferInstruction:
+                JsonField<BlockchainOnrampTransferInstruction> =
+                JsonMissing.of()
+            private var cardAuthorization: JsonField<CardAuthorization> = JsonMissing.of()
+            private var cardPushTransferInstruction: JsonField<CardPushTransferInstruction> =
+                JsonMissing.of()
+            private var checkDepositInstruction: JsonField<CheckDepositInstruction> =
+                JsonMissing.of()
+            private var checkTransferInstruction: JsonField<CheckTransferInstruction> =
+                JsonMissing.of()
+            private var fednowTransferInstruction: JsonField<FednowTransferInstruction> =
+                JsonMissing.of()
+            private var inboundFundsHold: JsonField<InboundFundsHold> = JsonMissing.of()
+            private var inboundWireTransferReversal: JsonField<InboundWireTransferReversal> =
+                JsonMissing.of()
+            private var other: JsonField<Other> = JsonMissing.of()
             private var realTimePaymentsTransferInstruction:
-                JsonField<RealTimePaymentsTransferInstruction>? =
-                null
-            private var swiftTransferInstruction: JsonField<SwiftTransferInstruction>? = null
-            private var userInitiatedHold: JsonField<UserInitiatedHold>? = null
-            private var wireTransferInstruction: JsonField<WireTransferInstruction>? = null
+                JsonField<RealTimePaymentsTransferInstruction> =
+                JsonMissing.of()
+            private var swiftTransferInstruction: JsonField<SwiftTransferInstruction> =
+                JsonMissing.of()
+            private var userInitiatedHold: JsonField<UserInitiatedHold> = JsonMissing.of()
+            private var wireTransferInstruction: JsonField<WireTransferInstruction> =
+                JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(source: Source) = apply {
+                category = source.category
                 accountTransferInstruction = source.accountTransferInstruction
                 achTransferInstruction = source.achTransferInstruction
                 blockchainOfframpTransferInstruction = source.blockchainOfframpTransferInstruction
                 blockchainOnrampTransferInstruction = source.blockchainOnrampTransferInstruction
                 cardAuthorization = source.cardAuthorization
                 cardPushTransferInstruction = source.cardPushTransferInstruction
-                category = source.category
                 checkDepositInstruction = source.checkDepositInstruction
                 checkTransferInstruction = source.checkTransferInstruction
                 fednowTransferInstruction = source.fednowTransferInstruction
@@ -1492,6 +1484,21 @@ private constructor(
                 wireTransferInstruction = source.wireTransferInstruction
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
+
+            /**
+             * The type of the resource. We may add additional possible values for this enum over
+             * time; your application should be able to handle such additions gracefully.
+             */
+            fun category(category: Category) = category(JsonField.of(category))
+
+            /**
+             * Sets [Builder.category] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.category] with a well-typed [Category] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * An Account Transfer Instruction object. This field will be present in the JSON
@@ -1668,21 +1675,6 @@ private constructor(
             fun cardPushTransferInstruction(
                 cardPushTransferInstruction: JsonField<CardPushTransferInstruction>
             ) = apply { this.cardPushTransferInstruction = cardPushTransferInstruction }
-
-            /**
-             * The type of the resource. We may add additional possible values for this enum over
-             * time; your application should be able to handle such additions gracefully.
-             */
-            fun category(category: Category) = category(JsonField.of(category))
-
-            /**
-             * Sets [Builder.category] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.category] with a well-typed [Category] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun category(category: JsonField<Category>) = apply { this.category = category }
 
             /**
              * A Check Deposit Instruction object. This field will be present in the JSON response
@@ -1971,55 +1963,30 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .accountTransferInstruction()
-             * .achTransferInstruction()
-             * .blockchainOfframpTransferInstruction()
-             * .blockchainOnrampTransferInstruction()
-             * .cardAuthorization()
-             * .cardPushTransferInstruction()
              * .category()
-             * .checkDepositInstruction()
-             * .checkTransferInstruction()
-             * .fednowTransferInstruction()
-             * .inboundFundsHold()
-             * .inboundWireTransferReversal()
-             * .other()
-             * .realTimePaymentsTransferInstruction()
-             * .swiftTransferInstruction()
-             * .userInitiatedHold()
-             * .wireTransferInstruction()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Source =
                 Source(
-                    checkRequired("accountTransferInstruction", accountTransferInstruction),
-                    checkRequired("achTransferInstruction", achTransferInstruction),
-                    checkRequired(
-                        "blockchainOfframpTransferInstruction",
-                        blockchainOfframpTransferInstruction,
-                    ),
-                    checkRequired(
-                        "blockchainOnrampTransferInstruction",
-                        blockchainOnrampTransferInstruction,
-                    ),
-                    checkRequired("cardAuthorization", cardAuthorization),
-                    checkRequired("cardPushTransferInstruction", cardPushTransferInstruction),
                     checkRequired("category", category),
-                    checkRequired("checkDepositInstruction", checkDepositInstruction),
-                    checkRequired("checkTransferInstruction", checkTransferInstruction),
-                    checkRequired("fednowTransferInstruction", fednowTransferInstruction),
-                    checkRequired("inboundFundsHold", inboundFundsHold),
-                    checkRequired("inboundWireTransferReversal", inboundWireTransferReversal),
-                    checkRequired("other", other),
-                    checkRequired(
-                        "realTimePaymentsTransferInstruction",
-                        realTimePaymentsTransferInstruction,
-                    ),
-                    checkRequired("swiftTransferInstruction", swiftTransferInstruction),
-                    checkRequired("userInitiatedHold", userInitiatedHold),
-                    checkRequired("wireTransferInstruction", wireTransferInstruction),
+                    accountTransferInstruction,
+                    achTransferInstruction,
+                    blockchainOfframpTransferInstruction,
+                    blockchainOnrampTransferInstruction,
+                    cardAuthorization,
+                    cardPushTransferInstruction,
+                    checkDepositInstruction,
+                    checkTransferInstruction,
+                    fednowTransferInstruction,
+                    inboundFundsHold,
+                    inboundWireTransferReversal,
+                    other,
+                    realTimePaymentsTransferInstruction,
+                    swiftTransferInstruction,
+                    userInitiatedHold,
+                    wireTransferInstruction,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -2031,13 +1998,13 @@ private constructor(
                 return@apply
             }
 
+            category().validate()
             accountTransferInstruction().ifPresent { it.validate() }
             achTransferInstruction().ifPresent { it.validate() }
             blockchainOfframpTransferInstruction().ifPresent { it.validate() }
             blockchainOnrampTransferInstruction().ifPresent { it.validate() }
             cardAuthorization().ifPresent { it.validate() }
             cardPushTransferInstruction().ifPresent { it.validate() }
-            category().validate()
             checkDepositInstruction().ifPresent { it.validate() }
             checkTransferInstruction().ifPresent { it.validate() }
             fednowTransferInstruction().ifPresent { it.validate() }
@@ -2067,13 +2034,13 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (accountTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
+            (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (accountTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (blockchainOfframpTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (blockchainOnrampTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardAuthorization.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardPushTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
-                (category.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkDepositInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (checkTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (fednowTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2084,6 +2051,392 @@ private constructor(
                 (swiftTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (userInitiatedHold.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferInstruction.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * The type of the resource. We may add additional possible values for this enum over time;
+         * your application should be able to handle such additions gracefully.
+         */
+        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
+                @JvmField val ACCOUNT_TRANSFER_INSTRUCTION = of("account_transfer_instruction")
+
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
+                @JvmField val ACH_TRANSFER_INSTRUCTION = of("ach_transfer_instruction")
+
+                /** Card Authorization: details will be under the `card_authorization` object. */
+                @JvmField val CARD_AUTHORIZATION = of("card_authorization")
+
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
+                @JvmField val CHECK_DEPOSIT_INSTRUCTION = of("check_deposit_instruction")
+
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
+                @JvmField val CHECK_TRANSFER_INSTRUCTION = of("check_transfer_instruction")
+
+                /**
+                 * FedNow Transfer Instruction: details will be under the
+                 * `fednow_transfer_instruction` object.
+                 */
+                @JvmField val FEDNOW_TRANSFER_INSTRUCTION = of("fednow_transfer_instruction")
+
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
+                @JvmField val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
+
+                /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
+                @JvmField val USER_INITIATED_HOLD = of("user_initiated_hold")
+
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
+                @JvmField
+                val REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION =
+                    of("real_time_payments_transfer_instruction")
+
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
+                @JvmField val WIRE_TRANSFER_INSTRUCTION = of("wire_transfer_instruction")
+
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
+                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
+
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                @JvmField val SWIFT_TRANSFER_INSTRUCTION = of("swift_transfer_instruction")
+
+                /**
+                 * Card Push Transfer Instruction: details will be under the
+                 * `card_push_transfer_instruction` object.
+                 */
+                @JvmField val CARD_PUSH_TRANSFER_INSTRUCTION = of("card_push_transfer_instruction")
+
+                /**
+                 * Blockchain On-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_onramp_transfer_instruction` object.
+                 */
+                @JvmField
+                val BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION =
+                    of("blockchain_onramp_transfer_instruction")
+
+                /**
+                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_offramp_transfer_instruction` object.
+                 */
+                @JvmField
+                val BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION =
+                    of("blockchain_offramp_transfer_instruction")
+
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
+                @JvmField val OTHER = of("other")
+
+                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+            }
+
+            /** An enum containing [Category]'s known values. */
+            enum class Known {
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
+                ACCOUNT_TRANSFER_INSTRUCTION,
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
+                ACH_TRANSFER_INSTRUCTION,
+                /** Card Authorization: details will be under the `card_authorization` object. */
+                CARD_AUTHORIZATION,
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
+                CHECK_DEPOSIT_INSTRUCTION,
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
+                CHECK_TRANSFER_INSTRUCTION,
+                /**
+                 * FedNow Transfer Instruction: details will be under the
+                 * `fednow_transfer_instruction` object.
+                 */
+                FEDNOW_TRANSFER_INSTRUCTION,
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
+                INBOUND_FUNDS_HOLD,
+                /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
+                USER_INITIATED_HOLD,
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
+                REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
+                WIRE_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
+                INBOUND_WIRE_TRANSFER_REVERSAL,
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                SWIFT_TRANSFER_INSTRUCTION,
+                /**
+                 * Card Push Transfer Instruction: details will be under the
+                 * `card_push_transfer_instruction` object.
+                 */
+                CARD_PUSH_TRANSFER_INSTRUCTION,
+                /**
+                 * Blockchain On-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_onramp_transfer_instruction` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_offramp_transfer_instruction` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
+                OTHER,
+            }
+
+            /**
+             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Category] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * Account Transfer Instruction: details will be under the
+                 * `account_transfer_instruction` object.
+                 */
+                ACCOUNT_TRANSFER_INSTRUCTION,
+                /**
+                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
+                 * object.
+                 */
+                ACH_TRANSFER_INSTRUCTION,
+                /** Card Authorization: details will be under the `card_authorization` object. */
+                CARD_AUTHORIZATION,
+                /**
+                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
+                 * object.
+                 */
+                CHECK_DEPOSIT_INSTRUCTION,
+                /**
+                 * Check Transfer Instruction: details will be under the
+                 * `check_transfer_instruction` object.
+                 */
+                CHECK_TRANSFER_INSTRUCTION,
+                /**
+                 * FedNow Transfer Instruction: details will be under the
+                 * `fednow_transfer_instruction` object.
+                 */
+                FEDNOW_TRANSFER_INSTRUCTION,
+                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
+                INBOUND_FUNDS_HOLD,
+                /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
+                USER_INITIATED_HOLD,
+                /**
+                 * Real-Time Payments Transfer Instruction: details will be under the
+                 * `real_time_payments_transfer_instruction` object.
+                 */
+                REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
+                /**
+                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
+                 * object.
+                 */
+                WIRE_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound Wire Transfer Reversal: details will be under the
+                 * `inbound_wire_transfer_reversal` object.
+                 */
+                INBOUND_WIRE_TRANSFER_REVERSAL,
+                /**
+                 * Swift Transfer Instruction: details will be under the
+                 * `swift_transfer_instruction` object.
+                 */
+                SWIFT_TRANSFER_INSTRUCTION,
+                /**
+                 * Card Push Transfer Instruction: details will be under the
+                 * `card_push_transfer_instruction` object.
+                 */
+                CARD_PUSH_TRANSFER_INSTRUCTION,
+                /**
+                 * Blockchain On-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_onramp_transfer_instruction` object.
+                 */
+                BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
+                /**
+                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
+                 * `blockchain_offramp_transfer_instruction` object.
+                 */
+                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
+                /** The Pending Transaction was made for an undocumented or deprecated reason. */
+                OTHER,
+                /**
+                 * An enum member indicating that [Category] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ACCOUNT_TRANSFER_INSTRUCTION -> Value.ACCOUNT_TRANSFER_INSTRUCTION
+                    ACH_TRANSFER_INSTRUCTION -> Value.ACH_TRANSFER_INSTRUCTION
+                    CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
+                    CHECK_DEPOSIT_INSTRUCTION -> Value.CHECK_DEPOSIT_INSTRUCTION
+                    CHECK_TRANSFER_INSTRUCTION -> Value.CHECK_TRANSFER_INSTRUCTION
+                    FEDNOW_TRANSFER_INSTRUCTION -> Value.FEDNOW_TRANSFER_INSTRUCTION
+                    INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
+                    USER_INITIATED_HOLD -> Value.USER_INITIATED_HOLD
+                    REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
+                        Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
+                    WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
+                    SWIFT_TRANSFER_INSTRUCTION -> Value.SWIFT_TRANSFER_INSTRUCTION
+                    CARD_PUSH_TRANSFER_INSTRUCTION -> Value.CARD_PUSH_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
+                        Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
+                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ACCOUNT_TRANSFER_INSTRUCTION -> Known.ACCOUNT_TRANSFER_INSTRUCTION
+                    ACH_TRANSFER_INSTRUCTION -> Known.ACH_TRANSFER_INSTRUCTION
+                    CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
+                    CHECK_DEPOSIT_INSTRUCTION -> Known.CHECK_DEPOSIT_INSTRUCTION
+                    CHECK_TRANSFER_INSTRUCTION -> Known.CHECK_TRANSFER_INSTRUCTION
+                    FEDNOW_TRANSFER_INSTRUCTION -> Known.FEDNOW_TRANSFER_INSTRUCTION
+                    INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
+                    USER_INITIATED_HOLD -> Known.USER_INITIATED_HOLD
+                    REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
+                        Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
+                    WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
+                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
+                    SWIFT_TRANSFER_INSTRUCTION -> Known.SWIFT_TRANSFER_INSTRUCTION
+                    CARD_PUSH_TRANSFER_INSTRUCTION -> Known.CARD_PUSH_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
+                        Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
+                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Category = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Category && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
 
         /**
          * An Account Transfer Instruction object. This field will be present in the JSON response
@@ -12370,392 +12723,6 @@ private constructor(
         }
 
         /**
-         * The type of the resource. We may add additional possible values for this enum over time;
-         * your application should be able to handle such additions gracefully.
-         */
-        class Category @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /**
-                 * Account Transfer Instruction: details will be under the
-                 * `account_transfer_instruction` object.
-                 */
-                @JvmField val ACCOUNT_TRANSFER_INSTRUCTION = of("account_transfer_instruction")
-
-                /**
-                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
-                 * object.
-                 */
-                @JvmField val ACH_TRANSFER_INSTRUCTION = of("ach_transfer_instruction")
-
-                /** Card Authorization: details will be under the `card_authorization` object. */
-                @JvmField val CARD_AUTHORIZATION = of("card_authorization")
-
-                /**
-                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
-                 * object.
-                 */
-                @JvmField val CHECK_DEPOSIT_INSTRUCTION = of("check_deposit_instruction")
-
-                /**
-                 * Check Transfer Instruction: details will be under the
-                 * `check_transfer_instruction` object.
-                 */
-                @JvmField val CHECK_TRANSFER_INSTRUCTION = of("check_transfer_instruction")
-
-                /**
-                 * FedNow Transfer Instruction: details will be under the
-                 * `fednow_transfer_instruction` object.
-                 */
-                @JvmField val FEDNOW_TRANSFER_INSTRUCTION = of("fednow_transfer_instruction")
-
-                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
-                @JvmField val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
-
-                /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
-                @JvmField val USER_INITIATED_HOLD = of("user_initiated_hold")
-
-                /**
-                 * Real-Time Payments Transfer Instruction: details will be under the
-                 * `real_time_payments_transfer_instruction` object.
-                 */
-                @JvmField
-                val REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION =
-                    of("real_time_payments_transfer_instruction")
-
-                /**
-                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
-                 * object.
-                 */
-                @JvmField val WIRE_TRANSFER_INSTRUCTION = of("wire_transfer_instruction")
-
-                /**
-                 * Inbound Wire Transfer Reversal: details will be under the
-                 * `inbound_wire_transfer_reversal` object.
-                 */
-                @JvmField val INBOUND_WIRE_TRANSFER_REVERSAL = of("inbound_wire_transfer_reversal")
-
-                /**
-                 * Swift Transfer Instruction: details will be under the
-                 * `swift_transfer_instruction` object.
-                 */
-                @JvmField val SWIFT_TRANSFER_INSTRUCTION = of("swift_transfer_instruction")
-
-                /**
-                 * Card Push Transfer Instruction: details will be under the
-                 * `card_push_transfer_instruction` object.
-                 */
-                @JvmField val CARD_PUSH_TRANSFER_INSTRUCTION = of("card_push_transfer_instruction")
-
-                /**
-                 * Blockchain On-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_onramp_transfer_instruction` object.
-                 */
-                @JvmField
-                val BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION =
-                    of("blockchain_onramp_transfer_instruction")
-
-                /**
-                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_offramp_transfer_instruction` object.
-                 */
-                @JvmField
-                val BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION =
-                    of("blockchain_offramp_transfer_instruction")
-
-                /** The Pending Transaction was made for an undocumented or deprecated reason. */
-                @JvmField val OTHER = of("other")
-
-                @JvmStatic fun of(value: String) = Category(JsonField.of(value))
-            }
-
-            /** An enum containing [Category]'s known values. */
-            enum class Known {
-                /**
-                 * Account Transfer Instruction: details will be under the
-                 * `account_transfer_instruction` object.
-                 */
-                ACCOUNT_TRANSFER_INSTRUCTION,
-                /**
-                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
-                 * object.
-                 */
-                ACH_TRANSFER_INSTRUCTION,
-                /** Card Authorization: details will be under the `card_authorization` object. */
-                CARD_AUTHORIZATION,
-                /**
-                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
-                 * object.
-                 */
-                CHECK_DEPOSIT_INSTRUCTION,
-                /**
-                 * Check Transfer Instruction: details will be under the
-                 * `check_transfer_instruction` object.
-                 */
-                CHECK_TRANSFER_INSTRUCTION,
-                /**
-                 * FedNow Transfer Instruction: details will be under the
-                 * `fednow_transfer_instruction` object.
-                 */
-                FEDNOW_TRANSFER_INSTRUCTION,
-                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
-                INBOUND_FUNDS_HOLD,
-                /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
-                USER_INITIATED_HOLD,
-                /**
-                 * Real-Time Payments Transfer Instruction: details will be under the
-                 * `real_time_payments_transfer_instruction` object.
-                 */
-                REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
-                /**
-                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
-                 * object.
-                 */
-                WIRE_TRANSFER_INSTRUCTION,
-                /**
-                 * Inbound Wire Transfer Reversal: details will be under the
-                 * `inbound_wire_transfer_reversal` object.
-                 */
-                INBOUND_WIRE_TRANSFER_REVERSAL,
-                /**
-                 * Swift Transfer Instruction: details will be under the
-                 * `swift_transfer_instruction` object.
-                 */
-                SWIFT_TRANSFER_INSTRUCTION,
-                /**
-                 * Card Push Transfer Instruction: details will be under the
-                 * `card_push_transfer_instruction` object.
-                 */
-                CARD_PUSH_TRANSFER_INSTRUCTION,
-                /**
-                 * Blockchain On-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_onramp_transfer_instruction` object.
-                 */
-                BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
-                /**
-                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_offramp_transfer_instruction` object.
-                 */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
-                /** The Pending Transaction was made for an undocumented or deprecated reason. */
-                OTHER,
-            }
-
-            /**
-             * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Category] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /**
-                 * Account Transfer Instruction: details will be under the
-                 * `account_transfer_instruction` object.
-                 */
-                ACCOUNT_TRANSFER_INSTRUCTION,
-                /**
-                 * ACH Transfer Instruction: details will be under the `ach_transfer_instruction`
-                 * object.
-                 */
-                ACH_TRANSFER_INSTRUCTION,
-                /** Card Authorization: details will be under the `card_authorization` object. */
-                CARD_AUTHORIZATION,
-                /**
-                 * Check Deposit Instruction: details will be under the `check_deposit_instruction`
-                 * object.
-                 */
-                CHECK_DEPOSIT_INSTRUCTION,
-                /**
-                 * Check Transfer Instruction: details will be under the
-                 * `check_transfer_instruction` object.
-                 */
-                CHECK_TRANSFER_INSTRUCTION,
-                /**
-                 * FedNow Transfer Instruction: details will be under the
-                 * `fednow_transfer_instruction` object.
-                 */
-                FEDNOW_TRANSFER_INSTRUCTION,
-                /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
-                INBOUND_FUNDS_HOLD,
-                /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
-                USER_INITIATED_HOLD,
-                /**
-                 * Real-Time Payments Transfer Instruction: details will be under the
-                 * `real_time_payments_transfer_instruction` object.
-                 */
-                REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION,
-                /**
-                 * Wire Transfer Instruction: details will be under the `wire_transfer_instruction`
-                 * object.
-                 */
-                WIRE_TRANSFER_INSTRUCTION,
-                /**
-                 * Inbound Wire Transfer Reversal: details will be under the
-                 * `inbound_wire_transfer_reversal` object.
-                 */
-                INBOUND_WIRE_TRANSFER_REVERSAL,
-                /**
-                 * Swift Transfer Instruction: details will be under the
-                 * `swift_transfer_instruction` object.
-                 */
-                SWIFT_TRANSFER_INSTRUCTION,
-                /**
-                 * Card Push Transfer Instruction: details will be under the
-                 * `card_push_transfer_instruction` object.
-                 */
-                CARD_PUSH_TRANSFER_INSTRUCTION,
-                /**
-                 * Blockchain On-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_onramp_transfer_instruction` object.
-                 */
-                BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
-                /**
-                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_offramp_transfer_instruction` object.
-                 */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
-                /** The Pending Transaction was made for an undocumented or deprecated reason. */
-                OTHER,
-                /**
-                 * An enum member indicating that [Category] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ACCOUNT_TRANSFER_INSTRUCTION -> Value.ACCOUNT_TRANSFER_INSTRUCTION
-                    ACH_TRANSFER_INSTRUCTION -> Value.ACH_TRANSFER_INSTRUCTION
-                    CARD_AUTHORIZATION -> Value.CARD_AUTHORIZATION
-                    CHECK_DEPOSIT_INSTRUCTION -> Value.CHECK_DEPOSIT_INSTRUCTION
-                    CHECK_TRANSFER_INSTRUCTION -> Value.CHECK_TRANSFER_INSTRUCTION
-                    FEDNOW_TRANSFER_INSTRUCTION -> Value.FEDNOW_TRANSFER_INSTRUCTION
-                    INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
-                    USER_INITIATED_HOLD -> Value.USER_INITIATED_HOLD
-                    REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
-                        Value.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
-                    WIRE_TRANSFER_INSTRUCTION -> Value.WIRE_TRANSFER_INSTRUCTION
-                    INBOUND_WIRE_TRANSFER_REVERSAL -> Value.INBOUND_WIRE_TRANSFER_REVERSAL
-                    SWIFT_TRANSFER_INSTRUCTION -> Value.SWIFT_TRANSFER_INSTRUCTION
-                    CARD_PUSH_TRANSFER_INSTRUCTION -> Value.CARD_PUSH_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
-                        Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
-                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
-                    OTHER -> Value.OTHER
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ACCOUNT_TRANSFER_INSTRUCTION -> Known.ACCOUNT_TRANSFER_INSTRUCTION
-                    ACH_TRANSFER_INSTRUCTION -> Known.ACH_TRANSFER_INSTRUCTION
-                    CARD_AUTHORIZATION -> Known.CARD_AUTHORIZATION
-                    CHECK_DEPOSIT_INSTRUCTION -> Known.CHECK_DEPOSIT_INSTRUCTION
-                    CHECK_TRANSFER_INSTRUCTION -> Known.CHECK_TRANSFER_INSTRUCTION
-                    FEDNOW_TRANSFER_INSTRUCTION -> Known.FEDNOW_TRANSFER_INSTRUCTION
-                    INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
-                    USER_INITIATED_HOLD -> Known.USER_INITIATED_HOLD
-                    REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
-                        Known.REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION
-                    WIRE_TRANSFER_INSTRUCTION -> Known.WIRE_TRANSFER_INSTRUCTION
-                    INBOUND_WIRE_TRANSFER_REVERSAL -> Known.INBOUND_WIRE_TRANSFER_REVERSAL
-                    SWIFT_TRANSFER_INSTRUCTION -> Known.SWIFT_TRANSFER_INSTRUCTION
-                    CARD_PUSH_TRANSFER_INSTRUCTION -> Known.CARD_PUSH_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
-                        Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
-                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
-                    OTHER -> Known.OTHER
-                    else -> throw IncreaseInvalidDataException("Unknown Category: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            fun validate(): Category = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Category && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        /**
          * A Check Deposit Instruction object. This field will be present in the JSON response if
          * and only if `category` is equal to `check_deposit_instruction`.
          */
@@ -16017,6 +15984,7 @@ private constructor(
             }
 
             return other is Source &&
+                category == other.category &&
                 accountTransferInstruction == other.accountTransferInstruction &&
                 achTransferInstruction == other.achTransferInstruction &&
                 blockchainOfframpTransferInstruction ==
@@ -16024,7 +15992,6 @@ private constructor(
                 blockchainOnrampTransferInstruction == other.blockchainOnrampTransferInstruction &&
                 cardAuthorization == other.cardAuthorization &&
                 cardPushTransferInstruction == other.cardPushTransferInstruction &&
-                category == other.category &&
                 checkDepositInstruction == other.checkDepositInstruction &&
                 checkTransferInstruction == other.checkTransferInstruction &&
                 fednowTransferInstruction == other.fednowTransferInstruction &&
@@ -16040,13 +16007,13 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
+                category,
                 accountTransferInstruction,
                 achTransferInstruction,
                 blockchainOfframpTransferInstruction,
                 blockchainOnrampTransferInstruction,
                 cardAuthorization,
                 cardPushTransferInstruction,
-                category,
                 checkDepositInstruction,
                 checkTransferInstruction,
                 fednowTransferInstruction,
@@ -16064,7 +16031,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, blockchainOfframpTransferInstruction=$blockchainOfframpTransferInstruction, blockchainOnrampTransferInstruction=$blockchainOnrampTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, category=$category, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fednowTransferInstruction=$fednowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, blockchainOfframpTransferInstruction=$blockchainOfframpTransferInstruction, blockchainOnrampTransferInstruction=$blockchainOnrampTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fednowTransferInstruction=$fednowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
