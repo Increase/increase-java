@@ -24,6 +24,7 @@ class InboundWireTransfer
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val acceptance: JsonField<Acceptance>,
     private val accountId: JsonField<String>,
     private val accountNumberId: JsonField<String>,
     private val amount: JsonField<Long>,
@@ -53,6 +54,9 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("acceptance")
+        @ExcludeMissing
+        acceptance: JsonField<Acceptance> = JsonMissing.of(),
         @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_number_id")
         @ExcludeMissing
@@ -114,6 +118,7 @@ private constructor(
         wireDrawdownRequestId: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
+        acceptance,
         accountId,
         accountNumberId,
         amount,
@@ -147,6 +152,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * If the transfer is accepted, this will contain details of the acceptance.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun acceptance(): Optional<Acceptance> = acceptance.getOptional("acceptance")
 
     /**
      * The Account to which the transfer belongs.
@@ -298,7 +311,7 @@ private constructor(
         instructionIdentification.getOptional("instruction_identification")
 
     /**
-     * Information about the reversal of the inbound wire transfer if it has been reversed.
+     * If the transfer is reversed, this will contain details of the reversal.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -357,6 +370,15 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [acceptance].
+     *
+     * Unlike [acceptance], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("acceptance")
+    @ExcludeMissing
+    fun _acceptance(): JsonField<Acceptance> = acceptance
 
     /**
      * Returns the raw JSON value of [accountId].
@@ -585,6 +607,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .acceptance()
          * .accountId()
          * .accountNumberId()
          * .amount()
@@ -617,6 +640,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var acceptance: JsonField<Acceptance>? = null
         private var accountId: JsonField<String>? = null
         private var accountNumberId: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
@@ -645,6 +669,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(inboundWireTransfer: InboundWireTransfer) = apply {
             id = inboundWireTransfer.id
+            acceptance = inboundWireTransfer.acceptance
             accountId = inboundWireTransfer.accountId
             accountNumberId = inboundWireTransfer.accountNumberId
             amount = inboundWireTransfer.amount
@@ -683,6 +708,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** If the transfer is accepted, this will contain details of the acceptance. */
+        fun acceptance(acceptance: Acceptance?) = acceptance(JsonField.ofNullable(acceptance))
+
+        /** Alias for calling [Builder.acceptance] with `acceptance.orElse(null)`. */
+        fun acceptance(acceptance: Optional<Acceptance>) = acceptance(acceptance.getOrNull())
+
+        /**
+         * Sets [Builder.acceptance] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.acceptance] with a well-typed [Acceptance] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun acceptance(acceptance: JsonField<Acceptance>) = apply { this.acceptance = acceptance }
 
         /** The Account to which the transfer belongs. */
         fun accountId(accountId: String) = accountId(JsonField.of(accountId))
@@ -1004,7 +1044,7 @@ private constructor(
             this.instructionIdentification = instructionIdentification
         }
 
-        /** Information about the reversal of the inbound wire transfer if it has been reversed. */
+        /** If the transfer is reversed, this will contain details of the reversal. */
         fun reversal(reversal: Reversal?) = reversal(JsonField.ofNullable(reversal))
 
         /** Alias for calling [Builder.reversal] with `reversal.orElse(null)`. */
@@ -1146,6 +1186,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .acceptance()
          * .accountId()
          * .accountNumberId()
          * .amount()
@@ -1176,6 +1217,7 @@ private constructor(
         fun build(): InboundWireTransfer =
             InboundWireTransfer(
                 checkRequired("id", id),
+                checkRequired("acceptance", acceptance),
                 checkRequired("accountId", accountId),
                 checkRequired("accountNumberId", accountNumberId),
                 checkRequired("amount", amount),
@@ -1217,6 +1259,7 @@ private constructor(
         }
 
         id()
+        acceptance().ifPresent { it.validate() }
         accountId()
         accountNumberId()
         amount()
@@ -1259,6 +1302,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (acceptance.asKnown().getOrNull()?.validity() ?: 0) +
             (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (accountNumberId.asKnown().isPresent) 1 else 0) +
             (if (amount.asKnown().isPresent) 1 else 0) +
@@ -1283,7 +1327,225 @@ private constructor(
             (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0) +
             (if (wireDrawdownRequestId.asKnown().isPresent) 1 else 0)
 
-    /** Information about the reversal of the inbound wire transfer if it has been reversed. */
+    /** If the transfer is accepted, this will contain details of the acceptance. */
+    class Acceptance
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val acceptedAt: JsonField<OffsetDateTime>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("accepted_at")
+            @ExcludeMissing
+            acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            transactionId: JsonField<String> = JsonMissing.of(),
+        ) : this(acceptedAt, transactionId, mutableMapOf())
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * transfer was accepted.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
+
+        /**
+         * The identifier of the transaction for the accepted transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /**
+         * Returns the raw JSON value of [acceptedAt].
+         *
+         * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("accepted_at")
+        @ExcludeMissing
+        fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
+
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Acceptance].
+             *
+             * The following fields are required:
+             * ```java
+             * .acceptedAt()
+             * .transactionId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Acceptance]. */
+        class Builder internal constructor() {
+
+            private var acceptedAt: JsonField<OffsetDateTime>? = null
+            private var transactionId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(acceptance: Acceptance) = apply {
+                acceptedAt = acceptance.acceptedAt
+                transactionId = acceptance.transactionId
+                additionalProperties = acceptance.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was accepted.
+             */
+            fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
+
+            /**
+             * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
+                this.acceptedAt = acceptedAt
+            }
+
+            /** The identifier of the transaction for the accepted transfer. */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Acceptance].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .acceptedAt()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Acceptance =
+                Acceptance(
+                    checkRequired("acceptedAt", acceptedAt),
+                    checkRequired("transactionId", transactionId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Acceptance = apply {
+            if (validated) {
+                return@apply
+            }
+
+            acceptedAt()
+            transactionId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (acceptedAt.asKnown().isPresent) 1 else 0) +
+                (if (transactionId.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Acceptance &&
+                acceptedAt == other.acceptedAt &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(acceptedAt, transactionId, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Acceptance{acceptedAt=$acceptedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+    }
+
+    /** If the transfer is reversed, this will contain details of the reversal. */
     class Reversal
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
@@ -1936,6 +2198,7 @@ private constructor(
 
         return other is InboundWireTransfer &&
             id == other.id &&
+            acceptance == other.acceptance &&
             accountId == other.accountId &&
             accountNumberId == other.accountNumberId &&
             amount == other.amount &&
@@ -1965,6 +2228,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            acceptance,
             accountId,
             accountNumberId,
             amount,
@@ -1995,5 +2259,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
 }
