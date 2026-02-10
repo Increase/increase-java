@@ -2,8 +2,8 @@
 
 <!-- x-release-please-start-version -->
 
-[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.427.0)
-[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.427.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.427.0)
+[![Maven Central](https://img.shields.io/maven-central/v/com.increase.api/increase-java)](https://central.sonatype.com/artifact/com.increase.api/increase-java/0.428.0)
+[![javadoc](https://javadoc.io/badge2/com.increase.api/increase-java/0.428.0/javadoc.svg)](https://javadoc.io/doc/com.increase.api/increase-java/0.428.0)
 
 <!-- x-release-please-end -->
 
@@ -13,7 +13,7 @@ The Increase Java SDK is similar to the Increase Kotlin SDK but with minor diffe
 
 <!-- x-release-please-start-version -->
 
-The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.427.0).
+The REST API documentation can be found on [increase.com](https://increase.com/documentation). Javadocs are available on [javadoc.io](https://javadoc.io/doc/com.increase.api/increase-java/0.428.0).
 
 <!-- x-release-please-end -->
 
@@ -24,7 +24,7 @@ The REST API documentation can be found on [increase.com](https://increase.com/d
 ### Gradle
 
 ```kotlin
-implementation("com.increase.api:increase-java:0.427.0")
+implementation("com.increase.api:increase-java:0.428.0")
 ```
 
 ### Maven
@@ -33,7 +33,7 @@ implementation("com.increase.api:increase-java:0.427.0")
 <dependency>
   <groupId>com.increase.api</groupId>
   <artifactId>increase-java</artifactId>
-  <version>0.427.0</version>
+  <version>0.428.0</version>
 </dependency>
 ```
 
