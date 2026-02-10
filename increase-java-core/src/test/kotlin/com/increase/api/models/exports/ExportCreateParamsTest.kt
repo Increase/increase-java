@@ -85,6 +85,12 @@ internal class ExportCreateParamsTest {
                     .build()
             )
             .vendorCsv(ExportCreateParams.VendorCsv.builder().build())
+            .voidedCheck(
+                ExportCreateParams.VoidedCheck.builder()
+                    .accountNumberId("account_number_id")
+                    .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("x").build())
+                    .build()
+            )
             .build()
     }
 
@@ -165,6 +171,12 @@ internal class ExportCreateParamsTest {
                         .build()
                 )
                 .vendorCsv(ExportCreateParams.VendorCsv.builder().build())
+                .voidedCheck(
+                    ExportCreateParams.VoidedCheck.builder()
+                        .accountNumberId("account_number_id")
+                        .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("x").build())
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -249,6 +261,13 @@ internal class ExportCreateParamsTest {
                     .build()
             )
         assertThat(body.vendorCsv()).contains(ExportCreateParams.VendorCsv.builder().build())
+        assertThat(body.voidedCheck())
+            .contains(
+                ExportCreateParams.VoidedCheck.builder()
+                    .accountNumberId("account_number_id")
+                    .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("x").build())
+                    .build()
+            )
     }
 
     @Test

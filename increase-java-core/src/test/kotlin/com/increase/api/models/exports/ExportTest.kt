@@ -102,6 +102,12 @@ internal class ExportTest {
                 )
                 .type(Export.Type.EXPORT)
                 .vendorCsv(Export.VendorCsv.builder().build())
+                .voidedCheck(
+                    Export.VoidedCheck.builder()
+                        .accountNumberId("account_number_id")
+                        .addPayer(Export.VoidedCheck.Payer.builder().line("line").build())
+                        .build()
+                )
                 .build()
 
         assertThat(export.id()).isEqualTo("export_8s4m48qz3bclzje0zwh9")
@@ -199,6 +205,13 @@ internal class ExportTest {
             )
         assertThat(export.type()).isEqualTo(Export.Type.EXPORT)
         assertThat(export.vendorCsv()).contains(Export.VendorCsv.builder().build())
+        assertThat(export.voidedCheck())
+            .contains(
+                Export.VoidedCheck.builder()
+                    .accountNumberId("account_number_id")
+                    .addPayer(Export.VoidedCheck.Payer.builder().line("line").build())
+                    .build()
+            )
     }
 
     @Test
@@ -293,6 +306,12 @@ internal class ExportTest {
                 )
                 .type(Export.Type.EXPORT)
                 .vendorCsv(Export.VendorCsv.builder().build())
+                .voidedCheck(
+                    Export.VoidedCheck.builder()
+                        .accountNumberId("account_number_id")
+                        .addPayer(Export.VoidedCheck.Payer.builder().line("line").build())
+                        .build()
+                )
                 .build()
 
         val roundtrippedExport =
