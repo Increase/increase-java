@@ -98,6 +98,14 @@ internal class ExportServiceAsyncTest {
                             .build()
                     )
                     .vendorCsv(ExportCreateParams.VendorCsv.builder().build())
+                    .voidedCheck(
+                        ExportCreateParams.VoidedCheck.builder()
+                            .accountNumberId("account_number_id")
+                            .addPayer(
+                                ExportCreateParams.VoidedCheck.Payer.builder().line("x").build()
+                            )
+                            .build()
+                    )
                     .build()
             )
 
