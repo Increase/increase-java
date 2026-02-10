@@ -68,6 +68,16 @@ internal class ExportListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                         .entityCsv(Export.EntityCsv.builder().build())
+                        .feeCsv(
+                            Export.FeeCsv.builder()
+                                .createdAt(
+                                    Export.FeeCsv.CreatedAt.builder()
+                                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .build()
+                                )
+                                .build()
+                        )
                         .form1099Int(
                             Export.Form1099Int.builder()
                                 .accountId("account_id")
@@ -169,6 +179,16 @@ internal class ExportListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                     .entityCsv(Export.EntityCsv.builder().build())
+                    .feeCsv(
+                        Export.FeeCsv.builder()
+                            .createdAt(
+                                Export.FeeCsv.CreatedAt.builder()
+                                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
+                            )
+                            .build()
+                    )
                     .form1099Int(
                         Export.Form1099Int.builder()
                             .accountId("account_id")
@@ -274,6 +294,16 @@ internal class ExportListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                         .entityCsv(Export.EntityCsv.builder().build())
+                        .feeCsv(
+                            Export.FeeCsv.builder()
+                                .createdAt(
+                                    Export.FeeCsv.CreatedAt.builder()
+                                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .build()
+                                )
+                                .build()
+                        )
                         .form1099Int(
                             Export.Form1099Int.builder()
                                 .accountId("account_id")
