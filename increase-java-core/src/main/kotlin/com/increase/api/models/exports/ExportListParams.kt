@@ -399,6 +399,9 @@ private constructor(
             /** A PDF of an Internal Revenue Service Form 1099-MISC. */
             @JvmField val FORM_1099_MISC = of("form_1099_misc")
 
+            /** A PDF of a voided check. */
+            @JvmField val VOIDED_CHECK = of("voided_check")
+
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -437,6 +440,8 @@ private constructor(
             FORM_1099_INT,
             /** A PDF of an Internal Revenue Service Form 1099-MISC. */
             FORM_1099_MISC,
+            /** A PDF of a voided check. */
+            VOIDED_CHECK,
         }
 
         /**
@@ -482,6 +487,8 @@ private constructor(
             FORM_1099_INT,
             /** A PDF of an Internal Revenue Service Form 1099-MISC. */
             FORM_1099_MISC,
+            /** A PDF of a voided check. */
+            VOIDED_CHECK,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -507,6 +514,7 @@ private constructor(
                 FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
                 FORM_1099_INT -> Value.FORM_1099_INT
                 FORM_1099_MISC -> Value.FORM_1099_MISC
+                VOIDED_CHECK -> Value.VOIDED_CHECK
                 else -> Value._UNKNOWN
             }
 
@@ -533,6 +541,7 @@ private constructor(
                 FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
                 FORM_1099_INT -> Known.FORM_1099_INT
                 FORM_1099_MISC -> Known.FORM_1099_MISC
+                VOIDED_CHECK -> Known.VOIDED_CHECK
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
