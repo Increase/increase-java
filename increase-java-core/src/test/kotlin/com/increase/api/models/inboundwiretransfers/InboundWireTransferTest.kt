@@ -15,6 +15,12 @@ internal class InboundWireTransferTest {
         val inboundWireTransfer =
             InboundWireTransfer.builder()
                 .id("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+                .acceptance(
+                    InboundWireTransfer.Acceptance.builder()
+                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .transactionId("transaction_id")
+                        .build()
+                )
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(100L)
@@ -46,6 +52,13 @@ internal class InboundWireTransferTest {
                 .build()
 
         assertThat(inboundWireTransfer.id()).isEqualTo("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+        assertThat(inboundWireTransfer.acceptance())
+            .contains(
+                InboundWireTransfer.Acceptance.builder()
+                    .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .transactionId("transaction_id")
+                    .build()
+            )
         assertThat(inboundWireTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(inboundWireTransfer.accountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
@@ -86,6 +99,12 @@ internal class InboundWireTransferTest {
         val inboundWireTransfer =
             InboundWireTransfer.builder()
                 .id("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
+                .acceptance(
+                    InboundWireTransfer.Acceptance.builder()
+                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .transactionId("transaction_id")
+                        .build()
+                )
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(100L)
