@@ -39,7 +39,7 @@ private constructor(
     fun amount(): Long = body.amount()
 
     /**
-     * The identifier of the Card Payment to create a increment on.
+     * The identifier of the Card Payment to create an increment on.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -139,7 +139,7 @@ private constructor(
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
-        /** The identifier of the Card Payment to create a increment on. */
+        /** The identifier of the Card Payment to create an increment on. */
         fun cardPaymentId(cardPaymentId: String) = apply { body.cardPaymentId(cardPaymentId) }
 
         /**
@@ -347,7 +347,7 @@ private constructor(
         fun amount(): Long = amount.getRequired("amount")
 
         /**
-         * The identifier of the Card Payment to create a increment on.
+         * The identifier of the Card Payment to create an increment on.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -447,7 +447,7 @@ private constructor(
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-            /** The identifier of the Card Payment to create a increment on. */
+            /** The identifier of the Card Payment to create an increment on. */
             fun cardPaymentId(cardPaymentId: String) = cardPaymentId(JsonField.of(cardPaymentId))
 
             /**

@@ -24,7 +24,9 @@ interface DigitalWalletTokenRequestService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): DigitalWalletTokenRequestService
 
-    /** Simulates a user attempting add a [Card](#cards) to a digital wallet such as Apple Pay. */
+    /**
+     * Simulates a user attempting to add a [Card](#cards) to a digital wallet such as Apple Pay.
+     */
     fun create(
         params: DigitalWalletTokenRequestCreateParams
     ): DigitalWalletTokenRequestCreateResponse = create(params, RequestOptions.none())

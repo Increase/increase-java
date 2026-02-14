@@ -82,7 +82,7 @@ interface InboundMailItemServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
         list(InboundMailItemListParams.none(), requestOptions)
 
-    /** Action a Inbound Mail Item */
+    /** Action an Inbound Mail Item */
     fun action(
         inboundMailItemId: String,
         params: InboundMailItemActionParams,

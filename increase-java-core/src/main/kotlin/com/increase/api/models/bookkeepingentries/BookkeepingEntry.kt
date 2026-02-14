@@ -82,7 +82,7 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * The identifier for the Account the Entry belongs to.
+     * The identifier for the Entry Set the Entry belongs to.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -243,7 +243,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The identifier for the Account the Entry belongs to. */
+        /** The identifier for the Entry Set the Entry belongs to. */
         fun entrySetId(entrySetId: String) = entrySetId(JsonField.of(entrySetId))
 
         /**

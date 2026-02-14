@@ -151,7 +151,7 @@ private constructor(
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
-     * wire drawdown requested was created.
+     * wire drawdown request was created.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -640,7 +640,7 @@ private constructor(
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the inbound
-         * wire drawdown requested was created.
+         * wire drawdown request was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 

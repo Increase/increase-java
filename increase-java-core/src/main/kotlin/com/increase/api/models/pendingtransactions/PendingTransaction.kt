@@ -1105,7 +1105,7 @@ private constructor(
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
          * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
-         * placed on a customers funds with the intent to later clear a transaction.
+         * placed on a customer's funds with the intent to later clear a transaction.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1626,7 +1626,7 @@ private constructor(
             /**
              * A Card Authorization object. This field will be present in the JSON response if and
              * only if `category` is equal to `card_authorization`. Card Authorizations are
-             * temporary holds placed on a customers funds with the intent to later clear a
+             * temporary holds placed on a customer's funds with the intent to later clear a
              * transaction.
              */
             fun cardAuthorization(cardAuthorization: CardAuthorization?) =
@@ -3566,7 +3566,7 @@ private constructor(
         /**
          * A Card Authorization object. This field will be present in the JSON response if and only
          * if `category` is equal to `card_authorization`. Card Authorizations are temporary holds
-         * placed on a customers funds with the intent to later clear a transaction.
+         * placed on a customer's funds with the intent to later clear a transaction.
          */
         class CardAuthorization
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
