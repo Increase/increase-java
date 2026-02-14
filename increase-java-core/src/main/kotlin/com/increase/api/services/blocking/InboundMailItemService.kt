@@ -77,7 +77,7 @@ interface InboundMailItemService {
     fun list(requestOptions: RequestOptions): InboundMailItemListPage =
         list(InboundMailItemListParams.none(), requestOptions)
 
-    /** Action a Inbound Mail Item */
+    /** Action an Inbound Mail Item */
     fun action(inboundMailItemId: String, params: InboundMailItemActionParams): InboundMailItem =
         action(inboundMailItemId, params, RequestOptions.none())
 
