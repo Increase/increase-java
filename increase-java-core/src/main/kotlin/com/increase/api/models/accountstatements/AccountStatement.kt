@@ -101,7 +101,7 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * The Account's balance at the start of its statement period.
+     * The Account's balance at the end of its statement period.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -345,7 +345,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The Account's balance at the start of its statement period. */
+        /** The Account's balance at the end of its statement period. */
         fun endingBalance(endingBalance: Long) = endingBalance(JsonField.of(endingBalance))
 
         /**

@@ -23,7 +23,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Action a Inbound Mail Item */
+/** Action an Inbound Mail Item */
 class InboundMailItemActionParams
 private constructor(
     private val inboundMailItemId: String?,
