@@ -46,11 +46,7 @@ internal class EventServiceTest {
 
     @Test
     fun unwrap() {
-        val client =
-            IncreaseOkHttpClient.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = IncreaseOkHttpClient.builder().apiKey("My API Key").build()
         val eventService = client.events()
 
         val payload =
