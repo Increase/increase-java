@@ -48,11 +48,7 @@ internal class EventServiceAsyncTest {
 
     @Test
     fun unwrap() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
+        val client = IncreaseOkHttpClientAsync.builder().apiKey("My API Key").build()
         val eventServiceAsync = client.events()
 
         val payload =
