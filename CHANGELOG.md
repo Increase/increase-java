@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.433.0 (2026-02-18)
+
+Full Changelog: [v0.432.0...v0.433.0](https://github.com/Increase/increase-java/compare/v0.432.0...v0.433.0)
+
+### Features
+
+* **client:** add connection pooling option ([20a1a9a](https://github.com/Increase/increase-java/commit/20a1a9a5926bb186d19d823aa4818ae0a0d5d951))
+
+
+### Chores
+
+* **internal:** make `OkHttp` constructor internal ([f9e3bca](https://github.com/Increase/increase-java/commit/f9e3bcaf878f1a492b3b7608ab6ea8298e691dc8))
+
 ## 0.432.0 (2026-02-18)
 
 Full Changelog: [v0.431.0...v0.432.0](https://github.com/Increase/increase-java/compare/v0.431.0...v0.432.0)
