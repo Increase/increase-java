@@ -4,6 +4,7 @@ package com.increase.api.services.blocking.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -47,7 +48,19 @@ internal class CheckDepositServiceTest {
                 .build()
         val checkDepositService = client.simulations().checkDeposits()
 
-        val checkDeposit = checkDepositService.submit("check_deposit_f06n9gpg7sxn8t19lfc1")
+        val checkDeposit =
+            checkDepositService.submit(
+                CheckDepositSubmitParams.builder()
+                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
+                    .scan(
+                        CheckDepositSubmitParams.Scan.builder()
+                            .accountNumber("x")
+                            .routingNumber("x")
+                            .auxiliaryOnUs("x")
+                            .build()
+                    )
+                    .build()
+            )
 
         checkDeposit.validate()
     }
