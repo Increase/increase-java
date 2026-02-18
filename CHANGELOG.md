@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.432.0 (2026-02-18)
+
+Full Changelog: [v0.431.0...v0.432.0](https://github.com/Increase/increase-java/compare/v0.431.0...v0.432.0)
+
+### Features
+
+* **api:** api update ([22a662d](https://github.com/Increase/increase-java/commit/22a662d82f09741e4361a702210763ccd076730d))
+
+
+### Chores
+
+* **internal:** remove unnecessary base URL ([7c309fb](https://github.com/Increase/increase-java/commit/7c309fb93123e67c60271753f5248e6fb9a34622))
+* **internal:** update `TestServerExtension` comment ([680d244](https://github.com/Increase/increase-java/commit/680d244bb1753465a3629aa51d15e51b885ea67a))
+
 ## 0.431.0 (2026-02-14)
 
 Full Changelog: [v0.430.0...v0.431.0](https://github.com/Increase/increase-java/compare/v0.430.0...v0.431.0)
