@@ -168,7 +168,7 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
                         params._pathParam(0),
                         "submit",
                     )
-                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
