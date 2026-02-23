@@ -254,6 +254,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -515,6 +523,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -747,6 +763,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -979,6 +1002,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -1974,6 +2004,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -2281,6 +2318,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -2542,6 +2587,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -2774,6 +2827,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -3006,6 +3066,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -4001,6 +4068,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -4308,6 +4382,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -4569,6 +4651,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -4801,6 +4891,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -5033,6 +5130,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -6028,6 +6132,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -6335,6 +6446,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -6596,6 +6715,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -6828,6 +6955,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -7060,6 +7194,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -8055,6 +8196,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -8385,6 +8533,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -8630,6 +8785,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardBalanceInquiry
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -8850,6 +9012,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -9071,6 +9240,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardFinancial
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -10005,6 +10181,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardValidation
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -10297,6 +10480,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -10542,6 +10732,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardBalanceInquiry
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -10762,6 +10959,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -10983,6 +11187,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardFinancial
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -11917,6 +12128,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardValidation
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -12209,6 +12427,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -12454,6 +12679,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardBalanceInquiry
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -12674,6 +12906,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -12895,6 +13134,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardFinancial
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -13829,6 +14075,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardValidation
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -14121,6 +14374,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -14366,6 +14626,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardBalanceInquiry
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -14586,6 +14853,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -14807,6 +15081,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardFinancial
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -15741,6 +16022,13 @@ internal class CardPaymentListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            CardPayment.Element.CardValidation
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -16074,6 +16362,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -16335,6 +16631,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -16567,6 +16871,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -16799,6 +17110,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -17794,6 +18112,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -18101,6 +18426,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -18362,6 +18695,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -18594,6 +18935,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -18826,6 +19174,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -19821,6 +20176,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -20128,6 +20490,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -20389,6 +20759,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -20621,6 +20999,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -20853,6 +21238,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -21848,6 +22240,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -22155,6 +22554,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardAuthorization
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -22416,6 +22823,14 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element
+                                                                    .CardBalanceInquiry
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -22648,6 +23063,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardDecline
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -22880,6 +23302,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardFinancial
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()
@@ -23875,6 +24304,13 @@ internal class CardPaymentListPageResponseTest {
                                                                     .MANUAL
                                                             )
                                                             .standInProcessingReason(null)
+                                                            .terminalEntryCapability(
+                                                                CardPayment.Element.CardValidation
+                                                                    .NetworkDetails
+                                                                    .Visa
+                                                                    .TerminalEntryCapability
+                                                                    .MAGNETIC_STRIPE
+                                                            )
                                                             .build()
                                                     )
                                                     .build()

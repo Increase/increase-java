@@ -159,6 +159,11 @@ internal class RealTimeDecisionTest {
                                                 .MANUAL
                                         )
                                         .standInProcessingReason(null)
+                                        .terminalEntryCapability(
+                                            RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                                .TerminalEntryCapability
+                                                .MAGNETIC_STRIPE
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -374,6 +379,11 @@ internal class RealTimeDecisionTest {
                                             RealTimeDecision.CardBalanceInquiry.NetworkDetails.Visa
                                                 .StandInProcessingReason
                                                 .ISSUER_ERROR
+                                        )
+                                        .terminalEntryCapability(
+                                            RealTimeDecision.CardBalanceInquiry.NetworkDetails.Visa
+                                                .TerminalEntryCapability
+                                                .UNKNOWN
                                         )
                                         .build()
                                 )
@@ -608,6 +618,11 @@ internal class RealTimeDecisionTest {
                                             .MANUAL
                                     )
                                     .standInProcessingReason(null)
+                                    .terminalEntryCapability(
+                                        RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                            .TerminalEntryCapability
+                                            .MAGNETIC_STRIPE
+                                    )
                                     .build()
                             )
                             .build()
@@ -814,6 +829,11 @@ internal class RealTimeDecisionTest {
                                         RealTimeDecision.CardBalanceInquiry.NetworkDetails.Visa
                                             .StandInProcessingReason
                                             .ISSUER_ERROR
+                                    )
+                                    .terminalEntryCapability(
+                                        RealTimeDecision.CardBalanceInquiry.NetworkDetails.Visa
+                                            .TerminalEntryCapability
+                                            .UNKNOWN
                                     )
                                     .build()
                             )
@@ -1059,6 +1079,11 @@ internal class RealTimeDecisionTest {
                                                 .MANUAL
                                         )
                                         .standInProcessingReason(null)
+                                        .terminalEntryCapability(
+                                            RealTimeDecision.CardAuthorization.NetworkDetails.Visa
+                                                .TerminalEntryCapability
+                                                .MAGNETIC_STRIPE
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -1274,6 +1299,11 @@ internal class RealTimeDecisionTest {
                                             RealTimeDecision.CardBalanceInquiry.NetworkDetails.Visa
                                                 .StandInProcessingReason
                                                 .ISSUER_ERROR
+                                        )
+                                        .terminalEntryCapability(
+                                            RealTimeDecision.CardBalanceInquiry.NetworkDetails.Visa
+                                                .TerminalEntryCapability
+                                                .UNKNOWN
                                         )
                                         .build()
                                 )

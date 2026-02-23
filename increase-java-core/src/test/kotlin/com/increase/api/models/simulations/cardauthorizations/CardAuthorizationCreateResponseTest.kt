@@ -211,6 +211,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            DeclinedTransaction.Source.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -598,6 +605,14 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            PendingTransaction.Source
+                                                                .CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -978,6 +993,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .MANUAL
                                                     )
                                                     .standInProcessingReason(null)
+                                                    .terminalEntryCapability(
+                                                        DeclinedTransaction.Source.CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .TerminalEntryCapability
+                                                            .MAGNETIC_STRIPE
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -1351,6 +1373,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                             .MANUAL
                                                     )
                                                     .standInProcessingReason(null)
+                                                    .terminalEntryCapability(
+                                                        PendingTransaction.Source.CardAuthorization
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .TerminalEntryCapability
+                                                            .MAGNETIC_STRIPE
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -1730,6 +1759,13 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            DeclinedTransaction.Source.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -2117,6 +2153,14 @@ internal class CardAuthorizationCreateResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            PendingTransaction.Source
+                                                                .CardAuthorization
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()

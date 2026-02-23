@@ -213,6 +213,13 @@ internal class PendingTransactionTest {
                                                         .MANUAL
                                                 )
                                                 .standInProcessingReason(null)
+                                                .terminalEntryCapability(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .TerminalEntryCapability
+                                                        .MAGNETIC_STRIPE
+                                                )
                                                 .build()
                                         )
                                         .build()
@@ -564,6 +571,13 @@ internal class PendingTransactionTest {
                                                     .MANUAL
                                             )
                                             .standInProcessingReason(null)
+                                            .terminalEntryCapability(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .NetworkDetails
+                                                    .Visa
+                                                    .TerminalEntryCapability
+                                                    .MAGNETIC_STRIPE
+                                            )
                                             .build()
                                     )
                                     .build()
@@ -922,6 +936,13 @@ internal class PendingTransactionTest {
                                                         .MANUAL
                                                 )
                                                 .standInProcessingReason(null)
+                                                .terminalEntryCapability(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .NetworkDetails
+                                                        .Visa
+                                                        .TerminalEntryCapability
+                                                        .MAGNETIC_STRIPE
+                                                )
                                                 .build()
                                         )
                                         .build()
