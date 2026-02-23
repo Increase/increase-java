@@ -208,6 +208,13 @@ internal class DeclinedTransactionListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            DeclinedTransaction.Source.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -573,6 +580,13 @@ internal class DeclinedTransactionListPageResponseTest {
                                                             .MANUAL
                                                     )
                                                     .standInProcessingReason(null)
+                                                    .terminalEntryCapability(
+                                                        DeclinedTransaction.Source.CardDecline
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .TerminalEntryCapability
+                                                            .MAGNETIC_STRIPE
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -939,6 +953,13 @@ internal class DeclinedTransactionListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            DeclinedTransaction.Source.CardDecline
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()

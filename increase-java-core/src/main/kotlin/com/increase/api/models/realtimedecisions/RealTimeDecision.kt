@@ -7316,6 +7316,7 @@ private constructor(
                 private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
                 private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
                 private val standInProcessingReason: JsonField<StandInProcessingReason>,
+                private val terminalEntryCapability: JsonField<TerminalEntryCapability>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -7331,10 +7332,14 @@ private constructor(
                     @JsonProperty("stand_in_processing_reason")
                     @ExcludeMissing
                     standInProcessingReason: JsonField<StandInProcessingReason> = JsonMissing.of(),
+                    @JsonProperty("terminal_entry_capability")
+                    @ExcludeMissing
+                    terminalEntryCapability: JsonField<TerminalEntryCapability> = JsonMissing.of(),
                 ) : this(
                     electronicCommerceIndicator,
                     pointOfServiceEntryMode,
                     standInProcessingReason,
+                    terminalEntryCapability,
                     mutableMapOf(),
                 )
 
@@ -7370,6 +7375,19 @@ private constructor(
                     standInProcessingReason.getOptional("stand_in_processing_reason")
 
                 /**
+                 * The capability of the terminal being used to read the card. Shows whether a
+                 * terminal can e.g., accept chip cards or if it only supports magnetic stripe
+                 * reads. This reflects the highest capability of the terminal — for example, a
+                 * terminal that supports both chip and magnetic stripe will be identified as
+                 * chip-capable.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun terminalEntryCapability(): Optional<TerminalEntryCapability> =
+                    terminalEntryCapability.getOptional("terminal_entry_capability")
+
+                /**
                  * Returns the raw JSON value of [electronicCommerceIndicator].
                  *
                  * Unlike [electronicCommerceIndicator], this method doesn't throw if the JSON field
@@ -7402,6 +7420,17 @@ private constructor(
                 fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
                     standInProcessingReason
 
+                /**
+                 * Returns the raw JSON value of [terminalEntryCapability].
+                 *
+                 * Unlike [terminalEntryCapability], this method doesn't throw if the JSON field has
+                 * an unexpected type.
+                 */
+                @JsonProperty("terminal_entry_capability")
+                @ExcludeMissing
+                fun _terminalEntryCapability(): JsonField<TerminalEntryCapability> =
+                    terminalEntryCapability
+
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
                     additionalProperties.put(key, value)
@@ -7424,6 +7453,7 @@ private constructor(
                      * .electronicCommerceIndicator()
                      * .pointOfServiceEntryMode()
                      * .standInProcessingReason()
+                     * .terminalEntryCapability()
                      * ```
                      */
                     @JvmStatic fun builder() = Builder()
@@ -7437,6 +7467,7 @@ private constructor(
                         null
                     private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>? = null
                     private var standInProcessingReason: JsonField<StandInProcessingReason>? = null
+                    private var terminalEntryCapability: JsonField<TerminalEntryCapability>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -7444,6 +7475,7 @@ private constructor(
                         electronicCommerceIndicator = visa.electronicCommerceIndicator
                         pointOfServiceEntryMode = visa.pointOfServiceEntryMode
                         standInProcessingReason = visa.standInProcessingReason
+                        terminalEntryCapability = visa.terminalEntryCapability
                         additionalProperties = visa.additionalProperties.toMutableMap()
                     }
 
@@ -7531,6 +7563,35 @@ private constructor(
                         standInProcessingReason: JsonField<StandInProcessingReason>
                     ) = apply { this.standInProcessingReason = standInProcessingReason }
 
+                    /**
+                     * The capability of the terminal being used to read the card. Shows whether a
+                     * terminal can e.g., accept chip cards or if it only supports magnetic stripe
+                     * reads. This reflects the highest capability of the terminal — for example, a
+                     * terminal that supports both chip and magnetic stripe will be identified as
+                     * chip-capable.
+                     */
+                    fun terminalEntryCapability(terminalEntryCapability: TerminalEntryCapability?) =
+                        terminalEntryCapability(JsonField.ofNullable(terminalEntryCapability))
+
+                    /**
+                     * Alias for calling [Builder.terminalEntryCapability] with
+                     * `terminalEntryCapability.orElse(null)`.
+                     */
+                    fun terminalEntryCapability(
+                        terminalEntryCapability: Optional<TerminalEntryCapability>
+                    ) = terminalEntryCapability(terminalEntryCapability.getOrNull())
+
+                    /**
+                     * Sets [Builder.terminalEntryCapability] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.terminalEntryCapability] with a well-typed
+                     * [TerminalEntryCapability] value instead. This method is primarily for setting
+                     * the field to an undocumented or not yet supported value.
+                     */
+                    fun terminalEntryCapability(
+                        terminalEntryCapability: JsonField<TerminalEntryCapability>
+                    ) = apply { this.terminalEntryCapability = terminalEntryCapability }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         putAllAdditionalProperties(additionalProperties)
@@ -7563,6 +7624,7 @@ private constructor(
                      * .electronicCommerceIndicator()
                      * .pointOfServiceEntryMode()
                      * .standInProcessingReason()
+                     * .terminalEntryCapability()
                      * ```
                      *
                      * @throws IllegalStateException if any required field is unset.
@@ -7575,6 +7637,7 @@ private constructor(
                             ),
                             checkRequired("pointOfServiceEntryMode", pointOfServiceEntryMode),
                             checkRequired("standInProcessingReason", standInProcessingReason),
+                            checkRequired("terminalEntryCapability", terminalEntryCapability),
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -7589,6 +7652,7 @@ private constructor(
                     electronicCommerceIndicator().ifPresent { it.validate() }
                     pointOfServiceEntryMode().ifPresent { it.validate() }
                     standInProcessingReason().ifPresent { it.validate() }
+                    terminalEntryCapability().ifPresent { it.validate() }
                     validated = true
                 }
 
@@ -7610,7 +7674,8 @@ private constructor(
                 internal fun validity(): Int =
                     (electronicCommerceIndicator.asKnown().getOrNull()?.validity() ?: 0) +
                         (pointOfServiceEntryMode.asKnown().getOrNull()?.validity() ?: 0) +
-                        (standInProcessingReason.asKnown().getOrNull()?.validity() ?: 0)
+                        (standInProcessingReason.asKnown().getOrNull()?.validity() ?: 0) +
+                        (terminalEntryCapability.asKnown().getOrNull()?.validity() ?: 0)
 
                 /**
                  * For electronic commerce transactions, this identifies the level of security used
@@ -8412,6 +8477,244 @@ private constructor(
                     override fun toString() = value.toString()
                 }
 
+                /**
+                 * The capability of the terminal being used to read the card. Shows whether a
+                 * terminal can e.g., accept chip cards or if it only supports magnetic stripe
+                 * reads. This reflects the highest capability of the terminal — for example, a
+                 * terminal that supports both chip and magnetic stripe will be identified as
+                 * chip-capable.
+                 */
+                class TerminalEntryCapability
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** Unknown */
+                        @JvmField val UNKNOWN = of("unknown")
+
+                        /** No terminal was used for this transaction. */
+                        @JvmField val TERMINAL_NOT_USED = of("terminal_not_used")
+
+                        /**
+                         * The terminal can only read magnetic stripes and does not have chip or
+                         * contactless reading capability.
+                         */
+                        @JvmField val MAGNETIC_STRIPE = of("magnetic_stripe")
+
+                        /** The terminal can only read barcodes. */
+                        @JvmField val BARCODE = of("barcode")
+
+                        /** The terminal can only read cards via Optical Character Recognition. */
+                        @JvmField
+                        val OPTICAL_CHARACTER_RECOGNITION = of("optical_character_recognition")
+
+                        /**
+                         * The terminal supports contact chip cards and can also read the magnetic
+                         * stripe. If contact chip is supported, this value is used regardless of
+                         * whether contactless is also supported.
+                         */
+                        @JvmField val CHIP_OR_CONTACTLESS = of("chip_or_contactless")
+
+                        /**
+                         * The terminal supports contactless reads but does not support contact
+                         * chip. Only used when the terminal lacks contact chip capability.
+                         */
+                        @JvmField val CONTACTLESS_ONLY = of("contactless_only")
+
+                        /** The terminal has no card reading capability. */
+                        @JvmField val NO_CAPABILITY = of("no_capability")
+
+                        @JvmStatic
+                        fun of(value: String) = TerminalEntryCapability(JsonField.of(value))
+                    }
+
+                    /** An enum containing [TerminalEntryCapability]'s known values. */
+                    enum class Known {
+                        /** Unknown */
+                        UNKNOWN,
+                        /** No terminal was used for this transaction. */
+                        TERMINAL_NOT_USED,
+                        /**
+                         * The terminal can only read magnetic stripes and does not have chip or
+                         * contactless reading capability.
+                         */
+                        MAGNETIC_STRIPE,
+                        /** The terminal can only read barcodes. */
+                        BARCODE,
+                        /** The terminal can only read cards via Optical Character Recognition. */
+                        OPTICAL_CHARACTER_RECOGNITION,
+                        /**
+                         * The terminal supports contact chip cards and can also read the magnetic
+                         * stripe. If contact chip is supported, this value is used regardless of
+                         * whether contactless is also supported.
+                         */
+                        CHIP_OR_CONTACTLESS,
+                        /**
+                         * The terminal supports contactless reads but does not support contact
+                         * chip. Only used when the terminal lacks contact chip capability.
+                         */
+                        CONTACTLESS_ONLY,
+                        /** The terminal has no card reading capability. */
+                        NO_CAPABILITY,
+                    }
+
+                    /**
+                     * An enum containing [TerminalEntryCapability]'s known values, as well as an
+                     * [_UNKNOWN] member.
+                     *
+                     * An instance of [TerminalEntryCapability] can contain an unknown value in a
+                     * couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** Unknown */
+                        UNKNOWN,
+                        /** No terminal was used for this transaction. */
+                        TERMINAL_NOT_USED,
+                        /**
+                         * The terminal can only read magnetic stripes and does not have chip or
+                         * contactless reading capability.
+                         */
+                        MAGNETIC_STRIPE,
+                        /** The terminal can only read barcodes. */
+                        BARCODE,
+                        /** The terminal can only read cards via Optical Character Recognition. */
+                        OPTICAL_CHARACTER_RECOGNITION,
+                        /**
+                         * The terminal supports contact chip cards and can also read the magnetic
+                         * stripe. If contact chip is supported, this value is used regardless of
+                         * whether contactless is also supported.
+                         */
+                        CHIP_OR_CONTACTLESS,
+                        /**
+                         * The terminal supports contactless reads but does not support contact
+                         * chip. Only used when the terminal lacks contact chip capability.
+                         */
+                        CONTACTLESS_ONLY,
+                        /** The terminal has no card reading capability. */
+                        NO_CAPABILITY,
+                        /**
+                         * An enum member indicating that [TerminalEntryCapability] was instantiated
+                         * with an unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            UNKNOWN -> Value.UNKNOWN
+                            TERMINAL_NOT_USED -> Value.TERMINAL_NOT_USED
+                            MAGNETIC_STRIPE -> Value.MAGNETIC_STRIPE
+                            BARCODE -> Value.BARCODE
+                            OPTICAL_CHARACTER_RECOGNITION -> Value.OPTICAL_CHARACTER_RECOGNITION
+                            CHIP_OR_CONTACTLESS -> Value.CHIP_OR_CONTACTLESS
+                            CONTACTLESS_ONLY -> Value.CONTACTLESS_ONLY
+                            NO_CAPABILITY -> Value.NO_CAPABILITY
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            UNKNOWN -> Known.UNKNOWN
+                            TERMINAL_NOT_USED -> Known.TERMINAL_NOT_USED
+                            MAGNETIC_STRIPE -> Known.MAGNETIC_STRIPE
+                            BARCODE -> Known.BARCODE
+                            OPTICAL_CHARACTER_RECOGNITION -> Known.OPTICAL_CHARACTER_RECOGNITION
+                            CHIP_OR_CONTACTLESS -> Known.CHIP_OR_CONTACTLESS
+                            CONTACTLESS_ONLY -> Known.CONTACTLESS_ONLY
+                            NO_CAPABILITY -> Known.NO_CAPABILITY
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown TerminalEntryCapability: $value"
+                                )
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): TerminalEntryCapability = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is TerminalEntryCapability && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -8421,6 +8724,7 @@ private constructor(
                         electronicCommerceIndicator == other.electronicCommerceIndicator &&
                         pointOfServiceEntryMode == other.pointOfServiceEntryMode &&
                         standInProcessingReason == other.standInProcessingReason &&
+                        terminalEntryCapability == other.terminalEntryCapability &&
                         additionalProperties == other.additionalProperties
                 }
 
@@ -8429,6 +8733,7 @@ private constructor(
                         electronicCommerceIndicator,
                         pointOfServiceEntryMode,
                         standInProcessingReason,
+                        terminalEntryCapability,
                         additionalProperties,
                     )
                 }
@@ -8436,7 +8741,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
+                    "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, terminalEntryCapability=$terminalEntryCapability, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -16362,6 +16667,7 @@ private constructor(
                 private val electronicCommerceIndicator: JsonField<ElectronicCommerceIndicator>,
                 private val pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>,
                 private val standInProcessingReason: JsonField<StandInProcessingReason>,
+                private val terminalEntryCapability: JsonField<TerminalEntryCapability>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
@@ -16377,10 +16683,14 @@ private constructor(
                     @JsonProperty("stand_in_processing_reason")
                     @ExcludeMissing
                     standInProcessingReason: JsonField<StandInProcessingReason> = JsonMissing.of(),
+                    @JsonProperty("terminal_entry_capability")
+                    @ExcludeMissing
+                    terminalEntryCapability: JsonField<TerminalEntryCapability> = JsonMissing.of(),
                 ) : this(
                     electronicCommerceIndicator,
                     pointOfServiceEntryMode,
                     standInProcessingReason,
+                    terminalEntryCapability,
                     mutableMapOf(),
                 )
 
@@ -16416,6 +16726,19 @@ private constructor(
                     standInProcessingReason.getOptional("stand_in_processing_reason")
 
                 /**
+                 * The capability of the terminal being used to read the card. Shows whether a
+                 * terminal can e.g., accept chip cards or if it only supports magnetic stripe
+                 * reads. This reflects the highest capability of the terminal — for example, a
+                 * terminal that supports both chip and magnetic stripe will be identified as
+                 * chip-capable.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun terminalEntryCapability(): Optional<TerminalEntryCapability> =
+                    terminalEntryCapability.getOptional("terminal_entry_capability")
+
+                /**
                  * Returns the raw JSON value of [electronicCommerceIndicator].
                  *
                  * Unlike [electronicCommerceIndicator], this method doesn't throw if the JSON field
@@ -16448,6 +16771,17 @@ private constructor(
                 fun _standInProcessingReason(): JsonField<StandInProcessingReason> =
                     standInProcessingReason
 
+                /**
+                 * Returns the raw JSON value of [terminalEntryCapability].
+                 *
+                 * Unlike [terminalEntryCapability], this method doesn't throw if the JSON field has
+                 * an unexpected type.
+                 */
+                @JsonProperty("terminal_entry_capability")
+                @ExcludeMissing
+                fun _terminalEntryCapability(): JsonField<TerminalEntryCapability> =
+                    terminalEntryCapability
+
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
                     additionalProperties.put(key, value)
@@ -16470,6 +16804,7 @@ private constructor(
                      * .electronicCommerceIndicator()
                      * .pointOfServiceEntryMode()
                      * .standInProcessingReason()
+                     * .terminalEntryCapability()
                      * ```
                      */
                     @JvmStatic fun builder() = Builder()
@@ -16483,6 +16818,7 @@ private constructor(
                         null
                     private var pointOfServiceEntryMode: JsonField<PointOfServiceEntryMode>? = null
                     private var standInProcessingReason: JsonField<StandInProcessingReason>? = null
+                    private var terminalEntryCapability: JsonField<TerminalEntryCapability>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
@@ -16490,6 +16826,7 @@ private constructor(
                         electronicCommerceIndicator = visa.electronicCommerceIndicator
                         pointOfServiceEntryMode = visa.pointOfServiceEntryMode
                         standInProcessingReason = visa.standInProcessingReason
+                        terminalEntryCapability = visa.terminalEntryCapability
                         additionalProperties = visa.additionalProperties.toMutableMap()
                     }
 
@@ -16577,6 +16914,35 @@ private constructor(
                         standInProcessingReason: JsonField<StandInProcessingReason>
                     ) = apply { this.standInProcessingReason = standInProcessingReason }
 
+                    /**
+                     * The capability of the terminal being used to read the card. Shows whether a
+                     * terminal can e.g., accept chip cards or if it only supports magnetic stripe
+                     * reads. This reflects the highest capability of the terminal — for example, a
+                     * terminal that supports both chip and magnetic stripe will be identified as
+                     * chip-capable.
+                     */
+                    fun terminalEntryCapability(terminalEntryCapability: TerminalEntryCapability?) =
+                        terminalEntryCapability(JsonField.ofNullable(terminalEntryCapability))
+
+                    /**
+                     * Alias for calling [Builder.terminalEntryCapability] with
+                     * `terminalEntryCapability.orElse(null)`.
+                     */
+                    fun terminalEntryCapability(
+                        terminalEntryCapability: Optional<TerminalEntryCapability>
+                    ) = terminalEntryCapability(terminalEntryCapability.getOrNull())
+
+                    /**
+                     * Sets [Builder.terminalEntryCapability] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.terminalEntryCapability] with a well-typed
+                     * [TerminalEntryCapability] value instead. This method is primarily for setting
+                     * the field to an undocumented or not yet supported value.
+                     */
+                    fun terminalEntryCapability(
+                        terminalEntryCapability: JsonField<TerminalEntryCapability>
+                    ) = apply { this.terminalEntryCapability = terminalEntryCapability }
+
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
                         putAllAdditionalProperties(additionalProperties)
@@ -16609,6 +16975,7 @@ private constructor(
                      * .electronicCommerceIndicator()
                      * .pointOfServiceEntryMode()
                      * .standInProcessingReason()
+                     * .terminalEntryCapability()
                      * ```
                      *
                      * @throws IllegalStateException if any required field is unset.
@@ -16621,6 +16988,7 @@ private constructor(
                             ),
                             checkRequired("pointOfServiceEntryMode", pointOfServiceEntryMode),
                             checkRequired("standInProcessingReason", standInProcessingReason),
+                            checkRequired("terminalEntryCapability", terminalEntryCapability),
                             additionalProperties.toMutableMap(),
                         )
                 }
@@ -16635,6 +17003,7 @@ private constructor(
                     electronicCommerceIndicator().ifPresent { it.validate() }
                     pointOfServiceEntryMode().ifPresent { it.validate() }
                     standInProcessingReason().ifPresent { it.validate() }
+                    terminalEntryCapability().ifPresent { it.validate() }
                     validated = true
                 }
 
@@ -16656,7 +17025,8 @@ private constructor(
                 internal fun validity(): Int =
                     (electronicCommerceIndicator.asKnown().getOrNull()?.validity() ?: 0) +
                         (pointOfServiceEntryMode.asKnown().getOrNull()?.validity() ?: 0) +
-                        (standInProcessingReason.asKnown().getOrNull()?.validity() ?: 0)
+                        (standInProcessingReason.asKnown().getOrNull()?.validity() ?: 0) +
+                        (terminalEntryCapability.asKnown().getOrNull()?.validity() ?: 0)
 
                 /**
                  * For electronic commerce transactions, this identifies the level of security used
@@ -17458,6 +17828,244 @@ private constructor(
                     override fun toString() = value.toString()
                 }
 
+                /**
+                 * The capability of the terminal being used to read the card. Shows whether a
+                 * terminal can e.g., accept chip cards or if it only supports magnetic stripe
+                 * reads. This reflects the highest capability of the terminal — for example, a
+                 * terminal that supports both chip and magnetic stripe will be identified as
+                 * chip-capable.
+                 */
+                class TerminalEntryCapability
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** Unknown */
+                        @JvmField val UNKNOWN = of("unknown")
+
+                        /** No terminal was used for this transaction. */
+                        @JvmField val TERMINAL_NOT_USED = of("terminal_not_used")
+
+                        /**
+                         * The terminal can only read magnetic stripes and does not have chip or
+                         * contactless reading capability.
+                         */
+                        @JvmField val MAGNETIC_STRIPE = of("magnetic_stripe")
+
+                        /** The terminal can only read barcodes. */
+                        @JvmField val BARCODE = of("barcode")
+
+                        /** The terminal can only read cards via Optical Character Recognition. */
+                        @JvmField
+                        val OPTICAL_CHARACTER_RECOGNITION = of("optical_character_recognition")
+
+                        /**
+                         * The terminal supports contact chip cards and can also read the magnetic
+                         * stripe. If contact chip is supported, this value is used regardless of
+                         * whether contactless is also supported.
+                         */
+                        @JvmField val CHIP_OR_CONTACTLESS = of("chip_or_contactless")
+
+                        /**
+                         * The terminal supports contactless reads but does not support contact
+                         * chip. Only used when the terminal lacks contact chip capability.
+                         */
+                        @JvmField val CONTACTLESS_ONLY = of("contactless_only")
+
+                        /** The terminal has no card reading capability. */
+                        @JvmField val NO_CAPABILITY = of("no_capability")
+
+                        @JvmStatic
+                        fun of(value: String) = TerminalEntryCapability(JsonField.of(value))
+                    }
+
+                    /** An enum containing [TerminalEntryCapability]'s known values. */
+                    enum class Known {
+                        /** Unknown */
+                        UNKNOWN,
+                        /** No terminal was used for this transaction. */
+                        TERMINAL_NOT_USED,
+                        /**
+                         * The terminal can only read magnetic stripes and does not have chip or
+                         * contactless reading capability.
+                         */
+                        MAGNETIC_STRIPE,
+                        /** The terminal can only read barcodes. */
+                        BARCODE,
+                        /** The terminal can only read cards via Optical Character Recognition. */
+                        OPTICAL_CHARACTER_RECOGNITION,
+                        /**
+                         * The terminal supports contact chip cards and can also read the magnetic
+                         * stripe. If contact chip is supported, this value is used regardless of
+                         * whether contactless is also supported.
+                         */
+                        CHIP_OR_CONTACTLESS,
+                        /**
+                         * The terminal supports contactless reads but does not support contact
+                         * chip. Only used when the terminal lacks contact chip capability.
+                         */
+                        CONTACTLESS_ONLY,
+                        /** The terminal has no card reading capability. */
+                        NO_CAPABILITY,
+                    }
+
+                    /**
+                     * An enum containing [TerminalEntryCapability]'s known values, as well as an
+                     * [_UNKNOWN] member.
+                     *
+                     * An instance of [TerminalEntryCapability] can contain an unknown value in a
+                     * couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** Unknown */
+                        UNKNOWN,
+                        /** No terminal was used for this transaction. */
+                        TERMINAL_NOT_USED,
+                        /**
+                         * The terminal can only read magnetic stripes and does not have chip or
+                         * contactless reading capability.
+                         */
+                        MAGNETIC_STRIPE,
+                        /** The terminal can only read barcodes. */
+                        BARCODE,
+                        /** The terminal can only read cards via Optical Character Recognition. */
+                        OPTICAL_CHARACTER_RECOGNITION,
+                        /**
+                         * The terminal supports contact chip cards and can also read the magnetic
+                         * stripe. If contact chip is supported, this value is used regardless of
+                         * whether contactless is also supported.
+                         */
+                        CHIP_OR_CONTACTLESS,
+                        /**
+                         * The terminal supports contactless reads but does not support contact
+                         * chip. Only used when the terminal lacks contact chip capability.
+                         */
+                        CONTACTLESS_ONLY,
+                        /** The terminal has no card reading capability. */
+                        NO_CAPABILITY,
+                        /**
+                         * An enum member indicating that [TerminalEntryCapability] was instantiated
+                         * with an unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            UNKNOWN -> Value.UNKNOWN
+                            TERMINAL_NOT_USED -> Value.TERMINAL_NOT_USED
+                            MAGNETIC_STRIPE -> Value.MAGNETIC_STRIPE
+                            BARCODE -> Value.BARCODE
+                            OPTICAL_CHARACTER_RECOGNITION -> Value.OPTICAL_CHARACTER_RECOGNITION
+                            CHIP_OR_CONTACTLESS -> Value.CHIP_OR_CONTACTLESS
+                            CONTACTLESS_ONLY -> Value.CONTACTLESS_ONLY
+                            NO_CAPABILITY -> Value.NO_CAPABILITY
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            UNKNOWN -> Known.UNKNOWN
+                            TERMINAL_NOT_USED -> Known.TERMINAL_NOT_USED
+                            MAGNETIC_STRIPE -> Known.MAGNETIC_STRIPE
+                            BARCODE -> Known.BARCODE
+                            OPTICAL_CHARACTER_RECOGNITION -> Known.OPTICAL_CHARACTER_RECOGNITION
+                            CHIP_OR_CONTACTLESS -> Known.CHIP_OR_CONTACTLESS
+                            CONTACTLESS_ONLY -> Known.CONTACTLESS_ONLY
+                            NO_CAPABILITY -> Known.NO_CAPABILITY
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown TerminalEntryCapability: $value"
+                                )
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): TerminalEntryCapability = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is TerminalEntryCapability && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
@@ -17467,6 +18075,7 @@ private constructor(
                         electronicCommerceIndicator == other.electronicCommerceIndicator &&
                         pointOfServiceEntryMode == other.pointOfServiceEntryMode &&
                         standInProcessingReason == other.standInProcessingReason &&
+                        terminalEntryCapability == other.terminalEntryCapability &&
                         additionalProperties == other.additionalProperties
                 }
 
@@ -17475,6 +18084,7 @@ private constructor(
                         electronicCommerceIndicator,
                         pointOfServiceEntryMode,
                         standInProcessingReason,
+                        terminalEntryCapability,
                         additionalProperties,
                     )
                 }
@@ -17482,7 +18092,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, additionalProperties=$additionalProperties}"
+                    "Visa{electronicCommerceIndicator=$electronicCommerceIndicator, pointOfServiceEntryMode=$pointOfServiceEntryMode, standInProcessingReason=$standInProcessingReason, terminalEntryCapability=$terminalEntryCapability, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {

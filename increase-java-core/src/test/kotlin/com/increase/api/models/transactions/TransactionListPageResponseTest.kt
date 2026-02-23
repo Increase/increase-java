@@ -275,6 +275,13 @@ internal class TransactionListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            Transaction.Source.CardFinancial
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
@@ -1399,6 +1406,13 @@ internal class TransactionListPageResponseTest {
                                                             .MANUAL
                                                     )
                                                     .standInProcessingReason(null)
+                                                    .terminalEntryCapability(
+                                                        Transaction.Source.CardFinancial
+                                                            .NetworkDetails
+                                                            .Visa
+                                                            .TerminalEntryCapability
+                                                            .MAGNETIC_STRIPE
+                                                    )
                                                     .build()
                                             )
                                             .build()
@@ -2504,6 +2518,13 @@ internal class TransactionListPageResponseTest {
                                                                 .MANUAL
                                                         )
                                                         .standInProcessingReason(null)
+                                                        .terminalEntryCapability(
+                                                            Transaction.Source.CardFinancial
+                                                                .NetworkDetails
+                                                                .Visa
+                                                                .TerminalEntryCapability
+                                                                .MAGNETIC_STRIPE
+                                                        )
                                                         .build()
                                                 )
                                                 .build()
