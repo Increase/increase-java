@@ -239,6 +239,12 @@ internal class TransactionTest {
                                                         .MANUAL
                                                 )
                                                 .standInProcessingReason(null)
+                                                .terminalEntryCapability(
+                                                    Transaction.Source.CardFinancial.NetworkDetails
+                                                        .Visa
+                                                        .TerminalEntryCapability
+                                                        .MAGNETIC_STRIPE
+                                                )
                                                 .build()
                                         )
                                         .build()
@@ -1251,6 +1257,11 @@ internal class TransactionTest {
                                                     .MANUAL
                                             )
                                             .standInProcessingReason(null)
+                                            .terminalEntryCapability(
+                                                Transaction.Source.CardFinancial.NetworkDetails.Visa
+                                                    .TerminalEntryCapability
+                                                    .MAGNETIC_STRIPE
+                                            )
                                             .build()
                                     )
                                     .build()
@@ -2236,6 +2247,12 @@ internal class TransactionTest {
                                                         .MANUAL
                                                 )
                                                 .standInProcessingReason(null)
+                                                .terminalEntryCapability(
+                                                    Transaction.Source.CardFinancial.NetworkDetails
+                                                        .Visa
+                                                        .TerminalEntryCapability
+                                                        .MAGNETIC_STRIPE
+                                                )
                                                 .build()
                                         )
                                         .build()
