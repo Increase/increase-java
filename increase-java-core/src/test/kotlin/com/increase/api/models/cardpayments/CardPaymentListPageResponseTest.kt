@@ -8283,6 +8283,18 @@ internal class CardPaymentListPageResponseTest {
                             )
                         )
                         .physicalCardId(null)
+                        .addSchemeFee(
+                            CardPayment.SchemeFee.builder()
+                                .amount("0.137465")
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .currency(CardPayment.SchemeFee.Currency.USD)
+                                .feeType(
+                                    CardPayment.SchemeFee.FeeType.VISA_CORPORATE_ACCEPTANCE_FEE
+                                )
+                                .fixedComponent(null)
+                                .variableRate("0.0002")
+                                .build()
+                        )
                         .state(
                             CardPayment.State.builder()
                                 .authorizedAmount(100L)
@@ -16101,6 +16113,16 @@ internal class CardPaymentListPageResponseTest {
                         )
                     )
                     .physicalCardId(null)
+                    .addSchemeFee(
+                        CardPayment.SchemeFee.builder()
+                            .amount("0.137465")
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .currency(CardPayment.SchemeFee.Currency.USD)
+                            .feeType(CardPayment.SchemeFee.FeeType.VISA_CORPORATE_ACCEPTANCE_FEE)
+                            .fixedComponent(null)
+                            .variableRate("0.0002")
+                            .build()
+                    )
                     .state(
                         CardPayment.State.builder()
                             .authorizedAmount(100L)
@@ -24391,6 +24413,18 @@ internal class CardPaymentListPageResponseTest {
                             )
                         )
                         .physicalCardId(null)
+                        .addSchemeFee(
+                            CardPayment.SchemeFee.builder()
+                                .amount("0.137465")
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .currency(CardPayment.SchemeFee.Currency.USD)
+                                .feeType(
+                                    CardPayment.SchemeFee.FeeType.VISA_CORPORATE_ACCEPTANCE_FEE
+                                )
+                                .fixedComponent(null)
+                                .variableRate("0.0002")
+                                .build()
+                        )
                         .state(
                             CardPayment.State.builder()
                                 .authorizedAmount(100L)
