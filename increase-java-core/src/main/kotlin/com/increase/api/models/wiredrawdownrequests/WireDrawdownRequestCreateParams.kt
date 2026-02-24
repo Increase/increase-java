@@ -110,6 +110,14 @@ private constructor(
     fun debtorRoutingNumber(): Optional<String> = body.debtorRoutingNumber()
 
     /**
+     * A free-form reference string set by the sender mirrored back in the subsequent wire transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endToEndIdentification(): Optional<String> = body.endToEndIdentification()
+
+    /**
      * Returns the raw JSON value of [accountNumberId].
      *
      * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
@@ -183,6 +191,14 @@ private constructor(
      * type.
      */
     fun _debtorRoutingNumber(): JsonField<String> = body._debtorRoutingNumber()
+
+    /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _endToEndIdentification(): JsonField<String> = body._endToEndIdentification()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -396,6 +412,25 @@ private constructor(
             body.debtorRoutingNumber(debtorRoutingNumber)
         }
 
+        /**
+         * A free-form reference string set by the sender mirrored back in the subsequent wire
+         * transfer.
+         */
+        fun endToEndIdentification(endToEndIdentification: String) = apply {
+            body.endToEndIdentification(endToEndIdentification)
+        }
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            body.endToEndIdentification(endToEndIdentification)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -558,6 +593,7 @@ private constructor(
         private val debtorAccountNumber: JsonField<String>,
         private val debtorExternalAccountId: JsonField<String>,
         private val debtorRoutingNumber: JsonField<String>,
+        private val endToEndIdentification: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -591,6 +627,9 @@ private constructor(
             @JsonProperty("debtor_routing_number")
             @ExcludeMissing
             debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("end_to_end_identification")
+            @ExcludeMissing
+            endToEndIdentification: JsonField<String> = JsonMissing.of(),
         ) : this(
             accountNumberId,
             amount,
@@ -602,6 +641,7 @@ private constructor(
             debtorAccountNumber,
             debtorExternalAccountId,
             debtorRoutingNumber,
+            endToEndIdentification,
             mutableMapOf(),
         )
 
@@ -689,6 +729,16 @@ private constructor(
          */
         fun debtorRoutingNumber(): Optional<String> =
             debtorRoutingNumber.getOptional("debtor_routing_number")
+
+        /**
+         * A free-form reference string set by the sender mirrored back in the subsequent wire
+         * transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun endToEndIdentification(): Optional<String> =
+            endToEndIdentification.getOptional("end_to_end_identification")
 
         /**
          * Returns the raw JSON value of [accountNumberId].
@@ -787,6 +837,16 @@ private constructor(
         @ExcludeMissing
         fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
 
+        /**
+         * Returns the raw JSON value of [endToEndIdentification].
+         *
+         * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("end_to_end_identification")
+        @ExcludeMissing
+        fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -831,6 +891,7 @@ private constructor(
             private var debtorAccountNumber: JsonField<String> = JsonMissing.of()
             private var debtorExternalAccountId: JsonField<String> = JsonMissing.of()
             private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
+            private var endToEndIdentification: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -845,6 +906,7 @@ private constructor(
                 debtorAccountNumber = body.debtorAccountNumber
                 debtorExternalAccountId = body.debtorExternalAccountId
                 debtorRoutingNumber = body.debtorRoutingNumber
+                endToEndIdentification = body.endToEndIdentification
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -994,6 +1056,24 @@ private constructor(
                 this.debtorRoutingNumber = debtorRoutingNumber
             }
 
+            /**
+             * A free-form reference string set by the sender mirrored back in the subsequent wire
+             * transfer.
+             */
+            fun endToEndIdentification(endToEndIdentification: String) =
+                endToEndIdentification(JsonField.of(endToEndIdentification))
+
+            /**
+             * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.endToEndIdentification] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+                this.endToEndIdentification = endToEndIdentification
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1046,6 +1126,7 @@ private constructor(
                     debtorAccountNumber,
                     debtorExternalAccountId,
                     debtorRoutingNumber,
+                    endToEndIdentification,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1067,6 +1148,7 @@ private constructor(
             debtorAccountNumber()
             debtorExternalAccountId()
             debtorRoutingNumber()
+            endToEndIdentification()
             validated = true
         }
 
@@ -1095,7 +1177,8 @@ private constructor(
                 (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0) +
                 (if (debtorAccountNumber.asKnown().isPresent) 1 else 0) +
                 (if (debtorExternalAccountId.asKnown().isPresent) 1 else 0) +
-                (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0)
+                (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
+                (if (endToEndIdentification.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1113,6 +1196,7 @@ private constructor(
                 debtorAccountNumber == other.debtorAccountNumber &&
                 debtorExternalAccountId == other.debtorExternalAccountId &&
                 debtorRoutingNumber == other.debtorRoutingNumber &&
+                endToEndIdentification == other.endToEndIdentification &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1128,6 +1212,7 @@ private constructor(
                 debtorAccountNumber,
                 debtorExternalAccountId,
                 debtorRoutingNumber,
+                endToEndIdentification,
                 additionalProperties,
             )
         }
@@ -1135,7 +1220,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, debtorAccountNumber=$debtorAccountNumber, debtorExternalAccountId=$debtorExternalAccountId, debtorRoutingNumber=$debtorRoutingNumber, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, debtorAccountNumber=$debtorAccountNumber, debtorExternalAccountId=$debtorExternalAccountId, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, additionalProperties=$additionalProperties}"
     }
 
     /** The creditor's address. */

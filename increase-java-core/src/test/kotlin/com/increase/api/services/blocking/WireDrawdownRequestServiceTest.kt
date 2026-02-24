@@ -51,6 +51,7 @@ internal class WireDrawdownRequestServiceTest {
                     .debtorAccountNumber("987654321")
                     .debtorExternalAccountId("debtor_external_account_id")
                     .debtorRoutingNumber("101050001")
+                    .endToEndIdentification("x")
                     .build()
             )
 
