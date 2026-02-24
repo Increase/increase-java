@@ -3,12 +3,20 @@
 package com.increase.api.core.http
 
 import java.io.InputStream
+import java.util.Optional
 
 interface HttpResponse : AutoCloseable {
 
     fun statusCode(): Int
 
     fun headers(): Headers
+
+    /**
+     * Returns the value of the `Idempotent-Replayed` header, or an empty [Optional] if there's no
+     * such header in the response.
+     */
+    fun idempotentReplayed(): Optional<String> =
+        Optional.ofNullable(headers().values("Idempotent-Replayed").firstOrNull())
 
     fun body(): InputStream
 
