@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.435.0 (2026-02-25)
+
+Full Changelog: [v0.434.0...v0.435.0](https://github.com/Increase/increase-java/compare/v0.434.0...v0.435.0)
+
+### Features
+
+* **api:** api update ([b45ebad](https://github.com/Increase/increase-java/commit/b45ebad8a4c7c92df713179c0a3d5164134a493d))
+* **api:** api update ([466bfa9](https://github.com/Increase/increase-java/commit/466bfa9b9808b1f31c8e6f5e60e3982bd8855eff))
+* **api:** api update ([8fcb947](https://github.com/Increase/increase-java/commit/8fcb947fdf1b224de813833aaa40ad26d955bd58))
+* **api:** api update ([ced5b7f](https://github.com/Increase/increase-java/commit/ced5b7ff9be983a13a2f1b78d751c94b04b44e59))
+
+
+### Chores
+
+* drop apache dependency ([12df111](https://github.com/Increase/increase-java/commit/12df111e728f51766ffc2de3721453745a869339))
+* **internal:** expand imports ([6ed23f1](https://github.com/Increase/increase-java/commit/6ed23f1144293e561338e597e92d75efa3b9e4d9))
+* make `Properties` more resilient to `null` ([ee870a0](https://github.com/Increase/increase-java/commit/ee870a039a548a5c13dd05d5757c72634b744e69))
+
 ## 0.434.0 (2026-02-23)
 
 Full Changelog: [v0.433.0...v0.434.0](https://github.com/Increase/increase-java/compare/v0.433.0...v0.434.0)
