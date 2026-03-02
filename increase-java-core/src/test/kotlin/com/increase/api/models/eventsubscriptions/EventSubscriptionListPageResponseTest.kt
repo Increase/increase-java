@@ -20,6 +20,14 @@ internal class EventSubscriptionListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .idempotencyKey(null)
                         .oauthConnectionId(null)
+                        .addSelectedEventCategory(
+                            EventSubscription.SelectedEventCategory.builder()
+                                .eventCategory(
+                                    EventSubscription.SelectedEventCategory.EventCategory
+                                        .ACCOUNT_CREATED
+                                )
+                                .build()
+                        )
                         .selectedEventCategory(null)
                         .status(EventSubscription.Status.ACTIVE)
                         .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -36,6 +44,14 @@ internal class EventSubscriptionListPageResponseTest {
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .idempotencyKey(null)
                     .oauthConnectionId(null)
+                    .addSelectedEventCategory(
+                        EventSubscription.SelectedEventCategory.builder()
+                            .eventCategory(
+                                EventSubscription.SelectedEventCategory.EventCategory
+                                    .ACCOUNT_CREATED
+                            )
+                            .build()
+                    )
                     .selectedEventCategory(null)
                     .status(EventSubscription.Status.ACTIVE)
                     .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -56,6 +72,14 @@ internal class EventSubscriptionListPageResponseTest {
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .idempotencyKey(null)
                         .oauthConnectionId(null)
+                        .addSelectedEventCategory(
+                            EventSubscription.SelectedEventCategory.builder()
+                                .eventCategory(
+                                    EventSubscription.SelectedEventCategory.EventCategory
+                                        .ACCOUNT_CREATED
+                                )
+                                .build()
+                        )
                         .selectedEventCategory(null)
                         .status(EventSubscription.Status.ACTIVE)
                         .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
