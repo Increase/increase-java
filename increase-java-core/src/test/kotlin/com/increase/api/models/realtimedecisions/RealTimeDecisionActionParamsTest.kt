@@ -19,6 +19,12 @@ internal class RealTimeDecisionActionParamsTest {
             .cardAuthenticationChallenge(
                 RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
                     .result(RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS)
+                    .success(
+                        RealTimeDecisionActionParams.CardAuthenticationChallenge.Success.builder()
+                            .email("dev@stainless.com")
+                            .phone("x")
+                            .build()
+                    )
                     .build()
             )
             .cardAuthorization(
@@ -123,6 +129,13 @@ internal class RealTimeDecisionActionParamsTest {
                         .result(
                             RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS
                         )
+                        .success(
+                            RealTimeDecisionActionParams.CardAuthenticationChallenge.Success
+                                .builder()
+                                .email("dev@stainless.com")
+                                .phone("x")
+                                .build()
+                        )
                         .build()
                 )
                 .cardAuthorization(
@@ -214,6 +227,12 @@ internal class RealTimeDecisionActionParamsTest {
             .contains(
                 RealTimeDecisionActionParams.CardAuthenticationChallenge.builder()
                     .result(RealTimeDecisionActionParams.CardAuthenticationChallenge.Result.SUCCESS)
+                    .success(
+                        RealTimeDecisionActionParams.CardAuthenticationChallenge.Success.builder()
+                            .email("dev@stainless.com")
+                            .phone("x")
+                            .build()
+                    )
                     .build()
             )
         assertThat(body.cardAuthorization())
