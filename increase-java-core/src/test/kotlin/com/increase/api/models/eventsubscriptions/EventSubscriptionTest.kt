@@ -5,6 +5,7 @@ package com.increase.api.models.eventsubscriptions
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -18,6 +19,13 @@ internal class EventSubscriptionTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .oauthConnectionId(null)
+                .addSelectedEventCategory(
+                    EventSubscription.SelectedEventCategory.builder()
+                        .eventCategory(
+                            EventSubscription.SelectedEventCategory.EventCategory.ACCOUNT_CREATED
+                        )
+                        .build()
+                )
                 .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -30,6 +38,14 @@ internal class EventSubscriptionTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(eventSubscription.idempotencyKey()).isEmpty
         assertThat(eventSubscription.oauthConnectionId()).isEmpty
+        assertThat(eventSubscription.selectedEventCategories().getOrNull())
+            .containsExactly(
+                EventSubscription.SelectedEventCategory.builder()
+                    .eventCategory(
+                        EventSubscription.SelectedEventCategory.EventCategory.ACCOUNT_CREATED
+                    )
+                    .build()
+            )
         assertThat(eventSubscription.selectedEventCategory()).isEmpty
         assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.type()).isEqualTo(EventSubscription.Type.EVENT_SUBSCRIPTION)
@@ -45,6 +61,13 @@ internal class EventSubscriptionTest {
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .oauthConnectionId(null)
+                .addSelectedEventCategory(
+                    EventSubscription.SelectedEventCategory.builder()
+                        .eventCategory(
+                            EventSubscription.SelectedEventCategory.EventCategory.ACCOUNT_CREATED
+                        )
+                        .build()
+                )
                 .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
