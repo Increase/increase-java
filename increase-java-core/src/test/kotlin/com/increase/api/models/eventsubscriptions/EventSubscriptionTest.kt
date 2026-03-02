@@ -26,7 +26,6 @@ internal class EventSubscriptionTest {
                         )
                         .build()
                 )
-                .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
                 .url("https://website.com/webhooks")
@@ -46,7 +45,6 @@ internal class EventSubscriptionTest {
                     )
                     .build()
             )
-        assertThat(eventSubscription.selectedEventCategory()).isEmpty
         assertThat(eventSubscription.status()).isEqualTo(EventSubscription.Status.ACTIVE)
         assertThat(eventSubscription.type()).isEqualTo(EventSubscription.Type.EVENT_SUBSCRIPTION)
         assertThat(eventSubscription.url()).isEqualTo("https://website.com/webhooks")
@@ -68,7 +66,6 @@ internal class EventSubscriptionTest {
                         )
                         .build()
                 )
-                .selectedEventCategory(null)
                 .status(EventSubscription.Status.ACTIVE)
                 .type(EventSubscription.Type.EVENT_SUBSCRIPTION)
                 .url("https://website.com/webhooks")
