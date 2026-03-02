@@ -9,6 +9,8 @@ import com.increase.api.services.blocking.simulations.AccountTransferService
 import com.increase.api.services.blocking.simulations.AccountTransferServiceImpl
 import com.increase.api.services.blocking.simulations.AchTransferService
 import com.increase.api.services.blocking.simulations.AchTransferServiceImpl
+import com.increase.api.services.blocking.simulations.CardAuthenticationService
+import com.increase.api.services.blocking.simulations.CardAuthenticationServiceImpl
 import com.increase.api.services.blocking.simulations.CardAuthorizationExpirationService
 import com.increase.api.services.blocking.simulations.CardAuthorizationExpirationServiceImpl
 import com.increase.api.services.blocking.simulations.CardAuthorizationService
@@ -112,6 +114,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     private val cardRefunds: CardRefundService by lazy { CardRefundServiceImpl(clientOptions) }
 
+    private val cardAuthentications: CardAuthenticationService by lazy {
+        CardAuthenticationServiceImpl(clientOptions)
+    }
+
     private val cardDisputes: CardDisputeService by lazy { CardDisputeServiceImpl(clientOptions) }
 
     private val physicalCards: PhysicalCardService by lazy {
@@ -212,6 +218,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
     override fun cardRefunds(): CardRefundService = cardRefunds
 
+    override fun cardAuthentications(): CardAuthenticationService = cardAuthentications
+
     override fun cardDisputes(): CardDisputeService = cardDisputes
 
     override fun physicalCards(): PhysicalCardService = physicalCards
@@ -300,6 +308,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
 
         private val cardRefunds: CardRefundService.WithRawResponse by lazy {
             CardRefundServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardAuthentications: CardAuthenticationService.WithRawResponse by lazy {
+            CardAuthenticationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardDisputes: CardDisputeService.WithRawResponse by lazy {
@@ -420,6 +432,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             cardFuelConfirmations
 
         override fun cardRefunds(): CardRefundService.WithRawResponse = cardRefunds
+
+        override fun cardAuthentications(): CardAuthenticationService.WithRawResponse =
+            cardAuthentications
 
         override fun cardDisputes(): CardDisputeService.WithRawResponse = cardDisputes
 

@@ -9,6 +9,8 @@ import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AccountTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsyncImpl
+import com.increase.api.services.async.simulations.CardAuthenticationServiceAsync
+import com.increase.api.services.async.simulations.CardAuthenticationServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardAuthorizationExpirationServiceAsync
 import com.increase.api.services.async.simulations.CardAuthorizationExpirationServiceAsyncImpl
 import com.increase.api.services.async.simulations.CardAuthorizationServiceAsync
@@ -112,6 +114,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val cardRefunds: CardRefundServiceAsync by lazy {
         CardRefundServiceAsyncImpl(clientOptions)
+    }
+
+    private val cardAuthentications: CardAuthenticationServiceAsync by lazy {
+        CardAuthenticationServiceAsyncImpl(clientOptions)
     }
 
     private val cardDisputes: CardDisputeServiceAsync by lazy {
@@ -221,6 +227,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun cardRefunds(): CardRefundServiceAsync = cardRefunds
 
+    override fun cardAuthentications(): CardAuthenticationServiceAsync = cardAuthentications
+
     override fun cardDisputes(): CardDisputeServiceAsync = cardDisputes
 
     override fun physicalCards(): PhysicalCardServiceAsync = physicalCards
@@ -311,6 +319,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
         private val cardRefunds: CardRefundServiceAsync.WithRawResponse by lazy {
             CardRefundServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val cardAuthentications: CardAuthenticationServiceAsync.WithRawResponse by lazy {
+            CardAuthenticationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardDisputes: CardDisputeServiceAsync.WithRawResponse by lazy {
@@ -434,6 +446,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             cardFuelConfirmations
 
         override fun cardRefunds(): CardRefundServiceAsync.WithRawResponse = cardRefunds
+
+        override fun cardAuthentications(): CardAuthenticationServiceAsync.WithRawResponse =
+            cardAuthentications
 
         override fun cardDisputes(): CardDisputeServiceAsync.WithRawResponse = cardDisputes
 
