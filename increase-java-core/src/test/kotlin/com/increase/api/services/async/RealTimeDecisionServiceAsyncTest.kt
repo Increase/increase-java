@@ -53,6 +53,13 @@ internal class RealTimeDecisionServiceAsyncTest {
                                 RealTimeDecisionActionParams.CardAuthenticationChallenge.Result
                                     .SUCCESS
                             )
+                            .success(
+                                RealTimeDecisionActionParams.CardAuthenticationChallenge.Success
+                                    .builder()
+                                    .email("dev@stainless.com")
+                                    .phone("x")
+                                    .build()
+                            )
                             .build()
                     )
                     .cardAuthorization(
