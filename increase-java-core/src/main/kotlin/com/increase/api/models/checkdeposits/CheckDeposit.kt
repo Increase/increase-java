@@ -11,7 +11,9 @@ import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.time.OffsetDateTime
 import java.util.Collections
@@ -29,6 +31,7 @@ private constructor(
     private val backImageFileId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val depositAcceptance: JsonField<DepositAcceptance>,
+    private val depositAdjustments: JsonField<List<DepositAdjustment>>,
     private val depositRejection: JsonField<DepositRejection>,
     private val depositReturn: JsonField<DepositReturn>,
     private val depositSubmission: JsonField<DepositSubmission>,
@@ -58,6 +61,9 @@ private constructor(
         @JsonProperty("deposit_acceptance")
         @ExcludeMissing
         depositAcceptance: JsonField<DepositAcceptance> = JsonMissing.of(),
+        @JsonProperty("deposit_adjustments")
+        @ExcludeMissing
+        depositAdjustments: JsonField<List<DepositAdjustment>> = JsonMissing.of(),
         @JsonProperty("deposit_rejection")
         @ExcludeMissing
         depositRejection: JsonField<DepositRejection> = JsonMissing.of(),
@@ -95,6 +101,7 @@ private constructor(
         backImageFileId,
         createdAt,
         depositAcceptance,
+        depositAdjustments,
         depositRejection,
         depositReturn,
         depositSubmission,
@@ -160,6 +167,16 @@ private constructor(
      */
     fun depositAcceptance(): Optional<DepositAcceptance> =
         depositAcceptance.getOptional("deposit_acceptance")
+
+    /**
+     * If the deposit or the return was adjusted by the receiving institution, this will contain
+     * details of the adjustments.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun depositAdjustments(): List<DepositAdjustment> =
+        depositAdjustments.getRequired("deposit_adjustments")
 
     /**
      * If your deposit is rejected by Increase, this will contain details as to why it was rejected.
@@ -318,6 +335,16 @@ private constructor(
     fun _depositAcceptance(): JsonField<DepositAcceptance> = depositAcceptance
 
     /**
+     * Returns the raw JSON value of [depositAdjustments].
+     *
+     * Unlike [depositAdjustments], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("deposit_adjustments")
+    @ExcludeMissing
+    fun _depositAdjustments(): JsonField<List<DepositAdjustment>> = depositAdjustments
+
+    /**
      * Returns the raw JSON value of [depositRejection].
      *
      * Unlike [depositRejection], this method doesn't throw if the JSON field has an unexpected
@@ -447,6 +474,7 @@ private constructor(
          * .backImageFileId()
          * .createdAt()
          * .depositAcceptance()
+         * .depositAdjustments()
          * .depositRejection()
          * .depositReturn()
          * .depositSubmission()
@@ -473,6 +501,7 @@ private constructor(
         private var backImageFileId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var depositAcceptance: JsonField<DepositAcceptance>? = null
+        private var depositAdjustments: JsonField<MutableList<DepositAdjustment>>? = null
         private var depositRejection: JsonField<DepositRejection>? = null
         private var depositReturn: JsonField<DepositReturn>? = null
         private var depositSubmission: JsonField<DepositSubmission>? = null
@@ -495,6 +524,7 @@ private constructor(
             backImageFileId = checkDeposit.backImageFileId
             createdAt = checkDeposit.createdAt
             depositAcceptance = checkDeposit.depositAcceptance
+            depositAdjustments = checkDeposit.depositAdjustments.map { it.toMutableList() }
             depositRejection = checkDeposit.depositRejection
             depositReturn = checkDeposit.depositReturn
             depositSubmission = checkDeposit.depositSubmission
@@ -598,6 +628,36 @@ private constructor(
          */
         fun depositAcceptance(depositAcceptance: JsonField<DepositAcceptance>) = apply {
             this.depositAcceptance = depositAcceptance
+        }
+
+        /**
+         * If the deposit or the return was adjusted by the receiving institution, this will contain
+         * details of the adjustments.
+         */
+        fun depositAdjustments(depositAdjustments: List<DepositAdjustment>) =
+            depositAdjustments(JsonField.of(depositAdjustments))
+
+        /**
+         * Sets [Builder.depositAdjustments] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.depositAdjustments] with a well-typed
+         * `List<DepositAdjustment>` value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun depositAdjustments(depositAdjustments: JsonField<List<DepositAdjustment>>) = apply {
+            this.depositAdjustments = depositAdjustments.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [DepositAdjustment] to [depositAdjustments].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addDepositAdjustment(depositAdjustment: DepositAdjustment) = apply {
+            depositAdjustments =
+                (depositAdjustments ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("depositAdjustments", it).add(depositAdjustment)
+                }
         }
 
         /**
@@ -854,6 +914,7 @@ private constructor(
          * .backImageFileId()
          * .createdAt()
          * .depositAcceptance()
+         * .depositAdjustments()
          * .depositRejection()
          * .depositReturn()
          * .depositSubmission()
@@ -878,6 +939,7 @@ private constructor(
                 checkRequired("backImageFileId", backImageFileId),
                 checkRequired("createdAt", createdAt),
                 checkRequired("depositAcceptance", depositAcceptance),
+                checkRequired("depositAdjustments", depositAdjustments).map { it.toImmutable() },
                 checkRequired("depositRejection", depositRejection),
                 checkRequired("depositReturn", depositReturn),
                 checkRequired("depositSubmission", depositSubmission),
@@ -907,6 +969,7 @@ private constructor(
         backImageFileId()
         createdAt()
         depositAcceptance().ifPresent { it.validate() }
+        depositAdjustments().forEach { it.validate() }
         depositRejection().ifPresent { it.validate() }
         depositReturn().ifPresent { it.validate() }
         depositSubmission().ifPresent { it.validate() }
@@ -943,6 +1006,7 @@ private constructor(
             (if (backImageFileId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (depositAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
+            (depositAdjustments.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (depositRejection.asKnown().getOrNull()?.validity() ?: 0) +
             (depositReturn.asKnown().getOrNull()?.validity() ?: 0) +
             (depositSubmission.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1564,6 +1628,492 @@ private constructor(
 
         override fun toString() =
             "DepositAcceptance{accountNumber=$accountNumber, amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, checkDepositId=$checkDepositId, currency=$currency, routingNumber=$routingNumber, serialNumber=$serialNumber, additionalProperties=$additionalProperties}"
+    }
+
+    class DepositAdjustment
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val adjustedAt: JsonField<OffsetDateTime>,
+        private val amount: JsonField<Long>,
+        private val reason: JsonField<Reason>,
+        private val transactionId: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("adjusted_at")
+            @ExcludeMissing
+            adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            transactionId: JsonField<String> = JsonMissing.of(),
+        ) : this(adjustedAt, amount, reason, transactionId, mutableMapOf())
+
+        /**
+         * The time at which the adjustment was received.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
+
+        /**
+         * The amount of the adjustment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
+
+        /**
+         * The reason for the adjustment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun reason(): Reason = reason.getRequired("reason")
+
+        /**
+         * The id of the transaction for the adjustment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /**
+         * Returns the raw JSON value of [adjustedAt].
+         *
+         * Unlike [adjustedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("adjusted_at")
+        @ExcludeMissing
+        fun _adjustedAt(): JsonField<OffsetDateTime> = adjustedAt
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DepositAdjustment].
+             *
+             * The following fields are required:
+             * ```java
+             * .adjustedAt()
+             * .amount()
+             * .reason()
+             * .transactionId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DepositAdjustment]. */
+        class Builder internal constructor() {
+
+            private var adjustedAt: JsonField<OffsetDateTime>? = null
+            private var amount: JsonField<Long>? = null
+            private var reason: JsonField<Reason>? = null
+            private var transactionId: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(depositAdjustment: DepositAdjustment) = apply {
+                adjustedAt = depositAdjustment.adjustedAt
+                amount = depositAdjustment.amount
+                reason = depositAdjustment.reason
+                transactionId = depositAdjustment.transactionId
+                additionalProperties = depositAdjustment.additionalProperties.toMutableMap()
+            }
+
+            /** The time at which the adjustment was received. */
+            fun adjustedAt(adjustedAt: OffsetDateTime) = adjustedAt(JsonField.of(adjustedAt))
+
+            /**
+             * Sets [Builder.adjustedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.adjustedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
+                this.adjustedAt = adjustedAt
+            }
+
+            /** The amount of the adjustment. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+            /** The reason for the adjustment. */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+            /** The id of the transaction for the adjustment. */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DepositAdjustment].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .adjustedAt()
+             * .amount()
+             * .reason()
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DepositAdjustment =
+                DepositAdjustment(
+                    checkRequired("adjustedAt", adjustedAt),
+                    checkRequired("amount", amount),
+                    checkRequired("reason", reason),
+                    checkRequired("transactionId", transactionId),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DepositAdjustment = apply {
+            if (validated) {
+                return@apply
+            }
+
+            adjustedAt()
+            amount()
+            reason().validate()
+            transactionId()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (adjustedAt.asKnown().isPresent) 1 else 0) +
+                (if (amount.asKnown().isPresent) 1 else 0) +
+                (reason.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (transactionId.asKnown().isPresent) 1 else 0)
+
+        /** The reason for the adjustment. */
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
+                @JvmField val LATE_RETURN = of("late_return")
+
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
+                @JvmField val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
+
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
+                @JvmField val ADJUSTED_AMOUNT = of("adjusted_amount")
+
+                /**
+                 * The recipient was not able to process the check. This usually happens for e.g.,
+                 * low quality images.
+                 */
+                @JvmField val NON_CONFORMING_ITEM = of("non_conforming_item")
+
+                /** The check has already been deposited elsewhere and so this is a duplicate. */
+                @JvmField val PAID = of("paid")
+
+                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+            }
+
+            /** An enum containing [Reason]'s known values. */
+            enum class Known {
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
+                LATE_RETURN,
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
+                WRONG_PAYEE_CREDIT,
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
+                ADJUSTED_AMOUNT,
+                /**
+                 * The recipient was not able to process the check. This usually happens for e.g.,
+                 * low quality images.
+                 */
+                NON_CONFORMING_ITEM,
+                /** The check has already been deposited elsewhere and so this is a duplicate. */
+                PAID,
+            }
+
+            /**
+             * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Reason] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * The return was initiated too late and the receiving institution has responded
+                 * with a Late Return Claim.
+                 */
+                LATE_RETURN,
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
+                WRONG_PAYEE_CREDIT,
+                /**
+                 * The check was deposited with a different amount than what was written on the
+                 * check.
+                 */
+                ADJUSTED_AMOUNT,
+                /**
+                 * The recipient was not able to process the check. This usually happens for e.g.,
+                 * low quality images.
+                 */
+                NON_CONFORMING_ITEM,
+                /** The check has already been deposited elsewhere and so this is a duplicate. */
+                PAID,
+                /**
+                 * An enum member indicating that [Reason] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    LATE_RETURN -> Value.LATE_RETURN
+                    WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
+                    ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
+                    NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
+                    PAID -> Value.PAID
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    LATE_RETURN -> Known.LATE_RETURN
+                    WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
+                    ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
+                    NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
+                    PAID -> Known.PAID
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Reason = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Reason && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DepositAdjustment &&
+                adjustedAt == other.adjustedAt &&
+                amount == other.amount &&
+                reason == other.reason &&
+                transactionId == other.transactionId &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(adjustedAt, amount, reason, transactionId, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DepositAdjustment{adjustedAt=$adjustedAt, amount=$amount, reason=$reason, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4749,6 +5299,7 @@ private constructor(
             backImageFileId == other.backImageFileId &&
             createdAt == other.createdAt &&
             depositAcceptance == other.depositAcceptance &&
+            depositAdjustments == other.depositAdjustments &&
             depositRejection == other.depositRejection &&
             depositReturn == other.depositReturn &&
             depositSubmission == other.depositSubmission &&
@@ -4772,6 +5323,7 @@ private constructor(
             backImageFileId,
             createdAt,
             depositAcceptance,
+            depositAdjustments,
             depositRejection,
             depositReturn,
             depositSubmission,
@@ -4791,5 +5343,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositAdjustments=$depositAdjustments, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
