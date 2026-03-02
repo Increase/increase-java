@@ -32,6 +32,14 @@ internal class CheckDepositListPageResponseTest {
                                 .serialNumber(null)
                                 .build()
                         )
+                        .addDepositAdjustment(
+                            CheckDeposit.DepositAdjustment.builder()
+                                .adjustedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .amount(1750L)
+                                .reason(CheckDeposit.DepositAdjustment.Reason.LATE_RETURN)
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .build()
+                        )
                         .depositRejection(
                             CheckDeposit.DepositRejection.builder()
                                 .amount(1750L)
@@ -106,6 +114,14 @@ internal class CheckDepositListPageResponseTest {
                             .currency(CheckDeposit.DepositAcceptance.Currency.USD)
                             .routingNumber("101050001")
                             .serialNumber(null)
+                            .build()
+                    )
+                    .addDepositAdjustment(
+                        CheckDeposit.DepositAdjustment.builder()
+                            .adjustedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .amount(1750L)
+                            .reason(CheckDeposit.DepositAdjustment.Reason.LATE_RETURN)
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
                     .depositRejection(
@@ -184,6 +200,14 @@ internal class CheckDepositListPageResponseTest {
                                 .currency(CheckDeposit.DepositAcceptance.Currency.USD)
                                 .routingNumber("101050001")
                                 .serialNumber(null)
+                                .build()
+                        )
+                        .addDepositAdjustment(
+                            CheckDeposit.DepositAdjustment.builder()
+                                .adjustedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .amount(1750L)
+                                .reason(CheckDeposit.DepositAdjustment.Reason.LATE_RETURN)
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
                         .depositRejection(
