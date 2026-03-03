@@ -19,16 +19,13 @@ import com.increase.api.core.prepare
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPage
 import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
-import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import com.increase.api.models.entities.EntityUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -72,10 +69,6 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
         // post /entities/{entity_id}/archive_beneficial_owner
         withRawResponse().archiveBeneficialOwner(params, requestOptions).parse()
 
-    override fun confirm(params: EntityConfirmParams, requestOptions: RequestOptions): Entity =
-        // post /entities/{entity_id}/confirm
-        withRawResponse().confirm(params, requestOptions).parse()
-
     override fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions,
@@ -83,26 +76,12 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
         // post /entities/{entity_id}/create_beneficial_owner
         withRawResponse().createBeneficialOwner(params, requestOptions).parse()
 
-    override fun updateAddress(
-        params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions,
-    ): Entity =
-        // post /entities/{entity_id}/update_address
-        withRawResponse().updateAddress(params, requestOptions).parse()
-
     override fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
         requestOptions: RequestOptions,
     ): Entity =
         // post /entities/{entity_id}/update_beneficial_owner_address
         withRawResponse().updateBeneficialOwnerAddress(params, requestOptions).parse()
-
-    override fun updateIndustryCode(
-        params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions,
-    ): Entity =
-        // post /entities/{entity_id}/update_industry_code
-        withRawResponse().updateIndustryCode(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityService.WithRawResponse {
@@ -298,36 +277,6 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             }
         }
 
-        private val confirmHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun confirm(
-            params: EntityConfirmParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "confirm")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { confirmHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
         private val createBeneficialOwnerHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper)
 
@@ -351,37 +300,6 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { createBeneficialOwnerHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val updateAddressHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun updateAddress(
-            params: EntityUpdateAddressParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "update_address")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateAddressHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
@@ -417,37 +335,6 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { updateBeneficialOwnerAddressHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val updateIndustryCodeHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun updateIndustryCode(
-            params: EntityUpdateIndustryCodeParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "update_industry_code")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { updateIndustryCodeHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
