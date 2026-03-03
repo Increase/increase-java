@@ -30,6 +30,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -1856,6 +1858,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -3682,6 +3686,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -5508,6 +5514,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -7368,6 +7376,8 @@ internal class CardPaymentTest {
                             .id("card_authentication_xft30xjdubptlgrxboch")
                             .cardId("card_oubs0hwk5rn6knuecxg2")
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .cardholderEmail("user@example.com")
+                            .cardholderName("Ian Crease")
                             .category(
                                 CardPayment.Element.CardAuthentication.Category
                                     .PAYMENT_AUTHENTICATION
@@ -9007,6 +9017,8 @@ internal class CardPaymentTest {
                             .id("card_authentication_xft30xjdubptlgrxboch")
                             .cardId("card_oubs0hwk5rn6knuecxg2")
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .cardholderEmail("user@example.com")
+                            .cardholderName("Ian Crease")
                             .category(
                                 CardPayment.Element.CardAuthentication.Category
                                     .PAYMENT_AUTHENTICATION
@@ -10646,6 +10658,8 @@ internal class CardPaymentTest {
                             .id("card_authentication_xft30xjdubptlgrxboch")
                             .cardId("card_oubs0hwk5rn6knuecxg2")
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .cardholderEmail("user@example.com")
+                            .cardholderName("Ian Crease")
                             .category(
                                 CardPayment.Element.CardAuthentication.Category
                                     .PAYMENT_AUTHENTICATION
@@ -12285,6 +12299,8 @@ internal class CardPaymentTest {
                             .id("card_authentication_xft30xjdubptlgrxboch")
                             .cardId("card_oubs0hwk5rn6knuecxg2")
                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                            .cardholderEmail("user@example.com")
+                            .cardholderName("Ian Crease")
                             .category(
                                 CardPayment.Element.CardAuthentication.Category
                                     .PAYMENT_AUTHENTICATION
@@ -13964,6 +13980,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -15790,6 +15808,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -17616,6 +17636,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
@@ -19442,6 +19464,8 @@ internal class CardPaymentTest {
                                     .id("card_authentication_xft30xjdubptlgrxboch")
                                     .cardId("card_oubs0hwk5rn6knuecxg2")
                                     .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
+                                    .cardholderEmail("user@example.com")
+                                    .cardholderName("Ian Crease")
                                     .category(
                                         CardPayment.Element.CardAuthentication.Category
                                             .PAYMENT_AUTHENTICATION
