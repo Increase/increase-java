@@ -67,7 +67,29 @@ internal class EventServiceTest {
                 )
                 .build()
 
-        eventService.unwrap(payload).validate()
+        // Correct key should not throw
+        eventService.unwrap(
+            UnwrapWebhookParams.builder()
+                .body(payload)
+                .headers(headers)
+                .secret(webhookSecret)
+                .build()
+        )
+        eventService
+            .withOptions { it.webhookSecret(webhookSecret) }
+            .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
+
+        // Secret in method takes precedence to secret on client
+        val wrongKey = "whsec_aaaaaaaaaa"
+        eventService
+            .withOptions { it.webhookSecret(wrongKey) }
+            .unwrap(
+                UnwrapWebhookParams.builder()
+                    .body(payload)
+                    .headers(headers)
+                    .secret(webhookSecret)
+                    .build()
+            )
 
         // Wrong key should throw
         assertThrows<IncreaseWebhookException> {
@@ -79,6 +101,29 @@ internal class EventServiceTest {
                     .secret(wrongKey)
                     .build()
             )
+        }
+        assertThrows<IncreaseWebhookException> {
+            val wrongKey = "whsec_aaaaaaaaaa"
+            eventService
+                .withOptions { it.webhookSecret(wrongKey) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
+        }
+
+        assertThrows<IncreaseWebhookException> {
+            val wrongKey = "whsec_aaaaaaaaaa"
+            eventService.unwrap(
+                UnwrapWebhookParams.builder()
+                    .body(payload)
+                    .headers(headers)
+                    .secret(wrongKey)
+                    .build()
+            )
+        }
+        assertThrows<IncreaseWebhookException> {
+            val wrongKey = "whsec_aaaaaaaaaa"
+            eventService
+                .withOptions { it.webhookSecret(wrongKey) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
         }
 
         // Bad signature should throw
@@ -94,6 +139,14 @@ internal class EventServiceTest {
                     .build()
             )
         }
+        assertThrows<IncreaseWebhookException> {
+            val badSig = webhook.sign(messageId, timestampSeconds, "some other payload")
+            val badHeaders =
+                headers.toBuilder().replace("webhook-signature", listOf(badSig)).build()
+            eventService
+                .withOptions { it.webhookSecret(webhookSecret) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(badHeaders).build())
+        }
 
         // Old timestamp should throw
         assertThrows<IncreaseWebhookException> {
@@ -106,6 +159,12 @@ internal class EventServiceTest {
                     .build()
             )
         }
+        assertThrows<IncreaseWebhookException> {
+            val oldHeaders = headers.toBuilder().replace("webhook-timestamp", listOf("5")).build()
+            eventService
+                .withOptions { it.webhookSecret(webhookSecret) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(oldHeaders).build())
+        }
 
         // Wrong message ID should throw
         assertThrows<IncreaseWebhookException> {
@@ -117,6 +176,12 @@ internal class EventServiceTest {
                     .secret(webhookSecret)
                     .build()
             )
+        }
+        assertThrows<IncreaseWebhookException> {
+            val wrongIdHeaders = headers.toBuilder().replace("webhook-id", listOf("wrong")).build()
+            eventService
+                .withOptions { it.webhookSecret(webhookSecret) }
+                .unwrap(UnwrapWebhookParams.builder().body(payload).headers(wrongIdHeaders).build())
         }
     }
 }
