@@ -2039,11 +2039,11 @@ private constructor(
             /**
              * The device channel of the card authentication attempt.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
              */
-            fun deviceChannel(): Optional<DeviceChannel> =
-                deviceChannel.getOptional("device_channel")
+            fun deviceChannel(): DeviceChannel = deviceChannel.getRequired("device_channel")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -2817,12 +2817,8 @@ private constructor(
                 }
 
                 /** The device channel of the card authentication attempt. */
-                fun deviceChannel(deviceChannel: DeviceChannel?) =
-                    deviceChannel(JsonField.ofNullable(deviceChannel))
-
-                /** Alias for calling [Builder.deviceChannel] with `deviceChannel.orElse(null)`. */
-                fun deviceChannel(deviceChannel: Optional<DeviceChannel>) =
-                    deviceChannel(deviceChannel.getOrNull())
+                fun deviceChannel(deviceChannel: DeviceChannel) =
+                    deviceChannel(JsonField.of(deviceChannel))
 
                 /**
                  * Sets [Builder.deviceChannel] to an arbitrary JSON value.
@@ -3119,7 +3115,7 @@ private constructor(
                 challenge().ifPresent { it.validate() }
                 createdAt()
                 denyReason().ifPresent { it.validate() }
-                deviceChannel().ifPresent { it.validate() }
+                deviceChannel().validate()
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCountry()
@@ -4412,112 +4408,169 @@ private constructor(
 
             /** The device channel of the card authentication attempt. */
             class DeviceChannel
-            @JsonCreator
-            private constructor(private val value: JsonField<String>) : Enum {
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val browser: JsonField<Browser>,
+                private val category: JsonField<Category>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("browser")
+                    @ExcludeMissing
+                    browser: JsonField<Browser> = JsonMissing.of(),
+                    @JsonProperty("category")
+                    @ExcludeMissing
+                    category: JsonField<Category> = JsonMissing.of(),
+                ) : this(browser, category, mutableMapOf())
 
                 /**
-                 * Returns this class instance's raw value.
+                 * Fields specific to the browser device channel.
                  *
-                 * This is usually only useful if this instance was deserialized from data that
-                 * doesn't match any known member, and you want to know that value. For example, if
-                 * the SDK is on an older version than the API, then the API may respond with new
-                 * members that the SDK is unaware of.
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
-                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+                fun browser(): Optional<Browser> = browser.getOptional("browser")
+
+                /**
+                 * The category of the device channel.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun category(): Category = category.getRequired("category")
+
+                /**
+                 * Returns the raw JSON value of [browser].
+                 *
+                 * Unlike [browser], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("browser")
+                @ExcludeMissing
+                fun _browser(): JsonField<Browser> = browser
+
+                /**
+                 * Returns the raw JSON value of [category].
+                 *
+                 * Unlike [category], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("category")
+                @ExcludeMissing
+                fun _category(): JsonField<Category> = category
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
 
                 companion object {
 
-                    /** The authentication attempt was made from an app. */
-                    @JvmField val APP = of("app")
-
-                    /** The authentication attempt was made from a browser. */
-                    @JvmField val BROWSER = of("browser")
-
-                    /** The authentication attempt was initiated by the 3DS Requestor. */
-                    @JvmField val THREE_DS_REQUESTOR_INITIATED = of("three_ds_requestor_initiated")
-
-                    @JvmStatic fun of(value: String) = DeviceChannel(JsonField.of(value))
-                }
-
-                /** An enum containing [DeviceChannel]'s known values. */
-                enum class Known {
-                    /** The authentication attempt was made from an app. */
-                    APP,
-                    /** The authentication attempt was made from a browser. */
-                    BROWSER,
-                    /** The authentication attempt was initiated by the 3DS Requestor. */
-                    THREE_DS_REQUESTOR_INITIATED,
-                }
-
-                /**
-                 * An enum containing [DeviceChannel]'s known values, as well as an [_UNKNOWN]
-                 * member.
-                 *
-                 * An instance of [DeviceChannel] can contain an unknown value in a couple of cases:
-                 * - It was deserialized from data that doesn't match any known member. For example,
-                 *   if the SDK is on an older version than the API, then the API may respond with
-                 *   new members that the SDK is unaware of.
-                 * - It was constructed with an arbitrary value using the [of] method.
-                 */
-                enum class Value {
-                    /** The authentication attempt was made from an app. */
-                    APP,
-                    /** The authentication attempt was made from a browser. */
-                    BROWSER,
-                    /** The authentication attempt was initiated by the 3DS Requestor. */
-                    THREE_DS_REQUESTOR_INITIATED,
                     /**
-                     * An enum member indicating that [DeviceChannel] was instantiated with an
-                     * unknown value.
+                     * Returns a mutable builder for constructing an instance of [DeviceChannel].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .browser()
+                     * .category()
+                     * ```
                      */
-                    _UNKNOWN,
+                    @JvmStatic fun builder() = Builder()
                 }
 
-                /**
-                 * Returns an enum member corresponding to this class instance's value, or
-                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-                 *
-                 * Use the [known] method instead if you're certain the value is always known or if
-                 * you want to throw for the unknown case.
-                 */
-                fun value(): Value =
-                    when (this) {
-                        APP -> Value.APP
-                        BROWSER -> Value.BROWSER
-                        THREE_DS_REQUESTOR_INITIATED -> Value.THREE_DS_REQUESTOR_INITIATED
-                        else -> Value._UNKNOWN
+                /** A builder for [DeviceChannel]. */
+                class Builder internal constructor() {
+
+                    private var browser: JsonField<Browser>? = null
+                    private var category: JsonField<Category>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(deviceChannel: DeviceChannel) = apply {
+                        browser = deviceChannel.browser
+                        category = deviceChannel.category
+                        additionalProperties = deviceChannel.additionalProperties.toMutableMap()
                     }
 
-                /**
-                 * Returns an enum member corresponding to this class instance's value.
-                 *
-                 * Use the [value] method instead if you're uncertain the value is always known and
-                 * don't want to throw for the unknown case.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
-                 *   known member.
-                 */
-                fun known(): Known =
-                    when (this) {
-                        APP -> Known.APP
-                        BROWSER -> Known.BROWSER
-                        THREE_DS_REQUESTOR_INITIATED -> Known.THREE_DS_REQUESTOR_INITIATED
-                        else -> throw IncreaseInvalidDataException("Unknown DeviceChannel: $value")
+                    /** Fields specific to the browser device channel. */
+                    fun browser(browser: Browser?) = browser(JsonField.ofNullable(browser))
+
+                    /** Alias for calling [Builder.browser] with `browser.orElse(null)`. */
+                    fun browser(browser: Optional<Browser>) = browser(browser.getOrNull())
+
+                    /**
+                     * Sets [Builder.browser] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.browser] with a well-typed [Browser] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun browser(browser: JsonField<Browser>) = apply { this.browser = browser }
+
+                    /** The category of the device channel. */
+                    fun category(category: Category) = category(JsonField.of(category))
+
+                    /**
+                     * Sets [Builder.category] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.category] with a well-typed [Category] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
                     }
 
-                /**
-                 * Returns this class instance's primitive wire representation.
-                 *
-                 * This differs from the [toString] method because that method is primarily for
-                 * debugging and generally doesn't throw.
-                 *
-                 * @throws IncreaseInvalidDataException if this class instance's value does not have
-                 *   the expected primitive type.
-                 */
-                fun asString(): String =
-                    _value().asString().orElseThrow {
-                        IncreaseInvalidDataException("Value is not a String")
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
                     }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [DeviceChannel].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .browser()
+                     * .category()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): DeviceChannel =
+                        DeviceChannel(
+                            checkRequired("browser", browser),
+                            checkRequired("category", category),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
 
                 private var validated: Boolean = false
 
@@ -4526,7 +4579,8 @@ private constructor(
                         return@apply
                     }
 
-                    known()
+                    browser().ifPresent { it.validate() }
+                    category().validate()
                     validated = true
                 }
 
@@ -4544,19 +4598,725 @@ private constructor(
                  *
                  * Used for best match union deserialization.
                  */
-                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (browser.asKnown().getOrNull()?.validity() ?: 0) +
+                        (category.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** Fields specific to the browser device channel. */
+                class Browser
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val acceptHeader: JsonField<String>,
+                    private val ipAddress: JsonField<String>,
+                    private val javascriptEnabled: JsonField<JavascriptEnabled>,
+                    private val language: JsonField<String>,
+                    private val userAgent: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("accept_header")
+                        @ExcludeMissing
+                        acceptHeader: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("ip_address")
+                        @ExcludeMissing
+                        ipAddress: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("javascript_enabled")
+                        @ExcludeMissing
+                        javascriptEnabled: JsonField<JavascriptEnabled> = JsonMissing.of(),
+                        @JsonProperty("language")
+                        @ExcludeMissing
+                        language: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("user_agent")
+                        @ExcludeMissing
+                        userAgent: JsonField<String> = JsonMissing.of(),
+                    ) : this(
+                        acceptHeader,
+                        ipAddress,
+                        javascriptEnabled,
+                        language,
+                        userAgent,
+                        mutableMapOf(),
+                    )
+
+                    /**
+                     * The accept header from the cardholder's browser.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun acceptHeader(): Optional<String> = acceptHeader.getOptional("accept_header")
+
+                    /**
+                     * The IP address of the cardholder's browser.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun ipAddress(): Optional<String> = ipAddress.getOptional("ip_address")
+
+                    /**
+                     * Whether JavaScript is enabled in the cardholder's browser.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun javascriptEnabled(): Optional<JavascriptEnabled> =
+                        javascriptEnabled.getOptional("javascript_enabled")
+
+                    /**
+                     * The language of the cardholder's browser.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun language(): Optional<String> = language.getOptional("language")
+
+                    /**
+                     * The user agent of the cardholder's browser.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun userAgent(): Optional<String> = userAgent.getOptional("user_agent")
+
+                    /**
+                     * Returns the raw JSON value of [acceptHeader].
+                     *
+                     * Unlike [acceptHeader], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("accept_header")
+                    @ExcludeMissing
+                    fun _acceptHeader(): JsonField<String> = acceptHeader
+
+                    /**
+                     * Returns the raw JSON value of [ipAddress].
+                     *
+                     * Unlike [ipAddress], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("ip_address")
+                    @ExcludeMissing
+                    fun _ipAddress(): JsonField<String> = ipAddress
+
+                    /**
+                     * Returns the raw JSON value of [javascriptEnabled].
+                     *
+                     * Unlike [javascriptEnabled], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("javascript_enabled")
+                    @ExcludeMissing
+                    fun _javascriptEnabled(): JsonField<JavascriptEnabled> = javascriptEnabled
+
+                    /**
+                     * Returns the raw JSON value of [language].
+                     *
+                     * Unlike [language], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("language")
+                    @ExcludeMissing
+                    fun _language(): JsonField<String> = language
+
+                    /**
+                     * Returns the raw JSON value of [userAgent].
+                     *
+                     * Unlike [userAgent], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("user_agent")
+                    @ExcludeMissing
+                    fun _userAgent(): JsonField<String> = userAgent
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Browser].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .acceptHeader()
+                         * .ipAddress()
+                         * .javascriptEnabled()
+                         * .language()
+                         * .userAgent()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Browser]. */
+                    class Builder internal constructor() {
+
+                        private var acceptHeader: JsonField<String>? = null
+                        private var ipAddress: JsonField<String>? = null
+                        private var javascriptEnabled: JsonField<JavascriptEnabled>? = null
+                        private var language: JsonField<String>? = null
+                        private var userAgent: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(browser: Browser) = apply {
+                            acceptHeader = browser.acceptHeader
+                            ipAddress = browser.ipAddress
+                            javascriptEnabled = browser.javascriptEnabled
+                            language = browser.language
+                            userAgent = browser.userAgent
+                            additionalProperties = browser.additionalProperties.toMutableMap()
+                        }
+
+                        /** The accept header from the cardholder's browser. */
+                        fun acceptHeader(acceptHeader: String?) =
+                            acceptHeader(JsonField.ofNullable(acceptHeader))
+
+                        /**
+                         * Alias for calling [Builder.acceptHeader] with
+                         * `acceptHeader.orElse(null)`.
+                         */
+                        fun acceptHeader(acceptHeader: Optional<String>) =
+                            acceptHeader(acceptHeader.getOrNull())
+
+                        /**
+                         * Sets [Builder.acceptHeader] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.acceptHeader] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun acceptHeader(acceptHeader: JsonField<String>) = apply {
+                            this.acceptHeader = acceptHeader
+                        }
+
+                        /** The IP address of the cardholder's browser. */
+                        fun ipAddress(ipAddress: String?) =
+                            ipAddress(JsonField.ofNullable(ipAddress))
+
+                        /** Alias for calling [Builder.ipAddress] with `ipAddress.orElse(null)`. */
+                        fun ipAddress(ipAddress: Optional<String>) =
+                            ipAddress(ipAddress.getOrNull())
+
+                        /**
+                         * Sets [Builder.ipAddress] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.ipAddress] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun ipAddress(ipAddress: JsonField<String>) = apply {
+                            this.ipAddress = ipAddress
+                        }
+
+                        /** Whether JavaScript is enabled in the cardholder's browser. */
+                        fun javascriptEnabled(javascriptEnabled: JavascriptEnabled?) =
+                            javascriptEnabled(JsonField.ofNullable(javascriptEnabled))
+
+                        /**
+                         * Alias for calling [Builder.javascriptEnabled] with
+                         * `javascriptEnabled.orElse(null)`.
+                         */
+                        fun javascriptEnabled(javascriptEnabled: Optional<JavascriptEnabled>) =
+                            javascriptEnabled(javascriptEnabled.getOrNull())
+
+                        /**
+                         * Sets [Builder.javascriptEnabled] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.javascriptEnabled] with a well-typed
+                         * [JavascriptEnabled] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun javascriptEnabled(javascriptEnabled: JsonField<JavascriptEnabled>) =
+                            apply {
+                                this.javascriptEnabled = javascriptEnabled
+                            }
+
+                        /** The language of the cardholder's browser. */
+                        fun language(language: String?) = language(JsonField.ofNullable(language))
+
+                        /** Alias for calling [Builder.language] with `language.orElse(null)`. */
+                        fun language(language: Optional<String>) = language(language.getOrNull())
+
+                        /**
+                         * Sets [Builder.language] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.language] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun language(language: JsonField<String>) = apply {
+                            this.language = language
+                        }
+
+                        /** The user agent of the cardholder's browser. */
+                        fun userAgent(userAgent: String?) =
+                            userAgent(JsonField.ofNullable(userAgent))
+
+                        /** Alias for calling [Builder.userAgent] with `userAgent.orElse(null)`. */
+                        fun userAgent(userAgent: Optional<String>) =
+                            userAgent(userAgent.getOrNull())
+
+                        /**
+                         * Sets [Builder.userAgent] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.userAgent] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun userAgent(userAgent: JsonField<String>) = apply {
+                            this.userAgent = userAgent
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Browser].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .acceptHeader()
+                         * .ipAddress()
+                         * .javascriptEnabled()
+                         * .language()
+                         * .userAgent()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Browser =
+                            Browser(
+                                checkRequired("acceptHeader", acceptHeader),
+                                checkRequired("ipAddress", ipAddress),
+                                checkRequired("javascriptEnabled", javascriptEnabled),
+                                checkRequired("language", language),
+                                checkRequired("userAgent", userAgent),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Browser = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        acceptHeader()
+                        ipAddress()
+                        javascriptEnabled().ifPresent { it.validate() }
+                        language()
+                        userAgent()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (acceptHeader.asKnown().isPresent) 1 else 0) +
+                            (if (ipAddress.asKnown().isPresent) 1 else 0) +
+                            (javascriptEnabled.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (language.asKnown().isPresent) 1 else 0) +
+                            (if (userAgent.asKnown().isPresent) 1 else 0)
+
+                    /** Whether JavaScript is enabled in the cardholder's browser. */
+                    class JavascriptEnabled
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** JavaScript is enabled in the cardholder's browser. */
+                            @JvmField val ENABLED = of("enabled")
+
+                            /** JavaScript is not enabled in the cardholder's browser. */
+                            @JvmField val DISABLED = of("disabled")
+
+                            @JvmStatic
+                            fun of(value: String) = JavascriptEnabled(JsonField.of(value))
+                        }
+
+                        /** An enum containing [JavascriptEnabled]'s known values. */
+                        enum class Known {
+                            /** JavaScript is enabled in the cardholder's browser. */
+                            ENABLED,
+                            /** JavaScript is not enabled in the cardholder's browser. */
+                            DISABLED,
+                        }
+
+                        /**
+                         * An enum containing [JavascriptEnabled]'s known values, as well as an
+                         * [_UNKNOWN] member.
+                         *
+                         * An instance of [JavascriptEnabled] can contain an unknown value in a
+                         * couple of cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** JavaScript is enabled in the cardholder's browser. */
+                            ENABLED,
+                            /** JavaScript is not enabled in the cardholder's browser. */
+                            DISABLED,
+                            /**
+                             * An enum member indicating that [JavascriptEnabled] was instantiated
+                             * with an unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                ENABLED -> Value.ENABLED
+                                DISABLED -> Value.DISABLED
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                ENABLED -> Known.ENABLED
+                                DISABLED -> Known.DISABLED
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown JavascriptEnabled: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): JavascriptEnabled = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is JavascriptEnabled && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Browser &&
+                            acceptHeader == other.acceptHeader &&
+                            ipAddress == other.ipAddress &&
+                            javascriptEnabled == other.javascriptEnabled &&
+                            language == other.language &&
+                            userAgent == other.userAgent &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            acceptHeader,
+                            ipAddress,
+                            javascriptEnabled,
+                            language,
+                            userAgent,
+                            additionalProperties,
+                        )
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Browser{acceptHeader=$acceptHeader, ipAddress=$ipAddress, javascriptEnabled=$javascriptEnabled, language=$language, userAgent=$userAgent, additionalProperties=$additionalProperties}"
+                }
+
+                /** The category of the device channel. */
+                class Category
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The authentication attempt was made from an app. */
+                        @JvmField val APP = of("app")
+
+                        /** The authentication attempt was made from a browser. */
+                        @JvmField val BROWSER = of("browser")
+
+                        /** The authentication attempt was initiated by the 3DS Requestor. */
+                        @JvmField
+                        val THREE_DS_REQUESTOR_INITIATED = of("three_ds_requestor_initiated")
+
+                        @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Category]'s known values. */
+                    enum class Known {
+                        /** The authentication attempt was made from an app. */
+                        APP,
+                        /** The authentication attempt was made from a browser. */
+                        BROWSER,
+                        /** The authentication attempt was initiated by the 3DS Requestor. */
+                        THREE_DS_REQUESTOR_INITIATED,
+                    }
+
+                    /**
+                     * An enum containing [Category]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [Category] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The authentication attempt was made from an app. */
+                        APP,
+                        /** The authentication attempt was made from a browser. */
+                        BROWSER,
+                        /** The authentication attempt was initiated by the 3DS Requestor. */
+                        THREE_DS_REQUESTOR_INITIATED,
+                        /**
+                         * An enum member indicating that [Category] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            APP -> Value.APP
+                            BROWSER -> Value.BROWSER
+                            THREE_DS_REQUESTOR_INITIATED -> Value.THREE_DS_REQUESTOR_INITIATED
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            APP -> Known.APP
+                            BROWSER -> Known.BROWSER
+                            THREE_DS_REQUESTOR_INITIATED -> Known.THREE_DS_REQUESTOR_INITIATED
+                            else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Category = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Category && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
                     }
 
-                    return other is DeviceChannel && value == other.value
+                    return other is DeviceChannel &&
+                        browser == other.browser &&
+                        category == other.category &&
+                        additionalProperties == other.additionalProperties
                 }
 
-                override fun hashCode() = value.hashCode()
+                private val hashCode: Int by lazy {
+                    Objects.hash(browser, category, additionalProperties)
+                }
 
-                override fun toString() = value.toString()
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "DeviceChannel{browser=$browser, category=$category, additionalProperties=$additionalProperties}"
             }
 
             /** The status of the card authentication. */
