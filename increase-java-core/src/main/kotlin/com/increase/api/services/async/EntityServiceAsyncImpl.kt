@@ -19,16 +19,13 @@ import com.increase.api.core.prepareAsync
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListPageResponse
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
-import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import com.increase.api.models.entities.EntityUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -88,26 +85,12 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         // post /entities/{entity_id}/archive_beneficial_owner
         withRawResponse().archiveBeneficialOwner(params, requestOptions).thenApply { it.parse() }
 
-    override fun confirm(
-        params: EntityConfirmParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Entity> =
-        // post /entities/{entity_id}/confirm
-        withRawResponse().confirm(params, requestOptions).thenApply { it.parse() }
-
     override fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Entity> =
         // post /entities/{entity_id}/create_beneficial_owner
         withRawResponse().createBeneficialOwner(params, requestOptions).thenApply { it.parse() }
-
-    override fun updateAddress(
-        params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Entity> =
-        // post /entities/{entity_id}/update_address
-        withRawResponse().updateAddress(params, requestOptions).thenApply { it.parse() }
 
     override fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
@@ -117,13 +100,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
         withRawResponse().updateBeneficialOwnerAddress(params, requestOptions).thenApply {
             it.parse()
         }
-
-    override fun updateIndustryCode(
-        params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Entity> =
-        // post /entities/{entity_id}/update_industry_code
-        withRawResponse().updateIndustryCode(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityServiceAsync.WithRawResponse {
@@ -338,39 +314,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 }
         }
 
-        private val confirmHandler: Handler<Entity> = jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun confirm(
-            params: EntityConfirmParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Entity>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "confirm")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { confirmHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
         private val createBeneficialOwnerHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper)
 
@@ -396,40 +339,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { createBeneficialOwnerHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val updateAddressHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun updateAddress(
-            params: EntityUpdateAddressParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Entity>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "update_address")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateAddressHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
@@ -468,40 +377,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { updateBeneficialOwnerAddressHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val updateIndustryCodeHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun updateIndustryCode(
-            params: EntityUpdateIndustryCodeParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Entity>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "update_industry_code")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { updateIndustryCodeHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

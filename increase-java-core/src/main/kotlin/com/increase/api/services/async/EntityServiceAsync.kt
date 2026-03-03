@@ -8,15 +8,12 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
-import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import com.increase.api.models.entities.EntityUpdateParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -184,42 +181,6 @@ interface EntityServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
-    /**
-     * Depending on your program, you may be required to re-confirm an Entity's details on a
-     * recurring basis. After making any required updates, call this endpoint to record that your
-     * user confirmed their details.
-     */
-    fun confirm(entityId: String): CompletableFuture<Entity> =
-        confirm(entityId, EntityConfirmParams.none())
-
-    /** @see confirm */
-    fun confirm(
-        entityId: String,
-        params: EntityConfirmParams = EntityConfirmParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity> =
-        confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see confirm */
-    fun confirm(
-        entityId: String,
-        params: EntityConfirmParams = EntityConfirmParams.none(),
-    ): CompletableFuture<Entity> = confirm(entityId, params, RequestOptions.none())
-
-    /** @see confirm */
-    fun confirm(
-        params: EntityConfirmParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity>
-
-    /** @see confirm */
-    fun confirm(params: EntityConfirmParams): CompletableFuture<Entity> =
-        confirm(params, RequestOptions.none())
-
-    /** @see confirm */
-    fun confirm(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
-        confirm(entityId, EntityConfirmParams.none(), requestOptions)
-
     /** Create a beneficial owner for a corporate Entity */
     fun createBeneficialOwner(
         entityId: String,
@@ -242,30 +203,6 @@ interface EntityServiceAsync {
     /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity>
-
-    /** Update a Natural Person or Corporation's address */
-    fun updateAddress(
-        entityId: String,
-        params: EntityUpdateAddressParams,
-    ): CompletableFuture<Entity> = updateAddress(entityId, params, RequestOptions.none())
-
-    /** @see updateAddress */
-    fun updateAddress(
-        entityId: String,
-        params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity> =
-        updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateAddress */
-    fun updateAddress(params: EntityUpdateAddressParams): CompletableFuture<Entity> =
-        updateAddress(params, RequestOptions.none())
-
-    /** @see updateAddress */
-    fun updateAddress(
-        params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
@@ -292,30 +229,6 @@ interface EntityServiceAsync {
     /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity>
-
-    /** Update the industry code for a corporate Entity */
-    fun updateIndustryCode(
-        entityId: String,
-        params: EntityUpdateIndustryCodeParams,
-    ): CompletableFuture<Entity> = updateIndustryCode(entityId, params, RequestOptions.none())
-
-    /** @see updateIndustryCode */
-    fun updateIndustryCode(
-        entityId: String,
-        params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity> =
-        updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateIndustryCode */
-    fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): CompletableFuture<Entity> =
-        updateIndustryCode(params, RequestOptions.none())
-
-    /** @see updateIndustryCode */
-    fun updateIndustryCode(
-        params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
@@ -519,45 +432,6 @@ interface EntityServiceAsync {
         ): CompletableFuture<HttpResponseFor<Entity>>
 
         /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
-         * the same as [EntityServiceAsync.confirm].
-         */
-        fun confirm(entityId: String): CompletableFuture<HttpResponseFor<Entity>> =
-            confirm(entityId, EntityConfirmParams.none())
-
-        /** @see confirm */
-        fun confirm(
-            entityId: String,
-            params: EntityConfirmParams = EntityConfirmParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see confirm */
-        fun confirm(
-            entityId: String,
-            params: EntityConfirmParams = EntityConfirmParams.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            confirm(entityId, params, RequestOptions.none())
-
-        /** @see confirm */
-        fun confirm(
-            params: EntityConfirmParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>>
-
-        /** @see confirm */
-        fun confirm(params: EntityConfirmParams): CompletableFuture<HttpResponseFor<Entity>> =
-            confirm(params, RequestOptions.none())
-
-        /** @see confirm */
-        fun confirm(
-            entityId: String,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            confirm(entityId, EntityConfirmParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
          */
@@ -584,35 +458,6 @@ interface EntityServiceAsync {
         /** @see createBeneficialOwner */
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>>
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
-         * otherwise the same as [EntityServiceAsync.updateAddress].
-         */
-        fun updateAddress(
-            entityId: String,
-            params: EntityUpdateAddressParams,
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            updateAddress(entityId, params, RequestOptions.none())
-
-        /** @see updateAddress */
-        fun updateAddress(
-            entityId: String,
-            params: EntityUpdateAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see updateAddress */
-        fun updateAddress(
-            params: EntityUpdateAddressParams
-        ): CompletableFuture<HttpResponseFor<Entity>> = updateAddress(params, RequestOptions.none())
-
-        /** @see updateAddress */
-        fun updateAddress(
-            params: EntityUpdateAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
 
@@ -647,36 +492,6 @@ interface EntityServiceAsync {
         /** @see updateBeneficialOwnerAddress */
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>>
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
-         * otherwise the same as [EntityServiceAsync.updateIndustryCode].
-         */
-        fun updateIndustryCode(
-            entityId: String,
-            params: EntityUpdateIndustryCodeParams,
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            updateIndustryCode(entityId, params, RequestOptions.none())
-
-        /** @see updateIndustryCode */
-        fun updateIndustryCode(
-            entityId: String,
-            params: EntityUpdateIndustryCodeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see updateIndustryCode */
-        fun updateIndustryCode(
-            params: EntityUpdateIndustryCodeParams
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            updateIndustryCode(params, RequestOptions.none())
-
-        /** @see updateIndustryCode */
-        fun updateIndustryCode(
-            params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
     }

@@ -9,15 +9,12 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityConfirmParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPage
 import com.increase.api.models.entities.EntityListParams
 import com.increase.api.models.entities.EntityRetrieveParams
-import com.increase.api.models.entities.EntityUpdateAddressParams
 import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
-import com.increase.api.models.entities.EntityUpdateIndustryCodeParams
 import com.increase.api.models.entities.EntityUpdateParams
 import java.util.function.Consumer
 
@@ -170,39 +167,6 @@ interface EntityService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
-    /**
-     * Depending on your program, you may be required to re-confirm an Entity's details on a
-     * recurring basis. After making any required updates, call this endpoint to record that your
-     * user confirmed their details.
-     */
-    fun confirm(entityId: String): Entity = confirm(entityId, EntityConfirmParams.none())
-
-    /** @see confirm */
-    fun confirm(
-        entityId: String,
-        params: EntityConfirmParams = EntityConfirmParams.none(),
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see confirm */
-    fun confirm(
-        entityId: String,
-        params: EntityConfirmParams = EntityConfirmParams.none(),
-    ): Entity = confirm(entityId, params, RequestOptions.none())
-
-    /** @see confirm */
-    fun confirm(
-        params: EntityConfirmParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** @see confirm */
-    fun confirm(params: EntityConfirmParams): Entity = confirm(params, RequestOptions.none())
-
-    /** @see confirm */
-    fun confirm(entityId: String, requestOptions: RequestOptions): Entity =
-        confirm(entityId, EntityConfirmParams.none(), requestOptions)
-
     /** Create a beneficial owner for a corporate Entity */
     fun createBeneficialOwner(entityId: String, params: EntityCreateBeneficialOwnerParams): Entity =
         createBeneficialOwner(entityId, params, RequestOptions.none())
@@ -221,27 +185,6 @@ interface EntityService {
     /** @see createBeneficialOwner */
     fun createBeneficialOwner(
         params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** Update a Natural Person or Corporation's address */
-    fun updateAddress(entityId: String, params: EntityUpdateAddressParams): Entity =
-        updateAddress(entityId, params, RequestOptions.none())
-
-    /** @see updateAddress */
-    fun updateAddress(
-        entityId: String,
-        params: EntityUpdateAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateAddress */
-    fun updateAddress(params: EntityUpdateAddressParams): Entity =
-        updateAddress(params, RequestOptions.none())
-
-    /** @see updateAddress */
-    fun updateAddress(
-        params: EntityUpdateAddressParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -266,27 +209,6 @@ interface EntityService {
     /** @see updateBeneficialOwnerAddress */
     fun updateBeneficialOwnerAddress(
         params: EntityUpdateBeneficialOwnerAddressParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity
-
-    /** Update the industry code for a corporate Entity */
-    fun updateIndustryCode(entityId: String, params: EntityUpdateIndustryCodeParams): Entity =
-        updateIndustryCode(entityId, params, RequestOptions.none())
-
-    /** @see updateIndustryCode */
-    fun updateIndustryCode(
-        entityId: String,
-        params: EntityUpdateIndustryCodeParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): Entity = updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see updateIndustryCode */
-    fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): Entity =
-        updateIndustryCode(params, RequestOptions.none())
-
-    /** @see updateIndustryCode */
-    fun updateIndustryCode(
-        params: EntityUpdateIndustryCodeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): Entity
 
@@ -495,47 +417,6 @@ interface EntityService {
         ): HttpResponseFor<Entity>
 
         /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/confirm`, but is otherwise
-         * the same as [EntityService.confirm].
-         */
-        @MustBeClosed
-        fun confirm(entityId: String): HttpResponseFor<Entity> =
-            confirm(entityId, EntityConfirmParams.none())
-
-        /** @see confirm */
-        @MustBeClosed
-        fun confirm(
-            entityId: String,
-            params: EntityConfirmParams = EntityConfirmParams.none(),
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            confirm(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see confirm */
-        @MustBeClosed
-        fun confirm(
-            entityId: String,
-            params: EntityConfirmParams = EntityConfirmParams.none(),
-        ): HttpResponseFor<Entity> = confirm(entityId, params, RequestOptions.none())
-
-        /** @see confirm */
-        @MustBeClosed
-        fun confirm(
-            params: EntityConfirmParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /** @see confirm */
-        @MustBeClosed
-        fun confirm(params: EntityConfirmParams): HttpResponseFor<Entity> =
-            confirm(params, RequestOptions.none())
-
-        /** @see confirm */
-        @MustBeClosed
-        fun confirm(entityId: String, requestOptions: RequestOptions): HttpResponseFor<Entity> =
-            confirm(entityId, EntityConfirmParams.none(), requestOptions)
-
-        /**
          * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
          * is otherwise the same as [EntityService.createBeneficialOwner].
          */
@@ -564,37 +445,6 @@ interface EntityService {
         @MustBeClosed
         fun createBeneficialOwner(
             params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/update_address`, but is
-         * otherwise the same as [EntityService.updateAddress].
-         */
-        @MustBeClosed
-        fun updateAddress(
-            entityId: String,
-            params: EntityUpdateAddressParams,
-        ): HttpResponseFor<Entity> = updateAddress(entityId, params, RequestOptions.none())
-
-        /** @see updateAddress */
-        @MustBeClosed
-        fun updateAddress(
-            entityId: String,
-            params: EntityUpdateAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            updateAddress(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see updateAddress */
-        @MustBeClosed
-        fun updateAddress(params: EntityUpdateAddressParams): HttpResponseFor<Entity> =
-            updateAddress(params, RequestOptions.none())
-
-        /** @see updateAddress */
-        @MustBeClosed
-        fun updateAddress(
-            params: EntityUpdateAddressParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
 
@@ -632,37 +482,6 @@ interface EntityService {
         @MustBeClosed
         fun updateBeneficialOwnerAddress(
             params: EntityUpdateBeneficialOwnerAddressParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity>
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/update_industry_code`, but is
-         * otherwise the same as [EntityService.updateIndustryCode].
-         */
-        @MustBeClosed
-        fun updateIndustryCode(
-            entityId: String,
-            params: EntityUpdateIndustryCodeParams,
-        ): HttpResponseFor<Entity> = updateIndustryCode(entityId, params, RequestOptions.none())
-
-        /** @see updateIndustryCode */
-        @MustBeClosed
-        fun updateIndustryCode(
-            entityId: String,
-            params: EntityUpdateIndustryCodeParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): HttpResponseFor<Entity> =
-            updateIndustryCode(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see updateIndustryCode */
-        @MustBeClosed
-        fun updateIndustryCode(params: EntityUpdateIndustryCodeParams): HttpResponseFor<Entity> =
-            updateIndustryCode(params, RequestOptions.none())
-
-        /** @see updateIndustryCode */
-        @MustBeClosed
-        fun updateIndustryCode(
-            params: EntityUpdateIndustryCodeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<Entity>
     }
