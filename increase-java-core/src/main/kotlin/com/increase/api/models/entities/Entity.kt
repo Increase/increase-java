@@ -7805,6 +7805,9 @@ private constructor(
                 /** Persona. See https://withpersona.com for more information. */
                 @JvmField val PERSONA = of("persona")
 
+                /** Taktile. See https://taktile.com for more information. */
+                @JvmField val TAKTILE = of("taktile")
+
                 @JvmStatic fun of(value: String) = Vendor(JsonField.of(value))
             }
 
@@ -7818,6 +7821,8 @@ private constructor(
                 OSCILAR,
                 /** Persona. See https://withpersona.com for more information. */
                 PERSONA,
+                /** Taktile. See https://taktile.com for more information. */
+                TAKTILE,
             }
 
             /**
@@ -7838,6 +7843,8 @@ private constructor(
                 OSCILAR,
                 /** Persona. See https://withpersona.com for more information. */
                 PERSONA,
+                /** Taktile. See https://taktile.com for more information. */
+                TAKTILE,
                 /**
                  * An enum member indicating that [Vendor] was instantiated with an unknown value.
                  */
@@ -7857,6 +7864,7 @@ private constructor(
                     MIDDESK -> Value.MIDDESK
                     OSCILAR -> Value.OSCILAR
                     PERSONA -> Value.PERSONA
+                    TAKTILE -> Value.TAKTILE
                     else -> Value._UNKNOWN
                 }
 
@@ -7875,6 +7883,7 @@ private constructor(
                     MIDDESK -> Known.MIDDESK
                     OSCILAR -> Known.OSCILAR
                     PERSONA -> Known.PERSONA
+                    TAKTILE -> Known.TAKTILE
                     else -> throw IncreaseInvalidDataException("Unknown Vendor: $value")
                 }
 
