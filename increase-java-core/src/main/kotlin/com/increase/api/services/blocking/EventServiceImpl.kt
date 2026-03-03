@@ -67,6 +67,7 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                         unwrapParams.secret().getOrNull()
                             ?: clientOptions.webhookSecret().getOrNull(),
                     )
+
                 val headersMap =
                     headers.names().associateWith { name -> headers.values(name) }.toMap()
 
