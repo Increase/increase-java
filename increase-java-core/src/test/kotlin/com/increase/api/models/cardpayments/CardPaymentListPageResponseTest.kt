@@ -85,7 +85,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -2158,7 +2184,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -4231,7 +4283,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -6304,7 +6382,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -8416,7 +8520,32 @@ internal class CardPaymentListPageResponseTest {
                                         .denyReason(null)
                                         .deviceChannel(
                                             CardPayment.Element.CardAuthentication.DeviceChannel
-                                                .BROWSER
+                                                .builder()
+                                                .browser(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Browser
+                                                        .builder()
+                                                        .acceptHeader("text/html")
+                                                        .ipAddress("203.0.113.0")
+                                                        .javascriptEnabled(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .DeviceChannel
+                                                                .Browser
+                                                                .JavascriptEnabled
+                                                                .ENABLED
+                                                        )
+                                                        .language("en-US")
+                                                        .userAgent("Mozilla/5.0")
+                                                        .build()
+                                                )
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Category
+                                                        .BROWSER
+                                                )
+                                                .build()
                                         )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
@@ -10372,7 +10501,32 @@ internal class CardPaymentListPageResponseTest {
                                         .denyReason(null)
                                         .deviceChannel(
                                             CardPayment.Element.CardAuthentication.DeviceChannel
-                                                .BROWSER
+                                                .builder()
+                                                .browser(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Browser
+                                                        .builder()
+                                                        .acceptHeader("text/html")
+                                                        .ipAddress("203.0.113.0")
+                                                        .javascriptEnabled(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .DeviceChannel
+                                                                .Browser
+                                                                .JavascriptEnabled
+                                                                .ENABLED
+                                                        )
+                                                        .language("en-US")
+                                                        .userAgent("Mozilla/5.0")
+                                                        .build()
+                                                )
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Category
+                                                        .BROWSER
+                                                )
+                                                .build()
                                         )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
@@ -12328,7 +12482,32 @@ internal class CardPaymentListPageResponseTest {
                                         .denyReason(null)
                                         .deviceChannel(
                                             CardPayment.Element.CardAuthentication.DeviceChannel
-                                                .BROWSER
+                                                .builder()
+                                                .browser(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Browser
+                                                        .builder()
+                                                        .acceptHeader("text/html")
+                                                        .ipAddress("203.0.113.0")
+                                                        .javascriptEnabled(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .DeviceChannel
+                                                                .Browser
+                                                                .JavascriptEnabled
+                                                                .ENABLED
+                                                        )
+                                                        .language("en-US")
+                                                        .userAgent("Mozilla/5.0")
+                                                        .build()
+                                                )
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Category
+                                                        .BROWSER
+                                                )
+                                                .build()
                                         )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
@@ -14284,7 +14463,32 @@ internal class CardPaymentListPageResponseTest {
                                         .denyReason(null)
                                         .deviceChannel(
                                             CardPayment.Element.CardAuthentication.DeviceChannel
-                                                .BROWSER
+                                                .builder()
+                                                .browser(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Browser
+                                                        .builder()
+                                                        .acceptHeader("text/html")
+                                                        .ipAddress("203.0.113.0")
+                                                        .javascriptEnabled(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .DeviceChannel
+                                                                .Browser
+                                                                .JavascriptEnabled
+                                                                .ENABLED
+                                                        )
+                                                        .language("en-US")
+                                                        .userAgent("Mozilla/5.0")
+                                                        .build()
+                                                )
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .DeviceChannel
+                                                        .Category
+                                                        .BROWSER
+                                                )
+                                                .build()
                                         )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
@@ -16287,7 +16491,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -18360,7 +18590,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -20433,7 +20689,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
@@ -22506,7 +22788,33 @@ internal class CardPaymentListPageResponseTest {
                                             .denyReason(null)
                                             .deviceChannel(
                                                 CardPayment.Element.CardAuthentication.DeviceChannel
-                                                    .BROWSER
+                                                    .builder()
+                                                    .browser(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Browser
+                                                            .builder()
+                                                            .acceptHeader("text/html")
+                                                            .ipAddress("203.0.113.0")
+                                                            .javascriptEnabled(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .DeviceChannel
+                                                                    .Browser
+                                                                    .JavascriptEnabled
+                                                                    .ENABLED
+                                                            )
+                                                            .language("en-US")
+                                                            .userAgent("Mozilla/5.0")
+                                                            .build()
+                                                    )
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .Category
+                                                            .BROWSER
+                                                    )
+                                                    .build()
                                             )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
