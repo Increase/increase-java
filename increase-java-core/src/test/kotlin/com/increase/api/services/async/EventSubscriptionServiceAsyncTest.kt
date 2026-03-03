@@ -26,8 +26,13 @@ internal class EventSubscriptionServiceAsyncTest {
                 EventSubscriptionCreateParams.builder()
                     .url("https://website.com/webhooks")
                     .oauthConnectionId("x")
-                    .selectedEventCategory(
-                        EventSubscriptionCreateParams.SelectedEventCategory.ACCOUNT_CREATED
+                    .addSelectedEventCategory(
+                        EventSubscriptionCreateParams.SelectedEventCategory.builder()
+                            .eventCategory(
+                                EventSubscriptionCreateParams.SelectedEventCategory.EventCategory
+                                    .ACCOUNT_CREATED
+                            )
+                            .build()
                     )
                     .sharedSecret("x")
                     .status(EventSubscriptionCreateParams.Status.ACTIVE)
