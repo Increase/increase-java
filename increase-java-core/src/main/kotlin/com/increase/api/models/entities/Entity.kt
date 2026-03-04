@@ -1765,7 +1765,7 @@ private constructor(
             private val beneficialOwnerId: JsonField<String>,
             private val companyTitle: JsonField<String>,
             private val individual: JsonField<Individual>,
-            private val prong: JsonField<Prong>,
+            private val prongs: JsonField<List<Prong>>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -1780,8 +1780,10 @@ private constructor(
                 @JsonProperty("individual")
                 @ExcludeMissing
                 individual: JsonField<Individual> = JsonMissing.of(),
-                @JsonProperty("prong") @ExcludeMissing prong: JsonField<Prong> = JsonMissing.of(),
-            ) : this(beneficialOwnerId, companyTitle, individual, prong, mutableMapOf())
+                @JsonProperty("prongs")
+                @ExcludeMissing
+                prongs: JsonField<List<Prong>> = JsonMissing.of(),
+            ) : this(beneficialOwnerId, companyTitle, individual, prongs, mutableMapOf())
 
             /**
              * The identifier of this beneficial owner.
@@ -1816,7 +1818,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun prong(): Prong = prong.getRequired("prong")
+            fun prongs(): List<Prong> = prongs.getRequired("prongs")
 
             /**
              * Returns the raw JSON value of [beneficialOwnerId].
@@ -1849,11 +1851,11 @@ private constructor(
             fun _individual(): JsonField<Individual> = individual
 
             /**
-             * Returns the raw JSON value of [prong].
+             * Returns the raw JSON value of [prongs].
              *
-             * Unlike [prong], this method doesn't throw if the JSON field has an unexpected type.
+             * Unlike [prongs], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("prong") @ExcludeMissing fun _prong(): JsonField<Prong> = prong
+            @JsonProperty("prongs") @ExcludeMissing fun _prongs(): JsonField<List<Prong>> = prongs
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1877,7 +1879,7 @@ private constructor(
                  * .beneficialOwnerId()
                  * .companyTitle()
                  * .individual()
-                 * .prong()
+                 * .prongs()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -1889,7 +1891,7 @@ private constructor(
                 private var beneficialOwnerId: JsonField<String>? = null
                 private var companyTitle: JsonField<String>? = null
                 private var individual: JsonField<Individual>? = null
-                private var prong: JsonField<Prong>? = null
+                private var prongs: JsonField<MutableList<Prong>>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -1897,7 +1899,7 @@ private constructor(
                     beneficialOwnerId = beneficialOwner.beneficialOwnerId
                     companyTitle = beneficialOwner.companyTitle
                     individual = beneficialOwner.individual
-                    prong = beneficialOwner.prong
+                    prongs = beneficialOwner.prongs.map { it.toMutableList() }
                     additionalProperties = beneficialOwner.additionalProperties.toMutableMap()
                 }
 
@@ -1950,16 +1952,30 @@ private constructor(
                 }
 
                 /** Why this person is considered a beneficial owner of the entity. */
-                fun prong(prong: Prong) = prong(JsonField.of(prong))
+                fun prongs(prongs: List<Prong>) = prongs(JsonField.of(prongs))
 
                 /**
-                 * Sets [Builder.prong] to an arbitrary JSON value.
+                 * Sets [Builder.prongs] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.prong] with a well-typed [Prong] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
+                 * You should usually call [Builder.prongs] with a well-typed `List<Prong>` value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun prong(prong: JsonField<Prong>) = apply { this.prong = prong }
+                fun prongs(prongs: JsonField<List<Prong>>) = apply {
+                    this.prongs = prongs.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [Prong] to [prongs].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addProng(prong: Prong) = apply {
+                    prongs =
+                        (prongs ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("prongs", it).add(prong)
+                        }
+                }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -1993,7 +2009,7 @@ private constructor(
                  * .beneficialOwnerId()
                  * .companyTitle()
                  * .individual()
-                 * .prong()
+                 * .prongs()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -2003,7 +2019,7 @@ private constructor(
                         checkRequired("beneficialOwnerId", beneficialOwnerId),
                         checkRequired("companyTitle", companyTitle),
                         checkRequired("individual", individual),
-                        checkRequired("prong", prong),
+                        checkRequired("prongs", prongs).map { it.toImmutable() },
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -2018,7 +2034,7 @@ private constructor(
                 beneficialOwnerId()
                 companyTitle()
                 individual().validate()
-                prong().validate()
+                prongs().forEach { it.validate() }
                 validated = true
             }
 
@@ -2041,7 +2057,7 @@ private constructor(
                 (if (beneficialOwnerId.asKnown().isPresent) 1 else 0) +
                     (if (companyTitle.asKnown().isPresent) 1 else 0) +
                     (individual.asKnown().getOrNull()?.validity() ?: 0) +
-                    (prong.asKnown().getOrNull()?.validity() ?: 0)
+                    (prongs.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
             /** Personal details for the beneficial owner. */
             class Individual
@@ -3139,7 +3155,6 @@ private constructor(
                     "Individual{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
             }
 
-            /** Why this person is considered a beneficial owner of the entity. */
             class Prong @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
 
@@ -3286,7 +3301,7 @@ private constructor(
                     beneficialOwnerId == other.beneficialOwnerId &&
                     companyTitle == other.companyTitle &&
                     individual == other.individual &&
-                    prong == other.prong &&
+                    prongs == other.prongs &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -3295,7 +3310,7 @@ private constructor(
                     beneficialOwnerId,
                     companyTitle,
                     individual,
-                    prong,
+                    prongs,
                     additionalProperties,
                 )
             }
@@ -3303,7 +3318,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "BeneficialOwner{beneficialOwnerId=$beneficialOwnerId, companyTitle=$companyTitle, individual=$individual, prong=$prong, additionalProperties=$additionalProperties}"
+                "BeneficialOwner{beneficialOwnerId=$beneficialOwnerId, companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
