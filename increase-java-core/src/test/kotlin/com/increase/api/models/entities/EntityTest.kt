@@ -30,9 +30,7 @@ internal class EntityTest {
                         )
                         .addBeneficialOwner(
                             Entity.Corporation.BeneficialOwner.builder()
-                                .beneficialOwnerId(
-                                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                                )
+                                .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                                 .companyTitle("CEO")
                                 .individual(
                                     Entity.Corporation.BeneficialOwner.Individual.builder()
@@ -65,6 +63,7 @@ internal class EntityTest {
                                         .build()
                                 )
                                 .addProng(Entity.Corporation.BeneficialOwner.Prong.CONTROL)
+                                .addProng(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                                 .build()
                         )
                         .email(null)
@@ -275,9 +274,7 @@ internal class EntityTest {
                     )
                     .addBeneficialOwner(
                         Entity.Corporation.BeneficialOwner.builder()
-                            .beneficialOwnerId(
-                                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                            )
+                            .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                             .companyTitle("CEO")
                             .individual(
                                 Entity.Corporation.BeneficialOwner.Individual.builder()
@@ -309,6 +306,7 @@ internal class EntityTest {
                                     .build()
                             )
                             .addProng(Entity.Corporation.BeneficialOwner.Prong.CONTROL)
+                            .addProng(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                             .build()
                     )
                     .email(null)
@@ -530,9 +528,7 @@ internal class EntityTest {
                         )
                         .addBeneficialOwner(
                             Entity.Corporation.BeneficialOwner.builder()
-                                .beneficialOwnerId(
-                                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                                )
+                                .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                                 .companyTitle("CEO")
                                 .individual(
                                     Entity.Corporation.BeneficialOwner.Individual.builder()
@@ -565,6 +561,7 @@ internal class EntityTest {
                                         .build()
                                 )
                                 .addProng(Entity.Corporation.BeneficialOwner.Prong.CONTROL)
+                                .addProng(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                                 .build()
                         )
                         .email(null)
