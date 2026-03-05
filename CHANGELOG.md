@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.447.0 (2026-03-05)
+
+Full Changelog: [v0.446.0...v0.447.0](https://github.com/Increase/increase-java/compare/v0.446.0...v0.447.0)
+
+### Features
+
+* **api:** api update ([dee5f59](https://github.com/Increase/increase-java/commit/dee5f59ca4f91233cd8e1463342339fed4e7f264))
+
 ## 0.446.0 (2026-03-05)
 
 Full Changelog: [v0.445.0...v0.446.0](https://github.com/Increase/increase-java/compare/v0.445.0...v0.446.0)
