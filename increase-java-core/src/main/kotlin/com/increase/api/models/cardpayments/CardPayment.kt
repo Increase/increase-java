@@ -1774,6 +1774,7 @@ private constructor(
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCountry: JsonField<String>,
             private val merchantName: JsonField<String>,
+            private val priorCardAuthenticationId: JsonField<String>,
             private val purchaseAmount: JsonField<Long>,
             private val purchaseCurrency: JsonField<String>,
             private val realTimeDecisionId: JsonField<String>,
@@ -1845,6 +1846,9 @@ private constructor(
                 @JsonProperty("merchant_name")
                 @ExcludeMissing
                 merchantName: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("prior_card_authentication_id")
+                @ExcludeMissing
+                priorCardAuthenticationId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("purchase_amount")
                 @ExcludeMissing
                 purchaseAmount: JsonField<Long> = JsonMissing.of(),
@@ -1880,6 +1884,7 @@ private constructor(
                 merchantCategoryCode,
                 merchantCountry,
                 merchantName,
+                priorCardAuthenticationId,
                 purchaseAmount,
                 purchaseCurrency,
                 realTimeDecisionId,
@@ -2084,6 +2089,16 @@ private constructor(
              *   value).
              */
             fun merchantName(): String = merchantName.getRequired("merchant_name")
+
+            /**
+             * The ID of a prior Card Authentication that the requestor used to authenticate this
+             * cardholder for a previous transaction.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun priorCardAuthenticationId(): Optional<String> =
+                priorCardAuthenticationId.getOptional("prior_card_authentication_id")
 
             /**
              * The purchase amount in minor units.
@@ -2337,6 +2352,16 @@ private constructor(
             fun _merchantName(): JsonField<String> = merchantName
 
             /**
+             * Returns the raw JSON value of [priorCardAuthenticationId].
+             *
+             * Unlike [priorCardAuthenticationId], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("prior_card_authentication_id")
+            @ExcludeMissing
+            fun _priorCardAuthenticationId(): JsonField<String> = priorCardAuthenticationId
+
+            /**
              * Returns the raw JSON value of [purchaseAmount].
              *
              * Unlike [purchaseAmount], this method doesn't throw if the JSON field has an
@@ -2420,6 +2445,7 @@ private constructor(
                  * .merchantCategoryCode()
                  * .merchantCountry()
                  * .merchantName()
+                 * .priorCardAuthenticationId()
                  * .purchaseAmount()
                  * .purchaseCurrency()
                  * .realTimeDecisionId()
@@ -2454,6 +2480,7 @@ private constructor(
                 private var merchantCategoryCode: JsonField<String>? = null
                 private var merchantCountry: JsonField<String>? = null
                 private var merchantName: JsonField<String>? = null
+                private var priorCardAuthenticationId: JsonField<String>? = null
                 private var purchaseAmount: JsonField<Long>? = null
                 private var purchaseCurrency: JsonField<String>? = null
                 private var realTimeDecisionId: JsonField<String>? = null
@@ -2484,6 +2511,7 @@ private constructor(
                     merchantCategoryCode = cardAuthentication.merchantCategoryCode
                     merchantCountry = cardAuthentication.merchantCountry
                     merchantName = cardAuthentication.merchantName
+                    priorCardAuthenticationId = cardAuthentication.priorCardAuthenticationId
                     purchaseAmount = cardAuthentication.purchaseAmount
                     purchaseCurrency = cardAuthentication.purchaseCurrency
                     realTimeDecisionId = cardAuthentication.realTimeDecisionId
@@ -2896,6 +2924,32 @@ private constructor(
                     this.merchantName = merchantName
                 }
 
+                /**
+                 * The ID of a prior Card Authentication that the requestor used to authenticate
+                 * this cardholder for a previous transaction.
+                 */
+                fun priorCardAuthenticationId(priorCardAuthenticationId: String?) =
+                    priorCardAuthenticationId(JsonField.ofNullable(priorCardAuthenticationId))
+
+                /**
+                 * Alias for calling [Builder.priorCardAuthenticationId] with
+                 * `priorCardAuthenticationId.orElse(null)`.
+                 */
+                fun priorCardAuthenticationId(priorCardAuthenticationId: Optional<String>) =
+                    priorCardAuthenticationId(priorCardAuthenticationId.getOrNull())
+
+                /**
+                 * Sets [Builder.priorCardAuthenticationId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.priorCardAuthenticationId] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun priorCardAuthenticationId(priorCardAuthenticationId: JsonField<String>) =
+                    apply {
+                        this.priorCardAuthenticationId = priorCardAuthenticationId
+                    }
+
                 /** The purchase amount in minor units. */
                 fun purchaseAmount(purchaseAmount: Long?) =
                     purchaseAmount(JsonField.ofNullable(purchaseAmount))
@@ -3051,6 +3105,7 @@ private constructor(
                  * .merchantCategoryCode()
                  * .merchantCountry()
                  * .merchantName()
+                 * .priorCardAuthenticationId()
                  * .purchaseAmount()
                  * .purchaseCurrency()
                  * .realTimeDecisionId()
@@ -3083,6 +3138,7 @@ private constructor(
                         checkRequired("merchantCategoryCode", merchantCategoryCode),
                         checkRequired("merchantCountry", merchantCountry),
                         checkRequired("merchantName", merchantName),
+                        checkRequired("priorCardAuthenticationId", priorCardAuthenticationId),
                         checkRequired("purchaseAmount", purchaseAmount),
                         checkRequired("purchaseCurrency", purchaseCurrency),
                         checkRequired("realTimeDecisionId", realTimeDecisionId),
@@ -3120,6 +3176,7 @@ private constructor(
                 merchantCategoryCode()
                 merchantCountry()
                 merchantName()
+                priorCardAuthenticationId()
                 purchaseAmount()
                 purchaseCurrency()
                 realTimeDecisionId()
@@ -3165,6 +3222,7 @@ private constructor(
                     (if (merchantCategoryCode.asKnown().isPresent) 1 else 0) +
                     (if (merchantCountry.asKnown().isPresent) 1 else 0) +
                     (if (merchantName.asKnown().isPresent) 1 else 0) +
+                    (if (priorCardAuthenticationId.asKnown().isPresent) 1 else 0) +
                     (if (purchaseAmount.asKnown().isPresent) 1 else 0) +
                     (if (purchaseCurrency.asKnown().isPresent) 1 else 0) +
                     (if (realTimeDecisionId.asKnown().isPresent) 1 else 0) +
@@ -5676,6 +5734,7 @@ private constructor(
                     merchantCategoryCode == other.merchantCategoryCode &&
                     merchantCountry == other.merchantCountry &&
                     merchantName == other.merchantName &&
+                    priorCardAuthenticationId == other.priorCardAuthenticationId &&
                     purchaseAmount == other.purchaseAmount &&
                     purchaseCurrency == other.purchaseCurrency &&
                     realTimeDecisionId == other.realTimeDecisionId &&
@@ -5707,6 +5766,7 @@ private constructor(
                     merchantCategoryCode,
                     merchantCountry,
                     merchantName,
+                    priorCardAuthenticationId,
                     purchaseAmount,
                     purchaseCurrency,
                     realTimeDecisionId,
@@ -5719,7 +5779,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthentication{id=$id, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+                "CardAuthentication{id=$id, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardPaymentId=$cardPaymentId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, challenge=$challenge, createdAt=$createdAt, denyReason=$denyReason, deviceChannel=$deviceChannel, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorCardAuthenticationId=$priorCardAuthenticationId, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, realTimeDecisionId=$realTimeDecisionId, status=$status, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
