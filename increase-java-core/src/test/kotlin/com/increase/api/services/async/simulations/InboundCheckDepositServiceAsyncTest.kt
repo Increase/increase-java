@@ -4,6 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAdjustmentParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
@@ -29,6 +30,28 @@ internal class InboundCheckDepositServiceAsyncTest {
                     .payeeNameAnalysis(
                         InboundCheckDepositCreateParams.PayeeNameAnalysis.NAME_MATCHES
                     )
+                    .build()
+            )
+
+        val inboundCheckDeposit = inboundCheckDepositFuture.get()
+        inboundCheckDeposit.validate()
+    }
+
+    @Test
+    fun adjustment() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositServiceAsync = client.simulations().inboundCheckDeposits()
+
+        val inboundCheckDepositFuture =
+            inboundCheckDepositServiceAsync.adjustment(
+                InboundCheckDepositAdjustmentParams.builder()
+                    .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
+                    .amount(1000L)
+                    .reason(InboundCheckDepositAdjustmentParams.Reason.LATE_RETURN)
                     .build()
             )
 
