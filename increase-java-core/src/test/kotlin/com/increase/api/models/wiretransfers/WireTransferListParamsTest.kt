@@ -25,6 +25,11 @@ internal class WireTransferListParamsTest {
             .externalAccountId("external_account_id")
             .idempotencyKey("x")
             .limit(1L)
+            .status(
+                WireTransferListParams.Status.builder()
+                    .addIn(WireTransferListParams.Status.In.PENDING_APPROVAL)
+                    .build()
+            )
             .build()
     }
 
@@ -45,6 +50,11 @@ internal class WireTransferListParamsTest {
                 .externalAccountId("external_account_id")
                 .idempotencyKey("x")
                 .limit(1L)
+                .status(
+                    WireTransferListParams.Status.builder()
+                        .addIn(WireTransferListParams.Status.In.PENDING_APPROVAL)
+                        .build()
+                )
                 .build()
 
         val queryParams = params._queryParams()
@@ -61,6 +71,7 @@ internal class WireTransferListParamsTest {
                     .put("external_account_id", "external_account_id")
                     .put("idempotency_key", "x")
                     .put("limit", "1")
+                    .put("status.in", listOf("pending_approval").joinToString(","))
                     .build()
             )
     }
