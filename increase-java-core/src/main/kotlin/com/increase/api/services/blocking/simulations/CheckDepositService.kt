@@ -7,6 +7,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositAdjustmentParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
@@ -25,6 +26,42 @@ interface CheckDepositService {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositService
+
+    /**
+     * Simulates the creation of a [Check Deposit Adjustment](#check-deposit-adjustments) on a
+     * [Check Deposit](#check-deposits). This Check Deposit must first have a `status` of
+     * `submitted`.
+     */
+    fun adjustment(checkDepositId: String): CheckDeposit =
+        adjustment(checkDepositId, CheckDepositAdjustmentParams.none())
+
+    /** @see adjustment */
+    fun adjustment(
+        checkDepositId: String,
+        params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckDeposit =
+        adjustment(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+    /** @see adjustment */
+    fun adjustment(
+        checkDepositId: String,
+        params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+    ): CheckDeposit = adjustment(checkDepositId, params, RequestOptions.none())
+
+    /** @see adjustment */
+    fun adjustment(
+        params: CheckDepositAdjustmentParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CheckDeposit
+
+    /** @see adjustment */
+    fun adjustment(params: CheckDepositAdjustmentParams): CheckDeposit =
+        adjustment(params, RequestOptions.none())
+
+    /** @see adjustment */
+    fun adjustment(checkDepositId: String, requestOptions: RequestOptions): CheckDeposit =
+        adjustment(checkDepositId, CheckDepositAdjustmentParams.none(), requestOptions)
 
     /**
      * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
@@ -144,6 +181,51 @@ interface CheckDepositService {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): CheckDepositService.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/check_deposits/{check_deposit_id}/adjustment`, but is otherwise the same as
+         * [CheckDepositService.adjustment].
+         */
+        @MustBeClosed
+        fun adjustment(checkDepositId: String): HttpResponseFor<CheckDeposit> =
+            adjustment(checkDepositId, CheckDepositAdjustmentParams.none())
+
+        /** @see adjustment */
+        @MustBeClosed
+        fun adjustment(
+            checkDepositId: String,
+            params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckDeposit> =
+            adjustment(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+        /** @see adjustment */
+        @MustBeClosed
+        fun adjustment(
+            checkDepositId: String,
+            params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+        ): HttpResponseFor<CheckDeposit> = adjustment(checkDepositId, params, RequestOptions.none())
+
+        /** @see adjustment */
+        @MustBeClosed
+        fun adjustment(
+            params: CheckDepositAdjustmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CheckDeposit>
+
+        /** @see adjustment */
+        @MustBeClosed
+        fun adjustment(params: CheckDepositAdjustmentParams): HttpResponseFor<CheckDeposit> =
+            adjustment(params, RequestOptions.none())
+
+        /** @see adjustment */
+        @MustBeClosed
+        fun adjustment(
+            checkDepositId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CheckDeposit> =
+            adjustment(checkDepositId, CheckDepositAdjustmentParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post
