@@ -28,6 +28,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -98,7 +101,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -120,9 +139,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -1900,6 +1933,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -1970,7 +2006,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -1992,9 +2044,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -3772,6 +3838,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -3842,7 +3911,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -3864,9 +3949,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -5644,6 +5743,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -5714,7 +5816,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -5736,9 +5854,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -7550,6 +7682,9 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
+                            .accessControlServerTransactionId(
+                                "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                            )
                             .billingAddressCity("New York")
                             .billingAddressCountry("US")
                             .billingAddressLine1("33 Liberty Street")
@@ -7613,8 +7748,21 @@ internal class CardPaymentTest {
                                             .Category
                                             .BROWSER
                                     )
+                                    .merchantInitiated(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel
+                                            .MerchantInitiated
+                                            .builder()
+                                            .indicator(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .Indicator
+                                                    .RECURRING_TRANSACTION
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
+                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -7634,8 +7782,20 @@ internal class CardPaymentTest {
                             )
                             .requestorName("Example Requestor")
                             .requestorUrl("https://example.com")
+                            .shippingAddressCity("New York")
+                            .shippingAddressCountry("US")
+                            .shippingAddressLine1("33 Liberty Street")
+                            .shippingAddressLine2(null)
+                            .shippingAddressLine3(null)
+                            .shippingAddressPostalCode("10045")
+                            .shippingAddressState("NY")
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
+                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .transactionType(
+                                CardPayment.Element.CardAuthentication.TransactionType
+                                    .GOODS_SERVICE_PURCHASE
                             )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
@@ -9231,6 +9391,9 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
+                            .accessControlServerTransactionId(
+                                "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                            )
                             .billingAddressCity("New York")
                             .billingAddressCountry("US")
                             .billingAddressLine1("33 Liberty Street")
@@ -9294,8 +9457,21 @@ internal class CardPaymentTest {
                                             .Category
                                             .BROWSER
                                     )
+                                    .merchantInitiated(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel
+                                            .MerchantInitiated
+                                            .builder()
+                                            .indicator(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .Indicator
+                                                    .RECURRING_TRANSACTION
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
+                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -9315,8 +9491,20 @@ internal class CardPaymentTest {
                             )
                             .requestorName("Example Requestor")
                             .requestorUrl("https://example.com")
+                            .shippingAddressCity("New York")
+                            .shippingAddressCountry("US")
+                            .shippingAddressLine1("33 Liberty Street")
+                            .shippingAddressLine2(null)
+                            .shippingAddressLine3(null)
+                            .shippingAddressPostalCode("10045")
+                            .shippingAddressState("NY")
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
+                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .transactionType(
+                                CardPayment.Element.CardAuthentication.TransactionType
+                                    .GOODS_SERVICE_PURCHASE
                             )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
@@ -10912,6 +11100,9 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
+                            .accessControlServerTransactionId(
+                                "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                            )
                             .billingAddressCity("New York")
                             .billingAddressCountry("US")
                             .billingAddressLine1("33 Liberty Street")
@@ -10975,8 +11166,21 @@ internal class CardPaymentTest {
                                             .Category
                                             .BROWSER
                                     )
+                                    .merchantInitiated(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel
+                                            .MerchantInitiated
+                                            .builder()
+                                            .indicator(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .Indicator
+                                                    .RECURRING_TRANSACTION
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
+                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -10996,8 +11200,20 @@ internal class CardPaymentTest {
                             )
                             .requestorName("Example Requestor")
                             .requestorUrl("https://example.com")
+                            .shippingAddressCity("New York")
+                            .shippingAddressCountry("US")
+                            .shippingAddressLine1("33 Liberty Street")
+                            .shippingAddressLine2(null)
+                            .shippingAddressLine3(null)
+                            .shippingAddressPostalCode("10045")
+                            .shippingAddressState("NY")
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
+                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .transactionType(
+                                CardPayment.Element.CardAuthentication.TransactionType
+                                    .GOODS_SERVICE_PURCHASE
                             )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
@@ -12593,6 +12809,9 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
+                            .accessControlServerTransactionId(
+                                "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                            )
                             .billingAddressCity("New York")
                             .billingAddressCountry("US")
                             .billingAddressLine1("33 Liberty Street")
@@ -12656,8 +12875,21 @@ internal class CardPaymentTest {
                                             .Category
                                             .BROWSER
                                     )
+                                    .merchantInitiated(
+                                        CardPayment.Element.CardAuthentication.DeviceChannel
+                                            .MerchantInitiated
+                                            .builder()
+                                            .indicator(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .Indicator
+                                                    .RECURRING_TRANSACTION
+                                            )
+                                            .build()
+                                    )
                                     .build()
                             )
+                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -12677,8 +12909,20 @@ internal class CardPaymentTest {
                             )
                             .requestorName("Example Requestor")
                             .requestorUrl("https://example.com")
+                            .shippingAddressCity("New York")
+                            .shippingAddressCountry("US")
+                            .shippingAddressLine1("33 Liberty Street")
+                            .shippingAddressLine2(null)
+                            .shippingAddressLine3(null)
+                            .shippingAddressPostalCode("10045")
+                            .shippingAddressState("NY")
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
+                            )
+                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .transactionType(
+                                CardPayment.Element.CardAuthentication.TransactionType
+                                    .GOODS_SERVICE_PURCHASE
                             )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
@@ -14314,6 +14558,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -14384,7 +14631,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -14406,9 +14669,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -16186,6 +16463,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -16256,7 +16536,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -16278,9 +16574,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -18058,6 +18368,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -18128,7 +18441,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -18150,9 +18479,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
@@ -19930,6 +20273,9 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
+                                    .accessControlServerTransactionId(
+                                        "1a628378-4d43-4438-a31f-25c0e1bf2537"
+                                    )
                                     .billingAddressCity("New York")
                                     .billingAddressCountry("US")
                                     .billingAddressLine1("33 Liberty Street")
@@ -20000,7 +20346,23 @@ internal class CardPaymentTest {
                                                     .Category
                                                     .BROWSER
                                             )
+                                            .merchantInitiated(
+                                                CardPayment.Element.CardAuthentication.DeviceChannel
+                                                    .MerchantInitiated
+                                                    .builder()
+                                                    .indicator(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .DeviceChannel
+                                                            .MerchantInitiated
+                                                            .Indicator
+                                                            .RECURRING_TRANSACTION
+                                                    )
+                                                    .build()
+                                            )
                                             .build()
+                                    )
+                                    .directoryServerTransactionId(
+                                        "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
@@ -20022,9 +20384,23 @@ internal class CardPaymentTest {
                                     )
                                     .requestorName("Example Requestor")
                                     .requestorUrl("https://example.com")
+                                    .shippingAddressCity("New York")
+                                    .shippingAddressCountry("US")
+                                    .shippingAddressLine1("33 Liberty Street")
+                                    .shippingAddressLine2(null)
+                                    .shippingAddressLine3(null)
+                                    .shippingAddressPostalCode("10045")
+                                    .shippingAddressState("NY")
                                     .status(
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
+                                    )
+                                    .threeDSecureServerTransactionId(
+                                        "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                                    )
+                                    .transactionType(
+                                        CardPayment.Element.CardAuthentication.TransactionType
+                                            .GOODS_SERVICE_PURCHASE
                                     )
                                     .type(
                                         CardPayment.Element.CardAuthentication.Type
