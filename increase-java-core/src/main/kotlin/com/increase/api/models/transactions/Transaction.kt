@@ -15189,11 +15189,15 @@ private constructor(
                             /** Increase failed to process the authorization in a timely manner. */
                             @JvmField val ISSUER_ERROR = of("issuer_error")
 
-                            /**
-                             * The physical card read had an invalid CVV, dCVV, or authorization
-                             * request cryptogram.
-                             */
+                            /** The physical card read had an invalid CVV or dCVV. */
                             @JvmField val INVALID_PHYSICAL_CARD = of("invalid_physical_card")
+
+                            /**
+                             * The card's authorization request cryptogram was invalid. The
+                             * cryptogram can be from a physical card or a Digital Wallet Token
+                             * purchase.
+                             */
+                            @JvmField val INVALID_CRYPTOGRAM = of("invalid_cryptogram")
 
                             /** The 3DS cardholder authentication verification value was invalid. */
                             @JvmField
@@ -15236,11 +15240,14 @@ private constructor(
                         enum class Known {
                             /** Increase failed to process the authorization in a timely manner. */
                             ISSUER_ERROR,
-                            /**
-                             * The physical card read had an invalid CVV, dCVV, or authorization
-                             * request cryptogram.
-                             */
+                            /** The physical card read had an invalid CVV or dCVV. */
                             INVALID_PHYSICAL_CARD,
+                            /**
+                             * The card's authorization request cryptogram was invalid. The
+                             * cryptogram can be from a physical card or a Digital Wallet Token
+                             * purchase.
+                             */
+                            INVALID_CRYPTOGRAM,
                             /** The 3DS cardholder authentication verification value was invalid. */
                             INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
                             /**
@@ -15279,11 +15286,14 @@ private constructor(
                         enum class Value {
                             /** Increase failed to process the authorization in a timely manner. */
                             ISSUER_ERROR,
-                            /**
-                             * The physical card read had an invalid CVV, dCVV, or authorization
-                             * request cryptogram.
-                             */
+                            /** The physical card read had an invalid CVV or dCVV. */
                             INVALID_PHYSICAL_CARD,
+                            /**
+                             * The card's authorization request cryptogram was invalid. The
+                             * cryptogram can be from a physical card or a Digital Wallet Token
+                             * purchase.
+                             */
+                            INVALID_CRYPTOGRAM,
                             /** The 3DS cardholder authentication verification value was invalid. */
                             INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE,
                             /**
@@ -15324,6 +15334,7 @@ private constructor(
                             when (this) {
                                 ISSUER_ERROR -> Value.ISSUER_ERROR
                                 INVALID_PHYSICAL_CARD -> Value.INVALID_PHYSICAL_CARD
+                                INVALID_CRYPTOGRAM -> Value.INVALID_CRYPTOGRAM
                                 INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
                                     Value.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
                                 INTERNAL_VISA_ERROR -> Value.INTERNAL_VISA_ERROR
@@ -15349,6 +15360,7 @@ private constructor(
                             when (this) {
                                 ISSUER_ERROR -> Known.ISSUER_ERROR
                                 INVALID_PHYSICAL_CARD -> Known.INVALID_PHYSICAL_CARD
+                                INVALID_CRYPTOGRAM -> Known.INVALID_CRYPTOGRAM
                                 INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE ->
                                     Known.INVALID_CARDHOLDER_AUTHENTICATION_VERIFICATION_VALUE
                                 INTERNAL_VISA_ERROR -> Known.INTERNAL_VISA_ERROR
