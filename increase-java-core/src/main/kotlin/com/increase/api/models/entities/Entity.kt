@@ -1762,7 +1762,7 @@ private constructor(
         class BeneficialOwner
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val beneficialOwnerId: JsonField<String>,
+            private val id: JsonField<String>,
             private val companyTitle: JsonField<String>,
             private val individual: JsonField<Individual>,
             private val prongs: JsonField<List<Prong>>,
@@ -1771,9 +1771,7 @@ private constructor(
 
             @JsonCreator
             private constructor(
-                @JsonProperty("beneficial_owner_id")
-                @ExcludeMissing
-                beneficialOwnerId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("company_title")
                 @ExcludeMissing
                 companyTitle: JsonField<String> = JsonMissing.of(),
@@ -1783,7 +1781,7 @@ private constructor(
                 @JsonProperty("prongs")
                 @ExcludeMissing
                 prongs: JsonField<List<Prong>> = JsonMissing.of(),
-            ) : this(beneficialOwnerId, companyTitle, individual, prongs, mutableMapOf())
+            ) : this(id, companyTitle, individual, prongs, mutableMapOf())
 
             /**
              * The identifier of this beneficial owner.
@@ -1792,7 +1790,7 @@ private constructor(
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun beneficialOwnerId(): String = beneficialOwnerId.getRequired("beneficial_owner_id")
+            fun id(): String = id.getRequired("id")
 
             /**
              * This person's role or title within the entity.
@@ -1821,14 +1819,11 @@ private constructor(
             fun prongs(): List<Prong> = prongs.getRequired("prongs")
 
             /**
-             * Returns the raw JSON value of [beneficialOwnerId].
+             * Returns the raw JSON value of [id].
              *
-             * Unlike [beneficialOwnerId], this method doesn't throw if the JSON field has an
-             * unexpected type.
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
              */
-            @JsonProperty("beneficial_owner_id")
-            @ExcludeMissing
-            fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
             /**
              * Returns the raw JSON value of [companyTitle].
@@ -1876,7 +1871,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
-                 * .beneficialOwnerId()
+                 * .id()
                  * .companyTitle()
                  * .individual()
                  * .prongs()
@@ -1888,7 +1883,7 @@ private constructor(
             /** A builder for [BeneficialOwner]. */
             class Builder internal constructor() {
 
-                private var beneficialOwnerId: JsonField<String>? = null
+                private var id: JsonField<String>? = null
                 private var companyTitle: JsonField<String>? = null
                 private var individual: JsonField<Individual>? = null
                 private var prongs: JsonField<MutableList<Prong>>? = null
@@ -1896,7 +1891,7 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(beneficialOwner: BeneficialOwner) = apply {
-                    beneficialOwnerId = beneficialOwner.beneficialOwnerId
+                    id = beneficialOwner.id
                     companyTitle = beneficialOwner.companyTitle
                     individual = beneficialOwner.individual
                     prongs = beneficialOwner.prongs.map { it.toMutableList() }
@@ -1904,19 +1899,16 @@ private constructor(
                 }
 
                 /** The identifier of this beneficial owner. */
-                fun beneficialOwnerId(beneficialOwnerId: String) =
-                    beneficialOwnerId(JsonField.of(beneficialOwnerId))
+                fun id(id: String) = id(JsonField.of(id))
 
                 /**
-                 * Sets [Builder.beneficialOwnerId] to an arbitrary JSON value.
+                 * Sets [Builder.id] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.beneficialOwnerId] with a well-typed [String]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
                  */
-                fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
-                    this.beneficialOwnerId = beneficialOwnerId
-                }
+                fun id(id: JsonField<String>) = apply { this.id = id }
 
                 /** This person's role or title within the entity. */
                 fun companyTitle(companyTitle: String?) =
@@ -2006,7 +1998,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
-                 * .beneficialOwnerId()
+                 * .id()
                  * .companyTitle()
                  * .individual()
                  * .prongs()
@@ -2016,7 +2008,7 @@ private constructor(
                  */
                 fun build(): BeneficialOwner =
                     BeneficialOwner(
-                        checkRequired("beneficialOwnerId", beneficialOwnerId),
+                        checkRequired("id", id),
                         checkRequired("companyTitle", companyTitle),
                         checkRequired("individual", individual),
                         checkRequired("prongs", prongs).map { it.toImmutable() },
@@ -2031,7 +2023,7 @@ private constructor(
                     return@apply
                 }
 
-                beneficialOwnerId()
+                id()
                 companyTitle()
                 individual().validate()
                 prongs().forEach { it.validate() }
@@ -2054,7 +2046,7 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (if (beneficialOwnerId.asKnown().isPresent) 1 else 0) +
+                (if (id.asKnown().isPresent) 1 else 0) +
                     (if (companyTitle.asKnown().isPresent) 1 else 0) +
                     (individual.asKnown().getOrNull()?.validity() ?: 0) +
                     (prongs.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
@@ -3298,7 +3290,7 @@ private constructor(
                 }
 
                 return other is BeneficialOwner &&
-                    beneficialOwnerId == other.beneficialOwnerId &&
+                    id == other.id &&
                     companyTitle == other.companyTitle &&
                     individual == other.individual &&
                     prongs == other.prongs &&
@@ -3306,19 +3298,13 @@ private constructor(
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(
-                    beneficialOwnerId,
-                    companyTitle,
-                    individual,
-                    prongs,
-                    additionalProperties,
-                )
+                Objects.hash(id, companyTitle, individual, prongs, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "BeneficialOwner{beneficialOwnerId=$beneficialOwnerId, companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
+                "BeneficialOwner{id=$id, companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
