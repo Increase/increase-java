@@ -4,12 +4,35 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.simulations.checkdeposits.CheckDepositAdjustmentParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
 internal class CheckDepositServiceAsyncTest {
+
+    @Test
+    fun adjustment() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val checkDepositServiceAsync = client.simulations().checkDeposits()
+
+        val checkDepositFuture =
+            checkDepositServiceAsync.adjustment(
+                CheckDepositAdjustmentParams.builder()
+                    .checkDepositId("check_deposit_f06n9gpg7sxn8t19lfc1")
+                    .amount(-1000000000L)
+                    .reason(CheckDepositAdjustmentParams.Reason.LATE_RETURN)
+                    .build()
+            )
+
+        val checkDeposit = checkDepositFuture.get()
+        checkDeposit.validate()
+    }
 
     @Test
     fun reject() {
