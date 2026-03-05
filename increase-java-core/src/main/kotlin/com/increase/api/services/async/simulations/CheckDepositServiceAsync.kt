@@ -6,6 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositAdjustmentParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
@@ -25,6 +26,45 @@ interface CheckDepositServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositServiceAsync
+
+    /**
+     * Simulates the creation of a [Check Deposit Adjustment](#check-deposit-adjustments) on a
+     * [Check Deposit](#check-deposits). This Check Deposit must first have a `status` of
+     * `submitted`.
+     */
+    fun adjustment(checkDepositId: String): CompletableFuture<CheckDeposit> =
+        adjustment(checkDepositId, CheckDepositAdjustmentParams.none())
+
+    /** @see adjustment */
+    fun adjustment(
+        checkDepositId: String,
+        params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckDeposit> =
+        adjustment(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+    /** @see adjustment */
+    fun adjustment(
+        checkDepositId: String,
+        params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+    ): CompletableFuture<CheckDeposit> = adjustment(checkDepositId, params, RequestOptions.none())
+
+    /** @see adjustment */
+    fun adjustment(
+        params: CheckDepositAdjustmentParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<CheckDeposit>
+
+    /** @see adjustment */
+    fun adjustment(params: CheckDepositAdjustmentParams): CompletableFuture<CheckDeposit> =
+        adjustment(params, RequestOptions.none())
+
+    /** @see adjustment */
+    fun adjustment(
+        checkDepositId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckDeposit> =
+        adjustment(checkDepositId, CheckDepositAdjustmentParams.none(), requestOptions)
 
     /**
      * Simulates the rejection of a [Check Deposit](#check-deposits) by Increase due to factors like
@@ -154,6 +194,48 @@ interface CheckDepositServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): CheckDepositServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/check_deposits/{check_deposit_id}/adjustment`, but is otherwise the same as
+         * [CheckDepositServiceAsync.adjustment].
+         */
+        fun adjustment(checkDepositId: String): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            adjustment(checkDepositId, CheckDepositAdjustmentParams.none())
+
+        /** @see adjustment */
+        fun adjustment(
+            checkDepositId: String,
+            params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            adjustment(params.toBuilder().checkDepositId(checkDepositId).build(), requestOptions)
+
+        /** @see adjustment */
+        fun adjustment(
+            checkDepositId: String,
+            params: CheckDepositAdjustmentParams = CheckDepositAdjustmentParams.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            adjustment(checkDepositId, params, RequestOptions.none())
+
+        /** @see adjustment */
+        fun adjustment(
+            params: CheckDepositAdjustmentParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>>
+
+        /** @see adjustment */
+        fun adjustment(
+            params: CheckDepositAdjustmentParams
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            adjustment(params, RequestOptions.none())
+
+        /** @see adjustment */
+        fun adjustment(
+            checkDepositId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> =
+            adjustment(checkDepositId, CheckDepositAdjustmentParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

@@ -17,6 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.checkdeposits.CheckDeposit
+import com.increase.api.models.simulations.checkdeposits.CheckDepositAdjustmentParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositRejectParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositReturnParams
 import com.increase.api.models.simulations.checkdeposits.CheckDepositSubmitParams
@@ -35,6 +36,13 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): CheckDepositServiceAsync =
         CheckDepositServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun adjustment(
+        params: CheckDepositAdjustmentParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CheckDeposit> =
+        // post /simulations/check_deposits/{check_deposit_id}/adjustment
+        withRawResponse().adjustment(params, requestOptions).thenApply { it.parse() }
 
     override fun reject(
         params: CheckDepositRejectParams,
@@ -69,6 +77,45 @@ class CheckDepositServiceAsyncImpl internal constructor(private val clientOption
             CheckDepositServiceAsyncImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val adjustmentHandler: Handler<CheckDeposit> =
+            jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
+
+        override fun adjustment(
+            params: CheckDepositAdjustmentParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CheckDeposit>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("checkDepositId", params.checkDepositId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "simulations",
+                        "check_deposits",
+                        params._pathParam(0),
+                        "adjustment",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { adjustmentHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
 
         private val rejectHandler: Handler<CheckDeposit> =
             jsonHandler<CheckDeposit>(clientOptions.jsonMapper)
