@@ -121,6 +121,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -2221,6 +2233,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -4321,6 +4345,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -6421,6 +6457,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -8559,6 +8607,18 @@ internal class CardPaymentListPageResponseTest {
                                         .purchaseAmount(1000L)
                                         .purchaseCurrency("USD")
                                         .realTimeDecisionId(null)
+                                        .requestorAuthenticationIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorAuthenticationIndicator
+                                                .PAYMENT_TRANSACTION
+                                        )
+                                        .requestorChallengeIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorChallengeIndicator
+                                                .NO_PREFERENCE
+                                        )
+                                        .requestorName("Example Requestor")
+                                        .requestorUrl("https://example.com")
                                         .status(
                                             CardPayment.Element.CardAuthentication.Status
                                                 .VALIDATING_CHALLENGE
@@ -10541,6 +10601,18 @@ internal class CardPaymentListPageResponseTest {
                                         .purchaseAmount(1000L)
                                         .purchaseCurrency("USD")
                                         .realTimeDecisionId(null)
+                                        .requestorAuthenticationIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorAuthenticationIndicator
+                                                .PAYMENT_TRANSACTION
+                                        )
+                                        .requestorChallengeIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorChallengeIndicator
+                                                .NO_PREFERENCE
+                                        )
+                                        .requestorName("Example Requestor")
+                                        .requestorUrl("https://example.com")
                                         .status(
                                             CardPayment.Element.CardAuthentication.Status
                                                 .VALIDATING_CHALLENGE
@@ -12523,6 +12595,18 @@ internal class CardPaymentListPageResponseTest {
                                         .purchaseAmount(1000L)
                                         .purchaseCurrency("USD")
                                         .realTimeDecisionId(null)
+                                        .requestorAuthenticationIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorAuthenticationIndicator
+                                                .PAYMENT_TRANSACTION
+                                        )
+                                        .requestorChallengeIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorChallengeIndicator
+                                                .NO_PREFERENCE
+                                        )
+                                        .requestorName("Example Requestor")
+                                        .requestorUrl("https://example.com")
                                         .status(
                                             CardPayment.Element.CardAuthentication.Status
                                                 .VALIDATING_CHALLENGE
@@ -14505,6 +14589,18 @@ internal class CardPaymentListPageResponseTest {
                                         .purchaseAmount(1000L)
                                         .purchaseCurrency("USD")
                                         .realTimeDecisionId(null)
+                                        .requestorAuthenticationIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorAuthenticationIndicator
+                                                .PAYMENT_TRANSACTION
+                                        )
+                                        .requestorChallengeIndicator(
+                                            CardPayment.Element.CardAuthentication
+                                                .RequestorChallengeIndicator
+                                                .NO_PREFERENCE
+                                        )
+                                        .requestorName("Example Requestor")
+                                        .requestorUrl("https://example.com")
                                         .status(
                                             CardPayment.Element.CardAuthentication.Status
                                                 .VALIDATING_CHALLENGE
@@ -16535,6 +16631,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -18635,6 +18743,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -20735,6 +20855,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
@@ -22835,6 +22967,18 @@ internal class CardPaymentListPageResponseTest {
                                             .purchaseAmount(1000L)
                                             .purchaseCurrency("USD")
                                             .realTimeDecisionId(null)
+                                            .requestorAuthenticationIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorAuthenticationIndicator
+                                                    .PAYMENT_TRANSACTION
+                                            )
+                                            .requestorChallengeIndicator(
+                                                CardPayment.Element.CardAuthentication
+                                                    .RequestorChallengeIndicator
+                                                    .NO_PREFERENCE
+                                            )
+                                            .requestorName("Example Requestor")
+                                            .requestorUrl("https://example.com")
                                             .status(
                                                 CardPayment.Element.CardAuthentication.Status
                                                     .VALIDATING_CHALLENGE
