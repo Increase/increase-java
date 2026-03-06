@@ -713,6 +713,7 @@ private constructor(
         private val merchantName: JsonField<String>,
         private val priorCardAuthenticationId: JsonField<String>,
         private val purchaseAmount: JsonField<Long>,
+        private val purchaseAmountCardholderEstimated: JsonField<Long>,
         private val purchaseCurrency: JsonField<String>,
         private val requestorAuthenticationIndicator: JsonField<RequestorAuthenticationIndicator>,
         private val requestorChallengeIndicator: JsonField<RequestorChallengeIndicator>,
@@ -797,6 +798,9 @@ private constructor(
             @JsonProperty("purchase_amount")
             @ExcludeMissing
             purchaseAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("purchase_amount_cardholder_estimated")
+            @ExcludeMissing
+            purchaseAmountCardholderEstimated: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("purchase_currency")
             @ExcludeMissing
             purchaseCurrency: JsonField<String> = JsonMissing.of(),
@@ -866,6 +870,7 @@ private constructor(
             merchantName,
             priorCardAuthenticationId,
             purchaseAmount,
+            purchaseAmountCardholderEstimated,
             purchaseCurrency,
             requestorAuthenticationIndicator,
             requestorChallengeIndicator,
@@ -1081,6 +1086,16 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun purchaseAmount(): Optional<Long> = purchaseAmount.getOptional("purchase_amount")
+
+        /**
+         * The purchase amount in the cardholder's currency (i.e., USD) estimated using daily
+         * conversion rates from the card network.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun purchaseAmountCardholderEstimated(): Optional<Long> =
+            purchaseAmountCardholderEstimated.getOptional("purchase_amount_cardholder_estimated")
 
         /**
          * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the authentication
@@ -1428,6 +1443,17 @@ private constructor(
         fun _purchaseAmount(): JsonField<Long> = purchaseAmount
 
         /**
+         * Returns the raw JSON value of [purchaseAmountCardholderEstimated].
+         *
+         * Unlike [purchaseAmountCardholderEstimated], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("purchase_amount_cardholder_estimated")
+        @ExcludeMissing
+        fun _purchaseAmountCardholderEstimated(): JsonField<Long> =
+            purchaseAmountCardholderEstimated
+
+        /**
          * Returns the raw JSON value of [purchaseCurrency].
          *
          * Unlike [purchaseCurrency], this method doesn't throw if the JSON field has an unexpected
@@ -1620,6 +1646,7 @@ private constructor(
              * .merchantName()
              * .priorCardAuthenticationId()
              * .purchaseAmount()
+             * .purchaseAmountCardholderEstimated()
              * .purchaseCurrency()
              * .requestorAuthenticationIndicator()
              * .requestorChallengeIndicator()
@@ -1665,6 +1692,7 @@ private constructor(
             private var merchantName: JsonField<String>? = null
             private var priorCardAuthenticationId: JsonField<String>? = null
             private var purchaseAmount: JsonField<Long>? = null
+            private var purchaseAmountCardholderEstimated: JsonField<Long>? = null
             private var purchaseCurrency: JsonField<String>? = null
             private var requestorAuthenticationIndicator:
                 JsonField<RequestorAuthenticationIndicator>? =
@@ -1709,6 +1737,8 @@ private constructor(
                 merchantName = cardAuthentication.merchantName
                 priorCardAuthenticationId = cardAuthentication.priorCardAuthenticationId
                 purchaseAmount = cardAuthentication.purchaseAmount
+                purchaseAmountCardholderEstimated =
+                    cardAuthentication.purchaseAmountCardholderEstimated
                 purchaseCurrency = cardAuthentication.purchaseCurrency
                 requestorAuthenticationIndicator =
                     cardAuthentication.requestorAuthenticationIndicator
@@ -2163,6 +2193,42 @@ private constructor(
             }
 
             /**
+             * The purchase amount in the cardholder's currency (i.e., USD) estimated using daily
+             * conversion rates from the card network.
+             */
+            fun purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated: Long?) =
+                purchaseAmountCardholderEstimated(
+                    JsonField.ofNullable(purchaseAmountCardholderEstimated)
+                )
+
+            /**
+             * Alias for [Builder.purchaseAmountCardholderEstimated].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated: Long) =
+                purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated as Long?)
+
+            /**
+             * Alias for calling [Builder.purchaseAmountCardholderEstimated] with
+             * `purchaseAmountCardholderEstimated.orElse(null)`.
+             */
+            fun purchaseAmountCardholderEstimated(
+                purchaseAmountCardholderEstimated: Optional<Long>
+            ) = purchaseAmountCardholderEstimated(purchaseAmountCardholderEstimated.getOrNull())
+
+            /**
+             * Sets [Builder.purchaseAmountCardholderEstimated] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.purchaseAmountCardholderEstimated] with a well-typed
+             * [Long] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun purchaseAmountCardholderEstimated(
+                purchaseAmountCardholderEstimated: JsonField<Long>
+            ) = apply { this.purchaseAmountCardholderEstimated = purchaseAmountCardholderEstimated }
+
+            /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the authentication
              * attempt's purchase currency.
              */
@@ -2525,6 +2591,7 @@ private constructor(
              * .merchantName()
              * .priorCardAuthenticationId()
              * .purchaseAmount()
+             * .purchaseAmountCardholderEstimated()
              * .purchaseCurrency()
              * .requestorAuthenticationIndicator()
              * .requestorChallengeIndicator()
@@ -2571,6 +2638,10 @@ private constructor(
                     checkRequired("merchantName", merchantName),
                     checkRequired("priorCardAuthenticationId", priorCardAuthenticationId),
                     checkRequired("purchaseAmount", purchaseAmount),
+                    checkRequired(
+                        "purchaseAmountCardholderEstimated",
+                        purchaseAmountCardholderEstimated,
+                    ),
                     checkRequired("purchaseCurrency", purchaseCurrency),
                     checkRequired(
                         "requestorAuthenticationIndicator",
@@ -2625,6 +2696,7 @@ private constructor(
             merchantName()
             priorCardAuthenticationId()
             purchaseAmount()
+            purchaseAmountCardholderEstimated()
             purchaseCurrency()
             requestorAuthenticationIndicator().ifPresent { it.validate() }
             requestorChallengeIndicator().ifPresent { it.validate() }
@@ -2681,6 +2753,7 @@ private constructor(
                 (if (merchantName.asKnown().isPresent) 1 else 0) +
                 (if (priorCardAuthenticationId.asKnown().isPresent) 1 else 0) +
                 (if (purchaseAmount.asKnown().isPresent) 1 else 0) +
+                (if (purchaseAmountCardholderEstimated.asKnown().isPresent) 1 else 0) +
                 (if (purchaseCurrency.asKnown().isPresent) 1 else 0) +
                 (requestorAuthenticationIndicator.asKnown().getOrNull()?.validity() ?: 0) +
                 (requestorChallengeIndicator.asKnown().getOrNull()?.validity() ?: 0) +
@@ -5028,6 +5101,7 @@ private constructor(
                 merchantName == other.merchantName &&
                 priorCardAuthenticationId == other.priorCardAuthenticationId &&
                 purchaseAmount == other.purchaseAmount &&
+                purchaseAmountCardholderEstimated == other.purchaseAmountCardholderEstimated &&
                 purchaseCurrency == other.purchaseCurrency &&
                 requestorAuthenticationIndicator == other.requestorAuthenticationIndicator &&
                 requestorChallengeIndicator == other.requestorChallengeIndicator &&
@@ -5070,6 +5144,7 @@ private constructor(
                 merchantName,
                 priorCardAuthenticationId,
                 purchaseAmount,
+                purchaseAmountCardholderEstimated,
                 purchaseCurrency,
                 requestorAuthenticationIndicator,
                 requestorChallengeIndicator,
@@ -5092,7 +5167,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthentication{accessControlServerTransactionId=$accessControlServerTransactionId, accountId=$accountId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, decision=$decision, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorCardAuthenticationId=$priorCardAuthenticationId, purchaseAmount=$purchaseAmount, purchaseCurrency=$purchaseCurrency, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, transactionType=$transactionType, upcomingCardPaymentId=$upcomingCardPaymentId, additionalProperties=$additionalProperties}"
+            "CardAuthentication{accessControlServerTransactionId=$accessControlServerTransactionId, accountId=$accountId, billingAddressCity=$billingAddressCity, billingAddressCountry=$billingAddressCountry, billingAddressLine1=$billingAddressLine1, billingAddressLine2=$billingAddressLine2, billingAddressLine3=$billingAddressLine3, billingAddressPostalCode=$billingAddressPostalCode, billingAddressState=$billingAddressState, cardId=$cardId, cardholderEmail=$cardholderEmail, cardholderName=$cardholderName, category=$category, decision=$decision, deviceChannel=$deviceChannel, directoryServerTransactionId=$directoryServerTransactionId, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, merchantName=$merchantName, priorCardAuthenticationId=$priorCardAuthenticationId, purchaseAmount=$purchaseAmount, purchaseAmountCardholderEstimated=$purchaseAmountCardholderEstimated, purchaseCurrency=$purchaseCurrency, requestorAuthenticationIndicator=$requestorAuthenticationIndicator, requestorChallengeIndicator=$requestorChallengeIndicator, requestorName=$requestorName, requestorUrl=$requestorUrl, shippingAddressCity=$shippingAddressCity, shippingAddressCountry=$shippingAddressCountry, shippingAddressLine1=$shippingAddressLine1, shippingAddressLine2=$shippingAddressLine2, shippingAddressLine3=$shippingAddressLine3, shippingAddressPostalCode=$shippingAddressPostalCode, shippingAddressState=$shippingAddressState, threeDSecureServerTransactionId=$threeDSecureServerTransactionId, transactionType=$transactionType, upcomingCardPaymentId=$upcomingCardPaymentId, additionalProperties=$additionalProperties}"
     }
 
     /** Fields related to a 3DS authentication attempt. */

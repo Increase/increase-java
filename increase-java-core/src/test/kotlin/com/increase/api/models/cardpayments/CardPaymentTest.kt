@@ -124,8 +124,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -2029,8 +2030,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -3934,8 +3936,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -5839,8 +5842,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -7768,8 +7772,9 @@ internal class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantName("AMAZON.COM")
                             .priorCardAuthenticationId(null)
-                            .purchaseAmount(1000L)
-                            .purchaseCurrency("USD")
+                            .purchaseAmount(861L)
+                            .purchaseAmountCardholderEstimated(1000L)
+                            .purchaseCurrency("EUR")
                             .realTimeDecisionId(null)
                             .requestorAuthenticationIndicator(
                                 CardPayment.Element.CardAuthentication
@@ -9477,8 +9482,9 @@ internal class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantName("AMAZON.COM")
                             .priorCardAuthenticationId(null)
-                            .purchaseAmount(1000L)
-                            .purchaseCurrency("USD")
+                            .purchaseAmount(861L)
+                            .purchaseAmountCardholderEstimated(1000L)
+                            .purchaseCurrency("EUR")
                             .realTimeDecisionId(null)
                             .requestorAuthenticationIndicator(
                                 CardPayment.Element.CardAuthentication
@@ -11186,8 +11192,9 @@ internal class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantName("AMAZON.COM")
                             .priorCardAuthenticationId(null)
-                            .purchaseAmount(1000L)
-                            .purchaseCurrency("USD")
+                            .purchaseAmount(861L)
+                            .purchaseAmountCardholderEstimated(1000L)
+                            .purchaseCurrency("EUR")
                             .realTimeDecisionId(null)
                             .requestorAuthenticationIndicator(
                                 CardPayment.Element.CardAuthentication
@@ -12895,8 +12902,9 @@ internal class CardPaymentTest {
                             .merchantCountry("US")
                             .merchantName("AMAZON.COM")
                             .priorCardAuthenticationId(null)
-                            .purchaseAmount(1000L)
-                            .purchaseCurrency("USD")
+                            .purchaseAmount(861L)
+                            .purchaseAmountCardholderEstimated(1000L)
+                            .purchaseCurrency("EUR")
                             .realTimeDecisionId(null)
                             .requestorAuthenticationIndicator(
                                 CardPayment.Element.CardAuthentication
@@ -14654,8 +14662,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -16559,8 +16568,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -18464,8 +18474,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication
@@ -20369,8 +20380,9 @@ internal class CardPaymentTest {
                                     .merchantCountry("US")
                                     .merchantName("AMAZON.COM")
                                     .priorCardAuthenticationId(null)
-                                    .purchaseAmount(1000L)
-                                    .purchaseCurrency("USD")
+                                    .purchaseAmount(861L)
+                                    .purchaseAmountCardholderEstimated(1000L)
+                                    .purchaseCurrency("EUR")
                                     .realTimeDecisionId(null)
                                     .requestorAuthenticationIndicator(
                                         CardPayment.Element.CardAuthentication

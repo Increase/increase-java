@@ -74,6 +74,7 @@ internal class RealTimeDecisionTest {
                         .merchantName("merchant_name")
                         .priorCardAuthenticationId("prior_card_authentication_id")
                         .purchaseAmount(0L)
+                        .purchaseAmountCardholderEstimated(0L)
                         .purchaseCurrency("purchase_currency")
                         .requestorAuthenticationIndicator(
                             RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
@@ -608,6 +609,7 @@ internal class RealTimeDecisionTest {
                     .merchantName("merchant_name")
                     .priorCardAuthenticationId("prior_card_authentication_id")
                     .purchaseAmount(0L)
+                    .purchaseAmountCardholderEstimated(0L)
                     .purchaseCurrency("purchase_currency")
                     .requestorAuthenticationIndicator(
                         RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
@@ -1142,6 +1144,7 @@ internal class RealTimeDecisionTest {
                         .merchantName("merchant_name")
                         .priorCardAuthenticationId("prior_card_authentication_id")
                         .purchaseAmount(0L)
+                        .purchaseAmountCardholderEstimated(0L)
                         .purchaseCurrency("purchase_currency")
                         .requestorAuthenticationIndicator(
                             RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
