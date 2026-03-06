@@ -17,9 +17,86 @@ internal class RealTimeDecisionTest {
                 .id("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .cardAuthentication(
                     RealTimeDecision.CardAuthentication.builder()
+                        .accessControlServerTransactionId("access_control_server_transaction_id")
                         .accountId("account_id")
+                        .billingAddressCity("billing_address_city")
+                        .billingAddressCountry("billing_address_country")
+                        .billingAddressLine1("billing_address_line1")
+                        .billingAddressLine2("billing_address_line2")
+                        .billingAddressLine3("billing_address_line3")
+                        .billingAddressPostalCode("billing_address_postal_code")
+                        .billingAddressState("billing_address_state")
                         .cardId("card_id")
+                        .cardholderEmail("cardholder_email")
+                        .cardholderName("cardholder_name")
+                        .category(
+                            RealTimeDecision.CardAuthentication.Category.PAYMENT_AUTHENTICATION
+                        )
                         .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
+                        .deviceChannel(
+                            RealTimeDecision.CardAuthentication.DeviceChannel.builder()
+                                .browser(
+                                    RealTimeDecision.CardAuthentication.DeviceChannel.Browser
+                                        .builder()
+                                        .acceptHeader("accept_header")
+                                        .ipAddress("ip_address")
+                                        .javascriptEnabled(
+                                            RealTimeDecision.CardAuthentication.DeviceChannel
+                                                .Browser
+                                                .JavascriptEnabled
+                                                .ENABLED
+                                        )
+                                        .language("language")
+                                        .userAgent("user_agent")
+                                        .build()
+                                )
+                                .category(
+                                    RealTimeDecision.CardAuthentication.DeviceChannel.Category.APP
+                                )
+                                .merchantInitiated(
+                                    RealTimeDecision.CardAuthentication.DeviceChannel
+                                        .MerchantInitiated
+                                        .builder()
+                                        .indicator(
+                                            RealTimeDecision.CardAuthentication.DeviceChannel
+                                                .MerchantInitiated
+                                                .Indicator
+                                                .RECURRING_TRANSACTION
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .directoryServerTransactionId("directory_server_transaction_id")
+                        .merchantAcceptorId("merchant_acceptor_id")
+                        .merchantCategoryCode("merchant_category_code")
+                        .merchantCountry("merchant_country")
+                        .merchantName("merchant_name")
+                        .priorCardAuthenticationId("prior_card_authentication_id")
+                        .purchaseAmount(0L)
+                        .purchaseCurrency("purchase_currency")
+                        .requestorAuthenticationIndicator(
+                            RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
+                                .PAYMENT_TRANSACTION
+                        )
+                        .requestorChallengeIndicator(
+                            RealTimeDecision.CardAuthentication.RequestorChallengeIndicator
+                                .NO_PREFERENCE
+                        )
+                        .requestorName("requestor_name")
+                        .requestorUrl("requestor_url")
+                        .shippingAddressCity("shipping_address_city")
+                        .shippingAddressCountry("shipping_address_country")
+                        .shippingAddressLine1("shipping_address_line1")
+                        .shippingAddressLine2("shipping_address_line2")
+                        .shippingAddressLine3("shipping_address_line3")
+                        .shippingAddressPostalCode("shipping_address_postal_code")
+                        .shippingAddressState("shipping_address_state")
+                        .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
+                        .transactionType(
+                            RealTimeDecision.CardAuthentication.TransactionType
+                                .GOODS_SERVICE_PURCHASE
+                        )
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .build()
                 )
@@ -479,9 +556,80 @@ internal class RealTimeDecisionTest {
         assertThat(realTimeDecision.cardAuthentication())
             .contains(
                 RealTimeDecision.CardAuthentication.builder()
+                    .accessControlServerTransactionId("access_control_server_transaction_id")
                     .accountId("account_id")
+                    .billingAddressCity("billing_address_city")
+                    .billingAddressCountry("billing_address_country")
+                    .billingAddressLine1("billing_address_line1")
+                    .billingAddressLine2("billing_address_line2")
+                    .billingAddressLine3("billing_address_line3")
+                    .billingAddressPostalCode("billing_address_postal_code")
+                    .billingAddressState("billing_address_state")
                     .cardId("card_id")
+                    .cardholderEmail("cardholder_email")
+                    .cardholderName("cardholder_name")
+                    .category(RealTimeDecision.CardAuthentication.Category.PAYMENT_AUTHENTICATION)
                     .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
+                    .deviceChannel(
+                        RealTimeDecision.CardAuthentication.DeviceChannel.builder()
+                            .browser(
+                                RealTimeDecision.CardAuthentication.DeviceChannel.Browser.builder()
+                                    .acceptHeader("accept_header")
+                                    .ipAddress("ip_address")
+                                    .javascriptEnabled(
+                                        RealTimeDecision.CardAuthentication.DeviceChannel.Browser
+                                            .JavascriptEnabled
+                                            .ENABLED
+                                    )
+                                    .language("language")
+                                    .userAgent("user_agent")
+                                    .build()
+                            )
+                            .category(
+                                RealTimeDecision.CardAuthentication.DeviceChannel.Category.APP
+                            )
+                            .merchantInitiated(
+                                RealTimeDecision.CardAuthentication.DeviceChannel.MerchantInitiated
+                                    .builder()
+                                    .indicator(
+                                        RealTimeDecision.CardAuthentication.DeviceChannel
+                                            .MerchantInitiated
+                                            .Indicator
+                                            .RECURRING_TRANSACTION
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .directoryServerTransactionId("directory_server_transaction_id")
+                    .merchantAcceptorId("merchant_acceptor_id")
+                    .merchantCategoryCode("merchant_category_code")
+                    .merchantCountry("merchant_country")
+                    .merchantName("merchant_name")
+                    .priorCardAuthenticationId("prior_card_authentication_id")
+                    .purchaseAmount(0L)
+                    .purchaseCurrency("purchase_currency")
+                    .requestorAuthenticationIndicator(
+                        RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
+                            .PAYMENT_TRANSACTION
+                    )
+                    .requestorChallengeIndicator(
+                        RealTimeDecision.CardAuthentication.RequestorChallengeIndicator
+                            .NO_PREFERENCE
+                    )
+                    .requestorName("requestor_name")
+                    .requestorUrl("requestor_url")
+                    .shippingAddressCity("shipping_address_city")
+                    .shippingAddressCountry("shipping_address_country")
+                    .shippingAddressLine1("shipping_address_line1")
+                    .shippingAddressLine2("shipping_address_line2")
+                    .shippingAddressLine3("shipping_address_line3")
+                    .shippingAddressPostalCode("shipping_address_postal_code")
+                    .shippingAddressState("shipping_address_state")
+                    .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
+                    .transactionType(
+                        RealTimeDecision.CardAuthentication.TransactionType.GOODS_SERVICE_PURCHASE
+                    )
                     .upcomingCardPaymentId("upcoming_card_payment_id")
                     .build()
             )
@@ -937,9 +1085,86 @@ internal class RealTimeDecisionTest {
                 .id("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .cardAuthentication(
                     RealTimeDecision.CardAuthentication.builder()
+                        .accessControlServerTransactionId("access_control_server_transaction_id")
                         .accountId("account_id")
+                        .billingAddressCity("billing_address_city")
+                        .billingAddressCountry("billing_address_country")
+                        .billingAddressLine1("billing_address_line1")
+                        .billingAddressLine2("billing_address_line2")
+                        .billingAddressLine3("billing_address_line3")
+                        .billingAddressPostalCode("billing_address_postal_code")
+                        .billingAddressState("billing_address_state")
                         .cardId("card_id")
+                        .cardholderEmail("cardholder_email")
+                        .cardholderName("cardholder_name")
+                        .category(
+                            RealTimeDecision.CardAuthentication.Category.PAYMENT_AUTHENTICATION
+                        )
                         .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
+                        .deviceChannel(
+                            RealTimeDecision.CardAuthentication.DeviceChannel.builder()
+                                .browser(
+                                    RealTimeDecision.CardAuthentication.DeviceChannel.Browser
+                                        .builder()
+                                        .acceptHeader("accept_header")
+                                        .ipAddress("ip_address")
+                                        .javascriptEnabled(
+                                            RealTimeDecision.CardAuthentication.DeviceChannel
+                                                .Browser
+                                                .JavascriptEnabled
+                                                .ENABLED
+                                        )
+                                        .language("language")
+                                        .userAgent("user_agent")
+                                        .build()
+                                )
+                                .category(
+                                    RealTimeDecision.CardAuthentication.DeviceChannel.Category.APP
+                                )
+                                .merchantInitiated(
+                                    RealTimeDecision.CardAuthentication.DeviceChannel
+                                        .MerchantInitiated
+                                        .builder()
+                                        .indicator(
+                                            RealTimeDecision.CardAuthentication.DeviceChannel
+                                                .MerchantInitiated
+                                                .Indicator
+                                                .RECURRING_TRANSACTION
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .directoryServerTransactionId("directory_server_transaction_id")
+                        .merchantAcceptorId("merchant_acceptor_id")
+                        .merchantCategoryCode("merchant_category_code")
+                        .merchantCountry("merchant_country")
+                        .merchantName("merchant_name")
+                        .priorCardAuthenticationId("prior_card_authentication_id")
+                        .purchaseAmount(0L)
+                        .purchaseCurrency("purchase_currency")
+                        .requestorAuthenticationIndicator(
+                            RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
+                                .PAYMENT_TRANSACTION
+                        )
+                        .requestorChallengeIndicator(
+                            RealTimeDecision.CardAuthentication.RequestorChallengeIndicator
+                                .NO_PREFERENCE
+                        )
+                        .requestorName("requestor_name")
+                        .requestorUrl("requestor_url")
+                        .shippingAddressCity("shipping_address_city")
+                        .shippingAddressCountry("shipping_address_country")
+                        .shippingAddressLine1("shipping_address_line1")
+                        .shippingAddressLine2("shipping_address_line2")
+                        .shippingAddressLine3("shipping_address_line3")
+                        .shippingAddressPostalCode("shipping_address_postal_code")
+                        .shippingAddressState("shipping_address_state")
+                        .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
+                        .transactionType(
+                            RealTimeDecision.CardAuthentication.TransactionType
+                                .GOODS_SERVICE_PURCHASE
+                        )
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .build()
                 )
