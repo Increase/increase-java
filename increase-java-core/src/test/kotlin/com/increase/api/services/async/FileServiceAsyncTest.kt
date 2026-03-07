@@ -23,7 +23,7 @@ internal class FileServiceAsyncTest {
         val fileFuture =
             fileServiceAsync.create(
                 FileCreateParams.builder()
-                    .file("some content".byteInputStream())
+                    .file("Example data".byteInputStream())
                     .purpose(FileCreateParams.Purpose.CHECK_IMAGE_FRONT)
                     .description("x")
                     .build()
