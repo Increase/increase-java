@@ -27,6 +27,7 @@ import com.increase.api.models.events.EventRetrieveParams
 import com.increase.api.models.events.UnwrapWebhookEvent
 import com.standardwebhooks.Webhook
 import com.standardwebhooks.exceptions.WebhookVerificationException
+import java.util.Base64
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -71,7 +72,10 @@ class EventServiceImpl internal constructor(private val clientOptions: ClientOpt
                 val headersMap =
                     headers.names().associateWith { name -> headers.values(name) }.toMap()
 
-                val webhook = Webhook(webhookSecret)
+                val webhook =
+                    Webhook(
+                        "whsec_" + Base64.getEncoder().encodeToString(webhookSecret.toByteArray())
+                    )
                 webhook.verify(unwrapParams.body(), headersMap)
             } catch (e: WebhookVerificationException) {
                 throw IncreaseWebhookException("Could not verify webhook event signature", e)

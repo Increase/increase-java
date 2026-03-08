@@ -54,6 +54,7 @@ internal class EventServiceAsyncTest {
         val payload =
             "{\"id\":\"event_001dzz0r20rzr4zrhrr1364hy80\",\"associated_object_id\":\"account_in71c4amph0vgo2qllky\",\"associated_object_type\":\"account\",\"category\":\"account.created\",\"created_at\":\"2020-01-31T23:59:59Z\",\"type\":\"event\"}"
         val webhookSecret = "whsec_c2VjcmV0Cg=="
+        val rawWebhookSecret = "secret\n"
         val messageId = "1"
         val timestampSeconds = Instant.now().epochSecond
         val webhook = Webhook(webhookSecret)
@@ -74,11 +75,11 @@ internal class EventServiceAsyncTest {
             UnwrapWebhookParams.builder()
                 .body(payload)
                 .headers(headers)
-                .secret(webhookSecret)
+                .secret(rawWebhookSecret)
                 .build()
         )
         eventServiceAsync
-            .withOptions { it.webhookSecret(webhookSecret) }
+            .withOptions { it.webhookSecret(rawWebhookSecret) }
             .unwrap(UnwrapWebhookParams.builder().body(payload).headers(headers).build())
 
         // Secret in method takes precedence to secret on client
@@ -89,7 +90,7 @@ internal class EventServiceAsyncTest {
                 UnwrapWebhookParams.builder()
                     .body(payload)
                     .headers(headers)
-                    .secret(webhookSecret)
+                    .secret(rawWebhookSecret)
                     .build()
             )
 
@@ -137,7 +138,7 @@ internal class EventServiceAsyncTest {
                 UnwrapWebhookParams.builder()
                     .body(payload)
                     .headers(badHeaders)
-                    .secret(webhookSecret)
+                    .secret(rawWebhookSecret)
                     .build()
             )
         }
@@ -146,7 +147,7 @@ internal class EventServiceAsyncTest {
             val badHeaders =
                 headers.toBuilder().replace("webhook-signature", listOf(badSig)).build()
             eventServiceAsync
-                .withOptions { it.webhookSecret(webhookSecret) }
+                .withOptions { it.webhookSecret(rawWebhookSecret) }
                 .unwrap(UnwrapWebhookParams.builder().body(payload).headers(badHeaders).build())
         }
 
@@ -157,14 +158,14 @@ internal class EventServiceAsyncTest {
                 UnwrapWebhookParams.builder()
                     .body(payload)
                     .headers(oldHeaders)
-                    .secret(webhookSecret)
+                    .secret(rawWebhookSecret)
                     .build()
             )
         }
         assertThrows<IncreaseWebhookException> {
             val oldHeaders = headers.toBuilder().replace("webhook-timestamp", listOf("5")).build()
             eventServiceAsync
-                .withOptions { it.webhookSecret(webhookSecret) }
+                .withOptions { it.webhookSecret(rawWebhookSecret) }
                 .unwrap(UnwrapWebhookParams.builder().body(payload).headers(oldHeaders).build())
         }
 
@@ -175,14 +176,14 @@ internal class EventServiceAsyncTest {
                 UnwrapWebhookParams.builder()
                     .body(payload)
                     .headers(wrongIdHeaders)
-                    .secret(webhookSecret)
+                    .secret(rawWebhookSecret)
                     .build()
             )
         }
         assertThrows<IncreaseWebhookException> {
             val wrongIdHeaders = headers.toBuilder().replace("webhook-id", listOf("wrong")).build()
             eventServiceAsync
-                .withOptions { it.webhookSecret(webhookSecret) }
+                .withOptions { it.webhookSecret(rawWebhookSecret) }
                 .unwrap(UnwrapWebhookParams.builder().body(payload).headers(wrongIdHeaders).build())
         }
     }
