@@ -29,9 +29,6 @@ internal class RealTimeDecisionTest {
                         .cardId("card_id")
                         .cardholderEmail("cardholder_email")
                         .cardholderName("cardholder_name")
-                        .category(
-                            RealTimeDecision.CardAuthentication.Category.PAYMENT_AUTHENTICATION
-                        )
                         .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
                         .deviceChannel(
                             RealTimeDecision.CardAuthentication.DeviceChannel.builder()
@@ -72,10 +69,34 @@ internal class RealTimeDecisionTest {
                         .merchantCategoryCode("merchant_category_code")
                         .merchantCountry("merchant_country")
                         .merchantName("merchant_name")
+                        .messageCategory(
+                            RealTimeDecision.CardAuthentication.MessageCategory.builder()
+                                .category(
+                                    RealTimeDecision.CardAuthentication.MessageCategory.Category
+                                        .PAYMENT_AUTHENTICATION
+                                )
+                                .nonPayment(
+                                    RealTimeDecision.CardAuthentication.MessageCategory.NonPayment
+                                        .builder()
+                                        .build()
+                                )
+                                .payment(
+                                    RealTimeDecision.CardAuthentication.MessageCategory.Payment
+                                        .builder()
+                                        .purchaseAmount(0L)
+                                        .purchaseAmountCardholderEstimated(0L)
+                                        .purchaseCurrency("purchase_currency")
+                                        .transactionType(
+                                            RealTimeDecision.CardAuthentication.MessageCategory
+                                                .Payment
+                                                .TransactionType
+                                                .GOODS_SERVICE_PURCHASE
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .priorAuthenticatedCardPaymentId("prior_authenticated_card_payment_id")
-                        .purchaseAmount(0L)
-                        .purchaseAmountCardholderEstimated(0L)
-                        .purchaseCurrency("purchase_currency")
                         .requestorAuthenticationIndicator(
                             RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
                                 .PAYMENT_TRANSACTION
@@ -94,10 +115,6 @@ internal class RealTimeDecisionTest {
                         .shippingAddressPostalCode("shipping_address_postal_code")
                         .shippingAddressState("shipping_address_state")
                         .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
-                        .transactionType(
-                            RealTimeDecision.CardAuthentication.TransactionType
-                                .GOODS_SERVICE_PURCHASE
-                        )
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .build()
                 )
@@ -569,7 +586,6 @@ internal class RealTimeDecisionTest {
                     .cardId("card_id")
                     .cardholderEmail("cardholder_email")
                     .cardholderName("cardholder_name")
-                    .category(RealTimeDecision.CardAuthentication.Category.PAYMENT_AUTHENTICATION)
                     .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
                     .deviceChannel(
                         RealTimeDecision.CardAuthentication.DeviceChannel.builder()
@@ -607,10 +623,33 @@ internal class RealTimeDecisionTest {
                     .merchantCategoryCode("merchant_category_code")
                     .merchantCountry("merchant_country")
                     .merchantName("merchant_name")
+                    .messageCategory(
+                        RealTimeDecision.CardAuthentication.MessageCategory.builder()
+                            .category(
+                                RealTimeDecision.CardAuthentication.MessageCategory.Category
+                                    .PAYMENT_AUTHENTICATION
+                            )
+                            .nonPayment(
+                                RealTimeDecision.CardAuthentication.MessageCategory.NonPayment
+                                    .builder()
+                                    .build()
+                            )
+                            .payment(
+                                RealTimeDecision.CardAuthentication.MessageCategory.Payment
+                                    .builder()
+                                    .purchaseAmount(0L)
+                                    .purchaseAmountCardholderEstimated(0L)
+                                    .purchaseCurrency("purchase_currency")
+                                    .transactionType(
+                                        RealTimeDecision.CardAuthentication.MessageCategory.Payment
+                                            .TransactionType
+                                            .GOODS_SERVICE_PURCHASE
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .priorAuthenticatedCardPaymentId("prior_authenticated_card_payment_id")
-                    .purchaseAmount(0L)
-                    .purchaseAmountCardholderEstimated(0L)
-                    .purchaseCurrency("purchase_currency")
                     .requestorAuthenticationIndicator(
                         RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
                             .PAYMENT_TRANSACTION
@@ -629,9 +668,6 @@ internal class RealTimeDecisionTest {
                     .shippingAddressPostalCode("shipping_address_postal_code")
                     .shippingAddressState("shipping_address_state")
                     .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
-                    .transactionType(
-                        RealTimeDecision.CardAuthentication.TransactionType.GOODS_SERVICE_PURCHASE
-                    )
                     .upcomingCardPaymentId("upcoming_card_payment_id")
                     .build()
             )
@@ -1099,9 +1135,6 @@ internal class RealTimeDecisionTest {
                         .cardId("card_id")
                         .cardholderEmail("cardholder_email")
                         .cardholderName("cardholder_name")
-                        .category(
-                            RealTimeDecision.CardAuthentication.Category.PAYMENT_AUTHENTICATION
-                        )
                         .decision(RealTimeDecision.CardAuthentication.Decision.APPROVE)
                         .deviceChannel(
                             RealTimeDecision.CardAuthentication.DeviceChannel.builder()
@@ -1142,10 +1175,34 @@ internal class RealTimeDecisionTest {
                         .merchantCategoryCode("merchant_category_code")
                         .merchantCountry("merchant_country")
                         .merchantName("merchant_name")
+                        .messageCategory(
+                            RealTimeDecision.CardAuthentication.MessageCategory.builder()
+                                .category(
+                                    RealTimeDecision.CardAuthentication.MessageCategory.Category
+                                        .PAYMENT_AUTHENTICATION
+                                )
+                                .nonPayment(
+                                    RealTimeDecision.CardAuthentication.MessageCategory.NonPayment
+                                        .builder()
+                                        .build()
+                                )
+                                .payment(
+                                    RealTimeDecision.CardAuthentication.MessageCategory.Payment
+                                        .builder()
+                                        .purchaseAmount(0L)
+                                        .purchaseAmountCardholderEstimated(0L)
+                                        .purchaseCurrency("purchase_currency")
+                                        .transactionType(
+                                            RealTimeDecision.CardAuthentication.MessageCategory
+                                                .Payment
+                                                .TransactionType
+                                                .GOODS_SERVICE_PURCHASE
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
                         .priorAuthenticatedCardPaymentId("prior_authenticated_card_payment_id")
-                        .purchaseAmount(0L)
-                        .purchaseAmountCardholderEstimated(0L)
-                        .purchaseCurrency("purchase_currency")
                         .requestorAuthenticationIndicator(
                             RealTimeDecision.CardAuthentication.RequestorAuthenticationIndicator
                                 .PAYMENT_TRANSACTION
@@ -1164,10 +1221,6 @@ internal class RealTimeDecisionTest {
                         .shippingAddressPostalCode("shipping_address_postal_code")
                         .shippingAddressState("shipping_address_state")
                         .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
-                        .transactionType(
-                            RealTimeDecision.CardAuthentication.TransactionType
-                                .GOODS_SERVICE_PURCHASE
-                        )
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .build()
                 )

@@ -44,10 +44,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -138,10 +134,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -168,11 +200,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -2193,10 +2220,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -2287,10 +2310,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -2317,11 +2376,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -4342,10 +4396,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -4436,10 +4486,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -4466,11 +4552,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -6491,10 +6572,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -6585,10 +6662,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -6615,11 +6728,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -8682,10 +8790,6 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cardholderEmail("user@example.com")
                                         .cardholderName("Ian Crease")
-                                        .category(
-                                            CardPayment.Element.CardAuthentication.Category
-                                                .PAYMENT_AUTHENTICATION
-                                        )
                                         .challenge(
                                             CardPayment.Element.CardAuthentication.Challenge
                                                 .builder()
@@ -8771,10 +8875,42 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantCategoryCode("5734")
                                         .merchantCountry("US")
                                         .merchantName("AMAZON.COM")
+                                        .messageCategory(
+                                            CardPayment.Element.CardAuthentication.MessageCategory
+                                                .builder()
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Category
+                                                        .PAYMENT_AUTHENTICATION
+                                                )
+                                                .nonPayment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .NonPayment
+                                                        .builder()
+                                                        .build()
+                                                )
+                                                .payment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Payment
+                                                        .builder()
+                                                        .purchaseAmount(861L)
+                                                        .purchaseAmountCardholderEstimated(1000L)
+                                                        .purchaseCurrency("EUR")
+                                                        .transactionType(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .MessageCategory
+                                                                .Payment
+                                                                .TransactionType
+                                                                .GOODS_SERVICE_PURCHASE
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .priorAuthenticatedCardPaymentId(null)
-                                        .purchaseAmount(861L)
-                                        .purchaseAmountCardholderEstimated(1000L)
-                                        .purchaseCurrency("EUR")
                                         .realTimeDecisionId(null)
                                         .requestorAuthenticationIndicator(
                                             CardPayment.Element.CardAuthentication
@@ -8801,10 +8937,6 @@ internal class CardPaymentListPageResponseTest {
                                         )
                                         .threeDSecureServerTransactionId(
                                             "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                        )
-                                        .transactionType(
-                                            CardPayment.Element.CardAuthentication.TransactionType
-                                                .GOODS_SERVICE_PURCHASE
                                         )
                                         .type(
                                             CardPayment.Element.CardAuthentication.Type
@@ -10711,10 +10843,6 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cardholderEmail("user@example.com")
                                         .cardholderName("Ian Crease")
-                                        .category(
-                                            CardPayment.Element.CardAuthentication.Category
-                                                .PAYMENT_AUTHENTICATION
-                                        )
                                         .challenge(
                                             CardPayment.Element.CardAuthentication.Challenge
                                                 .builder()
@@ -10800,10 +10928,42 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantCategoryCode("5734")
                                         .merchantCountry("US")
                                         .merchantName("AMAZON.COM")
+                                        .messageCategory(
+                                            CardPayment.Element.CardAuthentication.MessageCategory
+                                                .builder()
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Category
+                                                        .PAYMENT_AUTHENTICATION
+                                                )
+                                                .nonPayment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .NonPayment
+                                                        .builder()
+                                                        .build()
+                                                )
+                                                .payment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Payment
+                                                        .builder()
+                                                        .purchaseAmount(861L)
+                                                        .purchaseAmountCardholderEstimated(1000L)
+                                                        .purchaseCurrency("EUR")
+                                                        .transactionType(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .MessageCategory
+                                                                .Payment
+                                                                .TransactionType
+                                                                .GOODS_SERVICE_PURCHASE
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .priorAuthenticatedCardPaymentId(null)
-                                        .purchaseAmount(861L)
-                                        .purchaseAmountCardholderEstimated(1000L)
-                                        .purchaseCurrency("EUR")
                                         .realTimeDecisionId(null)
                                         .requestorAuthenticationIndicator(
                                             CardPayment.Element.CardAuthentication
@@ -10830,10 +10990,6 @@ internal class CardPaymentListPageResponseTest {
                                         )
                                         .threeDSecureServerTransactionId(
                                             "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                        )
-                                        .transactionType(
-                                            CardPayment.Element.CardAuthentication.TransactionType
-                                                .GOODS_SERVICE_PURCHASE
                                         )
                                         .type(
                                             CardPayment.Element.CardAuthentication.Type
@@ -12740,10 +12896,6 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cardholderEmail("user@example.com")
                                         .cardholderName("Ian Crease")
-                                        .category(
-                                            CardPayment.Element.CardAuthentication.Category
-                                                .PAYMENT_AUTHENTICATION
-                                        )
                                         .challenge(
                                             CardPayment.Element.CardAuthentication.Challenge
                                                 .builder()
@@ -12829,10 +12981,42 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantCategoryCode("5734")
                                         .merchantCountry("US")
                                         .merchantName("AMAZON.COM")
+                                        .messageCategory(
+                                            CardPayment.Element.CardAuthentication.MessageCategory
+                                                .builder()
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Category
+                                                        .PAYMENT_AUTHENTICATION
+                                                )
+                                                .nonPayment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .NonPayment
+                                                        .builder()
+                                                        .build()
+                                                )
+                                                .payment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Payment
+                                                        .builder()
+                                                        .purchaseAmount(861L)
+                                                        .purchaseAmountCardholderEstimated(1000L)
+                                                        .purchaseCurrency("EUR")
+                                                        .transactionType(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .MessageCategory
+                                                                .Payment
+                                                                .TransactionType
+                                                                .GOODS_SERVICE_PURCHASE
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .priorAuthenticatedCardPaymentId(null)
-                                        .purchaseAmount(861L)
-                                        .purchaseAmountCardholderEstimated(1000L)
-                                        .purchaseCurrency("EUR")
                                         .realTimeDecisionId(null)
                                         .requestorAuthenticationIndicator(
                                             CardPayment.Element.CardAuthentication
@@ -12859,10 +13043,6 @@ internal class CardPaymentListPageResponseTest {
                                         )
                                         .threeDSecureServerTransactionId(
                                             "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                        )
-                                        .transactionType(
-                                            CardPayment.Element.CardAuthentication.TransactionType
-                                                .GOODS_SERVICE_PURCHASE
                                         )
                                         .type(
                                             CardPayment.Element.CardAuthentication.Type
@@ -14769,10 +14949,6 @@ internal class CardPaymentListPageResponseTest {
                                         .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                         .cardholderEmail("user@example.com")
                                         .cardholderName("Ian Crease")
-                                        .category(
-                                            CardPayment.Element.CardAuthentication.Category
-                                                .PAYMENT_AUTHENTICATION
-                                        )
                                         .challenge(
                                             CardPayment.Element.CardAuthentication.Challenge
                                                 .builder()
@@ -14858,10 +15034,42 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantCategoryCode("5734")
                                         .merchantCountry("US")
                                         .merchantName("AMAZON.COM")
+                                        .messageCategory(
+                                            CardPayment.Element.CardAuthentication.MessageCategory
+                                                .builder()
+                                                .category(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Category
+                                                        .PAYMENT_AUTHENTICATION
+                                                )
+                                                .nonPayment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .NonPayment
+                                                        .builder()
+                                                        .build()
+                                                )
+                                                .payment(
+                                                    CardPayment.Element.CardAuthentication
+                                                        .MessageCategory
+                                                        .Payment
+                                                        .builder()
+                                                        .purchaseAmount(861L)
+                                                        .purchaseAmountCardholderEstimated(1000L)
+                                                        .purchaseCurrency("EUR")
+                                                        .transactionType(
+                                                            CardPayment.Element.CardAuthentication
+                                                                .MessageCategory
+                                                                .Payment
+                                                                .TransactionType
+                                                                .GOODS_SERVICE_PURCHASE
+                                                        )
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
                                         .priorAuthenticatedCardPaymentId(null)
-                                        .purchaseAmount(861L)
-                                        .purchaseAmountCardholderEstimated(1000L)
-                                        .purchaseCurrency("EUR")
                                         .realTimeDecisionId(null)
                                         .requestorAuthenticationIndicator(
                                             CardPayment.Element.CardAuthentication
@@ -14888,10 +15096,6 @@ internal class CardPaymentListPageResponseTest {
                                         )
                                         .threeDSecureServerTransactionId(
                                             "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                        )
-                                        .transactionType(
-                                            CardPayment.Element.CardAuthentication.TransactionType
-                                                .GOODS_SERVICE_PURCHASE
                                         )
                                         .type(
                                             CardPayment.Element.CardAuthentication.Type
@@ -16842,10 +17046,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -16936,10 +17136,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -16966,11 +17202,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -18991,10 +19222,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -19085,10 +19312,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -19115,11 +19378,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -21140,10 +21398,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -21234,10 +21488,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -21264,11 +21554,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
@@ -23289,10 +23574,6 @@ internal class CardPaymentListPageResponseTest {
                                             .cardPaymentId("card_payment_nd3k2kacrqjli8482ave")
                                             .cardholderEmail("user@example.com")
                                             .cardholderName("Ian Crease")
-                                            .category(
-                                                CardPayment.Element.CardAuthentication.Category
-                                                    .PAYMENT_AUTHENTICATION
-                                            )
                                             .challenge(
                                                 CardPayment.Element.CardAuthentication.Challenge
                                                     .builder()
@@ -23383,10 +23664,46 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantCategoryCode("5734")
                                             .merchantCountry("US")
                                             .merchantName("AMAZON.COM")
+                                            .messageCategory(
+                                                CardPayment.Element.CardAuthentication
+                                                    .MessageCategory
+                                                    .builder()
+                                                    .category(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Category
+                                                            .PAYMENT_AUTHENTICATION
+                                                    )
+                                                    .nonPayment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .NonPayment
+                                                            .builder()
+                                                            .build()
+                                                    )
+                                                    .payment(
+                                                        CardPayment.Element.CardAuthentication
+                                                            .MessageCategory
+                                                            .Payment
+                                                            .builder()
+                                                            .purchaseAmount(861L)
+                                                            .purchaseAmountCardholderEstimated(
+                                                                1000L
+                                                            )
+                                                            .purchaseCurrency("EUR")
+                                                            .transactionType(
+                                                                CardPayment.Element
+                                                                    .CardAuthentication
+                                                                    .MessageCategory
+                                                                    .Payment
+                                                                    .TransactionType
+                                                                    .GOODS_SERVICE_PURCHASE
+                                                            )
+                                                            .build()
+                                                    )
+                                                    .build()
+                                            )
                                             .priorAuthenticatedCardPaymentId(null)
-                                            .purchaseAmount(861L)
-                                            .purchaseAmountCardholderEstimated(1000L)
-                                            .purchaseCurrency("EUR")
                                             .realTimeDecisionId(null)
                                             .requestorAuthenticationIndicator(
                                                 CardPayment.Element.CardAuthentication
@@ -23413,11 +23730,6 @@ internal class CardPaymentListPageResponseTest {
                                             )
                                             .threeDSecureServerTransactionId(
                                                 "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
-                                            )
-                                            .transactionType(
-                                                CardPayment.Element.CardAuthentication
-                                                    .TransactionType
-                                                    .GOODS_SERVICE_PURCHASE
                                             )
                                             .type(
                                                 CardPayment.Element.CardAuthentication.Type
