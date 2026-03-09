@@ -2158,41 +2158,38 @@ private constructor(
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
              * transacting with.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun merchantAcceptorId(): String =
-                merchantAcceptorId.getRequired("merchant_acceptor_id")
+            fun merchantAcceptorId(): Optional<String> =
+                merchantAcceptorId.getOptional("merchant_acceptor_id")
 
             /**
              * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card is
              * transacting with.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun merchantCategoryCode(): String =
-                merchantCategoryCode.getRequired("merchant_category_code")
+            fun merchantCategoryCode(): Optional<String> =
+                merchantCategoryCode.getOptional("merchant_category_code")
 
             /**
              * The country the merchant resides in.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun merchantCountry(): String = merchantCountry.getRequired("merchant_country")
+            fun merchantCountry(): Optional<String> =
+                merchantCountry.getOptional("merchant_country")
 
             /**
              * The name of the merchant.
              *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
              */
-            fun merchantName(): String = merchantName.getRequired("merchant_name")
+            fun merchantName(): Optional<String> = merchantName.getOptional("merchant_name")
 
             /**
              * The ID of a prior Card Authentication that the requestor used to authenticate this
@@ -3358,8 +3355,15 @@ private constructor(
                  * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
                  * transacting with.
                  */
-                fun merchantAcceptorId(merchantAcceptorId: String) =
-                    merchantAcceptorId(JsonField.of(merchantAcceptorId))
+                fun merchantAcceptorId(merchantAcceptorId: String?) =
+                    merchantAcceptorId(JsonField.ofNullable(merchantAcceptorId))
+
+                /**
+                 * Alias for calling [Builder.merchantAcceptorId] with
+                 * `merchantAcceptorId.orElse(null)`.
+                 */
+                fun merchantAcceptorId(merchantAcceptorId: Optional<String>) =
+                    merchantAcceptorId(merchantAcceptorId.getOrNull())
 
                 /**
                  * Sets [Builder.merchantAcceptorId] to an arbitrary JSON value.
@@ -3376,8 +3380,15 @@ private constructor(
                  * The Merchant Category Code (commonly abbreviated as MCC) of the merchant the card
                  * is transacting with.
                  */
-                fun merchantCategoryCode(merchantCategoryCode: String) =
-                    merchantCategoryCode(JsonField.of(merchantCategoryCode))
+                fun merchantCategoryCode(merchantCategoryCode: String?) =
+                    merchantCategoryCode(JsonField.ofNullable(merchantCategoryCode))
+
+                /**
+                 * Alias for calling [Builder.merchantCategoryCode] with
+                 * `merchantCategoryCode.orElse(null)`.
+                 */
+                fun merchantCategoryCode(merchantCategoryCode: Optional<String>) =
+                    merchantCategoryCode(merchantCategoryCode.getOrNull())
 
                 /**
                  * Sets [Builder.merchantCategoryCode] to an arbitrary JSON value.
@@ -3391,8 +3402,14 @@ private constructor(
                 }
 
                 /** The country the merchant resides in. */
-                fun merchantCountry(merchantCountry: String) =
-                    merchantCountry(JsonField.of(merchantCountry))
+                fun merchantCountry(merchantCountry: String?) =
+                    merchantCountry(JsonField.ofNullable(merchantCountry))
+
+                /**
+                 * Alias for calling [Builder.merchantCountry] with `merchantCountry.orElse(null)`.
+                 */
+                fun merchantCountry(merchantCountry: Optional<String>) =
+                    merchantCountry(merchantCountry.getOrNull())
 
                 /**
                  * Sets [Builder.merchantCountry] to an arbitrary JSON value.
@@ -3406,7 +3423,12 @@ private constructor(
                 }
 
                 /** The name of the merchant. */
-                fun merchantName(merchantName: String) = merchantName(JsonField.of(merchantName))
+                fun merchantName(merchantName: String?) =
+                    merchantName(JsonField.ofNullable(merchantName))
+
+                /** Alias for calling [Builder.merchantName] with `merchantName.orElse(null)`. */
+                fun merchantName(merchantName: Optional<String>) =
+                    merchantName(merchantName.getOrNull())
 
                 /**
                  * Sets [Builder.merchantName] to an arbitrary JSON value.
