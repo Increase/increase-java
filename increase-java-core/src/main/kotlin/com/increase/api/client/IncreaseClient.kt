@@ -9,6 +9,7 @@ import com.increase.api.services.blocking.AccountStatementService
 import com.increase.api.services.blocking.AccountTransferService
 import com.increase.api.services.blocking.AchPrenotificationService
 import com.increase.api.services.blocking.AchTransferService
+import com.increase.api.services.blocking.BeneficialOwnerService
 import com.increase.api.services.blocking.BookkeepingAccountService
 import com.increase.api.services.blocking.BookkeepingEntryService
 import com.increase.api.services.blocking.BookkeepingEntrySetService
@@ -167,6 +168,8 @@ interface IncreaseClient {
 
     fun entities(): EntityService
 
+    fun beneficialOwners(): BeneficialOwnerService
+
     fun supplementalDocuments(): SupplementalDocumentService
 
     fun programs(): ProgramService
@@ -306,6 +309,8 @@ interface IncreaseClient {
         fun externalAccounts(): ExternalAccountService.WithRawResponse
 
         fun entities(): EntityService.WithRawResponse
+
+        fun beneficialOwners(): BeneficialOwnerService.WithRawResponse
 
         fun supplementalDocuments(): SupplementalDocumentService.WithRawResponse
 
