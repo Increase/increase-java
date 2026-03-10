@@ -83,6 +83,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.routingNumbers()).isNotNull()
         assertThat(client.externalAccounts()).isNotNull()
         assertThat(client.entities()).isNotNull()
+        assertThat(client.beneficialOwners()).isNotNull()
         assertThat(client.supplementalDocuments()).isNotNull()
         assertThat(client.programs()).isNotNull()
         assertThat(client.accountStatements()).isNotNull()

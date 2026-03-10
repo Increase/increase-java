@@ -16,6 +16,8 @@ import com.increase.api.services.async.AchPrenotificationServiceAsync
 import com.increase.api.services.async.AchPrenotificationServiceAsyncImpl
 import com.increase.api.services.async.AchTransferServiceAsync
 import com.increase.api.services.async.AchTransferServiceAsyncImpl
+import com.increase.api.services.async.BeneficialOwnerServiceAsync
+import com.increase.api.services.async.BeneficialOwnerServiceAsyncImpl
 import com.increase.api.services.async.BookkeepingAccountServiceAsync
 import com.increase.api.services.async.BookkeepingAccountServiceAsyncImpl
 import com.increase.api.services.async.BookkeepingEntryServiceAsync
@@ -272,6 +274,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         EntityServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val beneficialOwners: BeneficialOwnerServiceAsync by lazy {
+        BeneficialOwnerServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val supplementalDocuments: SupplementalDocumentServiceAsync by lazy {
         SupplementalDocumentServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -441,6 +447,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun externalAccounts(): ExternalAccountServiceAsync = externalAccounts
 
     override fun entities(): EntityServiceAsync = entities
+
+    override fun beneficialOwners(): BeneficialOwnerServiceAsync = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentServiceAsync = supplementalDocuments
 
@@ -635,6 +643,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             EntityServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val beneficialOwners: BeneficialOwnerServiceAsync.WithRawResponse by lazy {
+            BeneficialOwnerServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val supplementalDocuments:
             SupplementalDocumentServiceAsync.WithRawResponse by lazy {
             SupplementalDocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -822,6 +834,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             externalAccounts
 
         override fun entities(): EntityServiceAsync.WithRawResponse = entities
+
+        override fun beneficialOwners(): BeneficialOwnerServiceAsync.WithRawResponse =
+            beneficialOwners
 
         override fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse =
             supplementalDocuments

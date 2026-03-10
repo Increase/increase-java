@@ -9,6 +9,7 @@ import com.increase.api.services.async.AccountStatementServiceAsync
 import com.increase.api.services.async.AccountTransferServiceAsync
 import com.increase.api.services.async.AchPrenotificationServiceAsync
 import com.increase.api.services.async.AchTransferServiceAsync
+import com.increase.api.services.async.BeneficialOwnerServiceAsync
 import com.increase.api.services.async.BookkeepingAccountServiceAsync
 import com.increase.api.services.async.BookkeepingEntryServiceAsync
 import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
@@ -166,6 +167,8 @@ interface IncreaseClientAsync {
 
     fun entities(): EntityServiceAsync
 
+    fun beneficialOwners(): BeneficialOwnerServiceAsync
+
     fun supplementalDocuments(): SupplementalDocumentServiceAsync
 
     fun programs(): ProgramServiceAsync
@@ -307,6 +310,8 @@ interface IncreaseClientAsync {
         fun externalAccounts(): ExternalAccountServiceAsync.WithRawResponse
 
         fun entities(): EntityServiceAsync.WithRawResponse
+
+        fun beneficialOwners(): BeneficialOwnerServiceAsync.WithRawResponse
 
         fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse
 
