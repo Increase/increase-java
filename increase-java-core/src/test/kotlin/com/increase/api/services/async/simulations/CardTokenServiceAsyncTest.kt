@@ -37,6 +37,18 @@ internal class CardTokenServiceAsyncTest {
                     )
                     .expiration(LocalDate.parse("2019-12-27"))
                     .last4("1234")
+                    .outcome(
+                        CardTokenCreateParams.Outcome.builder()
+                            .result(CardTokenCreateParams.Outcome.Result.APPROVE)
+                            .decline(
+                                CardTokenCreateParams.Outcome.Decline.builder()
+                                    .reason(
+                                        CardTokenCreateParams.Outcome.Decline.Reason.DO_NOT_HONOR
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
                     .prefix("41234567")
                     .primaryAccountNumberLength(16L)
                     .build()
