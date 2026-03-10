@@ -57,6 +57,14 @@ private constructor(
     fun last4(): Optional<String> = body.last4()
 
     /**
+     * The outcome to simulate for card push transfers using this token.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun outcome(): Optional<Outcome> = body.outcome()
+
+    /**
      * The prefix of the card number, usually the first 8 digits.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -92,6 +100,13 @@ private constructor(
      * Unlike [last4], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _last4(): JsonField<String> = body._last4()
+
+    /**
+     * Returns the raw JSON value of [outcome].
+     *
+     * Unlike [outcome], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _outcome(): JsonField<Outcome> = body._outcome()
 
     /**
      * Returns the raw JSON value of [prefix].
@@ -148,8 +163,8 @@ private constructor(
          * - [capabilities]
          * - [expiration]
          * - [last4]
+         * - [outcome]
          * - [prefix]
-         * - [primaryAccountNumberLength]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -197,6 +212,17 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun last4(last4: JsonField<String>) = apply { body.last4(last4) }
+
+        /** The outcome to simulate for card push transfers using this token. */
+        fun outcome(outcome: Outcome) = apply { body.outcome(outcome) }
+
+        /**
+         * Sets [Builder.outcome] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.outcome] with a well-typed [Outcome] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun outcome(outcome: JsonField<Outcome>) = apply { body.outcome(outcome) }
 
         /** The prefix of the card number, usually the first 8 digits. */
         fun prefix(prefix: String) = apply { body.prefix(prefix) }
@@ -367,6 +393,7 @@ private constructor(
         private val capabilities: JsonField<List<Capability>>,
         private val expiration: JsonField<LocalDate>,
         private val last4: JsonField<String>,
+        private val outcome: JsonField<Outcome>,
         private val prefix: JsonField<String>,
         private val primaryAccountNumberLength: JsonField<Long>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -381,6 +408,7 @@ private constructor(
             @ExcludeMissing
             expiration: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("last4") @ExcludeMissing last4: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("outcome") @ExcludeMissing outcome: JsonField<Outcome> = JsonMissing.of(),
             @JsonProperty("prefix") @ExcludeMissing prefix: JsonField<String> = JsonMissing.of(),
             @JsonProperty("primary_account_number_length")
             @ExcludeMissing
@@ -389,6 +417,7 @@ private constructor(
             capabilities,
             expiration,
             last4,
+            outcome,
             prefix,
             primaryAccountNumberLength,
             mutableMapOf(),
@@ -417,6 +446,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun last4(): Optional<String> = last4.getOptional("last4")
+
+        /**
+         * The outcome to simulate for card push transfers using this token.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun outcome(): Optional<Outcome> = outcome.getOptional("outcome")
 
         /**
          * The prefix of the card number, usually the first 8 digits.
@@ -462,6 +499,13 @@ private constructor(
         @JsonProperty("last4") @ExcludeMissing fun _last4(): JsonField<String> = last4
 
         /**
+         * Returns the raw JSON value of [outcome].
+         *
+         * Unlike [outcome], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("outcome") @ExcludeMissing fun _outcome(): JsonField<Outcome> = outcome
+
+        /**
          * Returns the raw JSON value of [prefix].
          *
          * Unlike [prefix], this method doesn't throw if the JSON field has an unexpected type.
@@ -502,6 +546,7 @@ private constructor(
             private var capabilities: JsonField<MutableList<Capability>>? = null
             private var expiration: JsonField<LocalDate> = JsonMissing.of()
             private var last4: JsonField<String> = JsonMissing.of()
+            private var outcome: JsonField<Outcome> = JsonMissing.of()
             private var prefix: JsonField<String> = JsonMissing.of()
             private var primaryAccountNumberLength: JsonField<Long> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -511,6 +556,7 @@ private constructor(
                 capabilities = body.capabilities.map { it.toMutableList() }
                 expiration = body.expiration
                 last4 = body.last4
+                outcome = body.outcome
                 prefix = body.prefix
                 primaryAccountNumberLength = body.primaryAccountNumberLength
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -569,6 +615,18 @@ private constructor(
              */
             fun last4(last4: JsonField<String>) = apply { this.last4 = last4 }
 
+            /** The outcome to simulate for card push transfers using this token. */
+            fun outcome(outcome: Outcome) = outcome(JsonField.of(outcome))
+
+            /**
+             * Sets [Builder.outcome] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.outcome] with a well-typed [Outcome] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun outcome(outcome: JsonField<Outcome>) = apply { this.outcome = outcome }
+
             /** The prefix of the card number, usually the first 8 digits. */
             fun prefix(prefix: String) = prefix(JsonField.of(prefix))
 
@@ -625,6 +683,7 @@ private constructor(
                     (capabilities ?: JsonMissing.of()).map { it.toImmutable() },
                     expiration,
                     last4,
+                    outcome,
                     prefix,
                     primaryAccountNumberLength,
                     additionalProperties.toMutableMap(),
@@ -641,6 +700,7 @@ private constructor(
             capabilities().ifPresent { it.forEach { it.validate() } }
             expiration()
             last4()
+            outcome().ifPresent { it.validate() }
             prefix()
             primaryAccountNumberLength()
             validated = true
@@ -665,6 +725,7 @@ private constructor(
             (capabilities.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                 (if (expiration.asKnown().isPresent) 1 else 0) +
                 (if (last4.asKnown().isPresent) 1 else 0) +
+                (outcome.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (prefix.asKnown().isPresent) 1 else 0) +
                 (if (primaryAccountNumberLength.asKnown().isPresent) 1 else 0)
 
@@ -677,6 +738,7 @@ private constructor(
                 capabilities == other.capabilities &&
                 expiration == other.expiration &&
                 last4 == other.last4 &&
+                outcome == other.outcome &&
                 prefix == other.prefix &&
                 primaryAccountNumberLength == other.primaryAccountNumberLength &&
                 additionalProperties == other.additionalProperties
@@ -687,6 +749,7 @@ private constructor(
                 capabilities,
                 expiration,
                 last4,
+                outcome,
                 prefix,
                 primaryAccountNumberLength,
                 additionalProperties,
@@ -696,7 +759,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{capabilities=$capabilities, expiration=$expiration, last4=$last4, prefix=$prefix, primaryAccountNumberLength=$primaryAccountNumberLength, additionalProperties=$additionalProperties}"
+            "Body{capabilities=$capabilities, expiration=$expiration, last4=$last4, outcome=$outcome, prefix=$prefix, primaryAccountNumberLength=$primaryAccountNumberLength, additionalProperties=$additionalProperties}"
     }
 
     class Capability
@@ -1381,6 +1444,1167 @@ private constructor(
 
         override fun toString() =
             "Capability{crossBorderPushTransfers=$crossBorderPushTransfers, domesticPushTransfers=$domesticPushTransfers, route=$route, additionalProperties=$additionalProperties}"
+    }
+
+    /** The outcome to simulate for card push transfers using this token. */
+    class Outcome
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val result: JsonField<Result>,
+        private val decline: JsonField<Decline>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("result") @ExcludeMissing result: JsonField<Result> = JsonMissing.of(),
+            @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
+        ) : this(result, decline, mutableMapOf())
+
+        /**
+         * Whether card push transfers or validations will be approved or declined.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun result(): Result = result.getRequired("result")
+
+        /**
+         * If the result is declined, the details of the decline.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun decline(): Optional<Decline> = decline.getOptional("decline")
+
+        /**
+         * Returns the raw JSON value of [result].
+         *
+         * Unlike [result], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("result") @ExcludeMissing fun _result(): JsonField<Result> = result
+
+        /**
+         * Returns the raw JSON value of [decline].
+         *
+         * Unlike [decline], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Outcome].
+             *
+             * The following fields are required:
+             * ```java
+             * .result()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Outcome]. */
+        class Builder internal constructor() {
+
+            private var result: JsonField<Result>? = null
+            private var decline: JsonField<Decline> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(outcome: Outcome) = apply {
+                result = outcome.result
+                decline = outcome.decline
+                additionalProperties = outcome.additionalProperties.toMutableMap()
+            }
+
+            /** Whether card push transfers or validations will be approved or declined. */
+            fun result(result: Result) = result(JsonField.of(result))
+
+            /**
+             * Sets [Builder.result] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.result] with a well-typed [Result] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun result(result: JsonField<Result>) = apply { this.result = result }
+
+            /** If the result is declined, the details of the decline. */
+            fun decline(decline: Decline) = decline(JsonField.of(decline))
+
+            /**
+             * Sets [Builder.decline] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.decline] with a well-typed [Decline] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Outcome].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .result()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Outcome =
+                Outcome(
+                    checkRequired("result", result),
+                    decline,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Outcome = apply {
+            if (validated) {
+                return@apply
+            }
+
+            result().validate()
+            decline().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (result.asKnown().getOrNull()?.validity() ?: 0) +
+                (decline.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** Whether card push transfers or validations will be approved or declined. */
+        class Result @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** Any card push transfers or validations will be approved. */
+                @JvmField val APPROVE = of("approve")
+
+                /** Any card push transfers or validations will be declined. */
+                @JvmField val DECLINE = of("decline")
+
+                @JvmStatic fun of(value: String) = Result(JsonField.of(value))
+            }
+
+            /** An enum containing [Result]'s known values. */
+            enum class Known {
+                /** Any card push transfers or validations will be approved. */
+                APPROVE,
+                /** Any card push transfers or validations will be declined. */
+                DECLINE,
+            }
+
+            /**
+             * An enum containing [Result]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Result] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** Any card push transfers or validations will be approved. */
+                APPROVE,
+                /** Any card push transfers or validations will be declined. */
+                DECLINE,
+                /**
+                 * An enum member indicating that [Result] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    APPROVE -> Value.APPROVE
+                    DECLINE -> Value.DECLINE
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    APPROVE -> Known.APPROVE
+                    DECLINE -> Known.DECLINE
+                    else -> throw IncreaseInvalidDataException("Unknown Result: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Result = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Result && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** If the result is declined, the details of the decline. */
+        class Decline
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val reason: JsonField<Reason>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of()
+            ) : this(reason, mutableMapOf())
+
+            /**
+             * The reason for the decline.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun reason(): Optional<Reason> = reason.getOptional("reason")
+
+            /**
+             * Returns the raw JSON value of [reason].
+             *
+             * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /** Returns a mutable builder for constructing an instance of [Decline]. */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Decline]. */
+            class Builder internal constructor() {
+
+                private var reason: JsonField<Reason> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(decline: Decline) = apply {
+                    reason = decline.reason
+                    additionalProperties = decline.additionalProperties.toMutableMap()
+                }
+
+                /** The reason for the decline. */
+                fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                /**
+                 * Sets [Builder.reason] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.reason] with a well-typed [Reason] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Decline].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 */
+                fun build(): Decline = Decline(reason, additionalProperties.toMutableMap())
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Decline = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                reason().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (reason.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** The reason for the decline. */
+            class Reason @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The card issuer has declined the transaction without providing a specific
+                     * reason.
+                     */
+                    @JvmField val DO_NOT_HONOR = of("do_not_honor")
+
+                    /**
+                     * The number of transactions for the card has exceeded the limit set by the
+                     * issuer.
+                     */
+                    @JvmField
+                    val ACTIVITY_COUNT_LIMIT_EXCEEDED = of("activity_count_limit_exceeded")
+
+                    /**
+                     * The card issuer requires the cardholder to contact them for further
+                     * information regarding the transaction.
+                     */
+                    @JvmField val REFER_TO_CARD_ISSUER = of("refer_to_card_issuer")
+
+                    /**
+                     * The card issuer requires the cardholder to contact them due to a special
+                     * condition related to the transaction.
+                     */
+                    @JvmField
+                    val REFER_TO_CARD_ISSUER_SPECIAL_CONDITION =
+                        of("refer_to_card_issuer_special_condition")
+
+                    /** The merchant is not valid for this transaction. */
+                    @JvmField val INVALID_MERCHANT = of("invalid_merchant")
+
+                    /** The card should be retained by the terminal. */
+                    @JvmField val PICK_UP_CARD = of("pick_up_card")
+
+                    /** An error occurred during processing of the transaction. */
+                    @JvmField val ERROR = of("error")
+
+                    /** The card should be retained by the terminal due to a special condition. */
+                    @JvmField val PICK_UP_CARD_SPECIAL = of("pick_up_card_special")
+
+                    /** The transaction is invalid and cannot be processed. */
+                    @JvmField val INVALID_TRANSACTION = of("invalid_transaction")
+
+                    /** The amount of the transaction is invalid. */
+                    @JvmField val INVALID_AMOUNT = of("invalid_amount")
+
+                    /** The account number provided is invalid. */
+                    @JvmField val INVALID_ACCOUNT_NUMBER = of("invalid_account_number")
+
+                    /** The issuer of the card could not be found. */
+                    @JvmField val NO_SUCH_ISSUER = of("no_such_issuer")
+
+                    /** The transaction should be re-entered for processing. */
+                    @JvmField val RE_ENTER_TRANSACTION = of("re_enter_transaction")
+
+                    /** There is no credit account associated with the card. */
+                    @JvmField val NO_CREDIT_ACCOUNT = of("no_credit_account")
+
+                    /**
+                     * The card should be retained by the terminal because it has been reported
+                     * lost.
+                     */
+                    @JvmField val PICK_UP_CARD_LOST = of("pick_up_card_lost")
+
+                    /**
+                     * The card should be retained by the terminal because it has been reported
+                     * stolen.
+                     */
+                    @JvmField val PICK_UP_CARD_STOLEN = of("pick_up_card_stolen")
+
+                    /** The account associated with the card has been closed. */
+                    @JvmField val CLOSED_ACCOUNT = of("closed_account")
+
+                    /** There are insufficient funds in the account to complete the transaction. */
+                    @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
+
+                    /** There is no checking account associated with the card. */
+                    @JvmField val NO_CHECKING_ACCOUNT = of("no_checking_account")
+
+                    /** There is no savings account associated with the card. */
+                    @JvmField val NO_SAVINGS_ACCOUNT = of("no_savings_account")
+
+                    /** The card has expired and cannot be used for transactions. */
+                    @JvmField val EXPIRED_CARD = of("expired_card")
+
+                    /** The transaction is not permitted for this cardholder. */
+                    @JvmField
+                    val TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER =
+                        of("transaction_not_permitted_to_cardholder")
+
+                    /** The transaction is not allowed at this terminal. */
+                    @JvmField
+                    val TRANSACTION_NOT_ALLOWED_AT_TERMINAL =
+                        of("transaction_not_allowed_at_terminal")
+
+                    /**
+                     * The transaction has been flagged as suspected fraud and cannot be processed.
+                     */
+                    @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
+
+                    /**
+                     * The amount of activity on the card has exceeded the limit set by the issuer.
+                     */
+                    @JvmField
+                    val ACTIVITY_AMOUNT_LIMIT_EXCEEDED = of("activity_amount_limit_exceeded")
+
+                    /**
+                     * The card has restrictions that prevent it from being used for this
+                     * transaction.
+                     */
+                    @JvmField val RESTRICTED_CARD = of("restricted_card")
+
+                    /**
+                     * A security violation has occurred, preventing the transaction from being
+                     * processed.
+                     */
+                    @JvmField val SECURITY_VIOLATION = of("security_violation")
+
+                    /**
+                     * The transaction does not meet the anti-money laundering requirements set by
+                     * the issuer.
+                     */
+                    @JvmField
+                    val TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT =
+                        of("transaction_does_not_fulfill_anti_money_laundering_requirement")
+
+                    /** The first use of the card has been blocked by the issuer. */
+                    @JvmField val BLOCKED_FIRST_USE = of("blocked_first_use")
+
+                    /** The credit issuer is currently unavailable to process the transaction. */
+                    @JvmField val CREDIT_ISSUER_UNAVAILABLE = of("credit_issuer_unavailable")
+
+                    /**
+                     * The card verification value (CVV) results were negative, indicating a
+                     * potential issue with the card.
+                     */
+                    @JvmField
+                    val NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS =
+                        of("negative_card_verification_value_results")
+
+                    /**
+                     * The issuer of the card is currently unavailable to process the transaction.
+                     */
+                    @JvmField val ISSUER_UNAVAILABLE = of("issuer_unavailable")
+
+                    /** The financial institution associated with the card could not be found. */
+                    @JvmField
+                    val FINANCIAL_INSTITUTION_CANNOT_BE_FOUND =
+                        of("financial_institution_cannot_be_found")
+
+                    /** The transaction cannot be completed due to an unspecified reason. */
+                    @JvmField
+                    val TRANSACTION_CANNOT_BE_COMPLETED = of("transaction_cannot_be_completed")
+
+                    /**
+                     * The transaction is a duplicate of a previous transaction and cannot be
+                     * processed again.
+                     */
+                    @JvmField val DUPLICATE_TRANSACTION = of("duplicate_transaction")
+
+                    /**
+                     * A system malfunction occurred, preventing the transaction from being
+                     * processed.
+                     */
+                    @JvmField val SYSTEM_MALFUNCTION = of("system_malfunction")
+
+                    /**
+                     * Additional customer authentication is required to complete the transaction.
+                     */
+                    @JvmField
+                    val ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED =
+                        of("additional_customer_authentication_required")
+
+                    /**
+                     * The surcharge amount applied to the transaction is not permitted by the
+                     * issuer.
+                     */
+                    @JvmField
+                    val SURCHARGE_AMOUNT_NOT_PERMITTED = of("surcharge_amount_not_permitted")
+
+                    /** The transaction was declined due to a failure in verifying the CVV2 code. */
+                    @JvmField val DECLINE_FOR_CVV2_FAILURE = of("decline_for_cvv2_failure")
+
+                    /** A stop payment order has been placed on this transaction. */
+                    @JvmField val STOP_PAYMENT_ORDER = of("stop_payment_order")
+
+                    /** An order has been placed to revoke authorization for this transaction. */
+                    @JvmField
+                    val REVOCATION_OF_AUTHORIZATION_ORDER = of("revocation_of_authorization_order")
+
+                    /**
+                     * An order has been placed to revoke all authorizations for this cardholder.
+                     */
+                    @JvmField
+                    val REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER =
+                        of("revocation_of_all_authorizations_order")
+
+                    @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                }
+
+                /** An enum containing [Reason]'s known values. */
+                enum class Known {
+                    /**
+                     * The card issuer has declined the transaction without providing a specific
+                     * reason.
+                     */
+                    DO_NOT_HONOR,
+                    /**
+                     * The number of transactions for the card has exceeded the limit set by the
+                     * issuer.
+                     */
+                    ACTIVITY_COUNT_LIMIT_EXCEEDED,
+                    /**
+                     * The card issuer requires the cardholder to contact them for further
+                     * information regarding the transaction.
+                     */
+                    REFER_TO_CARD_ISSUER,
+                    /**
+                     * The card issuer requires the cardholder to contact them due to a special
+                     * condition related to the transaction.
+                     */
+                    REFER_TO_CARD_ISSUER_SPECIAL_CONDITION,
+                    /** The merchant is not valid for this transaction. */
+                    INVALID_MERCHANT,
+                    /** The card should be retained by the terminal. */
+                    PICK_UP_CARD,
+                    /** An error occurred during processing of the transaction. */
+                    ERROR,
+                    /** The card should be retained by the terminal due to a special condition. */
+                    PICK_UP_CARD_SPECIAL,
+                    /** The transaction is invalid and cannot be processed. */
+                    INVALID_TRANSACTION,
+                    /** The amount of the transaction is invalid. */
+                    INVALID_AMOUNT,
+                    /** The account number provided is invalid. */
+                    INVALID_ACCOUNT_NUMBER,
+                    /** The issuer of the card could not be found. */
+                    NO_SUCH_ISSUER,
+                    /** The transaction should be re-entered for processing. */
+                    RE_ENTER_TRANSACTION,
+                    /** There is no credit account associated with the card. */
+                    NO_CREDIT_ACCOUNT,
+                    /**
+                     * The card should be retained by the terminal because it has been reported
+                     * lost.
+                     */
+                    PICK_UP_CARD_LOST,
+                    /**
+                     * The card should be retained by the terminal because it has been reported
+                     * stolen.
+                     */
+                    PICK_UP_CARD_STOLEN,
+                    /** The account associated with the card has been closed. */
+                    CLOSED_ACCOUNT,
+                    /** There are insufficient funds in the account to complete the transaction. */
+                    INSUFFICIENT_FUNDS,
+                    /** There is no checking account associated with the card. */
+                    NO_CHECKING_ACCOUNT,
+                    /** There is no savings account associated with the card. */
+                    NO_SAVINGS_ACCOUNT,
+                    /** The card has expired and cannot be used for transactions. */
+                    EXPIRED_CARD,
+                    /** The transaction is not permitted for this cardholder. */
+                    TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER,
+                    /** The transaction is not allowed at this terminal. */
+                    TRANSACTION_NOT_ALLOWED_AT_TERMINAL,
+                    /**
+                     * The transaction has been flagged as suspected fraud and cannot be processed.
+                     */
+                    SUSPECTED_FRAUD,
+                    /**
+                     * The amount of activity on the card has exceeded the limit set by the issuer.
+                     */
+                    ACTIVITY_AMOUNT_LIMIT_EXCEEDED,
+                    /**
+                     * The card has restrictions that prevent it from being used for this
+                     * transaction.
+                     */
+                    RESTRICTED_CARD,
+                    /**
+                     * A security violation has occurred, preventing the transaction from being
+                     * processed.
+                     */
+                    SECURITY_VIOLATION,
+                    /**
+                     * The transaction does not meet the anti-money laundering requirements set by
+                     * the issuer.
+                     */
+                    TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT,
+                    /** The first use of the card has been blocked by the issuer. */
+                    BLOCKED_FIRST_USE,
+                    /** The credit issuer is currently unavailable to process the transaction. */
+                    CREDIT_ISSUER_UNAVAILABLE,
+                    /**
+                     * The card verification value (CVV) results were negative, indicating a
+                     * potential issue with the card.
+                     */
+                    NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS,
+                    /**
+                     * The issuer of the card is currently unavailable to process the transaction.
+                     */
+                    ISSUER_UNAVAILABLE,
+                    /** The financial institution associated with the card could not be found. */
+                    FINANCIAL_INSTITUTION_CANNOT_BE_FOUND,
+                    /** The transaction cannot be completed due to an unspecified reason. */
+                    TRANSACTION_CANNOT_BE_COMPLETED,
+                    /**
+                     * The transaction is a duplicate of a previous transaction and cannot be
+                     * processed again.
+                     */
+                    DUPLICATE_TRANSACTION,
+                    /**
+                     * A system malfunction occurred, preventing the transaction from being
+                     * processed.
+                     */
+                    SYSTEM_MALFUNCTION,
+                    /**
+                     * Additional customer authentication is required to complete the transaction.
+                     */
+                    ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED,
+                    /**
+                     * The surcharge amount applied to the transaction is not permitted by the
+                     * issuer.
+                     */
+                    SURCHARGE_AMOUNT_NOT_PERMITTED,
+                    /** The transaction was declined due to a failure in verifying the CVV2 code. */
+                    DECLINE_FOR_CVV2_FAILURE,
+                    /** A stop payment order has been placed on this transaction. */
+                    STOP_PAYMENT_ORDER,
+                    /** An order has been placed to revoke authorization for this transaction. */
+                    REVOCATION_OF_AUTHORIZATION_ORDER,
+                    /**
+                     * An order has been placed to revoke all authorizations for this cardholder.
+                     */
+                    REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER,
+                }
+
+                /**
+                 * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Reason] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The card issuer has declined the transaction without providing a specific
+                     * reason.
+                     */
+                    DO_NOT_HONOR,
+                    /**
+                     * The number of transactions for the card has exceeded the limit set by the
+                     * issuer.
+                     */
+                    ACTIVITY_COUNT_LIMIT_EXCEEDED,
+                    /**
+                     * The card issuer requires the cardholder to contact them for further
+                     * information regarding the transaction.
+                     */
+                    REFER_TO_CARD_ISSUER,
+                    /**
+                     * The card issuer requires the cardholder to contact them due to a special
+                     * condition related to the transaction.
+                     */
+                    REFER_TO_CARD_ISSUER_SPECIAL_CONDITION,
+                    /** The merchant is not valid for this transaction. */
+                    INVALID_MERCHANT,
+                    /** The card should be retained by the terminal. */
+                    PICK_UP_CARD,
+                    /** An error occurred during processing of the transaction. */
+                    ERROR,
+                    /** The card should be retained by the terminal due to a special condition. */
+                    PICK_UP_CARD_SPECIAL,
+                    /** The transaction is invalid and cannot be processed. */
+                    INVALID_TRANSACTION,
+                    /** The amount of the transaction is invalid. */
+                    INVALID_AMOUNT,
+                    /** The account number provided is invalid. */
+                    INVALID_ACCOUNT_NUMBER,
+                    /** The issuer of the card could not be found. */
+                    NO_SUCH_ISSUER,
+                    /** The transaction should be re-entered for processing. */
+                    RE_ENTER_TRANSACTION,
+                    /** There is no credit account associated with the card. */
+                    NO_CREDIT_ACCOUNT,
+                    /**
+                     * The card should be retained by the terminal because it has been reported
+                     * lost.
+                     */
+                    PICK_UP_CARD_LOST,
+                    /**
+                     * The card should be retained by the terminal because it has been reported
+                     * stolen.
+                     */
+                    PICK_UP_CARD_STOLEN,
+                    /** The account associated with the card has been closed. */
+                    CLOSED_ACCOUNT,
+                    /** There are insufficient funds in the account to complete the transaction. */
+                    INSUFFICIENT_FUNDS,
+                    /** There is no checking account associated with the card. */
+                    NO_CHECKING_ACCOUNT,
+                    /** There is no savings account associated with the card. */
+                    NO_SAVINGS_ACCOUNT,
+                    /** The card has expired and cannot be used for transactions. */
+                    EXPIRED_CARD,
+                    /** The transaction is not permitted for this cardholder. */
+                    TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER,
+                    /** The transaction is not allowed at this terminal. */
+                    TRANSACTION_NOT_ALLOWED_AT_TERMINAL,
+                    /**
+                     * The transaction has been flagged as suspected fraud and cannot be processed.
+                     */
+                    SUSPECTED_FRAUD,
+                    /**
+                     * The amount of activity on the card has exceeded the limit set by the issuer.
+                     */
+                    ACTIVITY_AMOUNT_LIMIT_EXCEEDED,
+                    /**
+                     * The card has restrictions that prevent it from being used for this
+                     * transaction.
+                     */
+                    RESTRICTED_CARD,
+                    /**
+                     * A security violation has occurred, preventing the transaction from being
+                     * processed.
+                     */
+                    SECURITY_VIOLATION,
+                    /**
+                     * The transaction does not meet the anti-money laundering requirements set by
+                     * the issuer.
+                     */
+                    TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT,
+                    /** The first use of the card has been blocked by the issuer. */
+                    BLOCKED_FIRST_USE,
+                    /** The credit issuer is currently unavailable to process the transaction. */
+                    CREDIT_ISSUER_UNAVAILABLE,
+                    /**
+                     * The card verification value (CVV) results were negative, indicating a
+                     * potential issue with the card.
+                     */
+                    NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS,
+                    /**
+                     * The issuer of the card is currently unavailable to process the transaction.
+                     */
+                    ISSUER_UNAVAILABLE,
+                    /** The financial institution associated with the card could not be found. */
+                    FINANCIAL_INSTITUTION_CANNOT_BE_FOUND,
+                    /** The transaction cannot be completed due to an unspecified reason. */
+                    TRANSACTION_CANNOT_BE_COMPLETED,
+                    /**
+                     * The transaction is a duplicate of a previous transaction and cannot be
+                     * processed again.
+                     */
+                    DUPLICATE_TRANSACTION,
+                    /**
+                     * A system malfunction occurred, preventing the transaction from being
+                     * processed.
+                     */
+                    SYSTEM_MALFUNCTION,
+                    /**
+                     * Additional customer authentication is required to complete the transaction.
+                     */
+                    ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED,
+                    /**
+                     * The surcharge amount applied to the transaction is not permitted by the
+                     * issuer.
+                     */
+                    SURCHARGE_AMOUNT_NOT_PERMITTED,
+                    /** The transaction was declined due to a failure in verifying the CVV2 code. */
+                    DECLINE_FOR_CVV2_FAILURE,
+                    /** A stop payment order has been placed on this transaction. */
+                    STOP_PAYMENT_ORDER,
+                    /** An order has been placed to revoke authorization for this transaction. */
+                    REVOCATION_OF_AUTHORIZATION_ORDER,
+                    /**
+                     * An order has been placed to revoke all authorizations for this cardholder.
+                     */
+                    REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER,
+                    /**
+                     * An enum member indicating that [Reason] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        DO_NOT_HONOR -> Value.DO_NOT_HONOR
+                        ACTIVITY_COUNT_LIMIT_EXCEEDED -> Value.ACTIVITY_COUNT_LIMIT_EXCEEDED
+                        REFER_TO_CARD_ISSUER -> Value.REFER_TO_CARD_ISSUER
+                        REFER_TO_CARD_ISSUER_SPECIAL_CONDITION ->
+                            Value.REFER_TO_CARD_ISSUER_SPECIAL_CONDITION
+                        INVALID_MERCHANT -> Value.INVALID_MERCHANT
+                        PICK_UP_CARD -> Value.PICK_UP_CARD
+                        ERROR -> Value.ERROR
+                        PICK_UP_CARD_SPECIAL -> Value.PICK_UP_CARD_SPECIAL
+                        INVALID_TRANSACTION -> Value.INVALID_TRANSACTION
+                        INVALID_AMOUNT -> Value.INVALID_AMOUNT
+                        INVALID_ACCOUNT_NUMBER -> Value.INVALID_ACCOUNT_NUMBER
+                        NO_SUCH_ISSUER -> Value.NO_SUCH_ISSUER
+                        RE_ENTER_TRANSACTION -> Value.RE_ENTER_TRANSACTION
+                        NO_CREDIT_ACCOUNT -> Value.NO_CREDIT_ACCOUNT
+                        PICK_UP_CARD_LOST -> Value.PICK_UP_CARD_LOST
+                        PICK_UP_CARD_STOLEN -> Value.PICK_UP_CARD_STOLEN
+                        CLOSED_ACCOUNT -> Value.CLOSED_ACCOUNT
+                        INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
+                        NO_CHECKING_ACCOUNT -> Value.NO_CHECKING_ACCOUNT
+                        NO_SAVINGS_ACCOUNT -> Value.NO_SAVINGS_ACCOUNT
+                        EXPIRED_CARD -> Value.EXPIRED_CARD
+                        TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER ->
+                            Value.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
+                        TRANSACTION_NOT_ALLOWED_AT_TERMINAL ->
+                            Value.TRANSACTION_NOT_ALLOWED_AT_TERMINAL
+                        SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
+                        ACTIVITY_AMOUNT_LIMIT_EXCEEDED -> Value.ACTIVITY_AMOUNT_LIMIT_EXCEEDED
+                        RESTRICTED_CARD -> Value.RESTRICTED_CARD
+                        SECURITY_VIOLATION -> Value.SECURITY_VIOLATION
+                        TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT ->
+                            Value.TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT
+                        BLOCKED_FIRST_USE -> Value.BLOCKED_FIRST_USE
+                        CREDIT_ISSUER_UNAVAILABLE -> Value.CREDIT_ISSUER_UNAVAILABLE
+                        NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS ->
+                            Value.NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS
+                        ISSUER_UNAVAILABLE -> Value.ISSUER_UNAVAILABLE
+                        FINANCIAL_INSTITUTION_CANNOT_BE_FOUND ->
+                            Value.FINANCIAL_INSTITUTION_CANNOT_BE_FOUND
+                        TRANSACTION_CANNOT_BE_COMPLETED -> Value.TRANSACTION_CANNOT_BE_COMPLETED
+                        DUPLICATE_TRANSACTION -> Value.DUPLICATE_TRANSACTION
+                        SYSTEM_MALFUNCTION -> Value.SYSTEM_MALFUNCTION
+                        ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED ->
+                            Value.ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED
+                        SURCHARGE_AMOUNT_NOT_PERMITTED -> Value.SURCHARGE_AMOUNT_NOT_PERMITTED
+                        DECLINE_FOR_CVV2_FAILURE -> Value.DECLINE_FOR_CVV2_FAILURE
+                        STOP_PAYMENT_ORDER -> Value.STOP_PAYMENT_ORDER
+                        REVOCATION_OF_AUTHORIZATION_ORDER -> Value.REVOCATION_OF_AUTHORIZATION_ORDER
+                        REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER ->
+                            Value.REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        DO_NOT_HONOR -> Known.DO_NOT_HONOR
+                        ACTIVITY_COUNT_LIMIT_EXCEEDED -> Known.ACTIVITY_COUNT_LIMIT_EXCEEDED
+                        REFER_TO_CARD_ISSUER -> Known.REFER_TO_CARD_ISSUER
+                        REFER_TO_CARD_ISSUER_SPECIAL_CONDITION ->
+                            Known.REFER_TO_CARD_ISSUER_SPECIAL_CONDITION
+                        INVALID_MERCHANT -> Known.INVALID_MERCHANT
+                        PICK_UP_CARD -> Known.PICK_UP_CARD
+                        ERROR -> Known.ERROR
+                        PICK_UP_CARD_SPECIAL -> Known.PICK_UP_CARD_SPECIAL
+                        INVALID_TRANSACTION -> Known.INVALID_TRANSACTION
+                        INVALID_AMOUNT -> Known.INVALID_AMOUNT
+                        INVALID_ACCOUNT_NUMBER -> Known.INVALID_ACCOUNT_NUMBER
+                        NO_SUCH_ISSUER -> Known.NO_SUCH_ISSUER
+                        RE_ENTER_TRANSACTION -> Known.RE_ENTER_TRANSACTION
+                        NO_CREDIT_ACCOUNT -> Known.NO_CREDIT_ACCOUNT
+                        PICK_UP_CARD_LOST -> Known.PICK_UP_CARD_LOST
+                        PICK_UP_CARD_STOLEN -> Known.PICK_UP_CARD_STOLEN
+                        CLOSED_ACCOUNT -> Known.CLOSED_ACCOUNT
+                        INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
+                        NO_CHECKING_ACCOUNT -> Known.NO_CHECKING_ACCOUNT
+                        NO_SAVINGS_ACCOUNT -> Known.NO_SAVINGS_ACCOUNT
+                        EXPIRED_CARD -> Known.EXPIRED_CARD
+                        TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER ->
+                            Known.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
+                        TRANSACTION_NOT_ALLOWED_AT_TERMINAL ->
+                            Known.TRANSACTION_NOT_ALLOWED_AT_TERMINAL
+                        SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
+                        ACTIVITY_AMOUNT_LIMIT_EXCEEDED -> Known.ACTIVITY_AMOUNT_LIMIT_EXCEEDED
+                        RESTRICTED_CARD -> Known.RESTRICTED_CARD
+                        SECURITY_VIOLATION -> Known.SECURITY_VIOLATION
+                        TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT ->
+                            Known.TRANSACTION_DOES_NOT_FULFILL_ANTI_MONEY_LAUNDERING_REQUIREMENT
+                        BLOCKED_FIRST_USE -> Known.BLOCKED_FIRST_USE
+                        CREDIT_ISSUER_UNAVAILABLE -> Known.CREDIT_ISSUER_UNAVAILABLE
+                        NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS ->
+                            Known.NEGATIVE_CARD_VERIFICATION_VALUE_RESULTS
+                        ISSUER_UNAVAILABLE -> Known.ISSUER_UNAVAILABLE
+                        FINANCIAL_INSTITUTION_CANNOT_BE_FOUND ->
+                            Known.FINANCIAL_INSTITUTION_CANNOT_BE_FOUND
+                        TRANSACTION_CANNOT_BE_COMPLETED -> Known.TRANSACTION_CANNOT_BE_COMPLETED
+                        DUPLICATE_TRANSACTION -> Known.DUPLICATE_TRANSACTION
+                        SYSTEM_MALFUNCTION -> Known.SYSTEM_MALFUNCTION
+                        ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED ->
+                            Known.ADDITIONAL_CUSTOMER_AUTHENTICATION_REQUIRED
+                        SURCHARGE_AMOUNT_NOT_PERMITTED -> Known.SURCHARGE_AMOUNT_NOT_PERMITTED
+                        DECLINE_FOR_CVV2_FAILURE -> Known.DECLINE_FOR_CVV2_FAILURE
+                        STOP_PAYMENT_ORDER -> Known.STOP_PAYMENT_ORDER
+                        REVOCATION_OF_AUTHORIZATION_ORDER -> Known.REVOCATION_OF_AUTHORIZATION_ORDER
+                        REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER ->
+                            Known.REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER
+                        else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Reason = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Reason && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Decline &&
+                    reason == other.reason &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Decline{reason=$reason, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Outcome &&
+                result == other.result &&
+                decline == other.decline &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(result, decline, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Outcome{result=$result, decline=$decline, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
