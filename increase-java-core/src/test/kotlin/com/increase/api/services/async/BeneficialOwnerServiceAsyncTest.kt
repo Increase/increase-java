@@ -6,6 +6,7 @@ import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerUpdateParams
+import java.time.LocalDate
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -53,6 +54,40 @@ internal class BeneficialOwnerServiceAsyncTest {
                             .line2("Unit 2")
                             .state("NY")
                             .zip("10045")
+                            .build()
+                    )
+                    .confirmedNoUsTaxId(true)
+                    .identification(
+                        BeneficialOwnerUpdateParams.Identification.builder()
+                            .method(
+                                BeneficialOwnerUpdateParams.Identification.Method
+                                    .SOCIAL_SECURITY_NUMBER
+                            )
+                            .number("xxxx")
+                            .driversLicense(
+                                BeneficialOwnerUpdateParams.Identification.DriversLicense.builder()
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .fileId("file_id")
+                                    .state("x")
+                                    .backFileId("back_file_id")
+                                    .build()
+                            )
+                            .other(
+                                BeneficialOwnerUpdateParams.Identification.Other.builder()
+                                    .country("x")
+                                    .description("x")
+                                    .fileId("file_id")
+                                    .backFileId("back_file_id")
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .build()
+                            )
+                            .passport(
+                                BeneficialOwnerUpdateParams.Identification.Passport.builder()
+                                    .country("x")
+                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                    .fileId("file_id")
+                                    .build()
+                            )
                             .build()
                     )
                     .build()
