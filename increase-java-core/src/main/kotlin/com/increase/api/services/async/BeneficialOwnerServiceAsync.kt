@@ -8,6 +8,7 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPageAsync
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerRetrieveParams
+import com.increase.api.models.beneficialowners.BeneficialOwnerUpdateParams
 import com.increase.api.models.beneficialowners.EntityBeneficialOwner
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
@@ -64,6 +65,45 @@ interface BeneficialOwnerServiceAsync {
         requestOptions: RequestOptions,
     ): CompletableFuture<EntityBeneficialOwner> =
         retrieve(entityBeneficialOwnerId, BeneficialOwnerRetrieveParams.none(), requestOptions)
+
+    /** Update a Beneficial Owner */
+    fun update(entityBeneficialOwnerId: String): CompletableFuture<EntityBeneficialOwner> =
+        update(entityBeneficialOwnerId, BeneficialOwnerUpdateParams.none())
+
+    /** @see update */
+    fun update(
+        entityBeneficialOwnerId: String,
+        params: BeneficialOwnerUpdateParams = BeneficialOwnerUpdateParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EntityBeneficialOwner> =
+        update(
+            params.toBuilder().entityBeneficialOwnerId(entityBeneficialOwnerId).build(),
+            requestOptions,
+        )
+
+    /** @see update */
+    fun update(
+        entityBeneficialOwnerId: String,
+        params: BeneficialOwnerUpdateParams = BeneficialOwnerUpdateParams.none(),
+    ): CompletableFuture<EntityBeneficialOwner> =
+        update(entityBeneficialOwnerId, params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        params: BeneficialOwnerUpdateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EntityBeneficialOwner>
+
+    /** @see update */
+    fun update(params: BeneficialOwnerUpdateParams): CompletableFuture<EntityBeneficialOwner> =
+        update(params, RequestOptions.none())
+
+    /** @see update */
+    fun update(
+        entityBeneficialOwnerId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EntityBeneficialOwner> =
+        update(entityBeneficialOwnerId, BeneficialOwnerUpdateParams.none(), requestOptions)
 
     /** List Beneficial Owners */
     fun list(params: BeneficialOwnerListParams): CompletableFuture<BeneficialOwnerListPageAsync> =
@@ -136,6 +176,53 @@ interface BeneficialOwnerServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
             retrieve(entityBeneficialOwnerId, BeneficialOwnerRetrieveParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `patch
+         * /entity_beneficial_owners/{entity_beneficial_owner_id}`, but is otherwise the same as
+         * [BeneficialOwnerServiceAsync.update].
+         */
+        fun update(
+            entityBeneficialOwnerId: String
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            update(entityBeneficialOwnerId, BeneficialOwnerUpdateParams.none())
+
+        /** @see update */
+        fun update(
+            entityBeneficialOwnerId: String,
+            params: BeneficialOwnerUpdateParams = BeneficialOwnerUpdateParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            update(
+                params.toBuilder().entityBeneficialOwnerId(entityBeneficialOwnerId).build(),
+                requestOptions,
+            )
+
+        /** @see update */
+        fun update(
+            entityBeneficialOwnerId: String,
+            params: BeneficialOwnerUpdateParams = BeneficialOwnerUpdateParams.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            update(entityBeneficialOwnerId, params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            params: BeneficialOwnerUpdateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>>
+
+        /** @see update */
+        fun update(
+            params: BeneficialOwnerUpdateParams
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            update(params, RequestOptions.none())
+
+        /** @see update */
+        fun update(
+            entityBeneficialOwnerId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            update(entityBeneficialOwnerId, BeneficialOwnerUpdateParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /entity_beneficial_owners`, but is otherwise the
