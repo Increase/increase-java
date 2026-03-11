@@ -2,6 +2,7 @@
 
 package com.increase.api.models.beneficialowners
 
+import java.time.LocalDate
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -21,6 +22,39 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .line2("Unit 2")
                     .state("NY")
                     .zip("10045")
+                    .build()
+            )
+            .confirmedNoUsTaxId(true)
+            .identification(
+                BeneficialOwnerUpdateParams.Identification.builder()
+                    .method(
+                        BeneficialOwnerUpdateParams.Identification.Method.SOCIAL_SECURITY_NUMBER
+                    )
+                    .number("xxxx")
+                    .driversLicense(
+                        BeneficialOwnerUpdateParams.Identification.DriversLicense.builder()
+                            .expirationDate(LocalDate.parse("2019-12-27"))
+                            .fileId("file_id")
+                            .state("x")
+                            .backFileId("back_file_id")
+                            .build()
+                    )
+                    .other(
+                        BeneficialOwnerUpdateParams.Identification.Other.builder()
+                            .country("x")
+                            .description("x")
+                            .fileId("file_id")
+                            .backFileId("back_file_id")
+                            .expirationDate(LocalDate.parse("2019-12-27"))
+                            .build()
+                    )
+                    .passport(
+                        BeneficialOwnerUpdateParams.Identification.Passport.builder()
+                            .country("x")
+                            .expirationDate(LocalDate.parse("2019-12-27"))
+                            .fileId("file_id")
+                            .build()
+                    )
                     .build()
             )
             .build()
@@ -58,6 +92,39 @@ internal class BeneficialOwnerUpdateParamsTest {
                         .zip("10045")
                         .build()
                 )
+                .confirmedNoUsTaxId(true)
+                .identification(
+                    BeneficialOwnerUpdateParams.Identification.builder()
+                        .method(
+                            BeneficialOwnerUpdateParams.Identification.Method.SOCIAL_SECURITY_NUMBER
+                        )
+                        .number("xxxx")
+                        .driversLicense(
+                            BeneficialOwnerUpdateParams.Identification.DriversLicense.builder()
+                                .expirationDate(LocalDate.parse("2019-12-27"))
+                                .fileId("file_id")
+                                .state("x")
+                                .backFileId("back_file_id")
+                                .build()
+                        )
+                        .other(
+                            BeneficialOwnerUpdateParams.Identification.Other.builder()
+                                .country("x")
+                                .description("x")
+                                .fileId("file_id")
+                                .backFileId("back_file_id")
+                                .expirationDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
+                        .passport(
+                            BeneficialOwnerUpdateParams.Identification.Passport.builder()
+                                .country("x")
+                                .expirationDate(LocalDate.parse("2019-12-27"))
+                                .fileId("file_id")
+                                .build()
+                        )
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -71,6 +138,40 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .line2("Unit 2")
                     .state("NY")
                     .zip("10045")
+                    .build()
+            )
+        assertThat(body.confirmedNoUsTaxId()).contains(true)
+        assertThat(body.identification())
+            .contains(
+                BeneficialOwnerUpdateParams.Identification.builder()
+                    .method(
+                        BeneficialOwnerUpdateParams.Identification.Method.SOCIAL_SECURITY_NUMBER
+                    )
+                    .number("xxxx")
+                    .driversLicense(
+                        BeneficialOwnerUpdateParams.Identification.DriversLicense.builder()
+                            .expirationDate(LocalDate.parse("2019-12-27"))
+                            .fileId("file_id")
+                            .state("x")
+                            .backFileId("back_file_id")
+                            .build()
+                    )
+                    .other(
+                        BeneficialOwnerUpdateParams.Identification.Other.builder()
+                            .country("x")
+                            .description("x")
+                            .fileId("file_id")
+                            .backFileId("back_file_id")
+                            .expirationDate(LocalDate.parse("2019-12-27"))
+                            .build()
+                    )
+                    .passport(
+                        BeneficialOwnerUpdateParams.Identification.Passport.builder()
+                            .country("x")
+                            .expirationDate(LocalDate.parse("2019-12-27"))
+                            .fileId("file_id")
+                            .build()
+                    )
                     .build()
             )
     }
