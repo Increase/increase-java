@@ -4,10 +4,8 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.entities.EntityArchiveBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
-import com.increase.api.models.entities.EntityUpdateBeneficialOwnerAddressParams
 import com.increase.api.models.entities.EntityUpdateParams
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -599,29 +597,6 @@ internal class EntityServiceAsyncTest {
     }
 
     @Test
-    fun archiveBeneficialOwner() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val entityServiceAsync = client.entities()
-
-        val entityFuture =
-            entityServiceAsync.archiveBeneficialOwner(
-                EntityArchiveBeneficialOwnerParams.builder()
-                    .entityId("entity_n8y8tnk2p9339ti393yi")
-                    .beneficialOwnerId(
-                        "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                    )
-                    .build()
-            )
-
-        val entity = entityFuture.get()
-        entity.validate()
-    }
-
-    @Test
     fun createBeneficialOwner() {
         val client =
             IncreaseOkHttpClientAsync.builder()
@@ -711,39 +686,6 @@ internal class EntityServiceAsyncTest {
                             )
                             .companyTitle("CEO")
                             .build()
-                    )
-                    .build()
-            )
-
-        val entity = entityFuture.get()
-        entity.validate()
-    }
-
-    @Test
-    fun updateBeneficialOwnerAddress() {
-        val client =
-            IncreaseOkHttpClientAsync.builder()
-                .baseUrl(TestServerExtension.BASE_URL)
-                .apiKey("My API Key")
-                .build()
-        val entityServiceAsync = client.entities()
-
-        val entityFuture =
-            entityServiceAsync.updateBeneficialOwnerAddress(
-                EntityUpdateBeneficialOwnerAddressParams.builder()
-                    .entityId("entity_n8y8tnk2p9339ti393yi")
-                    .address(
-                        EntityUpdateBeneficialOwnerAddressParams.Address.builder()
-                            .city("New York")
-                            .country("US")
-                            .line1("33 Liberty Street")
-                            .line2("Unit 2")
-                            .state("NY")
-                            .zip("10045")
-                            .build()
-                    )
-                    .beneficialOwnerId(
-                        "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
                     )
                     .build()
             )
