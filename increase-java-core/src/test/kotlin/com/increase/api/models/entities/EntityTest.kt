@@ -30,7 +30,7 @@ internal class EntityTest {
                         )
                         .addBeneficialOwner(
                             Entity.Corporation.BeneficialOwner.builder()
-                                .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+                                .id("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                                 .companyTitle("CEO")
                                 .individual(
                                     Entity.Corporation.BeneficialOwner.Individual.builder()
@@ -274,7 +274,7 @@ internal class EntityTest {
                     )
                     .addBeneficialOwner(
                         Entity.Corporation.BeneficialOwner.builder()
-                            .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+                            .id("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                             .companyTitle("CEO")
                             .individual(
                                 Entity.Corporation.BeneficialOwner.Individual.builder()
@@ -528,7 +528,7 @@ internal class EntityTest {
                         )
                         .addBeneficialOwner(
                             Entity.Corporation.BeneficialOwner.builder()
-                                .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+                                .id("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                                 .companyTitle("CEO")
                                 .individual(
                                     Entity.Corporation.BeneficialOwner.Individual.builder()

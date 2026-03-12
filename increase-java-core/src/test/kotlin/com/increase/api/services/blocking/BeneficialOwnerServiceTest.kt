@@ -100,9 +100,7 @@ internal class BeneficialOwnerServiceTest {
         val beneficialOwnerService = client.beneficialOwners()
 
         val entityBeneficialOwner =
-            beneficialOwnerService.retrieve(
-                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-            )
+            beneficialOwnerService.retrieve("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
 
         entityBeneficialOwner.validate()
     }
@@ -119,9 +117,7 @@ internal class BeneficialOwnerServiceTest {
         val entityBeneficialOwner =
             beneficialOwnerService.update(
                 BeneficialOwnerUpdateParams.builder()
-                    .entityBeneficialOwnerId(
-                        "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                    )
+                    .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                     .address(
                         BeneficialOwnerUpdateParams.Address.builder()
                             .city("New York")
@@ -200,9 +196,7 @@ internal class BeneficialOwnerServiceTest {
         val beneficialOwnerService = client.beneficialOwners()
 
         val entityBeneficialOwner =
-            beneficialOwnerService.archive(
-                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-            )
+            beneficialOwnerService.archive("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
 
         entityBeneficialOwner.validate()
     }
