@@ -62,6 +62,14 @@ private constructor(
     fun identification(): Optional<Identification> = body.identification()
 
     /**
+     * The individual's legal name.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun name(): Optional<String> = body.name()
+
+    /**
      * Returns the raw JSON value of [address].
      *
      * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
@@ -82,6 +90,13 @@ private constructor(
      * Unlike [identification], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _identification(): JsonField<Identification> = body._identification()
+
+    /**
+     * Returns the raw JSON value of [name].
+     *
+     * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _name(): JsonField<String> = body._name()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -139,6 +154,7 @@ private constructor(
          * - [address]
          * - [confirmedNoUsTaxId]
          * - [identification]
+         * - [name]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -191,6 +207,17 @@ private constructor(
         fun identification(identification: JsonField<Identification>) = apply {
             body.identification(identification)
         }
+
+        /** The individual's legal name. */
+        fun name(name: String) = apply { body.name(name) }
+
+        /**
+         * Sets [Builder.name] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.name] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun name(name: JsonField<String>) = apply { body.name(name) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -341,6 +368,7 @@ private constructor(
         private val address: JsonField<Address>,
         private val confirmedNoUsTaxId: JsonField<Boolean>,
         private val identification: JsonField<Identification>,
+        private val name: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -353,7 +381,8 @@ private constructor(
             @JsonProperty("identification")
             @ExcludeMissing
             identification: JsonField<Identification> = JsonMissing.of(),
-        ) : this(address, confirmedNoUsTaxId, identification, mutableMapOf())
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        ) : this(address, confirmedNoUsTaxId, identification, name, mutableMapOf())
 
         /**
          * The individual's physical address. Mail receiving locations like PO Boxes and PMB's are
@@ -385,6 +414,14 @@ private constructor(
             identification.getOptional("identification")
 
         /**
+         * The individual's legal name.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun name(): Optional<String> = name.getOptional("name")
+
+        /**
          * Returns the raw JSON value of [address].
          *
          * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
@@ -411,6 +448,13 @@ private constructor(
         @ExcludeMissing
         fun _identification(): JsonField<Identification> = identification
 
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -435,6 +479,7 @@ private constructor(
             private var address: JsonField<Address> = JsonMissing.of()
             private var confirmedNoUsTaxId: JsonField<Boolean> = JsonMissing.of()
             private var identification: JsonField<Identification> = JsonMissing.of()
+            private var name: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -442,6 +487,7 @@ private constructor(
                 address = body.address
                 confirmedNoUsTaxId = body.confirmedNoUsTaxId
                 identification = body.identification
+                name = body.name
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -494,6 +540,18 @@ private constructor(
                 this.identification = identification
             }
 
+            /** The individual's legal name. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -523,6 +581,7 @@ private constructor(
                     address,
                     confirmedNoUsTaxId,
                     identification,
+                    name,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -537,6 +596,7 @@ private constructor(
             address().ifPresent { it.validate() }
             confirmedNoUsTaxId()
             identification().ifPresent { it.validate() }
+            name()
             validated = true
         }
 
@@ -558,7 +618,8 @@ private constructor(
         internal fun validity(): Int =
             (address.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (confirmedNoUsTaxId.asKnown().isPresent) 1 else 0) +
-                (identification.asKnown().getOrNull()?.validity() ?: 0)
+                (identification.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (name.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -569,17 +630,18 @@ private constructor(
                 address == other.address &&
                 confirmedNoUsTaxId == other.confirmedNoUsTaxId &&
                 identification == other.identification &&
+                name == other.name &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(address, confirmedNoUsTaxId, identification, additionalProperties)
+            Objects.hash(address, confirmedNoUsTaxId, identification, name, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, identification=$identification, additionalProperties=$additionalProperties}"
+            "Body{address=$address, confirmedNoUsTaxId=$confirmedNoUsTaxId, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
     }
 
     /**

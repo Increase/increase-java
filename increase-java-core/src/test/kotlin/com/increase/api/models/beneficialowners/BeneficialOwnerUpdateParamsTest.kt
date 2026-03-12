@@ -57,6 +57,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     )
                     .build()
             )
+            .name("x")
             .build()
     }
 
@@ -125,6 +126,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                         )
                         .build()
                 )
+                .name("x")
                 .build()
 
         val body = params._body()
@@ -174,6 +176,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     )
                     .build()
             )
+        assertThat(body.name()).contains("x")
     }
 
     @Test

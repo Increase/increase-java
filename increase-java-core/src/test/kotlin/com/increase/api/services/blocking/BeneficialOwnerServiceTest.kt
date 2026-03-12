@@ -89,6 +89,7 @@ internal class BeneficialOwnerServiceTest {
                             )
                             .build()
                     )
+                    .name("x")
                     .build()
             )
 
