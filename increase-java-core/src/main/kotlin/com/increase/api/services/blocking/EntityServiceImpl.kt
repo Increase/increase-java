@@ -18,7 +18,6 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPage
 import com.increase.api.models.entities.EntityListPageResponse
@@ -59,13 +58,6 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
     override fun archive(params: EntityArchiveParams, requestOptions: RequestOptions): Entity =
         // post /entities/{entity_id}/archive
         withRawResponse().archive(params, requestOptions).parse()
-
-    override fun createBeneficialOwner(
-        params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions,
-    ): Entity =
-        // post /entities/{entity_id}/create_beneficial_owner
-        withRawResponse().createBeneficialOwner(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityService.WithRawResponse {
@@ -222,37 +214,6 @@ class EntityServiceImpl internal constructor(private val clientOptions: ClientOp
             return errorHandler.handle(response).parseable {
                 response
                     .use { archiveHandler.handle(it) }
-                    .also {
-                        if (requestOptions.responseValidation!!) {
-                            it.validate()
-                        }
-                    }
-            }
-        }
-
-        private val createBeneficialOwnerHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun createBeneficialOwner(
-            params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions,
-        ): HttpResponseFor<Entity> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "create_beneficial_owner")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepare(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            val response = clientOptions.httpClient.execute(request, requestOptions)
-            return errorHandler.handle(response).parseable {
-                response
-                    .use { createBeneficialOwnerHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
