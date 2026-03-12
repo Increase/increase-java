@@ -6,6 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.models.beneficialowners.BeneficialOwnerArchiveParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPage
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerRetrieveParams
@@ -112,6 +113,44 @@ interface BeneficialOwnerService {
         params: BeneficialOwnerListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): BeneficialOwnerListPage
+
+    /** Archive a Beneficial Owner */
+    fun archive(entityBeneficialOwnerId: String): EntityBeneficialOwner =
+        archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none())
+
+    /** @see archive */
+    fun archive(
+        entityBeneficialOwnerId: String,
+        params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EntityBeneficialOwner =
+        archive(
+            params.toBuilder().entityBeneficialOwnerId(entityBeneficialOwnerId).build(),
+            requestOptions,
+        )
+
+    /** @see archive */
+    fun archive(
+        entityBeneficialOwnerId: String,
+        params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+    ): EntityBeneficialOwner = archive(entityBeneficialOwnerId, params, RequestOptions.none())
+
+    /** @see archive */
+    fun archive(
+        params: BeneficialOwnerArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): EntityBeneficialOwner
+
+    /** @see archive */
+    fun archive(params: BeneficialOwnerArchiveParams): EntityBeneficialOwner =
+        archive(params, RequestOptions.none())
+
+    /** @see archive */
+    fun archive(
+        entityBeneficialOwnerId: String,
+        requestOptions: RequestOptions,
+    ): EntityBeneficialOwner =
+        archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none(), requestOptions)
 
     /**
      * A view of [BeneficialOwnerService] that provides access to raw HTTP responses for each
@@ -241,5 +280,54 @@ interface BeneficialOwnerService {
             params: BeneficialOwnerListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<BeneficialOwnerListPage>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /entity_beneficial_owners/{entity_beneficial_owner_id}/archive`, but is otherwise the
+         * same as [BeneficialOwnerService.archive].
+         */
+        @MustBeClosed
+        fun archive(entityBeneficialOwnerId: String): HttpResponseFor<EntityBeneficialOwner> =
+            archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none())
+
+        /** @see archive */
+        @MustBeClosed
+        fun archive(
+            entityBeneficialOwnerId: String,
+            params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EntityBeneficialOwner> =
+            archive(
+                params.toBuilder().entityBeneficialOwnerId(entityBeneficialOwnerId).build(),
+                requestOptions,
+            )
+
+        /** @see archive */
+        @MustBeClosed
+        fun archive(
+            entityBeneficialOwnerId: String,
+            params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+        ): HttpResponseFor<EntityBeneficialOwner> =
+            archive(entityBeneficialOwnerId, params, RequestOptions.none())
+
+        /** @see archive */
+        @MustBeClosed
+        fun archive(
+            params: BeneficialOwnerArchiveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<EntityBeneficialOwner>
+
+        /** @see archive */
+        @MustBeClosed
+        fun archive(params: BeneficialOwnerArchiveParams): HttpResponseFor<EntityBeneficialOwner> =
+            archive(params, RequestOptions.none())
+
+        /** @see archive */
+        @MustBeClosed
+        fun archive(
+            entityBeneficialOwnerId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EntityBeneficialOwner> =
+            archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none(), requestOptions)
     }
 }
