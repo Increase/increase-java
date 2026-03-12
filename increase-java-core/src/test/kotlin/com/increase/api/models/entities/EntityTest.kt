@@ -4,7 +4,6 @@ package com.increase.api.models.entities
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
-import com.increase.api.models.beneficialowners.EntityBeneficialOwner
 import com.increase.api.models.supplementaldocuments.EntitySupplementalDocument
 import java.time.LocalDate
 import java.time.OffsetDateTime
@@ -30,15 +29,14 @@ internal class EntityTest {
                                 .build()
                         )
                         .addBeneficialOwner(
-                            EntityBeneficialOwner.builder()
+                            Entity.Corporation.BeneficialOwner.builder()
                                 .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                                 .companyTitle("CEO")
-                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .idempotencyKey(null)
                                 .individual(
-                                    EntityBeneficialOwner.Individual.builder()
+                                    Entity.Corporation.BeneficialOwner.Individual.builder()
                                         .address(
-                                            EntityBeneficialOwner.Individual.Address.builder()
+                                            Entity.Corporation.BeneficialOwner.Individual.Address
+                                                .builder()
                                                 .city("New York")
                                                 .country("US")
                                                 .line1("33 Liberty Street")
@@ -49,10 +47,12 @@ internal class EntityTest {
                                         )
                                         .dateOfBirth(LocalDate.parse("1970-01-31"))
                                         .identification(
-                                            EntityBeneficialOwner.Individual.Identification
+                                            Entity.Corporation.BeneficialOwner.Individual
+                                                .Identification
                                                 .builder()
                                                 .method(
-                                                    EntityBeneficialOwner.Individual.Identification
+                                                    Entity.Corporation.BeneficialOwner.Individual
+                                                        .Identification
                                                         .Method
                                                         .SOCIAL_SECURITY_NUMBER
                                                 )
@@ -62,9 +62,8 @@ internal class EntityTest {
                                         .name("Ian Crease")
                                         .build()
                                 )
-                                .addProng(EntityBeneficialOwner.Prong.CONTROL)
-                                .addProng(EntityBeneficialOwner.Prong.OWNERSHIP)
-                                .type(EntityBeneficialOwner.Type.ENTITY_BENEFICIAL_OWNER)
+                                .addProng(Entity.Corporation.BeneficialOwner.Prong.CONTROL)
+                                .addProng(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                                 .build()
                         )
                         .email(null)
@@ -274,15 +273,14 @@ internal class EntityTest {
                             .build()
                     )
                     .addBeneficialOwner(
-                        EntityBeneficialOwner.builder()
+                        Entity.Corporation.BeneficialOwner.builder()
                             .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                             .companyTitle("CEO")
-                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .idempotencyKey(null)
                             .individual(
-                                EntityBeneficialOwner.Individual.builder()
+                                Entity.Corporation.BeneficialOwner.Individual.builder()
                                     .address(
-                                        EntityBeneficialOwner.Individual.Address.builder()
+                                        Entity.Corporation.BeneficialOwner.Individual.Address
+                                            .builder()
                                             .city("New York")
                                             .country("US")
                                             .line1("33 Liberty Street")
@@ -293,9 +291,11 @@ internal class EntityTest {
                                     )
                                     .dateOfBirth(LocalDate.parse("1970-01-31"))
                                     .identification(
-                                        EntityBeneficialOwner.Individual.Identification.builder()
+                                        Entity.Corporation.BeneficialOwner.Individual.Identification
+                                            .builder()
                                             .method(
-                                                EntityBeneficialOwner.Individual.Identification
+                                                Entity.Corporation.BeneficialOwner.Individual
+                                                    .Identification
                                                     .Method
                                                     .SOCIAL_SECURITY_NUMBER
                                             )
@@ -305,9 +305,8 @@ internal class EntityTest {
                                     .name("Ian Crease")
                                     .build()
                             )
-                            .addProng(EntityBeneficialOwner.Prong.CONTROL)
-                            .addProng(EntityBeneficialOwner.Prong.OWNERSHIP)
-                            .type(EntityBeneficialOwner.Type.ENTITY_BENEFICIAL_OWNER)
+                            .addProng(Entity.Corporation.BeneficialOwner.Prong.CONTROL)
+                            .addProng(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                             .build()
                     )
                     .email(null)
@@ -528,15 +527,14 @@ internal class EntityTest {
                                 .build()
                         )
                         .addBeneficialOwner(
-                            EntityBeneficialOwner.builder()
+                            Entity.Corporation.BeneficialOwner.builder()
                                 .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                                 .companyTitle("CEO")
-                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .idempotencyKey(null)
                                 .individual(
-                                    EntityBeneficialOwner.Individual.builder()
+                                    Entity.Corporation.BeneficialOwner.Individual.builder()
                                         .address(
-                                            EntityBeneficialOwner.Individual.Address.builder()
+                                            Entity.Corporation.BeneficialOwner.Individual.Address
+                                                .builder()
                                                 .city("New York")
                                                 .country("US")
                                                 .line1("33 Liberty Street")
@@ -547,10 +545,12 @@ internal class EntityTest {
                                         )
                                         .dateOfBirth(LocalDate.parse("1970-01-31"))
                                         .identification(
-                                            EntityBeneficialOwner.Individual.Identification
+                                            Entity.Corporation.BeneficialOwner.Individual
+                                                .Identification
                                                 .builder()
                                                 .method(
-                                                    EntityBeneficialOwner.Individual.Identification
+                                                    Entity.Corporation.BeneficialOwner.Individual
+                                                        .Identification
                                                         .Method
                                                         .SOCIAL_SECURITY_NUMBER
                                                 )
@@ -560,9 +560,8 @@ internal class EntityTest {
                                         .name("Ian Crease")
                                         .build()
                                 )
-                                .addProng(EntityBeneficialOwner.Prong.CONTROL)
-                                .addProng(EntityBeneficialOwner.Prong.OWNERSHIP)
-                                .type(EntityBeneficialOwner.Type.ENTITY_BENEFICIAL_OWNER)
+                                .addProng(Entity.Corporation.BeneficialOwner.Prong.CONTROL)
+                                .addProng(Entity.Corporation.BeneficialOwner.Prong.OWNERSHIP)
                                 .build()
                         )
                         .email(null)
