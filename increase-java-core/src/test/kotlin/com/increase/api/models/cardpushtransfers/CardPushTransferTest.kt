@@ -40,6 +40,7 @@ internal class CardPushTransferTest {
                         .canceledBy(null)
                         .build()
                 )
+                .cardTokenId("outbound_card_token_zlt0ml6youq3q7vcdlg0")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     CardPushTransfer.CreatedBy.builder()
@@ -131,6 +132,8 @@ internal class CardPushTransferTest {
                     .canceledBy(null)
                     .build()
             )
+        assertThat(cardPushTransfer.cardTokenId())
+            .isEqualTo("outbound_card_token_zlt0ml6youq3q7vcdlg0")
         assertThat(cardPushTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(cardPushTransfer.createdBy())
@@ -224,6 +227,7 @@ internal class CardPushTransferTest {
                         .canceledBy(null)
                         .build()
                 )
+                .cardTokenId("outbound_card_token_zlt0ml6youq3q7vcdlg0")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     CardPushTransfer.CreatedBy.builder()

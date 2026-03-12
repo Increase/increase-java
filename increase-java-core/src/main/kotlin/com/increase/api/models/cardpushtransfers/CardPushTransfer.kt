@@ -29,6 +29,7 @@ private constructor(
     private val approval: JsonField<Approval>,
     private val businessApplicationIdentifier: JsonField<BusinessApplicationIdentifier>,
     private val cancellation: JsonField<Cancellation>,
+    private val cardTokenId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val createdBy: JsonField<CreatedBy>,
     private val decline: JsonField<Decline>,
@@ -67,6 +68,9 @@ private constructor(
         @JsonProperty("cancellation")
         @ExcludeMissing
         cancellation: JsonField<Cancellation> = JsonMissing.of(),
+        @JsonProperty("card_token_id")
+        @ExcludeMissing
+        cardTokenId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -131,6 +135,7 @@ private constructor(
         approval,
         businessApplicationIdentifier,
         cancellation,
+        cardTokenId,
         createdAt,
         createdBy,
         decline,
@@ -207,6 +212,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun cancellation(): Optional<Cancellation> = cancellation.getOptional("cancellation")
+
+    /**
+     * The ID of the Card Token that was used to validate the card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun cardTokenId(): String = cardTokenId.getRequired("card_token_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the transfer
@@ -441,6 +454,15 @@ private constructor(
     fun _cancellation(): JsonField<Cancellation> = cancellation
 
     /**
+     * Returns the raw JSON value of [cardTokenId].
+     *
+     * Unlike [cardTokenId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("card_token_id")
+    @ExcludeMissing
+    fun _cardTokenId(): JsonField<String> = cardTokenId
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -654,6 +676,7 @@ private constructor(
          * .approval()
          * .businessApplicationIdentifier()
          * .cancellation()
+         * .cardTokenId()
          * .createdAt()
          * .createdBy()
          * .decline()
@@ -689,6 +712,7 @@ private constructor(
         private var approval: JsonField<Approval>? = null
         private var businessApplicationIdentifier: JsonField<BusinessApplicationIdentifier>? = null
         private var cancellation: JsonField<Cancellation>? = null
+        private var cardTokenId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var createdBy: JsonField<CreatedBy>? = null
         private var decline: JsonField<Decline>? = null
@@ -720,6 +744,7 @@ private constructor(
             approval = cardPushTransfer.approval
             businessApplicationIdentifier = cardPushTransfer.businessApplicationIdentifier
             cancellation = cardPushTransfer.cancellation
+            cardTokenId = cardPushTransfer.cardTokenId
             createdAt = cardPushTransfer.createdAt
             createdBy = cardPushTransfer.createdBy
             decline = cardPushTransfer.decline
@@ -844,6 +869,18 @@ private constructor(
         fun cancellation(cancellation: JsonField<Cancellation>) = apply {
             this.cancellation = cancellation
         }
+
+        /** The ID of the Card Token that was used to validate the card. */
+        fun cardTokenId(cardTokenId: String) = cardTokenId(JsonField.of(cardTokenId))
+
+        /**
+         * Sets [Builder.cardTokenId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.cardTokenId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun cardTokenId(cardTokenId: JsonField<String>) = apply { this.cardTokenId = cardTokenId }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
@@ -1210,6 +1247,7 @@ private constructor(
          * .approval()
          * .businessApplicationIdentifier()
          * .cancellation()
+         * .cardTokenId()
          * .createdAt()
          * .createdBy()
          * .decline()
@@ -1243,6 +1281,7 @@ private constructor(
                 checkRequired("approval", approval),
                 checkRequired("businessApplicationIdentifier", businessApplicationIdentifier),
                 checkRequired("cancellation", cancellation),
+                checkRequired("cardTokenId", cardTokenId),
                 checkRequired("createdAt", createdAt),
                 checkRequired("createdBy", createdBy),
                 checkRequired("decline", decline),
@@ -1281,6 +1320,7 @@ private constructor(
         approval().ifPresent { it.validate() }
         businessApplicationIdentifier().validate()
         cancellation().ifPresent { it.validate() }
+        cardTokenId()
         createdAt()
         createdBy().ifPresent { it.validate() }
         decline().ifPresent { it.validate() }
@@ -1326,6 +1366,7 @@ private constructor(
             (approval.asKnown().getOrNull()?.validity() ?: 0) +
             (businessApplicationIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
             (cancellation.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (cardTokenId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (createdBy.asKnown().getOrNull()?.validity() ?: 0) +
             (decline.asKnown().getOrNull()?.validity() ?: 0) +
@@ -6857,6 +6898,7 @@ private constructor(
             approval == other.approval &&
             businessApplicationIdentifier == other.businessApplicationIdentifier &&
             cancellation == other.cancellation &&
+            cardTokenId == other.cardTokenId &&
             createdAt == other.createdAt &&
             createdBy == other.createdBy &&
             decline == other.decline &&
@@ -6889,6 +6931,7 @@ private constructor(
             approval,
             businessApplicationIdentifier,
             cancellation,
+            cardTokenId,
             createdAt,
             createdBy,
             decline,
@@ -6917,5 +6960,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardPushTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, approval=$approval, businessApplicationIdentifier=$businessApplicationIdentifier, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "CardPushTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, approval=$approval, businessApplicationIdentifier=$businessApplicationIdentifier, cancellation=$cancellation, cardTokenId=$cardTokenId, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }
