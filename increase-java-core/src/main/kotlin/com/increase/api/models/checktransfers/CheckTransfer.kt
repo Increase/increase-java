@@ -3286,7 +3286,7 @@ private constructor(
         private val recipientName: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val shippingMethod: JsonField<ShippingMethod>,
-        private val signatureText: JsonField<String>,
+        private val signature: JsonField<Signature>,
         private val trackingUpdates: JsonField<List<TrackingUpdate>>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -3314,9 +3314,9 @@ private constructor(
             @JsonProperty("shipping_method")
             @ExcludeMissing
             shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
-            @JsonProperty("signature_text")
+            @JsonProperty("signature")
             @ExcludeMissing
-            signatureText: JsonField<String> = JsonMissing.of(),
+            signature: JsonField<Signature> = JsonMissing.of(),
             @JsonProperty("tracking_updates")
             @ExcludeMissing
             trackingUpdates: JsonField<List<TrackingUpdate>> = JsonMissing.of(),
@@ -3330,7 +3330,7 @@ private constructor(
             recipientName,
             returnAddress,
             shippingMethod,
-            signatureText,
+            signature,
             trackingUpdates,
             mutableMapOf(),
         )
@@ -3412,13 +3412,12 @@ private constructor(
             shippingMethod.getOptional("shipping_method")
 
         /**
-         * The text that will appear as the signature on the check in cursive font. If blank, the
-         * check will be printed with 'No signature required'.
+         * The signature that will appear on the check.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun signatureText(): Optional<String> = signatureText.getOptional("signature_text")
+        fun signature(): Signature = signature.getRequired("signature")
 
         /**
          * Tracking updates relating to the physical check's delivery.
@@ -3511,14 +3510,13 @@ private constructor(
         fun _shippingMethod(): JsonField<ShippingMethod> = shippingMethod
 
         /**
-         * Returns the raw JSON value of [signatureText].
+         * Returns the raw JSON value of [signature].
          *
-         * Unlike [signatureText], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [signature], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("signature_text")
+        @JsonProperty("signature")
         @ExcludeMissing
-        fun _signatureText(): JsonField<String> = signatureText
+        fun _signature(): JsonField<Signature> = signature
 
         /**
          * Returns the raw JSON value of [trackingUpdates].
@@ -3558,7 +3556,7 @@ private constructor(
              * .recipientName()
              * .returnAddress()
              * .shippingMethod()
-             * .signatureText()
+             * .signature()
              * .trackingUpdates()
              * ```
              */
@@ -3577,7 +3575,7 @@ private constructor(
             private var recipientName: JsonField<String>? = null
             private var returnAddress: JsonField<ReturnAddress>? = null
             private var shippingMethod: JsonField<ShippingMethod>? = null
-            private var signatureText: JsonField<String>? = null
+            private var signature: JsonField<Signature>? = null
             private var trackingUpdates: JsonField<MutableList<TrackingUpdate>>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -3592,7 +3590,7 @@ private constructor(
                 recipientName = physicalCheck.recipientName
                 returnAddress = physicalCheck.returnAddress
                 shippingMethod = physicalCheck.shippingMethod
-                signatureText = physicalCheck.signatureText
+                signature = physicalCheck.signature
                 trackingUpdates = physicalCheck.trackingUpdates.map { it.toMutableList() }
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
@@ -3766,27 +3764,17 @@ private constructor(
                 this.shippingMethod = shippingMethod
             }
 
-            /**
-             * The text that will appear as the signature on the check in cursive font. If blank,
-             * the check will be printed with 'No signature required'.
-             */
-            fun signatureText(signatureText: String?) =
-                signatureText(JsonField.ofNullable(signatureText))
-
-            /** Alias for calling [Builder.signatureText] with `signatureText.orElse(null)`. */
-            fun signatureText(signatureText: Optional<String>) =
-                signatureText(signatureText.getOrNull())
+            /** The signature that will appear on the check. */
+            fun signature(signature: Signature) = signature(JsonField.of(signature))
 
             /**
-             * Sets [Builder.signatureText] to an arbitrary JSON value.
+             * Sets [Builder.signature] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.signatureText] with a well-typed [String] value
+             * You should usually call [Builder.signature] with a well-typed [Signature] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun signatureText(signatureText: JsonField<String>) = apply {
-                this.signatureText = signatureText
-            }
+            fun signature(signature: JsonField<Signature>) = apply { this.signature = signature }
 
             /** Tracking updates relating to the physical check's delivery. */
             fun trackingUpdates(trackingUpdates: List<TrackingUpdate>) =
@@ -3850,7 +3838,7 @@ private constructor(
              * .recipientName()
              * .returnAddress()
              * .shippingMethod()
-             * .signatureText()
+             * .signature()
              * .trackingUpdates()
              * ```
              *
@@ -3867,7 +3855,7 @@ private constructor(
                     checkRequired("recipientName", recipientName),
                     checkRequired("returnAddress", returnAddress),
                     checkRequired("shippingMethod", shippingMethod),
-                    checkRequired("signatureText", signatureText),
+                    checkRequired("signature", signature),
                     checkRequired("trackingUpdates", trackingUpdates).map { it.toImmutable() },
                     additionalProperties.toMutableMap(),
                 )
@@ -3889,7 +3877,7 @@ private constructor(
             recipientName()
             returnAddress().ifPresent { it.validate() }
             shippingMethod().ifPresent { it.validate() }
-            signatureText()
+            signature().validate()
             trackingUpdates().forEach { it.validate() }
             validated = true
         }
@@ -3919,7 +3907,7 @@ private constructor(
                 (if (recipientName.asKnown().isPresent) 1 else 0) +
                 (returnAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (shippingMethod.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (signatureText.asKnown().isPresent) 1 else 0) +
+                (signature.asKnown().getOrNull()?.validity() ?: 0) +
                 (trackingUpdates.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         /** Details for where Increase will mail the check. */
@@ -5085,6 +5073,225 @@ private constructor(
             override fun toString() = value.toString()
         }
 
+        /** The signature that will appear on the check. */
+        class Signature
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val imageFileId: JsonField<String>,
+            private val text: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("image_file_id")
+                @ExcludeMissing
+                imageFileId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("text") @ExcludeMissing text: JsonField<String> = JsonMissing.of(),
+            ) : this(imageFileId, text, mutableMapOf())
+
+            /**
+             * The ID of a File containing a PNG of the signature.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun imageFileId(): Optional<String> = imageFileId.getOptional("image_file_id")
+
+            /**
+             * The text that will appear as the signature on the check in cursive font.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun text(): Optional<String> = text.getOptional("text")
+
+            /**
+             * Returns the raw JSON value of [imageFileId].
+             *
+             * Unlike [imageFileId], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("image_file_id")
+            @ExcludeMissing
+            fun _imageFileId(): JsonField<String> = imageFileId
+
+            /**
+             * Returns the raw JSON value of [text].
+             *
+             * Unlike [text], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("text") @ExcludeMissing fun _text(): JsonField<String> = text
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Signature].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .imageFileId()
+                 * .text()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Signature]. */
+            class Builder internal constructor() {
+
+                private var imageFileId: JsonField<String>? = null
+                private var text: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(signature: Signature) = apply {
+                    imageFileId = signature.imageFileId
+                    text = signature.text
+                    additionalProperties = signature.additionalProperties.toMutableMap()
+                }
+
+                /** The ID of a File containing a PNG of the signature. */
+                fun imageFileId(imageFileId: String?) =
+                    imageFileId(JsonField.ofNullable(imageFileId))
+
+                /** Alias for calling [Builder.imageFileId] with `imageFileId.orElse(null)`. */
+                fun imageFileId(imageFileId: Optional<String>) =
+                    imageFileId(imageFileId.getOrNull())
+
+                /**
+                 * Sets [Builder.imageFileId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.imageFileId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun imageFileId(imageFileId: JsonField<String>) = apply {
+                    this.imageFileId = imageFileId
+                }
+
+                /** The text that will appear as the signature on the check in cursive font. */
+                fun text(text: String?) = text(JsonField.ofNullable(text))
+
+                /** Alias for calling [Builder.text] with `text.orElse(null)`. */
+                fun text(text: Optional<String>) = text(text.getOrNull())
+
+                /**
+                 * Sets [Builder.text] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.text] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun text(text: JsonField<String>) = apply { this.text = text }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Signature].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .imageFileId()
+                 * .text()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Signature =
+                    Signature(
+                        checkRequired("imageFileId", imageFileId),
+                        checkRequired("text", text),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Signature = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                imageFileId()
+                text()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (imageFileId.asKnown().isPresent) 1 else 0) +
+                    (if (text.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Signature &&
+                    imageFileId == other.imageFileId &&
+                    text == other.text &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(imageFileId, text, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Signature{imageFileId=$imageFileId, text=$text, additionalProperties=$additionalProperties}"
+        }
+
         class TrackingUpdate
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -5543,7 +5750,7 @@ private constructor(
                 recipientName == other.recipientName &&
                 returnAddress == other.returnAddress &&
                 shippingMethod == other.shippingMethod &&
-                signatureText == other.signatureText &&
+                signature == other.signature &&
                 trackingUpdates == other.trackingUpdates &&
                 additionalProperties == other.additionalProperties
         }
@@ -5559,7 +5766,7 @@ private constructor(
                 recipientName,
                 returnAddress,
                 shippingMethod,
-                signatureText,
+                signature,
                 trackingUpdates,
                 additionalProperties,
             )
@@ -5568,7 +5775,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signatureText=$signatureText, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, mailingAddress=$mailingAddress, memo=$memo, note=$note, payer=$payer, recipientName=$recipientName, returnAddress=$returnAddress, shippingMethod=$shippingMethod, signature=$signature, trackingUpdates=$trackingUpdates, additionalProperties=$additionalProperties}"
     }
 
     /** The lifecycle status of the transfer. */
