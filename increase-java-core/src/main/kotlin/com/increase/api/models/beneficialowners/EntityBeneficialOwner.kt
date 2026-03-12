@@ -34,6 +34,7 @@ private constructor(
     private val id: JsonField<String>,
     private val companyTitle: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val idempotencyKey: JsonField<String>,
     private val individual: JsonField<Individual>,
     private val prongs: JsonField<List<Prong>>,
     private val type: JsonField<Type>,
@@ -49,12 +50,15 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("idempotency_key")
+        @ExcludeMissing
+        idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("individual")
         @ExcludeMissing
         individual: JsonField<Individual> = JsonMissing.of(),
         @JsonProperty("prongs") @ExcludeMissing prongs: JsonField<List<Prong>> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, companyTitle, createdAt, individual, prongs, type, mutableMapOf())
+    ) : this(id, companyTitle, createdAt, idempotencyKey, individual, prongs, type, mutableMapOf())
 
     /**
      * The identifier of this beneficial owner.
@@ -80,6 +84,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The idempotency key you chose for this object. This value is unique across Increase and is
+     * used to ensure that a request is only processed once. Learn more about
+     * [idempotency](https://increase.com/documentation/idempotency-keys).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
      * Personal details for the beneficial owner.
@@ -132,6 +146,15 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [idempotencyKey].
+     *
+     * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("idempotency_key")
+    @ExcludeMissing
+    fun _idempotencyKey(): JsonField<String> = idempotencyKey
+
+    /**
      * Returns the raw JSON value of [individual].
      *
      * Unlike [individual], this method doesn't throw if the JSON field has an unexpected type.
@@ -176,6 +199,7 @@ private constructor(
          * .id()
          * .companyTitle()
          * .createdAt()
+         * .idempotencyKey()
          * .individual()
          * .prongs()
          * .type()
@@ -190,6 +214,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var companyTitle: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var idempotencyKey: JsonField<String>? = null
         private var individual: JsonField<Individual>? = null
         private var prongs: JsonField<MutableList<Prong>>? = null
         private var type: JsonField<Type>? = null
@@ -200,6 +225,7 @@ private constructor(
             id = entityBeneficialOwner.id
             companyTitle = entityBeneficialOwner.companyTitle
             createdAt = entityBeneficialOwner.createdAt
+            idempotencyKey = entityBeneficialOwner.idempotencyKey
             individual = entityBeneficialOwner.individual
             prongs = entityBeneficialOwner.prongs.map { it.toMutableList() }
             type = entityBeneficialOwner.type
@@ -248,6 +274,29 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The idempotency key you chose for this object. This value is unique across Increase and
+         * is used to ensure that a request is only processed once. Learn more about
+         * [idempotency](https://increase.com/documentation/idempotency-keys).
+         */
+        fun idempotencyKey(idempotencyKey: String?) =
+            idempotencyKey(JsonField.ofNullable(idempotencyKey))
+
+        /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
+        fun idempotencyKey(idempotencyKey: Optional<String>) =
+            idempotencyKey(idempotencyKey.getOrNull())
+
+        /**
+         * Sets [Builder.idempotencyKey] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.idempotencyKey] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun idempotencyKey(idempotencyKey: JsonField<String>) = apply {
+            this.idempotencyKey = idempotencyKey
+        }
 
         /** Personal details for the beneficial owner. */
         fun individual(individual: Individual) = individual(JsonField.of(individual))
@@ -330,6 +379,7 @@ private constructor(
          * .id()
          * .companyTitle()
          * .createdAt()
+         * .idempotencyKey()
          * .individual()
          * .prongs()
          * .type()
@@ -342,6 +392,7 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("companyTitle", companyTitle),
                 checkRequired("createdAt", createdAt),
+                checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("individual", individual),
                 checkRequired("prongs", prongs).map { it.toImmutable() },
                 checkRequired("type", type),
@@ -359,6 +410,7 @@ private constructor(
         id()
         companyTitle()
         createdAt()
+        idempotencyKey()
         individual().validate()
         prongs().forEach { it.validate() }
         type().validate()
@@ -383,6 +435,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (companyTitle.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (individual.asKnown().getOrNull()?.validity() ?: 0) +
             (prongs.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
@@ -1703,6 +1756,7 @@ private constructor(
             id == other.id &&
             companyTitle == other.companyTitle &&
             createdAt == other.createdAt &&
+            idempotencyKey == other.idempotencyKey &&
             individual == other.individual &&
             prongs == other.prongs &&
             type == other.type &&
@@ -1710,11 +1764,20 @@ private constructor(
     }
 
     private val hashCode: Int by lazy {
-        Objects.hash(id, companyTitle, createdAt, individual, prongs, type, additionalProperties)
+        Objects.hash(
+            id,
+            companyTitle,
+            createdAt,
+            idempotencyKey,
+            individual,
+            prongs,
+            type,
+            additionalProperties,
+        )
     }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EntityBeneficialOwner{id=$id, companyTitle=$companyTitle, createdAt=$createdAt, individual=$individual, prongs=$prongs, type=$type, additionalProperties=$additionalProperties}"
+        "EntityBeneficialOwner{id=$id, companyTitle=$companyTitle, createdAt=$createdAt, idempotencyKey=$idempotencyKey, individual=$individual, prongs=$prongs, type=$type, additionalProperties=$additionalProperties}"
 }
