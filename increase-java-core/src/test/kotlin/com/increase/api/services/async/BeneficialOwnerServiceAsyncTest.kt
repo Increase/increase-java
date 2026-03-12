@@ -90,6 +90,7 @@ internal class BeneficialOwnerServiceAsyncTest {
                             )
                             .build()
                     )
+                    .name("x")
                     .build()
             )
 
