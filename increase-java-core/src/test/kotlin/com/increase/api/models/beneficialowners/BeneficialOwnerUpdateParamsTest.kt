@@ -11,9 +11,7 @@ internal class BeneficialOwnerUpdateParamsTest {
     @Test
     fun create() {
         BeneficialOwnerUpdateParams.builder()
-            .entityBeneficialOwnerId(
-                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-            )
+            .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
             .address(
                 BeneficialOwnerUpdateParams.Address.builder()
                     .city("New York")
@@ -65,13 +63,10 @@ internal class BeneficialOwnerUpdateParamsTest {
     fun pathParams() {
         val params =
             BeneficialOwnerUpdateParams.builder()
-                .entityBeneficialOwnerId(
-                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                )
+                .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                 .build()
 
-        assertThat(params._pathParam(0))
-            .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+        assertThat(params._pathParam(0)).isEqualTo("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }
@@ -80,9 +75,7 @@ internal class BeneficialOwnerUpdateParamsTest {
     fun body() {
         val params =
             BeneficialOwnerUpdateParams.builder()
-                .entityBeneficialOwnerId(
-                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                )
+                .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                 .address(
                     BeneficialOwnerUpdateParams.Address.builder()
                         .city("New York")
@@ -183,9 +176,7 @@ internal class BeneficialOwnerUpdateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             BeneficialOwnerUpdateParams.builder()
-                .entityBeneficialOwnerId(
-                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                )
+                .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                 .build()
 
         val body = params._body()
