@@ -10,9 +10,7 @@ internal class BeneficialOwnerArchiveParamsTest {
     @Test
     fun create() {
         BeneficialOwnerArchiveParams.builder()
-            .entityBeneficialOwnerId(
-                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-            )
+            .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
             .build()
     }
 
@@ -20,13 +18,10 @@ internal class BeneficialOwnerArchiveParamsTest {
     fun pathParams() {
         val params =
             BeneficialOwnerArchiveParams.builder()
-                .entityBeneficialOwnerId(
-                    "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
-                )
+                .entityBeneficialOwnerId("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                 .build()
 
-        assertThat(params._pathParam(0))
-            .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+        assertThat(params._pathParam(0)).isEqualTo("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
         // out-of-bound path param
         assertThat(params._pathParam(1)).isEqualTo("")
     }

@@ -15,7 +15,7 @@ internal class EntityBeneficialOwnerTest {
     fun create() {
         val entityBeneficialOwner =
             EntityBeneficialOwner.builder()
-                .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+                .id("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                 .companyTitle("CEO")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
@@ -51,7 +51,7 @@ internal class EntityBeneficialOwnerTest {
                 .build()
 
         assertThat(entityBeneficialOwner.id())
-            .isEqualTo("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+            .isEqualTo("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
         assertThat(entityBeneficialOwner.companyTitle()).contains("CEO")
         assertThat(entityBeneficialOwner.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -97,7 +97,7 @@ internal class EntityBeneficialOwnerTest {
         val jsonMapper = jsonMapper()
         val entityBeneficialOwner =
             EntityBeneficialOwner.builder()
-                .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
+                .id("entity_beneficial_owner_vozma8szzu1sxezp5zq6")
                 .companyTitle("CEO")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
