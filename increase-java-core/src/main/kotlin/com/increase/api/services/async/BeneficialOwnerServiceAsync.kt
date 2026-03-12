@@ -6,6 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.beneficialowners.BeneficialOwnerArchiveParams
+import com.increase.api.models.beneficialowners.BeneficialOwnerCreateParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPageAsync
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerRetrieveParams
@@ -27,6 +28,16 @@ interface BeneficialOwnerServiceAsync {
      * The original service is not modified.
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BeneficialOwnerServiceAsync
+
+    /** Create a beneficial owner */
+    fun create(params: BeneficialOwnerCreateParams): CompletableFuture<EntityBeneficialOwner> =
+        create(params, RequestOptions.none())
+
+    /** @see create */
+    fun create(
+        params: BeneficialOwnerCreateParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EntityBeneficialOwner>
 
     /** Retrieve a Beneficial Owner */
     fun retrieve(entityBeneficialOwnerId: String): CompletableFuture<EntityBeneficialOwner> =
@@ -169,6 +180,21 @@ interface BeneficialOwnerServiceAsync {
         fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
         ): BeneficialOwnerServiceAsync.WithRawResponse
+
+        /**
+         * Returns a raw HTTP response for `post /entity_beneficial_owners`, but is otherwise the
+         * same as [BeneficialOwnerServiceAsync.create].
+         */
+        fun create(
+            params: BeneficialOwnerCreateParams
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            create(params, RequestOptions.none())
+
+        /** @see create */
+        fun create(
+            params: BeneficialOwnerCreateParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>>
 
         /**
          * Returns a raw HTTP response for `get

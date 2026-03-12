@@ -38,6 +38,7 @@ internal class EntityListPageResponseTest {
                                         )
                                         .companyTitle("CEO")
                                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .idempotencyKey(null)
                                         .individual(
                                             EntityBeneficialOwner.Individual.builder()
                                                 .address(
@@ -293,6 +294,7 @@ internal class EntityListPageResponseTest {
                                     )
                                     .companyTitle("CEO")
                                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .idempotencyKey(null)
                                     .individual(
                                         EntityBeneficialOwner.Individual.builder()
                                             .address(
@@ -550,6 +552,7 @@ internal class EntityListPageResponseTest {
                                         )
                                         .companyTitle("CEO")
                                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .idempotencyKey(null)
                                         .individual(
                                             EntityBeneficialOwner.Individual.builder()
                                                 .address(
