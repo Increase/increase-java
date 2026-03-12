@@ -18,7 +18,6 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListPageResponse
@@ -75,13 +74,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
     ): CompletableFuture<Entity> =
         // post /entities/{entity_id}/archive
         withRawResponse().archive(params, requestOptions).thenApply { it.parse() }
-
-    override fun createBeneficialOwner(
-        params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions,
-    ): CompletableFuture<Entity> =
-        // post /entities/{entity_id}/create_beneficial_owner
-        withRawResponse().createBeneficialOwner(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityServiceAsync.WithRawResponse {
@@ -253,40 +245,6 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                     errorHandler.handle(response).parseable {
                         response
                             .use { archiveHandler.handle(it) }
-                            .also {
-                                if (requestOptions.responseValidation!!) {
-                                    it.validate()
-                                }
-                            }
-                    }
-                }
-        }
-
-        private val createBeneficialOwnerHandler: Handler<Entity> =
-            jsonHandler<Entity>(clientOptions.jsonMapper)
-
-        override fun createBeneficialOwner(
-            params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions,
-        ): CompletableFuture<HttpResponseFor<Entity>> {
-            // We check here instead of in the params builder because this can be specified
-            // positionally or in the params class.
-            checkRequired("entityId", params.entityId().getOrNull())
-            val request =
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("entities", params._pathParam(0), "create_beneficial_owner")
-                    .body(json(clientOptions.jsonMapper, params._body()))
-                    .build()
-                    .prepareAsync(clientOptions, params)
-            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
-            return request
-                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
-                .thenApply { response ->
-                    errorHandler.handle(response).parseable {
-                        response
-                            .use { createBeneficialOwnerHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()
