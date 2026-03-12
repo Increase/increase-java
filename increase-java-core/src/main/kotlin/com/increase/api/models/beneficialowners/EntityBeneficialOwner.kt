@@ -34,6 +34,7 @@ private constructor(
     private val id: JsonField<String>,
     private val companyTitle: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val entityId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val individual: JsonField<Individual>,
     private val prongs: JsonField<List<Prong>>,
@@ -50,6 +51,7 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("entity_id") @ExcludeMissing entityId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -58,7 +60,17 @@ private constructor(
         individual: JsonField<Individual> = JsonMissing.of(),
         @JsonProperty("prongs") @ExcludeMissing prongs: JsonField<List<Prong>> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, companyTitle, createdAt, idempotencyKey, individual, prongs, type, mutableMapOf())
+    ) : this(
+        id,
+        companyTitle,
+        createdAt,
+        entityId,
+        idempotencyKey,
+        individual,
+        prongs,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The identifier of this beneficial owner.
@@ -84,6 +96,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The identifier of the Entity to which this beneficial owner belongs.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun entityId(): String = entityId.getRequired("entity_id")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -146,6 +166,13 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [entityId].
+     *
+     * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
+
+    /**
      * Returns the raw JSON value of [idempotencyKey].
      *
      * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
@@ -199,6 +226,7 @@ private constructor(
          * .id()
          * .companyTitle()
          * .createdAt()
+         * .entityId()
          * .idempotencyKey()
          * .individual()
          * .prongs()
@@ -214,6 +242,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var companyTitle: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var entityId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var individual: JsonField<Individual>? = null
         private var prongs: JsonField<MutableList<Prong>>? = null
@@ -225,6 +254,7 @@ private constructor(
             id = entityBeneficialOwner.id
             companyTitle = entityBeneficialOwner.companyTitle
             createdAt = entityBeneficialOwner.createdAt
+            entityId = entityBeneficialOwner.entityId
             idempotencyKey = entityBeneficialOwner.idempotencyKey
             individual = entityBeneficialOwner.individual
             prongs = entityBeneficialOwner.prongs.map { it.toMutableList() }
@@ -274,6 +304,17 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /** The identifier of the Entity to which this beneficial owner belongs. */
+        fun entityId(entityId: String) = entityId(JsonField.of(entityId))
+
+        /**
+         * Sets [Builder.entityId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.entityId] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -379,6 +420,7 @@ private constructor(
          * .id()
          * .companyTitle()
          * .createdAt()
+         * .entityId()
          * .idempotencyKey()
          * .individual()
          * .prongs()
@@ -392,6 +434,7 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("companyTitle", companyTitle),
                 checkRequired("createdAt", createdAt),
+                checkRequired("entityId", entityId),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("individual", individual),
                 checkRequired("prongs", prongs).map { it.toImmutable() },
@@ -410,6 +453,7 @@ private constructor(
         id()
         companyTitle()
         createdAt()
+        entityId()
         idempotencyKey()
         individual().validate()
         prongs().forEach { it.validate() }
@@ -435,6 +479,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (companyTitle.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (entityId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (individual.asKnown().getOrNull()?.validity() ?: 0) +
             (prongs.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1756,6 +1801,7 @@ private constructor(
             id == other.id &&
             companyTitle == other.companyTitle &&
             createdAt == other.createdAt &&
+            entityId == other.entityId &&
             idempotencyKey == other.idempotencyKey &&
             individual == other.individual &&
             prongs == other.prongs &&
@@ -1768,6 +1814,7 @@ private constructor(
             id,
             companyTitle,
             createdAt,
+            entityId,
             idempotencyKey,
             individual,
             prongs,
@@ -1779,5 +1826,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "EntityBeneficialOwner{id=$id, companyTitle=$companyTitle, createdAt=$createdAt, idempotencyKey=$idempotencyKey, individual=$individual, prongs=$prongs, type=$type, additionalProperties=$additionalProperties}"
+        "EntityBeneficialOwner{id=$id, companyTitle=$companyTitle, createdAt=$createdAt, entityId=$entityId, idempotencyKey=$idempotencyKey, individual=$individual, prongs=$prongs, type=$type, additionalProperties=$additionalProperties}"
 }
