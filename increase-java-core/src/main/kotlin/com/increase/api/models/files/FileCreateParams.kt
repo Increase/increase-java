@@ -619,6 +619,9 @@ private constructor(
              */
             @JvmField val CHECK_VOUCHER_IMAGE = of("check_voucher_image")
 
+            /** A signature image to be printed on a check. This must be a 1320x120 pixel PNG. */
+            @JvmField val CHECK_SIGNATURE = of("check_signature")
+
             /** IRS Form SS-4. */
             @JvmField val FORM_SS_4 = of("form_ss_4")
 
@@ -702,6 +705,8 @@ private constructor(
              * trifold area of a check. This must be a 2550x1100 pixel PNG.
              */
             CHECK_VOUCHER_IMAGE,
+            /** A signature image to be printed on a check. This must be a 1320x120 pixel PNG. */
+            CHECK_SIGNATURE,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -774,6 +779,8 @@ private constructor(
              * trifold area of a check. This must be a 2550x1100 pixel PNG.
              */
             CHECK_VOUCHER_IMAGE,
+            /** A signature image to be printed on a check. This must be a 1320x120 pixel PNG. */
+            CHECK_SIGNATURE,
             /** IRS Form SS-4. */
             FORM_SS_4,
             /** An image of a government-issued ID. */
@@ -834,6 +841,7 @@ private constructor(
                 MAILED_CHECK_IMAGE -> Value.MAILED_CHECK_IMAGE
                 CHECK_ATTACHMENT -> Value.CHECK_ATTACHMENT
                 CHECK_VOUCHER_IMAGE -> Value.CHECK_VOUCHER_IMAGE
+                CHECK_SIGNATURE -> Value.CHECK_SIGNATURE
                 FORM_SS_4 -> Value.FORM_SS_4
                 IDENTITY_DOCUMENT -> Value.IDENTITY_DOCUMENT
                 LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT ->
@@ -869,6 +877,7 @@ private constructor(
                 MAILED_CHECK_IMAGE -> Known.MAILED_CHECK_IMAGE
                 CHECK_ATTACHMENT -> Known.CHECK_ATTACHMENT
                 CHECK_VOUCHER_IMAGE -> Known.CHECK_VOUCHER_IMAGE
+                CHECK_SIGNATURE -> Known.CHECK_SIGNATURE
                 FORM_SS_4 -> Known.FORM_SS_4
                 IDENTITY_DOCUMENT -> Known.IDENTITY_DOCUMENT
                 LOAN_APPLICATION_SUPPLEMENTAL_DOCUMENT ->
