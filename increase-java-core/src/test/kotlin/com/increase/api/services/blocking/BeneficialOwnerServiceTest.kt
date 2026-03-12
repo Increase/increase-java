@@ -112,4 +112,21 @@ internal class BeneficialOwnerServiceTest {
 
         page.response().validate()
     }
+
+    @Test
+    fun archive() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val beneficialOwnerService = client.beneficialOwners()
+
+        val entityBeneficialOwner =
+            beneficialOwnerService.archive(
+                "entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7"
+            )
+
+        entityBeneficialOwner.validate()
+    }
 }

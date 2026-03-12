@@ -5,6 +5,7 @@ package com.increase.api.services.async
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.models.beneficialowners.BeneficialOwnerArchiveParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPageAsync
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerRetrieveParams
@@ -114,6 +115,45 @@ interface BeneficialOwnerServiceAsync {
         params: BeneficialOwnerListParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<BeneficialOwnerListPageAsync>
+
+    /** Archive a Beneficial Owner */
+    fun archive(entityBeneficialOwnerId: String): CompletableFuture<EntityBeneficialOwner> =
+        archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none())
+
+    /** @see archive */
+    fun archive(
+        entityBeneficialOwnerId: String,
+        params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EntityBeneficialOwner> =
+        archive(
+            params.toBuilder().entityBeneficialOwnerId(entityBeneficialOwnerId).build(),
+            requestOptions,
+        )
+
+    /** @see archive */
+    fun archive(
+        entityBeneficialOwnerId: String,
+        params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+    ): CompletableFuture<EntityBeneficialOwner> =
+        archive(entityBeneficialOwnerId, params, RequestOptions.none())
+
+    /** @see archive */
+    fun archive(
+        params: BeneficialOwnerArchiveParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<EntityBeneficialOwner>
+
+    /** @see archive */
+    fun archive(params: BeneficialOwnerArchiveParams): CompletableFuture<EntityBeneficialOwner> =
+        archive(params, RequestOptions.none())
+
+    /** @see archive */
+    fun archive(
+        entityBeneficialOwnerId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<EntityBeneficialOwner> =
+        archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none(), requestOptions)
 
     /**
      * A view of [BeneficialOwnerServiceAsync] that provides access to raw HTTP responses for each
@@ -238,5 +278,52 @@ interface BeneficialOwnerServiceAsync {
             params: BeneficialOwnerListParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<BeneficialOwnerListPageAsync>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /entity_beneficial_owners/{entity_beneficial_owner_id}/archive`, but is otherwise the
+         * same as [BeneficialOwnerServiceAsync.archive].
+         */
+        fun archive(
+            entityBeneficialOwnerId: String
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none())
+
+        /** @see archive */
+        fun archive(
+            entityBeneficialOwnerId: String,
+            params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            archive(
+                params.toBuilder().entityBeneficialOwnerId(entityBeneficialOwnerId).build(),
+                requestOptions,
+            )
+
+        /** @see archive */
+        fun archive(
+            entityBeneficialOwnerId: String,
+            params: BeneficialOwnerArchiveParams = BeneficialOwnerArchiveParams.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            archive(entityBeneficialOwnerId, params, RequestOptions.none())
+
+        /** @see archive */
+        fun archive(
+            params: BeneficialOwnerArchiveParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>>
+
+        /** @see archive */
+        fun archive(
+            params: BeneficialOwnerArchiveParams
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            archive(params, RequestOptions.none())
+
+        /** @see archive */
+        fun archive(
+            entityBeneficialOwnerId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<EntityBeneficialOwner>> =
+            archive(entityBeneficialOwnerId, BeneficialOwnerArchiveParams.none(), requestOptions)
     }
 }
