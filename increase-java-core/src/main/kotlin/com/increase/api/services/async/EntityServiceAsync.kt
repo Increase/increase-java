@@ -7,7 +7,6 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
 import com.increase.api.models.entities.EntityArchiveParams
-import com.increase.api.models.entities.EntityCreateBeneficialOwnerParams
 import com.increase.api.models.entities.EntityCreateParams
 import com.increase.api.models.entities.EntityListPageAsync
 import com.increase.api.models.entities.EntityListParams
@@ -153,31 +152,6 @@ interface EntityServiceAsync {
     /** @see archive */
     fun archive(entityId: String, requestOptions: RequestOptions): CompletableFuture<Entity> =
         archive(entityId, EntityArchiveParams.none(), requestOptions)
-
-    /** Create a beneficial owner for a corporate Entity */
-    fun createBeneficialOwner(
-        entityId: String,
-        params: EntityCreateBeneficialOwnerParams,
-    ): CompletableFuture<Entity> = createBeneficialOwner(entityId, params, RequestOptions.none())
-
-    /** @see createBeneficialOwner */
-    fun createBeneficialOwner(
-        entityId: String,
-        params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity> =
-        createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-    /** @see createBeneficialOwner */
-    fun createBeneficialOwner(
-        params: EntityCreateBeneficialOwnerParams
-    ): CompletableFuture<Entity> = createBeneficialOwner(params, RequestOptions.none())
-
-    /** @see createBeneficialOwner */
-    fun createBeneficialOwner(
-        params: EntityCreateBeneficialOwnerParams,
-        requestOptions: RequestOptions = RequestOptions.none(),
-    ): CompletableFuture<Entity>
 
     /**
      * A view of [EntityServiceAsync] that provides access to raw HTTP responses for each method.
@@ -347,35 +321,5 @@ interface EntityServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> =
             archive(entityId, EntityArchiveParams.none(), requestOptions)
-
-        /**
-         * Returns a raw HTTP response for `post /entities/{entity_id}/create_beneficial_owner`, but
-         * is otherwise the same as [EntityServiceAsync.createBeneficialOwner].
-         */
-        fun createBeneficialOwner(
-            entityId: String,
-            params: EntityCreateBeneficialOwnerParams,
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            createBeneficialOwner(entityId, params, RequestOptions.none())
-
-        /** @see createBeneficialOwner */
-        fun createBeneficialOwner(
-            entityId: String,
-            params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            createBeneficialOwner(params.toBuilder().entityId(entityId).build(), requestOptions)
-
-        /** @see createBeneficialOwner */
-        fun createBeneficialOwner(
-            params: EntityCreateBeneficialOwnerParams
-        ): CompletableFuture<HttpResponseFor<Entity>> =
-            createBeneficialOwner(params, RequestOptions.none())
-
-        /** @see createBeneficialOwner */
-        fun createBeneficialOwner(
-            params: EntityCreateBeneficialOwnerParams,
-            requestOptions: RequestOptions = RequestOptions.none(),
-        ): CompletableFuture<HttpResponseFor<Entity>>
     }
 }
