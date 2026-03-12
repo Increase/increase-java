@@ -18,6 +18,7 @@ internal class EntityBeneficialOwnerTest {
                 .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .companyTitle("CEO")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .idempotencyKey(null)
                 .individual(
                     EntityBeneficialOwner.Individual.builder()
                         .address(
@@ -53,6 +54,7 @@ internal class EntityBeneficialOwnerTest {
         assertThat(entityBeneficialOwner.companyTitle()).contains("CEO")
         assertThat(entityBeneficialOwner.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(entityBeneficialOwner.idempotencyKey()).isEmpty
         assertThat(entityBeneficialOwner.individual())
             .isEqualTo(
                 EntityBeneficialOwner.Individual.builder()
@@ -96,6 +98,7 @@ internal class EntityBeneficialOwnerTest {
                 .id("entity_setup_beneficial_owner_submission_vgkyk7dj5eb4sfhdbkx7")
                 .companyTitle("CEO")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .idempotencyKey(null)
                 .individual(
                     EntityBeneficialOwner.Individual.builder()
                         .address(

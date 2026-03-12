@@ -17,6 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.beneficialowners.BeneficialOwnerArchiveParams
+import com.increase.api.models.beneficialowners.BeneficialOwnerCreateParams
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPage
 import com.increase.api.models.beneficialowners.BeneficialOwnerListPageResponse
 import com.increase.api.models.beneficialowners.BeneficialOwnerListParams
@@ -37,6 +38,13 @@ class BeneficialOwnerServiceImpl internal constructor(private val clientOptions:
 
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): BeneficialOwnerService =
         BeneficialOwnerServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+
+    override fun create(
+        params: BeneficialOwnerCreateParams,
+        requestOptions: RequestOptions,
+    ): EntityBeneficialOwner =
+        // post /entity_beneficial_owners
+        withRawResponse().create(params, requestOptions).parse()
 
     override fun retrieve(
         params: BeneficialOwnerRetrieveParams,
@@ -78,6 +86,34 @@ class BeneficialOwnerServiceImpl internal constructor(private val clientOptions:
             BeneficialOwnerServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
+
+        private val createHandler: Handler<EntityBeneficialOwner> =
+            jsonHandler<EntityBeneficialOwner>(clientOptions.jsonMapper)
+
+        override fun create(
+            params: BeneficialOwnerCreateParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<EntityBeneficialOwner> {
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("entity_beneficial_owners")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
 
         private val retrieveHandler: Handler<EntityBeneficialOwner> =
             jsonHandler<EntityBeneficialOwner>(clientOptions.jsonMapper)
