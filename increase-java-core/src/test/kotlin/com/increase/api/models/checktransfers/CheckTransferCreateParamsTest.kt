@@ -54,7 +54,12 @@ internal class CheckTransferCreateParamsTest {
                     .shippingMethod(
                         CheckTransferCreateParams.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                     )
-                    .signatureText("Ian Crease")
+                    .signature(
+                        CheckTransferCreateParams.PhysicalCheck.Signature.builder()
+                            .imageFileId("image_file_id")
+                            .text("Ian Crease")
+                            .build()
+                    )
                     .build()
             )
             .requireApproval(true)
@@ -110,7 +115,12 @@ internal class CheckTransferCreateParamsTest {
                         .shippingMethod(
                             CheckTransferCreateParams.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                         )
-                        .signatureText("Ian Crease")
+                        .signature(
+                            CheckTransferCreateParams.PhysicalCheck.Signature.builder()
+                                .imageFileId("image_file_id")
+                                .text("Ian Crease")
+                                .build()
+                        )
                         .build()
                 )
                 .requireApproval(true)
@@ -167,7 +177,12 @@ internal class CheckTransferCreateParamsTest {
                     .shippingMethod(
                         CheckTransferCreateParams.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                     )
-                    .signatureText("Ian Crease")
+                    .signature(
+                        CheckTransferCreateParams.PhysicalCheck.Signature.builder()
+                            .imageFileId("image_file_id")
+                            .text("Ian Crease")
+                            .build()
+                    )
                     .build()
             )
         assertThat(body.requireApproval()).contains(true)

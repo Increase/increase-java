@@ -102,7 +102,12 @@ internal class CheckTransferTest {
                                 .build()
                         )
                         .shippingMethod(null)
-                        .signatureText(null)
+                        .signature(
+                            CheckTransfer.PhysicalCheck.Signature.builder()
+                                .imageFileId(null)
+                                .text("Ian Crease")
+                                .build()
+                        )
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
                                 .category(
@@ -245,7 +250,12 @@ internal class CheckTransferTest {
                             .build()
                     )
                     .shippingMethod(null)
-                    .signatureText(null)
+                    .signature(
+                        CheckTransfer.PhysicalCheck.Signature.builder()
+                            .imageFileId(null)
+                            .text("Ian Crease")
+                            .build()
+                    )
                     .addTrackingUpdate(
                         CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
                             .category(
@@ -387,7 +397,12 @@ internal class CheckTransferTest {
                                 .build()
                         )
                         .shippingMethod(null)
-                        .signatureText(null)
+                        .signature(
+                            CheckTransfer.PhysicalCheck.Signature.builder()
+                                .imageFileId(null)
+                                .text("Ian Crease")
+                                .build()
+                        )
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
                                 .category(
