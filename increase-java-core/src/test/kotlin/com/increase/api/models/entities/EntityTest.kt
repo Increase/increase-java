@@ -257,6 +257,41 @@ internal class EntityTest {
                         .build()
                 )
                 .type(Entity.Type.ENTITY)
+                .validation(
+                    Entity.Validation.builder()
+                        .addIssue(
+                            Entity.Validation.Issue.builder()
+                                .beneficialOwnerAddress(
+                                    Entity.Validation.Issue.BeneficialOwnerAddress.builder()
+                                        .beneficialOwnerId("beneficial_owner_id")
+                                        .reason(
+                                            Entity.Validation.Issue.BeneficialOwnerAddress.Reason
+                                                .MAILBOX_ADDRESS
+                                        )
+                                        .build()
+                                )
+                                .beneficialOwnerIdentity(
+                                    Entity.Validation.Issue.BeneficialOwnerIdentity.builder()
+                                        .beneficialOwnerId("beneficial_owner_id")
+                                        .build()
+                                )
+                                .category(Entity.Validation.Issue.Category.ENTITY_TAX_IDENTIFIER)
+                                .entityAddress(
+                                    Entity.Validation.Issue.EntityAddress.builder()
+                                        .reason(
+                                            Entity.Validation.Issue.EntityAddress.Reason
+                                                .MAILBOX_ADDRESS
+                                        )
+                                        .build()
+                                )
+                                .entityTaxIdentifier(
+                                    Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
+                                )
+                                .build()
+                        )
+                        .status(Entity.Validation.Status.PENDING)
+                        .build()
+                )
                 .build()
 
         assertThat(entity.id()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
@@ -507,6 +542,41 @@ internal class EntityTest {
                     .build()
             )
         assertThat(entity.type()).isEqualTo(Entity.Type.ENTITY)
+        assertThat(entity.validation())
+            .contains(
+                Entity.Validation.builder()
+                    .addIssue(
+                        Entity.Validation.Issue.builder()
+                            .beneficialOwnerAddress(
+                                Entity.Validation.Issue.BeneficialOwnerAddress.builder()
+                                    .beneficialOwnerId("beneficial_owner_id")
+                                    .reason(
+                                        Entity.Validation.Issue.BeneficialOwnerAddress.Reason
+                                            .MAILBOX_ADDRESS
+                                    )
+                                    .build()
+                            )
+                            .beneficialOwnerIdentity(
+                                Entity.Validation.Issue.BeneficialOwnerIdentity.builder()
+                                    .beneficialOwnerId("beneficial_owner_id")
+                                    .build()
+                            )
+                            .category(Entity.Validation.Issue.Category.ENTITY_TAX_IDENTIFIER)
+                            .entityAddress(
+                                Entity.Validation.Issue.EntityAddress.builder()
+                                    .reason(
+                                        Entity.Validation.Issue.EntityAddress.Reason.MAILBOX_ADDRESS
+                                    )
+                                    .build()
+                            )
+                            .entityTaxIdentifier(
+                                Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
+                            )
+                            .build()
+                    )
+                    .status(Entity.Validation.Status.PENDING)
+                    .build()
+            )
     }
 
     @Test
@@ -755,6 +825,41 @@ internal class EntityTest {
                         .build()
                 )
                 .type(Entity.Type.ENTITY)
+                .validation(
+                    Entity.Validation.builder()
+                        .addIssue(
+                            Entity.Validation.Issue.builder()
+                                .beneficialOwnerAddress(
+                                    Entity.Validation.Issue.BeneficialOwnerAddress.builder()
+                                        .beneficialOwnerId("beneficial_owner_id")
+                                        .reason(
+                                            Entity.Validation.Issue.BeneficialOwnerAddress.Reason
+                                                .MAILBOX_ADDRESS
+                                        )
+                                        .build()
+                                )
+                                .beneficialOwnerIdentity(
+                                    Entity.Validation.Issue.BeneficialOwnerIdentity.builder()
+                                        .beneficialOwnerId("beneficial_owner_id")
+                                        .build()
+                                )
+                                .category(Entity.Validation.Issue.Category.ENTITY_TAX_IDENTIFIER)
+                                .entityAddress(
+                                    Entity.Validation.Issue.EntityAddress.builder()
+                                        .reason(
+                                            Entity.Validation.Issue.EntityAddress.Reason
+                                                .MAILBOX_ADDRESS
+                                        )
+                                        .build()
+                                )
+                                .entityTaxIdentifier(
+                                    Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
+                                )
+                                .build()
+                        )
+                        .status(Entity.Validation.Status.PENDING)
+                        .build()
+                )
                 .build()
 
         val roundtrippedEntity =
