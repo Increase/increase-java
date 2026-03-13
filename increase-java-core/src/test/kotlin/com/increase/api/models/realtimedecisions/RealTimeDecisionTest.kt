@@ -17,7 +17,9 @@ internal class RealTimeDecisionTest {
                 .id("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .cardAuthentication(
                     RealTimeDecision.CardAuthentication.builder()
-                        .accessControlServerTransactionId("access_control_server_transaction_id")
+                        .accessControlServerTransactionIdentifier(
+                            "access_control_server_transaction_identifier"
+                        )
                         .accountId("account_id")
                         .billingAddressCity("billing_address_city")
                         .billingAddressCountry("billing_address_country")
@@ -64,7 +66,9 @@ internal class RealTimeDecisionTest {
                                 )
                                 .build()
                         )
-                        .directoryServerTransactionId("directory_server_transaction_id")
+                        .directoryServerTransactionIdentifier(
+                            "directory_server_transaction_identifier"
+                        )
                         .merchantAcceptorId("merchant_acceptor_id")
                         .merchantCategoryCode("merchant_category_code")
                         .merchantCountry("merchant_country")
@@ -114,7 +118,9 @@ internal class RealTimeDecisionTest {
                         .shippingAddressLine3("shipping_address_line3")
                         .shippingAddressPostalCode("shipping_address_postal_code")
                         .shippingAddressState("shipping_address_state")
-                        .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
+                        .threeDSecureServerTransactionIdentifier(
+                            "three_d_secure_server_transaction_identifier"
+                        )
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .build()
                 )
@@ -574,7 +580,9 @@ internal class RealTimeDecisionTest {
         assertThat(realTimeDecision.cardAuthentication())
             .contains(
                 RealTimeDecision.CardAuthentication.builder()
-                    .accessControlServerTransactionId("access_control_server_transaction_id")
+                    .accessControlServerTransactionIdentifier(
+                        "access_control_server_transaction_identifier"
+                    )
                     .accountId("account_id")
                     .billingAddressCity("billing_address_city")
                     .billingAddressCountry("billing_address_country")
@@ -618,7 +626,7 @@ internal class RealTimeDecisionTest {
                             )
                             .build()
                     )
-                    .directoryServerTransactionId("directory_server_transaction_id")
+                    .directoryServerTransactionIdentifier("directory_server_transaction_identifier")
                     .merchantAcceptorId("merchant_acceptor_id")
                     .merchantCategoryCode("merchant_category_code")
                     .merchantCountry("merchant_country")
@@ -667,7 +675,9 @@ internal class RealTimeDecisionTest {
                     .shippingAddressLine3("shipping_address_line3")
                     .shippingAddressPostalCode("shipping_address_postal_code")
                     .shippingAddressState("shipping_address_state")
-                    .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
+                    .threeDSecureServerTransactionIdentifier(
+                        "three_d_secure_server_transaction_identifier"
+                    )
                     .upcomingCardPaymentId("upcoming_card_payment_id")
                     .build()
             )
@@ -1123,7 +1133,9 @@ internal class RealTimeDecisionTest {
                 .id("real_time_decision_j76n2e810ezcg3zh5qtn")
                 .cardAuthentication(
                     RealTimeDecision.CardAuthentication.builder()
-                        .accessControlServerTransactionId("access_control_server_transaction_id")
+                        .accessControlServerTransactionIdentifier(
+                            "access_control_server_transaction_identifier"
+                        )
                         .accountId("account_id")
                         .billingAddressCity("billing_address_city")
                         .billingAddressCountry("billing_address_country")
@@ -1170,7 +1182,9 @@ internal class RealTimeDecisionTest {
                                 )
                                 .build()
                         )
-                        .directoryServerTransactionId("directory_server_transaction_id")
+                        .directoryServerTransactionIdentifier(
+                            "directory_server_transaction_identifier"
+                        )
                         .merchantAcceptorId("merchant_acceptor_id")
                         .merchantCategoryCode("merchant_category_code")
                         .merchantCountry("merchant_country")
@@ -1220,7 +1234,9 @@ internal class RealTimeDecisionTest {
                         .shippingAddressLine3("shipping_address_line3")
                         .shippingAddressPostalCode("shipping_address_postal_code")
                         .shippingAddressState("shipping_address_state")
-                        .threeDSecureServerTransactionId("three_d_secure_server_transaction_id")
+                        .threeDSecureServerTransactionIdentifier(
+                            "three_d_secure_server_transaction_identifier"
+                        )
                         .upcomingCardPaymentId("upcoming_card_payment_id")
                         .build()
                 )

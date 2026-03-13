@@ -28,7 +28,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -115,7 +115,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -182,7 +182,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -1961,7 +1961,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -2048,7 +2048,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -2115,7 +2115,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -3894,7 +3894,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -3981,7 +3981,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -4048,7 +4048,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -5827,7 +5827,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -5914,7 +5914,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -5981,7 +5981,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -7794,7 +7794,7 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
-                            .accessControlServerTransactionId(
+                            .accessControlServerTransactionIdentifier(
                                 "1a628378-4d43-4438-a31f-25c0e1bf2537"
                             )
                             .billingAddressCity("New York")
@@ -7871,7 +7871,9 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
+                            .directoryServerTransactionIdentifier(
+                                "8990a978-5eb2-4440-8539-5619e24b0b0d"
+                            )
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -7930,7 +7932,9 @@ internal class CardPaymentTest {
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
                             )
-                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .threeDSecureServerTransactionIdentifier(
+                                "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
@@ -9525,7 +9529,7 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
-                            .accessControlServerTransactionId(
+                            .accessControlServerTransactionIdentifier(
                                 "1a628378-4d43-4438-a31f-25c0e1bf2537"
                             )
                             .billingAddressCity("New York")
@@ -9602,7 +9606,9 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
+                            .directoryServerTransactionIdentifier(
+                                "8990a978-5eb2-4440-8539-5619e24b0b0d"
+                            )
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -9661,7 +9667,9 @@ internal class CardPaymentTest {
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
                             )
-                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .threeDSecureServerTransactionIdentifier(
+                                "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
@@ -11256,7 +11264,7 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
-                            .accessControlServerTransactionId(
+                            .accessControlServerTransactionIdentifier(
                                 "1a628378-4d43-4438-a31f-25c0e1bf2537"
                             )
                             .billingAddressCity("New York")
@@ -11333,7 +11341,9 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
+                            .directoryServerTransactionIdentifier(
+                                "8990a978-5eb2-4440-8539-5619e24b0b0d"
+                            )
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -11392,7 +11402,9 @@ internal class CardPaymentTest {
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
                             )
-                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .threeDSecureServerTransactionIdentifier(
+                                "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
@@ -12987,7 +12999,7 @@ internal class CardPaymentTest {
                     .cardAuthentication(
                         CardPayment.Element.CardAuthentication.builder()
                             .id("card_authentication_xft30xjdubptlgrxboch")
-                            .accessControlServerTransactionId(
+                            .accessControlServerTransactionIdentifier(
                                 "1a628378-4d43-4438-a31f-25c0e1bf2537"
                             )
                             .billingAddressCity("New York")
@@ -13064,7 +13076,9 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
-                            .directoryServerTransactionId("8990a978-5eb2-4440-8539-5619e24b0b0d")
+                            .directoryServerTransactionIdentifier(
+                                "8990a978-5eb2-4440-8539-5619e24b0b0d"
+                            )
                             .merchantAcceptorId("5665270011000168")
                             .merchantCategoryCode("5734")
                             .merchantCountry("US")
@@ -13123,7 +13137,9 @@ internal class CardPaymentTest {
                             .status(
                                 CardPayment.Element.CardAuthentication.Status.VALIDATING_CHALLENGE
                             )
-                            .threeDSecureServerTransactionId("6839e1b0-dcae-482d-8166-40e44dd0d8cd")
+                            .threeDSecureServerTransactionIdentifier(
+                                "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
+                            )
                             .type(CardPayment.Element.CardAuthentication.Type.CARD_AUTHENTICATION)
                             .build()
                     )
@@ -14758,7 +14774,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -14845,7 +14861,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -14912,7 +14928,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -16691,7 +16707,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -16778,7 +16794,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -16845,7 +16861,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -18624,7 +18640,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -18711,7 +18727,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -18778,7 +18794,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
@@ -20557,7 +20573,7 @@ internal class CardPaymentTest {
                             .cardAuthentication(
                                 CardPayment.Element.CardAuthentication.builder()
                                     .id("card_authentication_xft30xjdubptlgrxboch")
-                                    .accessControlServerTransactionId(
+                                    .accessControlServerTransactionIdentifier(
                                         "1a628378-4d43-4438-a31f-25c0e1bf2537"
                                     )
                                     .billingAddressCity("New York")
@@ -20644,7 +20660,7 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
-                                    .directoryServerTransactionId(
+                                    .directoryServerTransactionIdentifier(
                                         "8990a978-5eb2-4440-8539-5619e24b0b0d"
                                     )
                                     .merchantAcceptorId("5665270011000168")
@@ -20711,7 +20727,7 @@ internal class CardPaymentTest {
                                         CardPayment.Element.CardAuthentication.Status
                                             .VALIDATING_CHALLENGE
                                     )
-                                    .threeDSecureServerTransactionId(
+                                    .threeDSecureServerTransactionIdentifier(
                                         "6839e1b0-dcae-482d-8166-40e44dd0d8cd"
                                     )
                                     .type(
