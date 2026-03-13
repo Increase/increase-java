@@ -25,7 +25,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Entities are the legal entities that own accounts. They can be people, corporations,
- * partnerships, government authorities, or trusts.
+ * partnerships, government authorities, or trusts. To learn more, see
+ * [Entities](/documentation/entities).
  */
 class Entity
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -47,6 +48,7 @@ private constructor(
     private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
     private val trust: JsonField<Trust>,
     private val type: JsonField<Type>,
+    private val validation: JsonField<Validation>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -93,6 +95,9 @@ private constructor(
         thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of(),
         @JsonProperty("trust") @ExcludeMissing trust: JsonField<Trust> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("validation")
+        @ExcludeMissing
+        validation: JsonField<Validation> = JsonMissing.of(),
     ) : this(
         id,
         corporation,
@@ -111,6 +116,7 @@ private constructor(
         thirdPartyVerification,
         trust,
         type,
+        validation,
         mutableMapOf(),
     )
 
@@ -264,6 +270,14 @@ private constructor(
     fun type(): Type = type.getRequired("type")
 
     /**
+     * The validation results for the entity.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun validation(): Optional<Validation> = validation.getOptional("validation")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -407,6 +421,15 @@ private constructor(
      */
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
+    /**
+     * Returns the raw JSON value of [validation].
+     *
+     * Unlike [validation], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("validation")
+    @ExcludeMissing
+    fun _validation(): JsonField<Validation> = validation
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -443,6 +466,7 @@ private constructor(
          * .thirdPartyVerification()
          * .trust()
          * .type()
+         * .validation()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -469,6 +493,7 @@ private constructor(
         private var thirdPartyVerification: JsonField<ThirdPartyVerification>? = null
         private var trust: JsonField<Trust>? = null
         private var type: JsonField<Type>? = null
+        private var validation: JsonField<Validation>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -490,6 +515,7 @@ private constructor(
             thirdPartyVerification = entity.thirdPartyVerification
             trust = entity.trust
             type = entity.type
+            validation = entity.validation
             additionalProperties = entity.additionalProperties.toMutableMap()
         }
 
@@ -815,6 +841,21 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /** The validation results for the entity. */
+        fun validation(validation: Validation?) = validation(JsonField.ofNullable(validation))
+
+        /** Alias for calling [Builder.validation] with `validation.orElse(null)`. */
+        fun validation(validation: Optional<Validation>) = validation(validation.getOrNull())
+
+        /**
+         * Sets [Builder.validation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.validation] with a well-typed [Validation] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun validation(validation: JsonField<Validation>) = apply { this.validation = validation }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -858,6 +899,7 @@ private constructor(
          * .thirdPartyVerification()
          * .trust()
          * .type()
+         * .validation()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -883,6 +925,7 @@ private constructor(
                 checkRequired("thirdPartyVerification", thirdPartyVerification),
                 checkRequired("trust", trust),
                 checkRequired("type", type),
+                checkRequired("validation", validation),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -911,6 +954,7 @@ private constructor(
         thirdPartyVerification().ifPresent { it.validate() }
         trust().ifPresent { it.validate() }
         type().validate()
+        validation().ifPresent { it.validate() }
         validated = true
     }
 
@@ -945,7 +989,8 @@ private constructor(
             (termsAgreements.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (thirdPartyVerification.asKnown().getOrNull()?.validity() ?: 0) +
             (trust.asKnown().getOrNull()?.validity() ?: 0) +
-            (type.asKnown().getOrNull()?.validity() ?: 0)
+            (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (validation.asKnown().getOrNull()?.validity() ?: 0)
 
     /**
      * Details of the corporation entity. Will be present if `structure` is equal to `corporation`.
@@ -11489,6 +11534,1924 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The validation results for the entity. */
+    class Validation
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val issues: JsonField<List<Issue>>,
+        private val status: JsonField<Status>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("issues")
+            @ExcludeMissing
+            issues: JsonField<List<Issue>> = JsonMissing.of(),
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(issues, status, mutableMapOf())
+
+        /**
+         * The list of issues that need to be addressed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun issues(): List<Issue> = issues.getRequired("issues")
+
+        /**
+         * The validation status for the entity. If the status is `invalid`, the `issues` array will
+         * be populated.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun status(): Status = status.getRequired("status")
+
+        /**
+         * Returns the raw JSON value of [issues].
+         *
+         * Unlike [issues], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("issues") @ExcludeMissing fun _issues(): JsonField<List<Issue>> = issues
+
+        /**
+         * Returns the raw JSON value of [status].
+         *
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Validation].
+             *
+             * The following fields are required:
+             * ```java
+             * .issues()
+             * .status()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Validation]. */
+        class Builder internal constructor() {
+
+            private var issues: JsonField<MutableList<Issue>>? = null
+            private var status: JsonField<Status>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(validation: Validation) = apply {
+                issues = validation.issues.map { it.toMutableList() }
+                status = validation.status
+                additionalProperties = validation.additionalProperties.toMutableMap()
+            }
+
+            /** The list of issues that need to be addressed. */
+            fun issues(issues: List<Issue>) = issues(JsonField.of(issues))
+
+            /**
+             * Sets [Builder.issues] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.issues] with a well-typed `List<Issue>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun issues(issues: JsonField<List<Issue>>) = apply {
+                this.issues = issues.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [Issue] to [issues].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addIssue(issue: Issue) = apply {
+                issues =
+                    (issues ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("issues", it).add(issue)
+                    }
+            }
+
+            /**
+             * The validation status for the entity. If the status is `invalid`, the `issues` array
+             * will be populated.
+             */
+            fun status(status: Status) = status(JsonField.of(status))
+
+            /**
+             * Sets [Builder.status] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun status(status: JsonField<Status>) = apply { this.status = status }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Validation].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .issues()
+             * .status()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Validation =
+                Validation(
+                    checkRequired("issues", issues).map { it.toImmutable() },
+                    checkRequired("status", status),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Validation = apply {
+            if (validated) {
+                return@apply
+            }
+
+            issues().forEach { it.validate() }
+            status().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (issues.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (status.asKnown().getOrNull()?.validity() ?: 0)
+
+        class Issue
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val beneficialOwnerAddress: JsonField<BeneficialOwnerAddress>,
+            private val beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>,
+            private val category: JsonField<Category>,
+            private val entityAddress: JsonField<EntityAddress>,
+            private val entityTaxIdentifier: JsonField<EntityTaxIdentifier>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("beneficial_owner_address")
+                @ExcludeMissing
+                beneficialOwnerAddress: JsonField<BeneficialOwnerAddress> = JsonMissing.of(),
+                @JsonProperty("beneficial_owner_identity")
+                @ExcludeMissing
+                beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity> = JsonMissing.of(),
+                @JsonProperty("category")
+                @ExcludeMissing
+                category: JsonField<Category> = JsonMissing.of(),
+                @JsonProperty("entity_address")
+                @ExcludeMissing
+                entityAddress: JsonField<EntityAddress> = JsonMissing.of(),
+                @JsonProperty("entity_tax_identifier")
+                @ExcludeMissing
+                entityTaxIdentifier: JsonField<EntityTaxIdentifier> = JsonMissing.of(),
+            ) : this(
+                beneficialOwnerAddress,
+                beneficialOwnerIdentity,
+                category,
+                entityAddress,
+                entityTaxIdentifier,
+                mutableMapOf(),
+            )
+
+            /**
+             * Details when the issue is with a beneficial owner's address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun beneficialOwnerAddress(): Optional<BeneficialOwnerAddress> =
+                beneficialOwnerAddress.getOptional("beneficial_owner_address")
+
+            /**
+             * Details when the issue is with a beneficial owner's identity verification.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun beneficialOwnerIdentity(): Optional<BeneficialOwnerIdentity> =
+                beneficialOwnerIdentity.getOptional("beneficial_owner_identity")
+
+            /**
+             * The type of issue. We may add additional possible values for this enum over time;
+             * your application should be able to handle such additions gracefully.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun category(): Category = category.getRequired("category")
+
+            /**
+             * Details when the issue is with the entity's address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun entityAddress(): Optional<EntityAddress> =
+                entityAddress.getOptional("entity_address")
+
+            /**
+             * Details when the issue is with the entity's tax ID.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun entityTaxIdentifier(): Optional<EntityTaxIdentifier> =
+                entityTaxIdentifier.getOptional("entity_tax_identifier")
+
+            /**
+             * Returns the raw JSON value of [beneficialOwnerAddress].
+             *
+             * Unlike [beneficialOwnerAddress], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("beneficial_owner_address")
+            @ExcludeMissing
+            fun _beneficialOwnerAddress(): JsonField<BeneficialOwnerAddress> =
+                beneficialOwnerAddress
+
+            /**
+             * Returns the raw JSON value of [beneficialOwnerIdentity].
+             *
+             * Unlike [beneficialOwnerIdentity], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("beneficial_owner_identity")
+            @ExcludeMissing
+            fun _beneficialOwnerIdentity(): JsonField<BeneficialOwnerIdentity> =
+                beneficialOwnerIdentity
+
+            /**
+             * Returns the raw JSON value of [category].
+             *
+             * Unlike [category], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun _category(): JsonField<Category> = category
+
+            /**
+             * Returns the raw JSON value of [entityAddress].
+             *
+             * Unlike [entityAddress], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("entity_address")
+            @ExcludeMissing
+            fun _entityAddress(): JsonField<EntityAddress> = entityAddress
+
+            /**
+             * Returns the raw JSON value of [entityTaxIdentifier].
+             *
+             * Unlike [entityTaxIdentifier], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("entity_tax_identifier")
+            @ExcludeMissing
+            fun _entityTaxIdentifier(): JsonField<EntityTaxIdentifier> = entityTaxIdentifier
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Issue].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .beneficialOwnerAddress()
+                 * .beneficialOwnerIdentity()
+                 * .category()
+                 * .entityAddress()
+                 * .entityTaxIdentifier()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Issue]. */
+            class Builder internal constructor() {
+
+                private var beneficialOwnerAddress: JsonField<BeneficialOwnerAddress>? = null
+                private var beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>? = null
+                private var category: JsonField<Category>? = null
+                private var entityAddress: JsonField<EntityAddress>? = null
+                private var entityTaxIdentifier: JsonField<EntityTaxIdentifier>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(issue: Issue) = apply {
+                    beneficialOwnerAddress = issue.beneficialOwnerAddress
+                    beneficialOwnerIdentity = issue.beneficialOwnerIdentity
+                    category = issue.category
+                    entityAddress = issue.entityAddress
+                    entityTaxIdentifier = issue.entityTaxIdentifier
+                    additionalProperties = issue.additionalProperties.toMutableMap()
+                }
+
+                /** Details when the issue is with a beneficial owner's address. */
+                fun beneficialOwnerAddress(beneficialOwnerAddress: BeneficialOwnerAddress?) =
+                    beneficialOwnerAddress(JsonField.ofNullable(beneficialOwnerAddress))
+
+                /**
+                 * Alias for calling [Builder.beneficialOwnerAddress] with
+                 * `beneficialOwnerAddress.orElse(null)`.
+                 */
+                fun beneficialOwnerAddress(
+                    beneficialOwnerAddress: Optional<BeneficialOwnerAddress>
+                ) = beneficialOwnerAddress(beneficialOwnerAddress.getOrNull())
+
+                /**
+                 * Sets [Builder.beneficialOwnerAddress] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.beneficialOwnerAddress] with a well-typed
+                 * [BeneficialOwnerAddress] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun beneficialOwnerAddress(
+                    beneficialOwnerAddress: JsonField<BeneficialOwnerAddress>
+                ) = apply { this.beneficialOwnerAddress = beneficialOwnerAddress }
+
+                /** Details when the issue is with a beneficial owner's identity verification. */
+                fun beneficialOwnerIdentity(beneficialOwnerIdentity: BeneficialOwnerIdentity?) =
+                    beneficialOwnerIdentity(JsonField.ofNullable(beneficialOwnerIdentity))
+
+                /**
+                 * Alias for calling [Builder.beneficialOwnerIdentity] with
+                 * `beneficialOwnerIdentity.orElse(null)`.
+                 */
+                fun beneficialOwnerIdentity(
+                    beneficialOwnerIdentity: Optional<BeneficialOwnerIdentity>
+                ) = beneficialOwnerIdentity(beneficialOwnerIdentity.getOrNull())
+
+                /**
+                 * Sets [Builder.beneficialOwnerIdentity] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.beneficialOwnerIdentity] with a well-typed
+                 * [BeneficialOwnerIdentity] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun beneficialOwnerIdentity(
+                    beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>
+                ) = apply { this.beneficialOwnerIdentity = beneficialOwnerIdentity }
+
+                /**
+                 * The type of issue. We may add additional possible values for this enum over time;
+                 * your application should be able to handle such additions gracefully.
+                 */
+                fun category(category: Category) = category(JsonField.of(category))
+
+                /**
+                 * Sets [Builder.category] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.category] with a well-typed [Category] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /** Details when the issue is with the entity's address. */
+                fun entityAddress(entityAddress: EntityAddress?) =
+                    entityAddress(JsonField.ofNullable(entityAddress))
+
+                /** Alias for calling [Builder.entityAddress] with `entityAddress.orElse(null)`. */
+                fun entityAddress(entityAddress: Optional<EntityAddress>) =
+                    entityAddress(entityAddress.getOrNull())
+
+                /**
+                 * Sets [Builder.entityAddress] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.entityAddress] with a well-typed [EntityAddress]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun entityAddress(entityAddress: JsonField<EntityAddress>) = apply {
+                    this.entityAddress = entityAddress
+                }
+
+                /** Details when the issue is with the entity's tax ID. */
+                fun entityTaxIdentifier(entityTaxIdentifier: EntityTaxIdentifier?) =
+                    entityTaxIdentifier(JsonField.ofNullable(entityTaxIdentifier))
+
+                /**
+                 * Alias for calling [Builder.entityTaxIdentifier] with
+                 * `entityTaxIdentifier.orElse(null)`.
+                 */
+                fun entityTaxIdentifier(entityTaxIdentifier: Optional<EntityTaxIdentifier>) =
+                    entityTaxIdentifier(entityTaxIdentifier.getOrNull())
+
+                /**
+                 * Sets [Builder.entityTaxIdentifier] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.entityTaxIdentifier] with a well-typed
+                 * [EntityTaxIdentifier] value instead. This method is primarily for setting the
+                 * field to an undocumented or not yet supported value.
+                 */
+                fun entityTaxIdentifier(entityTaxIdentifier: JsonField<EntityTaxIdentifier>) =
+                    apply {
+                        this.entityTaxIdentifier = entityTaxIdentifier
+                    }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Issue].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .beneficialOwnerAddress()
+                 * .beneficialOwnerIdentity()
+                 * .category()
+                 * .entityAddress()
+                 * .entityTaxIdentifier()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Issue =
+                    Issue(
+                        checkRequired("beneficialOwnerAddress", beneficialOwnerAddress),
+                        checkRequired("beneficialOwnerIdentity", beneficialOwnerIdentity),
+                        checkRequired("category", category),
+                        checkRequired("entityAddress", entityAddress),
+                        checkRequired("entityTaxIdentifier", entityTaxIdentifier),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): Issue = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                beneficialOwnerAddress().ifPresent { it.validate() }
+                beneficialOwnerIdentity().ifPresent { it.validate() }
+                category().validate()
+                entityAddress().ifPresent { it.validate() }
+                entityTaxIdentifier().ifPresent { it.validate() }
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (beneficialOwnerAddress.asKnown().getOrNull()?.validity() ?: 0) +
+                    (beneficialOwnerIdentity.asKnown().getOrNull()?.validity() ?: 0) +
+                    (category.asKnown().getOrNull()?.validity() ?: 0) +
+                    (entityAddress.asKnown().getOrNull()?.validity() ?: 0) +
+                    (entityTaxIdentifier.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** Details when the issue is with a beneficial owner's address. */
+            class BeneficialOwnerAddress
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val beneficialOwnerId: JsonField<String>,
+                private val reason: JsonField<Reason>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("beneficial_owner_id")
+                    @ExcludeMissing
+                    beneficialOwnerId: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("reason")
+                    @ExcludeMissing
+                    reason: JsonField<Reason> = JsonMissing.of(),
+                ) : this(beneficialOwnerId, reason, mutableMapOf())
+
+                /**
+                 * The ID of the beneficial owner.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun beneficialOwnerId(): String =
+                    beneficialOwnerId.getRequired("beneficial_owner_id")
+
+                /**
+                 * The reason the address is invalid.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun reason(): Reason = reason.getRequired("reason")
+
+                /**
+                 * Returns the raw JSON value of [beneficialOwnerId].
+                 *
+                 * Unlike [beneficialOwnerId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("beneficial_owner_id")
+                @ExcludeMissing
+                fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
+
+                /**
+                 * Returns the raw JSON value of [reason].
+                 *
+                 * Unlike [reason], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [BeneficialOwnerAddress].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .beneficialOwnerId()
+                     * .reason()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [BeneficialOwnerAddress]. */
+                class Builder internal constructor() {
+
+                    private var beneficialOwnerId: JsonField<String>? = null
+                    private var reason: JsonField<Reason>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(beneficialOwnerAddress: BeneficialOwnerAddress) = apply {
+                        beneficialOwnerId = beneficialOwnerAddress.beneficialOwnerId
+                        reason = beneficialOwnerAddress.reason
+                        additionalProperties =
+                            beneficialOwnerAddress.additionalProperties.toMutableMap()
+                    }
+
+                    /** The ID of the beneficial owner. */
+                    fun beneficialOwnerId(beneficialOwnerId: String) =
+                        beneficialOwnerId(JsonField.of(beneficialOwnerId))
+
+                    /**
+                     * Sets [Builder.beneficialOwnerId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.beneficialOwnerId] with a well-typed
+                     * [String] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+                        this.beneficialOwnerId = beneficialOwnerId
+                    }
+
+                    /** The reason the address is invalid. */
+                    fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                    /**
+                     * Sets [Builder.reason] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.reason] with a well-typed [Reason] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [BeneficialOwnerAddress].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .beneficialOwnerId()
+                     * .reason()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): BeneficialOwnerAddress =
+                        BeneficialOwnerAddress(
+                            checkRequired("beneficialOwnerId", beneficialOwnerId),
+                            checkRequired("reason", reason),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): BeneficialOwnerAddress = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    beneficialOwnerId()
+                    reason().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (beneficialOwnerId.asKnown().isPresent) 1 else 0) +
+                        (reason.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** The reason the address is invalid. */
+                class Reason
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The address is a mailbox or other non-physical address. */
+                        @JvmField val MAILBOX_ADDRESS = of("mailbox_address")
+
+                        @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Reason]'s known values. */
+                    enum class Known {
+                        /** The address is a mailbox or other non-physical address. */
+                        MAILBOX_ADDRESS
+                    }
+
+                    /**
+                     * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Reason] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The address is a mailbox or other non-physical address. */
+                        MAILBOX_ADDRESS,
+                        /**
+                         * An enum member indicating that [Reason] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            MAILBOX_ADDRESS -> Value.MAILBOX_ADDRESS
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            MAILBOX_ADDRESS -> Known.MAILBOX_ADDRESS
+                            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Reason = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Reason && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is BeneficialOwnerAddress &&
+                        beneficialOwnerId == other.beneficialOwnerId &&
+                        reason == other.reason &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(beneficialOwnerId, reason, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "BeneficialOwnerAddress{beneficialOwnerId=$beneficialOwnerId, reason=$reason, additionalProperties=$additionalProperties}"
+            }
+
+            /** Details when the issue is with a beneficial owner's identity verification. */
+            class BeneficialOwnerIdentity
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val beneficialOwnerId: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("beneficial_owner_id")
+                    @ExcludeMissing
+                    beneficialOwnerId: JsonField<String> = JsonMissing.of()
+                ) : this(beneficialOwnerId, mutableMapOf())
+
+                /**
+                 * The ID of the beneficial owner.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun beneficialOwnerId(): String =
+                    beneficialOwnerId.getRequired("beneficial_owner_id")
+
+                /**
+                 * Returns the raw JSON value of [beneficialOwnerId].
+                 *
+                 * Unlike [beneficialOwnerId], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("beneficial_owner_id")
+                @ExcludeMissing
+                fun _beneficialOwnerId(): JsonField<String> = beneficialOwnerId
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [BeneficialOwnerIdentity].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .beneficialOwnerId()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [BeneficialOwnerIdentity]. */
+                class Builder internal constructor() {
+
+                    private var beneficialOwnerId: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(beneficialOwnerIdentity: BeneficialOwnerIdentity) = apply {
+                        beneficialOwnerId = beneficialOwnerIdentity.beneficialOwnerId
+                        additionalProperties =
+                            beneficialOwnerIdentity.additionalProperties.toMutableMap()
+                    }
+
+                    /** The ID of the beneficial owner. */
+                    fun beneficialOwnerId(beneficialOwnerId: String) =
+                        beneficialOwnerId(JsonField.of(beneficialOwnerId))
+
+                    /**
+                     * Sets [Builder.beneficialOwnerId] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.beneficialOwnerId] with a well-typed
+                     * [String] value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun beneficialOwnerId(beneficialOwnerId: JsonField<String>) = apply {
+                        this.beneficialOwnerId = beneficialOwnerId
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [BeneficialOwnerIdentity].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .beneficialOwnerId()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): BeneficialOwnerIdentity =
+                        BeneficialOwnerIdentity(
+                            checkRequired("beneficialOwnerId", beneficialOwnerId),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): BeneficialOwnerIdentity = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    beneficialOwnerId()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int = (if (beneficialOwnerId.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is BeneficialOwnerIdentity &&
+                        beneficialOwnerId == other.beneficialOwnerId &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(beneficialOwnerId, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "BeneficialOwnerIdentity{beneficialOwnerId=$beneficialOwnerId, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * The type of issue. We may add additional possible values for this enum over time;
+             * your application should be able to handle such additions gracefully.
+             */
+            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The entity's tax identifier could not be validated. Update the tax ID with
+                     * the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.tax_identifier).
+                     */
+                    @JvmField val ENTITY_TAX_IDENTIFIER = of("entity_tax_identifier")
+
+                    /**
+                     * The entity's address could not be validated. Update the address with the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
+                     */
+                    @JvmField val ENTITY_ADDRESS = of("entity_address")
+
+                    /**
+                     * A beneficial owner's identity could not be verified. Update the
+                     * identification with the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    @JvmField val BENEFICIAL_OWNER_IDENTITY = of("beneficial_owner_identity")
+
+                    /**
+                     * A beneficial owner's address could not be validated. Update the address with
+                     * the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    @JvmField val BENEFICIAL_OWNER_ADDRESS = of("beneficial_owner_address")
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                /** An enum containing [Category]'s known values. */
+                enum class Known {
+                    /**
+                     * The entity's tax identifier could not be validated. Update the tax ID with
+                     * the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.tax_identifier).
+                     */
+                    ENTITY_TAX_IDENTIFIER,
+                    /**
+                     * The entity's address could not be validated. Update the address with the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
+                     */
+                    ENTITY_ADDRESS,
+                    /**
+                     * A beneficial owner's identity could not be verified. Update the
+                     * identification with the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    BENEFICIAL_OWNER_IDENTITY,
+                    /**
+                     * A beneficial owner's address could not be validated. Update the address with
+                     * the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    BENEFICIAL_OWNER_ADDRESS,
+                }
+
+                /**
+                 * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Category] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The entity's tax identifier could not be validated. Update the tax ID with
+                     * the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.tax_identifier).
+                     */
+                    ENTITY_TAX_IDENTIFIER,
+                    /**
+                     * The entity's address could not be validated. Update the address with the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
+                     */
+                    ENTITY_ADDRESS,
+                    /**
+                     * A beneficial owner's identity could not be verified. Update the
+                     * identification with the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    BENEFICIAL_OWNER_IDENTITY,
+                    /**
+                     * A beneficial owner's address could not be validated. Update the address with
+                     * the
+                     * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
+                     */
+                    BENEFICIAL_OWNER_ADDRESS,
+                    /**
+                     * An enum member indicating that [Category] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        ENTITY_TAX_IDENTIFIER -> Value.ENTITY_TAX_IDENTIFIER
+                        ENTITY_ADDRESS -> Value.ENTITY_ADDRESS
+                        BENEFICIAL_OWNER_IDENTITY -> Value.BENEFICIAL_OWNER_IDENTITY
+                        BENEFICIAL_OWNER_ADDRESS -> Value.BENEFICIAL_OWNER_ADDRESS
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        ENTITY_TAX_IDENTIFIER -> Known.ENTITY_TAX_IDENTIFIER
+                        ENTITY_ADDRESS -> Known.ENTITY_ADDRESS
+                        BENEFICIAL_OWNER_IDENTITY -> Known.BENEFICIAL_OWNER_IDENTITY
+                        BENEFICIAL_OWNER_ADDRESS -> Known.BENEFICIAL_OWNER_ADDRESS
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Category = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Category && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** Details when the issue is with the entity's address. */
+            class EntityAddress
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val reason: JsonField<Reason>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("reason")
+                    @ExcludeMissing
+                    reason: JsonField<Reason> = JsonMissing.of()
+                ) : this(reason, mutableMapOf())
+
+                /**
+                 * The reason the address is invalid.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun reason(): Reason = reason.getRequired("reason")
+
+                /**
+                 * Returns the raw JSON value of [reason].
+                 *
+                 * Unlike [reason], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [EntityAddress].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .reason()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [EntityAddress]. */
+                class Builder internal constructor() {
+
+                    private var reason: JsonField<Reason>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(entityAddress: EntityAddress) = apply {
+                        reason = entityAddress.reason
+                        additionalProperties = entityAddress.additionalProperties.toMutableMap()
+                    }
+
+                    /** The reason the address is invalid. */
+                    fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+                    /**
+                     * Sets [Builder.reason] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.reason] with a well-typed [Reason] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [EntityAddress].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .reason()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): EntityAddress =
+                        EntityAddress(
+                            checkRequired("reason", reason),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): EntityAddress = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    reason().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int = (reason.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** The reason the address is invalid. */
+                class Reason
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The address is a mailbox or other non-physical address. */
+                        @JvmField val MAILBOX_ADDRESS = of("mailbox_address")
+
+                        @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Reason]'s known values. */
+                    enum class Known {
+                        /** The address is a mailbox or other non-physical address. */
+                        MAILBOX_ADDRESS
+                    }
+
+                    /**
+                     * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Reason] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The address is a mailbox or other non-physical address. */
+                        MAILBOX_ADDRESS,
+                        /**
+                         * An enum member indicating that [Reason] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            MAILBOX_ADDRESS -> Value.MAILBOX_ADDRESS
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            MAILBOX_ADDRESS -> Known.MAILBOX_ADDRESS
+                            else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Reason = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Reason && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is EntityAddress &&
+                        reason == other.reason &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "EntityAddress{reason=$reason, additionalProperties=$additionalProperties}"
+            }
+
+            /** Details when the issue is with the entity's tax ID. */
+            class EntityTaxIdentifier
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of
+                     * [EntityTaxIdentifier].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [EntityTaxIdentifier]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(entityTaxIdentifier: EntityTaxIdentifier) = apply {
+                        additionalProperties =
+                            entityTaxIdentifier.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [EntityTaxIdentifier].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): EntityTaxIdentifier =
+                        EntityTaxIdentifier(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): EntityTaxIdentifier = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is EntityTaxIdentifier &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "EntityTaxIdentifier{additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Issue &&
+                    beneficialOwnerAddress == other.beneficialOwnerAddress &&
+                    beneficialOwnerIdentity == other.beneficialOwnerIdentity &&
+                    category == other.category &&
+                    entityAddress == other.entityAddress &&
+                    entityTaxIdentifier == other.entityTaxIdentifier &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(
+                    beneficialOwnerAddress,
+                    beneficialOwnerIdentity,
+                    category,
+                    entityAddress,
+                    entityTaxIdentifier,
+                    additionalProperties,
+                )
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Issue{beneficialOwnerAddress=$beneficialOwnerAddress, beneficialOwnerIdentity=$beneficialOwnerIdentity, category=$category, entityAddress=$entityAddress, entityTaxIdentifier=$entityTaxIdentifier, additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The validation status for the entity. If the status is `invalid`, the `issues` array will
+         * be populated.
+         */
+        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The submitted data is being validated. */
+                @JvmField val PENDING = of("pending")
+
+                /** The submitted data is valid. */
+                @JvmField val VALID = of("valid")
+
+                /** Additional information is required to validate the data. */
+                @JvmField val INVALID = of("invalid")
+
+                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+            }
+
+            /** An enum containing [Status]'s known values. */
+            enum class Known {
+                /** The submitted data is being validated. */
+                PENDING,
+                /** The submitted data is valid. */
+                VALID,
+                /** Additional information is required to validate the data. */
+                INVALID,
+            }
+
+            /**
+             * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Status] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The submitted data is being validated. */
+                PENDING,
+                /** The submitted data is valid. */
+                VALID,
+                /** Additional information is required to validate the data. */
+                INVALID,
+                /**
+                 * An enum member indicating that [Status] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    PENDING -> Value.PENDING
+                    VALID -> Value.VALID
+                    INVALID -> Value.INVALID
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    PENDING -> Known.PENDING
+                    VALID -> Known.VALID
+                    INVALID -> Known.INVALID
+                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Status = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Status && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Validation &&
+                issues == other.issues &&
+                status == other.status &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(issues, status, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Validation{issues=$issues, status=$status, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -11512,6 +13475,7 @@ private constructor(
             thirdPartyVerification == other.thirdPartyVerification &&
             trust == other.trust &&
             type == other.type &&
+            validation == other.validation &&
             additionalProperties == other.additionalProperties
     }
 
@@ -11534,6 +13498,7 @@ private constructor(
             thirdPartyVerification,
             trust,
             type,
+            validation,
             additionalProperties,
         )
     }
@@ -11541,5 +13506,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, additionalProperties=$additionalProperties}"
+        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, validation=$validation, additionalProperties=$additionalProperties}"
 }
