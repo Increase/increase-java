@@ -14,10 +14,8 @@ internal class IntrafiBalanceTest {
     fun create() {
         val intrafiBalance =
             IntrafiBalance.builder()
-                .id("intrafi_balance_8lgtn3pz0ktekaekw29t")
                 .addBalance(
                     IntrafiBalance.Balance.builder()
-                        .id("intrafi_detailed_balance_qp4v28t1htqu5lsp0rz8")
                         .balance(1750L)
                         .bank("Example Bank")
                         .bankLocation(
@@ -35,11 +33,9 @@ internal class IntrafiBalanceTest {
                 .type(IntrafiBalance.Type.INTRAFI_BALANCE)
                 .build()
 
-        assertThat(intrafiBalance.id()).isEqualTo("intrafi_balance_8lgtn3pz0ktekaekw29t")
         assertThat(intrafiBalance.balances())
             .containsExactly(
                 IntrafiBalance.Balance.builder()
-                    .id("intrafi_detailed_balance_qp4v28t1htqu5lsp0rz8")
                     .balance(1750L)
                     .bank("Example Bank")
                     .bankLocation(
@@ -62,10 +58,8 @@ internal class IntrafiBalanceTest {
         val jsonMapper = jsonMapper()
         val intrafiBalance =
             IntrafiBalance.builder()
-                .id("intrafi_balance_8lgtn3pz0ktekaekw29t")
                 .addBalance(
                     IntrafiBalance.Balance.builder()
-                        .id("intrafi_detailed_balance_qp4v28t1htqu5lsp0rz8")
                         .balance(1750L)
                         .bank("Example Bank")
                         .bankLocation(
