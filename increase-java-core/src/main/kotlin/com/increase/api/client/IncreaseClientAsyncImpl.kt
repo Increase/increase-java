@@ -116,8 +116,6 @@ import com.increase.api.services.async.SwiftTransferServiceAsync
 import com.increase.api.services.async.SwiftTransferServiceAsyncImpl
 import com.increase.api.services.async.TransactionServiceAsync
 import com.increase.api.services.async.TransactionServiceAsyncImpl
-import com.increase.api.services.async.WebhookServiceAsync
-import com.increase.api.services.async.WebhookServiceAsyncImpl
 import com.increase.api.services.async.WireDrawdownRequestServiceAsync
 import com.increase.api.services.async.WireDrawdownRequestServiceAsyncImpl
 import com.increase.api.services.async.WireTransferServiceAsync
@@ -338,8 +336,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         OAuthConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val webhooks: WebhookServiceAsync by lazy { WebhookServiceAsyncImpl(clientOptions) }
-
     private val oauthTokens: OAuthTokenServiceAsync by lazy {
         OAuthTokenServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -492,8 +488,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun intrafiBalances(): IntrafiBalanceServiceAsync = intrafiBalances
 
     override fun intrafiExclusions(): IntrafiExclusionServiceAsync = intrafiExclusions
-
-    override fun webhooks(): WebhookServiceAsync = webhooks
 
     override fun cardTokens(): CardTokenServiceAsync = cardTokens
 
