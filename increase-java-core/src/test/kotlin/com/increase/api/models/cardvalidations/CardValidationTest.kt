@@ -70,6 +70,7 @@ internal class CardValidationTest {
                 .merchantName("Acme Corp")
                 .merchantPostalCode("10045")
                 .merchantState("NY")
+                .route(CardValidation.Route.VISA)
                 .status(CardValidation.Status.PENDING_SUBMISSION)
                 .submission(
                     CardValidation.Submission.builder()
@@ -134,6 +135,7 @@ internal class CardValidationTest {
         assertThat(cardValidation.merchantName()).isEqualTo("Acme Corp")
         assertThat(cardValidation.merchantPostalCode()).isEqualTo("10045")
         assertThat(cardValidation.merchantState()).isEqualTo("NY")
+        assertThat(cardValidation.route()).isEqualTo(CardValidation.Route.VISA)
         assertThat(cardValidation.status()).isEqualTo(CardValidation.Status.PENDING_SUBMISSION)
         assertThat(cardValidation.submission())
             .contains(
@@ -207,6 +209,7 @@ internal class CardValidationTest {
                 .merchantName("Acme Corp")
                 .merchantPostalCode("10045")
                 .merchantState("NY")
+                .route(CardValidation.Route.VISA)
                 .status(CardValidation.Status.PENDING_SUBMISSION)
                 .submission(
                     CardValidation.Submission.builder()
