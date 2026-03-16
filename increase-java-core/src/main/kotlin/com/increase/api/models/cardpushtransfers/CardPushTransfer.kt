@@ -42,6 +42,7 @@ private constructor(
     private val merchantState: JsonField<String>,
     private val presentmentAmount: JsonField<PresentmentAmount>,
     private val recipientName: JsonField<String>,
+    private val route: JsonField<Route>,
     private val senderAddressCity: JsonField<String>,
     private val senderAddressLine1: JsonField<String>,
     private val senderAddressPostalCode: JsonField<String>,
@@ -105,6 +106,7 @@ private constructor(
         @JsonProperty("recipient_name")
         @ExcludeMissing
         recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("route") @ExcludeMissing route: JsonField<Route> = JsonMissing.of(),
         @JsonProperty("sender_address_city")
         @ExcludeMissing
         senderAddressCity: JsonField<String> = JsonMissing.of(),
@@ -148,6 +150,7 @@ private constructor(
         merchantState,
         presentmentAmount,
         recipientName,
+        route,
         senderAddressCity,
         senderAddressLine1,
         senderAddressPostalCode,
@@ -327,6 +330,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun recipientName(): String = recipientName.getRequired("recipient_name")
+
+    /**
+     * The card network route used for the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun route(): Route = route.getRequired("route")
 
     /**
      * The city of the sender.
@@ -572,6 +583,13 @@ private constructor(
     fun _recipientName(): JsonField<String> = recipientName
 
     /**
+     * Returns the raw JSON value of [route].
+     *
+     * Unlike [route], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("route") @ExcludeMissing fun _route(): JsonField<Route> = route
+
+    /**
      * Returns the raw JSON value of [senderAddressCity].
      *
      * Unlike [senderAddressCity], this method doesn't throw if the JSON field has an unexpected
@@ -689,6 +707,7 @@ private constructor(
          * .merchantState()
          * .presentmentAmount()
          * .recipientName()
+         * .route()
          * .senderAddressCity()
          * .senderAddressLine1()
          * .senderAddressPostalCode()
@@ -725,6 +744,7 @@ private constructor(
         private var merchantState: JsonField<String>? = null
         private var presentmentAmount: JsonField<PresentmentAmount>? = null
         private var recipientName: JsonField<String>? = null
+        private var route: JsonField<Route>? = null
         private var senderAddressCity: JsonField<String>? = null
         private var senderAddressLine1: JsonField<String>? = null
         private var senderAddressPostalCode: JsonField<String>? = null
@@ -757,6 +777,7 @@ private constructor(
             merchantState = cardPushTransfer.merchantState
             presentmentAmount = cardPushTransfer.presentmentAmount
             recipientName = cardPushTransfer.recipientName
+            route = cardPushTransfer.route
             senderAddressCity = cardPushTransfer.senderAddressCity
             senderAddressLine1 = cardPushTransfer.senderAddressLine1
             senderAddressPostalCode = cardPushTransfer.senderAddressPostalCode
@@ -1085,6 +1106,17 @@ private constructor(
             this.recipientName = recipientName
         }
 
+        /** The card network route used for the transfer. */
+        fun route(route: Route) = route(JsonField.of(route))
+
+        /**
+         * Sets [Builder.route] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.route] with a well-typed [Route] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun route(route: JsonField<Route>) = apply { this.route = route }
+
         /** The city of the sender. */
         fun senderAddressCity(senderAddressCity: String) =
             senderAddressCity(JsonField.of(senderAddressCity))
@@ -1260,6 +1292,7 @@ private constructor(
          * .merchantState()
          * .presentmentAmount()
          * .recipientName()
+         * .route()
          * .senderAddressCity()
          * .senderAddressLine1()
          * .senderAddressPostalCode()
@@ -1294,6 +1327,7 @@ private constructor(
                 checkRequired("merchantState", merchantState),
                 checkRequired("presentmentAmount", presentmentAmount),
                 checkRequired("recipientName", recipientName),
+                checkRequired("route", route),
                 checkRequired("senderAddressCity", senderAddressCity),
                 checkRequired("senderAddressLine1", senderAddressLine1),
                 checkRequired("senderAddressPostalCode", senderAddressPostalCode),
@@ -1333,6 +1367,7 @@ private constructor(
         merchantState()
         presentmentAmount().validate()
         recipientName()
+        route().validate()
         senderAddressCity()
         senderAddressLine1()
         senderAddressPostalCode()
@@ -1379,6 +1414,7 @@ private constructor(
             (if (merchantState.asKnown().isPresent) 1 else 0) +
             (presentmentAmount.asKnown().getOrNull()?.validity() ?: 0) +
             (if (recipientName.asKnown().isPresent) 1 else 0) +
+            (route.asKnown().getOrNull()?.validity() ?: 0) +
             (if (senderAddressCity.asKnown().isPresent) 1 else 0) +
             (if (senderAddressLine1.asKnown().isPresent) 1 else 0) +
             (if (senderAddressPostalCode.asKnown().isPresent) 1 else 0) +
@@ -6245,6 +6281,140 @@ private constructor(
             "PresentmentAmount{currency=$currency, value=$value, additionalProperties=$additionalProperties}"
     }
 
+    /** The card network route used for the transfer. */
+    class Route @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Visa and Interlink */
+            @JvmField val VISA = of("visa")
+
+            /** Mastercard and Maestro */
+            @JvmField val MASTERCARD = of("mastercard")
+
+            @JvmStatic fun of(value: String) = Route(JsonField.of(value))
+        }
+
+        /** An enum containing [Route]'s known values. */
+        enum class Known {
+            /** Visa and Interlink */
+            VISA,
+            /** Mastercard and Maestro */
+            MASTERCARD,
+        }
+
+        /**
+         * An enum containing [Route]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Route] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Visa and Interlink */
+            VISA,
+            /** Mastercard and Maestro */
+            MASTERCARD,
+            /** An enum member indicating that [Route] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                VISA -> Value.VISA
+                MASTERCARD -> Value.MASTERCARD
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                VISA -> Known.VISA
+                MASTERCARD -> Known.MASTERCARD
+                else -> throw IncreaseInvalidDataException("Unknown Route: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): Route = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Route && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
     /** The lifecycle status of the transfer. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -6911,6 +7081,7 @@ private constructor(
             merchantState == other.merchantState &&
             presentmentAmount == other.presentmentAmount &&
             recipientName == other.recipientName &&
+            route == other.route &&
             senderAddressCity == other.senderAddressCity &&
             senderAddressLine1 == other.senderAddressLine1 &&
             senderAddressPostalCode == other.senderAddressPostalCode &&
@@ -6944,6 +7115,7 @@ private constructor(
             merchantState,
             presentmentAmount,
             recipientName,
+            route,
             senderAddressCity,
             senderAddressLine1,
             senderAddressPostalCode,
@@ -6960,5 +7132,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardPushTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, approval=$approval, businessApplicationIdentifier=$businessApplicationIdentifier, cancellation=$cancellation, cardTokenId=$cardTokenId, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "CardPushTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, approval=$approval, businessApplicationIdentifier=$businessApplicationIdentifier, cancellation=$cancellation, cardTokenId=$cardTokenId, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, route=$route, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }
