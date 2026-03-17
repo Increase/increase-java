@@ -1,5 +1,37 @@
 # Changelog
 
+## 0.480.0 (2026-03-16)
+
+Full Changelog: [v0.479.0...v0.480.0](https://github.com/Increase/increase-java/compare/v0.479.0...v0.480.0)
+
+### Features
+
+* **api:** api update ([a3f5b68](https://github.com/Increase/increase-java/commit/a3f5b689f8b5f7a69cd6e0f328499b4d07736439))
+
+## 0.479.0 (2026-03-16)
+
+Full Changelog: [v0.478.0...v0.479.0](https://github.com/Increase/increase-java/compare/v0.478.0...v0.479.0)
+
+### Features
+
+* **api:** api update ([c0ca8eb](https://github.com/Increase/increase-java/commit/c0ca8eb66bed18afa37ab870db08b96dd9dabe3c))
+
+## 0.478.0 (2026-03-16)
+
+Full Changelog: [v0.477.0...v0.478.0](https://github.com/Increase/increase-java/compare/v0.477.0...v0.478.0)
+
+### Features
+
+* **api:** api update ([4ae014d](https://github.com/Increase/increase-java/commit/4ae014d059b04d0fef7b1b89c771b426af9d0c78))
+
+## 0.477.0 (2026-03-13)
+
+Full Changelog: [v0.476.0...v0.477.0](https://github.com/Increase/increase-java/compare/v0.476.0...v0.477.0)
+
+### Features
+
+* **api:** api update ([e4dc138](https://github.com/Increase/increase-java/commit/e4dc1380f2ef94e065ff0ee36c35c50eab926c91))
+
 ## 0.476.0 (2026-03-13)
 
 Full Changelog: [v0.475.0...v0.476.0](https://github.com/Increase/increase-java/compare/v0.475.0...v0.476.0)

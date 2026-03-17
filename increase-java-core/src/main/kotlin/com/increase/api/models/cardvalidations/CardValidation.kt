@@ -44,6 +44,7 @@ private constructor(
     private val merchantName: JsonField<String>,
     private val merchantPostalCode: JsonField<String>,
     private val merchantState: JsonField<String>,
+    private val route: JsonField<Route>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val type: JsonField<Type>,
@@ -100,6 +101,7 @@ private constructor(
         @JsonProperty("merchant_state")
         @ExcludeMissing
         merchantState: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("route") @ExcludeMissing route: JsonField<Route> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("submission")
         @ExcludeMissing
@@ -124,6 +126,7 @@ private constructor(
         merchantName,
         merchantPostalCode,
         merchantState,
+        route,
         status,
         submission,
         type,
@@ -283,6 +286,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun merchantState(): String = merchantState.getRequired("merchant_state")
+
+    /**
+     * The card network route used for the validation.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun route(): Route = route.getRequired("route")
 
     /**
      * The lifecycle status of the validation.
@@ -473,6 +484,13 @@ private constructor(
     fun _merchantState(): JsonField<String> = merchantState
 
     /**
+     * Returns the raw JSON value of [route].
+     *
+     * Unlike [route], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("route") @ExcludeMissing fun _route(): JsonField<Route> = route
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -532,6 +550,7 @@ private constructor(
          * .merchantName()
          * .merchantPostalCode()
          * .merchantState()
+         * .route()
          * .status()
          * .submission()
          * .type()
@@ -561,6 +580,7 @@ private constructor(
         private var merchantName: JsonField<String>? = null
         private var merchantPostalCode: JsonField<String>? = null
         private var merchantState: JsonField<String>? = null
+        private var route: JsonField<Route>? = null
         private var status: JsonField<Status>? = null
         private var submission: JsonField<Submission>? = null
         private var type: JsonField<Type>? = null
@@ -586,6 +606,7 @@ private constructor(
             merchantName = cardValidation.merchantName
             merchantPostalCode = cardValidation.merchantPostalCode
             merchantState = cardValidation.merchantState
+            route = cardValidation.route
             status = cardValidation.status
             submission = cardValidation.submission
             type = cardValidation.type
@@ -902,6 +923,17 @@ private constructor(
             this.merchantState = merchantState
         }
 
+        /** The card network route used for the validation. */
+        fun route(route: Route) = route(JsonField.of(route))
+
+        /**
+         * Sets [Builder.route] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.route] with a well-typed [Route] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun route(route: JsonField<Route>) = apply { this.route = route }
+
         /** The lifecycle status of the validation. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -989,6 +1021,7 @@ private constructor(
          * .merchantName()
          * .merchantPostalCode()
          * .merchantState()
+         * .route()
          * .status()
          * .submission()
          * .type()
@@ -1016,6 +1049,7 @@ private constructor(
                 checkRequired("merchantName", merchantName),
                 checkRequired("merchantPostalCode", merchantPostalCode),
                 checkRequired("merchantState", merchantState),
+                checkRequired("route", route),
                 checkRequired("status", status),
                 checkRequired("submission", submission),
                 checkRequired("type", type),
@@ -1048,6 +1082,7 @@ private constructor(
         merchantName()
         merchantPostalCode()
         merchantState()
+        route().validate()
         status().validate()
         submission().ifPresent { it.validate() }
         type().validate()
@@ -1087,6 +1122,7 @@ private constructor(
             (if (merchantName.asKnown().isPresent) 1 else 0) +
             (if (merchantPostalCode.asKnown().isPresent) 1 else 0) +
             (if (merchantState.asKnown().isPresent) 1 else 0) +
+            (route.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (submission.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
@@ -4134,6 +4170,11 @@ private constructor(
                 @JvmField
                 val TRANSACTION_NOT_ALLOWED_AT_TERMINAL = of("transaction_not_allowed_at_terminal")
 
+                /** The transaction is not supported or has been blocked by the issuer. */
+                @JvmField
+                val TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER =
+                    of("transaction_not_supported_or_blocked_by_issuer")
+
                 /** The transaction has been flagged as suspected fraud and cannot be processed. */
                 @JvmField val SUSPECTED_FRAUD = of("suspected_fraud")
 
@@ -4286,6 +4327,8 @@ private constructor(
                 TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER,
                 /** The transaction is not allowed at this terminal. */
                 TRANSACTION_NOT_ALLOWED_AT_TERMINAL,
+                /** The transaction is not supported or has been blocked by the issuer. */
+                TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER,
                 /** The transaction has been flagged as suspected fraud and cannot be processed. */
                 SUSPECTED_FRAUD,
                 /** The amount of activity on the card has exceeded the limit set by the issuer. */
@@ -4414,6 +4457,8 @@ private constructor(
                 TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER,
                 /** The transaction is not allowed at this terminal. */
                 TRANSACTION_NOT_ALLOWED_AT_TERMINAL,
+                /** The transaction is not supported or has been blocked by the issuer. */
+                TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER,
                 /** The transaction has been flagged as suspected fraud and cannot be processed. */
                 SUSPECTED_FRAUD,
                 /** The amount of activity on the card has exceeded the limit set by the issuer. */
@@ -4510,6 +4555,8 @@ private constructor(
                     TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER ->
                         Value.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
                     TRANSACTION_NOT_ALLOWED_AT_TERMINAL -> Value.TRANSACTION_NOT_ALLOWED_AT_TERMINAL
+                    TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER ->
+                        Value.TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER
                     SUSPECTED_FRAUD -> Value.SUSPECTED_FRAUD
                     ACTIVITY_AMOUNT_LIMIT_EXCEEDED -> Value.ACTIVITY_AMOUNT_LIMIT_EXCEEDED
                     RESTRICTED_CARD -> Value.RESTRICTED_CARD
@@ -4573,6 +4620,8 @@ private constructor(
                     TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER ->
                         Known.TRANSACTION_NOT_PERMITTED_TO_CARDHOLDER
                     TRANSACTION_NOT_ALLOWED_AT_TERMINAL -> Known.TRANSACTION_NOT_ALLOWED_AT_TERMINAL
+                    TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER ->
+                        Known.TRANSACTION_NOT_SUPPORTED_OR_BLOCKED_BY_ISSUER
                     SUSPECTED_FRAUD -> Known.SUSPECTED_FRAUD
                     ACTIVITY_AMOUNT_LIMIT_EXCEEDED -> Known.ACTIVITY_AMOUNT_LIMIT_EXCEEDED
                     RESTRICTED_CARD -> Known.RESTRICTED_CARD
@@ -4674,6 +4723,140 @@ private constructor(
 
         override fun toString() =
             "Decline{declinedAt=$declinedAt, networkTransactionIdentifier=$networkTransactionIdentifier, reason=$reason, additionalProperties=$additionalProperties}"
+    }
+
+    /** The card network route used for the validation. */
+    class Route @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Visa and Interlink */
+            @JvmField val VISA = of("visa")
+
+            /** Mastercard and Maestro */
+            @JvmField val MASTERCARD = of("mastercard")
+
+            @JvmStatic fun of(value: String) = Route(JsonField.of(value))
+        }
+
+        /** An enum containing [Route]'s known values. */
+        enum class Known {
+            /** Visa and Interlink */
+            VISA,
+            /** Mastercard and Maestro */
+            MASTERCARD,
+        }
+
+        /**
+         * An enum containing [Route]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Route] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Visa and Interlink */
+            VISA,
+            /** Mastercard and Maestro */
+            MASTERCARD,
+            /** An enum member indicating that [Route] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                VISA -> Value.VISA
+                MASTERCARD -> Value.MASTERCARD
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                VISA -> Known.VISA
+                MASTERCARD -> Known.MASTERCARD
+                else -> throw IncreaseInvalidDataException("Unknown Route: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): Route = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Route && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     /** The lifecycle status of the validation. */
@@ -5262,6 +5445,7 @@ private constructor(
             merchantName == other.merchantName &&
             merchantPostalCode == other.merchantPostalCode &&
             merchantState == other.merchantState &&
+            route == other.route &&
             status == other.status &&
             submission == other.submission &&
             type == other.type &&
@@ -5288,6 +5472,7 @@ private constructor(
             merchantName,
             merchantPostalCode,
             merchantState,
+            route,
             status,
             submission,
             type,
@@ -5298,5 +5483,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardValidation{id=$id, acceptance=$acceptance, accountId=$accountId, cardTokenId=$cardTokenId, cardholderFirstName=$cardholderFirstName, cardholderLastName=$cardholderLastName, cardholderMiddleName=$cardholderMiddleName, cardholderPostalCode=$cardholderPostalCode, cardholderStreetAddress=$cardholderStreetAddress, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
+        "CardValidation{id=$id, acceptance=$acceptance, accountId=$accountId, cardTokenId=$cardTokenId, cardholderFirstName=$cardholderFirstName, cardholderLastName=$cardholderLastName, cardholderMiddleName=$cardholderMiddleName, cardholderPostalCode=$cardholderPostalCode, cardholderStreetAddress=$cardholderStreetAddress, createdAt=$createdAt, createdBy=$createdBy, decline=$decline, idempotencyKey=$idempotencyKey, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, route=$route, status=$status, submission=$submission, type=$type, additionalProperties=$additionalProperties}"
 }

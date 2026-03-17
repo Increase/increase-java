@@ -75,6 +75,7 @@ internal class CardValidationListPageResponseTest {
                         .merchantName("Acme Corp")
                         .merchantPostalCode("10045")
                         .merchantState("NY")
+                        .route(CardValidation.Route.VISA)
                         .status(CardValidation.Status.PENDING_SUBMISSION)
                         .submission(
                             CardValidation.Submission.builder()
@@ -151,6 +152,7 @@ internal class CardValidationListPageResponseTest {
                     .merchantName("Acme Corp")
                     .merchantPostalCode("10045")
                     .merchantState("NY")
+                    .route(CardValidation.Route.VISA)
                     .status(CardValidation.Status.PENDING_SUBMISSION)
                     .submission(
                         CardValidation.Submission.builder()
@@ -231,6 +233,7 @@ internal class CardValidationListPageResponseTest {
                         .merchantName("Acme Corp")
                         .merchantPostalCode("10045")
                         .merchantState("NY")
+                        .route(CardValidation.Route.VISA)
                         .status(CardValidation.Status.PENDING_SUBMISSION)
                         .submission(
                             CardValidation.Submission.builder()
