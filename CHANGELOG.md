@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.481.0 (2026-03-17)
+
+Full Changelog: [v0.480.0...v0.481.0](https://github.com/Increase/increase-java/compare/v0.480.0...v0.481.0)
+
+### Features
+
+* **webhooks:** replace hand-written webhook services with codegen events ([9fdb89d](https://github.com/Increase/increase-java/commit/9fdb89d43911e4b931159df63672dc37ea865a7c))
+
+
+### Chores
+
+* **internal:** tweak CI branches ([58afbd1](https://github.com/Increase/increase-java/commit/58afbd14594edc9c338068523c1d02906507762e))
+
 ## 0.480.0 (2026-03-16)
 
 Full Changelog: [v0.479.0...v0.480.0](https://github.com/Increase/increase-java/compare/v0.479.0...v0.480.0)
