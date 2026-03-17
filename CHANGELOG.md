@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.482.1 (2026-03-17)
+
+Full Changelog: [v0.482.0...v0.482.1](https://github.com/Increase/increase-java/compare/v0.482.0...v0.482.1)
+
+### Bug Fixes
+
+* **client:** allow updating header/query affecting fields in `toBuilder()` ([3e8a5a9](https://github.com/Increase/increase-java/commit/3e8a5a97a24640f220f38cdad8f82ec047f1c523))
+
 ## 0.482.0 (2026-03-17)
 
 Full Changelog: [v0.481.0...v0.482.0](https://github.com/Increase/increase-java/compare/v0.481.0...v0.482.0)
