@@ -4066,6 +4066,96 @@ private constructor(
                 val REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER =
                     of("revocation_of_all_authorizations_order")
 
+                /** The record associated with the transaction could not be located. */
+                @JvmField val UNABLE_TO_LOCATE_RECORD = of("unable_to_locate_record")
+
+                /** The file needed for the transaction is temporarily unavailable. */
+                @JvmField
+                val FILE_IS_TEMPORARILY_UNAVAILABLE = of("file_is_temporarily_unavailable")
+
+                /** The PIN entered for the transaction is incorrect. */
+                @JvmField val INCORRECT_PIN = of("incorrect_pin")
+
+                /** The allowable number of PIN entry tries has been exceeded. */
+                @JvmField
+                val ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED =
+                    of("allowable_number_of_pin_entry_tries_exceeded")
+
+                /** The previous message associated with the transaction could not be located. */
+                @JvmField
+                val UNABLE_TO_LOCATE_PREVIOUS_MESSAGE = of("unable_to_locate_previous_message")
+
+                /** The data in the transaction is inconsistent with the original message. */
+                @JvmField
+                val DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE =
+                    of("data_inconsistent_with_original_message")
+
+                /** An error was found with the PIN associated with the transaction. */
+                @JvmField val PIN_ERROR_FOUND = of("pin_error_found")
+
+                /** The PIN associated with the transaction could not be verified. */
+                @JvmField val CANNOT_VERIFY_PIN = of("cannot_verify_pin")
+
+                /** The verification data associated with the transaction has failed. */
+                @JvmField val VERIFICATION_DATA_FAILED = of("verification_data_failed")
+
+                /** The surcharge amount is not supported by the debit network issuer. */
+                @JvmField
+                val SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER =
+                    of("surcharge_amount_not_supported_by_debit_network_issuer")
+
+                /** Cash service is not available for this transaction. */
+                @JvmField val CASH_SERVICE_NOT_AVAILABLE = of("cash_service_not_available")
+
+                /** The cashback request exceeds the issuer limit. */
+                @JvmField
+                val CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT =
+                    of("cashback_request_exceeds_issuer_limit")
+
+                /** The transaction amount exceeds the pre-authorized approval amount. */
+                @JvmField
+                val TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT =
+                    of("transaction_amount_exceeds_pre_authorized_approval_amount")
+
+                /** The biller information provided is invalid. */
+                @JvmField val INVALID_BILLER_INFORMATION = of("invalid_biller_information")
+
+                /** The PIN change request has been declined. */
+                @JvmField val PIN_CHANGE_REQUEST_DECLINED = of("pin_change_request_declined")
+
+                /** The PIN provided is considered unsafe. */
+                @JvmField val UNSAFE_PIN = of("unsafe_pin")
+
+                /** The transaction does not qualify for Visa PIN processing. */
+                @JvmField
+                val TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN =
+                    of("transaction_does_not_qualify_for_visa_pin")
+
+                /** The transaction was declined offline. */
+                @JvmField val OFFLINE_DECLINED = of("offline_declined")
+
+                /** The terminal was unable to go online to process the transaction. */
+                @JvmField val UNABLE_TO_GO_ONLINE = of("unable_to_go_online")
+
+                /** The account is valid but the transaction amount is not supported. */
+                @JvmField
+                val VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED =
+                    of("valid_account_but_amount_not_supported")
+
+                /**
+                 * The merchant category code was used incorrectly; correct it and reattempt the
+                 * transaction.
+                 */
+                @JvmField
+                val INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT =
+                    of("invalid_use_of_merchant_category_code_correct_and_reattempt")
+
+                /** The transaction should be forwarded to the issuer for processing. */
+                @JvmField val FORWARD_TO_ISSUER = of("forward_to_issuer")
+
+                /** The card authentication process has failed. */
+                @JvmField val CARD_AUTHENTICATION_FAILED = of("card_authentication_failed")
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -4191,6 +4281,55 @@ private constructor(
                 REVOCATION_OF_AUTHORIZATION_ORDER,
                 /** An order has been placed to revoke all authorizations for this cardholder. */
                 REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER,
+                /** The record associated with the transaction could not be located. */
+                UNABLE_TO_LOCATE_RECORD,
+                /** The file needed for the transaction is temporarily unavailable. */
+                FILE_IS_TEMPORARILY_UNAVAILABLE,
+                /** The PIN entered for the transaction is incorrect. */
+                INCORRECT_PIN,
+                /** The allowable number of PIN entry tries has been exceeded. */
+                ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED,
+                /** The previous message associated with the transaction could not be located. */
+                UNABLE_TO_LOCATE_PREVIOUS_MESSAGE,
+                /** The data in the transaction is inconsistent with the original message. */
+                DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE,
+                /** An error was found with the PIN associated with the transaction. */
+                PIN_ERROR_FOUND,
+                /** The PIN associated with the transaction could not be verified. */
+                CANNOT_VERIFY_PIN,
+                /** The verification data associated with the transaction has failed. */
+                VERIFICATION_DATA_FAILED,
+                /** The surcharge amount is not supported by the debit network issuer. */
+                SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER,
+                /** Cash service is not available for this transaction. */
+                CASH_SERVICE_NOT_AVAILABLE,
+                /** The cashback request exceeds the issuer limit. */
+                CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT,
+                /** The transaction amount exceeds the pre-authorized approval amount. */
+                TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT,
+                /** The biller information provided is invalid. */
+                INVALID_BILLER_INFORMATION,
+                /** The PIN change request has been declined. */
+                PIN_CHANGE_REQUEST_DECLINED,
+                /** The PIN provided is considered unsafe. */
+                UNSAFE_PIN,
+                /** The transaction does not qualify for Visa PIN processing. */
+                TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN,
+                /** The transaction was declined offline. */
+                OFFLINE_DECLINED,
+                /** The terminal was unable to go online to process the transaction. */
+                UNABLE_TO_GO_ONLINE,
+                /** The account is valid but the transaction amount is not supported. */
+                VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED,
+                /**
+                 * The merchant category code was used incorrectly; correct it and reattempt the
+                 * transaction.
+                 */
+                INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT,
+                /** The transaction should be forwarded to the issuer for processing. */
+                FORWARD_TO_ISSUER,
+                /** The card authentication process has failed. */
+                CARD_AUTHENTICATION_FAILED,
             }
 
             /**
@@ -4323,6 +4462,55 @@ private constructor(
                 REVOCATION_OF_AUTHORIZATION_ORDER,
                 /** An order has been placed to revoke all authorizations for this cardholder. */
                 REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER,
+                /** The record associated with the transaction could not be located. */
+                UNABLE_TO_LOCATE_RECORD,
+                /** The file needed for the transaction is temporarily unavailable. */
+                FILE_IS_TEMPORARILY_UNAVAILABLE,
+                /** The PIN entered for the transaction is incorrect. */
+                INCORRECT_PIN,
+                /** The allowable number of PIN entry tries has been exceeded. */
+                ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED,
+                /** The previous message associated with the transaction could not be located. */
+                UNABLE_TO_LOCATE_PREVIOUS_MESSAGE,
+                /** The data in the transaction is inconsistent with the original message. */
+                DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE,
+                /** An error was found with the PIN associated with the transaction. */
+                PIN_ERROR_FOUND,
+                /** The PIN associated with the transaction could not be verified. */
+                CANNOT_VERIFY_PIN,
+                /** The verification data associated with the transaction has failed. */
+                VERIFICATION_DATA_FAILED,
+                /** The surcharge amount is not supported by the debit network issuer. */
+                SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER,
+                /** Cash service is not available for this transaction. */
+                CASH_SERVICE_NOT_AVAILABLE,
+                /** The cashback request exceeds the issuer limit. */
+                CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT,
+                /** The transaction amount exceeds the pre-authorized approval amount. */
+                TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT,
+                /** The biller information provided is invalid. */
+                INVALID_BILLER_INFORMATION,
+                /** The PIN change request has been declined. */
+                PIN_CHANGE_REQUEST_DECLINED,
+                /** The PIN provided is considered unsafe. */
+                UNSAFE_PIN,
+                /** The transaction does not qualify for Visa PIN processing. */
+                TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN,
+                /** The transaction was declined offline. */
+                OFFLINE_DECLINED,
+                /** The terminal was unable to go online to process the transaction. */
+                UNABLE_TO_GO_ONLINE,
+                /** The account is valid but the transaction amount is not supported. */
+                VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED,
+                /**
+                 * The merchant category code was used incorrectly; correct it and reattempt the
+                 * transaction.
+                 */
+                INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT,
+                /** The transaction should be forwarded to the issuer for processing. */
+                FORWARD_TO_ISSUER,
+                /** The card authentication process has failed. */
+                CARD_AUTHENTICATION_FAILED,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -4390,6 +4578,37 @@ private constructor(
                     REVOCATION_OF_AUTHORIZATION_ORDER -> Value.REVOCATION_OF_AUTHORIZATION_ORDER
                     REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER ->
                         Value.REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER
+                    UNABLE_TO_LOCATE_RECORD -> Value.UNABLE_TO_LOCATE_RECORD
+                    FILE_IS_TEMPORARILY_UNAVAILABLE -> Value.FILE_IS_TEMPORARILY_UNAVAILABLE
+                    INCORRECT_PIN -> Value.INCORRECT_PIN
+                    ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED ->
+                        Value.ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED
+                    UNABLE_TO_LOCATE_PREVIOUS_MESSAGE -> Value.UNABLE_TO_LOCATE_PREVIOUS_MESSAGE
+                    DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE ->
+                        Value.DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE
+                    PIN_ERROR_FOUND -> Value.PIN_ERROR_FOUND
+                    CANNOT_VERIFY_PIN -> Value.CANNOT_VERIFY_PIN
+                    VERIFICATION_DATA_FAILED -> Value.VERIFICATION_DATA_FAILED
+                    SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER ->
+                        Value.SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER
+                    CASH_SERVICE_NOT_AVAILABLE -> Value.CASH_SERVICE_NOT_AVAILABLE
+                    CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT ->
+                        Value.CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT
+                    TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT ->
+                        Value.TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT
+                    INVALID_BILLER_INFORMATION -> Value.INVALID_BILLER_INFORMATION
+                    PIN_CHANGE_REQUEST_DECLINED -> Value.PIN_CHANGE_REQUEST_DECLINED
+                    UNSAFE_PIN -> Value.UNSAFE_PIN
+                    TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN ->
+                        Value.TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN
+                    OFFLINE_DECLINED -> Value.OFFLINE_DECLINED
+                    UNABLE_TO_GO_ONLINE -> Value.UNABLE_TO_GO_ONLINE
+                    VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED ->
+                        Value.VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED
+                    INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT ->
+                        Value.INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT
+                    FORWARD_TO_ISSUER -> Value.FORWARD_TO_ISSUER
+                    CARD_AUTHENTICATION_FAILED -> Value.CARD_AUTHENTICATION_FAILED
                     else -> Value._UNKNOWN
                 }
 
@@ -4456,6 +4675,37 @@ private constructor(
                     REVOCATION_OF_AUTHORIZATION_ORDER -> Known.REVOCATION_OF_AUTHORIZATION_ORDER
                     REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER ->
                         Known.REVOCATION_OF_ALL_AUTHORIZATIONS_ORDER
+                    UNABLE_TO_LOCATE_RECORD -> Known.UNABLE_TO_LOCATE_RECORD
+                    FILE_IS_TEMPORARILY_UNAVAILABLE -> Known.FILE_IS_TEMPORARILY_UNAVAILABLE
+                    INCORRECT_PIN -> Known.INCORRECT_PIN
+                    ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED ->
+                        Known.ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED
+                    UNABLE_TO_LOCATE_PREVIOUS_MESSAGE -> Known.UNABLE_TO_LOCATE_PREVIOUS_MESSAGE
+                    DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE ->
+                        Known.DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE
+                    PIN_ERROR_FOUND -> Known.PIN_ERROR_FOUND
+                    CANNOT_VERIFY_PIN -> Known.CANNOT_VERIFY_PIN
+                    VERIFICATION_DATA_FAILED -> Known.VERIFICATION_DATA_FAILED
+                    SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER ->
+                        Known.SURCHARGE_AMOUNT_NOT_SUPPORTED_BY_DEBIT_NETWORK_ISSUER
+                    CASH_SERVICE_NOT_AVAILABLE -> Known.CASH_SERVICE_NOT_AVAILABLE
+                    CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT ->
+                        Known.CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT
+                    TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT ->
+                        Known.TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT
+                    INVALID_BILLER_INFORMATION -> Known.INVALID_BILLER_INFORMATION
+                    PIN_CHANGE_REQUEST_DECLINED -> Known.PIN_CHANGE_REQUEST_DECLINED
+                    UNSAFE_PIN -> Known.UNSAFE_PIN
+                    TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN ->
+                        Known.TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN
+                    OFFLINE_DECLINED -> Known.OFFLINE_DECLINED
+                    UNABLE_TO_GO_ONLINE -> Known.UNABLE_TO_GO_ONLINE
+                    VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED ->
+                        Known.VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED
+                    INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT ->
+                        Known.INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT
+                    FORWARD_TO_ISSUER -> Known.FORWARD_TO_ISSUER
+                    CARD_AUTHENTICATION_FAILED -> Known.CARD_AUTHENTICATION_FAILED
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
