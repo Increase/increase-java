@@ -4085,11 +4085,6 @@ private constructor(
                 @JvmField
                 val UNABLE_TO_LOCATE_PREVIOUS_MESSAGE = of("unable_to_locate_previous_message")
 
-                /** The data in the transaction is inconsistent with the original message. */
-                @JvmField
-                val DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE =
-                    of("data_inconsistent_with_original_message")
-
                 /** An error was found with the PIN associated with the transaction. */
                 @JvmField val PIN_ERROR_FOUND = of("pin_error_found")
 
@@ -4117,15 +4112,6 @@ private constructor(
                 val TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT =
                     of("transaction_amount_exceeds_pre_authorized_approval_amount")
 
-                /** The biller information provided is invalid. */
-                @JvmField val INVALID_BILLER_INFORMATION = of("invalid_biller_information")
-
-                /** The PIN change request has been declined. */
-                @JvmField val PIN_CHANGE_REQUEST_DECLINED = of("pin_change_request_declined")
-
-                /** The PIN provided is considered unsafe. */
-                @JvmField val UNSAFE_PIN = of("unsafe_pin")
-
                 /** The transaction does not qualify for Visa PIN processing. */
                 @JvmField
                 val TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN =
@@ -4149,9 +4135,6 @@ private constructor(
                 @JvmField
                 val INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT =
                     of("invalid_use_of_merchant_category_code_correct_and_reattempt")
-
-                /** The transaction should be forwarded to the issuer for processing. */
-                @JvmField val FORWARD_TO_ISSUER = of("forward_to_issuer")
 
                 /** The card authentication process has failed. */
                 @JvmField val CARD_AUTHENTICATION_FAILED = of("card_authentication_failed")
@@ -4291,8 +4274,6 @@ private constructor(
                 ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED,
                 /** The previous message associated with the transaction could not be located. */
                 UNABLE_TO_LOCATE_PREVIOUS_MESSAGE,
-                /** The data in the transaction is inconsistent with the original message. */
-                DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE,
                 /** An error was found with the PIN associated with the transaction. */
                 PIN_ERROR_FOUND,
                 /** The PIN associated with the transaction could not be verified. */
@@ -4307,12 +4288,6 @@ private constructor(
                 CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT,
                 /** The transaction amount exceeds the pre-authorized approval amount. */
                 TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT,
-                /** The biller information provided is invalid. */
-                INVALID_BILLER_INFORMATION,
-                /** The PIN change request has been declined. */
-                PIN_CHANGE_REQUEST_DECLINED,
-                /** The PIN provided is considered unsafe. */
-                UNSAFE_PIN,
                 /** The transaction does not qualify for Visa PIN processing. */
                 TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN,
                 /** The transaction was declined offline. */
@@ -4326,8 +4301,6 @@ private constructor(
                  * transaction.
                  */
                 INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT,
-                /** The transaction should be forwarded to the issuer for processing. */
-                FORWARD_TO_ISSUER,
                 /** The card authentication process has failed. */
                 CARD_AUTHENTICATION_FAILED,
             }
@@ -4472,8 +4445,6 @@ private constructor(
                 ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED,
                 /** The previous message associated with the transaction could not be located. */
                 UNABLE_TO_LOCATE_PREVIOUS_MESSAGE,
-                /** The data in the transaction is inconsistent with the original message. */
-                DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE,
                 /** An error was found with the PIN associated with the transaction. */
                 PIN_ERROR_FOUND,
                 /** The PIN associated with the transaction could not be verified. */
@@ -4488,12 +4459,6 @@ private constructor(
                 CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT,
                 /** The transaction amount exceeds the pre-authorized approval amount. */
                 TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT,
-                /** The biller information provided is invalid. */
-                INVALID_BILLER_INFORMATION,
-                /** The PIN change request has been declined. */
-                PIN_CHANGE_REQUEST_DECLINED,
-                /** The PIN provided is considered unsafe. */
-                UNSAFE_PIN,
                 /** The transaction does not qualify for Visa PIN processing. */
                 TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN,
                 /** The transaction was declined offline. */
@@ -4507,8 +4472,6 @@ private constructor(
                  * transaction.
                  */
                 INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT,
-                /** The transaction should be forwarded to the issuer for processing. */
-                FORWARD_TO_ISSUER,
                 /** The card authentication process has failed. */
                 CARD_AUTHENTICATION_FAILED,
                 /**
@@ -4584,8 +4547,6 @@ private constructor(
                     ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED ->
                         Value.ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED
                     UNABLE_TO_LOCATE_PREVIOUS_MESSAGE -> Value.UNABLE_TO_LOCATE_PREVIOUS_MESSAGE
-                    DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE ->
-                        Value.DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE
                     PIN_ERROR_FOUND -> Value.PIN_ERROR_FOUND
                     CANNOT_VERIFY_PIN -> Value.CANNOT_VERIFY_PIN
                     VERIFICATION_DATA_FAILED -> Value.VERIFICATION_DATA_FAILED
@@ -4596,9 +4557,6 @@ private constructor(
                         Value.CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT
                     TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT ->
                         Value.TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT
-                    INVALID_BILLER_INFORMATION -> Value.INVALID_BILLER_INFORMATION
-                    PIN_CHANGE_REQUEST_DECLINED -> Value.PIN_CHANGE_REQUEST_DECLINED
-                    UNSAFE_PIN -> Value.UNSAFE_PIN
                     TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN ->
                         Value.TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN
                     OFFLINE_DECLINED -> Value.OFFLINE_DECLINED
@@ -4607,7 +4565,6 @@ private constructor(
                         Value.VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED
                     INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT ->
                         Value.INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT
-                    FORWARD_TO_ISSUER -> Value.FORWARD_TO_ISSUER
                     CARD_AUTHENTICATION_FAILED -> Value.CARD_AUTHENTICATION_FAILED
                     else -> Value._UNKNOWN
                 }
@@ -4681,8 +4638,6 @@ private constructor(
                     ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED ->
                         Known.ALLOWABLE_NUMBER_OF_PIN_ENTRY_TRIES_EXCEEDED
                     UNABLE_TO_LOCATE_PREVIOUS_MESSAGE -> Known.UNABLE_TO_LOCATE_PREVIOUS_MESSAGE
-                    DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE ->
-                        Known.DATA_INCONSISTENT_WITH_ORIGINAL_MESSAGE
                     PIN_ERROR_FOUND -> Known.PIN_ERROR_FOUND
                     CANNOT_VERIFY_PIN -> Known.CANNOT_VERIFY_PIN
                     VERIFICATION_DATA_FAILED -> Known.VERIFICATION_DATA_FAILED
@@ -4693,9 +4648,6 @@ private constructor(
                         Known.CASHBACK_REQUEST_EXCEEDS_ISSUER_LIMIT
                     TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT ->
                         Known.TRANSACTION_AMOUNT_EXCEEDS_PRE_AUTHORIZED_APPROVAL_AMOUNT
-                    INVALID_BILLER_INFORMATION -> Known.INVALID_BILLER_INFORMATION
-                    PIN_CHANGE_REQUEST_DECLINED -> Known.PIN_CHANGE_REQUEST_DECLINED
-                    UNSAFE_PIN -> Known.UNSAFE_PIN
                     TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN ->
                         Known.TRANSACTION_DOES_NOT_QUALIFY_FOR_VISA_PIN
                     OFFLINE_DECLINED -> Known.OFFLINE_DECLINED
@@ -4704,7 +4656,6 @@ private constructor(
                         Known.VALID_ACCOUNT_BUT_AMOUNT_NOT_SUPPORTED
                     INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT ->
                         Known.INVALID_USE_OF_MERCHANT_CATEGORY_CODE_CORRECT_AND_REATTEMPT
-                    FORWARD_TO_ISSUER -> Known.FORWARD_TO_ISSUER
                     CARD_AUTHENTICATION_FAILED -> Known.CARD_AUTHENTICATION_FAILED
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
