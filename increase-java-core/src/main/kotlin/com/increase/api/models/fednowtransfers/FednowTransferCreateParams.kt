@@ -29,14 +29,6 @@ private constructor(
 ) : Params {
 
     /**
-     * The identifier for the account that will send the transfer.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun accountId(): String = body.accountId()
-
-    /**
      * The amount, in minor units, to send to the creditor.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -124,13 +116,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun routingNumber(): Optional<String> = body.routingNumber()
-
-    /**
-     * Returns the raw JSON value of [accountId].
-     *
-     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _accountId(): JsonField<String> = body._accountId()
 
     /**
      * Returns the raw JSON value of [amount].
@@ -230,7 +215,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .accountId()
          * .amount()
          * .creditorName()
          * .debtorName()
@@ -260,26 +244,14 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [accountId]
          * - [amount]
          * - [creditorName]
          * - [debtorName]
          * - [sourceAccountNumberId]
+         * - [unstructuredRemittanceInformation]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
-
-        /** The identifier for the account that will send the transfer. */
-        fun accountId(accountId: String) = apply { body.accountId(accountId) }
-
-        /**
-         * Sets [Builder.accountId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun accountId(accountId: JsonField<String>) = apply { body.accountId(accountId) }
 
         /** The amount, in minor units, to send to the creditor. */
         fun amount(amount: Long) = apply { body.amount(amount) }
@@ -569,7 +541,6 @@ private constructor(
          *
          * The following fields are required:
          * ```java
-         * .accountId()
          * .amount()
          * .creditorName()
          * .debtorName()
@@ -596,7 +567,6 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val accountId: JsonField<String>,
         private val amount: JsonField<Long>,
         private val creditorName: JsonField<String>,
         private val debtorName: JsonField<String>,
@@ -613,9 +583,6 @@ private constructor(
 
         @JsonCreator
         private constructor(
-            @JsonProperty("account_id")
-            @ExcludeMissing
-            accountId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("creditor_name")
             @ExcludeMissing
@@ -648,7 +615,6 @@ private constructor(
             @ExcludeMissing
             routingNumber: JsonField<String> = JsonMissing.of(),
         ) : this(
-            accountId,
             amount,
             creditorName,
             debtorName,
@@ -662,14 +628,6 @@ private constructor(
             routingNumber,
             mutableMapOf(),
         )
-
-        /**
-         * The identifier for the account that will send the transfer.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun accountId(): String = accountId.getRequired("account_id")
 
         /**
          * The amount, in minor units, to send to the creditor.
@@ -763,13 +721,6 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun routingNumber(): Optional<String> = routingNumber.getOptional("routing_number")
-
-        /**
-         * Returns the raw JSON value of [accountId].
-         *
-         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
          * Returns the raw JSON value of [amount].
@@ -897,7 +848,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .accountId()
              * .amount()
              * .creditorName()
              * .debtorName()
@@ -911,7 +861,6 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var accountId: JsonField<String>? = null
             private var amount: JsonField<Long>? = null
             private var creditorName: JsonField<String>? = null
             private var debtorName: JsonField<String>? = null
@@ -927,7 +876,6 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                accountId = body.accountId
                 amount = body.amount
                 creditorName = body.creditorName
                 debtorName = body.debtorName
@@ -941,18 +889,6 @@ private constructor(
                 routingNumber = body.routingNumber
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
-
-            /** The identifier for the account that will send the transfer. */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-            /**
-             * Sets [Builder.accountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /** The amount, in minor units, to send to the creditor. */
             fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -1139,7 +1075,6 @@ private constructor(
              *
              * The following fields are required:
              * ```java
-             * .accountId()
              * .amount()
              * .creditorName()
              * .debtorName()
@@ -1151,7 +1086,6 @@ private constructor(
              */
             fun build(): Body =
                 Body(
-                    checkRequired("accountId", accountId),
                     checkRequired("amount", amount),
                     checkRequired("creditorName", creditorName),
                     checkRequired("debtorName", debtorName),
@@ -1177,7 +1111,6 @@ private constructor(
                 return@apply
             }
 
-            accountId()
             amount()
             creditorName()
             debtorName()
@@ -1208,8 +1141,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (if (accountId.asKnown().isPresent) 1 else 0) +
-                (if (amount.asKnown().isPresent) 1 else 0) +
+            (if (amount.asKnown().isPresent) 1 else 0) +
                 (if (creditorName.asKnown().isPresent) 1 else 0) +
                 (if (debtorName.asKnown().isPresent) 1 else 0) +
                 (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
@@ -1227,7 +1159,6 @@ private constructor(
             }
 
             return other is Body &&
-                accountId == other.accountId &&
                 amount == other.amount &&
                 creditorName == other.creditorName &&
                 debtorName == other.debtorName &&
@@ -1244,7 +1175,6 @@ private constructor(
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                accountId,
                 amount,
                 creditorName,
                 debtorName,
@@ -1263,7 +1193,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, creditorName=$creditorName, debtorName=$debtorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, creditorAddress=$creditorAddress, debtorAddress=$debtorAddress, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, creditorName=$creditorName, debtorName=$debtorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, creditorAddress=$creditorAddress, debtorAddress=$debtorAddress, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
     }
 
     /** The creditor's address. */

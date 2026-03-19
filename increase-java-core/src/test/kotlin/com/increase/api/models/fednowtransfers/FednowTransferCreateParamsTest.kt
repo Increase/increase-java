@@ -10,7 +10,6 @@ internal class FednowTransferCreateParamsTest {
     @Test
     fun create() {
         FednowTransferCreateParams.builder()
-            .accountId("account_in71c4amph0vgo2qllky")
             .amount(100L)
             .creditorName("Ian Crease")
             .debtorName("National Phonograph Company")
@@ -43,7 +42,6 @@ internal class FednowTransferCreateParamsTest {
     fun body() {
         val params =
             FednowTransferCreateParams.builder()
-                .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .creditorName("Ian Crease")
                 .debtorName("National Phonograph Company")
@@ -73,7 +71,6 @@ internal class FednowTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.creditorName()).isEqualTo("Ian Crease")
         assertThat(body.debtorName()).isEqualTo("National Phonograph Company")
@@ -107,7 +104,6 @@ internal class FednowTransferCreateParamsTest {
     fun bodyWithoutOptionalFields() {
         val params =
             FednowTransferCreateParams.builder()
-                .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
                 .creditorName("Ian Crease")
                 .debtorName("National Phonograph Company")
@@ -117,7 +113,6 @@ internal class FednowTransferCreateParamsTest {
 
         val body = params._body()
 
-        assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
         assertThat(body.creditorName()).isEqualTo("Ian Crease")
         assertThat(body.debtorName()).isEqualTo("National Phonograph Company")
