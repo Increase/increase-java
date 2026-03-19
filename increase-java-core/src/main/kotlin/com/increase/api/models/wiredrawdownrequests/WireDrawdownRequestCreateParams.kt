@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
@@ -83,6 +84,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun unstructuredRemittanceInformation(): String = body.unstructuredRemittanceInformation()
+
+    /**
+     * Determines who bears the cost of the drawdown request. Defaults to `shared` if not specified.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun chargeBearer(): Optional<ChargeBearer> = body.chargeBearer()
 
     /**
      * The debtor's account number.
@@ -167,6 +176,13 @@ private constructor(
      */
     fun _unstructuredRemittanceInformation(): JsonField<String> =
         body._unstructuredRemittanceInformation()
+
+    /**
+     * Returns the raw JSON value of [chargeBearer].
+     *
+     * Unlike [chargeBearer], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _chargeBearer(): JsonField<ChargeBearer> = body._chargeBearer()
 
     /**
      * Returns the raw JSON value of [debtorAccountNumber].
@@ -360,6 +376,23 @@ private constructor(
         fun unstructuredRemittanceInformation(
             unstructuredRemittanceInformation: JsonField<String>
         ) = apply { body.unstructuredRemittanceInformation(unstructuredRemittanceInformation) }
+
+        /**
+         * Determines who bears the cost of the drawdown request. Defaults to `shared` if not
+         * specified.
+         */
+        fun chargeBearer(chargeBearer: ChargeBearer) = apply { body.chargeBearer(chargeBearer) }
+
+        /**
+         * Sets [Builder.chargeBearer] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.chargeBearer] with a well-typed [ChargeBearer] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun chargeBearer(chargeBearer: JsonField<ChargeBearer>) = apply {
+            body.chargeBearer(chargeBearer)
+        }
 
         /** The debtor's account number. */
         fun debtorAccountNumber(debtorAccountNumber: String) = apply {
@@ -590,6 +623,7 @@ private constructor(
         private val debtorAddress: JsonField<DebtorAddress>,
         private val debtorName: JsonField<String>,
         private val unstructuredRemittanceInformation: JsonField<String>,
+        private val chargeBearer: JsonField<ChargeBearer>,
         private val debtorAccountNumber: JsonField<String>,
         private val debtorExternalAccountId: JsonField<String>,
         private val debtorRoutingNumber: JsonField<String>,
@@ -618,6 +652,9 @@ private constructor(
             @JsonProperty("unstructured_remittance_information")
             @ExcludeMissing
             unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("charge_bearer")
+            @ExcludeMissing
+            chargeBearer: JsonField<ChargeBearer> = JsonMissing.of(),
             @JsonProperty("debtor_account_number")
             @ExcludeMissing
             debtorAccountNumber: JsonField<String> = JsonMissing.of(),
@@ -638,6 +675,7 @@ private constructor(
             debtorAddress,
             debtorName,
             unstructuredRemittanceInformation,
+            chargeBearer,
             debtorAccountNumber,
             debtorExternalAccountId,
             debtorRoutingNumber,
@@ -701,6 +739,15 @@ private constructor(
          */
         fun unstructuredRemittanceInformation(): String =
             unstructuredRemittanceInformation.getRequired("unstructured_remittance_information")
+
+        /**
+         * Determines who bears the cost of the drawdown request. Defaults to `shared` if not
+         * specified.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun chargeBearer(): Optional<ChargeBearer> = chargeBearer.getOptional("charge_bearer")
 
         /**
          * The debtor's account number.
@@ -808,6 +855,16 @@ private constructor(
             unstructuredRemittanceInformation
 
         /**
+         * Returns the raw JSON value of [chargeBearer].
+         *
+         * Unlike [chargeBearer], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("charge_bearer")
+        @ExcludeMissing
+        fun _chargeBearer(): JsonField<ChargeBearer> = chargeBearer
+
+        /**
          * Returns the raw JSON value of [debtorAccountNumber].
          *
          * Unlike [debtorAccountNumber], this method doesn't throw if the JSON field has an
@@ -888,6 +945,7 @@ private constructor(
             private var debtorAddress: JsonField<DebtorAddress>? = null
             private var debtorName: JsonField<String>? = null
             private var unstructuredRemittanceInformation: JsonField<String>? = null
+            private var chargeBearer: JsonField<ChargeBearer> = JsonMissing.of()
             private var debtorAccountNumber: JsonField<String> = JsonMissing.of()
             private var debtorExternalAccountId: JsonField<String> = JsonMissing.of()
             private var debtorRoutingNumber: JsonField<String> = JsonMissing.of()
@@ -903,6 +961,7 @@ private constructor(
                 debtorAddress = body.debtorAddress
                 debtorName = body.debtorName
                 unstructuredRemittanceInformation = body.unstructuredRemittanceInformation
+                chargeBearer = body.chargeBearer
                 debtorAccountNumber = body.debtorAccountNumber
                 debtorExternalAccountId = body.debtorExternalAccountId
                 debtorRoutingNumber = body.debtorRoutingNumber
@@ -1007,6 +1066,23 @@ private constructor(
             fun unstructuredRemittanceInformation(
                 unstructuredRemittanceInformation: JsonField<String>
             ) = apply { this.unstructuredRemittanceInformation = unstructuredRemittanceInformation }
+
+            /**
+             * Determines who bears the cost of the drawdown request. Defaults to `shared` if not
+             * specified.
+             */
+            fun chargeBearer(chargeBearer: ChargeBearer) = chargeBearer(JsonField.of(chargeBearer))
+
+            /**
+             * Sets [Builder.chargeBearer] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.chargeBearer] with a well-typed [ChargeBearer] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun chargeBearer(chargeBearer: JsonField<ChargeBearer>) = apply {
+                this.chargeBearer = chargeBearer
+            }
 
             /** The debtor's account number. */
             fun debtorAccountNumber(debtorAccountNumber: String) =
@@ -1123,6 +1199,7 @@ private constructor(
                         "unstructuredRemittanceInformation",
                         unstructuredRemittanceInformation,
                     ),
+                    chargeBearer,
                     debtorAccountNumber,
                     debtorExternalAccountId,
                     debtorRoutingNumber,
@@ -1145,6 +1222,7 @@ private constructor(
             debtorAddress().validate()
             debtorName()
             unstructuredRemittanceInformation()
+            chargeBearer().ifPresent { it.validate() }
             debtorAccountNumber()
             debtorExternalAccountId()
             debtorRoutingNumber()
@@ -1175,6 +1253,7 @@ private constructor(
                 (debtorAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (debtorName.asKnown().isPresent) 1 else 0) +
                 (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0) +
+                (chargeBearer.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (debtorAccountNumber.asKnown().isPresent) 1 else 0) +
                 (if (debtorExternalAccountId.asKnown().isPresent) 1 else 0) +
                 (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
@@ -1193,6 +1272,7 @@ private constructor(
                 debtorAddress == other.debtorAddress &&
                 debtorName == other.debtorName &&
                 unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
+                chargeBearer == other.chargeBearer &&
                 debtorAccountNumber == other.debtorAccountNumber &&
                 debtorExternalAccountId == other.debtorExternalAccountId &&
                 debtorRoutingNumber == other.debtorRoutingNumber &&
@@ -1209,6 +1289,7 @@ private constructor(
                 debtorAddress,
                 debtorName,
                 unstructuredRemittanceInformation,
+                chargeBearer,
                 debtorAccountNumber,
                 debtorExternalAccountId,
                 debtorRoutingNumber,
@@ -1220,7 +1301,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, amount=$amount, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, debtorAccountNumber=$debtorAccountNumber, debtorExternalAccountId=$debtorExternalAccountId, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, amount=$amount, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, chargeBearer=$chargeBearer, debtorAccountNumber=$debtorAccountNumber, debtorExternalAccountId=$debtorExternalAccountId, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, additionalProperties=$additionalProperties}"
     }
 
     /** The creditor's address. */
@@ -1923,6 +2004,163 @@ private constructor(
 
         override fun toString() =
             "DebtorAddress{city=$city, country=$country, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Determines who bears the cost of the drawdown request. Defaults to `shared` if not specified.
+     */
+    class ChargeBearer @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** Charges are shared between the debtor and creditor. */
+            @JvmField val SHARED = of("shared")
+
+            /** Charges are borne by the debtor. */
+            @JvmField val DEBTOR = of("debtor")
+
+            /** Charges are borne by the creditor. */
+            @JvmField val CREDITOR = of("creditor")
+
+            /** Charges are determined by the service level. */
+            @JvmField val SERVICE_LEVEL = of("service_level")
+
+            @JvmStatic fun of(value: String) = ChargeBearer(JsonField.of(value))
+        }
+
+        /** An enum containing [ChargeBearer]'s known values. */
+        enum class Known {
+            /** Charges are shared between the debtor and creditor. */
+            SHARED,
+            /** Charges are borne by the debtor. */
+            DEBTOR,
+            /** Charges are borne by the creditor. */
+            CREDITOR,
+            /** Charges are determined by the service level. */
+            SERVICE_LEVEL,
+        }
+
+        /**
+         * An enum containing [ChargeBearer]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [ChargeBearer] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** Charges are shared between the debtor and creditor. */
+            SHARED,
+            /** Charges are borne by the debtor. */
+            DEBTOR,
+            /** Charges are borne by the creditor. */
+            CREDITOR,
+            /** Charges are determined by the service level. */
+            SERVICE_LEVEL,
+            /**
+             * An enum member indicating that [ChargeBearer] was instantiated with an unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                SHARED -> Value.SHARED
+                DEBTOR -> Value.DEBTOR
+                CREDITOR -> Value.CREDITOR
+                SERVICE_LEVEL -> Value.SERVICE_LEVEL
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                SHARED -> Known.SHARED
+                DEBTOR -> Known.DEBTOR
+                CREDITOR -> Known.CREDITOR
+                SERVICE_LEVEL -> Known.SERVICE_LEVEL
+                else -> throw IncreaseInvalidDataException("Unknown ChargeBearer: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        fun validate(): ChargeBearer = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ChargeBearer && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {
