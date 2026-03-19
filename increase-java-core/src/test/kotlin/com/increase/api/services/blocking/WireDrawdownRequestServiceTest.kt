@@ -48,6 +48,7 @@ internal class WireDrawdownRequestServiceTest {
                     )
                     .debtorName("Ian Crease")
                     .unstructuredRemittanceInformation("Invoice 29582")
+                    .chargeBearer(WireDrawdownRequestCreateParams.ChargeBearer.SHARED)
                     .debtorAccountNumber("987654321")
                     .debtorExternalAccountId("debtor_external_account_id")
                     .debtorRoutingNumber("101050001")
