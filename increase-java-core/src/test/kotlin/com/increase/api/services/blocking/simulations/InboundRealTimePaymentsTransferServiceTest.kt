@@ -29,10 +29,10 @@ internal class InboundRealTimePaymentsTransferServiceTest {
                     .debtorAccountNumber("x")
                     .debtorName("x")
                     .debtorRoutingNumber("xxxxxxxxx")
-                    .remittanceInformation("x")
                     .requestForPaymentId(
                         "real_time_payments_request_for_payment_28kcliz1oevcnqyn9qp7"
                     )
+                    .unstructuredRemittanceInformation("x")
                     .build()
             )
 

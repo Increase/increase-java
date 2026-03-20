@@ -317,11 +317,11 @@ internal class DeclinedTransactionTest {
                                         .Reason
                                         .ACCOUNT_NUMBER_DISABLED
                                 )
-                                .remittanceInformation("Invoice 29582")
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                                 .transferId(
                                     "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
                                 )
+                                .unstructuredRemittanceInformation("Invoice 29582")
                                 .build()
                         )
                         .other(DeclinedTransaction.Source.Other.builder().build())
@@ -628,9 +628,9 @@ internal class DeclinedTransactionTest {
                                     .Reason
                                     .ACCOUNT_NUMBER_DISABLED
                             )
-                            .remittanceInformation("Invoice 29582")
                             .transactionIdentification("20220501234567891T1BSLZO01745013025")
                             .transferId("inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr")
+                            .unstructuredRemittanceInformation("Invoice 29582")
                             .build()
                     )
                     .other(DeclinedTransaction.Source.Other.builder().build())
@@ -957,11 +957,11 @@ internal class DeclinedTransactionTest {
                                         .Reason
                                         .ACCOUNT_NUMBER_DISABLED
                                 )
-                                .remittanceInformation("Invoice 29582")
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                                 .transferId(
                                     "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
                                 )
+                                .unstructuredRemittanceInformation("Invoice 29582")
                                 .build()
                         )
                         .other(DeclinedTransaction.Source.Other.builder().build())

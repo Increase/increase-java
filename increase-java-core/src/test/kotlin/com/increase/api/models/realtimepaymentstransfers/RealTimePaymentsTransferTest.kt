@@ -16,6 +16,7 @@ internal class RealTimePaymentsTransferTest {
             RealTimePaymentsTransfer.builder()
                 .id("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .accountId("account_in71c4amph0vgo2qllky")
+                .accountNumber("987654321")
                 .acknowledgement(
                     RealTimePaymentsTransfer.Acknowledgement.builder()
                         .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -58,8 +59,6 @@ internal class RealTimePaymentsTransferTest {
                 .creditorName("Ian Crease")
                 .currency(RealTimePaymentsTransfer.Currency.USD)
                 .debtorName(null)
-                .destinationAccountNumber("987654321")
-                .destinationRoutingNumber("101050001")
                 .externalAccountId(null)
                 .idempotencyKey(null)
                 .pendingTransactionId(null)
@@ -72,7 +71,7 @@ internal class RealTimePaymentsTransferTest {
                         .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
-                .remittanceInformation("Invoice 29582")
+                .routingNumber("101050001")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .status(RealTimePaymentsTransfer.Status.COMPLETE)
                 .submission(
@@ -85,11 +84,13 @@ internal class RealTimePaymentsTransferTest {
                 .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
                 .ultimateCreditorName(null)
                 .ultimateDebtorName(null)
+                .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
         assertThat(realTimePaymentsTransfer.id())
             .isEqualTo("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
         assertThat(realTimePaymentsTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
+        assertThat(realTimePaymentsTransfer.accountNumber()).isEqualTo("987654321")
         assertThat(realTimePaymentsTransfer.acknowledgement())
             .contains(
                 RealTimePaymentsTransfer.Acknowledgement.builder()
@@ -138,8 +139,6 @@ internal class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.currency())
             .isEqualTo(RealTimePaymentsTransfer.Currency.USD)
         assertThat(realTimePaymentsTransfer.debtorName()).isEmpty
-        assertThat(realTimePaymentsTransfer.destinationAccountNumber()).isEqualTo("987654321")
-        assertThat(realTimePaymentsTransfer.destinationRoutingNumber()).isEqualTo("101050001")
         assertThat(realTimePaymentsTransfer.externalAccountId()).isEmpty
         assertThat(realTimePaymentsTransfer.idempotencyKey()).isEmpty
         assertThat(realTimePaymentsTransfer.pendingTransactionId()).isEmpty
@@ -153,7 +152,7 @@ internal class RealTimePaymentsTransferTest {
                     .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
-        assertThat(realTimePaymentsTransfer.remittanceInformation()).isEqualTo("Invoice 29582")
+        assertThat(realTimePaymentsTransfer.routingNumber()).isEqualTo("101050001")
         assertThat(realTimePaymentsTransfer.sourceAccountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(realTimePaymentsTransfer.status())
@@ -171,6 +170,8 @@ internal class RealTimePaymentsTransferTest {
             .isEqualTo(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
         assertThat(realTimePaymentsTransfer.ultimateCreditorName()).isEmpty
         assertThat(realTimePaymentsTransfer.ultimateDebtorName()).isEmpty
+        assertThat(realTimePaymentsTransfer.unstructuredRemittanceInformation())
+            .isEqualTo("Invoice 29582")
     }
 
     @Test
@@ -180,6 +181,7 @@ internal class RealTimePaymentsTransferTest {
             RealTimePaymentsTransfer.builder()
                 .id("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                 .accountId("account_in71c4amph0vgo2qllky")
+                .accountNumber("987654321")
                 .acknowledgement(
                     RealTimePaymentsTransfer.Acknowledgement.builder()
                         .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -222,8 +224,6 @@ internal class RealTimePaymentsTransferTest {
                 .creditorName("Ian Crease")
                 .currency(RealTimePaymentsTransfer.Currency.USD)
                 .debtorName(null)
-                .destinationAccountNumber("987654321")
-                .destinationRoutingNumber("101050001")
                 .externalAccountId(null)
                 .idempotencyKey(null)
                 .pendingTransactionId(null)
@@ -236,7 +236,7 @@ internal class RealTimePaymentsTransferTest {
                         .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
-                .remittanceInformation("Invoice 29582")
+                .routingNumber("101050001")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .status(RealTimePaymentsTransfer.Status.COMPLETE)
                 .submission(
@@ -249,6 +249,7 @@ internal class RealTimePaymentsTransferTest {
                 .type(RealTimePaymentsTransfer.Type.REAL_TIME_PAYMENTS_TRANSFER)
                 .ultimateCreditorName(null)
                 .ultimateDebtorName(null)
+                .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
         val roundtrippedRealTimePaymentsTransfer =

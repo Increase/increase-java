@@ -14585,9 +14585,9 @@ private constructor(
             private val debtorName: JsonField<String>,
             private val debtorRoutingNumber: JsonField<String>,
             private val reason: JsonField<Reason>,
-            private val remittanceInformation: JsonField<String>,
             private val transactionIdentification: JsonField<String>,
             private val transferId: JsonField<String>,
+            private val unstructuredRemittanceInformation: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
@@ -14612,15 +14612,15 @@ private constructor(
                 @JsonProperty("reason")
                 @ExcludeMissing
                 reason: JsonField<Reason> = JsonMissing.of(),
-                @JsonProperty("remittance_information")
-                @ExcludeMissing
-                remittanceInformation: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("transaction_identification")
                 @ExcludeMissing
                 transactionIdentification: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("transfer_id")
                 @ExcludeMissing
                 transferId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("unstructured_remittance_information")
+                @ExcludeMissing
+                unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
             ) : this(
                 amount,
                 creditorName,
@@ -14629,9 +14629,9 @@ private constructor(
                 debtorName,
                 debtorRoutingNumber,
                 reason,
-                remittanceInformation,
                 transactionIdentification,
                 transferId,
+                unstructuredRemittanceInformation,
                 mutableMapOf(),
             )
 
@@ -14703,15 +14703,6 @@ private constructor(
             fun reason(): Reason = reason.getRequired("reason")
 
             /**
-             * Additional information included with the transfer.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun remittanceInformation(): Optional<String> =
-                remittanceInformation.getOptional("remittance_information")
-
-            /**
              * The Real-Time Payments network identification of the declined transfer.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -14729,6 +14720,15 @@ private constructor(
              *   value).
              */
             fun transferId(): String = transferId.getRequired("transfer_id")
+
+            /**
+             * Additional information included with the transfer.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun unstructuredRemittanceInformation(): Optional<String> =
+                unstructuredRemittanceInformation.getOptional("unstructured_remittance_information")
 
             /**
              * Returns the raw JSON value of [amount].
@@ -14795,16 +14795,6 @@ private constructor(
             @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
 
             /**
-             * Returns the raw JSON value of [remittanceInformation].
-             *
-             * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-             * unexpected type.
-             */
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-            /**
              * Returns the raw JSON value of [transactionIdentification].
              *
              * Unlike [transactionIdentification], this method doesn't throw if the JSON field has
@@ -14823,6 +14813,17 @@ private constructor(
             @JsonProperty("transfer_id")
             @ExcludeMissing
             fun _transferId(): JsonField<String> = transferId
+
+            /**
+             * Returns the raw JSON value of [unstructuredRemittanceInformation].
+             *
+             * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON
+             * field has an unexpected type.
+             */
+            @JsonProperty("unstructured_remittance_information")
+            @ExcludeMissing
+            fun _unstructuredRemittanceInformation(): JsonField<String> =
+                unstructuredRemittanceInformation
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -14851,9 +14852,9 @@ private constructor(
                  * .debtorName()
                  * .debtorRoutingNumber()
                  * .reason()
-                 * .remittanceInformation()
                  * .transactionIdentification()
                  * .transferId()
+                 * .unstructuredRemittanceInformation()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -14869,9 +14870,9 @@ private constructor(
                 private var debtorName: JsonField<String>? = null
                 private var debtorRoutingNumber: JsonField<String>? = null
                 private var reason: JsonField<Reason>? = null
-                private var remittanceInformation: JsonField<String>? = null
                 private var transactionIdentification: JsonField<String>? = null
                 private var transferId: JsonField<String>? = null
+                private var unstructuredRemittanceInformation: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
@@ -14885,11 +14886,11 @@ private constructor(
                     debtorName = inboundRealTimePaymentsTransferDecline.debtorName
                     debtorRoutingNumber = inboundRealTimePaymentsTransferDecline.debtorRoutingNumber
                     reason = inboundRealTimePaymentsTransferDecline.reason
-                    remittanceInformation =
-                        inboundRealTimePaymentsTransferDecline.remittanceInformation
                     transactionIdentification =
                         inboundRealTimePaymentsTransferDecline.transactionIdentification
                     transferId = inboundRealTimePaymentsTransferDecline.transferId
+                    unstructuredRemittanceInformation =
+                        inboundRealTimePaymentsTransferDecline.unstructuredRemittanceInformation
                     additionalProperties =
                         inboundRealTimePaymentsTransferDecline.additionalProperties.toMutableMap()
                 }
@@ -14996,28 +14997,6 @@ private constructor(
                  */
                 fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
 
-                /** Additional information included with the transfer. */
-                fun remittanceInformation(remittanceInformation: String?) =
-                    remittanceInformation(JsonField.ofNullable(remittanceInformation))
-
-                /**
-                 * Alias for calling [Builder.remittanceInformation] with
-                 * `remittanceInformation.orElse(null)`.
-                 */
-                fun remittanceInformation(remittanceInformation: Optional<String>) =
-                    remittanceInformation(remittanceInformation.getOrNull())
-
-                /**
-                 * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.remittanceInformation] with a well-typed
-                 * [String] value instead. This method is primarily for setting the field to an
-                 * undocumented or not yet supported value.
-                 */
-                fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                    this.remittanceInformation = remittanceInformation
-                }
-
                 /** The Real-Time Payments network identification of the declined transfer. */
                 fun transactionIdentification(transactionIdentification: String) =
                     transactionIdentification(JsonField.of(transactionIdentification))
@@ -15048,6 +15027,33 @@ private constructor(
                  */
                 fun transferId(transferId: JsonField<String>) = apply {
                     this.transferId = transferId
+                }
+
+                /** Additional information included with the transfer. */
+                fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String?) =
+                    unstructuredRemittanceInformation(
+                        JsonField.ofNullable(unstructuredRemittanceInformation)
+                    )
+
+                /**
+                 * Alias for calling [Builder.unstructuredRemittanceInformation] with
+                 * `unstructuredRemittanceInformation.orElse(null)`.
+                 */
+                fun unstructuredRemittanceInformation(
+                    unstructuredRemittanceInformation: Optional<String>
+                ) = unstructuredRemittanceInformation(unstructuredRemittanceInformation.getOrNull())
+
+                /**
+                 * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.unstructuredRemittanceInformation] with a
+                 * well-typed [String] value instead. This method is primarily for setting the field
+                 * to an undocumented or not yet supported value.
+                 */
+                fun unstructuredRemittanceInformation(
+                    unstructuredRemittanceInformation: JsonField<String>
+                ) = apply {
+                    this.unstructuredRemittanceInformation = unstructuredRemittanceInformation
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -15086,9 +15092,9 @@ private constructor(
                  * .debtorName()
                  * .debtorRoutingNumber()
                  * .reason()
-                 * .remittanceInformation()
                  * .transactionIdentification()
                  * .transferId()
+                 * .unstructuredRemittanceInformation()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -15102,9 +15108,12 @@ private constructor(
                         checkRequired("debtorName", debtorName),
                         checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                         checkRequired("reason", reason),
-                        checkRequired("remittanceInformation", remittanceInformation),
                         checkRequired("transactionIdentification", transactionIdentification),
                         checkRequired("transferId", transferId),
+                        checkRequired(
+                            "unstructuredRemittanceInformation",
+                            unstructuredRemittanceInformation,
+                        ),
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -15123,9 +15132,9 @@ private constructor(
                 debtorName()
                 debtorRoutingNumber()
                 reason().validate()
-                remittanceInformation()
                 transactionIdentification()
                 transferId()
+                unstructuredRemittanceInformation()
                 validated = true
             }
 
@@ -15152,9 +15161,9 @@ private constructor(
                     (if (debtorName.asKnown().isPresent) 1 else 0) +
                     (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
                     (reason.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (remittanceInformation.asKnown().isPresent) 1 else 0) +
                     (if (transactionIdentification.asKnown().isPresent) 1 else 0) +
-                    (if (transferId.asKnown().isPresent) 1 else 0)
+                    (if (transferId.asKnown().isPresent) 1 else 0) +
+                    (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0)
 
             /**
              * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code of the declined
@@ -15476,9 +15485,9 @@ private constructor(
                     debtorName == other.debtorName &&
                     debtorRoutingNumber == other.debtorRoutingNumber &&
                     reason == other.reason &&
-                    remittanceInformation == other.remittanceInformation &&
                     transactionIdentification == other.transactionIdentification &&
                     transferId == other.transferId &&
+                    unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
                     additionalProperties == other.additionalProperties
             }
 
@@ -15491,9 +15500,9 @@ private constructor(
                     debtorName,
                     debtorRoutingNumber,
                     reason,
-                    remittanceInformation,
                     transactionIdentification,
                     transferId,
+                    unstructuredRemittanceInformation,
                     additionalProperties,
                 )
             }
@@ -15501,7 +15510,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, remittanceInformation=$remittanceInformation, transactionIdentification=$transactionIdentification, transferId=$transferId, additionalProperties=$additionalProperties}"
+                "InboundRealTimePaymentsTransferDecline{amount=$amount, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, reason=$reason, transactionIdentification=$transactionIdentification, transferId=$transferId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
         }
 
         /**
