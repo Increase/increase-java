@@ -1048,13 +1048,13 @@ internal class TransactionListPageResponseTest {
                                         .debtorAccountNumber("987654321")
                                         .debtorName("National Phonograph Company")
                                         .debtorRoutingNumber("101050001")
-                                        .remittanceInformation("Invoice 29582")
                                         .transactionIdentification(
                                             "20220501234567891T1BSLZO01745013025"
                                         )
                                         .transferId(
                                             "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
                                         )
+                                        .unstructuredRemittanceInformation("Invoice 29582")
                                         .build()
                                 )
                                 .inboundWireReversal(
@@ -1129,13 +1129,13 @@ internal class TransactionListPageResponseTest {
                                 .realTimePaymentsTransferAcknowledgement(
                                     Transaction.Source.RealTimePaymentsTransferAcknowledgement
                                         .builder()
+                                        .accountNumber("987654321")
                                         .amount(100L)
-                                        .destinationAccountNumber("987654321")
-                                        .destinationRoutingNumber("101050001")
-                                        .remittanceInformation("Invoice 29582")
+                                        .routingNumber("101050001")
                                         .transferId(
                                             "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
                                         )
+                                        .unstructuredRemittanceInformation("Invoice 29582")
                                         .build()
                                 )
                                 .sampleFunds(
@@ -2140,13 +2140,13 @@ internal class TransactionListPageResponseTest {
                                     .debtorAccountNumber("987654321")
                                     .debtorName("National Phonograph Company")
                                     .debtorRoutingNumber("101050001")
-                                    .remittanceInformation("Invoice 29582")
                                     .transactionIdentification(
                                         "20220501234567891T1BSLZO01745013025"
                                     )
                                     .transferId(
                                         "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
                                     )
+                                    .unstructuredRemittanceInformation("Invoice 29582")
                                     .build()
                             )
                             .inboundWireReversal(
@@ -2214,11 +2214,11 @@ internal class TransactionListPageResponseTest {
                             .other(Transaction.Source.Other.builder().build())
                             .realTimePaymentsTransferAcknowledgement(
                                 Transaction.Source.RealTimePaymentsTransferAcknowledgement.builder()
+                                    .accountNumber("987654321")
                                     .amount(100L)
-                                    .destinationAccountNumber("987654321")
-                                    .destinationRoutingNumber("101050001")
-                                    .remittanceInformation("Invoice 29582")
+                                    .routingNumber("101050001")
                                     .transferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
+                                    .unstructuredRemittanceInformation("Invoice 29582")
                                     .build()
                             )
                             .sampleFunds(
@@ -3291,13 +3291,13 @@ internal class TransactionListPageResponseTest {
                                         .debtorAccountNumber("987654321")
                                         .debtorName("National Phonograph Company")
                                         .debtorRoutingNumber("101050001")
-                                        .remittanceInformation("Invoice 29582")
                                         .transactionIdentification(
                                             "20220501234567891T1BSLZO01745013025"
                                         )
                                         .transferId(
                                             "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
                                         )
+                                        .unstructuredRemittanceInformation("Invoice 29582")
                                         .build()
                                 )
                                 .inboundWireReversal(
@@ -3372,13 +3372,13 @@ internal class TransactionListPageResponseTest {
                                 .realTimePaymentsTransferAcknowledgement(
                                     Transaction.Source.RealTimePaymentsTransferAcknowledgement
                                         .builder()
+                                        .accountNumber("987654321")
                                         .amount(100L)
-                                        .destinationAccountNumber("987654321")
-                                        .destinationRoutingNumber("101050001")
-                                        .remittanceInformation("Invoice 29582")
+                                        .routingNumber("101050001")
                                         .transferId(
                                             "real_time_payments_transfer_iyuhl5kdn7ssmup83mvq"
                                         )
+                                        .unstructuredRemittanceInformation("Invoice 29582")
                                         .build()
                                 )
                                 .sampleFunds(
