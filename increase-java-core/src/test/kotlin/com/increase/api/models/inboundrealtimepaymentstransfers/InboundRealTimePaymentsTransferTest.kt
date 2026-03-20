@@ -39,10 +39,10 @@ internal class InboundRealTimePaymentsTransferTest {
                         )
                         .build()
                 )
-                .remittanceInformation("Invoice 29582")
                 .status(InboundRealTimePaymentsTransfer.Status.CONFIRMED)
                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                 .type(InboundRealTimePaymentsTransfer.Type.INBOUND_REAL_TIME_PAYMENTS_TRANSFER)
+                .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
         assertThat(inboundRealTimePaymentsTransfer.id())
@@ -76,14 +76,14 @@ internal class InboundRealTimePaymentsTransferTest {
                     .reason(InboundRealTimePaymentsTransfer.Decline.Reason.ACCOUNT_NUMBER_CANCELED)
                     .build()
             )
-        assertThat(inboundRealTimePaymentsTransfer.remittanceInformation())
-            .contains("Invoice 29582")
         assertThat(inboundRealTimePaymentsTransfer.status())
             .isEqualTo(InboundRealTimePaymentsTransfer.Status.CONFIRMED)
         assertThat(inboundRealTimePaymentsTransfer.transactionIdentification())
             .isEqualTo("20220501234567891T1BSLZO01745013025")
         assertThat(inboundRealTimePaymentsTransfer.type())
             .isEqualTo(InboundRealTimePaymentsTransfer.Type.INBOUND_REAL_TIME_PAYMENTS_TRANSFER)
+        assertThat(inboundRealTimePaymentsTransfer.unstructuredRemittanceInformation())
+            .contains("Invoice 29582")
     }
 
     @Test
@@ -116,10 +116,10 @@ internal class InboundRealTimePaymentsTransferTest {
                         )
                         .build()
                 )
-                .remittanceInformation("Invoice 29582")
                 .status(InboundRealTimePaymentsTransfer.Status.CONFIRMED)
                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                 .type(InboundRealTimePaymentsTransfer.Type.INBOUND_REAL_TIME_PAYMENTS_TRANSFER)
+                .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
         val roundtrippedInboundRealTimePaymentsTransfer =

@@ -28,6 +28,7 @@ class RealTimePaymentsTransfer
 private constructor(
     private val id: JsonField<String>,
     private val accountId: JsonField<String>,
+    private val accountNumber: JsonField<String>,
     private val acknowledgement: JsonField<Acknowledgement>,
     private val amount: JsonField<Long>,
     private val approval: JsonField<Approval>,
@@ -37,13 +38,11 @@ private constructor(
     private val creditorName: JsonField<String>,
     private val currency: JsonField<Currency>,
     private val debtorName: JsonField<String>,
-    private val destinationAccountNumber: JsonField<String>,
-    private val destinationRoutingNumber: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val pendingTransactionId: JsonField<String>,
     private val rejection: JsonField<Rejection>,
-    private val remittanceInformation: JsonField<String>,
+    private val routingNumber: JsonField<String>,
     private val sourceAccountNumberId: JsonField<String>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
@@ -51,6 +50,7 @@ private constructor(
     private val type: JsonField<Type>,
     private val ultimateCreditorName: JsonField<String>,
     private val ultimateDebtorName: JsonField<String>,
+    private val unstructuredRemittanceInformation: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -58,6 +58,9 @@ private constructor(
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
         @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        accountNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("acknowledgement")
         @ExcludeMissing
         acknowledgement: JsonField<Acknowledgement> = JsonMissing.of(),
@@ -79,12 +82,6 @@ private constructor(
         @JsonProperty("debtor_name")
         @ExcludeMissing
         debtorName: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("destination_account_number")
-        @ExcludeMissing
-        destinationAccountNumber: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("destination_routing_number")
-        @ExcludeMissing
-        destinationRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("external_account_id")
         @ExcludeMissing
         externalAccountId: JsonField<String> = JsonMissing.of(),
@@ -97,9 +94,9 @@ private constructor(
         @JsonProperty("rejection")
         @ExcludeMissing
         rejection: JsonField<Rejection> = JsonMissing.of(),
-        @JsonProperty("remittance_information")
+        @JsonProperty("routing_number")
         @ExcludeMissing
-        remittanceInformation: JsonField<String> = JsonMissing.of(),
+        routingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
@@ -117,9 +114,13 @@ private constructor(
         @JsonProperty("ultimate_debtor_name")
         @ExcludeMissing
         ultimateDebtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("unstructured_remittance_information")
+        @ExcludeMissing
+        unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
     ) : this(
         id,
         accountId,
+        accountNumber,
         acknowledgement,
         amount,
         approval,
@@ -129,13 +130,11 @@ private constructor(
         creditorName,
         currency,
         debtorName,
-        destinationAccountNumber,
-        destinationRoutingNumber,
         externalAccountId,
         idempotencyKey,
         pendingTransactionId,
         rejection,
-        remittanceInformation,
+        routingNumber,
         sourceAccountNumberId,
         status,
         submission,
@@ -143,6 +142,7 @@ private constructor(
         type,
         ultimateCreditorName,
         ultimateDebtorName,
+        unstructuredRemittanceInformation,
         mutableMapOf(),
     )
 
@@ -161,6 +161,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun accountId(): String = accountId.getRequired("account_id")
+
+    /**
+     * The destination account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun accountNumber(): String = accountNumber.getRequired("account_number")
 
     /**
      * If the transfer is acknowledged by the recipient bank, this will contain supplemental
@@ -242,24 +250,6 @@ private constructor(
     fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
     /**
-     * The destination account number.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun destinationAccountNumber(): String =
-        destinationAccountNumber.getRequired("destination_account_number")
-
-    /**
-     * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun destinationRoutingNumber(): String =
-        destinationRoutingNumber.getRequired("destination_routing_number")
-
-    /**
      * The identifier of the External Account the transfer was made to, if any.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -299,13 +289,12 @@ private constructor(
     fun rejection(): Optional<Rejection> = rejection.getOptional("rejection")
 
     /**
-     * Unstructured information that will show on the recipient's bank statement.
+     * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun remittanceInformation(): String =
-        remittanceInformation.getRequired("remittance_information")
+    fun routingNumber(): String = routingNumber.getRequired("routing_number")
 
     /**
      * The Account Number the recipient will see as having sent the transfer.
@@ -371,6 +360,15 @@ private constructor(
         ultimateDebtorName.getOptional("ultimate_debtor_name")
 
     /**
+     * Unstructured information that will show on the recipient's bank statement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun unstructuredRemittanceInformation(): String =
+        unstructuredRemittanceInformation.getRequired("unstructured_remittance_information")
+
+    /**
      * Returns the raw JSON value of [id].
      *
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
@@ -383,6 +381,15 @@ private constructor(
      * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_number")
+    @ExcludeMissing
+    fun _accountNumber(): JsonField<String> = accountNumber
 
     /**
      * Returns the raw JSON value of [acknowledgement].
@@ -456,26 +463,6 @@ private constructor(
     @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName(): JsonField<String> = debtorName
 
     /**
-     * Returns the raw JSON value of [destinationAccountNumber].
-     *
-     * Unlike [destinationAccountNumber], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("destination_account_number")
-    @ExcludeMissing
-    fun _destinationAccountNumber(): JsonField<String> = destinationAccountNumber
-
-    /**
-     * Returns the raw JSON value of [destinationRoutingNumber].
-     *
-     * Unlike [destinationRoutingNumber], this method doesn't throw if the JSON field has an
-     * unexpected type.
-     */
-    @JsonProperty("destination_routing_number")
-    @ExcludeMissing
-    fun _destinationRoutingNumber(): JsonField<String> = destinationRoutingNumber
-
-    /**
      * Returns the raw JSON value of [externalAccountId].
      *
      * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -512,14 +499,13 @@ private constructor(
     @JsonProperty("rejection") @ExcludeMissing fun _rejection(): JsonField<Rejection> = rejection
 
     /**
-     * Returns the raw JSON value of [remittanceInformation].
+     * Returns the raw JSON value of [routingNumber].
      *
-     * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected
-     * type.
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("remittance_information")
+    @JsonProperty("routing_number")
     @ExcludeMissing
-    fun _remittanceInformation(): JsonField<String> = remittanceInformation
+    fun _routingNumber(): JsonField<String> = routingNumber
 
     /**
      * Returns the raw JSON value of [sourceAccountNumberId].
@@ -583,6 +569,16 @@ private constructor(
     @ExcludeMissing
     fun _ultimateDebtorName(): JsonField<String> = ultimateDebtorName
 
+    /**
+     * Returns the raw JSON value of [unstructuredRemittanceInformation].
+     *
+     * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("unstructured_remittance_information")
+    @ExcludeMissing
+    fun _unstructuredRemittanceInformation(): JsonField<String> = unstructuredRemittanceInformation
+
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
         additionalProperties.put(key, value)
@@ -604,6 +600,7 @@ private constructor(
          * ```java
          * .id()
          * .accountId()
+         * .accountNumber()
          * .acknowledgement()
          * .amount()
          * .approval()
@@ -613,13 +610,11 @@ private constructor(
          * .creditorName()
          * .currency()
          * .debtorName()
-         * .destinationAccountNumber()
-         * .destinationRoutingNumber()
          * .externalAccountId()
          * .idempotencyKey()
          * .pendingTransactionId()
          * .rejection()
-         * .remittanceInformation()
+         * .routingNumber()
          * .sourceAccountNumberId()
          * .status()
          * .submission()
@@ -627,6 +622,7 @@ private constructor(
          * .type()
          * .ultimateCreditorName()
          * .ultimateDebtorName()
+         * .unstructuredRemittanceInformation()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -637,6 +633,7 @@ private constructor(
 
         private var id: JsonField<String>? = null
         private var accountId: JsonField<String>? = null
+        private var accountNumber: JsonField<String>? = null
         private var acknowledgement: JsonField<Acknowledgement>? = null
         private var amount: JsonField<Long>? = null
         private var approval: JsonField<Approval>? = null
@@ -646,13 +643,11 @@ private constructor(
         private var creditorName: JsonField<String>? = null
         private var currency: JsonField<Currency>? = null
         private var debtorName: JsonField<String>? = null
-        private var destinationAccountNumber: JsonField<String>? = null
-        private var destinationRoutingNumber: JsonField<String>? = null
         private var externalAccountId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var pendingTransactionId: JsonField<String>? = null
         private var rejection: JsonField<Rejection>? = null
-        private var remittanceInformation: JsonField<String>? = null
+        private var routingNumber: JsonField<String>? = null
         private var sourceAccountNumberId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var submission: JsonField<Submission>? = null
@@ -660,12 +655,14 @@ private constructor(
         private var type: JsonField<Type>? = null
         private var ultimateCreditorName: JsonField<String>? = null
         private var ultimateDebtorName: JsonField<String>? = null
+        private var unstructuredRemittanceInformation: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
         internal fun from(realTimePaymentsTransfer: RealTimePaymentsTransfer) = apply {
             id = realTimePaymentsTransfer.id
             accountId = realTimePaymentsTransfer.accountId
+            accountNumber = realTimePaymentsTransfer.accountNumber
             acknowledgement = realTimePaymentsTransfer.acknowledgement
             amount = realTimePaymentsTransfer.amount
             approval = realTimePaymentsTransfer.approval
@@ -675,13 +672,11 @@ private constructor(
             creditorName = realTimePaymentsTransfer.creditorName
             currency = realTimePaymentsTransfer.currency
             debtorName = realTimePaymentsTransfer.debtorName
-            destinationAccountNumber = realTimePaymentsTransfer.destinationAccountNumber
-            destinationRoutingNumber = realTimePaymentsTransfer.destinationRoutingNumber
             externalAccountId = realTimePaymentsTransfer.externalAccountId
             idempotencyKey = realTimePaymentsTransfer.idempotencyKey
             pendingTransactionId = realTimePaymentsTransfer.pendingTransactionId
             rejection = realTimePaymentsTransfer.rejection
-            remittanceInformation = realTimePaymentsTransfer.remittanceInformation
+            routingNumber = realTimePaymentsTransfer.routingNumber
             sourceAccountNumberId = realTimePaymentsTransfer.sourceAccountNumberId
             status = realTimePaymentsTransfer.status
             submission = realTimePaymentsTransfer.submission
@@ -689,6 +684,8 @@ private constructor(
             type = realTimePaymentsTransfer.type
             ultimateCreditorName = realTimePaymentsTransfer.ultimateCreditorName
             ultimateDebtorName = realTimePaymentsTransfer.ultimateDebtorName
+            unstructuredRemittanceInformation =
+                realTimePaymentsTransfer.unstructuredRemittanceInformation
             additionalProperties = realTimePaymentsTransfer.additionalProperties.toMutableMap()
         }
 
@@ -714,6 +711,20 @@ private constructor(
          * value.
          */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+        /** The destination account number. */
+        fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            this.accountNumber = accountNumber
+        }
 
         /**
          * If the transfer is acknowledged by the recipient bank, this will contain supplemental
@@ -868,36 +879,6 @@ private constructor(
          */
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
-        /** The destination account number. */
-        fun destinationAccountNumber(destinationAccountNumber: String) =
-            destinationAccountNumber(JsonField.of(destinationAccountNumber))
-
-        /**
-         * Sets [Builder.destinationAccountNumber] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.destinationAccountNumber] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun destinationAccountNumber(destinationAccountNumber: JsonField<String>) = apply {
-            this.destinationAccountNumber = destinationAccountNumber
-        }
-
-        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
-        fun destinationRoutingNumber(destinationRoutingNumber: String) =
-            destinationRoutingNumber(JsonField.of(destinationRoutingNumber))
-
-        /**
-         * Sets [Builder.destinationRoutingNumber] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.destinationRoutingNumber] with a well-typed [String]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun destinationRoutingNumber(destinationRoutingNumber: JsonField<String>) = apply {
-            this.destinationRoutingNumber = destinationRoutingNumber
-        }
-
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: String?) =
             externalAccountId(JsonField.ofNullable(externalAccountId))
@@ -985,19 +966,18 @@ private constructor(
          */
         fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
-        /** Unstructured information that will show on the recipient's bank statement. */
-        fun remittanceInformation(remittanceInformation: String) =
-            remittanceInformation(JsonField.of(remittanceInformation))
+        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /**
-         * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
          */
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            this.remittanceInformation = remittanceInformation
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            this.routingNumber = routingNumber
         }
 
         /** The Account Number the recipient will see as having sent the transfer. */
@@ -1126,6 +1106,21 @@ private constructor(
             this.ultimateDebtorName = ultimateDebtorName
         }
 
+        /** Unstructured information that will show on the recipient's bank statement. */
+        fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String) =
+            unstructuredRemittanceInformation(JsonField.of(unstructuredRemittanceInformation))
+
+        /**
+         * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unstructuredRemittanceInformation] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun unstructuredRemittanceInformation(
+            unstructuredRemittanceInformation: JsonField<String>
+        ) = apply { this.unstructuredRemittanceInformation = unstructuredRemittanceInformation }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -1154,6 +1149,7 @@ private constructor(
          * ```java
          * .id()
          * .accountId()
+         * .accountNumber()
          * .acknowledgement()
          * .amount()
          * .approval()
@@ -1163,13 +1159,11 @@ private constructor(
          * .creditorName()
          * .currency()
          * .debtorName()
-         * .destinationAccountNumber()
-         * .destinationRoutingNumber()
          * .externalAccountId()
          * .idempotencyKey()
          * .pendingTransactionId()
          * .rejection()
-         * .remittanceInformation()
+         * .routingNumber()
          * .sourceAccountNumberId()
          * .status()
          * .submission()
@@ -1177,6 +1171,7 @@ private constructor(
          * .type()
          * .ultimateCreditorName()
          * .ultimateDebtorName()
+         * .unstructuredRemittanceInformation()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -1185,6 +1180,7 @@ private constructor(
             RealTimePaymentsTransfer(
                 checkRequired("id", id),
                 checkRequired("accountId", accountId),
+                checkRequired("accountNumber", accountNumber),
                 checkRequired("acknowledgement", acknowledgement),
                 checkRequired("amount", amount),
                 checkRequired("approval", approval),
@@ -1194,13 +1190,11 @@ private constructor(
                 checkRequired("creditorName", creditorName),
                 checkRequired("currency", currency),
                 checkRequired("debtorName", debtorName),
-                checkRequired("destinationAccountNumber", destinationAccountNumber),
-                checkRequired("destinationRoutingNumber", destinationRoutingNumber),
                 checkRequired("externalAccountId", externalAccountId),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("pendingTransactionId", pendingTransactionId),
                 checkRequired("rejection", rejection),
-                checkRequired("remittanceInformation", remittanceInformation),
+                checkRequired("routingNumber", routingNumber),
                 checkRequired("sourceAccountNumberId", sourceAccountNumberId),
                 checkRequired("status", status),
                 checkRequired("submission", submission),
@@ -1208,6 +1202,10 @@ private constructor(
                 checkRequired("type", type),
                 checkRequired("ultimateCreditorName", ultimateCreditorName),
                 checkRequired("ultimateDebtorName", ultimateDebtorName),
+                checkRequired(
+                    "unstructuredRemittanceInformation",
+                    unstructuredRemittanceInformation,
+                ),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -1221,6 +1219,7 @@ private constructor(
 
         id()
         accountId()
+        accountNumber()
         acknowledgement().ifPresent { it.validate() }
         amount()
         approval().ifPresent { it.validate() }
@@ -1230,13 +1229,11 @@ private constructor(
         creditorName()
         currency().validate()
         debtorName()
-        destinationAccountNumber()
-        destinationRoutingNumber()
         externalAccountId()
         idempotencyKey()
         pendingTransactionId()
         rejection().ifPresent { it.validate() }
-        remittanceInformation()
+        routingNumber()
         sourceAccountNumberId()
         status().validate()
         submission().ifPresent { it.validate() }
@@ -1244,6 +1241,7 @@ private constructor(
         type().validate()
         ultimateCreditorName()
         ultimateDebtorName()
+        unstructuredRemittanceInformation()
         validated = true
     }
 
@@ -1264,6 +1262,7 @@ private constructor(
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
             (if (accountId.asKnown().isPresent) 1 else 0) +
+            (if (accountNumber.asKnown().isPresent) 1 else 0) +
             (acknowledgement.asKnown().getOrNull()?.validity() ?: 0) +
             (if (amount.asKnown().isPresent) 1 else 0) +
             (approval.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1273,20 +1272,19 @@ private constructor(
             (if (creditorName.asKnown().isPresent) 1 else 0) +
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (debtorName.asKnown().isPresent) 1 else 0) +
-            (if (destinationAccountNumber.asKnown().isPresent) 1 else 0) +
-            (if (destinationRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (externalAccountId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
             (rejection.asKnown().getOrNull()?.validity() ?: 0) +
-            (if (remittanceInformation.asKnown().isPresent) 1 else 0) +
+            (if (routingNumber.asKnown().isPresent) 1 else 0) +
             (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (submission.asKnown().getOrNull()?.validity() ?: 0) +
             (if (transactionId.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (ultimateCreditorName.asKnown().isPresent) 1 else 0) +
-            (if (ultimateDebtorName.asKnown().isPresent) 1 else 0)
+            (if (ultimateDebtorName.asKnown().isPresent) 1 else 0) +
+            (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0)
 
     /**
      * If the transfer is acknowledged by the recipient bank, this will contain supplemental
@@ -4341,6 +4339,7 @@ private constructor(
         return other is RealTimePaymentsTransfer &&
             id == other.id &&
             accountId == other.accountId &&
+            accountNumber == other.accountNumber &&
             acknowledgement == other.acknowledgement &&
             amount == other.amount &&
             approval == other.approval &&
@@ -4350,13 +4349,11 @@ private constructor(
             creditorName == other.creditorName &&
             currency == other.currency &&
             debtorName == other.debtorName &&
-            destinationAccountNumber == other.destinationAccountNumber &&
-            destinationRoutingNumber == other.destinationRoutingNumber &&
             externalAccountId == other.externalAccountId &&
             idempotencyKey == other.idempotencyKey &&
             pendingTransactionId == other.pendingTransactionId &&
             rejection == other.rejection &&
-            remittanceInformation == other.remittanceInformation &&
+            routingNumber == other.routingNumber &&
             sourceAccountNumberId == other.sourceAccountNumberId &&
             status == other.status &&
             submission == other.submission &&
@@ -4364,6 +4361,7 @@ private constructor(
             type == other.type &&
             ultimateCreditorName == other.ultimateCreditorName &&
             ultimateDebtorName == other.ultimateDebtorName &&
+            unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
             additionalProperties == other.additionalProperties
     }
 
@@ -4371,6 +4369,7 @@ private constructor(
         Objects.hash(
             id,
             accountId,
+            accountNumber,
             acknowledgement,
             amount,
             approval,
@@ -4380,13 +4379,11 @@ private constructor(
             creditorName,
             currency,
             debtorName,
-            destinationAccountNumber,
-            destinationRoutingNumber,
             externalAccountId,
             idempotencyKey,
             pendingTransactionId,
             rejection,
-            remittanceInformation,
+            routingNumber,
             sourceAccountNumberId,
             status,
             submission,
@@ -4394,6 +4391,7 @@ private constructor(
             type,
             ultimateCreditorName,
             ultimateDebtorName,
+            unstructuredRemittanceInformation,
             additionalProperties,
         )
     }
@@ -4401,5 +4399,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

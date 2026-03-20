@@ -44,20 +44,28 @@ private constructor(
     fun creditorName(): String = body.creditorName()
 
     /**
-     * Unstructured information that will show on the recipient's bank statement.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun remittanceInformation(): String = body.remittanceInformation()
-
-    /**
      * The identifier of the Account Number from which to send the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
+
+    /**
+     * Unstructured information that will show on the recipient's bank statement.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun unstructuredRemittanceInformation(): String = body.unstructuredRemittanceInformation()
+
+    /**
+     * The destination account number.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun accountNumber(): Optional<String> = body.accountNumber()
 
     /**
      * The name of the transfer's sender. If not provided, defaults to the name of the account's
@@ -69,16 +77,12 @@ private constructor(
     fun debtorName(): Optional<String> = body.debtorName()
 
     /**
-     * The destination account number.
-     *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
     fun destinationAccountNumber(): Optional<String> = body.destinationAccountNumber()
 
     /**
-     * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
-     *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
@@ -86,7 +90,7 @@ private constructor(
 
     /**
      * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-     * `destination_account_number` and `destination_routing_number` must be absent.
+     * `account_number` and `routing_number` must be absent.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -100,6 +104,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
+
+    /**
+     * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun routingNumber(): Optional<String> = body.routingNumber()
 
     /**
      * The name of the ultimate recipient of the transfer. Set this if the creditor is an
@@ -134,20 +146,28 @@ private constructor(
     fun _creditorName(): JsonField<String> = body._creditorName()
 
     /**
-     * Returns the raw JSON value of [remittanceInformation].
-     *
-     * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _remittanceInformation(): JsonField<String> = body._remittanceInformation()
-
-    /**
      * Returns the raw JSON value of [sourceAccountNumberId].
      *
      * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an unexpected
      * type.
      */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
+
+    /**
+     * Returns the raw JSON value of [unstructuredRemittanceInformation].
+     *
+     * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    fun _unstructuredRemittanceInformation(): JsonField<String> =
+        body._unstructuredRemittanceInformation()
+
+    /**
+     * Returns the raw JSON value of [accountNumber].
+     *
+     * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _accountNumber(): JsonField<String> = body._accountNumber()
 
     /**
      * Returns the raw JSON value of [debtorName].
@@ -188,6 +208,13 @@ private constructor(
     fun _requireApproval(): JsonField<Boolean> = body._requireApproval()
 
     /**
+     * Returns the raw JSON value of [routingNumber].
+     *
+     * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _routingNumber(): JsonField<String> = body._routingNumber()
+
+    /**
      * Returns the raw JSON value of [ultimateCreditorName].
      *
      * Unlike [ultimateCreditorName], this method doesn't throw if the JSON field has an unexpected
@@ -223,8 +250,8 @@ private constructor(
          * ```java
          * .amount()
          * .creditorName()
-         * .remittanceInformation()
          * .sourceAccountNumberId()
+         * .unstructuredRemittanceInformation()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -254,9 +281,9 @@ private constructor(
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [amount]
          * - [creditorName]
-         * - [remittanceInformation]
          * - [sourceAccountNumberId]
-         * - [debtorName]
+         * - [unstructuredRemittanceInformation]
+         * - [accountNumber]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -286,22 +313,6 @@ private constructor(
             body.creditorName(creditorName)
         }
 
-        /** Unstructured information that will show on the recipient's bank statement. */
-        fun remittanceInformation(remittanceInformation: String) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
-
-        /**
-         * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.remittanceInformation] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-            body.remittanceInformation(remittanceInformation)
-        }
-
         /** The identifier of the Account Number from which to send the transfer. */
         fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
@@ -316,6 +327,36 @@ private constructor(
          */
         fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
+        }
+
+        /** Unstructured information that will show on the recipient's bank statement. */
+        fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String) = apply {
+            body.unstructuredRemittanceInformation(unstructuredRemittanceInformation)
+        }
+
+        /**
+         * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unstructuredRemittanceInformation] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun unstructuredRemittanceInformation(
+            unstructuredRemittanceInformation: JsonField<String>
+        ) = apply { body.unstructuredRemittanceInformation(unstructuredRemittanceInformation) }
+
+        /** The destination account number. */
+        fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
+
+        /**
+         * Sets [Builder.accountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountNumber(accountNumber: JsonField<String>) = apply {
+            body.accountNumber(accountNumber)
         }
 
         /**
@@ -333,7 +374,6 @@ private constructor(
          */
         fun debtorName(debtorName: JsonField<String>) = apply { body.debtorName(debtorName) }
 
-        /** The destination account number. */
         fun destinationAccountNumber(destinationAccountNumber: String) = apply {
             body.destinationAccountNumber(destinationAccountNumber)
         }
@@ -349,7 +389,6 @@ private constructor(
             body.destinationAccountNumber(destinationAccountNumber)
         }
 
-        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
         fun destinationRoutingNumber(destinationRoutingNumber: String) = apply {
             body.destinationRoutingNumber(destinationRoutingNumber)
         }
@@ -367,7 +406,7 @@ private constructor(
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `destination_account_number` and `destination_routing_number` must be absent.
+         * `account_number` and `routing_number` must be absent.
          */
         fun externalAccountId(externalAccountId: String) = apply {
             body.externalAccountId(externalAccountId)
@@ -398,6 +437,20 @@ private constructor(
          */
         fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
             body.requireApproval(requireApproval)
+        }
+
+        /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
+
+        /**
+         * Sets [Builder.routingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.routingNumber] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun routingNumber(routingNumber: JsonField<String>) = apply {
+            body.routingNumber(routingNumber)
         }
 
         /**
@@ -564,8 +617,8 @@ private constructor(
          * ```java
          * .amount()
          * .creditorName()
-         * .remittanceInformation()
          * .sourceAccountNumberId()
+         * .unstructuredRemittanceInformation()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -589,13 +642,15 @@ private constructor(
     private constructor(
         private val amount: JsonField<Long>,
         private val creditorName: JsonField<String>,
-        private val remittanceInformation: JsonField<String>,
         private val sourceAccountNumberId: JsonField<String>,
+        private val unstructuredRemittanceInformation: JsonField<String>,
+        private val accountNumber: JsonField<String>,
         private val debtorName: JsonField<String>,
         private val destinationAccountNumber: JsonField<String>,
         private val destinationRoutingNumber: JsonField<String>,
         private val externalAccountId: JsonField<String>,
         private val requireApproval: JsonField<Boolean>,
+        private val routingNumber: JsonField<String>,
         private val ultimateCreditorName: JsonField<String>,
         private val ultimateDebtorName: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -607,12 +662,15 @@ private constructor(
             @JsonProperty("creditor_name")
             @ExcludeMissing
             creditorName: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("remittance_information")
-            @ExcludeMissing
-            remittanceInformation: JsonField<String> = JsonMissing.of(),
             @JsonProperty("source_account_number_id")
             @ExcludeMissing
             sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unstructured_remittance_information")
+            @ExcludeMissing
+            unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("account_number")
+            @ExcludeMissing
+            accountNumber: JsonField<String> = JsonMissing.of(),
             @JsonProperty("debtor_name")
             @ExcludeMissing
             debtorName: JsonField<String> = JsonMissing.of(),
@@ -628,6 +686,9 @@ private constructor(
             @JsonProperty("require_approval")
             @ExcludeMissing
             requireApproval: JsonField<Boolean> = JsonMissing.of(),
+            @JsonProperty("routing_number")
+            @ExcludeMissing
+            routingNumber: JsonField<String> = JsonMissing.of(),
             @JsonProperty("ultimate_creditor_name")
             @ExcludeMissing
             ultimateCreditorName: JsonField<String> = JsonMissing.of(),
@@ -637,13 +698,15 @@ private constructor(
         ) : this(
             amount,
             creditorName,
-            remittanceInformation,
             sourceAccountNumberId,
+            unstructuredRemittanceInformation,
+            accountNumber,
             debtorName,
             destinationAccountNumber,
             destinationRoutingNumber,
             externalAccountId,
             requireApproval,
+            routingNumber,
             ultimateCreditorName,
             ultimateDebtorName,
             mutableMapOf(),
@@ -666,15 +729,6 @@ private constructor(
         fun creditorName(): String = creditorName.getRequired("creditor_name")
 
         /**
-         * Unstructured information that will show on the recipient's bank statement.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun remittanceInformation(): String =
-            remittanceInformation.getRequired("remittance_information")
-
-        /**
          * The identifier of the Account Number from which to send the transfer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -682,6 +736,23 @@ private constructor(
          */
         fun sourceAccountNumberId(): String =
             sourceAccountNumberId.getRequired("source_account_number_id")
+
+        /**
+         * Unstructured information that will show on the recipient's bank statement.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun unstructuredRemittanceInformation(): String =
+            unstructuredRemittanceInformation.getRequired("unstructured_remittance_information")
+
+        /**
+         * The destination account number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountNumber(): Optional<String> = accountNumber.getOptional("account_number")
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
@@ -693,8 +764,6 @@ private constructor(
         fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
         /**
-         * The destination account number.
-         *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
@@ -702,8 +771,6 @@ private constructor(
             destinationAccountNumber.getOptional("destination_account_number")
 
         /**
-         * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
-         *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
@@ -712,7 +779,7 @@ private constructor(
 
         /**
          * The ID of an External Account to initiate a transfer to. If this parameter is provided,
-         * `destination_account_number` and `destination_routing_number` must be absent.
+         * `account_number` and `routing_number` must be absent.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -727,6 +794,14 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
+
+        /**
+         * The destination American Bankers' Association (ABA) Routing Transit Number (RTN).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun routingNumber(): Optional<String> = routingNumber.getOptional("routing_number")
 
         /**
          * The name of the ultimate recipient of the transfer. Set this if the creditor is an
@@ -766,16 +841,6 @@ private constructor(
         fun _creditorName(): JsonField<String> = creditorName
 
         /**
-         * Returns the raw JSON value of [remittanceInformation].
-         *
-         * Unlike [remittanceInformation], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("remittance_information")
-        @ExcludeMissing
-        fun _remittanceInformation(): JsonField<String> = remittanceInformation
-
-        /**
          * Returns the raw JSON value of [sourceAccountNumberId].
          *
          * Unlike [sourceAccountNumberId], this method doesn't throw if the JSON field has an
@@ -784,6 +849,27 @@ private constructor(
         @JsonProperty("source_account_number_id")
         @ExcludeMissing
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
+
+        /**
+         * Returns the raw JSON value of [unstructuredRemittanceInformation].
+         *
+         * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("unstructured_remittance_information")
+        @ExcludeMissing
+        fun _unstructuredRemittanceInformation(): JsonField<String> =
+            unstructuredRemittanceInformation
+
+        /**
+         * Returns the raw JSON value of [accountNumber].
+         *
+         * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_number")
+        @ExcludeMissing
+        fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
          * Returns the raw JSON value of [debtorName].
@@ -835,6 +921,16 @@ private constructor(
         fun _requireApproval(): JsonField<Boolean> = requireApproval
 
         /**
+         * Returns the raw JSON value of [routingNumber].
+         *
+         * Unlike [routingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("routing_number")
+        @ExcludeMissing
+        fun _routingNumber(): JsonField<String> = routingNumber
+
+        /**
          * Returns the raw JSON value of [ultimateCreditorName].
          *
          * Unlike [ultimateCreditorName], this method doesn't throw if the JSON field has an
@@ -875,8 +971,8 @@ private constructor(
              * ```java
              * .amount()
              * .creditorName()
-             * .remittanceInformation()
              * .sourceAccountNumberId()
+             * .unstructuredRemittanceInformation()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -887,13 +983,15 @@ private constructor(
 
             private var amount: JsonField<Long>? = null
             private var creditorName: JsonField<String>? = null
-            private var remittanceInformation: JsonField<String>? = null
             private var sourceAccountNumberId: JsonField<String>? = null
+            private var unstructuredRemittanceInformation: JsonField<String>? = null
+            private var accountNumber: JsonField<String> = JsonMissing.of()
             private var debtorName: JsonField<String> = JsonMissing.of()
             private var destinationAccountNumber: JsonField<String> = JsonMissing.of()
             private var destinationRoutingNumber: JsonField<String> = JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
+            private var routingNumber: JsonField<String> = JsonMissing.of()
             private var ultimateCreditorName: JsonField<String> = JsonMissing.of()
             private var ultimateDebtorName: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -902,13 +1000,15 @@ private constructor(
             internal fun from(body: Body) = apply {
                 amount = body.amount
                 creditorName = body.creditorName
-                remittanceInformation = body.remittanceInformation
                 sourceAccountNumberId = body.sourceAccountNumberId
+                unstructuredRemittanceInformation = body.unstructuredRemittanceInformation
+                accountNumber = body.accountNumber
                 debtorName = body.debtorName
                 destinationAccountNumber = body.destinationAccountNumber
                 destinationRoutingNumber = body.destinationRoutingNumber
                 externalAccountId = body.externalAccountId
                 requireApproval = body.requireApproval
+                routingNumber = body.routingNumber
                 ultimateCreditorName = body.ultimateCreditorName
                 ultimateDebtorName = body.ultimateDebtorName
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -942,21 +1042,6 @@ private constructor(
                 this.creditorName = creditorName
             }
 
-            /** Unstructured information that will show on the recipient's bank statement. */
-            fun remittanceInformation(remittanceInformation: String) =
-                remittanceInformation(JsonField.of(remittanceInformation))
-
-            /**
-             * Sets [Builder.remittanceInformation] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.remittanceInformation] with a well-typed [String]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun remittanceInformation(remittanceInformation: JsonField<String>) = apply {
-                this.remittanceInformation = remittanceInformation
-            }
-
             /** The identifier of the Account Number from which to send the transfer. */
             fun sourceAccountNumberId(sourceAccountNumberId: String) =
                 sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
@@ -970,6 +1055,35 @@ private constructor(
              */
             fun sourceAccountNumberId(sourceAccountNumberId: JsonField<String>) = apply {
                 this.sourceAccountNumberId = sourceAccountNumberId
+            }
+
+            /** Unstructured information that will show on the recipient's bank statement. */
+            fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String) =
+                unstructuredRemittanceInformation(JsonField.of(unstructuredRemittanceInformation))
+
+            /**
+             * Sets [Builder.unstructuredRemittanceInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unstructuredRemittanceInformation] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun unstructuredRemittanceInformation(
+                unstructuredRemittanceInformation: JsonField<String>
+            ) = apply { this.unstructuredRemittanceInformation = unstructuredRemittanceInformation }
+
+            /** The destination account number. */
+            fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
+
+            /**
+             * Sets [Builder.accountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountNumber(accountNumber: JsonField<String>) = apply {
+                this.accountNumber = accountNumber
             }
 
             /**
@@ -987,7 +1101,6 @@ private constructor(
              */
             fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
-            /** The destination account number. */
             fun destinationAccountNumber(destinationAccountNumber: String) =
                 destinationAccountNumber(JsonField.of(destinationAccountNumber))
 
@@ -1002,7 +1115,6 @@ private constructor(
                 this.destinationAccountNumber = destinationAccountNumber
             }
 
-            /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
             fun destinationRoutingNumber(destinationRoutingNumber: String) =
                 destinationRoutingNumber(JsonField.of(destinationRoutingNumber))
 
@@ -1019,8 +1131,7 @@ private constructor(
 
             /**
              * The ID of an External Account to initiate a transfer to. If this parameter is
-             * provided, `destination_account_number` and `destination_routing_number` must be
-             * absent.
+             * provided, `account_number` and `routing_number` must be absent.
              */
             fun externalAccountId(externalAccountId: String) =
                 externalAccountId(JsonField.of(externalAccountId))
@@ -1049,6 +1160,20 @@ private constructor(
              */
             fun requireApproval(requireApproval: JsonField<Boolean>) = apply {
                 this.requireApproval = requireApproval
+            }
+
+            /** The destination American Bankers' Association (ABA) Routing Transit Number (RTN). */
+            fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
+
+            /**
+             * Sets [Builder.routingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.routingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun routingNumber(routingNumber: JsonField<String>) = apply {
+                this.routingNumber = routingNumber
             }
 
             /**
@@ -1115,8 +1240,8 @@ private constructor(
              * ```java
              * .amount()
              * .creditorName()
-             * .remittanceInformation()
              * .sourceAccountNumberId()
+             * .unstructuredRemittanceInformation()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1125,13 +1250,18 @@ private constructor(
                 Body(
                     checkRequired("amount", amount),
                     checkRequired("creditorName", creditorName),
-                    checkRequired("remittanceInformation", remittanceInformation),
                     checkRequired("sourceAccountNumberId", sourceAccountNumberId),
+                    checkRequired(
+                        "unstructuredRemittanceInformation",
+                        unstructuredRemittanceInformation,
+                    ),
+                    accountNumber,
                     debtorName,
                     destinationAccountNumber,
                     destinationRoutingNumber,
                     externalAccountId,
                     requireApproval,
+                    routingNumber,
                     ultimateCreditorName,
                     ultimateDebtorName,
                     additionalProperties.toMutableMap(),
@@ -1147,13 +1277,15 @@ private constructor(
 
             amount()
             creditorName()
-            remittanceInformation()
             sourceAccountNumberId()
+            unstructuredRemittanceInformation()
+            accountNumber()
             debtorName()
             destinationAccountNumber()
             destinationRoutingNumber()
             externalAccountId()
             requireApproval()
+            routingNumber()
             ultimateCreditorName()
             ultimateDebtorName()
             validated = true
@@ -1177,13 +1309,15 @@ private constructor(
         internal fun validity(): Int =
             (if (amount.asKnown().isPresent) 1 else 0) +
                 (if (creditorName.asKnown().isPresent) 1 else 0) +
-                (if (remittanceInformation.asKnown().isPresent) 1 else 0) +
                 (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
+                (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0) +
+                (if (accountNumber.asKnown().isPresent) 1 else 0) +
                 (if (debtorName.asKnown().isPresent) 1 else 0) +
                 (if (destinationAccountNumber.asKnown().isPresent) 1 else 0) +
                 (if (destinationRoutingNumber.asKnown().isPresent) 1 else 0) +
                 (if (externalAccountId.asKnown().isPresent) 1 else 0) +
                 (if (requireApproval.asKnown().isPresent) 1 else 0) +
+                (if (routingNumber.asKnown().isPresent) 1 else 0) +
                 (if (ultimateCreditorName.asKnown().isPresent) 1 else 0) +
                 (if (ultimateDebtorName.asKnown().isPresent) 1 else 0)
 
@@ -1195,13 +1329,15 @@ private constructor(
             return other is Body &&
                 amount == other.amount &&
                 creditorName == other.creditorName &&
-                remittanceInformation == other.remittanceInformation &&
                 sourceAccountNumberId == other.sourceAccountNumberId &&
+                unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
+                accountNumber == other.accountNumber &&
                 debtorName == other.debtorName &&
                 destinationAccountNumber == other.destinationAccountNumber &&
                 destinationRoutingNumber == other.destinationRoutingNumber &&
                 externalAccountId == other.externalAccountId &&
                 requireApproval == other.requireApproval &&
+                routingNumber == other.routingNumber &&
                 ultimateCreditorName == other.ultimateCreditorName &&
                 ultimateDebtorName == other.ultimateDebtorName &&
                 additionalProperties == other.additionalProperties
@@ -1211,13 +1347,15 @@ private constructor(
             Objects.hash(
                 amount,
                 creditorName,
-                remittanceInformation,
                 sourceAccountNumberId,
+                unstructuredRemittanceInformation,
+                accountNumber,
                 debtorName,
                 destinationAccountNumber,
                 destinationRoutingNumber,
                 externalAccountId,
                 requireApproval,
+                routingNumber,
                 ultimateCreditorName,
                 ultimateDebtorName,
                 additionalProperties,
@@ -1227,7 +1365,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, creditorName=$creditorName, remittanceInformation=$remittanceInformation, sourceAccountNumberId=$sourceAccountNumberId, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, creditorName=$creditorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, debtorName=$debtorName, destinationAccountNumber=$destinationAccountNumber, destinationRoutingNumber=$destinationRoutingNumber, externalAccountId=$externalAccountId, requireApproval=$requireApproval, routingNumber=$routingNumber, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {
