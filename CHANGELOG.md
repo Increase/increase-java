@@ -1,5 +1,23 @@
 # Changelog
 
+## 0.488.0 (2026-03-20)
+
+Full Changelog: [v0.487.0...v0.488.0](https://github.com/Increase/increase-java/compare/v0.487.0...v0.488.0)
+
+### Features
+
+* **api:** api update ([2bf986f](https://github.com/Increase/increase-java/commit/2bf986f5ae16d07169db0a6d9ca3aeb4832d97a1))
+
+
+### Chores
+
+* **tests:** bump steady to v0.19.4 ([3779fcc](https://github.com/Increase/increase-java/commit/3779fcc67239b13c02aae426056a979213f65925))
+
+
+### Refactors
+
+* **tests:** switch from prism to steady ([89337f3](https://github.com/Increase/increase-java/commit/89337f3f7a40241e7210cd0e02651a7ceb783b0e))
+
 ## 0.487.0 (2026-03-19)
 
 Full Changelog: [v0.486.0...v0.487.0](https://github.com/Increase/increase-java/compare/v0.486.0...v0.487.0)
