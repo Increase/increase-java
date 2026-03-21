@@ -58,13 +58,13 @@ internal class InboundMailItemServiceAsyncTest {
                     .addCheck(
                         InboundMailItemActionParams.Check.builder()
                             .action(InboundMailItemActionParams.Check.Action.DEPOSIT)
-                            .account("account_in71c4amph0vgo2qllky")
+                            .accountId("account_in71c4amph0vgo2qllky")
                             .build()
                     )
                     .addCheck(
                         InboundMailItemActionParams.Check.builder()
                             .action(InboundMailItemActionParams.Check.Action.IGNORE)
-                            .account("account")
+                            .accountId("account_id")
                             .build()
                     )
                     .build()
