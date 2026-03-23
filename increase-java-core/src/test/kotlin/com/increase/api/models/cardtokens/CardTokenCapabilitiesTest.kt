@@ -21,6 +21,7 @@ internal class CardTokenCapabilitiesTest {
                         .domesticPushTransfers(
                             CardTokenCapabilities.Route.DomesticPushTransfers.SUPPORTED
                         )
+                        .issuerCountry("US")
                         .route(CardTokenCapabilities.Route.InnerRoute.VISA)
                         .build()
                 )
@@ -36,6 +37,7 @@ internal class CardTokenCapabilitiesTest {
                     .domesticPushTransfers(
                         CardTokenCapabilities.Route.DomesticPushTransfers.SUPPORTED
                     )
+                    .issuerCountry("US")
                     .route(CardTokenCapabilities.Route.InnerRoute.VISA)
                     .build()
             )
@@ -56,6 +58,7 @@ internal class CardTokenCapabilitiesTest {
                         .domesticPushTransfers(
                             CardTokenCapabilities.Route.DomesticPushTransfers.SUPPORTED
                         )
+                        .issuerCountry("US")
                         .route(CardTokenCapabilities.Route.InnerRoute.VISA)
                         .build()
                 )
