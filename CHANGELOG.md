@@ -1,5 +1,19 @@
 # Changelog
 
+## 0.490.0 (2026-03-23)
+
+Full Changelog: [v0.489.0...v0.490.0](https://github.com/Increase/increase-java/compare/v0.489.0...v0.490.0)
+
+### Features
+
+* **api:** api update ([a85e3c5](https://github.com/Increase/increase-java/commit/a85e3c5fbd9d8ed4c6209f01486c0bebc74d2171))
+
+
+### Chores
+
+* **internal:** update gitignore ([8c48584](https://github.com/Increase/increase-java/commit/8c485847941ea867bcea6c119e63d65619abdf5a))
+* **tests:** bump steady to v0.19.6 ([7189b45](https://github.com/Increase/increase-java/commit/7189b4537632d92c5433894b5db6f786d41634a0))
+
 ## 0.489.0 (2026-03-21)
 
 Full Changelog: [v0.488.0...v0.489.0](https://github.com/Increase/increase-java/compare/v0.488.0...v0.489.0)
