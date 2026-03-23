@@ -224,6 +224,7 @@ private constructor(
     private constructor(
         private val crossBorderPushTransfers: JsonField<CrossBorderPushTransfers>,
         private val domesticPushTransfers: JsonField<DomesticPushTransfers>,
+        private val issuerCountry: JsonField<String>,
         private val route: JsonField<InnerRoute>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -236,8 +237,17 @@ private constructor(
             @JsonProperty("domestic_push_transfers")
             @ExcludeMissing
             domesticPushTransfers: JsonField<DomesticPushTransfers> = JsonMissing.of(),
+            @JsonProperty("issuer_country")
+            @ExcludeMissing
+            issuerCountry: JsonField<String> = JsonMissing.of(),
             @JsonProperty("route") @ExcludeMissing route: JsonField<InnerRoute> = JsonMissing.of(),
-        ) : this(crossBorderPushTransfers, domesticPushTransfers, route, mutableMapOf())
+        ) : this(
+            crossBorderPushTransfers,
+            domesticPushTransfers,
+            issuerCountry,
+            route,
+            mutableMapOf(),
+        )
 
         /**
          * Whether you can push funds to the card using cross-border Card Push Transfers.
@@ -256,6 +266,14 @@ private constructor(
          */
         fun domesticPushTransfers(): DomesticPushTransfers =
             domesticPushTransfers.getRequired("domestic_push_transfers")
+
+        /**
+         * The ISO-3166-1 alpha-2 country code of the card's issuing bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun issuerCountry(): String = issuerCountry.getRequired("issuer_country")
 
         /**
          * The card network route the capabilities apply to.
@@ -287,6 +305,16 @@ private constructor(
         fun _domesticPushTransfers(): JsonField<DomesticPushTransfers> = domesticPushTransfers
 
         /**
+         * Returns the raw JSON value of [issuerCountry].
+         *
+         * Unlike [issuerCountry], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("issuer_country")
+        @ExcludeMissing
+        fun _issuerCountry(): JsonField<String> = issuerCountry
+
+        /**
          * Returns the raw JSON value of [route].
          *
          * Unlike [route], this method doesn't throw if the JSON field has an unexpected type.
@@ -314,6 +342,7 @@ private constructor(
              * ```java
              * .crossBorderPushTransfers()
              * .domesticPushTransfers()
+             * .issuerCountry()
              * .route()
              * ```
              */
@@ -325,6 +354,7 @@ private constructor(
 
             private var crossBorderPushTransfers: JsonField<CrossBorderPushTransfers>? = null
             private var domesticPushTransfers: JsonField<DomesticPushTransfers>? = null
+            private var issuerCountry: JsonField<String>? = null
             private var route: JsonField<InnerRoute>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -332,6 +362,7 @@ private constructor(
             internal fun from(route: Route) = apply {
                 crossBorderPushTransfers = route.crossBorderPushTransfers
                 domesticPushTransfers = route.domesticPushTransfers
+                issuerCountry = route.issuerCountry
                 this.route = route.route
                 additionalProperties = route.additionalProperties.toMutableMap()
             }
@@ -366,6 +397,20 @@ private constructor(
                 apply {
                     this.domesticPushTransfers = domesticPushTransfers
                 }
+
+            /** The ISO-3166-1 alpha-2 country code of the card's issuing bank. */
+            fun issuerCountry(issuerCountry: String) = issuerCountry(JsonField.of(issuerCountry))
+
+            /**
+             * Sets [Builder.issuerCountry] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.issuerCountry] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun issuerCountry(issuerCountry: JsonField<String>) = apply {
+                this.issuerCountry = issuerCountry
+            }
 
             /** The card network route the capabilities apply to. */
             fun route(route: InnerRoute) = route(JsonField.of(route))
@@ -407,6 +452,7 @@ private constructor(
              * ```java
              * .crossBorderPushTransfers()
              * .domesticPushTransfers()
+             * .issuerCountry()
              * .route()
              * ```
              *
@@ -416,6 +462,7 @@ private constructor(
                 Route(
                     checkRequired("crossBorderPushTransfers", crossBorderPushTransfers),
                     checkRequired("domesticPushTransfers", domesticPushTransfers),
+                    checkRequired("issuerCountry", issuerCountry),
                     checkRequired("route", route),
                     additionalProperties.toMutableMap(),
                 )
@@ -430,6 +477,7 @@ private constructor(
 
             crossBorderPushTransfers().validate()
             domesticPushTransfers().validate()
+            issuerCountry()
             route().validate()
             validated = true
         }
@@ -452,6 +500,7 @@ private constructor(
         internal fun validity(): Int =
             (crossBorderPushTransfers.asKnown().getOrNull()?.validity() ?: 0) +
                 (domesticPushTransfers.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (issuerCountry.asKnown().isPresent) 1 else 0) +
                 (route.asKnown().getOrNull()?.validity() ?: 0)
 
         /** Whether you can push funds to the card using cross-border Card Push Transfers. */
@@ -886,6 +935,7 @@ private constructor(
             return other is Route &&
                 crossBorderPushTransfers == other.crossBorderPushTransfers &&
                 domesticPushTransfers == other.domesticPushTransfers &&
+                issuerCountry == other.issuerCountry &&
                 route == other.route &&
                 additionalProperties == other.additionalProperties
         }
@@ -894,6 +944,7 @@ private constructor(
             Objects.hash(
                 crossBorderPushTransfers,
                 domesticPushTransfers,
+                issuerCountry,
                 route,
                 additionalProperties,
             )
@@ -902,7 +953,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Route{crossBorderPushTransfers=$crossBorderPushTransfers, domesticPushTransfers=$domesticPushTransfers, route=$route, additionalProperties=$additionalProperties}"
+            "Route{crossBorderPushTransfers=$crossBorderPushTransfers, domesticPushTransfers=$domesticPushTransfers, issuerCountry=$issuerCountry, route=$route, additionalProperties=$additionalProperties}"
     }
 
     /**
