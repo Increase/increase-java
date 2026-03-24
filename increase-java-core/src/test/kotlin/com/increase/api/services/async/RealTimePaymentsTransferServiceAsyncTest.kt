@@ -29,8 +29,6 @@ internal class RealTimePaymentsTransferServiceAsyncTest {
                     .unstructuredRemittanceInformation("Invoice 29582")
                     .accountNumber("987654321")
                     .debtorName("x")
-                    .destinationAccountNumber("x")
-                    .destinationRoutingNumber("xxxxxxxxx")
                     .externalAccountId("external_account_id")
                     .requireApproval(true)
                     .routingNumber("101050001")
