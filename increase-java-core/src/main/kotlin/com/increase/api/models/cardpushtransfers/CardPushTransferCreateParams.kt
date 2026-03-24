@@ -168,6 +168,56 @@ private constructor(
     fun sourceAccountNumberId(): String = body.sourceAccountNumberId()
 
     /**
+     * The legal business name of the merchant (generally your business) sending the transfer.
+     * Required if the card is issued in Canada.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun merchantLegalBusinessName(): Optional<String> = body.merchantLegalBusinessName()
+
+    /**
+     * The street address of the merchant (generally your business) sending the transfer. Required
+     * if the card is issued in Canada.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun merchantStreetAddress(): Optional<String> = body.merchantStreetAddress()
+
+    /**
+     * The city of the recipient. Required if the card is issued in Canada.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recipientAddressCity(): Optional<String> = body.recipientAddressCity()
+
+    /**
+     * The first line of the recipient's address. Required if the card is issued in Canada.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recipientAddressLine1(): Optional<String> = body.recipientAddressLine1()
+
+    /**
+     * The postal code of the recipient. Required if the card is issued in Canada.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recipientAddressPostalCode(): Optional<String> = body.recipientAddressPostalCode()
+
+    /**
+     * The state or province of the recipient. Required if the card is issued in Canada.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun recipientAddressState(): Optional<String> = body.recipientAddressState()
+
+    /**
      * Whether the transfer requires explicit approval via the dashboard or API.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -298,6 +348,54 @@ private constructor(
      * type.
      */
     fun _sourceAccountNumberId(): JsonField<String> = body._sourceAccountNumberId()
+
+    /**
+     * Returns the raw JSON value of [merchantLegalBusinessName].
+     *
+     * Unlike [merchantLegalBusinessName], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _merchantLegalBusinessName(): JsonField<String> = body._merchantLegalBusinessName()
+
+    /**
+     * Returns the raw JSON value of [merchantStreetAddress].
+     *
+     * Unlike [merchantStreetAddress], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _merchantStreetAddress(): JsonField<String> = body._merchantStreetAddress()
+
+    /**
+     * Returns the raw JSON value of [recipientAddressCity].
+     *
+     * Unlike [recipientAddressCity], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _recipientAddressCity(): JsonField<String> = body._recipientAddressCity()
+
+    /**
+     * Returns the raw JSON value of [recipientAddressLine1].
+     *
+     * Unlike [recipientAddressLine1], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _recipientAddressLine1(): JsonField<String> = body._recipientAddressLine1()
+
+    /**
+     * Returns the raw JSON value of [recipientAddressPostalCode].
+     *
+     * Unlike [recipientAddressPostalCode], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _recipientAddressPostalCode(): JsonField<String> = body._recipientAddressPostalCode()
+
+    /**
+     * Returns the raw JSON value of [recipientAddressState].
+     *
+     * Unlike [recipientAddressState], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _recipientAddressState(): JsonField<String> = body._recipientAddressState()
 
     /**
      * Returns the raw JSON value of [requireApproval].
@@ -637,6 +735,108 @@ private constructor(
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
 
+        /**
+         * The legal business name of the merchant (generally your business) sending the transfer.
+         * Required if the card is issued in Canada.
+         */
+        fun merchantLegalBusinessName(merchantLegalBusinessName: String) = apply {
+            body.merchantLegalBusinessName(merchantLegalBusinessName)
+        }
+
+        /**
+         * Sets [Builder.merchantLegalBusinessName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.merchantLegalBusinessName] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun merchantLegalBusinessName(merchantLegalBusinessName: JsonField<String>) = apply {
+            body.merchantLegalBusinessName(merchantLegalBusinessName)
+        }
+
+        /**
+         * The street address of the merchant (generally your business) sending the transfer.
+         * Required if the card is issued in Canada.
+         */
+        fun merchantStreetAddress(merchantStreetAddress: String) = apply {
+            body.merchantStreetAddress(merchantStreetAddress)
+        }
+
+        /**
+         * Sets [Builder.merchantStreetAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.merchantStreetAddress] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun merchantStreetAddress(merchantStreetAddress: JsonField<String>) = apply {
+            body.merchantStreetAddress(merchantStreetAddress)
+        }
+
+        /** The city of the recipient. Required if the card is issued in Canada. */
+        fun recipientAddressCity(recipientAddressCity: String) = apply {
+            body.recipientAddressCity(recipientAddressCity)
+        }
+
+        /**
+         * Sets [Builder.recipientAddressCity] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressCity] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recipientAddressCity(recipientAddressCity: JsonField<String>) = apply {
+            body.recipientAddressCity(recipientAddressCity)
+        }
+
+        /** The first line of the recipient's address. Required if the card is issued in Canada. */
+        fun recipientAddressLine1(recipientAddressLine1: String) = apply {
+            body.recipientAddressLine1(recipientAddressLine1)
+        }
+
+        /**
+         * Sets [Builder.recipientAddressLine1] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressLine1] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
+            body.recipientAddressLine1(recipientAddressLine1)
+        }
+
+        /** The postal code of the recipient. Required if the card is issued in Canada. */
+        fun recipientAddressPostalCode(recipientAddressPostalCode: String) = apply {
+            body.recipientAddressPostalCode(recipientAddressPostalCode)
+        }
+
+        /**
+         * Sets [Builder.recipientAddressPostalCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressPostalCode] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun recipientAddressPostalCode(recipientAddressPostalCode: JsonField<String>) = apply {
+            body.recipientAddressPostalCode(recipientAddressPostalCode)
+        }
+
+        /** The state or province of the recipient. Required if the card is issued in Canada. */
+        fun recipientAddressState(recipientAddressState: String) = apply {
+            body.recipientAddressState(recipientAddressState)
+        }
+
+        /**
+         * Sets [Builder.recipientAddressState] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.recipientAddressState] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun recipientAddressState(recipientAddressState: JsonField<String>) = apply {
+            body.recipientAddressState(recipientAddressState)
+        }
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
@@ -830,6 +1030,12 @@ private constructor(
         private val senderAddressState: JsonField<String>,
         private val senderName: JsonField<String>,
         private val sourceAccountNumberId: JsonField<String>,
+        private val merchantLegalBusinessName: JsonField<String>,
+        private val merchantStreetAddress: JsonField<String>,
+        private val recipientAddressCity: JsonField<String>,
+        private val recipientAddressLine1: JsonField<String>,
+        private val recipientAddressPostalCode: JsonField<String>,
+        private val recipientAddressState: JsonField<String>,
         private val requireApproval: JsonField<Boolean>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -885,6 +1091,24 @@ private constructor(
             @JsonProperty("source_account_number_id")
             @ExcludeMissing
             sourceAccountNumberId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_legal_business_name")
+            @ExcludeMissing
+            merchantLegalBusinessName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("merchant_street_address")
+            @ExcludeMissing
+            merchantStreetAddress: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient_address_city")
+            @ExcludeMissing
+            recipientAddressCity: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient_address_line1")
+            @ExcludeMissing
+            recipientAddressLine1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient_address_postal_code")
+            @ExcludeMissing
+            recipientAddressPostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("recipient_address_state")
+            @ExcludeMissing
+            recipientAddressState: JsonField<String> = JsonMissing.of(),
             @JsonProperty("require_approval")
             @ExcludeMissing
             requireApproval: JsonField<Boolean> = JsonMissing.of(),
@@ -905,6 +1129,12 @@ private constructor(
             senderAddressState,
             senderName,
             sourceAccountNumberId,
+            merchantLegalBusinessName,
+            merchantStreetAddress,
+            recipientAddressCity,
+            recipientAddressLine1,
+            recipientAddressPostalCode,
+            recipientAddressState,
             requireApproval,
             mutableMapOf(),
         )
@@ -1052,6 +1282,62 @@ private constructor(
          */
         fun sourceAccountNumberId(): String =
             sourceAccountNumberId.getRequired("source_account_number_id")
+
+        /**
+         * The legal business name of the merchant (generally your business) sending the transfer.
+         * Required if the card is issued in Canada.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantLegalBusinessName(): Optional<String> =
+            merchantLegalBusinessName.getOptional("merchant_legal_business_name")
+
+        /**
+         * The street address of the merchant (generally your business) sending the transfer.
+         * Required if the card is issued in Canada.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun merchantStreetAddress(): Optional<String> =
+            merchantStreetAddress.getOptional("merchant_street_address")
+
+        /**
+         * The city of the recipient. Required if the card is issued in Canada.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun recipientAddressCity(): Optional<String> =
+            recipientAddressCity.getOptional("recipient_address_city")
+
+        /**
+         * The first line of the recipient's address. Required if the card is issued in Canada.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun recipientAddressLine1(): Optional<String> =
+            recipientAddressLine1.getOptional("recipient_address_line1")
+
+        /**
+         * The postal code of the recipient. Required if the card is issued in Canada.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun recipientAddressPostalCode(): Optional<String> =
+            recipientAddressPostalCode.getOptional("recipient_address_postal_code")
+
+        /**
+         * The state or province of the recipient. Required if the card is issued in Canada.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun recipientAddressState(): Optional<String> =
+            recipientAddressState.getOptional("recipient_address_state")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -1221,6 +1507,66 @@ private constructor(
         fun _sourceAccountNumberId(): JsonField<String> = sourceAccountNumberId
 
         /**
+         * Returns the raw JSON value of [merchantLegalBusinessName].
+         *
+         * Unlike [merchantLegalBusinessName], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("merchant_legal_business_name")
+        @ExcludeMissing
+        fun _merchantLegalBusinessName(): JsonField<String> = merchantLegalBusinessName
+
+        /**
+         * Returns the raw JSON value of [merchantStreetAddress].
+         *
+         * Unlike [merchantStreetAddress], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("merchant_street_address")
+        @ExcludeMissing
+        fun _merchantStreetAddress(): JsonField<String> = merchantStreetAddress
+
+        /**
+         * Returns the raw JSON value of [recipientAddressCity].
+         *
+         * Unlike [recipientAddressCity], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("recipient_address_city")
+        @ExcludeMissing
+        fun _recipientAddressCity(): JsonField<String> = recipientAddressCity
+
+        /**
+         * Returns the raw JSON value of [recipientAddressLine1].
+         *
+         * Unlike [recipientAddressLine1], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("recipient_address_line1")
+        @ExcludeMissing
+        fun _recipientAddressLine1(): JsonField<String> = recipientAddressLine1
+
+        /**
+         * Returns the raw JSON value of [recipientAddressPostalCode].
+         *
+         * Unlike [recipientAddressPostalCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("recipient_address_postal_code")
+        @ExcludeMissing
+        fun _recipientAddressPostalCode(): JsonField<String> = recipientAddressPostalCode
+
+        /**
+         * Returns the raw JSON value of [recipientAddressState].
+         *
+         * Unlike [recipientAddressState], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("recipient_address_state")
+        @ExcludeMissing
+        fun _recipientAddressState(): JsonField<String> = recipientAddressState
+
+        /**
          * Returns the raw JSON value of [requireApproval].
          *
          * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
@@ -1290,6 +1636,12 @@ private constructor(
             private var senderAddressState: JsonField<String>? = null
             private var senderName: JsonField<String>? = null
             private var sourceAccountNumberId: JsonField<String>? = null
+            private var merchantLegalBusinessName: JsonField<String> = JsonMissing.of()
+            private var merchantStreetAddress: JsonField<String> = JsonMissing.of()
+            private var recipientAddressCity: JsonField<String> = JsonMissing.of()
+            private var recipientAddressLine1: JsonField<String> = JsonMissing.of()
+            private var recipientAddressPostalCode: JsonField<String> = JsonMissing.of()
+            private var recipientAddressState: JsonField<String> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1311,6 +1663,12 @@ private constructor(
                 senderAddressState = body.senderAddressState
                 senderName = body.senderName
                 sourceAccountNumberId = body.sourceAccountNumberId
+                merchantLegalBusinessName = body.merchantLegalBusinessName
+                merchantStreetAddress = body.merchantStreetAddress
+                recipientAddressCity = body.recipientAddressCity
+                recipientAddressLine1 = body.recipientAddressLine1
+                recipientAddressPostalCode = body.recipientAddressPostalCode
+                recipientAddressState = body.recipientAddressState
                 requireApproval = body.requireApproval
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -1572,6 +1930,104 @@ private constructor(
                 this.sourceAccountNumberId = sourceAccountNumberId
             }
 
+            /**
+             * The legal business name of the merchant (generally your business) sending the
+             * transfer. Required if the card is issued in Canada.
+             */
+            fun merchantLegalBusinessName(merchantLegalBusinessName: String) =
+                merchantLegalBusinessName(JsonField.of(merchantLegalBusinessName))
+
+            /**
+             * Sets [Builder.merchantLegalBusinessName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantLegalBusinessName] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun merchantLegalBusinessName(merchantLegalBusinessName: JsonField<String>) = apply {
+                this.merchantLegalBusinessName = merchantLegalBusinessName
+            }
+
+            /**
+             * The street address of the merchant (generally your business) sending the transfer.
+             * Required if the card is issued in Canada.
+             */
+            fun merchantStreetAddress(merchantStreetAddress: String) =
+                merchantStreetAddress(JsonField.of(merchantStreetAddress))
+
+            /**
+             * Sets [Builder.merchantStreetAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.merchantStreetAddress] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun merchantStreetAddress(merchantStreetAddress: JsonField<String>) = apply {
+                this.merchantStreetAddress = merchantStreetAddress
+            }
+
+            /** The city of the recipient. Required if the card is issued in Canada. */
+            fun recipientAddressCity(recipientAddressCity: String) =
+                recipientAddressCity(JsonField.of(recipientAddressCity))
+
+            /**
+             * Sets [Builder.recipientAddressCity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressCity] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recipientAddressCity(recipientAddressCity: JsonField<String>) = apply {
+                this.recipientAddressCity = recipientAddressCity
+            }
+
+            /**
+             * The first line of the recipient's address. Required if the card is issued in Canada.
+             */
+            fun recipientAddressLine1(recipientAddressLine1: String) =
+                recipientAddressLine1(JsonField.of(recipientAddressLine1))
+
+            /**
+             * Sets [Builder.recipientAddressLine1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressLine1] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recipientAddressLine1(recipientAddressLine1: JsonField<String>) = apply {
+                this.recipientAddressLine1 = recipientAddressLine1
+            }
+
+            /** The postal code of the recipient. Required if the card is issued in Canada. */
+            fun recipientAddressPostalCode(recipientAddressPostalCode: String) =
+                recipientAddressPostalCode(JsonField.of(recipientAddressPostalCode))
+
+            /**
+             * Sets [Builder.recipientAddressPostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressPostalCode] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun recipientAddressPostalCode(recipientAddressPostalCode: JsonField<String>) = apply {
+                this.recipientAddressPostalCode = recipientAddressPostalCode
+            }
+
+            /** The state or province of the recipient. Required if the card is issued in Canada. */
+            fun recipientAddressState(recipientAddressState: String) =
+                recipientAddressState(JsonField.of(recipientAddressState))
+
+            /**
+             * Sets [Builder.recipientAddressState] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.recipientAddressState] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun recipientAddressState(recipientAddressState: JsonField<String>) = apply {
+                this.recipientAddressState = recipientAddressState
+            }
+
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
@@ -1651,6 +2107,12 @@ private constructor(
                     checkRequired("senderAddressState", senderAddressState),
                     checkRequired("senderName", senderName),
                     checkRequired("sourceAccountNumberId", sourceAccountNumberId),
+                    merchantLegalBusinessName,
+                    merchantStreetAddress,
+                    recipientAddressCity,
+                    recipientAddressLine1,
+                    recipientAddressPostalCode,
+                    recipientAddressState,
                     requireApproval,
                     additionalProperties.toMutableMap(),
                 )
@@ -1679,6 +2141,12 @@ private constructor(
             senderAddressState()
             senderName()
             sourceAccountNumberId()
+            merchantLegalBusinessName()
+            merchantStreetAddress()
+            recipientAddressCity()
+            recipientAddressLine1()
+            recipientAddressPostalCode()
+            recipientAddressState()
             requireApproval()
             validated = true
         }
@@ -1715,6 +2183,12 @@ private constructor(
                 (if (senderAddressState.asKnown().isPresent) 1 else 0) +
                 (if (senderName.asKnown().isPresent) 1 else 0) +
                 (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
+                (if (merchantLegalBusinessName.asKnown().isPresent) 1 else 0) +
+                (if (merchantStreetAddress.asKnown().isPresent) 1 else 0) +
+                (if (recipientAddressCity.asKnown().isPresent) 1 else 0) +
+                (if (recipientAddressLine1.asKnown().isPresent) 1 else 0) +
+                (if (recipientAddressPostalCode.asKnown().isPresent) 1 else 0) +
+                (if (recipientAddressState.asKnown().isPresent) 1 else 0) +
                 (if (requireApproval.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1739,6 +2213,12 @@ private constructor(
                 senderAddressState == other.senderAddressState &&
                 senderName == other.senderName &&
                 sourceAccountNumberId == other.sourceAccountNumberId &&
+                merchantLegalBusinessName == other.merchantLegalBusinessName &&
+                merchantStreetAddress == other.merchantStreetAddress &&
+                recipientAddressCity == other.recipientAddressCity &&
+                recipientAddressLine1 == other.recipientAddressLine1 &&
+                recipientAddressPostalCode == other.recipientAddressPostalCode &&
+                recipientAddressState == other.recipientAddressState &&
                 requireApproval == other.requireApproval &&
                 additionalProperties == other.additionalProperties
         }
@@ -1761,6 +2241,12 @@ private constructor(
                 senderAddressState,
                 senderName,
                 sourceAccountNumberId,
+                merchantLegalBusinessName,
+                merchantStreetAddress,
+                recipientAddressCity,
+                recipientAddressLine1,
+                recipientAddressPostalCode,
+                recipientAddressState,
                 requireApproval,
                 additionalProperties,
             )
@@ -1769,7 +2255,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{businessApplicationIdentifier=$businessApplicationIdentifier, cardTokenId=$cardTokenId, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
+            "Body{businessApplicationIdentifier=$businessApplicationIdentifier, cardTokenId=$cardTokenId, merchantCategoryCode=$merchantCategoryCode, merchantCityName=$merchantCityName, merchantName=$merchantName, merchantNamePrefix=$merchantNamePrefix, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, presentmentAmount=$presentmentAmount, recipientName=$recipientName, senderAddressCity=$senderAddressCity, senderAddressLine1=$senderAddressLine1, senderAddressPostalCode=$senderAddressPostalCode, senderAddressState=$senderAddressState, senderName=$senderName, sourceAccountNumberId=$sourceAccountNumberId, merchantLegalBusinessName=$merchantLegalBusinessName, merchantStreetAddress=$merchantStreetAddress, recipientAddressCity=$recipientAddressCity, recipientAddressLine1=$recipientAddressLine1, recipientAddressPostalCode=$recipientAddressPostalCode, recipientAddressState=$recipientAddressState, requireApproval=$requireApproval, additionalProperties=$additionalProperties}"
     }
 
     /**
