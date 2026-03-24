@@ -8265,7 +8265,7 @@ private constructor(
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
-                     * passport (e.g., `US`).
+                     * document (e.g., `US`).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -8367,7 +8367,7 @@ private constructor(
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
-                         * the passport (e.g., `US`).
+                         * the document (e.g., `US`).
                          */
                         fun country(country: String) = country(JsonField.of(country))
 
@@ -10416,7 +10416,7 @@ private constructor(
 
                 /**
                  * The two-character ISO 3166-1 code representing the country that issued the
-                 * passport (e.g., `US`).
+                 * document (e.g., `US`).
                  *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
@@ -10513,7 +10513,7 @@ private constructor(
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
-                     * passport (e.g., `US`).
+                     * document (e.g., `US`).
                      */
                     fun country(country: String) = country(JsonField.of(country))
 
@@ -15019,7 +15019,7 @@ private constructor(
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
-                         * the passport (e.g., `US`).
+                         * the document (e.g., `US`).
                          *
                          * @throws IncreaseInvalidDataException if the JSON field has an unexpected
                          *   type or is unexpectedly missing or null (e.g. if the server responded
@@ -15122,7 +15122,7 @@ private constructor(
 
                             /**
                              * The two-character ISO 3166-1 code representing the country that
-                             * issued the passport (e.g., `US`).
+                             * issued the document (e.g., `US`).
                              */
                             fun country(country: String) = country(JsonField.of(country))
 
@@ -17234,7 +17234,7 @@ private constructor(
 
                     /**
                      * The two-character ISO 3166-1 code representing the country that issued the
-                     * passport (e.g., `US`).
+                     * document (e.g., `US`).
                      *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
@@ -17336,7 +17336,7 @@ private constructor(
 
                         /**
                          * The two-character ISO 3166-1 code representing the country that issued
-                         * the passport (e.g., `US`).
+                         * the document (e.g., `US`).
                          */
                         fun country(country: String) = country(JsonField.of(country))
 
