@@ -33,6 +33,12 @@ internal class CardPushTransferCreateParamsTest {
             .senderAddressState("NY")
             .senderName("Ian Crease")
             .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+            .merchantLegalBusinessName("x")
+            .merchantStreetAddress("x")
+            .recipientAddressCity("x")
+            .recipientAddressLine1("x")
+            .recipientAddressPostalCode("x")
+            .recipientAddressState("x")
             .requireApproval(true)
             .build()
     }
@@ -64,6 +70,12 @@ internal class CardPushTransferCreateParamsTest {
                 .senderAddressState("NY")
                 .senderName("Ian Crease")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
+                .merchantLegalBusinessName("x")
+                .merchantStreetAddress("x")
+                .recipientAddressCity("x")
+                .recipientAddressLine1("x")
+                .recipientAddressPostalCode("x")
+                .recipientAddressState("x")
                 .requireApproval(true)
                 .build()
 
@@ -94,6 +106,12 @@ internal class CardPushTransferCreateParamsTest {
         assertThat(body.senderAddressState()).isEqualTo("NY")
         assertThat(body.senderName()).isEqualTo("Ian Crease")
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
+        assertThat(body.merchantLegalBusinessName()).contains("x")
+        assertThat(body.merchantStreetAddress()).contains("x")
+        assertThat(body.recipientAddressCity()).contains("x")
+        assertThat(body.recipientAddressLine1()).contains("x")
+        assertThat(body.recipientAddressPostalCode()).contains("x")
+        assertThat(body.recipientAddressState()).contains("x")
         assertThat(body.requireApproval()).contains(true)
     }
 
