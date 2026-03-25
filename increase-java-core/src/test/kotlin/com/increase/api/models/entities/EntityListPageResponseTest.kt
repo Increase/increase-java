@@ -75,8 +75,16 @@ internal class EntityListPageResponseTest {
                                 .email(null)
                                 .incorporationState("NY")
                                 .industryCode(null)
+                                .legalIdentifier(
+                                    Entity.Corporation.LegalIdentifier.builder()
+                                        .category(
+                                            Entity.Corporation.LegalIdentifier.Category
+                                                .US_EMPLOYER_IDENTIFICATION_NUMBER
+                                        )
+                                        .value("602214076")
+                                        .build()
+                                )
                                 .name("National Phonograph Company")
-                                .taxIdentifier("602214076")
                                 .website("https://example.com")
                                 .build()
                         )
@@ -369,8 +377,16 @@ internal class EntityListPageResponseTest {
                             .email(null)
                             .incorporationState("NY")
                             .industryCode(null)
+                            .legalIdentifier(
+                                Entity.Corporation.LegalIdentifier.builder()
+                                    .category(
+                                        Entity.Corporation.LegalIdentifier.Category
+                                            .US_EMPLOYER_IDENTIFICATION_NUMBER
+                                    )
+                                    .value("602214076")
+                                    .build()
+                            )
                             .name("National Phonograph Company")
-                            .taxIdentifier("602214076")
                             .website("https://example.com")
                             .build()
                     )
@@ -667,8 +683,16 @@ internal class EntityListPageResponseTest {
                                 .email(null)
                                 .incorporationState("NY")
                                 .industryCode(null)
+                                .legalIdentifier(
+                                    Entity.Corporation.LegalIdentifier.builder()
+                                        .category(
+                                            Entity.Corporation.LegalIdentifier.Category
+                                                .US_EMPLOYER_IDENTIFICATION_NUMBER
+                                        )
+                                        .value("602214076")
+                                        .build()
+                                )
                                 .name("National Phonograph Company")
-                                .taxIdentifier("602214076")
                                 .website("https://example.com")
                                 .build()
                         )
