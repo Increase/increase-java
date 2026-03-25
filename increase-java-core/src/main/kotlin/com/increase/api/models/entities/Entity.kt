@@ -1007,8 +1007,8 @@ private constructor(
         private val email: JsonField<String>,
         private val incorporationState: JsonField<String>,
         private val industryCode: JsonField<String>,
+        private val legalIdentifier: JsonField<LegalIdentifier>,
         private val name: JsonField<String>,
-        private val taxIdentifier: JsonField<String>,
         private val website: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1026,10 +1026,10 @@ private constructor(
             @JsonProperty("industry_code")
             @ExcludeMissing
             industryCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("tax_identifier")
+            @JsonProperty("legal_identifier")
             @ExcludeMissing
-            taxIdentifier: JsonField<String> = JsonMissing.of(),
+            legalIdentifier: JsonField<LegalIdentifier> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
             @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of(),
         ) : this(
             address,
@@ -1037,8 +1037,8 @@ private constructor(
             email,
             incorporationState,
             industryCode,
+            legalIdentifier,
             name,
-            taxIdentifier,
             website,
             mutableMapOf(),
         )
@@ -1088,20 +1088,21 @@ private constructor(
         fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
 
         /**
+         * The legal identifier of the corporation.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun legalIdentifier(): Optional<LegalIdentifier> =
+            legalIdentifier.getOptional("legal_identifier")
+
+        /**
          * The legal name of the corporation.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun name(): String = name.getRequired("name")
-
-        /**
-         * The Employer Identification Number (EIN) for the corporation.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun taxIdentifier(): Optional<String> = taxIdentifier.getOptional("tax_identifier")
 
         /**
          * The website of the corporation.
@@ -1156,21 +1157,21 @@ private constructor(
         fun _industryCode(): JsonField<String> = industryCode
 
         /**
+         * Returns the raw JSON value of [legalIdentifier].
+         *
+         * Unlike [legalIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("legal_identifier")
+        @ExcludeMissing
+        fun _legalIdentifier(): JsonField<LegalIdentifier> = legalIdentifier
+
+        /**
          * Returns the raw JSON value of [name].
          *
          * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
-
-        /**
-         * Returns the raw JSON value of [taxIdentifier].
-         *
-         * Unlike [taxIdentifier], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("tax_identifier")
-        @ExcludeMissing
-        fun _taxIdentifier(): JsonField<String> = taxIdentifier
 
         /**
          * Returns the raw JSON value of [website].
@@ -1203,8 +1204,8 @@ private constructor(
              * .email()
              * .incorporationState()
              * .industryCode()
+             * .legalIdentifier()
              * .name()
-             * .taxIdentifier()
              * .website()
              * ```
              */
@@ -1219,8 +1220,8 @@ private constructor(
             private var email: JsonField<String>? = null
             private var incorporationState: JsonField<String>? = null
             private var industryCode: JsonField<String>? = null
+            private var legalIdentifier: JsonField<LegalIdentifier>? = null
             private var name: JsonField<String>? = null
-            private var taxIdentifier: JsonField<String>? = null
             private var website: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -1231,8 +1232,8 @@ private constructor(
                 email = corporation.email
                 incorporationState = corporation.incorporationState
                 industryCode = corporation.industryCode
+                legalIdentifier = corporation.legalIdentifier
                 name = corporation.name
-                taxIdentifier = corporation.taxIdentifier
                 website = corporation.website
                 additionalProperties = corporation.additionalProperties.toMutableMap()
             }
@@ -1341,6 +1342,25 @@ private constructor(
                 this.industryCode = industryCode
             }
 
+            /** The legal identifier of the corporation. */
+            fun legalIdentifier(legalIdentifier: LegalIdentifier?) =
+                legalIdentifier(JsonField.ofNullable(legalIdentifier))
+
+            /** Alias for calling [Builder.legalIdentifier] with `legalIdentifier.orElse(null)`. */
+            fun legalIdentifier(legalIdentifier: Optional<LegalIdentifier>) =
+                legalIdentifier(legalIdentifier.getOrNull())
+
+            /**
+             * Sets [Builder.legalIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.legalIdentifier] with a well-typed [LegalIdentifier]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun legalIdentifier(legalIdentifier: JsonField<LegalIdentifier>) = apply {
+                this.legalIdentifier = legalIdentifier
+            }
+
             /** The legal name of the corporation. */
             fun name(name: String) = name(JsonField.of(name))
 
@@ -1352,25 +1372,6 @@ private constructor(
              * value.
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
-
-            /** The Employer Identification Number (EIN) for the corporation. */
-            fun taxIdentifier(taxIdentifier: String?) =
-                taxIdentifier(JsonField.ofNullable(taxIdentifier))
-
-            /** Alias for calling [Builder.taxIdentifier] with `taxIdentifier.orElse(null)`. */
-            fun taxIdentifier(taxIdentifier: Optional<String>) =
-                taxIdentifier(taxIdentifier.getOrNull())
-
-            /**
-             * Sets [Builder.taxIdentifier] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.taxIdentifier] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
-                this.taxIdentifier = taxIdentifier
-            }
 
             /** The website of the corporation. */
             fun website(website: String?) = website(JsonField.ofNullable(website))
@@ -1418,8 +1419,8 @@ private constructor(
              * .email()
              * .incorporationState()
              * .industryCode()
+             * .legalIdentifier()
              * .name()
-             * .taxIdentifier()
              * .website()
              * ```
              *
@@ -1432,8 +1433,8 @@ private constructor(
                     checkRequired("email", email),
                     checkRequired("incorporationState", incorporationState),
                     checkRequired("industryCode", industryCode),
+                    checkRequired("legalIdentifier", legalIdentifier),
                     checkRequired("name", name),
-                    checkRequired("taxIdentifier", taxIdentifier),
                     checkRequired("website", website),
                     additionalProperties.toMutableMap(),
                 )
@@ -1451,8 +1452,8 @@ private constructor(
             email()
             incorporationState()
             industryCode()
+            legalIdentifier().ifPresent { it.validate() }
             name()
-            taxIdentifier()
             website()
             validated = true
         }
@@ -1478,8 +1479,8 @@ private constructor(
                 (if (email.asKnown().isPresent) 1 else 0) +
                 (if (incorporationState.asKnown().isPresent) 1 else 0) +
                 (if (industryCode.asKnown().isPresent) 1 else 0) +
+                (legalIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
-                (if (taxIdentifier.asKnown().isPresent) 1 else 0) +
                 (if (website.asKnown().isPresent) 1 else 0)
 
         /** The corporation's address. */
@@ -3356,6 +3357,374 @@ private constructor(
                 "BeneficialOwner{id=$id, companyTitle=$companyTitle, individual=$individual, prongs=$prongs, additionalProperties=$additionalProperties}"
         }
 
+        /** The legal identifier of the corporation. */
+        class LegalIdentifier
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val category: JsonField<Category>,
+            private val value: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("category")
+                @ExcludeMissing
+                category: JsonField<Category> = JsonMissing.of(),
+                @JsonProperty("value") @ExcludeMissing value: JsonField<String> = JsonMissing.of(),
+            ) : this(category, value, mutableMapOf())
+
+            /**
+             * The category of the legal identifier.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun category(): Category = category.getRequired("category")
+
+            /**
+             * The identifier of the legal identifier.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun value(): String = value.getRequired("value")
+
+            /**
+             * Returns the raw JSON value of [category].
+             *
+             * Unlike [category], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("category")
+            @ExcludeMissing
+            fun _category(): JsonField<Category> = category
+
+            /**
+             * Returns the raw JSON value of [value].
+             *
+             * Unlike [value], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<String> = value
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [LegalIdentifier].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .category()
+                 * .value()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [LegalIdentifier]. */
+            class Builder internal constructor() {
+
+                private var category: JsonField<Category>? = null
+                private var value: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(legalIdentifier: LegalIdentifier) = apply {
+                    category = legalIdentifier.category
+                    value = legalIdentifier.value
+                    additionalProperties = legalIdentifier.additionalProperties.toMutableMap()
+                }
+
+                /** The category of the legal identifier. */
+                fun category(category: Category) = category(JsonField.of(category))
+
+                /**
+                 * Sets [Builder.category] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.category] with a well-typed [Category] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun category(category: JsonField<Category>) = apply { this.category = category }
+
+                /** The identifier of the legal identifier. */
+                fun value(value: String) = value(JsonField.of(value))
+
+                /**
+                 * Sets [Builder.value] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.value] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun value(value: JsonField<String>) = apply { this.value = value }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [LegalIdentifier].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .category()
+                 * .value()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): LegalIdentifier =
+                    LegalIdentifier(
+                        checkRequired("category", category),
+                        checkRequired("value", value),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            fun validate(): LegalIdentifier = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                category().validate()
+                value()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (category.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (value.asKnown().isPresent) 1 else 0)
+
+            /** The category of the legal identifier. */
+            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /**
+                     * The Employer Identification Number (EIN) for the company. The EIN is a
+                     * 9-digit number assigned by the IRS.
+                     */
+                    @JvmField
+                    val US_EMPLOYER_IDENTIFICATION_NUMBER = of("us_employer_identification_number")
+
+                    /**
+                     * A legal identifier issued by a foreign government, like a tax identification
+                     * number or registration number.
+                     */
+                    @JvmField val OTHER = of("other")
+
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
+                }
+
+                /** An enum containing [Category]'s known values. */
+                enum class Known {
+                    /**
+                     * The Employer Identification Number (EIN) for the company. The EIN is a
+                     * 9-digit number assigned by the IRS.
+                     */
+                    US_EMPLOYER_IDENTIFICATION_NUMBER,
+                    /**
+                     * A legal identifier issued by a foreign government, like a tax identification
+                     * number or registration number.
+                     */
+                    OTHER,
+                }
+
+                /**
+                 * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Category] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /**
+                     * The Employer Identification Number (EIN) for the company. The EIN is a
+                     * 9-digit number assigned by the IRS.
+                     */
+                    US_EMPLOYER_IDENTIFICATION_NUMBER,
+                    /**
+                     * A legal identifier issued by a foreign government, like a tax identification
+                     * number or registration number.
+                     */
+                    OTHER,
+                    /**
+                     * An enum member indicating that [Category] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        US_EMPLOYER_IDENTIFICATION_NUMBER -> Value.US_EMPLOYER_IDENTIFICATION_NUMBER
+                        OTHER -> Value.OTHER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        US_EMPLOYER_IDENTIFICATION_NUMBER -> Known.US_EMPLOYER_IDENTIFICATION_NUMBER
+                        OTHER -> Known.OTHER
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                fun validate(): Category = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Category && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is LegalIdentifier &&
+                    category == other.category &&
+                    value == other.value &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(category, value, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "LegalIdentifier{category=$category, value=$value, additionalProperties=$additionalProperties}"
+        }
+
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
@@ -3367,8 +3736,8 @@ private constructor(
                 email == other.email &&
                 incorporationState == other.incorporationState &&
                 industryCode == other.industryCode &&
+                legalIdentifier == other.legalIdentifier &&
                 name == other.name &&
-                taxIdentifier == other.taxIdentifier &&
                 website == other.website &&
                 additionalProperties == other.additionalProperties
         }
@@ -3380,8 +3749,8 @@ private constructor(
                 email,
                 incorporationState,
                 industryCode,
+                legalIdentifier,
                 name,
-                taxIdentifier,
                 website,
                 additionalProperties,
             )
@@ -3390,7 +3759,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Corporation{address=$address, beneficialOwners=$beneficialOwners, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, name=$name, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
+            "Corporation{address=$address, beneficialOwners=$beneficialOwners, email=$email, incorporationState=$incorporationState, industryCode=$industryCode, legalIdentifier=$legalIdentifier, name=$name, website=$website, additionalProperties=$additionalProperties}"
     }
 
     /**
