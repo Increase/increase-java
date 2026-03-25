@@ -24,6 +24,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.Corporation.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -96,6 +97,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.GovernmentAuthority.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -122,6 +124,7 @@ internal class EntityListPageResponseTest {
                                         .address(
                                             Entity.Joint.Individual.Address.builder()
                                                 .city("New York")
+                                                .country("US")
                                                 .line1("33 Liberty Street")
                                                 .line2(null)
                                                 .state("NY")
@@ -149,6 +152,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.NaturalPerson.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -203,6 +207,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.Trust.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -217,6 +222,7 @@ internal class EntityListPageResponseTest {
                                         .address(
                                             Entity.Trust.Grantor.Address.builder()
                                                 .city("New York")
+                                                .country("US")
                                                 .line1("33 Liberty Street")
                                                 .line2(null)
                                                 .state("NY")
@@ -246,6 +252,7 @@ internal class EntityListPageResponseTest {
                                                     Entity.Trust.Trustee.Individual.Address
                                                         .builder()
                                                         .city("New York")
+                                                        .country("US")
                                                         .line1("33 Liberty Street")
                                                         .line2(null)
                                                         .state("NY")
@@ -328,6 +335,7 @@ internal class EntityListPageResponseTest {
                             .address(
                                 Entity.Corporation.Address.builder()
                                     .city("New York")
+                                    .country("US")
                                     .line1("33 Liberty Street")
                                     .line2(null)
                                     .state("NY")
@@ -398,6 +406,7 @@ internal class EntityListPageResponseTest {
                             .address(
                                 Entity.GovernmentAuthority.Address.builder()
                                     .city("New York")
+                                    .country("US")
                                     .line1("33 Liberty Street")
                                     .line2(null)
                                     .state("NY")
@@ -424,6 +433,7 @@ internal class EntityListPageResponseTest {
                                     .address(
                                         Entity.Joint.Individual.Address.builder()
                                             .city("New York")
+                                            .country("US")
                                             .line1("33 Liberty Street")
                                             .line2(null)
                                             .state("NY")
@@ -451,6 +461,7 @@ internal class EntityListPageResponseTest {
                             .address(
                                 Entity.NaturalPerson.Address.builder()
                                     .city("New York")
+                                    .country("US")
                                     .line1("33 Liberty Street")
                                     .line2(null)
                                     .state("NY")
@@ -505,6 +516,7 @@ internal class EntityListPageResponseTest {
                             .address(
                                 Entity.Trust.Address.builder()
                                     .city("New York")
+                                    .country("US")
                                     .line1("33 Liberty Street")
                                     .line2(null)
                                     .state("NY")
@@ -519,6 +531,7 @@ internal class EntityListPageResponseTest {
                                     .address(
                                         Entity.Trust.Grantor.Address.builder()
                                             .city("New York")
+                                            .country("US")
                                             .line1("33 Liberty Street")
                                             .line2(null)
                                             .state("NY")
@@ -547,6 +560,7 @@ internal class EntityListPageResponseTest {
                                             .address(
                                                 Entity.Trust.Trustee.Individual.Address.builder()
                                                     .city("New York")
+                                                    .country("US")
                                                     .line1("33 Liberty Street")
                                                     .line2(null)
                                                     .state("NY")
@@ -632,6 +646,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.Corporation.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -704,6 +719,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.GovernmentAuthority.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -730,6 +746,7 @@ internal class EntityListPageResponseTest {
                                         .address(
                                             Entity.Joint.Individual.Address.builder()
                                                 .city("New York")
+                                                .country("US")
                                                 .line1("33 Liberty Street")
                                                 .line2(null)
                                                 .state("NY")
@@ -757,6 +774,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.NaturalPerson.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -811,6 +829,7 @@ internal class EntityListPageResponseTest {
                                 .address(
                                     Entity.Trust.Address.builder()
                                         .city("New York")
+                                        .country("US")
                                         .line1("33 Liberty Street")
                                         .line2(null)
                                         .state("NY")
@@ -825,6 +844,7 @@ internal class EntityListPageResponseTest {
                                         .address(
                                             Entity.Trust.Grantor.Address.builder()
                                                 .city("New York")
+                                                .country("US")
                                                 .line1("33 Liberty Street")
                                                 .line2(null)
                                                 .state("NY")
@@ -854,6 +874,7 @@ internal class EntityListPageResponseTest {
                                                     Entity.Trust.Trustee.Individual.Address
                                                         .builder()
                                                         .city("New York")
+                                                        .country("US")
                                                         .line1("33 Liberty Street")
                                                         .line2(null)
                                                         .state("NY")
