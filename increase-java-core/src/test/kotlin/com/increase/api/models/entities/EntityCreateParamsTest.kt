@@ -100,8 +100,16 @@ internal class EntityCreateParamsTest {
                             .companyTitle("CEO")
                             .build()
                     )
+                    .legalIdentifier(
+                        EntityCreateParams.Corporation.LegalIdentifier.builder()
+                            .value("602214076")
+                            .category(
+                                EntityCreateParams.Corporation.LegalIdentifier.Category
+                                    .US_EMPLOYER_IDENTIFICATION_NUMBER
+                            )
+                            .build()
+                    )
                     .name("National Phonograph Company")
-                    .taxIdentifier("602214076")
                     .beneficialOwnershipExemptionReason(
                         EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                             .REGULATED_FINANCIAL_INSTITUTION
@@ -509,8 +517,16 @@ internal class EntityCreateParamsTest {
                                 .companyTitle("CEO")
                                 .build()
                         )
+                        .legalIdentifier(
+                            EntityCreateParams.Corporation.LegalIdentifier.builder()
+                                .value("602214076")
+                                .category(
+                                    EntityCreateParams.Corporation.LegalIdentifier.Category
+                                        .US_EMPLOYER_IDENTIFICATION_NUMBER
+                                )
+                                .build()
+                        )
                         .name("National Phonograph Company")
-                        .taxIdentifier("602214076")
                         .beneficialOwnershipExemptionReason(
                             EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                                 .REGULATED_FINANCIAL_INSTITUTION
@@ -915,8 +931,16 @@ internal class EntityCreateParamsTest {
                             .companyTitle("CEO")
                             .build()
                     )
+                    .legalIdentifier(
+                        EntityCreateParams.Corporation.LegalIdentifier.builder()
+                            .value("602214076")
+                            .category(
+                                EntityCreateParams.Corporation.LegalIdentifier.Category
+                                    .US_EMPLOYER_IDENTIFICATION_NUMBER
+                            )
+                            .build()
+                    )
                     .name("National Phonograph Company")
-                    .taxIdentifier("602214076")
                     .beneficialOwnershipExemptionReason(
                         EntityCreateParams.Corporation.BeneficialOwnershipExemptionReason
                             .REGULATED_FINANCIAL_INSTITUTION
