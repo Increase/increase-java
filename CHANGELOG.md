@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.496.0 (2026-03-27)
+
+Full Changelog: [v0.495.0...v0.496.0](https://github.com/Increase/increase-java/compare/v0.495.0...v0.496.0)
+
+### Features
+
+* **api:** api update ([cfa83b7](https://github.com/Increase/increase-java/commit/cfa83b7dcd2e7c525ca50fb3678edcd41a8eccc3))
+
+
+### Chores
+
+* **internal:** update multipart form array serialization ([aa6df97](https://github.com/Increase/increase-java/commit/aa6df97972b5889a2c847e746979eea9c87eaa0d))
+
 ## 0.495.0 (2026-03-25)
 
 Full Changelog: [v0.494.0...v0.495.0](https://github.com/Increase/increase-java/compare/v0.494.0...v0.495.0)
