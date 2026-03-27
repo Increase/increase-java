@@ -27,8 +27,16 @@ internal class EntityUpdateParamsTest {
                     .email("dev@stainless.com")
                     .incorporationState("x")
                     .industryCode("x")
+                    .legalIdentifier(
+                        EntityUpdateParams.Corporation.LegalIdentifier.builder()
+                            .value("x")
+                            .category(
+                                EntityUpdateParams.Corporation.LegalIdentifier.Category
+                                    .US_EMPLOYER_IDENTIFICATION_NUMBER
+                            )
+                            .build()
+                    )
                     .name("x")
-                    .taxIdentifier("x")
                     .build()
             )
             .detailsConfirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -119,8 +127,16 @@ internal class EntityUpdateParamsTest {
                         .email("dev@stainless.com")
                         .incorporationState("x")
                         .industryCode("x")
+                        .legalIdentifier(
+                            EntityUpdateParams.Corporation.LegalIdentifier.builder()
+                                .value("x")
+                                .category(
+                                    EntityUpdateParams.Corporation.LegalIdentifier.Category
+                                        .US_EMPLOYER_IDENTIFICATION_NUMBER
+                                )
+                                .build()
+                        )
                         .name("x")
-                        .taxIdentifier("x")
                         .build()
                 )
                 .detailsConfirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -199,8 +215,16 @@ internal class EntityUpdateParamsTest {
                     .email("dev@stainless.com")
                     .incorporationState("x")
                     .industryCode("x")
+                    .legalIdentifier(
+                        EntityUpdateParams.Corporation.LegalIdentifier.builder()
+                            .value("x")
+                            .category(
+                                EntityUpdateParams.Corporation.LegalIdentifier.Category
+                                    .US_EMPLOYER_IDENTIFICATION_NUMBER
+                            )
+                            .build()
+                    )
                     .name("x")
-                    .taxIdentifier("x")
                     .build()
             )
         assertThat(body.detailsConfirmedAt())
