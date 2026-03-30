@@ -247,6 +247,27 @@ internal class CardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source.CardDecline.Reason
                                                 .INSUFFICIENT_FUNDS
                                         )
+                                        .addSchemeFee(
+                                            DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                .builder()
+                                                .amount("0.137465")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .currency(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .Currency
+                                                        .USD
+                                                )
+                                                .feeType(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .FeeType
+                                                        .VISA_CORPORATE_ACCEPTANCE_FEE
+                                                )
+                                                .fixedComponent(null)
+                                                .variableRate("0.0002")
+                                                .build()
+                                        )
                                         .terminalId("RCN5VNXS")
                                         .verification(
                                             DeclinedTransaction.Source.CardDecline.Verification
@@ -638,6 +659,29 @@ internal class CardAuthorizationCreateResponseTest {
                                                 .PURCHASE
                                         )
                                         .realTimeDecisionId(null)
+                                        .addSchemeFee(
+                                            PendingTransaction.Source.CardAuthorization.SchemeFee
+                                                .builder()
+                                                .amount("0.137465")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .currency(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .SchemeFee
+                                                        .Currency
+                                                        .USD
+                                                )
+                                                .feeType(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .SchemeFee
+                                                        .FeeType
+                                                        .VISA_CORPORATE_ACCEPTANCE_FEE
+                                                )
+                                                .fixedComponent(null)
+                                                .variableRate("0.0002")
+                                                .build()
+                                        )
                                         .terminalId("RCN5VNXS")
                                         .type(
                                             PendingTransaction.Source.CardAuthorization.Type
@@ -1027,6 +1071,24 @@ internal class CardAuthorizationCreateResponseTest {
                                         DeclinedTransaction.Source.CardDecline.Reason
                                             .INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        DeclinedTransaction.Source.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         DeclinedTransaction.Source.CardDecline.Verification
@@ -1405,6 +1467,27 @@ internal class CardAuthorizationCreateResponseTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        PendingTransaction.Source.CardAuthorization.SchemeFee
+                                            .builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         PendingTransaction.Source.CardAuthorization.Type
@@ -1795,6 +1878,27 @@ internal class CardAuthorizationCreateResponseTest {
                                             DeclinedTransaction.Source.CardDecline.Reason
                                                 .INSUFFICIENT_FUNDS
                                         )
+                                        .addSchemeFee(
+                                            DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                .builder()
+                                                .amount("0.137465")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .currency(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .Currency
+                                                        .USD
+                                                )
+                                                .feeType(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .FeeType
+                                                        .VISA_CORPORATE_ACCEPTANCE_FEE
+                                                )
+                                                .fixedComponent(null)
+                                                .variableRate("0.0002")
+                                                .build()
+                                        )
                                         .terminalId("RCN5VNXS")
                                         .verification(
                                             DeclinedTransaction.Source.CardDecline.Verification
@@ -2186,6 +2290,29 @@ internal class CardAuthorizationCreateResponseTest {
                                                 .PURCHASE
                                         )
                                         .realTimeDecisionId(null)
+                                        .addSchemeFee(
+                                            PendingTransaction.Source.CardAuthorization.SchemeFee
+                                                .builder()
+                                                .amount("0.137465")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .currency(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .SchemeFee
+                                                        .Currency
+                                                        .USD
+                                                )
+                                                .feeType(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .SchemeFee
+                                                        .FeeType
+                                                        .VISA_CORPORATE_ACCEPTANCE_FEE
+                                                )
+                                                .fixedComponent(null)
+                                                .variableRate("0.0002")
+                                                .build()
+                                        )
                                         .terminalId("RCN5VNXS")
                                         .type(
                                             PendingTransaction.Source.CardAuthorization.Type

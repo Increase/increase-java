@@ -8973,6 +8973,7 @@ private constructor(
             private val presentmentCurrency: JsonField<String>,
             private val processingCategory: JsonField<ProcessingCategory>,
             private val realTimeDecisionId: JsonField<String>,
+            private val schemeFees: JsonField<List<SchemeFee>>,
             private val terminalId: JsonField<String>,
             private val transactionId: JsonField<String>,
             private val type: JsonField<Type>,
@@ -9047,6 +9048,9 @@ private constructor(
                 @JsonProperty("real_time_decision_id")
                 @ExcludeMissing
                 realTimeDecisionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("scheme_fees")
+                @ExcludeMissing
+                schemeFees: JsonField<List<SchemeFee>> = JsonMissing.of(),
                 @JsonProperty("terminal_id")
                 @ExcludeMissing
                 terminalId: JsonField<String> = JsonMissing.of(),
@@ -9081,6 +9085,7 @@ private constructor(
                 presentmentCurrency,
                 processingCategory,
                 realTimeDecisionId,
+                schemeFees,
                 terminalId,
                 transactionId,
                 type,
@@ -9312,6 +9317,15 @@ private constructor(
              */
             fun realTimeDecisionId(): Optional<String> =
                 realTimeDecisionId.getOptional("real_time_decision_id")
+
+            /**
+             * The scheme fees associated with this card financial.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun schemeFees(): List<SchemeFee> = schemeFees.getRequired("scheme_fees")
 
             /**
              * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
@@ -9575,6 +9589,16 @@ private constructor(
             fun _realTimeDecisionId(): JsonField<String> = realTimeDecisionId
 
             /**
+             * Returns the raw JSON value of [schemeFees].
+             *
+             * Unlike [schemeFees], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("scheme_fees")
+            @ExcludeMissing
+            fun _schemeFees(): JsonField<List<SchemeFee>> = schemeFees
+
+            /**
              * Returns the raw JSON value of [terminalId].
              *
              * Unlike [terminalId], this method doesn't throw if the JSON field has an unexpected
@@ -9653,6 +9677,7 @@ private constructor(
                  * .presentmentCurrency()
                  * .processingCategory()
                  * .realTimeDecisionId()
+                 * .schemeFees()
                  * .terminalId()
                  * .transactionId()
                  * .type()
@@ -9688,6 +9713,7 @@ private constructor(
                 private var presentmentCurrency: JsonField<String>? = null
                 private var processingCategory: JsonField<ProcessingCategory>? = null
                 private var realTimeDecisionId: JsonField<String>? = null
+                private var schemeFees: JsonField<MutableList<SchemeFee>>? = null
                 private var terminalId: JsonField<String>? = null
                 private var transactionId: JsonField<String>? = null
                 private var type: JsonField<Type>? = null
@@ -9719,6 +9745,7 @@ private constructor(
                     presentmentCurrency = cardFinancial.presentmentCurrency
                     processingCategory = cardFinancial.processingCategory
                     realTimeDecisionId = cardFinancial.realTimeDecisionId
+                    schemeFees = cardFinancial.schemeFees.map { it.toMutableList() }
                     terminalId = cardFinancial.terminalId
                     transactionId = cardFinancial.transactionId
                     type = cardFinancial.type
@@ -10154,6 +10181,32 @@ private constructor(
                     this.realTimeDecisionId = realTimeDecisionId
                 }
 
+                /** The scheme fees associated with this card financial. */
+                fun schemeFees(schemeFees: List<SchemeFee>) = schemeFees(JsonField.of(schemeFees))
+
+                /**
+                 * Sets [Builder.schemeFees] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.schemeFees] with a well-typed `List<SchemeFee>`
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun schemeFees(schemeFees: JsonField<List<SchemeFee>>) = apply {
+                    this.schemeFees = schemeFees.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [SchemeFee] to [schemeFees].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addSchemeFee(schemeFee: SchemeFee) = apply {
+                    schemeFees =
+                        (schemeFees ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("schemeFees", it).add(schemeFee)
+                        }
+                }
+
                 /**
                  * The terminal identifier (commonly abbreviated as TID) of the terminal the card is
                  * transacting with.
@@ -10271,6 +10324,7 @@ private constructor(
                  * .presentmentCurrency()
                  * .processingCategory()
                  * .realTimeDecisionId()
+                 * .schemeFees()
                  * .terminalId()
                  * .transactionId()
                  * .type()
@@ -10304,6 +10358,7 @@ private constructor(
                         checkRequired("presentmentCurrency", presentmentCurrency),
                         checkRequired("processingCategory", processingCategory),
                         checkRequired("realTimeDecisionId", realTimeDecisionId),
+                        checkRequired("schemeFees", schemeFees).map { it.toImmutable() },
                         checkRequired("terminalId", terminalId),
                         checkRequired("transactionId", transactionId),
                         checkRequired("type", type),
@@ -10342,6 +10397,7 @@ private constructor(
                 presentmentCurrency()
                 processingCategory().validate()
                 realTimeDecisionId()
+                schemeFees().forEach { it.validate() }
                 terminalId()
                 transactionId()
                 type().validate()
@@ -10388,6 +10444,7 @@ private constructor(
                     (if (presentmentCurrency.asKnown().isPresent) 1 else 0) +
                     (processingCategory.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (realTimeDecisionId.asKnown().isPresent) 1 else 0) +
+                    (schemeFees.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (terminalId.asKnown().isPresent) 1 else 0) +
                     (if (transactionId.asKnown().isPresent) 1 else 0) +
                     (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -16389,6 +16446,1321 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
+            class SchemeFee
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val amount: JsonField<String>,
+                private val createdAt: JsonField<OffsetDateTime>,
+                private val currency: JsonField<Currency>,
+                private val feeType: JsonField<FeeType>,
+                private val fixedComponent: JsonField<String>,
+                private val variableRate: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    amount: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    currency: JsonField<Currency> = JsonMissing.of(),
+                    @JsonProperty("fee_type")
+                    @ExcludeMissing
+                    feeType: JsonField<FeeType> = JsonMissing.of(),
+                    @JsonProperty("fixed_component")
+                    @ExcludeMissing
+                    fixedComponent: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("variable_rate")
+                    @ExcludeMissing
+                    variableRate: JsonField<String> = JsonMissing.of(),
+                ) : this(
+                    amount,
+                    createdAt,
+                    currency,
+                    feeType,
+                    fixedComponent,
+                    variableRate,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * The fee amount given as a string containing a decimal number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the fee was
+                 * created.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                 * reimbursement.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The type of fee being assessed.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun feeType(): FeeType = feeType.getRequired("fee_type")
+
+                /**
+                 * The fixed component of the fee, if applicable, given in major units of the fee
+                 * amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun fixedComponent(): Optional<String> =
+                    fixedComponent.getOptional("fixed_component")
+
+                /**
+                 * The variable rate component of the fee, if applicable, given as a decimal (e.g.,
+                 * 0.015 for 1.5%).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun variableRate(): Optional<String> = variableRate.getOptional("variable_rate")
+
+                /**
+                 * Returns the raw JSON value of [amount].
+                 *
+                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
+
+                /**
+                 * Returns the raw JSON value of [createdAt].
+                 *
+                 * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+                /**
+                 * Returns the raw JSON value of [currency].
+                 *
+                 * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("currency")
+                @ExcludeMissing
+                fun _currency(): JsonField<Currency> = currency
+
+                /**
+                 * Returns the raw JSON value of [feeType].
+                 *
+                 * Unlike [feeType], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("fee_type")
+                @ExcludeMissing
+                fun _feeType(): JsonField<FeeType> = feeType
+
+                /**
+                 * Returns the raw JSON value of [fixedComponent].
+                 *
+                 * Unlike [fixedComponent], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("fixed_component")
+                @ExcludeMissing
+                fun _fixedComponent(): JsonField<String> = fixedComponent
+
+                /**
+                 * Returns the raw JSON value of [variableRate].
+                 *
+                 * Unlike [variableRate], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("variable_rate")
+                @ExcludeMissing
+                fun _variableRate(): JsonField<String> = variableRate
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [SchemeFee].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .createdAt()
+                     * .currency()
+                     * .feeType()
+                     * .fixedComponent()
+                     * .variableRate()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [SchemeFee]. */
+                class Builder internal constructor() {
+
+                    private var amount: JsonField<String>? = null
+                    private var createdAt: JsonField<OffsetDateTime>? = null
+                    private var currency: JsonField<Currency>? = null
+                    private var feeType: JsonField<FeeType>? = null
+                    private var fixedComponent: JsonField<String>? = null
+                    private var variableRate: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(schemeFee: SchemeFee) = apply {
+                        amount = schemeFee.amount
+                        createdAt = schemeFee.createdAt
+                        currency = schemeFee.currency
+                        feeType = schemeFee.feeType
+                        fixedComponent = schemeFee.fixedComponent
+                        variableRate = schemeFee.variableRate
+                        additionalProperties = schemeFee.additionalProperties.toMutableMap()
+                    }
+
+                    /** The fee amount given as a string containing a decimal number. */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * Sets [Builder.amount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.amount] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the fee
+                     * was created.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * Sets [Builder.createdAt] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.createdAt] with a well-typed
+                     * [OffsetDateTime] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                     * reimbursement.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * Sets [Builder.currency] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.currency] with a well-typed [Currency] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** The type of fee being assessed. */
+                    fun feeType(feeType: FeeType) = feeType(JsonField.of(feeType))
+
+                    /**
+                     * Sets [Builder.feeType] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.feeType] with a well-typed [FeeType] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun feeType(feeType: JsonField<FeeType>) = apply { this.feeType = feeType }
+
+                    /**
+                     * The fixed component of the fee, if applicable, given in major units of the
+                     * fee amount.
+                     */
+                    fun fixedComponent(fixedComponent: String?) =
+                        fixedComponent(JsonField.ofNullable(fixedComponent))
+
+                    /**
+                     * Alias for calling [Builder.fixedComponent] with
+                     * `fixedComponent.orElse(null)`.
+                     */
+                    fun fixedComponent(fixedComponent: Optional<String>) =
+                        fixedComponent(fixedComponent.getOrNull())
+
+                    /**
+                     * Sets [Builder.fixedComponent] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fixedComponent] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun fixedComponent(fixedComponent: JsonField<String>) = apply {
+                        this.fixedComponent = fixedComponent
+                    }
+
+                    /**
+                     * The variable rate component of the fee, if applicable, given as a decimal
+                     * (e.g., 0.015 for 1.5%).
+                     */
+                    fun variableRate(variableRate: String?) =
+                        variableRate(JsonField.ofNullable(variableRate))
+
+                    /**
+                     * Alias for calling [Builder.variableRate] with `variableRate.orElse(null)`.
+                     */
+                    fun variableRate(variableRate: Optional<String>) =
+                        variableRate(variableRate.getOrNull())
+
+                    /**
+                     * Sets [Builder.variableRate] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.variableRate] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun variableRate(variableRate: JsonField<String>) = apply {
+                        this.variableRate = variableRate
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [SchemeFee].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .createdAt()
+                     * .currency()
+                     * .feeType()
+                     * .fixedComponent()
+                     * .variableRate()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): SchemeFee =
+                        SchemeFee(
+                            checkRequired("amount", amount),
+                            checkRequired("createdAt", createdAt),
+                            checkRequired("currency", currency),
+                            checkRequired("feeType", feeType),
+                            checkRequired("fixedComponent", fixedComponent),
+                            checkRequired("variableRate", variableRate),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): SchemeFee = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    amount()
+                    createdAt()
+                    currency().validate()
+                    feeType().validate()
+                    fixedComponent()
+                    variableRate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (amount.asKnown().isPresent) 1 else 0) +
+                        (if (createdAt.asKnown().isPresent) 1 else 0) +
+                        (currency.asKnown().getOrNull()?.validity() ?: 0) +
+                        (feeType.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (fixedComponent.asKnown().isPresent) 1 else 0) +
+                        (if (variableRate.asKnown().isPresent) 1 else 0)
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                 * reimbursement.
+                 */
+                class Currency
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** US Dollar (USD) */
+                        @JvmField val USD = of("USD")
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Currency]'s known values. */
+                    enum class Known {
+                        /** US Dollar (USD) */
+                        USD
+                    }
+
+                    /**
+                     * An enum containing [Currency]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [Currency] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** US Dollar (USD) */
+                        USD,
+                        /**
+                         * An enum member indicating that [Currency] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** The type of fee being assessed. */
+                class FeeType
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        @JvmField
+                        val VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY =
+                            of("visa_international_service_assessment_single_currency")
+
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        @JvmField
+                        val VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY =
+                            of("visa_international_service_assessment_cross_currency")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE =
+                            of("visa_authorization_domestic_point_of_sale")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE =
+                            of("visa_authorization_international_point_of_sale")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_CANADA_POINT_OF_SALE =
+                            of("visa_authorization_canada_point_of_sale")
+
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE =
+                            of("visa_authorization_reversal_point_of_sale")
+
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE =
+                            of("visa_authorization_reversal_international_point_of_sale")
+
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE =
+                            of("visa_authorization_address_verification_service")
+
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        @JvmField
+                        val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
+
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        @JvmField val VISA_MESSAGE_TRANSMISSION = of("visa_message_transmission")
+
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_DOMESTIC =
+                            of("visa_account_verification_domestic")
+
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_INTERNATIONAL =
+                            of("visa_account_verification_international")
+
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_CANADA =
+                            of("visa_account_verification_canada")
+
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        @JvmField
+                        val VISA_CORPORATE_ACCEPTANCE_FEE = of("visa_corporate_acceptance_fee")
+
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        @JvmField
+                        val VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE =
+                            of("visa_consumer_debit_acceptance_fee")
+
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        @JvmField
+                        val VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE =
+                            of("visa_business_debit_acceptance_fee")
+
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        @JvmField
+                        val VISA_PURCHASING_ACCEPTANCE_FEE = of("visa_purchasing_acceptance_fee")
+
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        @JvmField val VISA_PURCHASE_DOMESTIC = of("visa_purchase_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        @JvmField
+                        val VISA_PURCHASE_INTERNATIONAL = of("visa_purchase_international")
+
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        @JvmField val VISA_CREDIT_PURCHASE_TOKEN = of("visa_credit_purchase_token")
+
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        @JvmField val VISA_DEBIT_PURCHASE_TOKEN = of("visa_debit_purchase_token")
+
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        @JvmField val VISA_CLEARING_TRANSMISSION = of("visa_clearing_transmission")
+
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        @JvmField val VISA_DIRECT_AUTHORIZATION = of("visa_direct_authorization")
+
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        @JvmField
+                        val VISA_DIRECT_TRANSACTION_DOMESTIC =
+                            of("visa_direct_transaction_domestic")
+
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_SERVICE_COMMERCIAL_CREDIT = of("visa_service_commercial_credit")
+
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT =
+                            of("visa_advertising_service_commercial_credit")
+
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        @JvmField
+                        val VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM =
+                            of("visa_community_growth_acceleration_program")
+
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT =
+                            of("visa_processing_guarantee_commercial_credit")
+
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        @JvmField val PULSE_SWITCH_FEE = of("pulse_switch_fee")
+
+                        @JvmStatic fun of(value: String) = FeeType(JsonField.of(value))
+                    }
+
+                    /** An enum containing [FeeType]'s known values. */
+                    enum class Known {
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY,
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        VISA_AUTHORIZATION_CANADA_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE,
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        VISA_ADVANCED_AUTHORIZATION,
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        VISA_MESSAGE_TRANSMISSION,
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_DOMESTIC,
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_INTERNATIONAL,
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_CANADA,
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_CORPORATE_ACCEPTANCE_FEE,
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_PURCHASING_ACCEPTANCE_FEE,
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        VISA_PURCHASE_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        VISA_PURCHASE_INTERNATIONAL,
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_CREDIT_PURCHASE_TOKEN,
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_DEBIT_PURCHASE_TOKEN,
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        VISA_CLEARING_TRANSMISSION,
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        VISA_DIRECT_AUTHORIZATION,
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        VISA_DIRECT_TRANSACTION_DOMESTIC,
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        VISA_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        PULSE_SWITCH_FEE,
+                    }
+
+                    /**
+                     * An enum containing [FeeType]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [FeeType] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY,
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        VISA_AUTHORIZATION_CANADA_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE,
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        VISA_ADVANCED_AUTHORIZATION,
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        VISA_MESSAGE_TRANSMISSION,
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_DOMESTIC,
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_INTERNATIONAL,
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_CANADA,
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_CORPORATE_ACCEPTANCE_FEE,
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_PURCHASING_ACCEPTANCE_FEE,
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        VISA_PURCHASE_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        VISA_PURCHASE_INTERNATIONAL,
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_CREDIT_PURCHASE_TOKEN,
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_DEBIT_PURCHASE_TOKEN,
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        VISA_CLEARING_TRANSMISSION,
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        VISA_DIRECT_AUTHORIZATION,
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        VISA_DIRECT_TRANSACTION_DOMESTIC,
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        VISA_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        PULSE_SWITCH_FEE,
+                        /**
+                         * An enum member indicating that [FeeType] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY ->
+                                Value.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY ->
+                                Value.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY
+                            VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE
+                            VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_CANADA_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_CANADA_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE ->
+                                Value.VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE
+                            VISA_ADVANCED_AUTHORIZATION -> Value.VISA_ADVANCED_AUTHORIZATION
+                            VISA_MESSAGE_TRANSMISSION -> Value.VISA_MESSAGE_TRANSMISSION
+                            VISA_ACCOUNT_VERIFICATION_DOMESTIC ->
+                                Value.VISA_ACCOUNT_VERIFICATION_DOMESTIC
+                            VISA_ACCOUNT_VERIFICATION_INTERNATIONAL ->
+                                Value.VISA_ACCOUNT_VERIFICATION_INTERNATIONAL
+                            VISA_ACCOUNT_VERIFICATION_CANADA ->
+                                Value.VISA_ACCOUNT_VERIFICATION_CANADA
+                            VISA_CORPORATE_ACCEPTANCE_FEE -> Value.VISA_CORPORATE_ACCEPTANCE_FEE
+                            VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE ->
+                                Value.VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE
+                            VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE ->
+                                Value.VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE
+                            VISA_PURCHASING_ACCEPTANCE_FEE -> Value.VISA_PURCHASING_ACCEPTANCE_FEE
+                            VISA_PURCHASE_DOMESTIC -> Value.VISA_PURCHASE_DOMESTIC
+                            VISA_PURCHASE_INTERNATIONAL -> Value.VISA_PURCHASE_INTERNATIONAL
+                            VISA_CREDIT_PURCHASE_TOKEN -> Value.VISA_CREDIT_PURCHASE_TOKEN
+                            VISA_DEBIT_PURCHASE_TOKEN -> Value.VISA_DEBIT_PURCHASE_TOKEN
+                            VISA_CLEARING_TRANSMISSION -> Value.VISA_CLEARING_TRANSMISSION
+                            VISA_DIRECT_AUTHORIZATION -> Value.VISA_DIRECT_AUTHORIZATION
+                            VISA_DIRECT_TRANSACTION_DOMESTIC ->
+                                Value.VISA_DIRECT_TRANSACTION_DOMESTIC
+                            VISA_SERVICE_COMMERCIAL_CREDIT -> Value.VISA_SERVICE_COMMERCIAL_CREDIT
+                            VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT ->
+                                Value.VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT
+                            VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM ->
+                                Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
+                            VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
+                                Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY ->
+                                Known.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY ->
+                                Known.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY
+                            VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE
+                            VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_CANADA_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_CANADA_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE ->
+                                Known.VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE
+                            VISA_ADVANCED_AUTHORIZATION -> Known.VISA_ADVANCED_AUTHORIZATION
+                            VISA_MESSAGE_TRANSMISSION -> Known.VISA_MESSAGE_TRANSMISSION
+                            VISA_ACCOUNT_VERIFICATION_DOMESTIC ->
+                                Known.VISA_ACCOUNT_VERIFICATION_DOMESTIC
+                            VISA_ACCOUNT_VERIFICATION_INTERNATIONAL ->
+                                Known.VISA_ACCOUNT_VERIFICATION_INTERNATIONAL
+                            VISA_ACCOUNT_VERIFICATION_CANADA ->
+                                Known.VISA_ACCOUNT_VERIFICATION_CANADA
+                            VISA_CORPORATE_ACCEPTANCE_FEE -> Known.VISA_CORPORATE_ACCEPTANCE_FEE
+                            VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE ->
+                                Known.VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE
+                            VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE ->
+                                Known.VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE
+                            VISA_PURCHASING_ACCEPTANCE_FEE -> Known.VISA_PURCHASING_ACCEPTANCE_FEE
+                            VISA_PURCHASE_DOMESTIC -> Known.VISA_PURCHASE_DOMESTIC
+                            VISA_PURCHASE_INTERNATIONAL -> Known.VISA_PURCHASE_INTERNATIONAL
+                            VISA_CREDIT_PURCHASE_TOKEN -> Known.VISA_CREDIT_PURCHASE_TOKEN
+                            VISA_DEBIT_PURCHASE_TOKEN -> Known.VISA_DEBIT_PURCHASE_TOKEN
+                            VISA_CLEARING_TRANSMISSION -> Known.VISA_CLEARING_TRANSMISSION
+                            VISA_DIRECT_AUTHORIZATION -> Known.VISA_DIRECT_AUTHORIZATION
+                            VISA_DIRECT_TRANSACTION_DOMESTIC ->
+                                Known.VISA_DIRECT_TRANSACTION_DOMESTIC
+                            VISA_SERVICE_COMMERCIAL_CREDIT -> Known.VISA_SERVICE_COMMERCIAL_CREDIT
+                            VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT ->
+                                Known.VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT
+                            VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM ->
+                                Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
+                            VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
+                                Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): FeeType = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is FeeType && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is SchemeFee &&
+                        amount == other.amount &&
+                        createdAt == other.createdAt &&
+                        currency == other.currency &&
+                        feeType == other.feeType &&
+                        fixedComponent == other.fixedComponent &&
+                        variableRate == other.variableRate &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        amount,
+                        createdAt,
+                        currency,
+                        feeType,
+                        fixedComponent,
+                        variableRate,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "SchemeFee{amount=$amount, createdAt=$createdAt, currency=$currency, feeType=$feeType, fixedComponent=$fixedComponent, variableRate=$variableRate, additionalProperties=$additionalProperties}"
+            }
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_financial`.
@@ -18103,6 +19475,7 @@ private constructor(
                     presentmentCurrency == other.presentmentCurrency &&
                     processingCategory == other.processingCategory &&
                     realTimeDecisionId == other.realTimeDecisionId &&
+                    schemeFees == other.schemeFees &&
                     terminalId == other.terminalId &&
                     transactionId == other.transactionId &&
                     type == other.type &&
@@ -18135,6 +19508,7 @@ private constructor(
                     presentmentCurrency,
                     processingCategory,
                     realTimeDecisionId,
+                    schemeFees,
                     terminalId,
                     transactionId,
                     type,
@@ -18146,7 +19520,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardFinancial{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, terminalId=$terminalId, transactionId=$transactionId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardFinancial{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, schemeFees=$schemeFees, terminalId=$terminalId, transactionId=$transactionId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -18403,6 +19777,7 @@ private constructor(
             private val presentmentAmount: JsonField<Long>,
             private val presentmentCurrency: JsonField<String>,
             private val purchaseDetails: JsonField<PurchaseDetails>,
+            private val schemeFees: JsonField<List<SchemeFee>>,
             private val transactionId: JsonField<String>,
             private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -18457,6 +19832,9 @@ private constructor(
                 @JsonProperty("purchase_details")
                 @ExcludeMissing
                 purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of(),
+                @JsonProperty("scheme_fees")
+                @ExcludeMissing
+                schemeFees: JsonField<List<SchemeFee>> = JsonMissing.of(),
                 @JsonProperty("transaction_id")
                 @ExcludeMissing
                 transactionId: JsonField<String> = JsonMissing.of(),
@@ -18479,6 +19857,7 @@ private constructor(
                 presentmentAmount,
                 presentmentCurrency,
                 purchaseDetails,
+                schemeFees,
                 transactionId,
                 type,
                 mutableMapOf(),
@@ -18642,6 +20021,15 @@ private constructor(
              */
             fun purchaseDetails(): Optional<PurchaseDetails> =
                 purchaseDetails.getOptional("purchase_details")
+
+            /**
+             * The scheme fees associated with this card refund.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun schemeFees(): List<SchemeFee> = schemeFees.getRequired("scheme_fees")
 
             /**
              * The identifier of the Transaction associated with this Transaction.
@@ -18827,6 +20215,16 @@ private constructor(
             fun _purchaseDetails(): JsonField<PurchaseDetails> = purchaseDetails
 
             /**
+             * Returns the raw JSON value of [schemeFees].
+             *
+             * Unlike [schemeFees], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("scheme_fees")
+            @ExcludeMissing
+            fun _schemeFees(): JsonField<List<SchemeFee>> = schemeFees
+
+            /**
              * Returns the raw JSON value of [transactionId].
              *
              * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
@@ -18879,6 +20277,7 @@ private constructor(
                  * .presentmentAmount()
                  * .presentmentCurrency()
                  * .purchaseDetails()
+                 * .schemeFees()
                  * .transactionId()
                  * .type()
                  * ```
@@ -18906,6 +20305,7 @@ private constructor(
                 private var presentmentAmount: JsonField<Long>? = null
                 private var presentmentCurrency: JsonField<String>? = null
                 private var purchaseDetails: JsonField<PurchaseDetails>? = null
+                private var schemeFees: JsonField<MutableList<SchemeFee>>? = null
                 private var transactionId: JsonField<String>? = null
                 private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -18929,6 +20329,7 @@ private constructor(
                     presentmentAmount = cardRefund.presentmentAmount
                     presentmentCurrency = cardRefund.presentmentCurrency
                     purchaseDetails = cardRefund.purchaseDetails
+                    schemeFees = cardRefund.schemeFees.map { it.toMutableList() }
                     transactionId = cardRefund.transactionId
                     type = cardRefund.type
                     additionalProperties = cardRefund.additionalProperties.toMutableMap()
@@ -19219,6 +20620,32 @@ private constructor(
                     this.purchaseDetails = purchaseDetails
                 }
 
+                /** The scheme fees associated with this card refund. */
+                fun schemeFees(schemeFees: List<SchemeFee>) = schemeFees(JsonField.of(schemeFees))
+
+                /**
+                 * Sets [Builder.schemeFees] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.schemeFees] with a well-typed `List<SchemeFee>`
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun schemeFees(schemeFees: JsonField<List<SchemeFee>>) = apply {
+                    this.schemeFees = schemeFees.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [SchemeFee] to [schemeFees].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addSchemeFee(schemeFee: SchemeFee) = apply {
+                    schemeFees =
+                        (schemeFees ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("schemeFees", it).add(schemeFee)
+                        }
+                }
+
                 /** The identifier of the Transaction associated with this Transaction. */
                 fun transactionId(transactionId: String) =
                     transactionId(JsonField.of(transactionId))
@@ -19295,6 +20722,7 @@ private constructor(
                  * .presentmentAmount()
                  * .presentmentCurrency()
                  * .purchaseDetails()
+                 * .schemeFees()
                  * .transactionId()
                  * .type()
                  * ```
@@ -19320,6 +20748,7 @@ private constructor(
                         checkRequired("presentmentAmount", presentmentAmount),
                         checkRequired("presentmentCurrency", presentmentCurrency),
                         checkRequired("purchaseDetails", purchaseDetails),
+                        checkRequired("schemeFees", schemeFees).map { it.toImmutable() },
                         checkRequired("transactionId", transactionId),
                         checkRequired("type", type),
                         additionalProperties.toMutableMap(),
@@ -19350,6 +20779,7 @@ private constructor(
                 presentmentAmount()
                 presentmentCurrency()
                 purchaseDetails().ifPresent { it.validate() }
+                schemeFees().forEach { it.validate() }
                 transactionId()
                 type().validate()
                 validated = true
@@ -19388,6 +20818,7 @@ private constructor(
                     (if (presentmentAmount.asKnown().isPresent) 1 else 0) +
                     (if (presentmentCurrency.asKnown().isPresent) 1 else 0) +
                     (purchaseDetails.asKnown().getOrNull()?.validity() ?: 0) +
+                    (schemeFees.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (if (transactionId.asKnown().isPresent) 1 else 0) +
                     (type.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -27661,6 +29092,1321 @@ private constructor(
                     "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
             }
 
+            class SchemeFee
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val amount: JsonField<String>,
+                private val createdAt: JsonField<OffsetDateTime>,
+                private val currency: JsonField<Currency>,
+                private val feeType: JsonField<FeeType>,
+                private val fixedComponent: JsonField<String>,
+                private val variableRate: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    amount: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    currency: JsonField<Currency> = JsonMissing.of(),
+                    @JsonProperty("fee_type")
+                    @ExcludeMissing
+                    feeType: JsonField<FeeType> = JsonMissing.of(),
+                    @JsonProperty("fixed_component")
+                    @ExcludeMissing
+                    fixedComponent: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("variable_rate")
+                    @ExcludeMissing
+                    variableRate: JsonField<String> = JsonMissing.of(),
+                ) : this(
+                    amount,
+                    createdAt,
+                    currency,
+                    feeType,
+                    fixedComponent,
+                    variableRate,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * The fee amount given as a string containing a decimal number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the fee was
+                 * created.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                 * reimbursement.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The type of fee being assessed.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun feeType(): FeeType = feeType.getRequired("fee_type")
+
+                /**
+                 * The fixed component of the fee, if applicable, given in major units of the fee
+                 * amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun fixedComponent(): Optional<String> =
+                    fixedComponent.getOptional("fixed_component")
+
+                /**
+                 * The variable rate component of the fee, if applicable, given as a decimal (e.g.,
+                 * 0.015 for 1.5%).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun variableRate(): Optional<String> = variableRate.getOptional("variable_rate")
+
+                /**
+                 * Returns the raw JSON value of [amount].
+                 *
+                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
+
+                /**
+                 * Returns the raw JSON value of [createdAt].
+                 *
+                 * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+                /**
+                 * Returns the raw JSON value of [currency].
+                 *
+                 * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("currency")
+                @ExcludeMissing
+                fun _currency(): JsonField<Currency> = currency
+
+                /**
+                 * Returns the raw JSON value of [feeType].
+                 *
+                 * Unlike [feeType], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("fee_type")
+                @ExcludeMissing
+                fun _feeType(): JsonField<FeeType> = feeType
+
+                /**
+                 * Returns the raw JSON value of [fixedComponent].
+                 *
+                 * Unlike [fixedComponent], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("fixed_component")
+                @ExcludeMissing
+                fun _fixedComponent(): JsonField<String> = fixedComponent
+
+                /**
+                 * Returns the raw JSON value of [variableRate].
+                 *
+                 * Unlike [variableRate], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("variable_rate")
+                @ExcludeMissing
+                fun _variableRate(): JsonField<String> = variableRate
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [SchemeFee].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .createdAt()
+                     * .currency()
+                     * .feeType()
+                     * .fixedComponent()
+                     * .variableRate()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [SchemeFee]. */
+                class Builder internal constructor() {
+
+                    private var amount: JsonField<String>? = null
+                    private var createdAt: JsonField<OffsetDateTime>? = null
+                    private var currency: JsonField<Currency>? = null
+                    private var feeType: JsonField<FeeType>? = null
+                    private var fixedComponent: JsonField<String>? = null
+                    private var variableRate: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(schemeFee: SchemeFee) = apply {
+                        amount = schemeFee.amount
+                        createdAt = schemeFee.createdAt
+                        currency = schemeFee.currency
+                        feeType = schemeFee.feeType
+                        fixedComponent = schemeFee.fixedComponent
+                        variableRate = schemeFee.variableRate
+                        additionalProperties = schemeFee.additionalProperties.toMutableMap()
+                    }
+
+                    /** The fee amount given as a string containing a decimal number. */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * Sets [Builder.amount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.amount] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the fee
+                     * was created.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * Sets [Builder.createdAt] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.createdAt] with a well-typed
+                     * [OffsetDateTime] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                     * reimbursement.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * Sets [Builder.currency] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.currency] with a well-typed [Currency] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** The type of fee being assessed. */
+                    fun feeType(feeType: FeeType) = feeType(JsonField.of(feeType))
+
+                    /**
+                     * Sets [Builder.feeType] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.feeType] with a well-typed [FeeType] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun feeType(feeType: JsonField<FeeType>) = apply { this.feeType = feeType }
+
+                    /**
+                     * The fixed component of the fee, if applicable, given in major units of the
+                     * fee amount.
+                     */
+                    fun fixedComponent(fixedComponent: String?) =
+                        fixedComponent(JsonField.ofNullable(fixedComponent))
+
+                    /**
+                     * Alias for calling [Builder.fixedComponent] with
+                     * `fixedComponent.orElse(null)`.
+                     */
+                    fun fixedComponent(fixedComponent: Optional<String>) =
+                        fixedComponent(fixedComponent.getOrNull())
+
+                    /**
+                     * Sets [Builder.fixedComponent] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fixedComponent] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun fixedComponent(fixedComponent: JsonField<String>) = apply {
+                        this.fixedComponent = fixedComponent
+                    }
+
+                    /**
+                     * The variable rate component of the fee, if applicable, given as a decimal
+                     * (e.g., 0.015 for 1.5%).
+                     */
+                    fun variableRate(variableRate: String?) =
+                        variableRate(JsonField.ofNullable(variableRate))
+
+                    /**
+                     * Alias for calling [Builder.variableRate] with `variableRate.orElse(null)`.
+                     */
+                    fun variableRate(variableRate: Optional<String>) =
+                        variableRate(variableRate.getOrNull())
+
+                    /**
+                     * Sets [Builder.variableRate] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.variableRate] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun variableRate(variableRate: JsonField<String>) = apply {
+                        this.variableRate = variableRate
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [SchemeFee].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .createdAt()
+                     * .currency()
+                     * .feeType()
+                     * .fixedComponent()
+                     * .variableRate()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): SchemeFee =
+                        SchemeFee(
+                            checkRequired("amount", amount),
+                            checkRequired("createdAt", createdAt),
+                            checkRequired("currency", currency),
+                            checkRequired("feeType", feeType),
+                            checkRequired("fixedComponent", fixedComponent),
+                            checkRequired("variableRate", variableRate),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): SchemeFee = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    amount()
+                    createdAt()
+                    currency().validate()
+                    feeType().validate()
+                    fixedComponent()
+                    variableRate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (amount.asKnown().isPresent) 1 else 0) +
+                        (if (createdAt.asKnown().isPresent) 1 else 0) +
+                        (currency.asKnown().getOrNull()?.validity() ?: 0) +
+                        (feeType.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (fixedComponent.asKnown().isPresent) 1 else 0) +
+                        (if (variableRate.asKnown().isPresent) 1 else 0)
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                 * reimbursement.
+                 */
+                class Currency
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** US Dollar (USD) */
+                        @JvmField val USD = of("USD")
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Currency]'s known values. */
+                    enum class Known {
+                        /** US Dollar (USD) */
+                        USD
+                    }
+
+                    /**
+                     * An enum containing [Currency]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [Currency] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** US Dollar (USD) */
+                        USD,
+                        /**
+                         * An enum member indicating that [Currency] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** The type of fee being assessed. */
+                class FeeType
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        @JvmField
+                        val VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY =
+                            of("visa_international_service_assessment_single_currency")
+
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        @JvmField
+                        val VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY =
+                            of("visa_international_service_assessment_cross_currency")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE =
+                            of("visa_authorization_domestic_point_of_sale")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE =
+                            of("visa_authorization_international_point_of_sale")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_CANADA_POINT_OF_SALE =
+                            of("visa_authorization_canada_point_of_sale")
+
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE =
+                            of("visa_authorization_reversal_point_of_sale")
+
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE =
+                            of("visa_authorization_reversal_international_point_of_sale")
+
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE =
+                            of("visa_authorization_address_verification_service")
+
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        @JvmField
+                        val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
+
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        @JvmField val VISA_MESSAGE_TRANSMISSION = of("visa_message_transmission")
+
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_DOMESTIC =
+                            of("visa_account_verification_domestic")
+
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_INTERNATIONAL =
+                            of("visa_account_verification_international")
+
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_CANADA =
+                            of("visa_account_verification_canada")
+
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        @JvmField
+                        val VISA_CORPORATE_ACCEPTANCE_FEE = of("visa_corporate_acceptance_fee")
+
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        @JvmField
+                        val VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE =
+                            of("visa_consumer_debit_acceptance_fee")
+
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        @JvmField
+                        val VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE =
+                            of("visa_business_debit_acceptance_fee")
+
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        @JvmField
+                        val VISA_PURCHASING_ACCEPTANCE_FEE = of("visa_purchasing_acceptance_fee")
+
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        @JvmField val VISA_PURCHASE_DOMESTIC = of("visa_purchase_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        @JvmField
+                        val VISA_PURCHASE_INTERNATIONAL = of("visa_purchase_international")
+
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        @JvmField val VISA_CREDIT_PURCHASE_TOKEN = of("visa_credit_purchase_token")
+
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        @JvmField val VISA_DEBIT_PURCHASE_TOKEN = of("visa_debit_purchase_token")
+
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        @JvmField val VISA_CLEARING_TRANSMISSION = of("visa_clearing_transmission")
+
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        @JvmField val VISA_DIRECT_AUTHORIZATION = of("visa_direct_authorization")
+
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        @JvmField
+                        val VISA_DIRECT_TRANSACTION_DOMESTIC =
+                            of("visa_direct_transaction_domestic")
+
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_SERVICE_COMMERCIAL_CREDIT = of("visa_service_commercial_credit")
+
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT =
+                            of("visa_advertising_service_commercial_credit")
+
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        @JvmField
+                        val VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM =
+                            of("visa_community_growth_acceleration_program")
+
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT =
+                            of("visa_processing_guarantee_commercial_credit")
+
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        @JvmField val PULSE_SWITCH_FEE = of("pulse_switch_fee")
+
+                        @JvmStatic fun of(value: String) = FeeType(JsonField.of(value))
+                    }
+
+                    /** An enum containing [FeeType]'s known values. */
+                    enum class Known {
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY,
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        VISA_AUTHORIZATION_CANADA_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE,
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        VISA_ADVANCED_AUTHORIZATION,
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        VISA_MESSAGE_TRANSMISSION,
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_DOMESTIC,
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_INTERNATIONAL,
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_CANADA,
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_CORPORATE_ACCEPTANCE_FEE,
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_PURCHASING_ACCEPTANCE_FEE,
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        VISA_PURCHASE_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        VISA_PURCHASE_INTERNATIONAL,
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_CREDIT_PURCHASE_TOKEN,
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_DEBIT_PURCHASE_TOKEN,
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        VISA_CLEARING_TRANSMISSION,
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        VISA_DIRECT_AUTHORIZATION,
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        VISA_DIRECT_TRANSACTION_DOMESTIC,
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        VISA_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        PULSE_SWITCH_FEE,
+                    }
+
+                    /**
+                     * An enum containing [FeeType]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [FeeType] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY,
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        VISA_AUTHORIZATION_CANADA_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE,
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        VISA_ADVANCED_AUTHORIZATION,
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        VISA_MESSAGE_TRANSMISSION,
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_DOMESTIC,
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_INTERNATIONAL,
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_CANADA,
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_CORPORATE_ACCEPTANCE_FEE,
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_PURCHASING_ACCEPTANCE_FEE,
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        VISA_PURCHASE_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        VISA_PURCHASE_INTERNATIONAL,
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_CREDIT_PURCHASE_TOKEN,
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_DEBIT_PURCHASE_TOKEN,
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        VISA_CLEARING_TRANSMISSION,
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        VISA_DIRECT_AUTHORIZATION,
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        VISA_DIRECT_TRANSACTION_DOMESTIC,
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        VISA_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        PULSE_SWITCH_FEE,
+                        /**
+                         * An enum member indicating that [FeeType] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY ->
+                                Value.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY ->
+                                Value.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY
+                            VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE
+                            VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_CANADA_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_CANADA_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE ->
+                                Value.VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE
+                            VISA_ADVANCED_AUTHORIZATION -> Value.VISA_ADVANCED_AUTHORIZATION
+                            VISA_MESSAGE_TRANSMISSION -> Value.VISA_MESSAGE_TRANSMISSION
+                            VISA_ACCOUNT_VERIFICATION_DOMESTIC ->
+                                Value.VISA_ACCOUNT_VERIFICATION_DOMESTIC
+                            VISA_ACCOUNT_VERIFICATION_INTERNATIONAL ->
+                                Value.VISA_ACCOUNT_VERIFICATION_INTERNATIONAL
+                            VISA_ACCOUNT_VERIFICATION_CANADA ->
+                                Value.VISA_ACCOUNT_VERIFICATION_CANADA
+                            VISA_CORPORATE_ACCEPTANCE_FEE -> Value.VISA_CORPORATE_ACCEPTANCE_FEE
+                            VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE ->
+                                Value.VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE
+                            VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE ->
+                                Value.VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE
+                            VISA_PURCHASING_ACCEPTANCE_FEE -> Value.VISA_PURCHASING_ACCEPTANCE_FEE
+                            VISA_PURCHASE_DOMESTIC -> Value.VISA_PURCHASE_DOMESTIC
+                            VISA_PURCHASE_INTERNATIONAL -> Value.VISA_PURCHASE_INTERNATIONAL
+                            VISA_CREDIT_PURCHASE_TOKEN -> Value.VISA_CREDIT_PURCHASE_TOKEN
+                            VISA_DEBIT_PURCHASE_TOKEN -> Value.VISA_DEBIT_PURCHASE_TOKEN
+                            VISA_CLEARING_TRANSMISSION -> Value.VISA_CLEARING_TRANSMISSION
+                            VISA_DIRECT_AUTHORIZATION -> Value.VISA_DIRECT_AUTHORIZATION
+                            VISA_DIRECT_TRANSACTION_DOMESTIC ->
+                                Value.VISA_DIRECT_TRANSACTION_DOMESTIC
+                            VISA_SERVICE_COMMERCIAL_CREDIT -> Value.VISA_SERVICE_COMMERCIAL_CREDIT
+                            VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT ->
+                                Value.VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT
+                            VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM ->
+                                Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
+                            VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
+                                Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY ->
+                                Known.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY ->
+                                Known.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY
+                            VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE
+                            VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_CANADA_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_CANADA_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE ->
+                                Known.VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE
+                            VISA_ADVANCED_AUTHORIZATION -> Known.VISA_ADVANCED_AUTHORIZATION
+                            VISA_MESSAGE_TRANSMISSION -> Known.VISA_MESSAGE_TRANSMISSION
+                            VISA_ACCOUNT_VERIFICATION_DOMESTIC ->
+                                Known.VISA_ACCOUNT_VERIFICATION_DOMESTIC
+                            VISA_ACCOUNT_VERIFICATION_INTERNATIONAL ->
+                                Known.VISA_ACCOUNT_VERIFICATION_INTERNATIONAL
+                            VISA_ACCOUNT_VERIFICATION_CANADA ->
+                                Known.VISA_ACCOUNT_VERIFICATION_CANADA
+                            VISA_CORPORATE_ACCEPTANCE_FEE -> Known.VISA_CORPORATE_ACCEPTANCE_FEE
+                            VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE ->
+                                Known.VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE
+                            VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE ->
+                                Known.VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE
+                            VISA_PURCHASING_ACCEPTANCE_FEE -> Known.VISA_PURCHASING_ACCEPTANCE_FEE
+                            VISA_PURCHASE_DOMESTIC -> Known.VISA_PURCHASE_DOMESTIC
+                            VISA_PURCHASE_INTERNATIONAL -> Known.VISA_PURCHASE_INTERNATIONAL
+                            VISA_CREDIT_PURCHASE_TOKEN -> Known.VISA_CREDIT_PURCHASE_TOKEN
+                            VISA_DEBIT_PURCHASE_TOKEN -> Known.VISA_DEBIT_PURCHASE_TOKEN
+                            VISA_CLEARING_TRANSMISSION -> Known.VISA_CLEARING_TRANSMISSION
+                            VISA_DIRECT_AUTHORIZATION -> Known.VISA_DIRECT_AUTHORIZATION
+                            VISA_DIRECT_TRANSACTION_DOMESTIC ->
+                                Known.VISA_DIRECT_TRANSACTION_DOMESTIC
+                            VISA_SERVICE_COMMERCIAL_CREDIT -> Known.VISA_SERVICE_COMMERCIAL_CREDIT
+                            VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT ->
+                                Known.VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT
+                            VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM ->
+                                Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
+                            VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
+                                Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): FeeType = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is FeeType && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is SchemeFee &&
+                        amount == other.amount &&
+                        createdAt == other.createdAt &&
+                        currency == other.currency &&
+                        feeType == other.feeType &&
+                        fixedComponent == other.fixedComponent &&
+                        variableRate == other.variableRate &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        amount,
+                        createdAt,
+                        currency,
+                        feeType,
+                        fixedComponent,
+                        variableRate,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "SchemeFee{amount=$amount, createdAt=$createdAt, currency=$currency, feeType=$feeType, fixedComponent=$fixedComponent, variableRate=$variableRate, additionalProperties=$additionalProperties}"
+            }
+
             /**
              * A constant representing the object's type. For this resource it will always be
              * `card_refund`.
@@ -27812,6 +30558,7 @@ private constructor(
                     presentmentAmount == other.presentmentAmount &&
                     presentmentCurrency == other.presentmentCurrency &&
                     purchaseDetails == other.purchaseDetails &&
+                    schemeFees == other.schemeFees &&
                     transactionId == other.transactionId &&
                     type == other.type &&
                     additionalProperties == other.additionalProperties
@@ -27836,6 +30583,7 @@ private constructor(
                     presentmentAmount,
                     presentmentCurrency,
                     purchaseDetails,
+                    schemeFees,
                     transactionId,
                     type,
                     additionalProperties,
@@ -27845,7 +30593,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardRefund{id=$id, amount=$amount, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardRefund{id=$id, amount=$amount, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkIdentifiers=$networkIdentifiers, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, schemeFees=$schemeFees, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -28390,6 +31138,7 @@ private constructor(
             private val presentmentAmount: JsonField<Long>,
             private val presentmentCurrency: JsonField<String>,
             private val purchaseDetails: JsonField<PurchaseDetails>,
+            private val schemeFees: JsonField<List<SchemeFee>>,
             private val surcharge: JsonField<Surcharge>,
             private val transactionId: JsonField<String>,
             private val type: JsonField<Type>,
@@ -28454,6 +31203,9 @@ private constructor(
                 @JsonProperty("purchase_details")
                 @ExcludeMissing
                 purchaseDetails: JsonField<PurchaseDetails> = JsonMissing.of(),
+                @JsonProperty("scheme_fees")
+                @ExcludeMissing
+                schemeFees: JsonField<List<SchemeFee>> = JsonMissing.of(),
                 @JsonProperty("surcharge")
                 @ExcludeMissing
                 surcharge: JsonField<Surcharge> = JsonMissing.of(),
@@ -28482,6 +31234,7 @@ private constructor(
                 presentmentAmount,
                 presentmentCurrency,
                 purchaseDetails,
+                schemeFees,
                 surcharge,
                 transactionId,
                 type,
@@ -28673,6 +31426,15 @@ private constructor(
              */
             fun purchaseDetails(): Optional<PurchaseDetails> =
                 purchaseDetails.getOptional("purchase_details")
+
+            /**
+             * The scheme fees associated with this card settlement.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun schemeFees(): List<SchemeFee> = schemeFees.getRequired("scheme_fees")
 
             /**
              * Surcharge amount details, if applicable. The amount is positive if the surcharge is
@@ -28895,6 +31657,16 @@ private constructor(
             fun _purchaseDetails(): JsonField<PurchaseDetails> = purchaseDetails
 
             /**
+             * Returns the raw JSON value of [schemeFees].
+             *
+             * Unlike [schemeFees], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("scheme_fees")
+            @ExcludeMissing
+            fun _schemeFees(): JsonField<List<SchemeFee>> = schemeFees
+
+            /**
              * Returns the raw JSON value of [surcharge].
              *
              * Unlike [surcharge], this method doesn't throw if the JSON field has an unexpected
@@ -28960,6 +31732,7 @@ private constructor(
                  * .presentmentAmount()
                  * .presentmentCurrency()
                  * .purchaseDetails()
+                 * .schemeFees()
                  * .surcharge()
                  * .transactionId()
                  * .type()
@@ -28991,6 +31764,7 @@ private constructor(
                 private var presentmentAmount: JsonField<Long>? = null
                 private var presentmentCurrency: JsonField<String>? = null
                 private var purchaseDetails: JsonField<PurchaseDetails>? = null
+                private var schemeFees: JsonField<MutableList<SchemeFee>>? = null
                 private var surcharge: JsonField<Surcharge>? = null
                 private var transactionId: JsonField<String>? = null
                 private var type: JsonField<Type>? = null
@@ -29018,6 +31792,7 @@ private constructor(
                     presentmentAmount = cardSettlement.presentmentAmount
                     presentmentCurrency = cardSettlement.presentmentCurrency
                     purchaseDetails = cardSettlement.purchaseDetails
+                    schemeFees = cardSettlement.schemeFees.map { it.toMutableList() }
                     surcharge = cardSettlement.surcharge
                     transactionId = cardSettlement.transactionId
                     type = cardSettlement.type
@@ -29368,6 +32143,32 @@ private constructor(
                     this.purchaseDetails = purchaseDetails
                 }
 
+                /** The scheme fees associated with this card settlement. */
+                fun schemeFees(schemeFees: List<SchemeFee>) = schemeFees(JsonField.of(schemeFees))
+
+                /**
+                 * Sets [Builder.schemeFees] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.schemeFees] with a well-typed `List<SchemeFee>`
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun schemeFees(schemeFees: JsonField<List<SchemeFee>>) = apply {
+                    this.schemeFees = schemeFees.map { it.toMutableList() }
+                }
+
+                /**
+                 * Adds a single [SchemeFee] to [schemeFees].
+                 *
+                 * @throws IllegalStateException if the field was previously set to a non-list.
+                 */
+                fun addSchemeFee(schemeFee: SchemeFee) = apply {
+                    schemeFees =
+                        (schemeFees ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("schemeFees", it).add(schemeFee)
+                        }
+                }
+
                 /**
                  * Surcharge amount details, if applicable. The amount is positive if the surcharge
                  * is added to the overall transaction amount (surcharge), and negative if the
@@ -29468,6 +32269,7 @@ private constructor(
                  * .presentmentAmount()
                  * .presentmentCurrency()
                  * .purchaseDetails()
+                 * .schemeFees()
                  * .surcharge()
                  * .transactionId()
                  * .type()
@@ -29497,6 +32299,7 @@ private constructor(
                         checkRequired("presentmentAmount", presentmentAmount),
                         checkRequired("presentmentCurrency", presentmentCurrency),
                         checkRequired("purchaseDetails", purchaseDetails),
+                        checkRequired("schemeFees", schemeFees).map { it.toImmutable() },
                         checkRequired("surcharge", surcharge),
                         checkRequired("transactionId", transactionId),
                         checkRequired("type", type),
@@ -29531,6 +32334,7 @@ private constructor(
                 presentmentAmount()
                 presentmentCurrency()
                 purchaseDetails().ifPresent { it.validate() }
+                schemeFees().forEach { it.validate() }
                 surcharge().ifPresent { it.validate() }
                 transactionId()
                 type().validate()
@@ -29573,6 +32377,7 @@ private constructor(
                     (if (presentmentAmount.asKnown().isPresent) 1 else 0) +
                     (if (presentmentCurrency.asKnown().isPresent) 1 else 0) +
                     (purchaseDetails.asKnown().getOrNull()?.validity() ?: 0) +
+                    (schemeFees.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
                     (surcharge.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (transactionId.asKnown().isPresent) 1 else 0) +
                     (type.asKnown().getOrNull()?.validity() ?: 0)
@@ -37985,6 +40790,1321 @@ private constructor(
                     "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
             }
 
+            class SchemeFee
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val amount: JsonField<String>,
+                private val createdAt: JsonField<OffsetDateTime>,
+                private val currency: JsonField<Currency>,
+                private val feeType: JsonField<FeeType>,
+                private val fixedComponent: JsonField<String>,
+                private val variableRate: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    amount: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("created_at")
+                    @ExcludeMissing
+                    createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                    @JsonProperty("currency")
+                    @ExcludeMissing
+                    currency: JsonField<Currency> = JsonMissing.of(),
+                    @JsonProperty("fee_type")
+                    @ExcludeMissing
+                    feeType: JsonField<FeeType> = JsonMissing.of(),
+                    @JsonProperty("fixed_component")
+                    @ExcludeMissing
+                    fixedComponent: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("variable_rate")
+                    @ExcludeMissing
+                    variableRate: JsonField<String> = JsonMissing.of(),
+                ) : this(
+                    amount,
+                    createdAt,
+                    currency,
+                    feeType,
+                    fixedComponent,
+                    variableRate,
+                    mutableMapOf(),
+                )
+
+                /**
+                 * The fee amount given as a string containing a decimal number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun amount(): String = amount.getRequired("amount")
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the fee was
+                 * created.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                 * reimbursement.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * The type of fee being assessed.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun feeType(): FeeType = feeType.getRequired("fee_type")
+
+                /**
+                 * The fixed component of the fee, if applicable, given in major units of the fee
+                 * amount.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun fixedComponent(): Optional<String> =
+                    fixedComponent.getOptional("fixed_component")
+
+                /**
+                 * The variable rate component of the fee, if applicable, given as a decimal (e.g.,
+                 * 0.015 for 1.5%).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun variableRate(): Optional<String> = variableRate.getOptional("variable_rate")
+
+                /**
+                 * Returns the raw JSON value of [amount].
+                 *
+                 * Unlike [amount], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<String> = amount
+
+                /**
+                 * Returns the raw JSON value of [createdAt].
+                 *
+                 * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+                /**
+                 * Returns the raw JSON value of [currency].
+                 *
+                 * Unlike [currency], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("currency")
+                @ExcludeMissing
+                fun _currency(): JsonField<Currency> = currency
+
+                /**
+                 * Returns the raw JSON value of [feeType].
+                 *
+                 * Unlike [feeType], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("fee_type")
+                @ExcludeMissing
+                fun _feeType(): JsonField<FeeType> = feeType
+
+                /**
+                 * Returns the raw JSON value of [fixedComponent].
+                 *
+                 * Unlike [fixedComponent], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("fixed_component")
+                @ExcludeMissing
+                fun _fixedComponent(): JsonField<String> = fixedComponent
+
+                /**
+                 * Returns the raw JSON value of [variableRate].
+                 *
+                 * Unlike [variableRate], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("variable_rate")
+                @ExcludeMissing
+                fun _variableRate(): JsonField<String> = variableRate
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [SchemeFee].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .createdAt()
+                     * .currency()
+                     * .feeType()
+                     * .fixedComponent()
+                     * .variableRate()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [SchemeFee]. */
+                class Builder internal constructor() {
+
+                    private var amount: JsonField<String>? = null
+                    private var createdAt: JsonField<OffsetDateTime>? = null
+                    private var currency: JsonField<Currency>? = null
+                    private var feeType: JsonField<FeeType>? = null
+                    private var fixedComponent: JsonField<String>? = null
+                    private var variableRate: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(schemeFee: SchemeFee) = apply {
+                        amount = schemeFee.amount
+                        createdAt = schemeFee.createdAt
+                        currency = schemeFee.currency
+                        feeType = schemeFee.feeType
+                        fixedComponent = schemeFee.fixedComponent
+                        variableRate = schemeFee.variableRate
+                        additionalProperties = schemeFee.additionalProperties.toMutableMap()
+                    }
+
+                    /** The fee amount given as a string containing a decimal number. */
+                    fun amount(amount: String) = amount(JsonField.of(amount))
+
+                    /**
+                     * Sets [Builder.amount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.amount] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the fee
+                     * was created.
+                     */
+                    fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                    /**
+                     * Sets [Builder.createdAt] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.createdAt] with a well-typed
+                     * [OffsetDateTime] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                        this.createdAt = createdAt
+                    }
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                     * reimbursement.
+                     */
+                    fun currency(currency: Currency) = currency(JsonField.of(currency))
+
+                    /**
+                     * Sets [Builder.currency] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.currency] with a well-typed [Currency] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
+
+                    /** The type of fee being assessed. */
+                    fun feeType(feeType: FeeType) = feeType(JsonField.of(feeType))
+
+                    /**
+                     * Sets [Builder.feeType] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.feeType] with a well-typed [FeeType] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun feeType(feeType: JsonField<FeeType>) = apply { this.feeType = feeType }
+
+                    /**
+                     * The fixed component of the fee, if applicable, given in major units of the
+                     * fee amount.
+                     */
+                    fun fixedComponent(fixedComponent: String?) =
+                        fixedComponent(JsonField.ofNullable(fixedComponent))
+
+                    /**
+                     * Alias for calling [Builder.fixedComponent] with
+                     * `fixedComponent.orElse(null)`.
+                     */
+                    fun fixedComponent(fixedComponent: Optional<String>) =
+                        fixedComponent(fixedComponent.getOrNull())
+
+                    /**
+                     * Sets [Builder.fixedComponent] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fixedComponent] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun fixedComponent(fixedComponent: JsonField<String>) = apply {
+                        this.fixedComponent = fixedComponent
+                    }
+
+                    /**
+                     * The variable rate component of the fee, if applicable, given as a decimal
+                     * (e.g., 0.015 for 1.5%).
+                     */
+                    fun variableRate(variableRate: String?) =
+                        variableRate(JsonField.ofNullable(variableRate))
+
+                    /**
+                     * Alias for calling [Builder.variableRate] with `variableRate.orElse(null)`.
+                     */
+                    fun variableRate(variableRate: Optional<String>) =
+                        variableRate(variableRate.getOrNull())
+
+                    /**
+                     * Sets [Builder.variableRate] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.variableRate] with a well-typed [String]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun variableRate(variableRate: JsonField<String>) = apply {
+                        this.variableRate = variableRate
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [SchemeFee].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .amount()
+                     * .createdAt()
+                     * .currency()
+                     * .feeType()
+                     * .fixedComponent()
+                     * .variableRate()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): SchemeFee =
+                        SchemeFee(
+                            checkRequired("amount", amount),
+                            checkRequired("createdAt", createdAt),
+                            checkRequired("currency", currency),
+                            checkRequired("feeType", feeType),
+                            checkRequired("fixedComponent", fixedComponent),
+                            checkRequired("variableRate", variableRate),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): SchemeFee = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    amount()
+                    createdAt()
+                    currency().validate()
+                    feeType().validate()
+                    fixedComponent()
+                    variableRate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (amount.asKnown().isPresent) 1 else 0) +
+                        (if (createdAt.asKnown().isPresent) 1 else 0) +
+                        (currency.asKnown().getOrNull()?.validity() ?: 0) +
+                        (feeType.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (fixedComponent.asKnown().isPresent) 1 else 0) +
+                        (if (variableRate.asKnown().isPresent) 1 else 0)
+
+                /**
+                 * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fee
+                 * reimbursement.
+                 */
+                class Currency
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** US Dollar (USD) */
+                        @JvmField val USD = of("USD")
+
+                        @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Currency]'s known values. */
+                    enum class Known {
+                        /** US Dollar (USD) */
+                        USD
+                    }
+
+                    /**
+                     * An enum containing [Currency]'s known values, as well as an [_UNKNOWN]
+                     * member.
+                     *
+                     * An instance of [Currency] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** US Dollar (USD) */
+                        USD,
+                        /**
+                         * An enum member indicating that [Currency] was instantiated with an
+                         * unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            USD -> Value.USD
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            USD -> Known.USD
+                            else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): Currency = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Currency && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                /** The type of fee being assessed. */
+                class FeeType
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        @JvmField
+                        val VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY =
+                            of("visa_international_service_assessment_single_currency")
+
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        @JvmField
+                        val VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY =
+                            of("visa_international_service_assessment_cross_currency")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE =
+                            of("visa_authorization_domestic_point_of_sale")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE =
+                            of("visa_authorization_international_point_of_sale")
+
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_CANADA_POINT_OF_SALE =
+                            of("visa_authorization_canada_point_of_sale")
+
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE =
+                            of("visa_authorization_reversal_point_of_sale")
+
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE =
+                            of("visa_authorization_reversal_international_point_of_sale")
+
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        @JvmField
+                        val VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE =
+                            of("visa_authorization_address_verification_service")
+
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        @JvmField
+                        val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
+
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        @JvmField val VISA_MESSAGE_TRANSMISSION = of("visa_message_transmission")
+
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_DOMESTIC =
+                            of("visa_account_verification_domestic")
+
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_INTERNATIONAL =
+                            of("visa_account_verification_international")
+
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        @JvmField
+                        val VISA_ACCOUNT_VERIFICATION_CANADA =
+                            of("visa_account_verification_canada")
+
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        @JvmField
+                        val VISA_CORPORATE_ACCEPTANCE_FEE = of("visa_corporate_acceptance_fee")
+
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        @JvmField
+                        val VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE =
+                            of("visa_consumer_debit_acceptance_fee")
+
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        @JvmField
+                        val VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE =
+                            of("visa_business_debit_acceptance_fee")
+
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        @JvmField
+                        val VISA_PURCHASING_ACCEPTANCE_FEE = of("visa_purchasing_acceptance_fee")
+
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        @JvmField val VISA_PURCHASE_DOMESTIC = of("visa_purchase_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        @JvmField
+                        val VISA_PURCHASE_INTERNATIONAL = of("visa_purchase_international")
+
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        @JvmField val VISA_CREDIT_PURCHASE_TOKEN = of("visa_credit_purchase_token")
+
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        @JvmField val VISA_DEBIT_PURCHASE_TOKEN = of("visa_debit_purchase_token")
+
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        @JvmField val VISA_CLEARING_TRANSMISSION = of("visa_clearing_transmission")
+
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        @JvmField val VISA_DIRECT_AUTHORIZATION = of("visa_direct_authorization")
+
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        @JvmField
+                        val VISA_DIRECT_TRANSACTION_DOMESTIC =
+                            of("visa_direct_transaction_domestic")
+
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_SERVICE_COMMERCIAL_CREDIT = of("visa_service_commercial_credit")
+
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT =
+                            of("visa_advertising_service_commercial_credit")
+
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        @JvmField
+                        val VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM =
+                            of("visa_community_growth_acceleration_program")
+
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        @JvmField
+                        val VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT =
+                            of("visa_processing_guarantee_commercial_credit")
+
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        @JvmField val PULSE_SWITCH_FEE = of("pulse_switch_fee")
+
+                        @JvmStatic fun of(value: String) = FeeType(JsonField.of(value))
+                    }
+
+                    /** An enum containing [FeeType]'s known values. */
+                    enum class Known {
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY,
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        VISA_AUTHORIZATION_CANADA_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE,
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        VISA_ADVANCED_AUTHORIZATION,
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        VISA_MESSAGE_TRANSMISSION,
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_DOMESTIC,
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_INTERNATIONAL,
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_CANADA,
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_CORPORATE_ACCEPTANCE_FEE,
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_PURCHASING_ACCEPTANCE_FEE,
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        VISA_PURCHASE_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        VISA_PURCHASE_INTERNATIONAL,
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_CREDIT_PURCHASE_TOKEN,
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_DEBIT_PURCHASE_TOKEN,
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        VISA_CLEARING_TRANSMISSION,
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        VISA_DIRECT_AUTHORIZATION,
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        VISA_DIRECT_TRANSACTION_DOMESTIC,
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        VISA_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        PULSE_SWITCH_FEE,
+                    }
+
+                    /**
+                     * An enum containing [FeeType]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [FeeType] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /**
+                         * International Service Assessment (ISA) single-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in the same currency.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY,
+                        /**
+                         * International Service Assessment (ISA) cross-currency is a fee assessed
+                         * by the card network for cross-border transactions presented and settled
+                         * in different currencies.
+                         */
+                        VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) authorization transactions. Authorization is the process
+                         * of approving or declining the transaction amount specified. The fee is
+                         * assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for POS
+                         * (Point-Of-Sale) International authorization transactions. Authorization
+                         * is the process of approving or declining the transaction amount
+                         * specified. The fee is assessed to the Issuer.
+                         */
+                        VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * Activity and charges for Visa Settlement System processing for Canada
+                         * Region POS (Point-of-Sale) authorization transactions. Authorization is
+                         * the process of approving or declining the transaction amount specified.
+                         */
+                        VISA_AUTHORIZATION_CANADA_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) reversal transactions. Authorization reversal represents
+                         * a VSS message that undoes the complete or partial actions of a previous
+                         * authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE,
+                        /**
+                         * Activity only for Visa Settlement System authorization processing of POS
+                         * (Point-Of-Sale) International reversal transactions. Authorization
+                         * reversal represents a VSS message that undoes the complete or partial
+                         * actions of a previous authorization request.
+                         */
+                        VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE,
+                        /**
+                         * A per Address Verification Service (AVS) result fee. Applies to all
+                         * usable AVS result codes.
+                         */
+                        VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE,
+                        /**
+                         * Advanced Authorization is a fraud detection tool that monitors and risk
+                         * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
+                         * related to Purchase (includes Signature Authenticated Visa and PIN
+                         * Authenticated Visa Debit (PAVD) transactions).
+                         */
+                        VISA_ADVANCED_AUTHORIZATION,
+                        /**
+                         * Issuer Transactions Visa represents a charge based on total actual
+                         * monthly processing (Visa transactions only) through a VisaNet Access
+                         * Point (VAP). Charges are assessed to the processor for each VisaNet
+                         * Access Point.
+                         */
+                        VISA_MESSAGE_TRANSMISSION,
+                        /**
+                         * Activity, per inquiry, related to the domestic Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_DOMESTIC,
+                        /**
+                         * Activity, per inquiry, related to the international Issuer for Account
+                         * Number Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_INTERNATIONAL,
+                        /**
+                         * Activity, per inquiry, related to the US-Canada Issuer for Account Number
+                         * Verification.
+                         */
+                        VISA_ACCOUNT_VERIFICATION_CANADA,
+                        /**
+                         * The Corporate Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Commercial and Government Debit, Prepaid, Credit,
+                         * Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_CORPORATE_ACCEPTANCE_FEE,
+                        /**
+                         * The Consumer Debit Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume of Consumer Debit or Prepaid card transactions.
+                         * The cashback portion of a Debit and Prepaid card transaction is excluded
+                         * from the sales volume calculation.
+                         */
+                        VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Business Acceptance Fee is charged to issuers and is based on the
+                         * monthly sales volume on Business Debit, Prepaid, Credit, Charge, or
+                         * Deferred Debit card transactions. The cashback portion is included in the
+                         * sales volume calculation with the exception of a Debit and Prepaid card
+                         * transactions.
+                         */
+                        VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE,
+                        /**
+                         * The Purchasing Card Acceptance Fee is charged to issuers and is based on
+                         * the monthly sales volume on Commercial and Government Debit, Prepaid,
+                         * Credit, Charge, or Deferred Debit card transactions.
+                         */
+                        VISA_PURCHASING_ACCEPTANCE_FEE,
+                        /**
+                         * Activity and fees for the processing of a sales draft original for a
+                         * purchase transaction.
+                         */
+                        VISA_PURCHASE_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an international sales draft
+                         * original for a purchase transaction.
+                         */
+                        VISA_PURCHASE_INTERNATIONAL,
+                        /**
+                         * Apple Pay Credit Product Token Purchase Original Transactions. This fee
+                         * is billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_CREDIT_PURCHASE_TOKEN,
+                        /**
+                         * Apple Pay Debit Product Token Purchase Original Transactions. This fee is
+                         * billed by Visa on behalf of Apple Inc. for Apple Pay transactions.
+                         */
+                        VISA_DEBIT_PURCHASE_TOKEN,
+                        /** A per transaction fee assessed for Base II financial draft - Issuer. */
+                        VISA_CLEARING_TRANSMISSION,
+                        /**
+                         * Issuer charge for Non-Financial OCT/AFT Authorization 0100 and Declined
+                         * Financial OCT/AFT 0200 transactions.
+                         */
+                        VISA_DIRECT_AUTHORIZATION,
+                        /**
+                         * Data processing charge for Visa Direct OCTs for all business application
+                         * identifiers (BAIs) other than money transfer-bank initiated (BI). BASE II
+                         * transactions.
+                         */
+                        VISA_DIRECT_TRANSACTION_DOMESTIC,
+                        /** Issuer card service fee for Commercial Credit cards. */
+                        VISA_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Advertising Service Fee for Commercial Credit cards. */
+                        VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT,
+                        /** Issuer Community Growth Acceleration Program Fee. */
+                        VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
+                        /** Issuer Processing Guarantee for Commercial Credit cards. */
+                        VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Pulse Switch Fee is a fee charged by the Pulse network for processing
+                         * transactions on its network.
+                         */
+                        PULSE_SWITCH_FEE,
+                        /**
+                         * An enum member indicating that [FeeType] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY ->
+                                Value.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY ->
+                                Value.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY
+                            VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE
+                            VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_CANADA_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_CANADA_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE ->
+                                Value.VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE ->
+                                Value.VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE
+                            VISA_ADVANCED_AUTHORIZATION -> Value.VISA_ADVANCED_AUTHORIZATION
+                            VISA_MESSAGE_TRANSMISSION -> Value.VISA_MESSAGE_TRANSMISSION
+                            VISA_ACCOUNT_VERIFICATION_DOMESTIC ->
+                                Value.VISA_ACCOUNT_VERIFICATION_DOMESTIC
+                            VISA_ACCOUNT_VERIFICATION_INTERNATIONAL ->
+                                Value.VISA_ACCOUNT_VERIFICATION_INTERNATIONAL
+                            VISA_ACCOUNT_VERIFICATION_CANADA ->
+                                Value.VISA_ACCOUNT_VERIFICATION_CANADA
+                            VISA_CORPORATE_ACCEPTANCE_FEE -> Value.VISA_CORPORATE_ACCEPTANCE_FEE
+                            VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE ->
+                                Value.VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE
+                            VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE ->
+                                Value.VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE
+                            VISA_PURCHASING_ACCEPTANCE_FEE -> Value.VISA_PURCHASING_ACCEPTANCE_FEE
+                            VISA_PURCHASE_DOMESTIC -> Value.VISA_PURCHASE_DOMESTIC
+                            VISA_PURCHASE_INTERNATIONAL -> Value.VISA_PURCHASE_INTERNATIONAL
+                            VISA_CREDIT_PURCHASE_TOKEN -> Value.VISA_CREDIT_PURCHASE_TOKEN
+                            VISA_DEBIT_PURCHASE_TOKEN -> Value.VISA_DEBIT_PURCHASE_TOKEN
+                            VISA_CLEARING_TRANSMISSION -> Value.VISA_CLEARING_TRANSMISSION
+                            VISA_DIRECT_AUTHORIZATION -> Value.VISA_DIRECT_AUTHORIZATION
+                            VISA_DIRECT_TRANSACTION_DOMESTIC ->
+                                Value.VISA_DIRECT_TRANSACTION_DOMESTIC
+                            VISA_SERVICE_COMMERCIAL_CREDIT -> Value.VISA_SERVICE_COMMERCIAL_CREDIT
+                            VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT ->
+                                Value.VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT
+                            VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM ->
+                                Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
+                            VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
+                                Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY ->
+                                Known.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_SINGLE_CURRENCY
+                            VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY ->
+                                Known.VISA_INTERNATIONAL_SERVICE_ASSESSMENT_CROSS_CURRENCY
+                            VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_DOMESTIC_POINT_OF_SALE
+                            VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_CANADA_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_CANADA_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_REVERSAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE ->
+                                Known.VISA_AUTHORIZATION_REVERSAL_INTERNATIONAL_POINT_OF_SALE
+                            VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE ->
+                                Known.VISA_AUTHORIZATION_ADDRESS_VERIFICATION_SERVICE
+                            VISA_ADVANCED_AUTHORIZATION -> Known.VISA_ADVANCED_AUTHORIZATION
+                            VISA_MESSAGE_TRANSMISSION -> Known.VISA_MESSAGE_TRANSMISSION
+                            VISA_ACCOUNT_VERIFICATION_DOMESTIC ->
+                                Known.VISA_ACCOUNT_VERIFICATION_DOMESTIC
+                            VISA_ACCOUNT_VERIFICATION_INTERNATIONAL ->
+                                Known.VISA_ACCOUNT_VERIFICATION_INTERNATIONAL
+                            VISA_ACCOUNT_VERIFICATION_CANADA ->
+                                Known.VISA_ACCOUNT_VERIFICATION_CANADA
+                            VISA_CORPORATE_ACCEPTANCE_FEE -> Known.VISA_CORPORATE_ACCEPTANCE_FEE
+                            VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE ->
+                                Known.VISA_CONSUMER_DEBIT_ACCEPTANCE_FEE
+                            VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE ->
+                                Known.VISA_BUSINESS_DEBIT_ACCEPTANCE_FEE
+                            VISA_PURCHASING_ACCEPTANCE_FEE -> Known.VISA_PURCHASING_ACCEPTANCE_FEE
+                            VISA_PURCHASE_DOMESTIC -> Known.VISA_PURCHASE_DOMESTIC
+                            VISA_PURCHASE_INTERNATIONAL -> Known.VISA_PURCHASE_INTERNATIONAL
+                            VISA_CREDIT_PURCHASE_TOKEN -> Known.VISA_CREDIT_PURCHASE_TOKEN
+                            VISA_DEBIT_PURCHASE_TOKEN -> Known.VISA_DEBIT_PURCHASE_TOKEN
+                            VISA_CLEARING_TRANSMISSION -> Known.VISA_CLEARING_TRANSMISSION
+                            VISA_DIRECT_AUTHORIZATION -> Known.VISA_DIRECT_AUTHORIZATION
+                            VISA_DIRECT_TRANSACTION_DOMESTIC ->
+                                Known.VISA_DIRECT_TRANSACTION_DOMESTIC
+                            VISA_SERVICE_COMMERCIAL_CREDIT -> Known.VISA_SERVICE_COMMERCIAL_CREDIT
+                            VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT ->
+                                Known.VISA_ADVERTISING_SERVICE_COMMERCIAL_CREDIT
+                            VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM ->
+                                Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
+                            VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
+                                Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): FeeType = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is FeeType && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is SchemeFee &&
+                        amount == other.amount &&
+                        createdAt == other.createdAt &&
+                        currency == other.currency &&
+                        feeType == other.feeType &&
+                        fixedComponent == other.fixedComponent &&
+                        variableRate == other.variableRate &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(
+                        amount,
+                        createdAt,
+                        currency,
+                        feeType,
+                        fixedComponent,
+                        variableRate,
+                        additionalProperties,
+                    )
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "SchemeFee{amount=$amount, createdAt=$createdAt, currency=$currency, feeType=$feeType, fixedComponent=$fixedComponent, variableRate=$variableRate, additionalProperties=$additionalProperties}"
+            }
+
             /**
              * Surcharge amount details, if applicable. The amount is positive if the surcharge is
              * added to the overall transaction amount (surcharge), and negative if the surcharge is
@@ -38366,6 +42486,7 @@ private constructor(
                     presentmentAmount == other.presentmentAmount &&
                     presentmentCurrency == other.presentmentCurrency &&
                     purchaseDetails == other.purchaseDetails &&
+                    schemeFees == other.schemeFees &&
                     surcharge == other.surcharge &&
                     transactionId == other.transactionId &&
                     type == other.type &&
@@ -38394,6 +42515,7 @@ private constructor(
                     presentmentAmount,
                     presentmentCurrency,
                     purchaseDetails,
+                    schemeFees,
                     surcharge,
                     transactionId,
                     type,
@@ -38404,7 +42526,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, surcharge=$surcharge, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+                "CardSettlement{id=$id, amount=$amount, cardAuthorization=$cardAuthorization, cardPaymentId=$cardPaymentId, cashback=$cashback, currency=$currency, interchange=$interchange, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantName=$merchantName, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, network=$network, networkIdentifiers=$networkIdentifiers, pendingTransactionId=$pendingTransactionId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, purchaseDetails=$purchaseDetails, schemeFees=$schemeFees, surcharge=$surcharge, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**

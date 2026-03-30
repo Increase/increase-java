@@ -265,6 +265,21 @@ internal class TransactionTest {
                                     Transaction.Source.CardFinancial.ProcessingCategory.PURCHASE
                                 )
                                 .realTimeDecisionId(null)
+                                .addSchemeFee(
+                                    Transaction.Source.CardFinancial.SchemeFee.builder()
+                                        .amount("0.137465")
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .currency(
+                                            Transaction.Source.CardFinancial.SchemeFee.Currency.USD
+                                        )
+                                        .feeType(
+                                            Transaction.Source.CardFinancial.SchemeFee.FeeType
+                                                .VISA_CORPORATE_ACCEPTANCE_FEE
+                                        )
+                                        .fixedComponent(null)
+                                        .variableRate("0.0002")
+                                        .build()
+                                )
                                 .terminalId("RCN5VNXS")
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .type(Transaction.Source.CardFinancial.Type.CARD_FINANCIAL)
@@ -541,6 +556,21 @@ internal class TransactionTest {
                                         )
                                         .build()
                                 )
+                                .addSchemeFee(
+                                    Transaction.Source.CardRefund.SchemeFee.builder()
+                                        .amount("0.137465")
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .currency(
+                                            Transaction.Source.CardRefund.SchemeFee.Currency.USD
+                                        )
+                                        .feeType(
+                                            Transaction.Source.CardRefund.SchemeFee.FeeType
+                                                .VISA_CORPORATE_ACCEPTANCE_FEE
+                                        )
+                                        .fixedComponent(null)
+                                        .variableRate("0.0002")
+                                        .build()
+                                )
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                                 .build()
@@ -792,6 +822,21 @@ internal class TransactionTest {
                                                 )
                                                 .build()
                                         )
+                                        .build()
+                                )
+                                .addSchemeFee(
+                                    Transaction.Source.CardSettlement.SchemeFee.builder()
+                                        .amount("0.137465")
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .currency(
+                                            Transaction.Source.CardSettlement.SchemeFee.Currency.USD
+                                        )
+                                        .feeType(
+                                            Transaction.Source.CardSettlement.SchemeFee.FeeType
+                                                .VISA_CORPORATE_ACCEPTANCE_FEE
+                                        )
+                                        .fixedComponent(null)
+                                        .variableRate("0.0002")
                                         .build()
                                 )
                                 .surcharge(
@@ -1282,6 +1327,21 @@ internal class TransactionTest {
                                 Transaction.Source.CardFinancial.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                Transaction.Source.CardFinancial.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        Transaction.Source.CardFinancial.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        Transaction.Source.CardFinancial.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(Transaction.Source.CardFinancial.Type.CARD_FINANCIAL)
@@ -1542,6 +1602,19 @@ internal class TransactionTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                Transaction.Source.CardRefund.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(Transaction.Source.CardRefund.SchemeFee.Currency.USD)
+                                    .feeType(
+                                        Transaction.Source.CardRefund.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                             .build()
@@ -1772,6 +1845,21 @@ internal class TransactionTest {
                                             )
                                             .build()
                                     )
+                                    .build()
+                            )
+                            .addSchemeFee(
+                                Transaction.Source.CardSettlement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        Transaction.Source.CardSettlement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        Transaction.Source.CardSettlement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
                                     .build()
                             )
                             .surcharge(
@@ -2273,6 +2361,21 @@ internal class TransactionTest {
                                     Transaction.Source.CardFinancial.ProcessingCategory.PURCHASE
                                 )
                                 .realTimeDecisionId(null)
+                                .addSchemeFee(
+                                    Transaction.Source.CardFinancial.SchemeFee.builder()
+                                        .amount("0.137465")
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .currency(
+                                            Transaction.Source.CardFinancial.SchemeFee.Currency.USD
+                                        )
+                                        .feeType(
+                                            Transaction.Source.CardFinancial.SchemeFee.FeeType
+                                                .VISA_CORPORATE_ACCEPTANCE_FEE
+                                        )
+                                        .fixedComponent(null)
+                                        .variableRate("0.0002")
+                                        .build()
+                                )
                                 .terminalId("RCN5VNXS")
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .type(Transaction.Source.CardFinancial.Type.CARD_FINANCIAL)
@@ -2549,6 +2652,21 @@ internal class TransactionTest {
                                         )
                                         .build()
                                 )
+                                .addSchemeFee(
+                                    Transaction.Source.CardRefund.SchemeFee.builder()
+                                        .amount("0.137465")
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .currency(
+                                            Transaction.Source.CardRefund.SchemeFee.Currency.USD
+                                        )
+                                        .feeType(
+                                            Transaction.Source.CardRefund.SchemeFee.FeeType
+                                                .VISA_CORPORATE_ACCEPTANCE_FEE
+                                        )
+                                        .fixedComponent(null)
+                                        .variableRate("0.0002")
+                                        .build()
+                                )
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .type(Transaction.Source.CardRefund.Type.CARD_REFUND)
                                 .build()
@@ -2800,6 +2918,21 @@ internal class TransactionTest {
                                                 )
                                                 .build()
                                         )
+                                        .build()
+                                )
+                                .addSchemeFee(
+                                    Transaction.Source.CardSettlement.SchemeFee.builder()
+                                        .amount("0.137465")
+                                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .currency(
+                                            Transaction.Source.CardSettlement.SchemeFee.Currency.USD
+                                        )
+                                        .feeType(
+                                            Transaction.Source.CardSettlement.SchemeFee.FeeType
+                                                .VISA_CORPORATE_ACCEPTANCE_FEE
+                                        )
+                                        .fixedComponent(null)
+                                        .variableRate("0.0002")
                                         .build()
                                 )
                                 .surcharge(

@@ -244,6 +244,27 @@ internal class DeclinedTransactionListPageResponseTest {
                                             DeclinedTransaction.Source.CardDecline.Reason
                                                 .INSUFFICIENT_FUNDS
                                         )
+                                        .addSchemeFee(
+                                            DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                .builder()
+                                                .amount("0.137465")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .currency(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .Currency
+                                                        .USD
+                                                )
+                                                .feeType(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .FeeType
+                                                        .VISA_CORPORATE_ACCEPTANCE_FEE
+                                                )
+                                                .fixedComponent(null)
+                                                .variableRate("0.0002")
+                                                .build()
+                                        )
                                         .terminalId("RCN5VNXS")
                                         .verification(
                                             DeclinedTransaction.Source.CardDecline.Verification
@@ -613,6 +634,24 @@ internal class DeclinedTransactionListPageResponseTest {
                                     .reason(
                                         DeclinedTransaction.Source.CardDecline.Reason
                                             .INSUFFICIENT_FUNDS
+                                    )
+                                    .addSchemeFee(
+                                        DeclinedTransaction.Source.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .verification(
@@ -988,6 +1027,27 @@ internal class DeclinedTransactionListPageResponseTest {
                                         .reason(
                                             DeclinedTransaction.Source.CardDecline.Reason
                                                 .INSUFFICIENT_FUNDS
+                                        )
+                                        .addSchemeFee(
+                                            DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                .builder()
+                                                .amount("0.137465")
+                                                .createdAt(
+                                                    OffsetDateTime.parse("2020-01-31T23:59:59Z")
+                                                )
+                                                .currency(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .Currency
+                                                        .USD
+                                                )
+                                                .feeType(
+                                                    DeclinedTransaction.Source.CardDecline.SchemeFee
+                                                        .FeeType
+                                                        .VISA_CORPORATE_ACCEPTANCE_FEE
+                                                )
+                                                .fixedComponent(null)
+                                                .variableRate("0.0002")
+                                                .build()
                                         )
                                         .terminalId("RCN5VNXS")
                                         .verification(
