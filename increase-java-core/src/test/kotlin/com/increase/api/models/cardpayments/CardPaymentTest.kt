@@ -370,6 +370,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -605,6 +623,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -821,6 +857,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -1029,6 +1081,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -1094,6 +1162,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -1211,6 +1297,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -1453,6 +1555,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -1488,6 +1606,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -1739,6 +1873,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -1903,6 +2054,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -2303,6 +2471,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -2538,6 +2724,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -2754,6 +2958,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -2962,6 +3182,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -3027,6 +3263,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -3144,6 +3398,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -3386,6 +3656,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -3421,6 +3707,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -3672,6 +3974,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -3836,6 +4155,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -4236,6 +4572,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -4471,6 +4825,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -4687,6 +5059,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -4895,6 +5283,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -4960,6 +5364,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -5077,6 +5499,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -5319,6 +5757,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -5354,6 +5808,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -5605,6 +6075,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -5769,6 +6256,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -6169,6 +6673,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -6404,6 +6926,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -6620,6 +7160,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -6828,6 +7384,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -6893,6 +7465,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -7010,6 +7600,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -7252,6 +7858,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -7287,6 +7909,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -7538,6 +8176,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -7702,6 +8357,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -7757,16 +8429,6 @@ internal class CardPaymentTest {
                     )
                 )
                 .physicalCardId(null)
-                .addSchemeFee(
-                    CardPayment.SchemeFee.builder()
-                        .amount("0.137465")
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .currency(CardPayment.SchemeFee.Currency.USD)
-                        .feeType(CardPayment.SchemeFee.FeeType.VISA_CORPORATE_ACCEPTANCE_FEE)
-                        .fixedComponent(null)
-                        .variableRate("0.0002")
-                        .build()
-                )
                 .state(
                     CardPayment.State.builder()
                         .authorizedAmount(100L)
@@ -8094,6 +8756,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -8302,6 +8979,22 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardBalanceInquiry.Type.CARD_BALANCE_INQUIRY)
                             .verification(
@@ -8493,6 +9186,21 @@ internal class CardPaymentTest {
                             .realTimeDecisionId(null)
                             .realTimeDecisionReason(null)
                             .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
+                            .addSchemeFee(
+                                CardPayment.Element.CardDecline.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardDecline.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -8683,6 +9391,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFinancial.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFinancial.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -8745,6 +9468,22 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .addSchemeFee(
+                                CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
                             )
@@ -8850,6 +9589,21 @@ internal class CardPaymentTest {
                             .presentmentAmount(20L)
                             .presentmentCurrency("USD")
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardIncrement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -9068,6 +9822,19 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardRefund.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(CardPayment.Element.CardRefund.SchemeFee.Currency.USD)
+                                    .feeType(
+                                        CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                             .build()
@@ -9099,6 +9866,21 @@ internal class CardPaymentTest {
                             .reversalPresentmentAmount(20L)
                             .reversalReason(
                                 CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
+                            )
+                            .addSchemeFee(
+                                CardPayment.Element.CardReversal.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardReversal.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
                             )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -9325,6 +10107,21 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardSettlement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .surcharge(
                                 CardPayment.Element.CardSettlement.Surcharge.builder()
                                     .amount(0L)
@@ -9476,6 +10273,21 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardValidation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardValidation.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
@@ -9829,6 +10641,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -10037,6 +10864,22 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardBalanceInquiry.Type.CARD_BALANCE_INQUIRY)
                             .verification(
@@ -10228,6 +11071,21 @@ internal class CardPaymentTest {
                             .realTimeDecisionId(null)
                             .realTimeDecisionReason(null)
                             .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
+                            .addSchemeFee(
+                                CardPayment.Element.CardDecline.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardDecline.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -10418,6 +11276,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFinancial.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFinancial.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -10480,6 +11353,22 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .addSchemeFee(
+                                CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
                             )
@@ -10585,6 +11474,21 @@ internal class CardPaymentTest {
                             .presentmentAmount(20L)
                             .presentmentCurrency("USD")
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardIncrement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -10803,6 +11707,19 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardRefund.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(CardPayment.Element.CardRefund.SchemeFee.Currency.USD)
+                                    .feeType(
+                                        CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                             .build()
@@ -10834,6 +11751,21 @@ internal class CardPaymentTest {
                             .reversalPresentmentAmount(20L)
                             .reversalReason(
                                 CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
+                            )
+                            .addSchemeFee(
+                                CardPayment.Element.CardReversal.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardReversal.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
                             )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -11060,6 +11992,21 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardSettlement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .surcharge(
                                 CardPayment.Element.CardSettlement.Surcharge.builder()
                                     .amount(0L)
@@ -11211,6 +12158,21 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardValidation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardValidation.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
@@ -11564,6 +12526,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -11772,6 +12749,22 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardBalanceInquiry.Type.CARD_BALANCE_INQUIRY)
                             .verification(
@@ -11963,6 +12956,21 @@ internal class CardPaymentTest {
                             .realTimeDecisionId(null)
                             .realTimeDecisionReason(null)
                             .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
+                            .addSchemeFee(
+                                CardPayment.Element.CardDecline.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardDecline.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -12153,6 +13161,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFinancial.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFinancial.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -12215,6 +13238,22 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .addSchemeFee(
+                                CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
                             )
@@ -12320,6 +13359,21 @@ internal class CardPaymentTest {
                             .presentmentAmount(20L)
                             .presentmentCurrency("USD")
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardIncrement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -12538,6 +13592,19 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardRefund.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(CardPayment.Element.CardRefund.SchemeFee.Currency.USD)
+                                    .feeType(
+                                        CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                             .build()
@@ -12569,6 +13636,21 @@ internal class CardPaymentTest {
                             .reversalPresentmentAmount(20L)
                             .reversalReason(
                                 CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
+                            )
+                            .addSchemeFee(
+                                CardPayment.Element.CardReversal.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardReversal.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
                             )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -12795,6 +13877,21 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardSettlement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .surcharge(
                                 CardPayment.Element.CardSettlement.Surcharge.builder()
                                     .amount(0L)
@@ -12946,6 +14043,21 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardValidation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardValidation.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
@@ -13299,6 +14411,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardAuthorization.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardAuthorization.Type.CARD_AUTHORIZATION)
                             .verification(
@@ -13507,6 +14634,22 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardBalanceInquiry.Type.CARD_BALANCE_INQUIRY)
                             .verification(
@@ -13698,6 +14841,21 @@ internal class CardPaymentTest {
                             .realTimeDecisionId(null)
                             .realTimeDecisionReason(null)
                             .reason(CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS)
+                            .addSchemeFee(
+                                CardPayment.Element.CardDecline.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardDecline.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .verification(
                                 CardPayment.Element.CardDecline.Verification.builder()
@@ -13888,6 +15046,21 @@ internal class CardPaymentTest {
                                 CardPayment.Element.CardFinancial.ProcessingCategory.PURCHASE
                             )
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFinancial.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -13950,6 +15123,22 @@ internal class CardPaymentTest {
                                     .build()
                             )
                             .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
+                            .addSchemeFee(
+                                CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.Currency
+                                            .USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(
                                 CardPayment.Element.CardFuelConfirmation.Type.CARD_FUEL_CONFIRMATION
                             )
@@ -14055,6 +15244,21 @@ internal class CardPaymentTest {
                             .presentmentAmount(20L)
                             .presentmentCurrency("USD")
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardIncrement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                             .updatedAuthorizationAmount(120L)
                             .build()
@@ -14273,6 +15477,19 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardRefund.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(CardPayment.Element.CardRefund.SchemeFee.Currency.USD)
+                                    .feeType(
+                                        CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                             .build()
@@ -14304,6 +15521,21 @@ internal class CardPaymentTest {
                             .reversalPresentmentAmount(20L)
                             .reversalReason(
                                 CardPayment.Element.CardReversal.ReversalReason.REVERSED_BY_CUSTOMER
+                            )
+                            .addSchemeFee(
+                                CardPayment.Element.CardReversal.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardReversal.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
                             )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -14530,6 +15762,21 @@ internal class CardPaymentTest {
                                     )
                                     .build()
                             )
+                            .addSchemeFee(
+                                CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardSettlement.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .surcharge(
                                 CardPayment.Element.CardSettlement.Surcharge.builder()
                                     .amount(0L)
@@ -14681,6 +15928,21 @@ internal class CardPaymentTest {
                             .networkRiskScore(10L)
                             .physicalCardId(null)
                             .realTimeDecisionId(null)
+                            .addSchemeFee(
+                                CardPayment.Element.CardValidation.SchemeFee.builder()
+                                    .amount("0.137465")
+                                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .currency(
+                                        CardPayment.Element.CardValidation.SchemeFee.Currency.USD
+                                    )
+                                    .feeType(
+                                        CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                            .VISA_CORPORATE_ACCEPTANCE_FEE
+                                    )
+                                    .fixedComponent(null)
+                                    .variableRate("0.0002")
+                                    .build()
+                            )
                             .terminalId("RCN5VNXS")
                             .type(CardPayment.Element.CardValidation.Type.INBOUND_CARD_VALIDATION)
                             .verification(
@@ -14730,17 +15992,6 @@ internal class CardPaymentTest {
                     .build(),
             )
         assertThat(cardPayment.physicalCardId()).isEmpty
-        assertThat(cardPayment.schemeFees())
-            .containsExactly(
-                CardPayment.SchemeFee.builder()
-                    .amount("0.137465")
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .currency(CardPayment.SchemeFee.Currency.USD)
-                    .feeType(CardPayment.SchemeFee.FeeType.VISA_CORPORATE_ACCEPTANCE_FEE)
-                    .fixedComponent(null)
-                    .variableRate("0.0002")
-                    .build()
-            )
         assertThat(cardPayment.state())
             .isEqualTo(
                 CardPayment.State.builder()
@@ -15116,6 +16367,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -15351,6 +16620,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -15567,6 +16854,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -15775,6 +17078,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -15840,6 +17159,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -15957,6 +17294,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -16199,6 +17552,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -16234,6 +17603,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -16485,6 +17870,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -16649,6 +18051,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -17049,6 +18468,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -17284,6 +18721,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -17500,6 +18955,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -17708,6 +19179,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -17773,6 +19260,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -17890,6 +19395,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -18132,6 +19653,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -18167,6 +19704,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -18418,6 +19971,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -18582,6 +20152,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -18982,6 +20569,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -19217,6 +20822,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -19433,6 +21056,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -19641,6 +21280,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -19706,6 +21361,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -19823,6 +21496,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -20065,6 +21754,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -20100,6 +21805,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -20351,6 +22072,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -20515,6 +22253,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -20915,6 +22670,24 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardAuthorization.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardAuthorization.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardAuthorization.Type
@@ -21150,6 +22923,24 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardBalanceInquiry.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardBalanceInquiry.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardBalanceInquiry.Type
@@ -21366,6 +23157,22 @@ internal class CardPaymentTest {
                                     .reason(
                                         CardPayment.Element.CardDecline.Reason.INSUFFICIENT_FUNDS
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardDecline.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardDecline.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardDecline.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .verification(
                                         CardPayment.Element.CardDecline.Verification.builder()
@@ -21574,6 +23381,22 @@ internal class CardPaymentTest {
                                             .PURCHASE
                                     )
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFinancial.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFinancial.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFinancial.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardFinancial.Type.CARD_FINANCIAL)
@@ -21639,6 +23462,24 @@ internal class CardPaymentTest {
                                     )
                                     .pendingTransactionId(
                                         "pending_transaction_k1sfetcau2qbvjbzgju4"
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardFuelConfirmation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardFuelConfirmation.SchemeFee
+                                                    .FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .type(
                                         CardPayment.Element.CardFuelConfirmation.Type
@@ -21756,6 +23597,22 @@ internal class CardPaymentTest {
                                     .presentmentAmount(20L)
                                     .presentmentCurrency("USD")
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardIncrement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardIncrement.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardIncrement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .type(CardPayment.Element.CardIncrement.Type.CARD_INCREMENT)
                                     .updatedAuthorizationAmount(120L)
                                     .build()
@@ -21998,6 +23855,22 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardRefund.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardRefund.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardRefund.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                     .type(CardPayment.Element.CardRefund.Type.CARD_REFUND)
                                     .build()
@@ -22033,6 +23906,22 @@ internal class CardPaymentTest {
                                     .reversalReason(
                                         CardPayment.Element.CardReversal.ReversalReason
                                             .REVERSED_BY_CUSTOMER
+                                    )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardReversal.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardReversal.SchemeFee.Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardReversal.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
                                     )
                                     .terminalId("RCN5VNXS")
                                     .type(CardPayment.Element.CardReversal.Type.CARD_REVERSAL)
@@ -22284,6 +24173,23 @@ internal class CardPaymentTest {
                                             )
                                             .build()
                                     )
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardSettlement.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardSettlement.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardSettlement.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .surcharge(
                                         CardPayment.Element.CardSettlement.Surcharge.builder()
                                             .amount(0L)
@@ -22448,6 +24354,23 @@ internal class CardPaymentTest {
                                     .networkRiskScore(10L)
                                     .physicalCardId(null)
                                     .realTimeDecisionId(null)
+                                    .addSchemeFee(
+                                        CardPayment.Element.CardValidation.SchemeFee.builder()
+                                            .amount("0.137465")
+                                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .currency(
+                                                CardPayment.Element.CardValidation.SchemeFee
+                                                    .Currency
+                                                    .USD
+                                            )
+                                            .feeType(
+                                                CardPayment.Element.CardValidation.SchemeFee.FeeType
+                                                    .VISA_CORPORATE_ACCEPTANCE_FEE
+                                            )
+                                            .fixedComponent(null)
+                                            .variableRate("0.0002")
+                                            .build()
+                                    )
                                     .terminalId("RCN5VNXS")
                                     .type(
                                         CardPayment.Element.CardValidation.Type
@@ -22503,16 +24426,6 @@ internal class CardPaymentTest {
                     )
                 )
                 .physicalCardId(null)
-                .addSchemeFee(
-                    CardPayment.SchemeFee.builder()
-                        .amount("0.137465")
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .currency(CardPayment.SchemeFee.Currency.USD)
-                        .feeType(CardPayment.SchemeFee.FeeType.VISA_CORPORATE_ACCEPTANCE_FEE)
-                        .fixedComponent(null)
-                        .variableRate("0.0002")
-                        .build()
-                )
                 .state(
                     CardPayment.State.builder()
                         .authorizedAmount(100L)
