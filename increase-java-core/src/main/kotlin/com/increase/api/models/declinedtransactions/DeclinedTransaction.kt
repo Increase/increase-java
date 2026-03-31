@@ -2369,17 +2369,17 @@ private constructor(
                     /** The transaction is not allowed per Increase's terms. */
                     @JvmField val TRANSACTION_NOT_ALLOWED = of("transaction_not_allowed")
 
-                    /** Your integration declined this transfer via the API. */
-                    @JvmField val USER_INITIATED = of("user_initiated")
-
-                    /** Your account contains insufficient funds. */
-                    @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
-
                     /**
                      * The originating financial institution asked for this transfer to be returned.
                      * The receiving bank is complying with the request.
                      */
                     @JvmField val RETURNED_PER_ODFI_REQUEST = of("returned_per_odfi_request")
+
+                    /** Your integration declined this transfer via the API. */
+                    @JvmField val USER_INITIATED = of("user_initiated")
+
+                    /** Your account contains insufficient funds. */
+                    @JvmField val INSUFFICIENT_FUNDS = of("insufficient_funds")
 
                     /** The customer no longer authorizes this transaction. */
                     @JvmField
@@ -2432,15 +2432,15 @@ private constructor(
                     GROUP_LOCKED,
                     /** The transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
-                    /** Your integration declined this transfer via the API. */
-                    USER_INITIATED,
-                    /** Your account contains insufficient funds. */
-                    INSUFFICIENT_FUNDS,
                     /**
                      * The originating financial institution asked for this transfer to be returned.
                      * The receiving bank is complying with the request.
                      */
                     RETURNED_PER_ODFI_REQUEST,
+                    /** Your integration declined this transfer via the API. */
+                    USER_INITIATED,
+                    /** Your account contains insufficient funds. */
+                    INSUFFICIENT_FUNDS,
                     /** The customer no longer authorizes this transaction. */
                     AUTHORIZATION_REVOKED_BY_CUSTOMER,
                     /** The customer asked for the payment to be stopped. */
@@ -2481,15 +2481,15 @@ private constructor(
                     GROUP_LOCKED,
                     /** The transaction is not allowed per Increase's terms. */
                     TRANSACTION_NOT_ALLOWED,
-                    /** Your integration declined this transfer via the API. */
-                    USER_INITIATED,
-                    /** Your account contains insufficient funds. */
-                    INSUFFICIENT_FUNDS,
                     /**
                      * The originating financial institution asked for this transfer to be returned.
                      * The receiving bank is complying with the request.
                      */
                     RETURNED_PER_ODFI_REQUEST,
+                    /** Your integration declined this transfer via the API. */
+                    USER_INITIATED,
+                    /** Your account contains insufficient funds. */
+                    INSUFFICIENT_FUNDS,
                     /** The customer no longer authorizes this transaction. */
                     AUTHORIZATION_REVOKED_BY_CUSTOMER,
                     /** The customer asked for the payment to be stopped. */
@@ -2528,9 +2528,9 @@ private constructor(
                         ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                         GROUP_LOCKED -> Value.GROUP_LOCKED
                         TRANSACTION_NOT_ALLOWED -> Value.TRANSACTION_NOT_ALLOWED
+                        RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
                         USER_INITIATED -> Value.USER_INITIATED
                         INSUFFICIENT_FUNDS -> Value.INSUFFICIENT_FUNDS
-                        RETURNED_PER_ODFI_REQUEST -> Value.RETURNED_PER_ODFI_REQUEST
                         AUTHORIZATION_REVOKED_BY_CUSTOMER -> Value.AUTHORIZATION_REVOKED_BY_CUSTOMER
                         PAYMENT_STOPPED -> Value.PAYMENT_STOPPED
                         CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
@@ -2564,9 +2564,9 @@ private constructor(
                         ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                         GROUP_LOCKED -> Known.GROUP_LOCKED
                         TRANSACTION_NOT_ALLOWED -> Known.TRANSACTION_NOT_ALLOWED
+                        RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
                         USER_INITIATED -> Known.USER_INITIATED
                         INSUFFICIENT_FUNDS -> Known.INSUFFICIENT_FUNDS
-                        RETURNED_PER_ODFI_REQUEST -> Known.RETURNED_PER_ODFI_REQUEST
                         AUTHORIZATION_REVOKED_BY_CUSTOMER -> Known.AUTHORIZATION_REVOKED_BY_CUSTOMER
                         PAYMENT_STOPPED -> Known.PAYMENT_STOPPED
                         CUSTOMER_ADVISED_UNAUTHORIZED_IMPROPER_INELIGIBLE_OR_INCOMPLETE ->
