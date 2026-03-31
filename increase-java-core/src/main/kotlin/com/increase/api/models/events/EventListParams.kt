@@ -639,12 +639,6 @@ private constructor(
                 /** Occurs whenever a Legacy Card Dispute is updated. */
                 @JvmField val LEGACY_CARD_DISPUTE_UPDATED = of("legacy_card_dispute.updated")
 
-                /** Occurs whenever a Lockbox Address is created. */
-                @JvmField val LOCKBOX_ADDRESS_CREATED = of("lockbox_address.created")
-
-                /** Occurs whenever a Lockbox Address is updated. */
-                @JvmField val LOCKBOX_ADDRESS_UPDATED = of("lockbox_address.updated")
-
                 /** Occurs whenever a Lockbox is created. */
                 @JvmField val LOCKBOX_CREATED = of("lockbox.created")
 
@@ -948,10 +942,6 @@ private constructor(
                 LEGACY_CARD_DISPUTE_CREATED,
                 /** Occurs whenever a Legacy Card Dispute is updated. */
                 LEGACY_CARD_DISPUTE_UPDATED,
-                /** Occurs whenever a Lockbox Address is created. */
-                LOCKBOX_ADDRESS_CREATED,
-                /** Occurs whenever a Lockbox Address is updated. */
-                LOCKBOX_ADDRESS_UPDATED,
                 /** Occurs whenever a Lockbox is created. */
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
@@ -1203,10 +1193,6 @@ private constructor(
                 LEGACY_CARD_DISPUTE_CREATED,
                 /** Occurs whenever a Legacy Card Dispute is updated. */
                 LEGACY_CARD_DISPUTE_UPDATED,
-                /** Occurs whenever a Lockbox Address is created. */
-                LOCKBOX_ADDRESS_CREATED,
-                /** Occurs whenever a Lockbox Address is updated. */
-                LOCKBOX_ADDRESS_UPDATED,
                 /** Occurs whenever a Lockbox is created. */
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
@@ -1387,8 +1373,6 @@ private constructor(
                     INTRAFI_EXCLUSION_UPDATED -> Value.INTRAFI_EXCLUSION_UPDATED
                     LEGACY_CARD_DISPUTE_CREATED -> Value.LEGACY_CARD_DISPUTE_CREATED
                     LEGACY_CARD_DISPUTE_UPDATED -> Value.LEGACY_CARD_DISPUTE_UPDATED
-                    LOCKBOX_ADDRESS_CREATED -> Value.LOCKBOX_ADDRESS_CREATED
-                    LOCKBOX_ADDRESS_UPDATED -> Value.LOCKBOX_ADDRESS_UPDATED
                     LOCKBOX_CREATED -> Value.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Value.LOCKBOX_UPDATED
                     OAUTH_CONNECTION_CREATED -> Value.OAUTH_CONNECTION_CREATED
@@ -1525,8 +1509,6 @@ private constructor(
                     INTRAFI_EXCLUSION_UPDATED -> Known.INTRAFI_EXCLUSION_UPDATED
                     LEGACY_CARD_DISPUTE_CREATED -> Known.LEGACY_CARD_DISPUTE_CREATED
                     LEGACY_CARD_DISPUTE_UPDATED -> Known.LEGACY_CARD_DISPUTE_UPDATED
-                    LOCKBOX_ADDRESS_CREATED -> Known.LOCKBOX_ADDRESS_CREATED
-                    LOCKBOX_ADDRESS_UPDATED -> Known.LOCKBOX_ADDRESS_UPDATED
                     LOCKBOX_CREATED -> Known.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Known.LOCKBOX_UPDATED
                     OAUTH_CONNECTION_CREATED -> Known.OAUTH_CONNECTION_CREATED
