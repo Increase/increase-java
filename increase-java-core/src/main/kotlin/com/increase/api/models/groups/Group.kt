@@ -28,8 +28,6 @@ class Group
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val achDebitStatus: JsonField<AchDebitStatus>,
-    private val activationStatus: JsonField<ActivationStatus>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -38,17 +36,11 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("ach_debit_status")
-        @ExcludeMissing
-        achDebitStatus: JsonField<AchDebitStatus> = JsonMissing.of(),
-        @JsonProperty("activation_status")
-        @ExcludeMissing
-        activationStatus: JsonField<ActivationStatus> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, achDebitStatus, activationStatus, createdAt, type, mutableMapOf())
+    ) : this(id, createdAt, type, mutableMapOf())
 
     /**
      * The Group identifier.
@@ -57,22 +49,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
-
-    /**
-     * If the Group is allowed to create ACH debits.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun achDebitStatus(): AchDebitStatus = achDebitStatus.getRequired("ach_debit_status")
-
-    /**
-     * If the Group is activated or not.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun activationStatus(): ActivationStatus = activationStatus.getRequired("activation_status")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was created.
@@ -96,25 +72,6 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
-
-    /**
-     * Returns the raw JSON value of [achDebitStatus].
-     *
-     * Unlike [achDebitStatus], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("ach_debit_status")
-    @ExcludeMissing
-    fun _achDebitStatus(): JsonField<AchDebitStatus> = achDebitStatus
-
-    /**
-     * Returns the raw JSON value of [activationStatus].
-     *
-     * Unlike [activationStatus], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("activation_status")
-    @ExcludeMissing
-    fun _activationStatus(): JsonField<ActivationStatus> = activationStatus
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -152,8 +109,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .achDebitStatus()
-         * .activationStatus()
          * .createdAt()
          * .type()
          * ```
@@ -165,8 +120,6 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var achDebitStatus: JsonField<AchDebitStatus>? = null
-        private var activationStatus: JsonField<ActivationStatus>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -174,8 +127,6 @@ private constructor(
         @JvmSynthetic
         internal fun from(group: Group) = apply {
             id = group.id
-            achDebitStatus = group.achDebitStatus
-            activationStatus = group.activationStatus
             createdAt = group.createdAt
             type = group.type
             additionalProperties = group.additionalProperties.toMutableMap()
@@ -191,36 +142,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
-
-        /** If the Group is allowed to create ACH debits. */
-        fun achDebitStatus(achDebitStatus: AchDebitStatus) =
-            achDebitStatus(JsonField.of(achDebitStatus))
-
-        /**
-         * Sets [Builder.achDebitStatus] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.achDebitStatus] with a well-typed [AchDebitStatus] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun achDebitStatus(achDebitStatus: JsonField<AchDebitStatus>) = apply {
-            this.achDebitStatus = achDebitStatus
-        }
-
-        /** If the Group is activated or not. */
-        fun activationStatus(activationStatus: ActivationStatus) =
-            activationStatus(JsonField.of(activationStatus))
-
-        /**
-         * Sets [Builder.activationStatus] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.activationStatus] with a well-typed [ActivationStatus]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun activationStatus(activationStatus: JsonField<ActivationStatus>) = apply {
-            this.activationStatus = activationStatus
-        }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Group was
@@ -277,8 +198,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
-         * .achDebitStatus()
-         * .activationStatus()
          * .createdAt()
          * .type()
          * ```
@@ -288,8 +207,6 @@ private constructor(
         fun build(): Group =
             Group(
                 checkRequired("id", id),
-                checkRequired("achDebitStatus", achDebitStatus),
-                checkRequired("activationStatus", activationStatus),
                 checkRequired("createdAt", createdAt),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -304,8 +221,6 @@ private constructor(
         }
 
         id()
-        achDebitStatus().validate()
-        activationStatus().validate()
         createdAt()
         type().validate()
         validated = true
@@ -327,286 +242,8 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
-            (achDebitStatus.asKnown().getOrNull()?.validity() ?: 0) +
-            (activationStatus.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
-
-    /** If the Group is allowed to create ACH debits. */
-    class AchDebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** The Group cannot make ACH debits. */
-            @JvmField val DISABLED = of("disabled")
-
-            /** The Group can make ACH debits. */
-            @JvmField val ENABLED = of("enabled")
-
-            @JvmStatic fun of(value: String) = AchDebitStatus(JsonField.of(value))
-        }
-
-        /** An enum containing [AchDebitStatus]'s known values. */
-        enum class Known {
-            /** The Group cannot make ACH debits. */
-            DISABLED,
-            /** The Group can make ACH debits. */
-            ENABLED,
-        }
-
-        /**
-         * An enum containing [AchDebitStatus]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [AchDebitStatus] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** The Group cannot make ACH debits. */
-            DISABLED,
-            /** The Group can make ACH debits. */
-            ENABLED,
-            /**
-             * An enum member indicating that [AchDebitStatus] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                DISABLED -> Value.DISABLED
-                ENABLED -> Value.ENABLED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                DISABLED -> Known.DISABLED
-                ENABLED -> Known.ENABLED
-                else -> throw IncreaseInvalidDataException("Unknown AchDebitStatus: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): AchDebitStatus = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AchDebitStatus && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** If the Group is activated or not. */
-    class ActivationStatus @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** The Group is not activated. */
-            @JvmField val UNACTIVATED = of("unactivated")
-
-            /** The Group is activated. */
-            @JvmField val ACTIVATED = of("activated")
-
-            @JvmStatic fun of(value: String) = ActivationStatus(JsonField.of(value))
-        }
-
-        /** An enum containing [ActivationStatus]'s known values. */
-        enum class Known {
-            /** The Group is not activated. */
-            UNACTIVATED,
-            /** The Group is activated. */
-            ACTIVATED,
-        }
-
-        /**
-         * An enum containing [ActivationStatus]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [ActivationStatus] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** The Group is not activated. */
-            UNACTIVATED,
-            /** The Group is activated. */
-            ACTIVATED,
-            /**
-             * An enum member indicating that [ActivationStatus] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                UNACTIVATED -> Value.UNACTIVATED
-                ACTIVATED -> Value.ACTIVATED
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                UNACTIVATED -> Known.UNACTIVATED
-                ACTIVATED -> Known.ACTIVATED
-                else -> throw IncreaseInvalidDataException("Unknown ActivationStatus: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): ActivationStatus = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is ActivationStatus && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
 
     /** A constant representing the object's type. For this resource it will always be `group`. */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
@@ -737,19 +374,15 @@ private constructor(
 
         return other is Group &&
             id == other.id &&
-            achDebitStatus == other.achDebitStatus &&
-            activationStatus == other.activationStatus &&
             createdAt == other.createdAt &&
             type == other.type &&
             additionalProperties == other.additionalProperties
     }
 
-    private val hashCode: Int by lazy {
-        Objects.hash(id, achDebitStatus, activationStatus, createdAt, type, additionalProperties)
-    }
+    private val hashCode: Int by lazy { Objects.hash(id, createdAt, type, additionalProperties) }
 
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Group{id=$id, achDebitStatus=$achDebitStatus, activationStatus=$activationStatus, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
+        "Group{id=$id, createdAt=$createdAt, type=$type, additionalProperties=$additionalProperties}"
 }
