@@ -25,8 +25,6 @@ internal class AccountTest {
                 .funding(Account.Funding.DEPOSITS)
                 .idempotencyKey(null)
                 .informationalEntityId(null)
-                .interestAccrued("0.01")
-                .interestAccruedAt(LocalDate.parse("2020-01-31"))
                 .interestRate("0.055")
                 .loan(
                     Account.Loan.builder()
@@ -53,8 +51,6 @@ internal class AccountTest {
         assertThat(account.funding()).isEqualTo(Account.Funding.DEPOSITS)
         assertThat(account.idempotencyKey()).isEmpty
         assertThat(account.informationalEntityId()).isEmpty
-        assertThat(account.interestAccrued()).isEqualTo("0.01")
-        assertThat(account.interestAccruedAt()).contains(LocalDate.parse("2020-01-31"))
         assertThat(account.interestRate()).isEqualTo("0.055")
         assertThat(account.loan())
             .contains(
@@ -87,8 +83,6 @@ internal class AccountTest {
                 .funding(Account.Funding.DEPOSITS)
                 .idempotencyKey(null)
                 .informationalEntityId(null)
-                .interestAccrued("0.01")
-                .interestAccruedAt(LocalDate.parse("2020-01-31"))
                 .interestRate("0.055")
                 .loan(
                     Account.Loan.builder()
