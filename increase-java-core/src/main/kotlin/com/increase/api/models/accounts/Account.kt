@@ -37,8 +37,6 @@ private constructor(
     private val funding: JsonField<Funding>,
     private val idempotencyKey: JsonField<String>,
     private val informationalEntityId: JsonField<String>,
-    private val interestAccrued: JsonField<String>,
-    private val interestAccruedAt: JsonField<LocalDate>,
     private val interestRate: JsonField<String>,
     private val loan: JsonField<Loan>,
     private val name: JsonField<String>,
@@ -70,12 +68,6 @@ private constructor(
         @JsonProperty("informational_entity_id")
         @ExcludeMissing
         informationalEntityId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("interest_accrued")
-        @ExcludeMissing
-        interestAccrued: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("interest_accrued_at")
-        @ExcludeMissing
-        interestAccruedAt: JsonField<LocalDate> = JsonMissing.of(),
         @JsonProperty("interest_rate")
         @ExcludeMissing
         interestRate: JsonField<String> = JsonMissing.of(),
@@ -95,8 +87,6 @@ private constructor(
         funding,
         idempotencyKey,
         informationalEntityId,
-        interestAccrued,
-        interestAccruedAt,
         interestRate,
         loan,
         name,
@@ -192,25 +182,6 @@ private constructor(
      */
     fun informationalEntityId(): Optional<String> =
         informationalEntityId.getOptional("informational_entity_id")
-
-    /**
-     * The interest accrued but not yet paid, expressed as a string containing a floating-point
-     * value.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun interestAccrued(): String = interestAccrued.getRequired("interest_accrued")
-
-    /**
-     * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-     * accrued.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun interestAccruedAt(): Optional<LocalDate> =
-        interestAccruedAt.getOptional("interest_accrued_at")
 
     /**
      * The interest rate currently being earned on the account, as a string containing a decimal
@@ -343,25 +314,6 @@ private constructor(
     fun _informationalEntityId(): JsonField<String> = informationalEntityId
 
     /**
-     * Returns the raw JSON value of [interestAccrued].
-     *
-     * Unlike [interestAccrued], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("interest_accrued")
-    @ExcludeMissing
-    fun _interestAccrued(): JsonField<String> = interestAccrued
-
-    /**
-     * Returns the raw JSON value of [interestAccruedAt].
-     *
-     * Unlike [interestAccruedAt], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("interest_accrued_at")
-    @ExcludeMissing
-    fun _interestAccruedAt(): JsonField<LocalDate> = interestAccruedAt
-
-    /**
      * Returns the raw JSON value of [interestRate].
      *
      * Unlike [interestRate], this method doesn't throw if the JSON field has an unexpected type.
@@ -434,8 +386,6 @@ private constructor(
          * .funding()
          * .idempotencyKey()
          * .informationalEntityId()
-         * .interestAccrued()
-         * .interestAccruedAt()
          * .interestRate()
          * .loan()
          * .name()
@@ -460,8 +410,6 @@ private constructor(
         private var funding: JsonField<Funding>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var informationalEntityId: JsonField<String>? = null
-        private var interestAccrued: JsonField<String>? = null
-        private var interestAccruedAt: JsonField<LocalDate>? = null
         private var interestRate: JsonField<String>? = null
         private var loan: JsonField<Loan>? = null
         private var name: JsonField<String>? = null
@@ -482,8 +430,6 @@ private constructor(
             funding = account.funding
             idempotencyKey = account.idempotencyKey
             informationalEntityId = account.informationalEntityId
-            interestAccrued = account.interestAccrued
-            interestAccruedAt = account.interestAccruedAt
             interestRate = account.interestRate
             loan = account.loan
             name = account.name
@@ -656,46 +602,6 @@ private constructor(
         }
 
         /**
-         * The interest accrued but not yet paid, expressed as a string containing a floating-point
-         * value.
-         */
-        fun interestAccrued(interestAccrued: String) =
-            interestAccrued(JsonField.of(interestAccrued))
-
-        /**
-         * Sets [Builder.interestAccrued] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.interestAccrued] with a well-typed [String] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun interestAccrued(interestAccrued: JsonField<String>) = apply {
-            this.interestAccrued = interestAccrued
-        }
-
-        /**
-         * The latest [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which interest was
-         * accrued.
-         */
-        fun interestAccruedAt(interestAccruedAt: LocalDate?) =
-            interestAccruedAt(JsonField.ofNullable(interestAccruedAt))
-
-        /** Alias for calling [Builder.interestAccruedAt] with `interestAccruedAt.orElse(null)`. */
-        fun interestAccruedAt(interestAccruedAt: Optional<LocalDate>) =
-            interestAccruedAt(interestAccruedAt.getOrNull())
-
-        /**
-         * Sets [Builder.interestAccruedAt] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.interestAccruedAt] with a well-typed [LocalDate] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun interestAccruedAt(interestAccruedAt: JsonField<LocalDate>) = apply {
-            this.interestAccruedAt = interestAccruedAt
-        }
-
-        /**
          * The interest rate currently being earned on the account, as a string containing a decimal
          * number. For example, a 1% interest rate would be represented as "0.01".
          */
@@ -812,8 +718,6 @@ private constructor(
          * .funding()
          * .idempotencyKey()
          * .informationalEntityId()
-         * .interestAccrued()
-         * .interestAccruedAt()
          * .interestRate()
          * .loan()
          * .name()
@@ -836,8 +740,6 @@ private constructor(
                 checkRequired("funding", funding),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("informationalEntityId", informationalEntityId),
-                checkRequired("interestAccrued", interestAccrued),
-                checkRequired("interestAccruedAt", interestAccruedAt),
                 checkRequired("interestRate", interestRate),
                 checkRequired("loan", loan),
                 checkRequired("name", name),
@@ -865,8 +767,6 @@ private constructor(
         funding().validate()
         idempotencyKey()
         informationalEntityId()
-        interestAccrued()
-        interestAccruedAt()
         interestRate()
         loan().ifPresent { it.validate() }
         name()
@@ -901,8 +801,6 @@ private constructor(
             (funding.asKnown().getOrNull()?.validity() ?: 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (informationalEntityId.asKnown().isPresent) 1 else 0) +
-            (if (interestAccrued.asKnown().isPresent) 1 else 0) +
-            (if (interestAccruedAt.asKnown().isPresent) 1 else 0) +
             (if (interestRate.asKnown().isPresent) 1 else 0) +
             (loan.asKnown().getOrNull()?.validity() ?: 0) +
             (if (name.asKnown().isPresent) 1 else 0) +
@@ -2122,8 +2020,6 @@ private constructor(
             funding == other.funding &&
             idempotencyKey == other.idempotencyKey &&
             informationalEntityId == other.informationalEntityId &&
-            interestAccrued == other.interestAccrued &&
-            interestAccruedAt == other.interestAccruedAt &&
             interestRate == other.interestRate &&
             loan == other.loan &&
             name == other.name &&
@@ -2145,8 +2041,6 @@ private constructor(
             funding,
             idempotencyKey,
             informationalEntityId,
-            interestAccrued,
-            interestAccruedAt,
             interestRate,
             loan,
             name,
@@ -2160,5 +2054,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Account{id=$id, accountRevenueRate=$accountRevenueRate, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, funding=$funding, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestAccrued=$interestAccrued, interestAccruedAt=$interestAccruedAt, interestRate=$interestRate, loan=$loan, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Account{id=$id, accountRevenueRate=$accountRevenueRate, bank=$bank, closedAt=$closedAt, createdAt=$createdAt, currency=$currency, entityId=$entityId, funding=$funding, idempotencyKey=$idempotencyKey, informationalEntityId=$informationalEntityId, interestRate=$interestRate, loan=$loan, name=$name, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

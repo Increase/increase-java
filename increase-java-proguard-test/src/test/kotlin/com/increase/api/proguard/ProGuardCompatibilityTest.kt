@@ -124,8 +124,6 @@ internal class ProGuardCompatibilityTest {
                 .funding(Account.Funding.DEPOSITS)
                 .idempotencyKey(null)
                 .informationalEntityId(null)
-                .interestAccrued("0.01")
-                .interestAccruedAt(LocalDate.parse("2020-01-31"))
                 .interestRate("0.055")
                 .loan(
                     Account.Loan.builder()
