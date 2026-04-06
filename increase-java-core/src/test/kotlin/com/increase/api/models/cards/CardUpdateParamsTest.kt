@@ -13,11 +13,6 @@ internal class CardUpdateParamsTest {
             .cardId("card_oubs0hwk5rn6knuecxg2")
             .authorizationControls(
                 CardUpdateParams.AuthorizationControls.builder()
-                    .maximumAuthorizationCount(
-                        CardUpdateParams.AuthorizationControls.MaximumAuthorizationCount.builder()
-                            .allTime(0L)
-                            .build()
-                    )
                     .merchantAcceptorIdentifier(
                         CardUpdateParams.AuthorizationControls.MerchantAcceptorIdentifier.builder()
                             .addAllowed(
@@ -68,18 +63,54 @@ internal class CardUpdateParamsTest {
                             )
                             .build()
                     )
-                    .addSpendingLimit(
-                        CardUpdateParams.AuthorizationControls.SpendingLimit.builder()
-                            .interval(
-                                CardUpdateParams.AuthorizationControls.SpendingLimit.Interval
-                                    .ALL_TIME
+                    .usage(
+                        CardUpdateParams.AuthorizationControls.Usage.builder()
+                            .category(
+                                CardUpdateParams.AuthorizationControls.Usage.Category.SINGLE_USE
                             )
-                            .settlementAmount(0L)
-                            .addMerchantCategoryCode(
-                                CardUpdateParams.AuthorizationControls.SpendingLimit
-                                    .MerchantCategoryCode
-                                    .builder()
-                                    .code("x")
+                            .multiUse(
+                                CardUpdateParams.AuthorizationControls.Usage.MultiUse.builder()
+                                    .addSpendingLimit(
+                                        CardUpdateParams.AuthorizationControls.Usage.MultiUse
+                                            .SpendingLimit
+                                            .builder()
+                                            .interval(
+                                                CardUpdateParams.AuthorizationControls.Usage
+                                                    .MultiUse
+                                                    .SpendingLimit
+                                                    .Interval
+                                                    .ALL_TIME
+                                            )
+                                            .settlementAmount(0L)
+                                            .addMerchantCategoryCode(
+                                                CardUpdateParams.AuthorizationControls.Usage
+                                                    .MultiUse
+                                                    .SpendingLimit
+                                                    .MerchantCategoryCode
+                                                    .builder()
+                                                    .code("x")
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .singleUse(
+                                CardUpdateParams.AuthorizationControls.Usage.SingleUse.builder()
+                                    .settlementAmount(
+                                        CardUpdateParams.AuthorizationControls.Usage.SingleUse
+                                            .SettlementAmount
+                                            .builder()
+                                            .comparison(
+                                                CardUpdateParams.AuthorizationControls.Usage
+                                                    .SingleUse
+                                                    .SettlementAmount
+                                                    .Comparison
+                                                    .EQUALS
+                                            )
+                                            .value(0L)
+                                            .build()
+                                    )
                                     .build()
                             )
                             .build()
@@ -124,12 +155,6 @@ internal class CardUpdateParamsTest {
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .authorizationControls(
                     CardUpdateParams.AuthorizationControls.builder()
-                        .maximumAuthorizationCount(
-                            CardUpdateParams.AuthorizationControls.MaximumAuthorizationCount
-                                .builder()
-                                .allTime(0L)
-                                .build()
-                        )
                         .merchantAcceptorIdentifier(
                             CardUpdateParams.AuthorizationControls.MerchantAcceptorIdentifier
                                 .builder()
@@ -185,18 +210,54 @@ internal class CardUpdateParamsTest {
                                 )
                                 .build()
                         )
-                        .addSpendingLimit(
-                            CardUpdateParams.AuthorizationControls.SpendingLimit.builder()
-                                .interval(
-                                    CardUpdateParams.AuthorizationControls.SpendingLimit.Interval
-                                        .ALL_TIME
+                        .usage(
+                            CardUpdateParams.AuthorizationControls.Usage.builder()
+                                .category(
+                                    CardUpdateParams.AuthorizationControls.Usage.Category.SINGLE_USE
                                 )
-                                .settlementAmount(0L)
-                                .addMerchantCategoryCode(
-                                    CardUpdateParams.AuthorizationControls.SpendingLimit
-                                        .MerchantCategoryCode
-                                        .builder()
-                                        .code("x")
+                                .multiUse(
+                                    CardUpdateParams.AuthorizationControls.Usage.MultiUse.builder()
+                                        .addSpendingLimit(
+                                            CardUpdateParams.AuthorizationControls.Usage.MultiUse
+                                                .SpendingLimit
+                                                .builder()
+                                                .interval(
+                                                    CardUpdateParams.AuthorizationControls.Usage
+                                                        .MultiUse
+                                                        .SpendingLimit
+                                                        .Interval
+                                                        .ALL_TIME
+                                                )
+                                                .settlementAmount(0L)
+                                                .addMerchantCategoryCode(
+                                                    CardUpdateParams.AuthorizationControls.Usage
+                                                        .MultiUse
+                                                        .SpendingLimit
+                                                        .MerchantCategoryCode
+                                                        .builder()
+                                                        .code("x")
+                                                        .build()
+                                                )
+                                                .build()
+                                        )
+                                        .build()
+                                )
+                                .singleUse(
+                                    CardUpdateParams.AuthorizationControls.Usage.SingleUse.builder()
+                                        .settlementAmount(
+                                            CardUpdateParams.AuthorizationControls.Usage.SingleUse
+                                                .SettlementAmount
+                                                .builder()
+                                                .comparison(
+                                                    CardUpdateParams.AuthorizationControls.Usage
+                                                        .SingleUse
+                                                        .SettlementAmount
+                                                        .Comparison
+                                                        .EQUALS
+                                                )
+                                                .value(0L)
+                                                .build()
+                                        )
                                         .build()
                                 )
                                 .build()
@@ -229,11 +290,6 @@ internal class CardUpdateParamsTest {
         assertThat(body.authorizationControls())
             .contains(
                 CardUpdateParams.AuthorizationControls.builder()
-                    .maximumAuthorizationCount(
-                        CardUpdateParams.AuthorizationControls.MaximumAuthorizationCount.builder()
-                            .allTime(0L)
-                            .build()
-                    )
                     .merchantAcceptorIdentifier(
                         CardUpdateParams.AuthorizationControls.MerchantAcceptorIdentifier.builder()
                             .addAllowed(
@@ -284,18 +340,54 @@ internal class CardUpdateParamsTest {
                             )
                             .build()
                     )
-                    .addSpendingLimit(
-                        CardUpdateParams.AuthorizationControls.SpendingLimit.builder()
-                            .interval(
-                                CardUpdateParams.AuthorizationControls.SpendingLimit.Interval
-                                    .ALL_TIME
+                    .usage(
+                        CardUpdateParams.AuthorizationControls.Usage.builder()
+                            .category(
+                                CardUpdateParams.AuthorizationControls.Usage.Category.SINGLE_USE
                             )
-                            .settlementAmount(0L)
-                            .addMerchantCategoryCode(
-                                CardUpdateParams.AuthorizationControls.SpendingLimit
-                                    .MerchantCategoryCode
-                                    .builder()
-                                    .code("x")
+                            .multiUse(
+                                CardUpdateParams.AuthorizationControls.Usage.MultiUse.builder()
+                                    .addSpendingLimit(
+                                        CardUpdateParams.AuthorizationControls.Usage.MultiUse
+                                            .SpendingLimit
+                                            .builder()
+                                            .interval(
+                                                CardUpdateParams.AuthorizationControls.Usage
+                                                    .MultiUse
+                                                    .SpendingLimit
+                                                    .Interval
+                                                    .ALL_TIME
+                                            )
+                                            .settlementAmount(0L)
+                                            .addMerchantCategoryCode(
+                                                CardUpdateParams.AuthorizationControls.Usage
+                                                    .MultiUse
+                                                    .SpendingLimit
+                                                    .MerchantCategoryCode
+                                                    .builder()
+                                                    .code("x")
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .build()
+                            )
+                            .singleUse(
+                                CardUpdateParams.AuthorizationControls.Usage.SingleUse.builder()
+                                    .settlementAmount(
+                                        CardUpdateParams.AuthorizationControls.Usage.SingleUse
+                                            .SettlementAmount
+                                            .builder()
+                                            .comparison(
+                                                CardUpdateParams.AuthorizationControls.Usage
+                                                    .SingleUse
+                                                    .SettlementAmount
+                                                    .Comparison
+                                                    .EQUALS
+                                            )
+                                            .value(0L)
+                                            .build()
+                                    )
                                     .build()
                             )
                             .build()

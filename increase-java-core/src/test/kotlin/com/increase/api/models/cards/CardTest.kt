@@ -18,11 +18,6 @@ internal class CardTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .authorizationControls(
                     Card.AuthorizationControls.builder()
-                        .maximumAuthorizationCount(
-                            Card.AuthorizationControls.MaximumAuthorizationCount.builder()
-                                .allTime(0L)
-                                .build()
-                        )
                         .merchantAcceptorIdentifier(
                             Card.AuthorizationControls.MerchantAcceptorIdentifier.builder()
                                 .addAllowed(
@@ -69,18 +64,50 @@ internal class CardTest {
                                 )
                                 .build()
                         )
-                        .addSpendingLimit(
-                            Card.AuthorizationControls.SpendingLimit.builder()
-                                .interval(
-                                    Card.AuthorizationControls.SpendingLimit.Interval.ALL_TIME
-                                )
-                                .addMerchantCategoryCode(
-                                    Card.AuthorizationControls.SpendingLimit.MerchantCategoryCode
-                                        .builder()
-                                        .code("code")
+                        .usage(
+                            Card.AuthorizationControls.Usage.builder()
+                                .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                                .multiUse(
+                                    Card.AuthorizationControls.Usage.MultiUse.builder()
+                                        .addSpendingLimit(
+                                            Card.AuthorizationControls.Usage.MultiUse.SpendingLimit
+                                                .builder()
+                                                .interval(
+                                                    Card.AuthorizationControls.Usage.MultiUse
+                                                        .SpendingLimit
+                                                        .Interval
+                                                        .ALL_TIME
+                                                )
+                                                .addMerchantCategoryCode(
+                                                    Card.AuthorizationControls.Usage.MultiUse
+                                                        .SpendingLimit
+                                                        .MerchantCategoryCode
+                                                        .builder()
+                                                        .code("code")
+                                                        .build()
+                                                )
+                                                .settlementAmount(0L)
+                                                .build()
+                                        )
                                         .build()
                                 )
-                                .settlementAmount(0L)
+                                .singleUse(
+                                    Card.AuthorizationControls.Usage.SingleUse.builder()
+                                        .settlementAmount(
+                                            Card.AuthorizationControls.Usage.SingleUse
+                                                .SettlementAmount
+                                                .builder()
+                                                .comparison(
+                                                    Card.AuthorizationControls.Usage.SingleUse
+                                                        .SettlementAmount
+                                                        .Comparison
+                                                        .EQUALS
+                                                )
+                                                .value(0L)
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
@@ -117,11 +144,6 @@ internal class CardTest {
         assertThat(card.authorizationControls())
             .contains(
                 Card.AuthorizationControls.builder()
-                    .maximumAuthorizationCount(
-                        Card.AuthorizationControls.MaximumAuthorizationCount.builder()
-                            .allTime(0L)
-                            .build()
-                    )
                     .merchantAcceptorIdentifier(
                         Card.AuthorizationControls.MerchantAcceptorIdentifier.builder()
                             .addAllowed(
@@ -166,16 +188,49 @@ internal class CardTest {
                             )
                             .build()
                     )
-                    .addSpendingLimit(
-                        Card.AuthorizationControls.SpendingLimit.builder()
-                            .interval(Card.AuthorizationControls.SpendingLimit.Interval.ALL_TIME)
-                            .addMerchantCategoryCode(
-                                Card.AuthorizationControls.SpendingLimit.MerchantCategoryCode
-                                    .builder()
-                                    .code("code")
+                    .usage(
+                        Card.AuthorizationControls.Usage.builder()
+                            .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                            .multiUse(
+                                Card.AuthorizationControls.Usage.MultiUse.builder()
+                                    .addSpendingLimit(
+                                        Card.AuthorizationControls.Usage.MultiUse.SpendingLimit
+                                            .builder()
+                                            .interval(
+                                                Card.AuthorizationControls.Usage.MultiUse
+                                                    .SpendingLimit
+                                                    .Interval
+                                                    .ALL_TIME
+                                            )
+                                            .addMerchantCategoryCode(
+                                                Card.AuthorizationControls.Usage.MultiUse
+                                                    .SpendingLimit
+                                                    .MerchantCategoryCode
+                                                    .builder()
+                                                    .code("code")
+                                                    .build()
+                                            )
+                                            .settlementAmount(0L)
+                                            .build()
+                                    )
                                     .build()
                             )
-                            .settlementAmount(0L)
+                            .singleUse(
+                                Card.AuthorizationControls.Usage.SingleUse.builder()
+                                    .settlementAmount(
+                                        Card.AuthorizationControls.Usage.SingleUse.SettlementAmount
+                                            .builder()
+                                            .comparison(
+                                                Card.AuthorizationControls.Usage.SingleUse
+                                                    .SettlementAmount
+                                                    .Comparison
+                                                    .EQUALS
+                                            )
+                                            .value(0L)
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .build()
                     )
                     .build()
@@ -218,11 +273,6 @@ internal class CardTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .authorizationControls(
                     Card.AuthorizationControls.builder()
-                        .maximumAuthorizationCount(
-                            Card.AuthorizationControls.MaximumAuthorizationCount.builder()
-                                .allTime(0L)
-                                .build()
-                        )
                         .merchantAcceptorIdentifier(
                             Card.AuthorizationControls.MerchantAcceptorIdentifier.builder()
                                 .addAllowed(
@@ -269,18 +319,50 @@ internal class CardTest {
                                 )
                                 .build()
                         )
-                        .addSpendingLimit(
-                            Card.AuthorizationControls.SpendingLimit.builder()
-                                .interval(
-                                    Card.AuthorizationControls.SpendingLimit.Interval.ALL_TIME
-                                )
-                                .addMerchantCategoryCode(
-                                    Card.AuthorizationControls.SpendingLimit.MerchantCategoryCode
-                                        .builder()
-                                        .code("code")
+                        .usage(
+                            Card.AuthorizationControls.Usage.builder()
+                                .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                                .multiUse(
+                                    Card.AuthorizationControls.Usage.MultiUse.builder()
+                                        .addSpendingLimit(
+                                            Card.AuthorizationControls.Usage.MultiUse.SpendingLimit
+                                                .builder()
+                                                .interval(
+                                                    Card.AuthorizationControls.Usage.MultiUse
+                                                        .SpendingLimit
+                                                        .Interval
+                                                        .ALL_TIME
+                                                )
+                                                .addMerchantCategoryCode(
+                                                    Card.AuthorizationControls.Usage.MultiUse
+                                                        .SpendingLimit
+                                                        .MerchantCategoryCode
+                                                        .builder()
+                                                        .code("code")
+                                                        .build()
+                                                )
+                                                .settlementAmount(0L)
+                                                .build()
+                                        )
                                         .build()
                                 )
-                                .settlementAmount(0L)
+                                .singleUse(
+                                    Card.AuthorizationControls.Usage.SingleUse.builder()
+                                        .settlementAmount(
+                                            Card.AuthorizationControls.Usage.SingleUse
+                                                .SettlementAmount
+                                                .builder()
+                                                .comparison(
+                                                    Card.AuthorizationControls.Usage.SingleUse
+                                                        .SettlementAmount
+                                                        .Comparison
+                                                        .EQUALS
+                                                )
+                                                .value(0L)
+                                                .build()
+                                        )
+                                        .build()
+                                )
                                 .build()
                         )
                         .build()
