@@ -815,19 +815,15 @@ private constructor(
     class AuthorizationControls
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val maximumAuthorizationCount: JsonField<MaximumAuthorizationCount>,
         private val merchantAcceptorIdentifier: JsonField<MerchantAcceptorIdentifier>,
         private val merchantCategoryCode: JsonField<MerchantCategoryCode>,
         private val merchantCountry: JsonField<MerchantCountry>,
-        private val spendingLimits: JsonField<List<SpendingLimit>>,
+        private val usage: JsonField<Usage>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("maximum_authorization_count")
-            @ExcludeMissing
-            maximumAuthorizationCount: JsonField<MaximumAuthorizationCount> = JsonMissing.of(),
             @JsonProperty("merchant_acceptor_identifier")
             @ExcludeMissing
             merchantAcceptorIdentifier: JsonField<MerchantAcceptorIdentifier> = JsonMissing.of(),
@@ -837,26 +833,14 @@ private constructor(
             @JsonProperty("merchant_country")
             @ExcludeMissing
             merchantCountry: JsonField<MerchantCountry> = JsonMissing.of(),
-            @JsonProperty("spending_limits")
-            @ExcludeMissing
-            spendingLimits: JsonField<List<SpendingLimit>> = JsonMissing.of(),
+            @JsonProperty("usage") @ExcludeMissing usage: JsonField<Usage> = JsonMissing.of(),
         ) : this(
-            maximumAuthorizationCount,
             merchantAcceptorIdentifier,
             merchantCategoryCode,
             merchantCountry,
-            spendingLimits,
+            usage,
             mutableMapOf(),
         )
-
-        /**
-         * Limits the number of authorizations that can be approved on this card.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun maximumAuthorizationCount(): Optional<MaximumAuthorizationCount> =
-            maximumAuthorizationCount.getOptional("maximum_authorization_count")
 
         /**
          * Restricts which Merchant Acceptor IDs are allowed or blocked for authorizations on this
@@ -889,25 +873,12 @@ private constructor(
             merchantCountry.getOptional("merchant_country")
 
         /**
-         * Spending limits for this card. The most restrictive limit applies if multiple limits
-         * match.
+         * Controls how many times this card can be used.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun spendingLimits(): Optional<List<SpendingLimit>> =
-            spendingLimits.getOptional("spending_limits")
-
-        /**
-         * Returns the raw JSON value of [maximumAuthorizationCount].
-         *
-         * Unlike [maximumAuthorizationCount], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("maximum_authorization_count")
-        @ExcludeMissing
-        fun _maximumAuthorizationCount(): JsonField<MaximumAuthorizationCount> =
-            maximumAuthorizationCount
+        fun usage(): Optional<Usage> = usage.getOptional("usage")
 
         /**
          * Returns the raw JSON value of [merchantAcceptorIdentifier].
@@ -941,14 +912,11 @@ private constructor(
         fun _merchantCountry(): JsonField<MerchantCountry> = merchantCountry
 
         /**
-         * Returns the raw JSON value of [spendingLimits].
+         * Returns the raw JSON value of [usage].
          *
-         * Unlike [spendingLimits], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [usage], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("spending_limits")
-        @ExcludeMissing
-        fun _spendingLimits(): JsonField<List<SpendingLimit>> = spendingLimits
+        @JsonProperty("usage") @ExcludeMissing fun _usage(): JsonField<Usage> = usage
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -973,39 +941,21 @@ private constructor(
         /** A builder for [AuthorizationControls]. */
         class Builder internal constructor() {
 
-            private var maximumAuthorizationCount: JsonField<MaximumAuthorizationCount> =
-                JsonMissing.of()
             private var merchantAcceptorIdentifier: JsonField<MerchantAcceptorIdentifier> =
                 JsonMissing.of()
             private var merchantCategoryCode: JsonField<MerchantCategoryCode> = JsonMissing.of()
             private var merchantCountry: JsonField<MerchantCountry> = JsonMissing.of()
-            private var spendingLimits: JsonField<MutableList<SpendingLimit>>? = null
+            private var usage: JsonField<Usage> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(authorizationControls: AuthorizationControls) = apply {
-                maximumAuthorizationCount = authorizationControls.maximumAuthorizationCount
                 merchantAcceptorIdentifier = authorizationControls.merchantAcceptorIdentifier
                 merchantCategoryCode = authorizationControls.merchantCategoryCode
                 merchantCountry = authorizationControls.merchantCountry
-                spendingLimits = authorizationControls.spendingLimits.map { it.toMutableList() }
+                usage = authorizationControls.usage
                 additionalProperties = authorizationControls.additionalProperties.toMutableMap()
             }
-
-            /** Limits the number of authorizations that can be approved on this card. */
-            fun maximumAuthorizationCount(maximumAuthorizationCount: MaximumAuthorizationCount) =
-                maximumAuthorizationCount(JsonField.of(maximumAuthorizationCount))
-
-            /**
-             * Sets [Builder.maximumAuthorizationCount] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.maximumAuthorizationCount] with a well-typed
-             * [MaximumAuthorizationCount] value instead. This method is primarily for setting the
-             * field to an undocumented or not yet supported value.
-             */
-            fun maximumAuthorizationCount(
-                maximumAuthorizationCount: JsonField<MaximumAuthorizationCount>
-            ) = apply { this.maximumAuthorizationCount = maximumAuthorizationCount }
 
             /**
              * Restricts which Merchant Acceptor IDs are allowed or blocked for authorizations on
@@ -1062,35 +1012,17 @@ private constructor(
                 this.merchantCountry = merchantCountry
             }
 
-            /**
-             * Spending limits for this card. The most restrictive limit applies if multiple limits
-             * match.
-             */
-            fun spendingLimits(spendingLimits: List<SpendingLimit>) =
-                spendingLimits(JsonField.of(spendingLimits))
+            /** Controls how many times this card can be used. */
+            fun usage(usage: Usage) = usage(JsonField.of(usage))
 
             /**
-             * Sets [Builder.spendingLimits] to an arbitrary JSON value.
+             * Sets [Builder.usage] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.spendingLimits] with a well-typed
-             * `List<SpendingLimit>` value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
+             * You should usually call [Builder.usage] with a well-typed [Usage] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
              */
-            fun spendingLimits(spendingLimits: JsonField<List<SpendingLimit>>) = apply {
-                this.spendingLimits = spendingLimits.map { it.toMutableList() }
-            }
-
-            /**
-             * Adds a single [SpendingLimit] to [spendingLimits].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addSpendingLimit(spendingLimit: SpendingLimit) = apply {
-                spendingLimits =
-                    (spendingLimits ?: JsonField.of(mutableListOf())).also {
-                        checkKnown("spendingLimits", it).add(spendingLimit)
-                    }
-            }
+            fun usage(usage: JsonField<Usage>) = apply { this.usage = usage }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -1118,11 +1050,10 @@ private constructor(
              */
             fun build(): AuthorizationControls =
                 AuthorizationControls(
-                    maximumAuthorizationCount,
                     merchantAcceptorIdentifier,
                     merchantCategoryCode,
                     merchantCountry,
-                    (spendingLimits ?: JsonMissing.of()).map { it.toImmutable() },
+                    usage,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1134,11 +1065,10 @@ private constructor(
                 return@apply
             }
 
-            maximumAuthorizationCount().ifPresent { it.validate() }
             merchantAcceptorIdentifier().ifPresent { it.validate() }
             merchantCategoryCode().ifPresent { it.validate() }
             merchantCountry().ifPresent { it.validate() }
-            spendingLimits().ifPresent { it.forEach { it.validate() } }
+            usage().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1158,183 +1088,10 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (maximumAuthorizationCount.asKnown().getOrNull()?.validity() ?: 0) +
-                (merchantAcceptorIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
+            (merchantAcceptorIdentifier.asKnown().getOrNull()?.validity() ?: 0) +
                 (merchantCategoryCode.asKnown().getOrNull()?.validity() ?: 0) +
                 (merchantCountry.asKnown().getOrNull()?.validity() ?: 0) +
-                (spendingLimits.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
-
-        /** Limits the number of authorizations that can be approved on this card. */
-        class MaximumAuthorizationCount
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val allTime: JsonField<Long>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("all_time")
-                @ExcludeMissing
-                allTime: JsonField<Long> = JsonMissing.of()
-            ) : this(allTime, mutableMapOf())
-
-            /**
-             * The maximum number of authorizations that can be approved on this card over its
-             * lifetime.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun allTime(): Long = allTime.getRequired("all_time")
-
-            /**
-             * Returns the raw JSON value of [allTime].
-             *
-             * Unlike [allTime], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("all_time") @ExcludeMissing fun _allTime(): JsonField<Long> = allTime
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /**
-                 * Returns a mutable builder for constructing an instance of
-                 * [MaximumAuthorizationCount].
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .allTime()
-                 * ```
-                 */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [MaximumAuthorizationCount]. */
-            class Builder internal constructor() {
-
-                private var allTime: JsonField<Long>? = null
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(maximumAuthorizationCount: MaximumAuthorizationCount) = apply {
-                    allTime = maximumAuthorizationCount.allTime
-                    additionalProperties =
-                        maximumAuthorizationCount.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * The maximum number of authorizations that can be approved on this card over its
-                 * lifetime.
-                 */
-                fun allTime(allTime: Long) = allTime(JsonField.of(allTime))
-
-                /**
-                 * Sets [Builder.allTime] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.allTime] with a well-typed [Long] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun allTime(allTime: JsonField<Long>) = apply { this.allTime = allTime }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [MaximumAuthorizationCount].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 *
-                 * The following fields are required:
-                 * ```java
-                 * .allTime()
-                 * ```
-                 *
-                 * @throws IllegalStateException if any required field is unset.
-                 */
-                fun build(): MaximumAuthorizationCount =
-                    MaximumAuthorizationCount(
-                        checkRequired("allTime", allTime),
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): MaximumAuthorizationCount = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                allTime()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = (if (allTime.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is MaximumAuthorizationCount &&
-                    allTime == other.allTime &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy { Objects.hash(allTime, additionalProperties) }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "MaximumAuthorizationCount{allTime=$allTime, additionalProperties=$additionalProperties}"
-        }
+                (usage.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
          * Restricts which Merchant Acceptor IDs are allowed or blocked for authorizations on this
@@ -3047,86 +2804,83 @@ private constructor(
                 "MerchantCountry{allowed=$allowed, blocked=$blocked, additionalProperties=$additionalProperties}"
         }
 
-        class SpendingLimit
+        /** Controls how many times this card can be used. */
+        class Usage
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
-            private val interval: JsonField<Interval>,
-            private val settlementAmount: JsonField<Long>,
-            private val merchantCategoryCodes: JsonField<List<MerchantCategoryCode>>,
+            private val category: JsonField<Category>,
+            private val multiUse: JsonField<MultiUse>,
+            private val singleUse: JsonField<SingleUse>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
-                @JsonProperty("interval")
+                @JsonProperty("category")
                 @ExcludeMissing
-                interval: JsonField<Interval> = JsonMissing.of(),
-                @JsonProperty("settlement_amount")
+                category: JsonField<Category> = JsonMissing.of(),
+                @JsonProperty("multi_use")
                 @ExcludeMissing
-                settlementAmount: JsonField<Long> = JsonMissing.of(),
-                @JsonProperty("merchant_category_codes")
+                multiUse: JsonField<MultiUse> = JsonMissing.of(),
+                @JsonProperty("single_use")
                 @ExcludeMissing
-                merchantCategoryCodes: JsonField<List<MerchantCategoryCode>> = JsonMissing.of(),
-            ) : this(interval, settlementAmount, merchantCategoryCodes, mutableMapOf())
+                singleUse: JsonField<SingleUse> = JsonMissing.of(),
+            ) : this(category, multiUse, singleUse, mutableMapOf())
 
             /**
-             * The interval at which the spending limit is enforced.
+             * Whether the card is for a single use or multiple uses.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun interval(): Interval = interval.getRequired("interval")
+            fun category(): Category = category.getRequired("category")
 
             /**
-             * The maximum settlement amount permitted in the given interval.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun settlementAmount(): Long = settlementAmount.getRequired("settlement_amount")
-
-            /**
-             * The Merchant Category Codes this spending limit applies to. If not set, the limit
-             * applies to all transactions.
+             * Controls for multi-use cards. Required if and only if `category` is `multi_use`.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
-            fun merchantCategoryCodes(): Optional<List<MerchantCategoryCode>> =
-                merchantCategoryCodes.getOptional("merchant_category_codes")
+            fun multiUse(): Optional<MultiUse> = multiUse.getOptional("multi_use")
 
             /**
-             * Returns the raw JSON value of [interval].
+             * Controls for single-use cards. Required if and only if `category` is `single_use`.
              *
-             * Unlike [interval], this method doesn't throw if the JSON field has an unexpected
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun singleUse(): Optional<SingleUse> = singleUse.getOptional("single_use")
+
+            /**
+             * Returns the raw JSON value of [category].
+             *
+             * Unlike [category], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("interval")
+            @JsonProperty("category")
             @ExcludeMissing
-            fun _interval(): JsonField<Interval> = interval
+            fun _category(): JsonField<Category> = category
 
             /**
-             * Returns the raw JSON value of [settlementAmount].
+             * Returns the raw JSON value of [multiUse].
              *
-             * Unlike [settlementAmount], this method doesn't throw if the JSON field has an
-             * unexpected type.
+             * Unlike [multiUse], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
-            @JsonProperty("settlement_amount")
+            @JsonProperty("multi_use")
             @ExcludeMissing
-            fun _settlementAmount(): JsonField<Long> = settlementAmount
+            fun _multiUse(): JsonField<MultiUse> = multiUse
 
             /**
-             * Returns the raw JSON value of [merchantCategoryCodes].
+             * Returns the raw JSON value of [singleUse].
              *
-             * Unlike [merchantCategoryCodes], this method doesn't throw if the JSON field has an
-             * unexpected type.
+             * Unlike [singleUse], this method doesn't throw if the JSON field has an unexpected
+             * type.
              */
-            @JsonProperty("merchant_category_codes")
+            @JsonProperty("single_use")
             @ExcludeMissing
-            fun _merchantCategoryCodes(): JsonField<List<MerchantCategoryCode>> =
-                merchantCategoryCodes
+            fun _singleUse(): JsonField<SingleUse> = singleUse
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3143,92 +2897,73 @@ private constructor(
             companion object {
 
                 /**
-                 * Returns a mutable builder for constructing an instance of [SpendingLimit].
+                 * Returns a mutable builder for constructing an instance of [Usage].
                  *
                  * The following fields are required:
                  * ```java
-                 * .interval()
-                 * .settlementAmount()
+                 * .category()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [SpendingLimit]. */
+            /** A builder for [Usage]. */
             class Builder internal constructor() {
 
-                private var interval: JsonField<Interval>? = null
-                private var settlementAmount: JsonField<Long>? = null
-                private var merchantCategoryCodes: JsonField<MutableList<MerchantCategoryCode>>? =
-                    null
+                private var category: JsonField<Category>? = null
+                private var multiUse: JsonField<MultiUse> = JsonMissing.of()
+                private var singleUse: JsonField<SingleUse> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(spendingLimit: SpendingLimit) = apply {
-                    interval = spendingLimit.interval
-                    settlementAmount = spendingLimit.settlementAmount
-                    merchantCategoryCodes =
-                        spendingLimit.merchantCategoryCodes.map { it.toMutableList() }
-                    additionalProperties = spendingLimit.additionalProperties.toMutableMap()
+                internal fun from(usage: Usage) = apply {
+                    category = usage.category
+                    multiUse = usage.multiUse
+                    singleUse = usage.singleUse
+                    additionalProperties = usage.additionalProperties.toMutableMap()
                 }
 
-                /** The interval at which the spending limit is enforced. */
-                fun interval(interval: Interval) = interval(JsonField.of(interval))
+                /** Whether the card is for a single use or multiple uses. */
+                fun category(category: Category) = category(JsonField.of(category))
 
                 /**
-                 * Sets [Builder.interval] to an arbitrary JSON value.
+                 * Sets [Builder.category] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.interval] with a well-typed [Interval] value
+                 * You should usually call [Builder.category] with a well-typed [Category] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun interval(interval: JsonField<Interval>) = apply { this.interval = interval }
-
-                /** The maximum settlement amount permitted in the given interval. */
-                fun settlementAmount(settlementAmount: Long) =
-                    settlementAmount(JsonField.of(settlementAmount))
+                fun category(category: JsonField<Category>) = apply { this.category = category }
 
                 /**
-                 * Sets [Builder.settlementAmount] to an arbitrary JSON value.
+                 * Controls for multi-use cards. Required if and only if `category` is `multi_use`.
+                 */
+                fun multiUse(multiUse: MultiUse) = multiUse(JsonField.of(multiUse))
+
+                /**
+                 * Sets [Builder.multiUse] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.settlementAmount] with a well-typed [Long] value
+                 * You should usually call [Builder.multiUse] with a well-typed [MultiUse] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun settlementAmount(settlementAmount: JsonField<Long>) = apply {
-                    this.settlementAmount = settlementAmount
-                }
+                fun multiUse(multiUse: JsonField<MultiUse>) = apply { this.multiUse = multiUse }
 
                 /**
-                 * The Merchant Category Codes this spending limit applies to. If not set, the limit
-                 * applies to all transactions.
+                 * Controls for single-use cards. Required if and only if `category` is
+                 * `single_use`.
                  */
-                fun merchantCategoryCodes(merchantCategoryCodes: List<MerchantCategoryCode>) =
-                    merchantCategoryCodes(JsonField.of(merchantCategoryCodes))
+                fun singleUse(singleUse: SingleUse) = singleUse(JsonField.of(singleUse))
 
                 /**
-                 * Sets [Builder.merchantCategoryCodes] to an arbitrary JSON value.
+                 * Sets [Builder.singleUse] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.merchantCategoryCodes] with a well-typed
-                 * `List<MerchantCategoryCode>` value instead. This method is primarily for setting
-                 * the field to an undocumented or not yet supported value.
+                 * You should usually call [Builder.singleUse] with a well-typed [SingleUse] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
                  */
-                fun merchantCategoryCodes(
-                    merchantCategoryCodes: JsonField<List<MerchantCategoryCode>>
-                ) = apply {
-                    this.merchantCategoryCodes = merchantCategoryCodes.map { it.toMutableList() }
-                }
-
-                /**
-                 * Adds a single [MerchantCategoryCode] to [merchantCategoryCodes].
-                 *
-                 * @throws IllegalStateException if the field was previously set to a non-list.
-                 */
-                fun addMerchantCategoryCode(merchantCategoryCode: MerchantCategoryCode) = apply {
-                    merchantCategoryCodes =
-                        (merchantCategoryCodes ?: JsonField.of(mutableListOf())).also {
-                            checkKnown("merchantCategoryCodes", it).add(merchantCategoryCode)
-                        }
+                fun singleUse(singleUse: JsonField<SingleUse>) = apply {
+                    this.singleUse = singleUse
                 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -3254,37 +2989,36 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [SpendingLimit].
+                 * Returns an immutable instance of [Usage].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
-                 * .interval()
-                 * .settlementAmount()
+                 * .category()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): SpendingLimit =
-                    SpendingLimit(
-                        checkRequired("interval", interval),
-                        checkRequired("settlementAmount", settlementAmount),
-                        (merchantCategoryCodes ?: JsonMissing.of()).map { it.toImmutable() },
+                fun build(): Usage =
+                    Usage(
+                        checkRequired("category", category),
+                        multiUse,
+                        singleUse,
                         additionalProperties.toMutableMap(),
                     )
             }
 
             private var validated: Boolean = false
 
-            fun validate(): SpendingLimit = apply {
+            fun validate(): Usage = apply {
                 if (validated) {
                     return@apply
                 }
 
-                interval().validate()
-                settlementAmount()
-                merchantCategoryCodes().ifPresent { it.forEach { it.validate() } }
+                category().validate()
+                multiUse().ifPresent { it.validate() }
+                singleUse().ifPresent { it.validate() }
                 validated = true
             }
 
@@ -3304,13 +3038,12 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (interval.asKnown().getOrNull()?.validity() ?: 0) +
-                    (if (settlementAmount.asKnown().isPresent) 1 else 0) +
-                    (merchantCategoryCodes.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
-                        ?: 0)
+                (category.asKnown().getOrNull()?.validity() ?: 0) +
+                    (multiUse.asKnown().getOrNull()?.validity() ?: 0) +
+                    (singleUse.asKnown().getOrNull()?.validity() ?: 0)
 
-            /** The interval at which the spending limit is enforced. */
-            class Interval @JsonCreator private constructor(private val value: JsonField<String>) :
+            /** Whether the card is for a single use or multiple uses. */
+            class Category @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
 
                 /**
@@ -3325,78 +3058,39 @@ private constructor(
 
                 companion object {
 
-                    /** The spending limit applies over the lifetime of the card. */
-                    @JvmField val ALL_TIME = of("all_time")
+                    /** The card can only be used for a single authorization. */
+                    @JvmField val SINGLE_USE = of("single_use")
 
-                    /** The spending limit applies per transaction. */
-                    @JvmField val PER_TRANSACTION = of("per_transaction")
+                    /** The card can be used for multiple authorizations. */
+                    @JvmField val MULTI_USE = of("multi_use")
 
-                    /** The spending limit applies per day. Resets nightly at midnight UTC. */
-                    @JvmField val PER_DAY = of("per_day")
-
-                    /**
-                     * The spending limit applies per week. Resets weekly on Mondays at midnight
-                     * UTC.
-                     */
-                    @JvmField val PER_WEEK = of("per_week")
-
-                    /**
-                     * The spending limit applies per month. Resets on the first of the month,
-                     * midnight UTC.
-                     */
-                    @JvmField val PER_MONTH = of("per_month")
-
-                    @JvmStatic fun of(value: String) = Interval(JsonField.of(value))
+                    @JvmStatic fun of(value: String) = Category(JsonField.of(value))
                 }
 
-                /** An enum containing [Interval]'s known values. */
+                /** An enum containing [Category]'s known values. */
                 enum class Known {
-                    /** The spending limit applies over the lifetime of the card. */
-                    ALL_TIME,
-                    /** The spending limit applies per transaction. */
-                    PER_TRANSACTION,
-                    /** The spending limit applies per day. Resets nightly at midnight UTC. */
-                    PER_DAY,
-                    /**
-                     * The spending limit applies per week. Resets weekly on Mondays at midnight
-                     * UTC.
-                     */
-                    PER_WEEK,
-                    /**
-                     * The spending limit applies per month. Resets on the first of the month,
-                     * midnight UTC.
-                     */
-                    PER_MONTH,
+                    /** The card can only be used for a single authorization. */
+                    SINGLE_USE,
+                    /** The card can be used for multiple authorizations. */
+                    MULTI_USE,
                 }
 
                 /**
-                 * An enum containing [Interval]'s known values, as well as an [_UNKNOWN] member.
+                 * An enum containing [Category]'s known values, as well as an [_UNKNOWN] member.
                  *
-                 * An instance of [Interval] can contain an unknown value in a couple of cases:
+                 * An instance of [Category] can contain an unknown value in a couple of cases:
                  * - It was deserialized from data that doesn't match any known member. For example,
                  *   if the SDK is on an older version than the API, then the API may respond with
                  *   new members that the SDK is unaware of.
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
-                    /** The spending limit applies over the lifetime of the card. */
-                    ALL_TIME,
-                    /** The spending limit applies per transaction. */
-                    PER_TRANSACTION,
-                    /** The spending limit applies per day. Resets nightly at midnight UTC. */
-                    PER_DAY,
+                    /** The card can only be used for a single authorization. */
+                    SINGLE_USE,
+                    /** The card can be used for multiple authorizations. */
+                    MULTI_USE,
                     /**
-                     * The spending limit applies per week. Resets weekly on Mondays at midnight
-                     * UTC.
-                     */
-                    PER_WEEK,
-                    /**
-                     * The spending limit applies per month. Resets on the first of the month,
-                     * midnight UTC.
-                     */
-                    PER_MONTH,
-                    /**
-                     * An enum member indicating that [Interval] was instantiated with an unknown
+                     * An enum member indicating that [Category] was instantiated with an unknown
                      * value.
                      */
                     _UNKNOWN,
@@ -3411,11 +3105,8 @@ private constructor(
                  */
                 fun value(): Value =
                     when (this) {
-                        ALL_TIME -> Value.ALL_TIME
-                        PER_TRANSACTION -> Value.PER_TRANSACTION
-                        PER_DAY -> Value.PER_DAY
-                        PER_WEEK -> Value.PER_WEEK
-                        PER_MONTH -> Value.PER_MONTH
+                        SINGLE_USE -> Value.SINGLE_USE
+                        MULTI_USE -> Value.MULTI_USE
                         else -> Value._UNKNOWN
                     }
 
@@ -3430,12 +3121,9 @@ private constructor(
                  */
                 fun known(): Known =
                     when (this) {
-                        ALL_TIME -> Known.ALL_TIME
-                        PER_TRANSACTION -> Known.PER_TRANSACTION
-                        PER_DAY -> Known.PER_DAY
-                        PER_WEEK -> Known.PER_WEEK
-                        PER_MONTH -> Known.PER_MONTH
-                        else -> throw IncreaseInvalidDataException("Unknown Interval: $value")
+                        SINGLE_USE -> Known.SINGLE_USE
+                        MULTI_USE -> Known.MULTI_USE
+                        else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                     }
 
                 /**
@@ -3454,7 +3142,7 @@ private constructor(
 
                 private var validated: Boolean = false
 
-                fun validate(): Interval = apply {
+                fun validate(): Category = apply {
                     if (validated) {
                         return@apply
                     }
@@ -3484,7 +3172,7 @@ private constructor(
                         return true
                     }
 
-                    return other is Interval && value == other.value
+                    return other is Category && value == other.value
                 }
 
                 override fun hashCode() = value.hashCode()
@@ -3492,34 +3180,40 @@ private constructor(
                 override fun toString() = value.toString()
             }
 
-            class MerchantCategoryCode
+            /** Controls for multi-use cards. Required if and only if `category` is `multi_use`. */
+            class MultiUse
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
-                private val code: JsonField<String>,
+                private val spendingLimits: JsonField<List<SpendingLimit>>,
                 private val additionalProperties: MutableMap<String, JsonValue>,
             ) {
 
                 @JsonCreator
                 private constructor(
-                    @JsonProperty("code") @ExcludeMissing code: JsonField<String> = JsonMissing.of()
-                ) : this(code, mutableMapOf())
+                    @JsonProperty("spending_limits")
+                    @ExcludeMissing
+                    spendingLimits: JsonField<List<SpendingLimit>> = JsonMissing.of()
+                ) : this(spendingLimits, mutableMapOf())
 
                 /**
-                 * The Merchant Category Code.
+                 * Spending limits for this card. The most restrictive limit applies if multiple
+                 * limits match.
                  *
-                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
-                 *   is unexpectedly missing or null (e.g. if the server responded with an
-                 *   unexpected value).
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
                  */
-                fun code(): String = code.getRequired("code")
+                fun spendingLimits(): Optional<List<SpendingLimit>> =
+                    spendingLimits.getOptional("spending_limits")
 
                 /**
-                 * Returns the raw JSON value of [code].
+                 * Returns the raw JSON value of [spendingLimits].
                  *
-                 * Unlike [code], this method doesn't throw if the JSON field has an unexpected
-                 * type.
+                 * Unlike [spendingLimits], this method doesn't throw if the JSON field has an
+                 * unexpected type.
                  */
-                @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+                @JsonProperty("spending_limits")
+                @ExcludeMissing
+                fun _spendingLimits(): JsonField<List<SpendingLimit>> = spendingLimits
 
                 @JsonAnySetter
                 private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3535,42 +3229,51 @@ private constructor(
 
                 companion object {
 
-                    /**
-                     * Returns a mutable builder for constructing an instance of
-                     * [MerchantCategoryCode].
-                     *
-                     * The following fields are required:
-                     * ```java
-                     * .code()
-                     * ```
-                     */
+                    /** Returns a mutable builder for constructing an instance of [MultiUse]. */
                     @JvmStatic fun builder() = Builder()
                 }
 
-                /** A builder for [MerchantCategoryCode]. */
+                /** A builder for [MultiUse]. */
                 class Builder internal constructor() {
 
-                    private var code: JsonField<String>? = null
+                    private var spendingLimits: JsonField<MutableList<SpendingLimit>>? = null
                     private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                     @JvmSynthetic
-                    internal fun from(merchantCategoryCode: MerchantCategoryCode) = apply {
-                        code = merchantCategoryCode.code
-                        additionalProperties =
-                            merchantCategoryCode.additionalProperties.toMutableMap()
+                    internal fun from(multiUse: MultiUse) = apply {
+                        spendingLimits = multiUse.spendingLimits.map { it.toMutableList() }
+                        additionalProperties = multiUse.additionalProperties.toMutableMap()
                     }
 
-                    /** The Merchant Category Code. */
-                    fun code(code: String) = code(JsonField.of(code))
+                    /**
+                     * Spending limits for this card. The most restrictive limit applies if multiple
+                     * limits match.
+                     */
+                    fun spendingLimits(spendingLimits: List<SpendingLimit>) =
+                        spendingLimits(JsonField.of(spendingLimits))
 
                     /**
-                     * Sets [Builder.code] to an arbitrary JSON value.
+                     * Sets [Builder.spendingLimits] to an arbitrary JSON value.
                      *
-                     * You should usually call [Builder.code] with a well-typed [String] value
-                     * instead. This method is primarily for setting the field to an undocumented or
-                     * not yet supported value.
+                     * You should usually call [Builder.spendingLimits] with a well-typed
+                     * `List<SpendingLimit>` value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
                      */
-                    fun code(code: JsonField<String>) = apply { this.code = code }
+                    fun spendingLimits(spendingLimits: JsonField<List<SpendingLimit>>) = apply {
+                        this.spendingLimits = spendingLimits.map { it.toMutableList() }
+                    }
+
+                    /**
+                     * Adds a single [SpendingLimit] to [spendingLimits].
+                     *
+                     * @throws IllegalStateException if the field was previously set to a non-list.
+                     */
+                    fun addSpendingLimit(spendingLimit: SpendingLimit) = apply {
+                        spendingLimits =
+                            (spendingLimits ?: JsonField.of(mutableListOf())).also {
+                                checkKnown("spendingLimits", it).add(spendingLimit)
+                            }
+                    }
 
                     fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                         this.additionalProperties.clear()
@@ -3595,32 +3298,25 @@ private constructor(
                     }
 
                     /**
-                     * Returns an immutable instance of [MerchantCategoryCode].
+                     * Returns an immutable instance of [MultiUse].
                      *
                      * Further updates to this [Builder] will not mutate the returned instance.
-                     *
-                     * The following fields are required:
-                     * ```java
-                     * .code()
-                     * ```
-                     *
-                     * @throws IllegalStateException if any required field is unset.
                      */
-                    fun build(): MerchantCategoryCode =
-                        MerchantCategoryCode(
-                            checkRequired("code", code),
+                    fun build(): MultiUse =
+                        MultiUse(
+                            (spendingLimits ?: JsonMissing.of()).map { it.toImmutable() },
                             additionalProperties.toMutableMap(),
                         )
                 }
 
                 private var validated: Boolean = false
 
-                fun validate(): MerchantCategoryCode = apply {
+                fun validate(): MultiUse = apply {
                     if (validated) {
                         return@apply
                     }
 
-                    code()
+                    spendingLimits().ifPresent { it.forEach { it.validate() } }
                     validated = true
                 }
 
@@ -3639,24 +3335,1250 @@ private constructor(
                  * Used for best match union deserialization.
                  */
                 @JvmSynthetic
-                internal fun validity(): Int = (if (code.asKnown().isPresent) 1 else 0)
+                internal fun validity(): Int =
+                    (spendingLimits.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+                class SpendingLimit
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val interval: JsonField<Interval>,
+                    private val settlementAmount: JsonField<Long>,
+                    private val merchantCategoryCodes: JsonField<List<MerchantCategoryCode>>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("interval")
+                        @ExcludeMissing
+                        interval: JsonField<Interval> = JsonMissing.of(),
+                        @JsonProperty("settlement_amount")
+                        @ExcludeMissing
+                        settlementAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("merchant_category_codes")
+                        @ExcludeMissing
+                        merchantCategoryCodes: JsonField<List<MerchantCategoryCode>> =
+                            JsonMissing.of(),
+                    ) : this(interval, settlementAmount, merchantCategoryCodes, mutableMapOf())
+
+                    /**
+                     * The interval at which the spending limit is enforced.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun interval(): Interval = interval.getRequired("interval")
+
+                    /**
+                     * The maximum settlement amount permitted in the given interval.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun settlementAmount(): Long = settlementAmount.getRequired("settlement_amount")
+
+                    /**
+                     * The Merchant Category Codes this spending limit applies to. If not set, the
+                     * limit applies to all transactions.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun merchantCategoryCodes(): Optional<List<MerchantCategoryCode>> =
+                        merchantCategoryCodes.getOptional("merchant_category_codes")
+
+                    /**
+                     * Returns the raw JSON value of [interval].
+                     *
+                     * Unlike [interval], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("interval")
+                    @ExcludeMissing
+                    fun _interval(): JsonField<Interval> = interval
+
+                    /**
+                     * Returns the raw JSON value of [settlementAmount].
+                     *
+                     * Unlike [settlementAmount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("settlement_amount")
+                    @ExcludeMissing
+                    fun _settlementAmount(): JsonField<Long> = settlementAmount
+
+                    /**
+                     * Returns the raw JSON value of [merchantCategoryCodes].
+                     *
+                     * Unlike [merchantCategoryCodes], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("merchant_category_codes")
+                    @ExcludeMissing
+                    fun _merchantCategoryCodes(): JsonField<List<MerchantCategoryCode>> =
+                        merchantCategoryCodes
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [SpendingLimit].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .interval()
+                         * .settlementAmount()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [SpendingLimit]. */
+                    class Builder internal constructor() {
+
+                        private var interval: JsonField<Interval>? = null
+                        private var settlementAmount: JsonField<Long>? = null
+                        private var merchantCategoryCodes:
+                            JsonField<MutableList<MerchantCategoryCode>>? =
+                            null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(spendingLimit: SpendingLimit) = apply {
+                            interval = spendingLimit.interval
+                            settlementAmount = spendingLimit.settlementAmount
+                            merchantCategoryCodes =
+                                spendingLimit.merchantCategoryCodes.map { it.toMutableList() }
+                            additionalProperties = spendingLimit.additionalProperties.toMutableMap()
+                        }
+
+                        /** The interval at which the spending limit is enforced. */
+                        fun interval(interval: Interval) = interval(JsonField.of(interval))
+
+                        /**
+                         * Sets [Builder.interval] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.interval] with a well-typed [Interval]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun interval(interval: JsonField<Interval>) = apply {
+                            this.interval = interval
+                        }
+
+                        /** The maximum settlement amount permitted in the given interval. */
+                        fun settlementAmount(settlementAmount: Long) =
+                            settlementAmount(JsonField.of(settlementAmount))
+
+                        /**
+                         * Sets [Builder.settlementAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.settlementAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun settlementAmount(settlementAmount: JsonField<Long>) = apply {
+                            this.settlementAmount = settlementAmount
+                        }
+
+                        /**
+                         * The Merchant Category Codes this spending limit applies to. If not set,
+                         * the limit applies to all transactions.
+                         */
+                        fun merchantCategoryCodes(
+                            merchantCategoryCodes: List<MerchantCategoryCode>
+                        ) = merchantCategoryCodes(JsonField.of(merchantCategoryCodes))
+
+                        /**
+                         * Sets [Builder.merchantCategoryCodes] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.merchantCategoryCodes] with a well-typed
+                         * `List<MerchantCategoryCode>` value instead. This method is primarily for
+                         * setting the field to an undocumented or not yet supported value.
+                         */
+                        fun merchantCategoryCodes(
+                            merchantCategoryCodes: JsonField<List<MerchantCategoryCode>>
+                        ) = apply {
+                            this.merchantCategoryCodes =
+                                merchantCategoryCodes.map { it.toMutableList() }
+                        }
+
+                        /**
+                         * Adds a single [MerchantCategoryCode] to [merchantCategoryCodes].
+                         *
+                         * @throws IllegalStateException if the field was previously set to a
+                         *   non-list.
+                         */
+                        fun addMerchantCategoryCode(merchantCategoryCode: MerchantCategoryCode) =
+                            apply {
+                                merchantCategoryCodes =
+                                    (merchantCategoryCodes ?: JsonField.of(mutableListOf())).also {
+                                        checkKnown("merchantCategoryCodes", it)
+                                            .add(merchantCategoryCode)
+                                    }
+                            }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [SpendingLimit].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .interval()
+                         * .settlementAmount()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): SpendingLimit =
+                            SpendingLimit(
+                                checkRequired("interval", interval),
+                                checkRequired("settlementAmount", settlementAmount),
+                                (merchantCategoryCodes ?: JsonMissing.of()).map {
+                                    it.toImmutable()
+                                },
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): SpendingLimit = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        interval().validate()
+                        settlementAmount()
+                        merchantCategoryCodes().ifPresent { it.forEach { it.validate() } }
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (interval.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (settlementAmount.asKnown().isPresent) 1 else 0) +
+                            (merchantCategoryCodes.asKnown().getOrNull()?.sumOf {
+                                it.validity().toInt()
+                            } ?: 0)
+
+                    /** The interval at which the spending limit is enforced. */
+                    class Interval
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** The spending limit applies over the lifetime of the card. */
+                            @JvmField val ALL_TIME = of("all_time")
+
+                            /** The spending limit applies per transaction. */
+                            @JvmField val PER_TRANSACTION = of("per_transaction")
+
+                            /**
+                             * The spending limit applies per day. Resets nightly at midnight UTC.
+                             */
+                            @JvmField val PER_DAY = of("per_day")
+
+                            /**
+                             * The spending limit applies per week. Resets weekly on Mondays at
+                             * midnight UTC.
+                             */
+                            @JvmField val PER_WEEK = of("per_week")
+
+                            /**
+                             * The spending limit applies per month. Resets on the first of the
+                             * month, midnight UTC.
+                             */
+                            @JvmField val PER_MONTH = of("per_month")
+
+                            @JvmStatic fun of(value: String) = Interval(JsonField.of(value))
+                        }
+
+                        /** An enum containing [Interval]'s known values. */
+                        enum class Known {
+                            /** The spending limit applies over the lifetime of the card. */
+                            ALL_TIME,
+                            /** The spending limit applies per transaction. */
+                            PER_TRANSACTION,
+                            /**
+                             * The spending limit applies per day. Resets nightly at midnight UTC.
+                             */
+                            PER_DAY,
+                            /**
+                             * The spending limit applies per week. Resets weekly on Mondays at
+                             * midnight UTC.
+                             */
+                            PER_WEEK,
+                            /**
+                             * The spending limit applies per month. Resets on the first of the
+                             * month, midnight UTC.
+                             */
+                            PER_MONTH,
+                        }
+
+                        /**
+                         * An enum containing [Interval]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [Interval] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** The spending limit applies over the lifetime of the card. */
+                            ALL_TIME,
+                            /** The spending limit applies per transaction. */
+                            PER_TRANSACTION,
+                            /**
+                             * The spending limit applies per day. Resets nightly at midnight UTC.
+                             */
+                            PER_DAY,
+                            /**
+                             * The spending limit applies per week. Resets weekly on Mondays at
+                             * midnight UTC.
+                             */
+                            PER_WEEK,
+                            /**
+                             * The spending limit applies per month. Resets on the first of the
+                             * month, midnight UTC.
+                             */
+                            PER_MONTH,
+                            /**
+                             * An enum member indicating that [Interval] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                ALL_TIME -> Value.ALL_TIME
+                                PER_TRANSACTION -> Value.PER_TRANSACTION
+                                PER_DAY -> Value.PER_DAY
+                                PER_WEEK -> Value.PER_WEEK
+                                PER_MONTH -> Value.PER_MONTH
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                ALL_TIME -> Known.ALL_TIME
+                                PER_TRANSACTION -> Known.PER_TRANSACTION
+                                PER_DAY -> Known.PER_DAY
+                                PER_WEEK -> Known.PER_WEEK
+                                PER_MONTH -> Known.PER_MONTH
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown Interval: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Interval = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Interval && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    class MerchantCategoryCode
+                    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                    private constructor(
+                        private val code: JsonField<String>,
+                        private val additionalProperties: MutableMap<String, JsonValue>,
+                    ) {
+
+                        @JsonCreator
+                        private constructor(
+                            @JsonProperty("code")
+                            @ExcludeMissing
+                            code: JsonField<String> = JsonMissing.of()
+                        ) : this(code, mutableMapOf())
+
+                        /**
+                         * The Merchant Category Code.
+                         *
+                         * @throws IncreaseInvalidDataException if the JSON field has an unexpected
+                         *   type or is unexpectedly missing or null (e.g. if the server responded
+                         *   with an unexpected value).
+                         */
+                        fun code(): String = code.getRequired("code")
+
+                        /**
+                         * Returns the raw JSON value of [code].
+                         *
+                         * Unlike [code], this method doesn't throw if the JSON field has an
+                         * unexpected type.
+                         */
+                        @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+                        @JsonAnySetter
+                        private fun putAdditionalProperty(key: String, value: JsonValue) {
+                            additionalProperties.put(key, value)
+                        }
+
+                        @JsonAnyGetter
+                        @ExcludeMissing
+                        fun _additionalProperties(): Map<String, JsonValue> =
+                            Collections.unmodifiableMap(additionalProperties)
+
+                        fun toBuilder() = Builder().from(this)
+
+                        companion object {
+
+                            /**
+                             * Returns a mutable builder for constructing an instance of
+                             * [MerchantCategoryCode].
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .code()
+                             * ```
+                             */
+                            @JvmStatic fun builder() = Builder()
+                        }
+
+                        /** A builder for [MerchantCategoryCode]. */
+                        class Builder internal constructor() {
+
+                            private var code: JsonField<String>? = null
+                            private var additionalProperties: MutableMap<String, JsonValue> =
+                                mutableMapOf()
+
+                            @JvmSynthetic
+                            internal fun from(merchantCategoryCode: MerchantCategoryCode) = apply {
+                                code = merchantCategoryCode.code
+                                additionalProperties =
+                                    merchantCategoryCode.additionalProperties.toMutableMap()
+                            }
+
+                            /** The Merchant Category Code. */
+                            fun code(code: String) = code(JsonField.of(code))
+
+                            /**
+                             * Sets [Builder.code] to an arbitrary JSON value.
+                             *
+                             * You should usually call [Builder.code] with a well-typed [String]
+                             * value instead. This method is primarily for setting the field to an
+                             * undocumented or not yet supported value.
+                             */
+                            fun code(code: JsonField<String>) = apply { this.code = code }
+
+                            fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                                apply {
+                                    this.additionalProperties.clear()
+                                    putAllAdditionalProperties(additionalProperties)
+                                }
+
+                            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                                additionalProperties.put(key, value)
+                            }
+
+                            fun putAllAdditionalProperties(
+                                additionalProperties: Map<String, JsonValue>
+                            ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                            fun removeAdditionalProperty(key: String) = apply {
+                                additionalProperties.remove(key)
+                            }
+
+                            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                                keys.forEach(::removeAdditionalProperty)
+                            }
+
+                            /**
+                             * Returns an immutable instance of [MerchantCategoryCode].
+                             *
+                             * Further updates to this [Builder] will not mutate the returned
+                             * instance.
+                             *
+                             * The following fields are required:
+                             * ```java
+                             * .code()
+                             * ```
+                             *
+                             * @throws IllegalStateException if any required field is unset.
+                             */
+                            fun build(): MerchantCategoryCode =
+                                MerchantCategoryCode(
+                                    checkRequired("code", code),
+                                    additionalProperties.toMutableMap(),
+                                )
+                        }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): MerchantCategoryCode = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            code()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = (if (code.asKnown().isPresent) 1 else 0)
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is MerchantCategoryCode &&
+                                code == other.code &&
+                                additionalProperties == other.additionalProperties
+                        }
+
+                        private val hashCode: Int by lazy {
+                            Objects.hash(code, additionalProperties)
+                        }
+
+                        override fun hashCode(): Int = hashCode
+
+                        override fun toString() =
+                            "MerchantCategoryCode{code=$code, additionalProperties=$additionalProperties}"
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is SpendingLimit &&
+                            interval == other.interval &&
+                            settlementAmount == other.settlementAmount &&
+                            merchantCategoryCodes == other.merchantCategoryCodes &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            interval,
+                            settlementAmount,
+                            merchantCategoryCodes,
+                            additionalProperties,
+                        )
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "SpendingLimit{interval=$interval, settlementAmount=$settlementAmount, merchantCategoryCodes=$merchantCategoryCodes, additionalProperties=$additionalProperties}"
+                }
 
                 override fun equals(other: Any?): Boolean {
                     if (this === other) {
                         return true
                     }
 
-                    return other is MerchantCategoryCode &&
-                        code == other.code &&
+                    return other is MultiUse &&
+                        spendingLimits == other.spendingLimits &&
                         additionalProperties == other.additionalProperties
                 }
 
-                private val hashCode: Int by lazy { Objects.hash(code, additionalProperties) }
+                private val hashCode: Int by lazy {
+                    Objects.hash(spendingLimits, additionalProperties)
+                }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "MerchantCategoryCode{code=$code, additionalProperties=$additionalProperties}"
+                    "MultiUse{spendingLimits=$spendingLimits, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * Controls for single-use cards. Required if and only if `category` is `single_use`.
+             */
+            class SingleUse
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val settlementAmount: JsonField<SettlementAmount>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("settlement_amount")
+                    @ExcludeMissing
+                    settlementAmount: JsonField<SettlementAmount> = JsonMissing.of()
+                ) : this(settlementAmount, mutableMapOf())
+
+                /**
+                 * The settlement amount constraint for this single-use card.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun settlementAmount(): SettlementAmount =
+                    settlementAmount.getRequired("settlement_amount")
+
+                /**
+                 * Returns the raw JSON value of [settlementAmount].
+                 *
+                 * Unlike [settlementAmount], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("settlement_amount")
+                @ExcludeMissing
+                fun _settlementAmount(): JsonField<SettlementAmount> = settlementAmount
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [SingleUse].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .settlementAmount()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [SingleUse]. */
+                class Builder internal constructor() {
+
+                    private var settlementAmount: JsonField<SettlementAmount>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(singleUse: SingleUse) = apply {
+                        settlementAmount = singleUse.settlementAmount
+                        additionalProperties = singleUse.additionalProperties.toMutableMap()
+                    }
+
+                    /** The settlement amount constraint for this single-use card. */
+                    fun settlementAmount(settlementAmount: SettlementAmount) =
+                        settlementAmount(JsonField.of(settlementAmount))
+
+                    /**
+                     * Sets [Builder.settlementAmount] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.settlementAmount] with a well-typed
+                     * [SettlementAmount] value instead. This method is primarily for setting the
+                     * field to an undocumented or not yet supported value.
+                     */
+                    fun settlementAmount(settlementAmount: JsonField<SettlementAmount>) = apply {
+                        this.settlementAmount = settlementAmount
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [SingleUse].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .settlementAmount()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): SingleUse =
+                        SingleUse(
+                            checkRequired("settlementAmount", settlementAmount),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                fun validate(): SingleUse = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    settlementAmount().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (settlementAmount.asKnown().getOrNull()?.validity() ?: 0)
+
+                /** The settlement amount constraint for this single-use card. */
+                class SettlementAmount
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val comparison: JsonField<Comparison>,
+                    private val value: JsonField<Long>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("comparison")
+                        @ExcludeMissing
+                        comparison: JsonField<Comparison> = JsonMissing.of(),
+                        @JsonProperty("value")
+                        @ExcludeMissing
+                        value: JsonField<Long> = JsonMissing.of(),
+                    ) : this(comparison, value, mutableMapOf())
+
+                    /**
+                     * The operator used to compare the settlement amount.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun comparison(): Comparison = comparison.getRequired("comparison")
+
+                    /**
+                     * The settlement amount value.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun value(): Long = value.getRequired("value")
+
+                    /**
+                     * Returns the raw JSON value of [comparison].
+                     *
+                     * Unlike [comparison], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("comparison")
+                    @ExcludeMissing
+                    fun _comparison(): JsonField<Comparison> = comparison
+
+                    /**
+                     * Returns the raw JSON value of [value].
+                     *
+                     * Unlike [value], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("value") @ExcludeMissing fun _value(): JsonField<Long> = value
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of
+                         * [SettlementAmount].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .comparison()
+                         * .value()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [SettlementAmount]. */
+                    class Builder internal constructor() {
+
+                        private var comparison: JsonField<Comparison>? = null
+                        private var value: JsonField<Long>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(settlementAmount: SettlementAmount) = apply {
+                            comparison = settlementAmount.comparison
+                            value = settlementAmount.value
+                            additionalProperties =
+                                settlementAmount.additionalProperties.toMutableMap()
+                        }
+
+                        /** The operator used to compare the settlement amount. */
+                        fun comparison(comparison: Comparison) =
+                            comparison(JsonField.of(comparison))
+
+                        /**
+                         * Sets [Builder.comparison] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.comparison] with a well-typed
+                         * [Comparison] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun comparison(comparison: JsonField<Comparison>) = apply {
+                            this.comparison = comparison
+                        }
+
+                        /** The settlement amount value. */
+                        fun value(value: Long) = value(JsonField.of(value))
+
+                        /**
+                         * Sets [Builder.value] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.value] with a well-typed [Long] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun value(value: JsonField<Long>) = apply { this.value = value }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [SettlementAmount].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .comparison()
+                         * .value()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): SettlementAmount =
+                            SettlementAmount(
+                                checkRequired("comparison", comparison),
+                                checkRequired("value", value),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    fun validate(): SettlementAmount = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        comparison().validate()
+                        value()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (comparison.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (value.asKnown().isPresent) 1 else 0)
+
+                    /** The operator used to compare the settlement amount. */
+                    class Comparison
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** The settlement amount must be exactly the specified value. */
+                            @JvmField val EQUALS = of("equals")
+
+                            /**
+                             * The settlement amount must be less than or equal to the specified
+                             * value.
+                             */
+                            @JvmField val LESS_THAN_OR_EQUALS = of("less_than_or_equals")
+
+                            @JvmStatic fun of(value: String) = Comparison(JsonField.of(value))
+                        }
+
+                        /** An enum containing [Comparison]'s known values. */
+                        enum class Known {
+                            /** The settlement amount must be exactly the specified value. */
+                            EQUALS,
+                            /**
+                             * The settlement amount must be less than or equal to the specified
+                             * value.
+                             */
+                            LESS_THAN_OR_EQUALS,
+                        }
+
+                        /**
+                         * An enum containing [Comparison]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [Comparison] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** The settlement amount must be exactly the specified value. */
+                            EQUALS,
+                            /**
+                             * The settlement amount must be less than or equal to the specified
+                             * value.
+                             */
+                            LESS_THAN_OR_EQUALS,
+                            /**
+                             * An enum member indicating that [Comparison] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                EQUALS -> Value.EQUALS
+                                LESS_THAN_OR_EQUALS -> Value.LESS_THAN_OR_EQUALS
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                EQUALS -> Known.EQUALS
+                                LESS_THAN_OR_EQUALS -> Known.LESS_THAN_OR_EQUALS
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown Comparison: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        fun validate(): Comparison = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is Comparison && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is SettlementAmount &&
+                            comparison == other.comparison &&
+                            value == other.value &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(comparison, value, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "SettlementAmount{comparison=$comparison, value=$value, additionalProperties=$additionalProperties}"
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is SingleUse &&
+                        settlementAmount == other.settlementAmount &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(settlementAmount, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "SingleUse{settlementAmount=$settlementAmount, additionalProperties=$additionalProperties}"
             }
 
             override fun equals(other: Any?): Boolean {
@@ -3664,26 +4586,21 @@ private constructor(
                     return true
                 }
 
-                return other is SpendingLimit &&
-                    interval == other.interval &&
-                    settlementAmount == other.settlementAmount &&
-                    merchantCategoryCodes == other.merchantCategoryCodes &&
+                return other is Usage &&
+                    category == other.category &&
+                    multiUse == other.multiUse &&
+                    singleUse == other.singleUse &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(
-                    interval,
-                    settlementAmount,
-                    merchantCategoryCodes,
-                    additionalProperties,
-                )
+                Objects.hash(category, multiUse, singleUse, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "SpendingLimit{interval=$interval, settlementAmount=$settlementAmount, merchantCategoryCodes=$merchantCategoryCodes, additionalProperties=$additionalProperties}"
+                "Usage{category=$category, multiUse=$multiUse, singleUse=$singleUse, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {
@@ -3692,21 +4609,19 @@ private constructor(
             }
 
             return other is AuthorizationControls &&
-                maximumAuthorizationCount == other.maximumAuthorizationCount &&
                 merchantAcceptorIdentifier == other.merchantAcceptorIdentifier &&
                 merchantCategoryCode == other.merchantCategoryCode &&
                 merchantCountry == other.merchantCountry &&
-                spendingLimits == other.spendingLimits &&
+                usage == other.usage &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
             Objects.hash(
-                maximumAuthorizationCount,
                 merchantAcceptorIdentifier,
                 merchantCategoryCode,
                 merchantCountry,
-                spendingLimits,
+                usage,
                 additionalProperties,
             )
         }
@@ -3714,7 +4629,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AuthorizationControls{maximumAuthorizationCount=$maximumAuthorizationCount, merchantAcceptorIdentifier=$merchantAcceptorIdentifier, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, spendingLimits=$spendingLimits, additionalProperties=$additionalProperties}"
+            "AuthorizationControls{merchantAcceptorIdentifier=$merchantAcceptorIdentifier, merchantCategoryCode=$merchantCategoryCode, merchantCountry=$merchantCountry, usage=$usage, additionalProperties=$additionalProperties}"
     }
 
     /** The card's billing address. */
