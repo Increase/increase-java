@@ -20,6 +20,7 @@ import com.increase.api.services.async.simulations.CardTokenServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
 import com.increase.api.services.async.simulations.CheckTransferServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
+import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsync
 import com.increase.api.services.async.simulations.ExportServiceAsync
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
 import com.increase.api.services.async.simulations.InboundCheckDepositServiceAsync
@@ -107,6 +108,8 @@ interface SimulationServiceAsync {
 
     fun inboundMailItems(): InboundMailItemServiceAsync
 
+    fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync
+
     fun programs(): ProgramServiceAsync
 
     fun accountStatements(): AccountStatementServiceAsync
@@ -186,6 +189,8 @@ interface SimulationServiceAsync {
         fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
 
         fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse
+
+        fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync.WithRawResponse
 
         fun programs(): ProgramServiceAsync.WithRawResponse
 

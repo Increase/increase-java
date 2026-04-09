@@ -25,6 +25,7 @@ import com.increase.api.services.blocking.CheckTransferService
 import com.increase.api.services.blocking.DeclinedTransactionService
 import com.increase.api.services.blocking.DigitalCardProfileService
 import com.increase.api.services.blocking.DigitalWalletTokenService
+import com.increase.api.services.blocking.EntityOnboardingSessionService
 import com.increase.api.services.blocking.EntityService
 import com.increase.api.services.blocking.EventService
 import com.increase.api.services.blocking.EventSubscriptionService
@@ -171,6 +172,8 @@ interface IncreaseClient {
 
     fun supplementalDocuments(): SupplementalDocumentService
 
+    fun entityOnboardingSessions(): EntityOnboardingSessionService
+
     fun programs(): ProgramService
 
     fun accountStatements(): AccountStatementService
@@ -310,6 +313,8 @@ interface IncreaseClient {
         fun beneficialOwners(): BeneficialOwnerService.WithRawResponse
 
         fun supplementalDocuments(): SupplementalDocumentService.WithRawResponse
+
+        fun entityOnboardingSessions(): EntityOnboardingSessionService.WithRawResponse
 
         fun programs(): ProgramService.WithRawResponse
 

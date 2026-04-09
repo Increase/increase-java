@@ -25,6 +25,7 @@ import com.increase.api.services.async.CheckTransferServiceAsync
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenServiceAsync
+import com.increase.api.services.async.EntityOnboardingSessionServiceAsync
 import com.increase.api.services.async.EntityServiceAsync
 import com.increase.api.services.async.EventServiceAsync
 import com.increase.api.services.async.EventSubscriptionServiceAsync
@@ -171,6 +172,8 @@ interface IncreaseClientAsync {
 
     fun supplementalDocuments(): SupplementalDocumentServiceAsync
 
+    fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync
+
     fun programs(): ProgramServiceAsync
 
     fun accountStatements(): AccountStatementServiceAsync
@@ -314,6 +317,8 @@ interface IncreaseClientAsync {
         fun beneficialOwners(): BeneficialOwnerServiceAsync.WithRawResponse
 
         fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse
+
+        fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync.WithRawResponse
 
         fun programs(): ProgramServiceAsync.WithRawResponse
 

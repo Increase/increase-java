@@ -85,6 +85,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.entities()).isNotNull()
         assertThat(client.beneficialOwners()).isNotNull()
         assertThat(client.supplementalDocuments()).isNotNull()
+        assertThat(client.entityOnboardingSessions()).isNotNull()
         assertThat(client.programs()).isNotNull()
         assertThat(client.accountStatements()).isNotNull()
         assertThat(client.files()).isNotNull()

@@ -48,6 +48,8 @@ import com.increase.api.services.blocking.DigitalCardProfileService
 import com.increase.api.services.blocking.DigitalCardProfileServiceImpl
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import com.increase.api.services.blocking.DigitalWalletTokenServiceImpl
+import com.increase.api.services.blocking.EntityOnboardingSessionService
+import com.increase.api.services.blocking.EntityOnboardingSessionServiceImpl
 import com.increase.api.services.blocking.EntityService
 import com.increase.api.services.blocking.EntityServiceImpl
 import com.increase.api.services.blocking.EventService
@@ -275,6 +277,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         SupplementalDocumentServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val entityOnboardingSessions: EntityOnboardingSessionService by lazy {
+        EntityOnboardingSessionServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptionsWithUserAgent) }
 
     private val accountStatements: AccountStatementService by lazy {
@@ -434,6 +440,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun beneficialOwners(): BeneficialOwnerService = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentService = supplementalDocuments
+
+    override fun entityOnboardingSessions(): EntityOnboardingSessionService =
+        entityOnboardingSessions
 
     override fun programs(): ProgramService = programs
 
@@ -632,6 +641,11 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             SupplementalDocumentServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val entityOnboardingSessions:
+            EntityOnboardingSessionService.WithRawResponse by lazy {
+            EntityOnboardingSessionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val programs: ProgramService.WithRawResponse by lazy {
             ProgramServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -816,6 +830,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun supplementalDocuments(): SupplementalDocumentService.WithRawResponse =
             supplementalDocuments
+
+        override fun entityOnboardingSessions(): EntityOnboardingSessionService.WithRawResponse =
+            entityOnboardingSessions
 
         override fun programs(): ProgramService.WithRawResponse = programs
 
