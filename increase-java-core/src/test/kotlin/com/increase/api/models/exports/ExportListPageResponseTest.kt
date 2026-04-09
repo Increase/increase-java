@@ -66,6 +66,13 @@ internal class ExportListPageResponseTest {
                         )
                         .category(Export.Category.TRANSACTION_CSV)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .dailyAccountBalanceCsv(
+                            Export.DailyAccountBalanceCsv.builder()
+                                .accountId("account_id")
+                                .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                                .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                         .entityCsv(Export.EntityCsv.builder().build())
                         .feeCsv(
@@ -177,6 +184,13 @@ internal class ExportListPageResponseTest {
                     )
                     .category(Export.Category.TRANSACTION_CSV)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .dailyAccountBalanceCsv(
+                        Export.DailyAccountBalanceCsv.builder()
+                            .accountId("account_id")
+                            .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                            .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                            .build()
+                    )
                     .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                     .entityCsv(Export.EntityCsv.builder().build())
                     .feeCsv(
@@ -292,6 +306,13 @@ internal class ExportListPageResponseTest {
                         )
                         .category(Export.Category.TRANSACTION_CSV)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .dailyAccountBalanceCsv(
+                            Export.DailyAccountBalanceCsv.builder()
+                                .accountId("account_id")
+                                .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                                .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                                .build()
+                        )
                         .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                         .entityCsv(Export.EntityCsv.builder().build())
                         .feeCsv(
