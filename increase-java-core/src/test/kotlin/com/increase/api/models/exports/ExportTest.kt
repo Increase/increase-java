@@ -64,6 +64,13 @@ internal class ExportTest {
                 )
                 .category(Export.Category.TRANSACTION_CSV)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .dailyAccountBalanceCsv(
+                    Export.DailyAccountBalanceCsv.builder()
+                        .accountId("account_id")
+                        .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                        .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
                 .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                 .entityCsv(Export.EntityCsv.builder().build())
                 .feeCsv(
@@ -174,6 +181,14 @@ internal class ExportTest {
             )
         assertThat(export.category()).isEqualTo(Export.Category.TRANSACTION_CSV)
         assertThat(export.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(export.dailyAccountBalanceCsv())
+            .contains(
+                Export.DailyAccountBalanceCsv.builder()
+                    .accountId("account_id")
+                    .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                    .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                    .build()
+            )
         assertThat(export.dashboardTableCsv()).contains(Export.DashboardTableCsv.builder().build())
         assertThat(export.entityCsv()).contains(Export.EntityCsv.builder().build())
         assertThat(export.feeCsv())
@@ -289,6 +304,13 @@ internal class ExportTest {
                 )
                 .category(Export.Category.TRANSACTION_CSV)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .dailyAccountBalanceCsv(
+                    Export.DailyAccountBalanceCsv.builder()
+                        .accountId("account_id")
+                        .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                        .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                        .build()
+                )
                 .dashboardTableCsv(Export.DashboardTableCsv.builder().build())
                 .entityCsv(Export.EntityCsv.builder().build())
                 .feeCsv(

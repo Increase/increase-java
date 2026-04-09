@@ -86,6 +86,15 @@ private constructor(
         body.bookkeepingAccountBalanceCsv()
 
     /**
+     * Options for the created export. Required if `category` is equal to
+     * `daily_account_balance_csv`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun dailyAccountBalanceCsv(): Optional<DailyAccountBalanceCsv> = body.dailyAccountBalanceCsv()
+
+    /**
      * Options for the created export. Required if `category` is equal to `entity_csv`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -172,6 +181,15 @@ private constructor(
      */
     fun _bookkeepingAccountBalanceCsv(): JsonField<BookkeepingAccountBalanceCsv> =
         body._bookkeepingAccountBalanceCsv()
+
+    /**
+     * Returns the raw JSON value of [dailyAccountBalanceCsv].
+     *
+     * Unlike [dailyAccountBalanceCsv], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _dailyAccountBalanceCsv(): JsonField<DailyAccountBalanceCsv> =
+        body._dailyAccountBalanceCsv()
 
     /**
      * Returns the raw JSON value of [entityCsv].
@@ -360,6 +378,26 @@ private constructor(
         fun bookkeepingAccountBalanceCsv(
             bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>
         ) = apply { body.bookkeepingAccountBalanceCsv(bookkeepingAccountBalanceCsv) }
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `daily_account_balance_csv`.
+         */
+        fun dailyAccountBalanceCsv(dailyAccountBalanceCsv: DailyAccountBalanceCsv) = apply {
+            body.dailyAccountBalanceCsv(dailyAccountBalanceCsv)
+        }
+
+        /**
+         * Sets [Builder.dailyAccountBalanceCsv] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.dailyAccountBalanceCsv] with a well-typed
+         * [DailyAccountBalanceCsv] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun dailyAccountBalanceCsv(dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv>) =
+            apply {
+                body.dailyAccountBalanceCsv(dailyAccountBalanceCsv)
+            }
 
         /** Options for the created export. Required if `category` is equal to `entity_csv`. */
         fun entityCsv(entityCsv: EntityCsv) = apply { body.entityCsv(entityCsv) }
@@ -586,6 +624,7 @@ private constructor(
         private val accountVerificationLetter: JsonField<AccountVerificationLetter>,
         private val balanceCsv: JsonField<BalanceCsv>,
         private val bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>,
+        private val dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv>,
         private val entityCsv: JsonField<EntityCsv>,
         private val fundingInstructions: JsonField<FundingInstructions>,
         private val transactionCsv: JsonField<TransactionCsv>,
@@ -615,6 +654,9 @@ private constructor(
             @ExcludeMissing
             bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
                 JsonMissing.of(),
+            @JsonProperty("daily_account_balance_csv")
+            @ExcludeMissing
+            dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv> = JsonMissing.of(),
             @JsonProperty("entity_csv")
             @ExcludeMissing
             entityCsv: JsonField<EntityCsv> = JsonMissing.of(),
@@ -637,6 +679,7 @@ private constructor(
             accountVerificationLetter,
             balanceCsv,
             bookkeepingAccountBalanceCsv,
+            dailyAccountBalanceCsv,
             entityCsv,
             fundingInstructions,
             transactionCsv,
@@ -700,6 +743,16 @@ private constructor(
          */
         fun bookkeepingAccountBalanceCsv(): Optional<BookkeepingAccountBalanceCsv> =
             bookkeepingAccountBalanceCsv.getOptional("bookkeeping_account_balance_csv")
+
+        /**
+         * Options for the created export. Required if `category` is equal to
+         * `daily_account_balance_csv`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun dailyAccountBalanceCsv(): Optional<DailyAccountBalanceCsv> =
+            dailyAccountBalanceCsv.getOptional("daily_account_balance_csv")
 
         /**
          * Options for the created export. Required if `category` is equal to `entity_csv`.
@@ -803,6 +856,16 @@ private constructor(
             bookkeepingAccountBalanceCsv
 
         /**
+         * Returns the raw JSON value of [dailyAccountBalanceCsv].
+         *
+         * Unlike [dailyAccountBalanceCsv], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("daily_account_balance_csv")
+        @ExcludeMissing
+        fun _dailyAccountBalanceCsv(): JsonField<DailyAccountBalanceCsv> = dailyAccountBalanceCsv
+
+        /**
          * Returns the raw JSON value of [entityCsv].
          *
          * Unlike [entityCsv], this method doesn't throw if the JSON field has an unexpected type.
@@ -885,6 +948,7 @@ private constructor(
             private var balanceCsv: JsonField<BalanceCsv> = JsonMissing.of()
             private var bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
                 JsonMissing.of()
+            private var dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv> = JsonMissing.of()
             private var entityCsv: JsonField<EntityCsv> = JsonMissing.of()
             private var fundingInstructions: JsonField<FundingInstructions> = JsonMissing.of()
             private var transactionCsv: JsonField<TransactionCsv> = JsonMissing.of()
@@ -900,6 +964,7 @@ private constructor(
                 accountVerificationLetter = body.accountVerificationLetter
                 balanceCsv = body.balanceCsv
                 bookkeepingAccountBalanceCsv = body.bookkeepingAccountBalanceCsv
+                dailyAccountBalanceCsv = body.dailyAccountBalanceCsv
                 entityCsv = body.entityCsv
                 fundingInstructions = body.fundingInstructions
                 transactionCsv = body.transactionCsv
@@ -1007,6 +1072,25 @@ private constructor(
             fun bookkeepingAccountBalanceCsv(
                 bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>
             ) = apply { this.bookkeepingAccountBalanceCsv = bookkeepingAccountBalanceCsv }
+
+            /**
+             * Options for the created export. Required if `category` is equal to
+             * `daily_account_balance_csv`.
+             */
+            fun dailyAccountBalanceCsv(dailyAccountBalanceCsv: DailyAccountBalanceCsv) =
+                dailyAccountBalanceCsv(JsonField.of(dailyAccountBalanceCsv))
+
+            /**
+             * Sets [Builder.dailyAccountBalanceCsv] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dailyAccountBalanceCsv] with a well-typed
+             * [DailyAccountBalanceCsv] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun dailyAccountBalanceCsv(dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv>) =
+                apply {
+                    this.dailyAccountBalanceCsv = dailyAccountBalanceCsv
+                }
 
             /** Options for the created export. Required if `category` is equal to `entity_csv`. */
             fun entityCsv(entityCsv: EntityCsv) = entityCsv(JsonField.of(entityCsv))
@@ -1122,6 +1206,7 @@ private constructor(
                     accountVerificationLetter,
                     balanceCsv,
                     bookkeepingAccountBalanceCsv,
+                    dailyAccountBalanceCsv,
                     entityCsv,
                     fundingInstructions,
                     transactionCsv,
@@ -1144,6 +1229,7 @@ private constructor(
             accountVerificationLetter().ifPresent { it.validate() }
             balanceCsv().ifPresent { it.validate() }
             bookkeepingAccountBalanceCsv().ifPresent { it.validate() }
+            dailyAccountBalanceCsv().ifPresent { it.validate() }
             entityCsv().ifPresent { it.validate() }
             fundingInstructions().ifPresent { it.validate() }
             transactionCsv().ifPresent { it.validate() }
@@ -1174,6 +1260,7 @@ private constructor(
                 (accountVerificationLetter.asKnown().getOrNull()?.validity() ?: 0) +
                 (balanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (bookkeepingAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
+                (dailyAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (entityCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (fundingInstructions.asKnown().getOrNull()?.validity() ?: 0) +
                 (transactionCsv.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1192,6 +1279,7 @@ private constructor(
                 accountVerificationLetter == other.accountVerificationLetter &&
                 balanceCsv == other.balanceCsv &&
                 bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
+                dailyAccountBalanceCsv == other.dailyAccountBalanceCsv &&
                 entityCsv == other.entityCsv &&
                 fundingInstructions == other.fundingInstructions &&
                 transactionCsv == other.transactionCsv &&
@@ -1208,6 +1296,7 @@ private constructor(
                 accountVerificationLetter,
                 balanceCsv,
                 bookkeepingAccountBalanceCsv,
+                dailyAccountBalanceCsv,
                 entityCsv,
                 fundingInstructions,
                 transactionCsv,
@@ -1220,7 +1309,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, voidedCheck=$voidedCheck, additionalProperties=$additionalProperties}"
+            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, dailyAccountBalanceCsv=$dailyAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, voidedCheck=$voidedCheck, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Export to create. */
@@ -1274,6 +1363,12 @@ private constructor(
             /** A PDF of a voided check. */
             @JvmField val VOIDED_CHECK = of("voided_check")
 
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            @JvmField val DAILY_ACCOUNT_BALANCE_CSV = of("daily_account_balance_csv")
+
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
 
@@ -1305,6 +1400,11 @@ private constructor(
             FUNDING_INSTRUCTIONS,
             /** A PDF of a voided check. */
             VOIDED_CHECK,
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            DAILY_ACCOUNT_BALANCE_CSV,
         }
 
         /**
@@ -1343,6 +1443,11 @@ private constructor(
             FUNDING_INSTRUCTIONS,
             /** A PDF of a voided check. */
             VOIDED_CHECK,
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            DAILY_ACCOUNT_BALANCE_CSV,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1366,6 +1471,7 @@ private constructor(
                 ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                 FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
                 VOIDED_CHECK -> Value.VOIDED_CHECK
+                DAILY_ACCOUNT_BALANCE_CSV -> Value.DAILY_ACCOUNT_BALANCE_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -1390,6 +1496,7 @@ private constructor(
                 ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                 FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
                 VOIDED_CHECK -> Known.VOIDED_CHECK
+                DAILY_ACCOUNT_BALANCE_CSV -> Known.DAILY_ACCOUNT_BALANCE_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
@@ -3392,6 +3499,248 @@ private constructor(
 
         override fun toString() =
             "BookkeepingAccountBalanceCsv{bookkeepingAccountId=$bookkeepingAccountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Options for the created export. Required if `category` is equal to
+     * `daily_account_balance_csv`.
+     */
+    class DailyAccountBalanceCsv
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val accountId: JsonField<String>,
+        private val onOrAfterDate: JsonField<LocalDate>,
+        private val onOrBeforeDate: JsonField<LocalDate>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_id")
+            @ExcludeMissing
+            accountId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("on_or_after_date")
+            @ExcludeMissing
+            onOrAfterDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("on_or_before_date")
+            @ExcludeMissing
+            onOrBeforeDate: JsonField<LocalDate> = JsonMissing.of(),
+        ) : this(accountId, onOrAfterDate, onOrBeforeDate, mutableMapOf())
+
+        /**
+         * Filter exported Balances to the specified Account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountId(): Optional<String> = accountId.getOptional("account_id")
+
+        /**
+         * Filter exported Balances to those on or after this date.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun onOrAfterDate(): Optional<LocalDate> = onOrAfterDate.getOptional("on_or_after_date")
+
+        /**
+         * Filter exported Balances to those on or before this date.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun onOrBeforeDate(): Optional<LocalDate> = onOrBeforeDate.getOptional("on_or_before_date")
+
+        /**
+         * Returns the raw JSON value of [accountId].
+         *
+         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
+
+        /**
+         * Returns the raw JSON value of [onOrAfterDate].
+         *
+         * Unlike [onOrAfterDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("on_or_after_date")
+        @ExcludeMissing
+        fun _onOrAfterDate(): JsonField<LocalDate> = onOrAfterDate
+
+        /**
+         * Returns the raw JSON value of [onOrBeforeDate].
+         *
+         * Unlike [onOrBeforeDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("on_or_before_date")
+        @ExcludeMissing
+        fun _onOrBeforeDate(): JsonField<LocalDate> = onOrBeforeDate
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DailyAccountBalanceCsv].
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DailyAccountBalanceCsv]. */
+        class Builder internal constructor() {
+
+            private var accountId: JsonField<String> = JsonMissing.of()
+            private var onOrAfterDate: JsonField<LocalDate> = JsonMissing.of()
+            private var onOrBeforeDate: JsonField<LocalDate> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(dailyAccountBalanceCsv: DailyAccountBalanceCsv) = apply {
+                accountId = dailyAccountBalanceCsv.accountId
+                onOrAfterDate = dailyAccountBalanceCsv.onOrAfterDate
+                onOrBeforeDate = dailyAccountBalanceCsv.onOrBeforeDate
+                additionalProperties = dailyAccountBalanceCsv.additionalProperties.toMutableMap()
+            }
+
+            /** Filter exported Balances to the specified Account. */
+            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+            /**
+             * Sets [Builder.accountId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+
+            /** Filter exported Balances to those on or after this date. */
+            fun onOrAfterDate(onOrAfterDate: LocalDate) = onOrAfterDate(JsonField.of(onOrAfterDate))
+
+            /**
+             * Sets [Builder.onOrAfterDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.onOrAfterDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun onOrAfterDate(onOrAfterDate: JsonField<LocalDate>) = apply {
+                this.onOrAfterDate = onOrAfterDate
+            }
+
+            /** Filter exported Balances to those on or before this date. */
+            fun onOrBeforeDate(onOrBeforeDate: LocalDate) =
+                onOrBeforeDate(JsonField.of(onOrBeforeDate))
+
+            /**
+             * Sets [Builder.onOrBeforeDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.onOrBeforeDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun onOrBeforeDate(onOrBeforeDate: JsonField<LocalDate>) = apply {
+                this.onOrBeforeDate = onOrBeforeDate
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DailyAccountBalanceCsv].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): DailyAccountBalanceCsv =
+                DailyAccountBalanceCsv(
+                    accountId,
+                    onOrAfterDate,
+                    onOrBeforeDate,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): DailyAccountBalanceCsv = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountId()
+            onOrAfterDate()
+            onOrBeforeDate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountId.asKnown().isPresent) 1 else 0) +
+                (if (onOrAfterDate.asKnown().isPresent) 1 else 0) +
+                (if (onOrBeforeDate.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DailyAccountBalanceCsv &&
+                accountId == other.accountId &&
+                onOrAfterDate == other.onOrAfterDate &&
+                onOrBeforeDate == other.onOrBeforeDate &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(accountId, onOrAfterDate, onOrBeforeDate, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DailyAccountBalanceCsv{accountId=$accountId, onOrAfterDate=$onOrAfterDate, onOrBeforeDate=$onOrBeforeDate, additionalProperties=$additionalProperties}"
     }
 
     /** Options for the created export. Required if `category` is equal to `entity_csv`. */
