@@ -78,6 +78,13 @@ internal class ExportServiceTest {
                             )
                             .build()
                     )
+                    .dailyAccountBalanceCsv(
+                        ExportCreateParams.DailyAccountBalanceCsv.builder()
+                            .accountId("account_id")
+                            .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                            .onOrBeforeDate(LocalDate.parse("2019-12-27"))
+                            .build()
+                    )
                     .entityCsv(ExportCreateParams.EntityCsv.builder().build())
                     .fundingInstructions(
                         ExportCreateParams.FundingInstructions.builder()
