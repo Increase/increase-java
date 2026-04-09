@@ -8,7 +8,7 @@ repositories {
 
 allprojects {
     group = "com.increase.api"
-    version = "0.506.0" // x-release-please-version
+    version = "0.507.0" // x-release-please-version
 }
 
 subprojects {
