@@ -37,6 +37,8 @@ import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.CheckTransferServiceImpl
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestServiceImpl
+import com.increase.api.services.blocking.simulations.EntityOnboardingSessionService
+import com.increase.api.services.blocking.simulations.EntityOnboardingSessionServiceImpl
 import com.increase.api.services.blocking.simulations.ExportService
 import com.increase.api.services.blocking.simulations.ExportServiceImpl
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
@@ -182,6 +184,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         InboundMailItemServiceImpl(clientOptions)
     }
 
+    private val entityOnboardingSessions: EntityOnboardingSessionService by lazy {
+        EntityOnboardingSessionServiceImpl(clientOptions)
+    }
+
     private val programs: ProgramService by lazy { ProgramServiceImpl(clientOptions) }
 
     private val accountStatements: AccountStatementService by lazy {
@@ -257,6 +263,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
     override fun checkDeposits(): CheckDepositService = checkDeposits
 
     override fun inboundMailItems(): InboundMailItemService = inboundMailItems
+
+    override fun entityOnboardingSessions(): EntityOnboardingSessionService =
+        entityOnboardingSessions
 
     override fun programs(): ProgramService = programs
 
@@ -386,6 +395,11 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             InboundMailItemServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val entityOnboardingSessions:
+            EntityOnboardingSessionService.WithRawResponse by lazy {
+            EntityOnboardingSessionServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val programs: ProgramService.WithRawResponse by lazy {
             ProgramServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -480,6 +494,9 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         override fun checkDeposits(): CheckDepositService.WithRawResponse = checkDeposits
 
         override fun inboundMailItems(): InboundMailItemService.WithRawResponse = inboundMailItems
+
+        override fun entityOnboardingSessions(): EntityOnboardingSessionService.WithRawResponse =
+            entityOnboardingSessions
 
         override fun programs(): ProgramService.WithRawResponse = programs
 

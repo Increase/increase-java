@@ -48,6 +48,8 @@ import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsyncImpl
 import com.increase.api.services.async.DigitalWalletTokenServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenServiceAsyncImpl
+import com.increase.api.services.async.EntityOnboardingSessionServiceAsync
+import com.increase.api.services.async.EntityOnboardingSessionServiceAsyncImpl
 import com.increase.api.services.async.EntityServiceAsync
 import com.increase.api.services.async.EntityServiceAsyncImpl
 import com.increase.api.services.async.EventServiceAsync
@@ -282,6 +284,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         SupplementalDocumentServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val entityOnboardingSessions: EntityOnboardingSessionServiceAsync by lazy {
+        EntityOnboardingSessionServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val programs: ProgramServiceAsync by lazy {
         ProgramServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -451,6 +457,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun beneficialOwners(): BeneficialOwnerServiceAsync = beneficialOwners
 
     override fun supplementalDocuments(): SupplementalDocumentServiceAsync = supplementalDocuments
+
+    override fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync =
+        entityOnboardingSessions
 
     override fun programs(): ProgramServiceAsync = programs
 
@@ -652,6 +661,11 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             SupplementalDocumentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val entityOnboardingSessions:
+            EntityOnboardingSessionServiceAsync.WithRawResponse by lazy {
+            EntityOnboardingSessionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val programs: ProgramServiceAsync.WithRawResponse by lazy {
             ProgramServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -840,6 +854,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun supplementalDocuments(): SupplementalDocumentServiceAsync.WithRawResponse =
             supplementalDocuments
+
+        override fun entityOnboardingSessions():
+            EntityOnboardingSessionServiceAsync.WithRawResponse = entityOnboardingSessions
 
         override fun programs(): ProgramServiceAsync.WithRawResponse = programs
 

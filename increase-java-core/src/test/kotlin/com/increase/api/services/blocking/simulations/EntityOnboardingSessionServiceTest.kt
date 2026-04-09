@@ -1,0 +1,27 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.increase.api.services.blocking.simulations
+
+import com.increase.api.TestServerExtension
+import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import org.junit.jupiter.api.Test
+import org.junit.jupiter.api.extension.ExtendWith
+
+@ExtendWith(TestServerExtension::class)
+internal class EntityOnboardingSessionServiceTest {
+
+    @Test
+    fun submit() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val entityOnboardingSessionService = client.simulations().entityOnboardingSessions()
+
+        val entityOnboardingSession =
+            entityOnboardingSessionService.submit("entity_onboarding_session_wid2ug11fsmvh3k9hymd")
+
+        entityOnboardingSession.validate()
+    }
+}

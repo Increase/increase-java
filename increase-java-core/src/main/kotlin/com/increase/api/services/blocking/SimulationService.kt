@@ -20,6 +20,7 @@ import com.increase.api.services.blocking.simulations.CardTokenService
 import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
+import com.increase.api.services.blocking.simulations.EntityOnboardingSessionService
 import com.increase.api.services.blocking.simulations.ExportService
 import com.increase.api.services.blocking.simulations.InboundAchTransferService
 import com.increase.api.services.blocking.simulations.InboundCheckDepositService
@@ -107,6 +108,8 @@ interface SimulationService {
 
     fun inboundMailItems(): InboundMailItemService
 
+    fun entityOnboardingSessions(): EntityOnboardingSessionService
+
     fun programs(): ProgramService
 
     fun accountStatements(): AccountStatementService
@@ -183,6 +186,8 @@ interface SimulationService {
         fun checkDeposits(): CheckDepositService.WithRawResponse
 
         fun inboundMailItems(): InboundMailItemService.WithRawResponse
+
+        fun entityOnboardingSessions(): EntityOnboardingSessionService.WithRawResponse
 
         fun programs(): ProgramService.WithRawResponse
 
