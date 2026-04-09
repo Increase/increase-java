@@ -37,6 +37,8 @@ import com.increase.api.services.async.simulations.CheckTransferServiceAsync
 import com.increase.api.services.async.simulations.CheckTransferServiceAsyncImpl
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsyncImpl
+import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsync
+import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsyncImpl
 import com.increase.api.services.async.simulations.ExportServiceAsync
 import com.increase.api.services.async.simulations.ExportServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
@@ -189,6 +191,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         InboundMailItemServiceAsyncImpl(clientOptions)
     }
 
+    private val entityOnboardingSessions: EntityOnboardingSessionServiceAsync by lazy {
+        EntityOnboardingSessionServiceAsyncImpl(clientOptions)
+    }
+
     private val programs: ProgramServiceAsync by lazy { ProgramServiceAsyncImpl(clientOptions) }
 
     private val accountStatements: AccountStatementServiceAsync by lazy {
@@ -267,6 +273,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
     override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
+
+    override fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync =
+        entityOnboardingSessions
 
     override fun programs(): ProgramServiceAsync = programs
 
@@ -398,6 +407,11 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             InboundMailItemServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val entityOnboardingSessions:
+            EntityOnboardingSessionServiceAsync.WithRawResponse by lazy {
+            EntityOnboardingSessionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val programs: ProgramServiceAsync.WithRawResponse by lazy {
             ProgramServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -495,6 +509,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
         override fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse =
             inboundMailItems
+
+        override fun entityOnboardingSessions():
+            EntityOnboardingSessionServiceAsync.WithRawResponse = entityOnboardingSessions
 
         override fun programs(): ProgramServiceAsync.WithRawResponse = programs
 
