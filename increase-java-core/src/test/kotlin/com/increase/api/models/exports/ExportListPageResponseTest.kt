@@ -30,8 +30,8 @@ internal class ExportListPageResponseTest {
                                 .accountId("account_id")
                                 .createdAt(
                                     Export.AccountStatementOfx.CreatedAt.builder()
-                                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .build()
                                 )
                                 .build()
@@ -148,8 +148,8 @@ internal class ExportListPageResponseTest {
                             .accountId("account_id")
                             .createdAt(
                                 Export.AccountStatementOfx.CreatedAt.builder()
-                                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
                             .build()
@@ -270,8 +270,8 @@ internal class ExportListPageResponseTest {
                                 .accountId("account_id")
                                 .createdAt(
                                     Export.AccountStatementOfx.CreatedAt.builder()
-                                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                        .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .build()
                                 )
                                 .build()
