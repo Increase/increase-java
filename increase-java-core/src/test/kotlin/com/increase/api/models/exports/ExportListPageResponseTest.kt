@@ -56,12 +56,8 @@ internal class ExportListPageResponseTest {
                         .bookkeepingAccountBalanceCsv(
                             Export.BookkeepingAccountBalanceCsv.builder()
                                 .bookkeepingAccountId("bookkeeping_account_id")
-                                .createdAt(
-                                    Export.BookkeepingAccountBalanceCsv.CreatedAt.builder()
-                                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .build()
-                                )
+                                .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                                .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .category(Export.Category.TRANSACTION_CSV)
@@ -174,12 +170,8 @@ internal class ExportListPageResponseTest {
                     .bookkeepingAccountBalanceCsv(
                         Export.BookkeepingAccountBalanceCsv.builder()
                             .bookkeepingAccountId("bookkeeping_account_id")
-                            .createdAt(
-                                Export.BookkeepingAccountBalanceCsv.CreatedAt.builder()
-                                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .build()
-                            )
+                            .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                            .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                             .build()
                     )
                     .category(Export.Category.TRANSACTION_CSV)
@@ -296,12 +288,8 @@ internal class ExportListPageResponseTest {
                         .bookkeepingAccountBalanceCsv(
                             Export.BookkeepingAccountBalanceCsv.builder()
                                 .bookkeepingAccountId("bookkeeping_account_id")
-                                .createdAt(
-                                    Export.BookkeepingAccountBalanceCsv.CreatedAt.builder()
-                                        .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                        .build()
-                                )
+                                .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                                .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .category(Export.Category.TRANSACTION_CSV)
