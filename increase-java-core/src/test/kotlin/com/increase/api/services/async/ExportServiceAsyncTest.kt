@@ -50,19 +50,6 @@ internal class ExportServiceAsyncTest {
                             .balanceDate(LocalDate.parse("2019-12-27"))
                             .build()
                     )
-                    .balanceCsv(
-                        ExportCreateParams.BalanceCsv.builder()
-                            .accountId("account_id")
-                            .createdAt(
-                                ExportCreateParams.BalanceCsv.CreatedAt.builder()
-                                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                    .build()
-                            )
-                            .build()
-                    )
                     .bookkeepingAccountBalanceCsv(
                         ExportCreateParams.BookkeepingAccountBalanceCsv.builder()
                             .bookkeepingAccountId("bookkeeping_account_id")

@@ -68,14 +68,6 @@ private constructor(
         body.accountVerificationLetter()
 
     /**
-     * Options for the created export. Required if `category` is equal to `balance_csv`.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun balanceCsv(): Optional<BalanceCsv> = body.balanceCsv()
-
-    /**
      * Options for the created export. Required if `category` is equal to
      * `bookkeeping_account_balance_csv`.
      *
@@ -165,13 +157,6 @@ private constructor(
      */
     fun _accountVerificationLetter(): JsonField<AccountVerificationLetter> =
         body._accountVerificationLetter()
-
-    /**
-     * Returns the raw JSON value of [balanceCsv].
-     *
-     * Unlike [balanceCsv], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _balanceCsv(): JsonField<BalanceCsv> = body._balanceCsv()
 
     /**
      * Returns the raw JSON value of [bookkeepingAccountBalanceCsv].
@@ -273,7 +258,7 @@ private constructor(
          * - [accountStatementBai2]
          * - [accountStatementOfx]
          * - [accountVerificationLetter]
-         * - [balanceCsv]
+         * - [bookkeepingAccountBalanceCsv]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -347,18 +332,6 @@ private constructor(
         fun accountVerificationLetter(
             accountVerificationLetter: JsonField<AccountVerificationLetter>
         ) = apply { body.accountVerificationLetter(accountVerificationLetter) }
-
-        /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-        fun balanceCsv(balanceCsv: BalanceCsv) = apply { body.balanceCsv(balanceCsv) }
-
-        /**
-         * Sets [Builder.balanceCsv] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.balanceCsv] with a well-typed [BalanceCsv] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
-         */
-        fun balanceCsv(balanceCsv: JsonField<BalanceCsv>) = apply { body.balanceCsv(balanceCsv) }
 
         /**
          * Options for the created export. Required if `category` is equal to
@@ -622,7 +595,6 @@ private constructor(
         private val accountStatementBai2: JsonField<AccountStatementBai2>,
         private val accountStatementOfx: JsonField<AccountStatementOfx>,
         private val accountVerificationLetter: JsonField<AccountVerificationLetter>,
-        private val balanceCsv: JsonField<BalanceCsv>,
         private val bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv>,
         private val dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv>,
         private val entityCsv: JsonField<EntityCsv>,
@@ -647,9 +619,6 @@ private constructor(
             @JsonProperty("account_verification_letter")
             @ExcludeMissing
             accountVerificationLetter: JsonField<AccountVerificationLetter> = JsonMissing.of(),
-            @JsonProperty("balance_csv")
-            @ExcludeMissing
-            balanceCsv: JsonField<BalanceCsv> = JsonMissing.of(),
             @JsonProperty("bookkeeping_account_balance_csv")
             @ExcludeMissing
             bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
@@ -677,7 +646,6 @@ private constructor(
             accountStatementBai2,
             accountStatementOfx,
             accountVerificationLetter,
-            balanceCsv,
             bookkeepingAccountBalanceCsv,
             dailyAccountBalanceCsv,
             entityCsv,
@@ -725,14 +693,6 @@ private constructor(
          */
         fun accountVerificationLetter(): Optional<AccountVerificationLetter> =
             accountVerificationLetter.getOptional("account_verification_letter")
-
-        /**
-         * Options for the created export. Required if `category` is equal to `balance_csv`.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun balanceCsv(): Optional<BalanceCsv> = balanceCsv.getOptional("balance_csv")
 
         /**
          * Options for the created export. Required if `category` is equal to
@@ -836,15 +796,6 @@ private constructor(
             accountVerificationLetter
 
         /**
-         * Returns the raw JSON value of [balanceCsv].
-         *
-         * Unlike [balanceCsv], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("balance_csv")
-        @ExcludeMissing
-        fun _balanceCsv(): JsonField<BalanceCsv> = balanceCsv
-
-        /**
          * Returns the raw JSON value of [bookkeepingAccountBalanceCsv].
          *
          * Unlike [bookkeepingAccountBalanceCsv], this method doesn't throw if the JSON field has an
@@ -945,7 +896,6 @@ private constructor(
             private var accountStatementOfx: JsonField<AccountStatementOfx> = JsonMissing.of()
             private var accountVerificationLetter: JsonField<AccountVerificationLetter> =
                 JsonMissing.of()
-            private var balanceCsv: JsonField<BalanceCsv> = JsonMissing.of()
             private var bookkeepingAccountBalanceCsv: JsonField<BookkeepingAccountBalanceCsv> =
                 JsonMissing.of()
             private var dailyAccountBalanceCsv: JsonField<DailyAccountBalanceCsv> = JsonMissing.of()
@@ -962,7 +912,6 @@ private constructor(
                 accountStatementBai2 = body.accountStatementBai2
                 accountStatementOfx = body.accountStatementOfx
                 accountVerificationLetter = body.accountVerificationLetter
-                balanceCsv = body.balanceCsv
                 bookkeepingAccountBalanceCsv = body.bookkeepingAccountBalanceCsv
                 dailyAccountBalanceCsv = body.dailyAccountBalanceCsv
                 entityCsv = body.entityCsv
@@ -1039,20 +988,6 @@ private constructor(
             fun accountVerificationLetter(
                 accountVerificationLetter: JsonField<AccountVerificationLetter>
             ) = apply { this.accountVerificationLetter = accountVerificationLetter }
-
-            /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-            fun balanceCsv(balanceCsv: BalanceCsv) = balanceCsv(JsonField.of(balanceCsv))
-
-            /**
-             * Sets [Builder.balanceCsv] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.balanceCsv] with a well-typed [BalanceCsv] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun balanceCsv(balanceCsv: JsonField<BalanceCsv>) = apply {
-                this.balanceCsv = balanceCsv
-            }
 
             /**
              * Options for the created export. Required if `category` is equal to
@@ -1204,7 +1139,6 @@ private constructor(
                     accountStatementBai2,
                     accountStatementOfx,
                     accountVerificationLetter,
-                    balanceCsv,
                     bookkeepingAccountBalanceCsv,
                     dailyAccountBalanceCsv,
                     entityCsv,
@@ -1227,7 +1161,6 @@ private constructor(
             accountStatementBai2().ifPresent { it.validate() }
             accountStatementOfx().ifPresent { it.validate() }
             accountVerificationLetter().ifPresent { it.validate() }
-            balanceCsv().ifPresent { it.validate() }
             bookkeepingAccountBalanceCsv().ifPresent { it.validate() }
             dailyAccountBalanceCsv().ifPresent { it.validate() }
             entityCsv().ifPresent { it.validate() }
@@ -1258,7 +1191,6 @@ private constructor(
                 (accountStatementBai2.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountStatementOfx.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountVerificationLetter.asKnown().getOrNull()?.validity() ?: 0) +
-                (balanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (bookkeepingAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (dailyAccountBalanceCsv.asKnown().getOrNull()?.validity() ?: 0) +
                 (entityCsv.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1277,7 +1209,6 @@ private constructor(
                 accountStatementBai2 == other.accountStatementBai2 &&
                 accountStatementOfx == other.accountStatementOfx &&
                 accountVerificationLetter == other.accountVerificationLetter &&
-                balanceCsv == other.balanceCsv &&
                 bookkeepingAccountBalanceCsv == other.bookkeepingAccountBalanceCsv &&
                 dailyAccountBalanceCsv == other.dailyAccountBalanceCsv &&
                 entityCsv == other.entityCsv &&
@@ -1294,7 +1225,6 @@ private constructor(
                 accountStatementBai2,
                 accountStatementOfx,
                 accountVerificationLetter,
-                balanceCsv,
                 bookkeepingAccountBalanceCsv,
                 dailyAccountBalanceCsv,
                 entityCsv,
@@ -1309,7 +1239,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, balanceCsv=$balanceCsv, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, dailyAccountBalanceCsv=$dailyAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, voidedCheck=$voidedCheck, additionalProperties=$additionalProperties}"
+            "Body{category=$category, accountStatementBai2=$accountStatementBai2, accountStatementOfx=$accountStatementOfx, accountVerificationLetter=$accountVerificationLetter, bookkeepingAccountBalanceCsv=$bookkeepingAccountBalanceCsv, dailyAccountBalanceCsv=$dailyAccountBalanceCsv, entityCsv=$entityCsv, fundingInstructions=$fundingInstructions, transactionCsv=$transactionCsv, vendorCsv=$vendorCsv, voidedCheck=$voidedCheck, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Export to create. */
@@ -2418,487 +2348,6 @@ private constructor(
 
         override fun toString() =
             "AccountVerificationLetter{accountNumberId=$accountNumberId, balanceDate=$balanceDate, additionalProperties=$additionalProperties}"
-    }
-
-    /** Options for the created export. Required if `category` is equal to `balance_csv`. */
-    class BalanceCsv
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val accountId: JsonField<String>,
-        private val createdAt: JsonField<CreatedAt>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("account_id")
-            @ExcludeMissing
-            accountId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("created_at")
-            @ExcludeMissing
-            createdAt: JsonField<CreatedAt> = JsonMissing.of(),
-        ) : this(accountId, createdAt, mutableMapOf())
-
-        /**
-         * Filter exported Balances to the specified Account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun accountId(): Optional<String> = accountId.getOptional("account_id")
-
-        /**
-         * Filter results by time range on the `created_at` attribute.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
-
-        /**
-         * Returns the raw JSON value of [accountId].
-         *
-         * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
-
-        /**
-         * Returns the raw JSON value of [createdAt].
-         *
-         * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("created_at")
-        @ExcludeMissing
-        fun _createdAt(): JsonField<CreatedAt> = createdAt
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [BalanceCsv]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [BalanceCsv]. */
-        class Builder internal constructor() {
-
-            private var accountId: JsonField<String> = JsonMissing.of()
-            private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(balanceCsv: BalanceCsv) = apply {
-                accountId = balanceCsv.accountId
-                createdAt = balanceCsv.createdAt
-                additionalProperties = balanceCsv.additionalProperties.toMutableMap()
-            }
-
-            /** Filter exported Balances to the specified Account. */
-            fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
-            /**
-             * Sets [Builder.accountId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
-
-            /** Filter results by time range on the `created_at` attribute. */
-            fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
-
-            /**
-             * Sets [Builder.createdAt] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.createdAt] with a well-typed [CreatedAt] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [BalanceCsv].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): BalanceCsv =
-                BalanceCsv(accountId, createdAt, additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        fun validate(): BalanceCsv = apply {
-            if (validated) {
-                return@apply
-            }
-
-            accountId()
-            createdAt().ifPresent { it.validate() }
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic
-        internal fun validity(): Int =
-            (if (accountId.asKnown().isPresent) 1 else 0) +
-                (createdAt.asKnown().getOrNull()?.validity() ?: 0)
-
-        /** Filter results by time range on the `created_at` attribute. */
-        class CreatedAt
-        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-        private constructor(
-            private val after: JsonField<OffsetDateTime>,
-            private val before: JsonField<OffsetDateTime>,
-            private val onOrAfter: JsonField<OffsetDateTime>,
-            private val onOrBefore: JsonField<OffsetDateTime>,
-            private val additionalProperties: MutableMap<String, JsonValue>,
-        ) {
-
-            @JsonCreator
-            private constructor(
-                @JsonProperty("after")
-                @ExcludeMissing
-                after: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("before")
-                @ExcludeMissing
-                before: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("on_or_after")
-                @ExcludeMissing
-                onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of(),
-                @JsonProperty("on_or_before")
-                @ExcludeMissing
-                onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of(),
-            ) : this(after, before, onOrAfter, onOrBefore, mutableMapOf())
-
-            /**
-             * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun after(): Optional<OffsetDateTime> = after.getOptional("after")
-
-            /**
-             * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun before(): Optional<OffsetDateTime> = before.getOptional("before")
-
-            /**
-             * Return results on or after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun onOrAfter(): Optional<OffsetDateTime> = onOrAfter.getOptional("on_or_after")
-
-            /**
-             * Return results on or before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-             * timestamp.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
-             *   if the server responded with an unexpected value).
-             */
-            fun onOrBefore(): Optional<OffsetDateTime> = onOrBefore.getOptional("on_or_before")
-
-            /**
-             * Returns the raw JSON value of [after].
-             *
-             * Unlike [after], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("after") @ExcludeMissing fun _after(): JsonField<OffsetDateTime> = after
-
-            /**
-             * Returns the raw JSON value of [before].
-             *
-             * Unlike [before], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("before")
-            @ExcludeMissing
-            fun _before(): JsonField<OffsetDateTime> = before
-
-            /**
-             * Returns the raw JSON value of [onOrAfter].
-             *
-             * Unlike [onOrAfter], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("on_or_after")
-            @ExcludeMissing
-            fun _onOrAfter(): JsonField<OffsetDateTime> = onOrAfter
-
-            /**
-             * Returns the raw JSON value of [onOrBefore].
-             *
-             * Unlike [onOrBefore], this method doesn't throw if the JSON field has an unexpected
-             * type.
-             */
-            @JsonProperty("on_or_before")
-            @ExcludeMissing
-            fun _onOrBefore(): JsonField<OffsetDateTime> = onOrBefore
-
-            @JsonAnySetter
-            private fun putAdditionalProperty(key: String, value: JsonValue) {
-                additionalProperties.put(key, value)
-            }
-
-            @JsonAnyGetter
-            @ExcludeMissing
-            fun _additionalProperties(): Map<String, JsonValue> =
-                Collections.unmodifiableMap(additionalProperties)
-
-            fun toBuilder() = Builder().from(this)
-
-            companion object {
-
-                /** Returns a mutable builder for constructing an instance of [CreatedAt]. */
-                @JvmStatic fun builder() = Builder()
-            }
-
-            /** A builder for [CreatedAt]. */
-            class Builder internal constructor() {
-
-                private var after: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var before: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var onOrAfter: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var onOrBefore: JsonField<OffsetDateTime> = JsonMissing.of()
-                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-                @JvmSynthetic
-                internal fun from(createdAt: CreatedAt) = apply {
-                    after = createdAt.after
-                    before = createdAt.before
-                    onOrAfter = createdAt.onOrAfter
-                    onOrBefore = createdAt.onOrBefore
-                    additionalProperties = createdAt.additionalProperties.toMutableMap()
-                }
-
-                /**
-                 * Return results after this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
-                 */
-                fun after(after: OffsetDateTime) = after(JsonField.of(after))
-
-                /**
-                 * Sets [Builder.after] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.after] with a well-typed [OffsetDateTime] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun after(after: JsonField<OffsetDateTime>) = apply { this.after = after }
-
-                /**
-                 * Return results before this [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601)
-                 * timestamp.
-                 */
-                fun before(before: OffsetDateTime) = before(JsonField.of(before))
-
-                /**
-                 * Sets [Builder.before] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.before] with a well-typed [OffsetDateTime] value
-                 * instead. This method is primarily for setting the field to an undocumented or not
-                 * yet supported value.
-                 */
-                fun before(before: JsonField<OffsetDateTime>) = apply { this.before = before }
-
-                /**
-                 * Return results on or after this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
-                 */
-                fun onOrAfter(onOrAfter: OffsetDateTime) = onOrAfter(JsonField.of(onOrAfter))
-
-                /**
-                 * Sets [Builder.onOrAfter] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.onOrAfter] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun onOrAfter(onOrAfter: JsonField<OffsetDateTime>) = apply {
-                    this.onOrAfter = onOrAfter
-                }
-
-                /**
-                 * Return results on or before this
-                 * [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) timestamp.
-                 */
-                fun onOrBefore(onOrBefore: OffsetDateTime) = onOrBefore(JsonField.of(onOrBefore))
-
-                /**
-                 * Sets [Builder.onOrBefore] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.onOrBefore] with a well-typed [OffsetDateTime]
-                 * value instead. This method is primarily for setting the field to an undocumented
-                 * or not yet supported value.
-                 */
-                fun onOrBefore(onOrBefore: JsonField<OffsetDateTime>) = apply {
-                    this.onOrBefore = onOrBefore
-                }
-
-                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                    this.additionalProperties.clear()
-                    putAllAdditionalProperties(additionalProperties)
-                }
-
-                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                    additionalProperties.put(key, value)
-                }
-
-                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
-                    apply {
-                        this.additionalProperties.putAll(additionalProperties)
-                    }
-
-                fun removeAdditionalProperty(key: String) = apply {
-                    additionalProperties.remove(key)
-                }
-
-                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                    keys.forEach(::removeAdditionalProperty)
-                }
-
-                /**
-                 * Returns an immutable instance of [CreatedAt].
-                 *
-                 * Further updates to this [Builder] will not mutate the returned instance.
-                 */
-                fun build(): CreatedAt =
-                    CreatedAt(
-                        after,
-                        before,
-                        onOrAfter,
-                        onOrBefore,
-                        additionalProperties.toMutableMap(),
-                    )
-            }
-
-            private var validated: Boolean = false
-
-            fun validate(): CreatedAt = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                after()
-                before()
-                onOrAfter()
-                onOrBefore()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic
-            internal fun validity(): Int =
-                (if (after.asKnown().isPresent) 1 else 0) +
-                    (if (before.asKnown().isPresent) 1 else 0) +
-                    (if (onOrAfter.asKnown().isPresent) 1 else 0) +
-                    (if (onOrBefore.asKnown().isPresent) 1 else 0)
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is CreatedAt &&
-                    after == other.after &&
-                    before == other.before &&
-                    onOrAfter == other.onOrAfter &&
-                    onOrBefore == other.onOrBefore &&
-                    additionalProperties == other.additionalProperties
-            }
-
-            private val hashCode: Int by lazy {
-                Objects.hash(after, before, onOrAfter, onOrBefore, additionalProperties)
-            }
-
-            override fun hashCode(): Int = hashCode
-
-            override fun toString() =
-                "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is BalanceCsv &&
-                accountId == other.accountId &&
-                createdAt == other.createdAt &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy {
-            Objects.hash(accountId, createdAt, additionalProperties)
-        }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "BalanceCsv{accountId=$accountId, createdAt=$createdAt, additionalProperties=$additionalProperties}"
     }
 
     /**
