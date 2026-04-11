@@ -550,6 +550,44 @@ internal class EntityServiceTest {
                                     .zip("x")
                                     .build()
                             )
+                            .confirmedNoUsTaxId(true)
+                            .identification(
+                                EntityUpdateParams.NaturalPerson.Identification.builder()
+                                    .method(
+                                        EntityUpdateParams.NaturalPerson.Identification.Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .number("xxxx")
+                                    .driversLicense(
+                                        EntityUpdateParams.NaturalPerson.Identification
+                                            .DriversLicense
+                                            .builder()
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
+                                            .fileId("file_id")
+                                            .state("x")
+                                            .backFileId("back_file_id")
+                                            .build()
+                                    )
+                                    .other(
+                                        EntityUpdateParams.NaturalPerson.Identification.Other
+                                            .builder()
+                                            .country("x")
+                                            .description("x")
+                                            .fileId("file_id")
+                                            .backFileId("back_file_id")
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
+                                            .build()
+                                    )
+                                    .passport(
+                                        EntityUpdateParams.NaturalPerson.Identification.Passport
+                                            .builder()
+                                            .country("x")
+                                            .expirationDate(LocalDate.parse("2019-12-27"))
+                                            .fileId("file_id")
+                                            .build()
+                                    )
+                                    .build()
+                            )
                             .name("x")
                             .build()
                     )
