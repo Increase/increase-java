@@ -471,6 +471,9 @@ private constructor(
             /** Occurs whenever a Card Payment is updated. */
             @JvmField val CARD_PAYMENT_UPDATED = of("card_payment.updated")
 
+            /** Occurs whenever a Card Purchase Supplement is created. */
+            @JvmField val CARD_PURCHASE_SUPPLEMENT_CREATED = of("card_purchase_supplement.created")
+
             /** Occurs whenever a Card Profile is created. */
             @JvmField val CARD_PROFILE_CREATED = of("card_profile.created")
 
@@ -829,6 +832,8 @@ private constructor(
             CARD_PAYMENT_CREATED,
             /** Occurs whenever a Card Payment is updated. */
             CARD_PAYMENT_UPDATED,
+            /** Occurs whenever a Card Purchase Supplement is created. */
+            CARD_PURCHASE_SUPPLEMENT_CREATED,
             /** Occurs whenever a Card Profile is created. */
             CARD_PROFILE_CREATED,
             /** Occurs whenever a Card Profile is updated. */
@@ -1078,6 +1083,8 @@ private constructor(
             CARD_PAYMENT_CREATED,
             /** Occurs whenever a Card Payment is updated. */
             CARD_PAYMENT_UPDATED,
+            /** Occurs whenever a Card Purchase Supplement is created. */
+            CARD_PURCHASE_SUPPLEMENT_CREATED,
             /** Occurs whenever a Card Profile is created. */
             CARD_PROFILE_CREATED,
             /** Occurs whenever a Card Profile is updated. */
@@ -1304,6 +1311,7 @@ private constructor(
                 CARD_UPDATED -> Value.CARD_UPDATED
                 CARD_PAYMENT_CREATED -> Value.CARD_PAYMENT_CREATED
                 CARD_PAYMENT_UPDATED -> Value.CARD_PAYMENT_UPDATED
+                CARD_PURCHASE_SUPPLEMENT_CREATED -> Value.CARD_PURCHASE_SUPPLEMENT_CREATED
                 CARD_PROFILE_CREATED -> Value.CARD_PROFILE_CREATED
                 CARD_PROFILE_UPDATED -> Value.CARD_PROFILE_UPDATED
                 CARD_DISPUTE_CREATED -> Value.CARD_DISPUTE_CREATED
@@ -1439,6 +1447,7 @@ private constructor(
                 CARD_UPDATED -> Known.CARD_UPDATED
                 CARD_PAYMENT_CREATED -> Known.CARD_PAYMENT_CREATED
                 CARD_PAYMENT_UPDATED -> Known.CARD_PAYMENT_UPDATED
+                CARD_PURCHASE_SUPPLEMENT_CREATED -> Known.CARD_PURCHASE_SUPPLEMENT_CREATED
                 CARD_PROFILE_CREATED -> Known.CARD_PROFILE_CREATED
                 CARD_PROFILE_UPDATED -> Known.CARD_PROFILE_UPDATED
                 CARD_DISPUTE_CREATED -> Known.CARD_DISPUTE_CREATED
