@@ -90,6 +90,7 @@ internal class EntityListPageResponseTest {
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .creatingEntityOnboardingSessionId(null)
                         .description(null)
                         .detailsConfirmedAt(null)
                         .governmentAuthority(
@@ -399,6 +400,7 @@ internal class EntityListPageResponseTest {
                             .build()
                     )
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .creatingEntityOnboardingSessionId(null)
                     .description(null)
                     .detailsConfirmedAt(null)
                     .governmentAuthority(
@@ -712,6 +714,7 @@ internal class EntityListPageResponseTest {
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .creatingEntityOnboardingSessionId(null)
                         .description(null)
                         .detailsConfirmedAt(null)
                         .governmentAuthority(
