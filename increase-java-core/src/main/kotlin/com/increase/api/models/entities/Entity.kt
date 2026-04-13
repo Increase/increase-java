@@ -34,6 +34,7 @@ private constructor(
     private val id: JsonField<String>,
     private val corporation: JsonField<Corporation>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val creatingEntityOnboardingSessionId: JsonField<String>,
     private val description: JsonField<String>,
     private val detailsConfirmedAt: JsonField<OffsetDateTime>,
     private val governmentAuthority: JsonField<GovernmentAuthority>,
@@ -61,6 +62,9 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("creating_entity_onboarding_session_id")
+        @ExcludeMissing
+        creatingEntityOnboardingSessionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
@@ -102,6 +106,7 @@ private constructor(
         id,
         corporation,
         createdAt,
+        creatingEntityOnboardingSessionId,
         description,
         detailsConfirmedAt,
         governmentAuthority,
@@ -143,6 +148,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The identifier of the Entity Onboarding Session that was used to create this Entity, if any.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun creatingEntityOnboardingSessionId(): Optional<String> =
+        creatingEntityOnboardingSessionId.getOptional("creating_entity_onboarding_session_id")
 
     /**
      * The entity's description for display purposes.
@@ -304,6 +318,16 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [creatingEntityOnboardingSessionId].
+     *
+     * Unlike [creatingEntityOnboardingSessionId], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("creating_entity_onboarding_session_id")
+    @ExcludeMissing
+    fun _creatingEntityOnboardingSessionId(): JsonField<String> = creatingEntityOnboardingSessionId
+
+    /**
      * Returns the raw JSON value of [description].
      *
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
@@ -453,6 +477,7 @@ private constructor(
          * .id()
          * .corporation()
          * .createdAt()
+         * .creatingEntityOnboardingSessionId()
          * .description()
          * .detailsConfirmedAt()
          * .governmentAuthority()
@@ -479,6 +504,7 @@ private constructor(
         private var id: JsonField<String>? = null
         private var corporation: JsonField<Corporation>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var creatingEntityOnboardingSessionId: JsonField<String>? = null
         private var description: JsonField<String>? = null
         private var detailsConfirmedAt: JsonField<OffsetDateTime>? = null
         private var governmentAuthority: JsonField<GovernmentAuthority>? = null
@@ -502,6 +528,7 @@ private constructor(
             id = entity.id
             corporation = entity.corporation
             createdAt = entity.createdAt
+            creatingEntityOnboardingSessionId = entity.creatingEntityOnboardingSessionId
             description = entity.description
             detailsConfirmedAt = entity.detailsConfirmedAt
             governmentAuthority = entity.governmentAuthority
@@ -565,6 +592,33 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The identifier of the Entity Onboarding Session that was used to create this Entity, if
+         * any.
+         */
+        fun creatingEntityOnboardingSessionId(creatingEntityOnboardingSessionId: String?) =
+            creatingEntityOnboardingSessionId(
+                JsonField.ofNullable(creatingEntityOnboardingSessionId)
+            )
+
+        /**
+         * Alias for calling [Builder.creatingEntityOnboardingSessionId] with
+         * `creatingEntityOnboardingSessionId.orElse(null)`.
+         */
+        fun creatingEntityOnboardingSessionId(creatingEntityOnboardingSessionId: Optional<String>) =
+            creatingEntityOnboardingSessionId(creatingEntityOnboardingSessionId.getOrNull())
+
+        /**
+         * Sets [Builder.creatingEntityOnboardingSessionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.creatingEntityOnboardingSessionId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun creatingEntityOnboardingSessionId(
+            creatingEntityOnboardingSessionId: JsonField<String>
+        ) = apply { this.creatingEntityOnboardingSessionId = creatingEntityOnboardingSessionId }
 
         /** The entity's description for display purposes. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
@@ -889,6 +943,7 @@ private constructor(
          * .id()
          * .corporation()
          * .createdAt()
+         * .creatingEntityOnboardingSessionId()
          * .description()
          * .detailsConfirmedAt()
          * .governmentAuthority()
@@ -913,6 +968,10 @@ private constructor(
                 checkRequired("id", id),
                 checkRequired("corporation", corporation),
                 checkRequired("createdAt", createdAt),
+                checkRequired(
+                    "creatingEntityOnboardingSessionId",
+                    creatingEntityOnboardingSessionId,
+                ),
                 checkRequired("description", description),
                 checkRequired("detailsConfirmedAt", detailsConfirmedAt),
                 checkRequired("governmentAuthority", governmentAuthority),
@@ -944,6 +1003,7 @@ private constructor(
         id()
         corporation().ifPresent { it.validate() }
         createdAt()
+        creatingEntityOnboardingSessionId()
         description()
         detailsConfirmedAt()
         governmentAuthority().ifPresent { it.validate() }
@@ -980,6 +1040,7 @@ private constructor(
         (if (id.asKnown().isPresent) 1 else 0) +
             (corporation.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (creatingEntityOnboardingSessionId.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (detailsConfirmedAt.asKnown().isPresent) 1 else 0) +
             (governmentAuthority.asKnown().getOrNull()?.validity() ?: 0) +
@@ -14197,6 +14258,7 @@ private constructor(
             id == other.id &&
             corporation == other.corporation &&
             createdAt == other.createdAt &&
+            creatingEntityOnboardingSessionId == other.creatingEntityOnboardingSessionId &&
             description == other.description &&
             detailsConfirmedAt == other.detailsConfirmedAt &&
             governmentAuthority == other.governmentAuthority &&
@@ -14220,6 +14282,7 @@ private constructor(
             id,
             corporation,
             createdAt,
+            creatingEntityOnboardingSessionId,
             description,
             detailsConfirmedAt,
             governmentAuthority,
@@ -14242,5 +14305,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, validation=$validation, additionalProperties=$additionalProperties}"
+        "Entity{id=$id, corporation=$corporation, createdAt=$createdAt, creatingEntityOnboardingSessionId=$creatingEntityOnboardingSessionId, description=$description, detailsConfirmedAt=$detailsConfirmedAt, governmentAuthority=$governmentAuthority, idempotencyKey=$idempotencyKey, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, status=$status, structure=$structure, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, type=$type, validation=$validation, additionalProperties=$additionalProperties}"
 }
