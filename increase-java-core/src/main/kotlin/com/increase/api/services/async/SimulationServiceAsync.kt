@@ -4,7 +4,6 @@ package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
-import com.increase.api.services.async.simulations.AccountTransferServiceAsync
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
 import com.increase.api.services.async.simulations.CardAuthenticationServiceAsync
 import com.increase.api.services.async.simulations.CardAuthorizationExpirationServiceAsync
@@ -53,8 +52,6 @@ interface SimulationServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SimulationServiceAsync
 
     fun interestPayments(): InterestPaymentServiceAsync
-
-    fun accountTransfers(): AccountTransferServiceAsync
 
     fun cardAuthorizations(): CardAuthorizationServiceAsync
 
@@ -134,8 +131,6 @@ interface SimulationServiceAsync {
         ): SimulationServiceAsync.WithRawResponse
 
         fun interestPayments(): InterestPaymentServiceAsync.WithRawResponse
-
-        fun accountTransfers(): AccountTransferServiceAsync.WithRawResponse
 
         fun cardAuthorizations(): CardAuthorizationServiceAsync.WithRawResponse
 
