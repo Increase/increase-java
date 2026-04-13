@@ -1,0 +1,1731 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.increase.api.models.simulations.cardpurchasesupplements
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
+import com.increase.api.core.checkRequired
+import com.increase.api.core.http.Headers
+import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
+import com.increase.api.errors.IncreaseInvalidDataException
+import java.time.LocalDate
+import java.util.Collections
+import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
+
+/**
+ * Simulates the creation of a Card Purchase Supplement (Level 3 data) for a card settlement. This
+ * happens asynchronously in production when Visa sends enhanced transaction data about a purchase.
+ */
+class CardPurchaseSupplementCreateParams
+private constructor(
+    private val body: Body,
+    private val additionalHeaders: Headers,
+    private val additionalQueryParams: QueryParams,
+) : Params {
+
+    /**
+     * The identifier of the Transaction to create a Card Purchase Supplement for. The Transaction
+     * must have a source of type `card_settlement`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun transactionId(): String = body.transactionId()
+
+    /**
+     * Invoice-level information about the payment.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun invoice(): Optional<Invoice> = body.invoice()
+
+    /**
+     * Line item information, such as individual products purchased.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun lineItems(): Optional<List<LineItem>> = body.lineItems()
+
+    /**
+     * Returns the raw JSON value of [transactionId].
+     *
+     * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _transactionId(): JsonField<String> = body._transactionId()
+
+    /**
+     * Returns the raw JSON value of [invoice].
+     *
+     * Unlike [invoice], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _invoice(): JsonField<Invoice> = body._invoice()
+
+    /**
+     * Returns the raw JSON value of [lineItems].
+     *
+     * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _lineItems(): JsonField<List<LineItem>> = body._lineItems()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
+    /** Additional headers to send with the request. */
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    /** Additional query param to send with the request. */
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [CardPurchaseSupplementCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .transactionId()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [CardPurchaseSupplementCreateParams]. */
+    class Builder internal constructor() {
+
+        private var body: Body.Builder = Body.builder()
+        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+
+        @JvmSynthetic
+        internal fun from(cardPurchaseSupplementCreateParams: CardPurchaseSupplementCreateParams) =
+            apply {
+                body = cardPurchaseSupplementCreateParams.body.toBuilder()
+                additionalHeaders = cardPurchaseSupplementCreateParams.additionalHeaders.toBuilder()
+                additionalQueryParams =
+                    cardPurchaseSupplementCreateParams.additionalQueryParams.toBuilder()
+            }
+
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [transactionId]
+         * - [invoice]
+         * - [lineItems]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * The identifier of the Transaction to create a Card Purchase Supplement for. The
+         * Transaction must have a source of type `card_settlement`.
+         */
+        fun transactionId(transactionId: String) = apply { body.transactionId(transactionId) }
+
+        /**
+         * Sets [Builder.transactionId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.transactionId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun transactionId(transactionId: JsonField<String>) = apply {
+            body.transactionId(transactionId)
+        }
+
+        /** Invoice-level information about the payment. */
+        fun invoice(invoice: Invoice) = apply { body.invoice(invoice) }
+
+        /**
+         * Sets [Builder.invoice] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.invoice] with a well-typed [Invoice] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun invoice(invoice: JsonField<Invoice>) = apply { body.invoice(invoice) }
+
+        /** Line item information, such as individual products purchased. */
+        fun lineItems(lineItems: List<LineItem>) = apply { body.lineItems(lineItems) }
+
+        /**
+         * Sets [Builder.lineItems] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lineItems] with a well-typed `List<LineItem>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun lineItems(lineItems: JsonField<List<LineItem>>) = apply { body.lineItems(lineItems) }
+
+        /**
+         * Adds a single [LineItem] to [lineItems].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addLineItem(lineItem: LineItem) = apply { body.addLineItem(lineItem) }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
+
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
+
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
+
+        /**
+         * Returns an immutable instance of [CardPurchaseSupplementCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .transactionId()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): CardPurchaseSupplementCreateParams =
+            CardPurchaseSupplementCreateParams(
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
+    }
+
+    fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val transactionId: JsonField<String>,
+        private val invoice: JsonField<Invoice>,
+        private val lineItems: JsonField<List<LineItem>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("transaction_id")
+            @ExcludeMissing
+            transactionId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("invoice") @ExcludeMissing invoice: JsonField<Invoice> = JsonMissing.of(),
+            @JsonProperty("line_items")
+            @ExcludeMissing
+            lineItems: JsonField<List<LineItem>> = JsonMissing.of(),
+        ) : this(transactionId, invoice, lineItems, mutableMapOf())
+
+        /**
+         * The identifier of the Transaction to create a Card Purchase Supplement for. The
+         * Transaction must have a source of type `card_settlement`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /**
+         * Invoice-level information about the payment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun invoice(): Optional<Invoice> = invoice.getOptional("invoice")
+
+        /**
+         * Line item information, such as individual products purchased.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun lineItems(): Optional<List<LineItem>> = lineItems.getOptional("line_items")
+
+        /**
+         * Returns the raw JSON value of [transactionId].
+         *
+         * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("transaction_id")
+        @ExcludeMissing
+        fun _transactionId(): JsonField<String> = transactionId
+
+        /**
+         * Returns the raw JSON value of [invoice].
+         *
+         * Unlike [invoice], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("invoice") @ExcludeMissing fun _invoice(): JsonField<Invoice> = invoice
+
+        /**
+         * Returns the raw JSON value of [lineItems].
+         *
+         * Unlike [lineItems], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line_items")
+        @ExcludeMissing
+        fun _lineItems(): JsonField<List<LineItem>> = lineItems
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .transactionId()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var transactionId: JsonField<String>? = null
+            private var invoice: JsonField<Invoice> = JsonMissing.of()
+            private var lineItems: JsonField<MutableList<LineItem>>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                transactionId = body.transactionId
+                invoice = body.invoice
+                lineItems = body.lineItems.map { it.toMutableList() }
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The identifier of the Transaction to create a Card Purchase Supplement for. The
+             * Transaction must have a source of type `card_settlement`.
+             */
+            fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
+
+            /**
+             * Sets [Builder.transactionId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.transactionId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun transactionId(transactionId: JsonField<String>) = apply {
+                this.transactionId = transactionId
+            }
+
+            /** Invoice-level information about the payment. */
+            fun invoice(invoice: Invoice) = invoice(JsonField.of(invoice))
+
+            /**
+             * Sets [Builder.invoice] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.invoice] with a well-typed [Invoice] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun invoice(invoice: JsonField<Invoice>) = apply { this.invoice = invoice }
+
+            /** Line item information, such as individual products purchased. */
+            fun lineItems(lineItems: List<LineItem>) = lineItems(JsonField.of(lineItems))
+
+            /**
+             * Sets [Builder.lineItems] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lineItems] with a well-typed `List<LineItem>` value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun lineItems(lineItems: JsonField<List<LineItem>>) = apply {
+                this.lineItems = lineItems.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [LineItem] to [lineItems].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addLineItem(lineItem: LineItem) = apply {
+                lineItems =
+                    (lineItems ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("lineItems", it).add(lineItem)
+                    }
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .transactionId()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("transactionId", transactionId),
+                    invoice,
+                    (lineItems ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            transactionId()
+            invoice().ifPresent { it.validate() }
+            lineItems().ifPresent { it.forEach { it.validate() } }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (transactionId.asKnown().isPresent) 1 else 0) +
+                (invoice.asKnown().getOrNull()?.validity() ?: 0) +
+                (lineItems.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Body &&
+                transactionId == other.transactionId &&
+                invoice == other.invoice &&
+                lineItems == other.lineItems &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(transactionId, invoice, lineItems, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{transactionId=$transactionId, invoice=$invoice, lineItems=$lineItems, additionalProperties=$additionalProperties}"
+    }
+
+    /** Invoice-level information about the payment. */
+    class Invoice
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val discountAmount: JsonField<Long>,
+        private val dutyTaxAmount: JsonField<Long>,
+        private val orderDate: JsonField<LocalDate>,
+        private val shippingAmount: JsonField<Long>,
+        private val shippingDestinationCountryCode: JsonField<String>,
+        private val shippingDestinationPostalCode: JsonField<String>,
+        private val shippingSourcePostalCode: JsonField<String>,
+        private val shippingTaxAmount: JsonField<Long>,
+        private val shippingTaxRate: JsonField<String>,
+        private val uniqueValueAddedTaxInvoiceReference: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("discount_amount")
+            @ExcludeMissing
+            discountAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("duty_tax_amount")
+            @ExcludeMissing
+            dutyTaxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("order_date")
+            @ExcludeMissing
+            orderDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("shipping_amount")
+            @ExcludeMissing
+            shippingAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("shipping_destination_country_code")
+            @ExcludeMissing
+            shippingDestinationCountryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_destination_postal_code")
+            @ExcludeMissing
+            shippingDestinationPostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_source_postal_code")
+            @ExcludeMissing
+            shippingSourcePostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_tax_amount")
+            @ExcludeMissing
+            shippingTaxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("shipping_tax_rate")
+            @ExcludeMissing
+            shippingTaxRate: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unique_value_added_tax_invoice_reference")
+            @ExcludeMissing
+            uniqueValueAddedTaxInvoiceReference: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            discountAmount,
+            dutyTaxAmount,
+            orderDate,
+            shippingAmount,
+            shippingDestinationCountryCode,
+            shippingDestinationPostalCode,
+            shippingSourcePostalCode,
+            shippingTaxAmount,
+            shippingTaxRate,
+            uniqueValueAddedTaxInvoiceReference,
+            mutableMapOf(),
+        )
+
+        /**
+         * Discount given to cardholder.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun discountAmount(): Optional<Long> = discountAmount.getOptional("discount_amount")
+
+        /**
+         * Amount of duty taxes.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun dutyTaxAmount(): Optional<Long> = dutyTaxAmount.getOptional("duty_tax_amount")
+
+        /**
+         * Date the order was taken.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun orderDate(): Optional<LocalDate> = orderDate.getOptional("order_date")
+
+        /**
+         * The shipping cost.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingAmount(): Optional<Long> = shippingAmount.getOptional("shipping_amount")
+
+        /**
+         * Country code of the shipping destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingDestinationCountryCode(): Optional<String> =
+            shippingDestinationCountryCode.getOptional("shipping_destination_country_code")
+
+        /**
+         * Postal code of the shipping destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingDestinationPostalCode(): Optional<String> =
+            shippingDestinationPostalCode.getOptional("shipping_destination_postal_code")
+
+        /**
+         * Postal code of the location being shipped from.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingSourcePostalCode(): Optional<String> =
+            shippingSourcePostalCode.getOptional("shipping_source_postal_code")
+
+        /**
+         * Taxes paid for freight and shipping.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingTaxAmount(): Optional<Long> =
+            shippingTaxAmount.getOptional("shipping_tax_amount")
+
+        /**
+         * Tax rate for freight and shipping.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingTaxRate(): Optional<String> = shippingTaxRate.getOptional("shipping_tax_rate")
+
+        /**
+         * Value added tax invoice reference number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun uniqueValueAddedTaxInvoiceReference(): Optional<String> =
+            uniqueValueAddedTaxInvoiceReference.getOptional(
+                "unique_value_added_tax_invoice_reference"
+            )
+
+        /**
+         * Returns the raw JSON value of [discountAmount].
+         *
+         * Unlike [discountAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        fun _discountAmount(): JsonField<Long> = discountAmount
+
+        /**
+         * Returns the raw JSON value of [dutyTaxAmount].
+         *
+         * Unlike [dutyTaxAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("duty_tax_amount")
+        @ExcludeMissing
+        fun _dutyTaxAmount(): JsonField<Long> = dutyTaxAmount
+
+        /**
+         * Returns the raw JSON value of [orderDate].
+         *
+         * Unlike [orderDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("order_date")
+        @ExcludeMissing
+        fun _orderDate(): JsonField<LocalDate> = orderDate
+
+        /**
+         * Returns the raw JSON value of [shippingAmount].
+         *
+         * Unlike [shippingAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("shipping_amount")
+        @ExcludeMissing
+        fun _shippingAmount(): JsonField<Long> = shippingAmount
+
+        /**
+         * Returns the raw JSON value of [shippingDestinationCountryCode].
+         *
+         * Unlike [shippingDestinationCountryCode], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("shipping_destination_country_code")
+        @ExcludeMissing
+        fun _shippingDestinationCountryCode(): JsonField<String> = shippingDestinationCountryCode
+
+        /**
+         * Returns the raw JSON value of [shippingDestinationPostalCode].
+         *
+         * Unlike [shippingDestinationPostalCode], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("shipping_destination_postal_code")
+        @ExcludeMissing
+        fun _shippingDestinationPostalCode(): JsonField<String> = shippingDestinationPostalCode
+
+        /**
+         * Returns the raw JSON value of [shippingSourcePostalCode].
+         *
+         * Unlike [shippingSourcePostalCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("shipping_source_postal_code")
+        @ExcludeMissing
+        fun _shippingSourcePostalCode(): JsonField<String> = shippingSourcePostalCode
+
+        /**
+         * Returns the raw JSON value of [shippingTaxAmount].
+         *
+         * Unlike [shippingTaxAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("shipping_tax_amount")
+        @ExcludeMissing
+        fun _shippingTaxAmount(): JsonField<Long> = shippingTaxAmount
+
+        /**
+         * Returns the raw JSON value of [shippingTaxRate].
+         *
+         * Unlike [shippingTaxRate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("shipping_tax_rate")
+        @ExcludeMissing
+        fun _shippingTaxRate(): JsonField<String> = shippingTaxRate
+
+        /**
+         * Returns the raw JSON value of [uniqueValueAddedTaxInvoiceReference].
+         *
+         * Unlike [uniqueValueAddedTaxInvoiceReference], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("unique_value_added_tax_invoice_reference")
+        @ExcludeMissing
+        fun _uniqueValueAddedTaxInvoiceReference(): JsonField<String> =
+            uniqueValueAddedTaxInvoiceReference
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [Invoice]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Invoice]. */
+        class Builder internal constructor() {
+
+            private var discountAmount: JsonField<Long> = JsonMissing.of()
+            private var dutyTaxAmount: JsonField<Long> = JsonMissing.of()
+            private var orderDate: JsonField<LocalDate> = JsonMissing.of()
+            private var shippingAmount: JsonField<Long> = JsonMissing.of()
+            private var shippingDestinationCountryCode: JsonField<String> = JsonMissing.of()
+            private var shippingDestinationPostalCode: JsonField<String> = JsonMissing.of()
+            private var shippingSourcePostalCode: JsonField<String> = JsonMissing.of()
+            private var shippingTaxAmount: JsonField<Long> = JsonMissing.of()
+            private var shippingTaxRate: JsonField<String> = JsonMissing.of()
+            private var uniqueValueAddedTaxInvoiceReference: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(invoice: Invoice) = apply {
+                discountAmount = invoice.discountAmount
+                dutyTaxAmount = invoice.dutyTaxAmount
+                orderDate = invoice.orderDate
+                shippingAmount = invoice.shippingAmount
+                shippingDestinationCountryCode = invoice.shippingDestinationCountryCode
+                shippingDestinationPostalCode = invoice.shippingDestinationPostalCode
+                shippingSourcePostalCode = invoice.shippingSourcePostalCode
+                shippingTaxAmount = invoice.shippingTaxAmount
+                shippingTaxRate = invoice.shippingTaxRate
+                uniqueValueAddedTaxInvoiceReference = invoice.uniqueValueAddedTaxInvoiceReference
+                additionalProperties = invoice.additionalProperties.toMutableMap()
+            }
+
+            /** Discount given to cardholder. */
+            fun discountAmount(discountAmount: Long) = discountAmount(JsonField.of(discountAmount))
+
+            /**
+             * Sets [Builder.discountAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun discountAmount(discountAmount: JsonField<Long>) = apply {
+                this.discountAmount = discountAmount
+            }
+
+            /** Amount of duty taxes. */
+            fun dutyTaxAmount(dutyTaxAmount: Long) = dutyTaxAmount(JsonField.of(dutyTaxAmount))
+
+            /**
+             * Sets [Builder.dutyTaxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dutyTaxAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dutyTaxAmount(dutyTaxAmount: JsonField<Long>) = apply {
+                this.dutyTaxAmount = dutyTaxAmount
+            }
+
+            /** Date the order was taken. */
+            fun orderDate(orderDate: LocalDate) = orderDate(JsonField.of(orderDate))
+
+            /**
+             * Sets [Builder.orderDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.orderDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun orderDate(orderDate: JsonField<LocalDate>) = apply { this.orderDate = orderDate }
+
+            /** The shipping cost. */
+            fun shippingAmount(shippingAmount: Long) = shippingAmount(JsonField.of(shippingAmount))
+
+            /**
+             * Sets [Builder.shippingAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shippingAmount(shippingAmount: JsonField<Long>) = apply {
+                this.shippingAmount = shippingAmount
+            }
+
+            /** Country code of the shipping destination. */
+            fun shippingDestinationCountryCode(shippingDestinationCountryCode: String) =
+                shippingDestinationCountryCode(JsonField.of(shippingDestinationCountryCode))
+
+            /**
+             * Sets [Builder.shippingDestinationCountryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingDestinationCountryCode] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun shippingDestinationCountryCode(shippingDestinationCountryCode: JsonField<String>) =
+                apply {
+                    this.shippingDestinationCountryCode = shippingDestinationCountryCode
+                }
+
+            /** Postal code of the shipping destination. */
+            fun shippingDestinationPostalCode(shippingDestinationPostalCode: String) =
+                shippingDestinationPostalCode(JsonField.of(shippingDestinationPostalCode))
+
+            /**
+             * Sets [Builder.shippingDestinationPostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingDestinationPostalCode] with a well-typed
+             * [String] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun shippingDestinationPostalCode(shippingDestinationPostalCode: JsonField<String>) =
+                apply {
+                    this.shippingDestinationPostalCode = shippingDestinationPostalCode
+                }
+
+            /** Postal code of the location being shipped from. */
+            fun shippingSourcePostalCode(shippingSourcePostalCode: String) =
+                shippingSourcePostalCode(JsonField.of(shippingSourcePostalCode))
+
+            /**
+             * Sets [Builder.shippingSourcePostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingSourcePostalCode] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun shippingSourcePostalCode(shippingSourcePostalCode: JsonField<String>) = apply {
+                this.shippingSourcePostalCode = shippingSourcePostalCode
+            }
+
+            /** Taxes paid for freight and shipping. */
+            fun shippingTaxAmount(shippingTaxAmount: Long) =
+                shippingTaxAmount(JsonField.of(shippingTaxAmount))
+
+            /**
+             * Sets [Builder.shippingTaxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingTaxAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shippingTaxAmount(shippingTaxAmount: JsonField<Long>) = apply {
+                this.shippingTaxAmount = shippingTaxAmount
+            }
+
+            /** Tax rate for freight and shipping. */
+            fun shippingTaxRate(shippingTaxRate: String) =
+                shippingTaxRate(JsonField.of(shippingTaxRate))
+
+            /**
+             * Sets [Builder.shippingTaxRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingTaxRate] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun shippingTaxRate(shippingTaxRate: JsonField<String>) = apply {
+                this.shippingTaxRate = shippingTaxRate
+            }
+
+            /** Value added tax invoice reference number. */
+            fun uniqueValueAddedTaxInvoiceReference(uniqueValueAddedTaxInvoiceReference: String) =
+                uniqueValueAddedTaxInvoiceReference(
+                    JsonField.of(uniqueValueAddedTaxInvoiceReference)
+                )
+
+            /**
+             * Sets [Builder.uniqueValueAddedTaxInvoiceReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.uniqueValueAddedTaxInvoiceReference] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun uniqueValueAddedTaxInvoiceReference(
+                uniqueValueAddedTaxInvoiceReference: JsonField<String>
+            ) = apply {
+                this.uniqueValueAddedTaxInvoiceReference = uniqueValueAddedTaxInvoiceReference
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Invoice].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): Invoice =
+                Invoice(
+                    discountAmount,
+                    dutyTaxAmount,
+                    orderDate,
+                    shippingAmount,
+                    shippingDestinationCountryCode,
+                    shippingDestinationPostalCode,
+                    shippingSourcePostalCode,
+                    shippingTaxAmount,
+                    shippingTaxRate,
+                    uniqueValueAddedTaxInvoiceReference,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): Invoice = apply {
+            if (validated) {
+                return@apply
+            }
+
+            discountAmount()
+            dutyTaxAmount()
+            orderDate()
+            shippingAmount()
+            shippingDestinationCountryCode()
+            shippingDestinationPostalCode()
+            shippingSourcePostalCode()
+            shippingTaxAmount()
+            shippingTaxRate()
+            uniqueValueAddedTaxInvoiceReference()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (discountAmount.asKnown().isPresent) 1 else 0) +
+                (if (dutyTaxAmount.asKnown().isPresent) 1 else 0) +
+                (if (orderDate.asKnown().isPresent) 1 else 0) +
+                (if (shippingAmount.asKnown().isPresent) 1 else 0) +
+                (if (shippingDestinationCountryCode.asKnown().isPresent) 1 else 0) +
+                (if (shippingDestinationPostalCode.asKnown().isPresent) 1 else 0) +
+                (if (shippingSourcePostalCode.asKnown().isPresent) 1 else 0) +
+                (if (shippingTaxAmount.asKnown().isPresent) 1 else 0) +
+                (if (shippingTaxRate.asKnown().isPresent) 1 else 0) +
+                (if (uniqueValueAddedTaxInvoiceReference.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Invoice &&
+                discountAmount == other.discountAmount &&
+                dutyTaxAmount == other.dutyTaxAmount &&
+                orderDate == other.orderDate &&
+                shippingAmount == other.shippingAmount &&
+                shippingDestinationCountryCode == other.shippingDestinationCountryCode &&
+                shippingDestinationPostalCode == other.shippingDestinationPostalCode &&
+                shippingSourcePostalCode == other.shippingSourcePostalCode &&
+                shippingTaxAmount == other.shippingTaxAmount &&
+                shippingTaxRate == other.shippingTaxRate &&
+                uniqueValueAddedTaxInvoiceReference == other.uniqueValueAddedTaxInvoiceReference &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                discountAmount,
+                dutyTaxAmount,
+                orderDate,
+                shippingAmount,
+                shippingDestinationCountryCode,
+                shippingDestinationPostalCode,
+                shippingSourcePostalCode,
+                shippingTaxAmount,
+                shippingTaxRate,
+                uniqueValueAddedTaxInvoiceReference,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Invoice{discountAmount=$discountAmount, dutyTaxAmount=$dutyTaxAmount, orderDate=$orderDate, shippingAmount=$shippingAmount, shippingDestinationCountryCode=$shippingDestinationCountryCode, shippingDestinationPostalCode=$shippingDestinationPostalCode, shippingSourcePostalCode=$shippingSourcePostalCode, shippingTaxAmount=$shippingTaxAmount, shippingTaxRate=$shippingTaxRate, uniqueValueAddedTaxInvoiceReference=$uniqueValueAddedTaxInvoiceReference, additionalProperties=$additionalProperties}"
+    }
+
+    class LineItem
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val discountAmount: JsonField<Long>,
+        private val itemCommodityCode: JsonField<String>,
+        private val itemDescriptor: JsonField<String>,
+        private val itemQuantity: JsonField<String>,
+        private val productCode: JsonField<String>,
+        private val salesTaxAmount: JsonField<Long>,
+        private val salesTaxRate: JsonField<String>,
+        private val totalAmount: JsonField<Long>,
+        private val unitCost: JsonField<String>,
+        private val unitOfMeasureCode: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("discount_amount")
+            @ExcludeMissing
+            discountAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("item_commodity_code")
+            @ExcludeMissing
+            itemCommodityCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("item_descriptor")
+            @ExcludeMissing
+            itemDescriptor: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("item_quantity")
+            @ExcludeMissing
+            itemQuantity: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("product_code")
+            @ExcludeMissing
+            productCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("sales_tax_amount")
+            @ExcludeMissing
+            salesTaxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("sales_tax_rate")
+            @ExcludeMissing
+            salesTaxRate: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("total_amount")
+            @ExcludeMissing
+            totalAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("unit_cost")
+            @ExcludeMissing
+            unitCost: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unit_of_measure_code")
+            @ExcludeMissing
+            unitOfMeasureCode: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            discountAmount,
+            itemCommodityCode,
+            itemDescriptor,
+            itemQuantity,
+            productCode,
+            salesTaxAmount,
+            salesTaxRate,
+            totalAmount,
+            unitCost,
+            unitOfMeasureCode,
+            mutableMapOf(),
+        )
+
+        /**
+         * Discount amount for this specific line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun discountAmount(): Optional<Long> = discountAmount.getOptional("discount_amount")
+
+        /**
+         * Code used to categorize the purchase item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun itemCommodityCode(): Optional<String> =
+            itemCommodityCode.getOptional("item_commodity_code")
+
+        /**
+         * Description of the purchase item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun itemDescriptor(): Optional<String> = itemDescriptor.getOptional("item_descriptor")
+
+        /**
+         * The number of units of the product being purchased.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun itemQuantity(): Optional<String> = itemQuantity.getOptional("item_quantity")
+
+        /**
+         * Code used to categorize the product being purchased.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun productCode(): Optional<String> = productCode.getOptional("product_code")
+
+        /**
+         * Sales tax amount for this line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun salesTaxAmount(): Optional<Long> = salesTaxAmount.getOptional("sales_tax_amount")
+
+        /**
+         * Sales tax rate for this line item.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun salesTaxRate(): Optional<String> = salesTaxRate.getOptional("sales_tax_rate")
+
+        /**
+         * Total amount of all line items.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun totalAmount(): Optional<Long> = totalAmount.getOptional("total_amount")
+
+        /**
+         * Cost of line item per unit of measure, in major units.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun unitCost(): Optional<String> = unitCost.getOptional("unit_cost")
+
+        /**
+         * Code indicating unit of measure (gallons, etc.).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun unitOfMeasureCode(): Optional<String> =
+            unitOfMeasureCode.getOptional("unit_of_measure_code")
+
+        /**
+         * Returns the raw JSON value of [discountAmount].
+         *
+         * Unlike [discountAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        fun _discountAmount(): JsonField<Long> = discountAmount
+
+        /**
+         * Returns the raw JSON value of [itemCommodityCode].
+         *
+         * Unlike [itemCommodityCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("item_commodity_code")
+        @ExcludeMissing
+        fun _itemCommodityCode(): JsonField<String> = itemCommodityCode
+
+        /**
+         * Returns the raw JSON value of [itemDescriptor].
+         *
+         * Unlike [itemDescriptor], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("item_descriptor")
+        @ExcludeMissing
+        fun _itemDescriptor(): JsonField<String> = itemDescriptor
+
+        /**
+         * Returns the raw JSON value of [itemQuantity].
+         *
+         * Unlike [itemQuantity], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("item_quantity")
+        @ExcludeMissing
+        fun _itemQuantity(): JsonField<String> = itemQuantity
+
+        /**
+         * Returns the raw JSON value of [productCode].
+         *
+         * Unlike [productCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("product_code")
+        @ExcludeMissing
+        fun _productCode(): JsonField<String> = productCode
+
+        /**
+         * Returns the raw JSON value of [salesTaxAmount].
+         *
+         * Unlike [salesTaxAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sales_tax_amount")
+        @ExcludeMissing
+        fun _salesTaxAmount(): JsonField<Long> = salesTaxAmount
+
+        /**
+         * Returns the raw JSON value of [salesTaxRate].
+         *
+         * Unlike [salesTaxRate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sales_tax_rate")
+        @ExcludeMissing
+        fun _salesTaxRate(): JsonField<String> = salesTaxRate
+
+        /**
+         * Returns the raw JSON value of [totalAmount].
+         *
+         * Unlike [totalAmount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("total_amount")
+        @ExcludeMissing
+        fun _totalAmount(): JsonField<Long> = totalAmount
+
+        /**
+         * Returns the raw JSON value of [unitCost].
+         *
+         * Unlike [unitCost], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("unit_cost") @ExcludeMissing fun _unitCost(): JsonField<String> = unitCost
+
+        /**
+         * Returns the raw JSON value of [unitOfMeasureCode].
+         *
+         * Unlike [unitOfMeasureCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("unit_of_measure_code")
+        @ExcludeMissing
+        fun _unitOfMeasureCode(): JsonField<String> = unitOfMeasureCode
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [LineItem]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [LineItem]. */
+        class Builder internal constructor() {
+
+            private var discountAmount: JsonField<Long> = JsonMissing.of()
+            private var itemCommodityCode: JsonField<String> = JsonMissing.of()
+            private var itemDescriptor: JsonField<String> = JsonMissing.of()
+            private var itemQuantity: JsonField<String> = JsonMissing.of()
+            private var productCode: JsonField<String> = JsonMissing.of()
+            private var salesTaxAmount: JsonField<Long> = JsonMissing.of()
+            private var salesTaxRate: JsonField<String> = JsonMissing.of()
+            private var totalAmount: JsonField<Long> = JsonMissing.of()
+            private var unitCost: JsonField<String> = JsonMissing.of()
+            private var unitOfMeasureCode: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(lineItem: LineItem) = apply {
+                discountAmount = lineItem.discountAmount
+                itemCommodityCode = lineItem.itemCommodityCode
+                itemDescriptor = lineItem.itemDescriptor
+                itemQuantity = lineItem.itemQuantity
+                productCode = lineItem.productCode
+                salesTaxAmount = lineItem.salesTaxAmount
+                salesTaxRate = lineItem.salesTaxRate
+                totalAmount = lineItem.totalAmount
+                unitCost = lineItem.unitCost
+                unitOfMeasureCode = lineItem.unitOfMeasureCode
+                additionalProperties = lineItem.additionalProperties.toMutableMap()
+            }
+
+            /** Discount amount for this specific line item. */
+            fun discountAmount(discountAmount: Long) = discountAmount(JsonField.of(discountAmount))
+
+            /**
+             * Sets [Builder.discountAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun discountAmount(discountAmount: JsonField<Long>) = apply {
+                this.discountAmount = discountAmount
+            }
+
+            /** Code used to categorize the purchase item. */
+            fun itemCommodityCode(itemCommodityCode: String) =
+                itemCommodityCode(JsonField.of(itemCommodityCode))
+
+            /**
+             * Sets [Builder.itemCommodityCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.itemCommodityCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun itemCommodityCode(itemCommodityCode: JsonField<String>) = apply {
+                this.itemCommodityCode = itemCommodityCode
+            }
+
+            /** Description of the purchase item. */
+            fun itemDescriptor(itemDescriptor: String) =
+                itemDescriptor(JsonField.of(itemDescriptor))
+
+            /**
+             * Sets [Builder.itemDescriptor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.itemDescriptor] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun itemDescriptor(itemDescriptor: JsonField<String>) = apply {
+                this.itemDescriptor = itemDescriptor
+            }
+
+            /** The number of units of the product being purchased. */
+            fun itemQuantity(itemQuantity: String) = itemQuantity(JsonField.of(itemQuantity))
+
+            /**
+             * Sets [Builder.itemQuantity] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.itemQuantity] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun itemQuantity(itemQuantity: JsonField<String>) = apply {
+                this.itemQuantity = itemQuantity
+            }
+
+            /** Code used to categorize the product being purchased. */
+            fun productCode(productCode: String) = productCode(JsonField.of(productCode))
+
+            /**
+             * Sets [Builder.productCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.productCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun productCode(productCode: JsonField<String>) = apply {
+                this.productCode = productCode
+            }
+
+            /** Sales tax amount for this line item. */
+            fun salesTaxAmount(salesTaxAmount: Long) = salesTaxAmount(JsonField.of(salesTaxAmount))
+
+            /**
+             * Sets [Builder.salesTaxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.salesTaxAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun salesTaxAmount(salesTaxAmount: JsonField<Long>) = apply {
+                this.salesTaxAmount = salesTaxAmount
+            }
+
+            /** Sales tax rate for this line item. */
+            fun salesTaxRate(salesTaxRate: String) = salesTaxRate(JsonField.of(salesTaxRate))
+
+            /**
+             * Sets [Builder.salesTaxRate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.salesTaxRate] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun salesTaxRate(salesTaxRate: JsonField<String>) = apply {
+                this.salesTaxRate = salesTaxRate
+            }
+
+            /** Total amount of all line items. */
+            fun totalAmount(totalAmount: Long) = totalAmount(JsonField.of(totalAmount))
+
+            /**
+             * Sets [Builder.totalAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.totalAmount] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun totalAmount(totalAmount: JsonField<Long>) = apply { this.totalAmount = totalAmount }
+
+            /** Cost of line item per unit of measure, in major units. */
+            fun unitCost(unitCost: String) = unitCost(JsonField.of(unitCost))
+
+            /**
+             * Sets [Builder.unitCost] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitCost] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun unitCost(unitCost: JsonField<String>) = apply { this.unitCost = unitCost }
+
+            /** Code indicating unit of measure (gallons, etc.). */
+            fun unitOfMeasureCode(unitOfMeasureCode: String) =
+                unitOfMeasureCode(JsonField.of(unitOfMeasureCode))
+
+            /**
+             * Sets [Builder.unitOfMeasureCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitOfMeasureCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun unitOfMeasureCode(unitOfMeasureCode: JsonField<String>) = apply {
+                this.unitOfMeasureCode = unitOfMeasureCode
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [LineItem].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): LineItem =
+                LineItem(
+                    discountAmount,
+                    itemCommodityCode,
+                    itemDescriptor,
+                    itemQuantity,
+                    productCode,
+                    salesTaxAmount,
+                    salesTaxRate,
+                    totalAmount,
+                    unitCost,
+                    unitOfMeasureCode,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        fun validate(): LineItem = apply {
+            if (validated) {
+                return@apply
+            }
+
+            discountAmount()
+            itemCommodityCode()
+            itemDescriptor()
+            itemQuantity()
+            productCode()
+            salesTaxAmount()
+            salesTaxRate()
+            totalAmount()
+            unitCost()
+            unitOfMeasureCode()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (discountAmount.asKnown().isPresent) 1 else 0) +
+                (if (itemCommodityCode.asKnown().isPresent) 1 else 0) +
+                (if (itemDescriptor.asKnown().isPresent) 1 else 0) +
+                (if (itemQuantity.asKnown().isPresent) 1 else 0) +
+                (if (productCode.asKnown().isPresent) 1 else 0) +
+                (if (salesTaxAmount.asKnown().isPresent) 1 else 0) +
+                (if (salesTaxRate.asKnown().isPresent) 1 else 0) +
+                (if (totalAmount.asKnown().isPresent) 1 else 0) +
+                (if (unitCost.asKnown().isPresent) 1 else 0) +
+                (if (unitOfMeasureCode.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is LineItem &&
+                discountAmount == other.discountAmount &&
+                itemCommodityCode == other.itemCommodityCode &&
+                itemDescriptor == other.itemDescriptor &&
+                itemQuantity == other.itemQuantity &&
+                productCode == other.productCode &&
+                salesTaxAmount == other.salesTaxAmount &&
+                salesTaxRate == other.salesTaxRate &&
+                totalAmount == other.totalAmount &&
+                unitCost == other.unitCost &&
+                unitOfMeasureCode == other.unitOfMeasureCode &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                discountAmount,
+                itemCommodityCode,
+                itemDescriptor,
+                itemQuantity,
+                productCode,
+                salesTaxAmount,
+                salesTaxRate,
+                totalAmount,
+                unitCost,
+                unitOfMeasureCode,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "LineItem{discountAmount=$discountAmount, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, unitCost=$unitCost, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is CardPurchaseSupplementCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
+    }
+
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+
+    override fun toString() =
+        "CardPurchaseSupplementCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+}
