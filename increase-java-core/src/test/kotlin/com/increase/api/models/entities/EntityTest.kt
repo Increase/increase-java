@@ -84,6 +84,7 @@ internal class EntityTest {
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .creatingEntityOnboardingSessionId(null)
                 .description(null)
                 .detailsConfirmedAt(null)
                 .governmentAuthority(
@@ -377,6 +378,7 @@ internal class EntityTest {
                     .build()
             )
         assertThat(entity.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(entity.creatingEntityOnboardingSessionId()).isEmpty
         assertThat(entity.description()).isEmpty
         assertThat(entity.detailsConfirmedAt()).isEmpty
         assertThat(entity.governmentAuthority())
@@ -682,6 +684,7 @@ internal class EntityTest {
                         .build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .creatingEntityOnboardingSessionId(null)
                 .description(null)
                 .detailsConfirmedAt(null)
                 .governmentAuthority(
