@@ -47,7 +47,8 @@ private constructor(
     fun data(): List<BookkeepingAccount> = data.getRequired("data")
 
     /**
-     * A pointer to a place in the list.
+     * A pointer to a place in the list. Pass this as the `cursor` parameter to retrieve the next
+     * page of results. If there are no more results, the value will be `null`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -137,7 +138,10 @@ private constructor(
                 }
         }
 
-        /** A pointer to a place in the list. */
+        /**
+         * A pointer to a place in the list. Pass this as the `cursor` parameter to retrieve the
+         * next page of results. If there are no more results, the value will be `null`.
+         */
         fun nextCursor(nextCursor: String?) = nextCursor(JsonField.ofNullable(nextCursor))
 
         /** Alias for calling [Builder.nextCursor] with `nextCursor.orElse(null)`. */
