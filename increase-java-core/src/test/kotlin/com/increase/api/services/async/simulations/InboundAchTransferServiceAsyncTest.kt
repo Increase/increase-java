@@ -34,18 +34,20 @@ internal class InboundAchTransferServiceAsyncTest {
                                     .addEntry(
                                         InboundAchTransferCreateParams.Addenda.Freeform.Entry
                                             .builder()
-                                            .paymentRelatedInformation("x")
+                                            .paymentRelatedInformation(
+                                                "payment_related_information"
+                                            )
                                             .build()
                                     )
                                     .build()
                             )
                             .build()
                     )
-                    .companyDescriptiveDate("x")
-                    .companyDiscretionaryData("x")
-                    .companyEntryDescription("x")
-                    .companyId("x")
-                    .companyName("x")
+                    .companyDescriptiveDate("J!")
+                    .companyDiscretionaryData("J!")
+                    .companyEntryDescription("J!")
+                    .companyId("company_id")
+                    .companyName("company_name")
                     .receiverIdNumber("x")
                     .receiverName("x")
                     .resolveAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))

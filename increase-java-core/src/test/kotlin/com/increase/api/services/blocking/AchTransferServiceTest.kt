@@ -35,7 +35,9 @@ internal class AchTransferServiceTest {
                                 AchTransferCreateParams.Addenda.Freeform.builder()
                                     .addEntry(
                                         AchTransferCreateParams.Addenda.Freeform.Entry.builder()
-                                            .paymentRelatedInformation("x")
+                                            .paymentRelatedInformation(
+                                                "payment_related_information"
+                                            )
                                             .build()
                                     )
                                     .build()
@@ -47,7 +49,7 @@ internal class AchTransferServiceTest {
                                         AchTransferCreateParams.Addenda.PaymentOrderRemittanceAdvice
                                             .Invoice
                                             .builder()
-                                            .invoiceNumber("x")
+                                            .invoiceNumber("sq")
                                             .paidAmount(0L)
                                             .build()
                                     )
@@ -55,17 +57,17 @@ internal class AchTransferServiceTest {
                             )
                             .build()
                     )
-                    .companyDescriptiveDate("x")
-                    .companyDiscretionaryData("x")
-                    .companyEntryDescription("x")
-                    .companyName("x")
+                    .companyDescriptiveDate("J!")
+                    .companyDiscretionaryData("J!")
+                    .companyEntryDescription("J!")
+                    .companyName("company_name")
                     .destinationAccountHolder(
                         AchTransferCreateParams.DestinationAccountHolder.BUSINESS
                     )
                     .externalAccountId("external_account_id")
                     .funding(AchTransferCreateParams.Funding.CHECKING)
-                    .individualId("x")
-                    .individualName("x")
+                    .individualId("individual_id")
+                    .individualName("individual_name")
                     .preferredEffectiveDate(
                         AchTransferCreateParams.PreferredEffectiveDate.builder()
                             .date(LocalDate.parse("2019-12-27"))

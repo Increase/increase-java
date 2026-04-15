@@ -57,14 +57,14 @@ internal class CardServiceTest {
                                         CardCreateParams.AuthorizationControls.MerchantCategoryCode
                                             .Allowed
                                             .builder()
-                                            .code("xxxx")
+                                            .code("0253")
                                             .build()
                                     )
                                     .addBlocked(
                                         CardCreateParams.AuthorizationControls.MerchantCategoryCode
                                             .Blocked
                                             .builder()
-                                            .code("xxxx")
+                                            .code("0253")
                                             .build()
                                     )
                                     .build()
@@ -227,14 +227,14 @@ internal class CardServiceTest {
                                         CardUpdateParams.AuthorizationControls.MerchantCategoryCode
                                             .Allowed
                                             .builder()
-                                            .code("xxxx")
+                                            .code("0253")
                                             .build()
                                     )
                                     .addBlocked(
                                         CardUpdateParams.AuthorizationControls.MerchantCategoryCode
                                             .Blocked
                                             .builder()
-                                            .code("xxxx")
+                                            .code("0253")
                                             .build()
                                     )
                                     .build()

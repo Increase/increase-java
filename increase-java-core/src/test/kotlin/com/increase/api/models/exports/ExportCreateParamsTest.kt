@@ -74,7 +74,7 @@ internal class ExportCreateParamsTest {
             .voidedCheck(
                 ExportCreateParams.VoidedCheck.builder()
                     .accountNumberId("account_number_id")
-                    .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("x").build())
+                    .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("line").build())
                     .build()
             )
             .build()
@@ -146,7 +146,9 @@ internal class ExportCreateParamsTest {
                 .voidedCheck(
                     ExportCreateParams.VoidedCheck.builder()
                         .accountNumberId("account_number_id")
-                        .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("x").build())
+                        .addPayer(
+                            ExportCreateParams.VoidedCheck.Payer.builder().line("line").build()
+                        )
                         .build()
                 )
                 .build()
@@ -223,7 +225,7 @@ internal class ExportCreateParamsTest {
             .contains(
                 ExportCreateParams.VoidedCheck.builder()
                     .accountNumberId("account_number_id")
-                    .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("x").build())
+                    .addPayer(ExportCreateParams.VoidedCheck.Payer.builder().line("line").build())
                     .build()
             )
     }

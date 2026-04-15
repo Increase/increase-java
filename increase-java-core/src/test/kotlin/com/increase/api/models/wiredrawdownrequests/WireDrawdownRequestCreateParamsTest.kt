@@ -39,7 +39,7 @@ internal class WireDrawdownRequestCreateParamsTest {
             .debtorAccountNumber("987654321")
             .debtorExternalAccountId("debtor_external_account_id")
             .debtorRoutingNumber("101050001")
-            .endToEndIdentification("x")
+            .endToEndIdentification("end_to_end_identification")
             .build()
     }
 
@@ -76,7 +76,7 @@ internal class WireDrawdownRequestCreateParamsTest {
                 .debtorAccountNumber("987654321")
                 .debtorExternalAccountId("debtor_external_account_id")
                 .debtorRoutingNumber("101050001")
-                .endToEndIdentification("x")
+                .endToEndIdentification("end_to_end_identification")
                 .build()
 
         val body = params._body()
@@ -113,7 +113,7 @@ internal class WireDrawdownRequestCreateParamsTest {
         assertThat(body.debtorAccountNumber()).contains("987654321")
         assertThat(body.debtorExternalAccountId()).contains("debtor_external_account_id")
         assertThat(body.debtorRoutingNumber()).contains("101050001")
-        assertThat(body.endToEndIdentification()).contains("x")
+        assertThat(body.endToEndIdentification()).contains("end_to_end_identification")
     }
 
     @Test
