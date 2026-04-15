@@ -88,7 +88,7 @@ internal class ExportServiceTest {
                         ExportCreateParams.VoidedCheck.builder()
                             .accountNumberId("account_number_id")
                             .addPayer(
-                                ExportCreateParams.VoidedCheck.Payer.builder().line("x").build()
+                                ExportCreateParams.VoidedCheck.Payer.builder().line("line").build()
                             )
                             .build()
                     )

@@ -36,13 +36,13 @@ internal class CardCreateParamsTest {
                             .addAllowed(
                                 CardCreateParams.AuthorizationControls.MerchantCategoryCode.Allowed
                                     .builder()
-                                    .code("xxxx")
+                                    .code("0253")
                                     .build()
                             )
                             .addBlocked(
                                 CardCreateParams.AuthorizationControls.MerchantCategoryCode.Blocked
                                     .builder()
-                                    .code("xxxx")
+                                    .code("0253")
                                     .build()
                             )
                             .build()
@@ -172,14 +172,14 @@ internal class CardCreateParamsTest {
                                     CardCreateParams.AuthorizationControls.MerchantCategoryCode
                                         .Allowed
                                         .builder()
-                                        .code("xxxx")
+                                        .code("0253")
                                         .build()
                                 )
                                 .addBlocked(
                                     CardCreateParams.AuthorizationControls.MerchantCategoryCode
                                         .Blocked
                                         .builder()
-                                        .code("xxxx")
+                                        .code("0253")
                                         .build()
                                 )
                                 .build()
@@ -303,13 +303,13 @@ internal class CardCreateParamsTest {
                             .addAllowed(
                                 CardCreateParams.AuthorizationControls.MerchantCategoryCode.Allowed
                                     .builder()
-                                    .code("xxxx")
+                                    .code("0253")
                                     .build()
                             )
                             .addBlocked(
                                 CardCreateParams.AuthorizationControls.MerchantCategoryCode.Blocked
                                     .builder()
-                                    .code("xxxx")
+                                    .code("0253")
                                     .build()
                             )
                             .build()

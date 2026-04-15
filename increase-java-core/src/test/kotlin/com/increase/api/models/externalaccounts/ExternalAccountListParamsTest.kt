@@ -14,7 +14,7 @@ internal class ExternalAccountListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
-            .routingNumber("xxxxxxxxx")
+            .routingNumber("483310694")
             .status(
                 ExternalAccountListParams.Status.builder()
                     .addIn(ExternalAccountListParams.Status.In.ACTIVE)
@@ -30,7 +30,7 @@ internal class ExternalAccountListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
-                .routingNumber("xxxxxxxxx")
+                .routingNumber("483310694")
                 .status(
                     ExternalAccountListParams.Status.builder()
                         .addIn(ExternalAccountListParams.Status.In.ACTIVE)
@@ -46,7 +46,7 @@ internal class ExternalAccountListParamsTest {
                     .put("cursor", "cursor")
                     .put("idempotency_key", "x")
                     .put("limit", "1")
-                    .put("routing_number", "xxxxxxxxx")
+                    .put("routing_number", "483310694")
                     .put("status.in", listOf("active").joinToString(","))
                     .build()
             )

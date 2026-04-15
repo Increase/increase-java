@@ -27,7 +27,7 @@ internal class FednowTransferCreateParamsTest {
             .debtorAddress(
                 FednowTransferCreateParams.DebtorAddress.builder()
                     .city("x")
-                    .postalCode("x")
+                    .postalCode("21029-9469")
                     .state("x")
                     .line1("x")
                     .build()
@@ -59,7 +59,7 @@ internal class FednowTransferCreateParamsTest {
                 .debtorAddress(
                     FednowTransferCreateParams.DebtorAddress.builder()
                         .city("x")
-                        .postalCode("x")
+                        .postalCode("21029-9469")
                         .state("x")
                         .line1("x")
                         .build()
@@ -90,7 +90,7 @@ internal class FednowTransferCreateParamsTest {
             .contains(
                 FednowTransferCreateParams.DebtorAddress.builder()
                     .city("x")
-                    .postalCode("x")
+                    .postalCode("21029-9469")
                     .state("x")
                     .line1("x")
                     .build()
