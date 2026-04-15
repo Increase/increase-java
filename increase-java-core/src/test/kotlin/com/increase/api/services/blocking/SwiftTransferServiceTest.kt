@@ -33,7 +33,7 @@ internal class SwiftTransferServiceTest {
                             .line1("Sonnemannstrasse 20")
                             .line2("line2")
                             .postalCode("60314")
-                            .state("x")
+                            .state("state")
                             .build()
                     )
                     .creditorName("Ian Crease")
