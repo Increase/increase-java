@@ -35,8 +35,8 @@ internal class WireTransferCreateParamsTest {
                     .tax(
                         WireTransferCreateParams.Remittance.Tax.builder()
                             .date(LocalDate.parse("2019-12-27"))
-                            .identificationNumber("xxxxxxxxx")
-                            .typeCode("xxxxx")
+                            .identificationNumber("483310694")
+                            .typeCode("1I5r3")
                             .build()
                     )
                     .unstructured(
@@ -49,14 +49,14 @@ internal class WireTransferCreateParamsTest {
             .accountNumber("987654321")
             .debtor(
                 WireTransferCreateParams.Debtor.builder()
-                    .name("x")
+                    .name("name")
                     .address(
                         WireTransferCreateParams.Debtor.Address.builder()
                             .unstructured(
                                 WireTransferCreateParams.Debtor.Address.Unstructured.builder()
-                                    .line1("x")
-                                    .line2("x")
-                                    .line3("x")
+                                    .line1("line1")
+                                    .line2("line2")
+                                    .line3("line3")
                                     .build()
                             )
                             .build()
@@ -99,8 +99,8 @@ internal class WireTransferCreateParamsTest {
                         .tax(
                             WireTransferCreateParams.Remittance.Tax.builder()
                                 .date(LocalDate.parse("2019-12-27"))
-                                .identificationNumber("xxxxxxxxx")
-                                .typeCode("xxxxx")
+                                .identificationNumber("483310694")
+                                .typeCode("1I5r3")
                                 .build()
                         )
                         .unstructured(
@@ -113,14 +113,14 @@ internal class WireTransferCreateParamsTest {
                 .accountNumber("987654321")
                 .debtor(
                     WireTransferCreateParams.Debtor.builder()
-                        .name("x")
+                        .name("name")
                         .address(
                             WireTransferCreateParams.Debtor.Address.builder()
                                 .unstructured(
                                     WireTransferCreateParams.Debtor.Address.Unstructured.builder()
-                                        .line1("x")
-                                        .line2("x")
-                                        .line3("x")
+                                        .line1("line1")
+                                        .line2("line2")
+                                        .line3("line3")
                                         .build()
                                 )
                                 .build()
@@ -162,8 +162,8 @@ internal class WireTransferCreateParamsTest {
                     .tax(
                         WireTransferCreateParams.Remittance.Tax.builder()
                             .date(LocalDate.parse("2019-12-27"))
-                            .identificationNumber("xxxxxxxxx")
-                            .typeCode("xxxxx")
+                            .identificationNumber("483310694")
+                            .typeCode("1I5r3")
                             .build()
                     )
                     .unstructured(
@@ -177,14 +177,14 @@ internal class WireTransferCreateParamsTest {
         assertThat(body.debtor())
             .contains(
                 WireTransferCreateParams.Debtor.builder()
-                    .name("x")
+                    .name("name")
                     .address(
                         WireTransferCreateParams.Debtor.Address.builder()
                             .unstructured(
                                 WireTransferCreateParams.Debtor.Address.Unstructured.builder()
-                                    .line1("x")
-                                    .line2("x")
-                                    .line3("x")
+                                    .line1("line1")
+                                    .line2("line2")
+                                    .line3("line3")
                                     .build()
                             )
                             .build()
