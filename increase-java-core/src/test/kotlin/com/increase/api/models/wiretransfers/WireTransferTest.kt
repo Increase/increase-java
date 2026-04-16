@@ -132,6 +132,7 @@ internal class WireTransferTest {
                 )
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
+                .uniqueEndToEndTransactionReference(null)
                 .build()
 
         assertThat(wireTransfer.id()).isEqualTo("wire_transfer_5akynk7dqsq25qwk9q2u")
@@ -256,6 +257,7 @@ internal class WireTransferTest {
             )
         assertThat(wireTransfer.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(wireTransfer.type()).isEqualTo(WireTransfer.Type.WIRE_TRANSFER)
+        assertThat(wireTransfer.uniqueEndToEndTransactionReference()).isEmpty
     }
 
     @Test
@@ -380,6 +382,7 @@ internal class WireTransferTest {
                 )
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
+                .uniqueEndToEndTransactionReference(null)
                 .build()
 
         val roundtrippedWireTransfer =
