@@ -28,6 +28,12 @@ internal class EventListParamsTest {
             )
             .cursor("cursor")
             .limit(1L)
+            .orderBy(
+                EventListParams.OrderBy.builder()
+                    .direction(EventListParams.OrderBy.Direction.ASCENDING)
+                    .field(EventListParams.OrderBy.Field.CREATED_AT)
+                    .build()
+            )
             .build()
     }
 
@@ -51,6 +57,12 @@ internal class EventListParamsTest {
                 )
                 .cursor("cursor")
                 .limit(1L)
+                .orderBy(
+                    EventListParams.OrderBy.builder()
+                        .direction(EventListParams.OrderBy.Direction.ASCENDING)
+                        .field(EventListParams.OrderBy.Field.CREATED_AT)
+                        .build()
+                )
                 .build()
 
         val queryParams = params._queryParams()
@@ -66,6 +78,8 @@ internal class EventListParamsTest {
                     .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
                     .put("cursor", "cursor")
                     .put("limit", "1")
+                    .put("order_by.direction", "ascending")
+                    .put("order_by.field", "created_at")
                     .build()
             )
     }
