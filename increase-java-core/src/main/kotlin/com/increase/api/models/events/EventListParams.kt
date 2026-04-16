@@ -24,6 +24,7 @@ private constructor(
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val limit: Long?,
+    private val orderBy: OrderBy?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -40,6 +41,8 @@ private constructor(
 
     /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
+
+    fun orderBy(): Optional<OrderBy> = Optional.ofNullable(orderBy)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -65,6 +68,7 @@ private constructor(
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var limit: Long? = null
+        private var orderBy: OrderBy? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -75,6 +79,7 @@ private constructor(
             createdAt = eventListParams.createdAt
             cursor = eventListParams.cursor
             limit = eventListParams.limit
+            orderBy = eventListParams.orderBy
             additionalHeaders = eventListParams.additionalHeaders.toBuilder()
             additionalQueryParams = eventListParams.additionalQueryParams.toBuilder()
         }
@@ -120,6 +125,11 @@ private constructor(
 
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
+
+        fun orderBy(orderBy: OrderBy?) = apply { this.orderBy = orderBy }
+
+        /** Alias for calling [Builder.orderBy] with `orderBy.orElse(null)`. */
+        fun orderBy(orderBy: Optional<OrderBy>) = orderBy(orderBy.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -231,6 +241,7 @@ private constructor(
                 createdAt,
                 cursor,
                 limit,
+                orderBy,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -279,6 +290,15 @@ private constructor(
                 }
                 cursor?.let { put("cursor", it) }
                 limit?.let { put("limit", it.toString()) }
+                orderBy?.let {
+                    it.direction().ifPresent { put("order_by.direction", it.toString()) }
+                    it.field().ifPresent { put("order_by.field", it.toString()) }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("order_by.$key", value)
+                        }
+                    }
+                }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -1818,6 +1838,397 @@ private constructor(
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
     }
 
+    class OrderBy
+    private constructor(
+        private val direction: Direction?,
+        private val field: Field?,
+        private val additionalProperties: QueryParams,
+    ) {
+
+        /** The direction to order in. */
+        fun direction(): Optional<Direction> = Optional.ofNullable(direction)
+
+        /** The field to order by. */
+        fun field(): Optional<Field> = Optional.ofNullable(field)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [OrderBy]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [OrderBy]. */
+        class Builder internal constructor() {
+
+            private var direction: Direction? = null
+            private var field: Field? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(orderBy: OrderBy) = apply {
+                direction = orderBy.direction
+                field = orderBy.field
+                additionalProperties = orderBy.additionalProperties.toBuilder()
+            }
+
+            /** The direction to order in. */
+            fun direction(direction: Direction?) = apply { this.direction = direction }
+
+            /** Alias for calling [Builder.direction] with `direction.orElse(null)`. */
+            fun direction(direction: Optional<Direction>) = direction(direction.getOrNull())
+
+            /** The field to order by. */
+            fun field(field: Field?) = apply { this.field = field }
+
+            /** Alias for calling [Builder.field] with `field.orElse(null)`. */
+            fun field(field: Optional<Field>) = field(field.getOrNull())
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [OrderBy].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): OrderBy = OrderBy(direction, field, additionalProperties.build())
+        }
+
+        /** The direction to order in. */
+        class Direction @JsonCreator private constructor(private val value: JsonField<String>) :
+            Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** Ascending in value. */
+                @JvmField val ASCENDING = of("ascending")
+
+                /** Descending in value. */
+                @JvmField val DESCENDING = of("descending")
+
+                @JvmStatic fun of(value: String) = Direction(JsonField.of(value))
+            }
+
+            /** An enum containing [Direction]'s known values. */
+            enum class Known {
+                /** Ascending in value. */
+                ASCENDING,
+                /** Descending in value. */
+                DESCENDING,
+            }
+
+            /**
+             * An enum containing [Direction]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Direction] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** Ascending in value. */
+                ASCENDING,
+                /** Descending in value. */
+                DESCENDING,
+                /**
+                 * An enum member indicating that [Direction] was instantiated with an unknown
+                 * value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ASCENDING -> Value.ASCENDING
+                    DESCENDING -> Value.DESCENDING
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ASCENDING -> Known.ASCENDING
+                    DESCENDING -> Known.DESCENDING
+                    else -> throw IncreaseInvalidDataException("Unknown Direction: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Direction = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Direction && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        /** The field to order by. */
+        class Field @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The time the Event was created. */
+                @JvmField val CREATED_AT = of("created_at")
+
+                @JvmStatic fun of(value: String) = Field(JsonField.of(value))
+            }
+
+            /** An enum containing [Field]'s known values. */
+            enum class Known {
+                /** The time the Event was created. */
+                CREATED_AT
+            }
+
+            /**
+             * An enum containing [Field]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Field] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The time the Event was created. */
+                CREATED_AT,
+                /**
+                 * An enum member indicating that [Field] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    CREATED_AT -> Value.CREATED_AT
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    CREATED_AT -> Known.CREATED_AT
+                    else -> throw IncreaseInvalidDataException("Unknown Field: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            fun validate(): Field = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Field && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is OrderBy &&
+                direction == other.direction &&
+                field == other.field &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(direction, field, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "OrderBy{direction=$direction, field=$field, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -1829,6 +2240,7 @@ private constructor(
             createdAt == other.createdAt &&
             cursor == other.cursor &&
             limit == other.limit &&
+            orderBy == other.orderBy &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -1840,10 +2252,11 @@ private constructor(
             createdAt,
             cursor,
             limit,
+            orderBy,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EventListParams{associatedObjectId=$associatedObjectId, category=$category, createdAt=$createdAt, cursor=$cursor, limit=$limit, orderBy=$orderBy, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
