@@ -120,6 +120,7 @@ internal class CheckTransferListPageResponseTest {
                                             CheckTransfer.PhysicalCheck.TrackingUpdate.Category
                                                 .IN_TRANSIT
                                         )
+                                        .country("country")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .postalCode("postal_code")
                                         .build()
@@ -278,6 +279,7 @@ internal class CheckTransferListPageResponseTest {
                                         CheckTransfer.PhysicalCheck.TrackingUpdate.Category
                                             .IN_TRANSIT
                                     )
+                                    .country("country")
                                     .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .postalCode("postal_code")
                                     .build()
@@ -436,6 +438,7 @@ internal class CheckTransferListPageResponseTest {
                                             CheckTransfer.PhysicalCheck.TrackingUpdate.Category
                                                 .IN_TRANSIT
                                         )
+                                        .country("country")
                                         .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                         .postalCode("postal_code")
                                         .build()
