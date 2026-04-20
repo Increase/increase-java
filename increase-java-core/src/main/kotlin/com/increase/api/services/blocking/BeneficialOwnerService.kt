@@ -29,7 +29,7 @@ interface BeneficialOwnerService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BeneficialOwnerService
 
-    /** Create a beneficial owner */
+    /** Create a Beneficial Owner */
     fun create(params: BeneficialOwnerCreateParams): EntityBeneficialOwner =
         create(params, RequestOptions.none())
 

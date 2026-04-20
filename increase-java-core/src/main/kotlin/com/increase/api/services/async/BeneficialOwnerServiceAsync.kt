@@ -29,7 +29,7 @@ interface BeneficialOwnerServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): BeneficialOwnerServiceAsync
 
-    /** Create a beneficial owner */
+    /** Create a Beneficial Owner */
     fun create(params: BeneficialOwnerCreateParams): CompletableFuture<EntityBeneficialOwner> =
         create(params, RequestOptions.none())
 

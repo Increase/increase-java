@@ -24,7 +24,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a beneficial owner */
+/** Create a Beneficial Owner */
 class BeneficialOwnerCreateParams
 private constructor(
     private val body: Body,
