@@ -477,8 +477,7 @@ private constructor(
         fun action(): Action = action.getRequired("action")
 
         /**
-         * The identifier of the Account to deposit the check into. If not provided, the check will
-         * be deposited into the Account associated with the Lockbox.
+         * The identifier of the Account to deposit the check into.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -550,10 +549,7 @@ private constructor(
              */
             fun action(action: JsonField<Action>) = apply { this.action = action }
 
-            /**
-             * The identifier of the Account to deposit the check into. If not provided, the check
-             * will be deposited into the Account associated with the Lockbox.
-             */
+            /** The identifier of the Account to deposit the check into. */
             fun accountId(accountId: String) = accountId(JsonField.of(accountId))
 
             /**
