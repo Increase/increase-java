@@ -20,7 +20,7 @@ internal class InboundMailItemActionParamsTest {
             .addCheck(
                 InboundMailItemActionParams.Check.builder()
                     .action(InboundMailItemActionParams.Check.Action.IGNORE)
-                    .accountId("account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .build()
             )
             .build()
@@ -62,7 +62,7 @@ internal class InboundMailItemActionParamsTest {
                 .addCheck(
                     InboundMailItemActionParams.Check.builder()
                         .action(InboundMailItemActionParams.Check.Action.IGNORE)
-                        .accountId("account_id")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .build()
                 )
                 .build()
@@ -77,7 +77,7 @@ internal class InboundMailItemActionParamsTest {
                     .build(),
                 InboundMailItemActionParams.Check.builder()
                     .action(InboundMailItemActionParams.Check.Action.IGNORE)
-                    .accountId("account_id")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .build(),
             )
     }
