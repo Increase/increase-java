@@ -597,6 +597,13 @@ internal class EntityServiceTest {
                             .rating(EntityUpdateParams.RiskRating.Rating.LOW)
                             .build()
                     )
+                    .addTermsAgreement(
+                        EntityUpdateParams.TermsAgreement.builder()
+                            .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .ipAddress("x")
+                            .termsUrl("x")
+                            .build()
+                    )
                     .thirdPartyVerification(
                         EntityUpdateParams.ThirdPartyVerification.builder()
                             .reference("x")

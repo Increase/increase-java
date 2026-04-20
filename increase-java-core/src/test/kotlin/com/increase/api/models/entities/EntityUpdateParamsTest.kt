@@ -4,6 +4,7 @@ package com.increase.api.models.entities
 
 import java.time.LocalDate
 import java.time.OffsetDateTime
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -109,6 +110,13 @@ internal class EntityUpdateParamsTest {
                 EntityUpdateParams.RiskRating.builder()
                     .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .rating(EntityUpdateParams.RiskRating.Rating.LOW)
+                    .build()
+            )
+            .addTermsAgreement(
+                EntityUpdateParams.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("x")
+                    .termsUrl("x")
                     .build()
             )
             .thirdPartyVerification(
@@ -247,6 +255,13 @@ internal class EntityUpdateParamsTest {
                         .rating(EntityUpdateParams.RiskRating.Rating.LOW)
                         .build()
                 )
+                .addTermsAgreement(
+                    EntityUpdateParams.TermsAgreement.builder()
+                        .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .ipAddress("x")
+                        .termsUrl("x")
+                        .build()
+                )
                 .thirdPartyVerification(
                     EntityUpdateParams.ThirdPartyVerification.builder()
                         .reference("x")
@@ -372,6 +387,14 @@ internal class EntityUpdateParamsTest {
                 EntityUpdateParams.RiskRating.builder()
                     .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .rating(EntityUpdateParams.RiskRating.Rating.LOW)
+                    .build()
+            )
+        assertThat(body.termsAgreements().getOrNull())
+            .containsExactly(
+                EntityUpdateParams.TermsAgreement.builder()
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("x")
+                    .termsUrl("x")
                     .build()
             )
         assertThat(body.thirdPartyVerification())
