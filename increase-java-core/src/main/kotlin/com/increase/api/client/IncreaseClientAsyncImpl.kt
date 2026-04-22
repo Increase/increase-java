@@ -18,12 +18,6 @@ import com.increase.api.services.async.AchTransferServiceAsync
 import com.increase.api.services.async.AchTransferServiceAsyncImpl
 import com.increase.api.services.async.BeneficialOwnerServiceAsync
 import com.increase.api.services.async.BeneficialOwnerServiceAsyncImpl
-import com.increase.api.services.async.BookkeepingAccountServiceAsync
-import com.increase.api.services.async.BookkeepingAccountServiceAsyncImpl
-import com.increase.api.services.async.BookkeepingEntryServiceAsync
-import com.increase.api.services.async.BookkeepingEntryServiceAsyncImpl
-import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
-import com.increase.api.services.async.BookkeepingEntrySetServiceAsyncImpl
 import com.increase.api.services.async.CardDisputeServiceAsync
 import com.increase.api.services.async.CardDisputeServiceAsyncImpl
 import com.increase.api.services.async.CardPaymentServiceAsync
@@ -318,18 +312,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         RealTimeDecisionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val bookkeepingAccounts: BookkeepingAccountServiceAsync by lazy {
-        BookkeepingAccountServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val bookkeepingEntrySets: BookkeepingEntrySetServiceAsync by lazy {
-        BookkeepingEntrySetServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val bookkeepingEntries: BookkeepingEntryServiceAsync by lazy {
-        BookkeepingEntryServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val groups: GroupServiceAsync by lazy {
         GroupServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -476,12 +458,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun eventSubscriptions(): EventSubscriptionServiceAsync = eventSubscriptions
 
     override fun realTimeDecisions(): RealTimeDecisionServiceAsync = realTimeDecisions
-
-    override fun bookkeepingAccounts(): BookkeepingAccountServiceAsync = bookkeepingAccounts
-
-    override fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync = bookkeepingEntrySets
-
-    override fun bookkeepingEntries(): BookkeepingEntryServiceAsync = bookkeepingEntries
 
     override fun groups(): GroupServiceAsync = groups
 
@@ -698,18 +674,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             RealTimeDecisionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val bookkeepingAccounts: BookkeepingAccountServiceAsync.WithRawResponse by lazy {
-            BookkeepingAccountServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val bookkeepingEntrySets: BookkeepingEntrySetServiceAsync.WithRawResponse by lazy {
-            BookkeepingEntrySetServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val bookkeepingEntries: BookkeepingEntryServiceAsync.WithRawResponse by lazy {
-            BookkeepingEntryServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val groups: GroupServiceAsync.WithRawResponse by lazy {
             GroupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -876,15 +840,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun realTimeDecisions(): RealTimeDecisionServiceAsync.WithRawResponse =
             realTimeDecisions
-
-        override fun bookkeepingAccounts(): BookkeepingAccountServiceAsync.WithRawResponse =
-            bookkeepingAccounts
-
-        override fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync.WithRawResponse =
-            bookkeepingEntrySets
-
-        override fun bookkeepingEntries(): BookkeepingEntryServiceAsync.WithRawResponse =
-            bookkeepingEntries
 
         override fun groups(): GroupServiceAsync.WithRawResponse = groups
 
