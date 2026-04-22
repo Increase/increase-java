@@ -10,9 +10,6 @@ import com.increase.api.services.async.AccountTransferServiceAsync
 import com.increase.api.services.async.AchPrenotificationServiceAsync
 import com.increase.api.services.async.AchTransferServiceAsync
 import com.increase.api.services.async.BeneficialOwnerServiceAsync
-import com.increase.api.services.async.BookkeepingAccountServiceAsync
-import com.increase.api.services.async.BookkeepingEntryServiceAsync
-import com.increase.api.services.async.BookkeepingEntrySetServiceAsync
 import com.increase.api.services.async.CardDisputeServiceAsync
 import com.increase.api.services.async.CardPaymentServiceAsync
 import com.increase.api.services.async.CardPurchaseSupplementServiceAsync
@@ -190,12 +187,6 @@ interface IncreaseClientAsync {
 
     fun realTimeDecisions(): RealTimeDecisionServiceAsync
 
-    fun bookkeepingAccounts(): BookkeepingAccountServiceAsync
-
-    fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync
-
-    fun bookkeepingEntries(): BookkeepingEntryServiceAsync
-
     fun groups(): GroupServiceAsync
 
     fun oauthApplications(): OAuthApplicationServiceAsync
@@ -335,12 +326,6 @@ interface IncreaseClientAsync {
         fun eventSubscriptions(): EventSubscriptionServiceAsync.WithRawResponse
 
         fun realTimeDecisions(): RealTimeDecisionServiceAsync.WithRawResponse
-
-        fun bookkeepingAccounts(): BookkeepingAccountServiceAsync.WithRawResponse
-
-        fun bookkeepingEntrySets(): BookkeepingEntrySetServiceAsync.WithRawResponse
-
-        fun bookkeepingEntries(): BookkeepingEntryServiceAsync.WithRawResponse
 
         fun groups(): GroupServiceAsync.WithRawResponse
 
