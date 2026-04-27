@@ -42,7 +42,8 @@ import com.increase.api.services.async.InboundWireTransferServiceAsync
 import com.increase.api.services.async.IntrafiAccountEnrollmentServiceAsync
 import com.increase.api.services.async.IntrafiBalanceServiceAsync
 import com.increase.api.services.async.IntrafiExclusionServiceAsync
-import com.increase.api.services.async.LockboxServiceAsync
+import com.increase.api.services.async.LockboxAddressServiceAsync
+import com.increase.api.services.async.LockboxRecipientServiceAsync
 import com.increase.api.services.async.OAuthApplicationServiceAsync
 import com.increase.api.services.async.OAuthConnectionServiceAsync
 import com.increase.api.services.async.OAuthTokenServiceAsync
@@ -155,7 +156,9 @@ interface IncreaseClientAsync {
 
     fun checkDeposits(): CheckDepositServiceAsync
 
-    fun lockboxes(): LockboxServiceAsync
+    fun lockboxAddresses(): LockboxAddressServiceAsync
+
+    fun lockboxRecipients(): LockboxRecipientServiceAsync
 
     fun inboundMailItems(): InboundMailItemServiceAsync
 
@@ -295,7 +298,9 @@ interface IncreaseClientAsync {
 
         fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse
 
-        fun lockboxes(): LockboxServiceAsync.WithRawResponse
+        fun lockboxAddresses(): LockboxAddressServiceAsync.WithRawResponse
+
+        fun lockboxRecipients(): LockboxRecipientServiceAsync.WithRawResponse
 
         fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse
 

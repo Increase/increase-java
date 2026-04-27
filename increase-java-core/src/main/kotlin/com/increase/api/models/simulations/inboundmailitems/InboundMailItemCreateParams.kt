@@ -39,14 +39,6 @@ private constructor(
     fun amount(): Long = body.amount()
 
     /**
-     * The identifier of the Lockbox to simulate inbound mail to.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun lockboxId(): String = body.lockboxId()
-
-    /**
      * The file containing the PDF contents. If not present, a default check image file will be
      * used.
      *
@@ -56,6 +48,22 @@ private constructor(
     fun contentsFileId(): Optional<String> = body.contentsFileId()
 
     /**
+     * The identifier of the Lockbox Address to simulate inbound mail to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun lockboxAddressId(): Optional<String> = body.lockboxAddressId()
+
+    /**
+     * The identifier of the Lockbox Recipient to simulate inbound mail to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun lockboxRecipientId(): Optional<String> = body.lockboxRecipientId()
+
+    /**
      * Returns the raw JSON value of [amount].
      *
      * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
@@ -63,18 +71,27 @@ private constructor(
     fun _amount(): JsonField<Long> = body._amount()
 
     /**
-     * Returns the raw JSON value of [lockboxId].
-     *
-     * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _lockboxId(): JsonField<String> = body._lockboxId()
-
-    /**
      * Returns the raw JSON value of [contentsFileId].
      *
      * Unlike [contentsFileId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _contentsFileId(): JsonField<String> = body._contentsFileId()
+
+    /**
+     * Returns the raw JSON value of [lockboxAddressId].
+     *
+     * Unlike [lockboxAddressId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _lockboxAddressId(): JsonField<String> = body._lockboxAddressId()
+
+    /**
+     * Returns the raw JSON value of [lockboxRecipientId].
+     *
+     * Unlike [lockboxRecipientId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _lockboxRecipientId(): JsonField<String> = body._lockboxRecipientId()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -94,7 +111,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .amount()
-         * .lockboxId()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -120,8 +136,9 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [amount]
-         * - [lockboxId]
          * - [contentsFileId]
+         * - [lockboxAddressId]
+         * - [lockboxRecipientId]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -135,18 +152,6 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
-
-        /** The identifier of the Lockbox to simulate inbound mail to. */
-        fun lockboxId(lockboxId: String) = apply { body.lockboxId(lockboxId) }
-
-        /**
-         * Sets [Builder.lockboxId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun lockboxId(lockboxId: JsonField<String>) = apply { body.lockboxId(lockboxId) }
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
@@ -163,6 +168,38 @@ private constructor(
          */
         fun contentsFileId(contentsFileId: JsonField<String>) = apply {
             body.contentsFileId(contentsFileId)
+        }
+
+        /** The identifier of the Lockbox Address to simulate inbound mail to. */
+        fun lockboxAddressId(lockboxAddressId: String) = apply {
+            body.lockboxAddressId(lockboxAddressId)
+        }
+
+        /**
+         * Sets [Builder.lockboxAddressId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockboxAddressId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun lockboxAddressId(lockboxAddressId: JsonField<String>) = apply {
+            body.lockboxAddressId(lockboxAddressId)
+        }
+
+        /** The identifier of the Lockbox Recipient to simulate inbound mail to. */
+        fun lockboxRecipientId(lockboxRecipientId: String) = apply {
+            body.lockboxRecipientId(lockboxRecipientId)
+        }
+
+        /**
+         * Sets [Builder.lockboxRecipientId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockboxRecipientId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun lockboxRecipientId(lockboxRecipientId: JsonField<String>) = apply {
+            body.lockboxRecipientId(lockboxRecipientId)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -290,7 +327,6 @@ private constructor(
          * The following fields are required:
          * ```java
          * .amount()
-         * .lockboxId()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -313,21 +349,25 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val amount: JsonField<Long>,
-        private val lockboxId: JsonField<String>,
         private val contentsFileId: JsonField<String>,
+        private val lockboxAddressId: JsonField<String>,
+        private val lockboxRecipientId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
             @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
-            @JsonProperty("lockbox_id")
-            @ExcludeMissing
-            lockboxId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("contents_file_id")
             @ExcludeMissing
             contentsFileId: JsonField<String> = JsonMissing.of(),
-        ) : this(amount, lockboxId, contentsFileId, mutableMapOf())
+            @JsonProperty("lockbox_address_id")
+            @ExcludeMissing
+            lockboxAddressId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("lockbox_recipient_id")
+            @ExcludeMissing
+            lockboxRecipientId: JsonField<String> = JsonMissing.of(),
+        ) : this(amount, contentsFileId, lockboxAddressId, lockboxRecipientId, mutableMapOf())
 
         /**
          * The amount of the check to be simulated, in cents.
@@ -336,14 +376,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun amount(): Long = amount.getRequired("amount")
-
-        /**
-         * The identifier of the Lockbox to simulate inbound mail to.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun lockboxId(): String = lockboxId.getRequired("lockbox_id")
 
         /**
          * The file containing the PDF contents. If not present, a default check image file will be
@@ -355,18 +387,29 @@ private constructor(
         fun contentsFileId(): Optional<String> = contentsFileId.getOptional("contents_file_id")
 
         /**
+         * The identifier of the Lockbox Address to simulate inbound mail to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun lockboxAddressId(): Optional<String> =
+            lockboxAddressId.getOptional("lockbox_address_id")
+
+        /**
+         * The identifier of the Lockbox Recipient to simulate inbound mail to.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun lockboxRecipientId(): Optional<String> =
+            lockboxRecipientId.getOptional("lockbox_recipient_id")
+
+        /**
          * Returns the raw JSON value of [amount].
          *
          * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
-
-        /**
-         * Returns the raw JSON value of [lockboxId].
-         *
-         * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
 
         /**
          * Returns the raw JSON value of [contentsFileId].
@@ -377,6 +420,26 @@ private constructor(
         @JsonProperty("contents_file_id")
         @ExcludeMissing
         fun _contentsFileId(): JsonField<String> = contentsFileId
+
+        /**
+         * Returns the raw JSON value of [lockboxAddressId].
+         *
+         * Unlike [lockboxAddressId], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("lockbox_address_id")
+        @ExcludeMissing
+        fun _lockboxAddressId(): JsonField<String> = lockboxAddressId
+
+        /**
+         * Returns the raw JSON value of [lockboxRecipientId].
+         *
+         * Unlike [lockboxRecipientId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("lockbox_recipient_id")
+        @ExcludeMissing
+        fun _lockboxRecipientId(): JsonField<String> = lockboxRecipientId
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -398,7 +461,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .amount()
-             * .lockboxId()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -408,15 +470,17 @@ private constructor(
         class Builder internal constructor() {
 
             private var amount: JsonField<Long>? = null
-            private var lockboxId: JsonField<String>? = null
             private var contentsFileId: JsonField<String> = JsonMissing.of()
+            private var lockboxAddressId: JsonField<String> = JsonMissing.of()
+            private var lockboxRecipientId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 amount = body.amount
-                lockboxId = body.lockboxId
                 contentsFileId = body.contentsFileId
+                lockboxAddressId = body.lockboxAddressId
+                lockboxRecipientId = body.lockboxRecipientId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -431,18 +495,6 @@ private constructor(
              * value.
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
-
-            /** The identifier of the Lockbox to simulate inbound mail to. */
-            fun lockboxId(lockboxId: String) = lockboxId(JsonField.of(lockboxId))
-
-            /**
-             * Sets [Builder.lockboxId] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
 
             /**
              * The file containing the PDF contents. If not present, a default check image file will
@@ -460,6 +512,36 @@ private constructor(
              */
             fun contentsFileId(contentsFileId: JsonField<String>) = apply {
                 this.contentsFileId = contentsFileId
+            }
+
+            /** The identifier of the Lockbox Address to simulate inbound mail to. */
+            fun lockboxAddressId(lockboxAddressId: String) =
+                lockboxAddressId(JsonField.of(lockboxAddressId))
+
+            /**
+             * Sets [Builder.lockboxAddressId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lockboxAddressId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun lockboxAddressId(lockboxAddressId: JsonField<String>) = apply {
+                this.lockboxAddressId = lockboxAddressId
+            }
+
+            /** The identifier of the Lockbox Recipient to simulate inbound mail to. */
+            fun lockboxRecipientId(lockboxRecipientId: String) =
+                lockboxRecipientId(JsonField.of(lockboxRecipientId))
+
+            /**
+             * Sets [Builder.lockboxRecipientId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.lockboxRecipientId] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun lockboxRecipientId(lockboxRecipientId: JsonField<String>) = apply {
+                this.lockboxRecipientId = lockboxRecipientId
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -489,7 +571,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .amount()
-             * .lockboxId()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -497,8 +578,9 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("amount", amount),
-                    checkRequired("lockboxId", lockboxId),
                     contentsFileId,
+                    lockboxAddressId,
+                    lockboxRecipientId,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -511,8 +593,9 @@ private constructor(
             }
 
             amount()
-            lockboxId()
             contentsFileId()
+            lockboxAddressId()
+            lockboxRecipientId()
             validated = true
         }
 
@@ -533,8 +616,9 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (amount.asKnown().isPresent) 1 else 0) +
-                (if (lockboxId.asKnown().isPresent) 1 else 0) +
-                (if (contentsFileId.asKnown().isPresent) 1 else 0)
+                (if (contentsFileId.asKnown().isPresent) 1 else 0) +
+                (if (lockboxAddressId.asKnown().isPresent) 1 else 0) +
+                (if (lockboxRecipientId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -543,19 +627,26 @@ private constructor(
 
             return other is Body &&
                 amount == other.amount &&
-                lockboxId == other.lockboxId &&
                 contentsFileId == other.contentsFileId &&
+                lockboxAddressId == other.lockboxAddressId &&
+                lockboxRecipientId == other.lockboxRecipientId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(amount, lockboxId, contentsFileId, additionalProperties)
+            Objects.hash(
+                amount,
+                contentsFileId,
+                lockboxAddressId,
+                lockboxRecipientId,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, lockboxId=$lockboxId, contentsFileId=$contentsFileId, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, contentsFileId=$contentsFileId, lockboxAddressId=$lockboxAddressId, lockboxRecipientId=$lockboxRecipientId, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

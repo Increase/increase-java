@@ -24,8 +24,9 @@ internal class InboundMailItemServiceTest {
             inboundMailItemService.create(
                 InboundMailItemCreateParams.builder()
                     .amount(1000L)
-                    .lockboxId("lockbox_3xt21ok13q19advds4t5")
                     .contentsFileId("contents_file_id")
+                    .lockboxAddressId("lockbox_address_id")
+                    .lockboxRecipientId("lockbox_3xt21ok13q19advds4t5")
                     .build()
             )
 

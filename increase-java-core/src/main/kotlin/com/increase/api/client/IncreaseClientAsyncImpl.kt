@@ -82,8 +82,10 @@ import com.increase.api.services.async.IntrafiBalanceServiceAsync
 import com.increase.api.services.async.IntrafiBalanceServiceAsyncImpl
 import com.increase.api.services.async.IntrafiExclusionServiceAsync
 import com.increase.api.services.async.IntrafiExclusionServiceAsyncImpl
-import com.increase.api.services.async.LockboxServiceAsync
-import com.increase.api.services.async.LockboxServiceAsyncImpl
+import com.increase.api.services.async.LockboxAddressServiceAsync
+import com.increase.api.services.async.LockboxAddressServiceAsyncImpl
+import com.increase.api.services.async.LockboxRecipientServiceAsync
+import com.increase.api.services.async.LockboxRecipientServiceAsyncImpl
 import com.increase.api.services.async.OAuthApplicationServiceAsync
 import com.increase.api.services.async.OAuthApplicationServiceAsyncImpl
 import com.increase.api.services.async.OAuthConnectionServiceAsync
@@ -250,8 +252,12 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         CheckDepositServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val lockboxes: LockboxServiceAsync by lazy {
-        LockboxServiceAsyncImpl(clientOptionsWithUserAgent)
+    private val lockboxAddresses: LockboxAddressServiceAsync by lazy {
+        LockboxAddressServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val lockboxRecipients: LockboxRecipientServiceAsync by lazy {
+        LockboxRecipientServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val inboundMailItems: InboundMailItemServiceAsync by lazy {
@@ -426,7 +432,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
-    override fun lockboxes(): LockboxServiceAsync = lockboxes
+    override fun lockboxAddresses(): LockboxAddressServiceAsync = lockboxAddresses
+
+    override fun lockboxRecipients(): LockboxRecipientServiceAsync = lockboxRecipients
 
     override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
 
@@ -608,8 +616,12 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             CheckDepositServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val lockboxes: LockboxServiceAsync.WithRawResponse by lazy {
-            LockboxServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        private val lockboxAddresses: LockboxAddressServiceAsync.WithRawResponse by lazy {
+            LockboxAddressServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val lockboxRecipients: LockboxRecipientServiceAsync.WithRawResponse by lazy {
+            LockboxRecipientServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val inboundMailItems: InboundMailItemServiceAsync.WithRawResponse by lazy {
@@ -801,7 +813,11 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun checkDeposits(): CheckDepositServiceAsync.WithRawResponse = checkDeposits
 
-        override fun lockboxes(): LockboxServiceAsync.WithRawResponse = lockboxes
+        override fun lockboxAddresses(): LockboxAddressServiceAsync.WithRawResponse =
+            lockboxAddresses
+
+        override fun lockboxRecipients(): LockboxRecipientServiceAsync.WithRawResponse =
+            lockboxRecipients
 
         override fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse =
             inboundMailItems

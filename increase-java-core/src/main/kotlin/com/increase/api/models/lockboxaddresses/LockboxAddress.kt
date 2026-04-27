@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxaddresses
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -19,21 +19,16 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/**
- * Lockboxes are physical locations that can receive mail containing paper checks. Increase will
- * automatically create a Check Deposit for checks received this way.
- */
-class Lockbox
+/** Lockbox Addresses are physical locations that can receive mail containing paper checks. */
+class LockboxAddress
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
-    private val accountId: JsonField<String>,
     private val address: JsonField<Address>,
-    private val checkDepositBehavior: JsonField<CheckDepositBehavior>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val description: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
-    private val recipientName: JsonField<String>,
+    private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -41,11 +36,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
-        @JsonProperty("check_deposit_behavior")
-        @ExcludeMissing
-        checkDepositBehavior: JsonField<CheckDepositBehavior> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -55,25 +46,12 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
-        recipientName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(
-        id,
-        accountId,
-        address,
-        checkDepositBehavior,
-        createdAt,
-        description,
-        idempotencyKey,
-        recipientName,
-        type,
-        mutableMapOf(),
-    )
+    ) : this(id, address, createdAt, description, idempotencyKey, status, type, mutableMapOf())
 
     /**
-     * The Lockbox identifier.
+     * The Lockbox Address identifier.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -81,32 +59,16 @@ private constructor(
     fun id(): String = id.getRequired("id")
 
     /**
-     * The identifier for the Account checks sent to this lockbox will be deposited into.
+     * The mailing address for the Lockbox Address. It will be present after Increase generates it.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun accountId(): String = accountId.getRequired("account_id")
+    fun address(): Optional<Address> = address.getOptional("address")
 
     /**
-     * The mailing address for the Lockbox.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun address(): Address = address.getRequired("address")
-
-    /**
-     * Indicates if checks mailed to this lockbox will be deposited.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun checkDepositBehavior(): CheckDepositBehavior =
-        checkDepositBehavior.getRequired("check_deposit_behavior")
-
-    /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Lockbox was created.
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Lockbox Address was
+     * created.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -114,7 +76,7 @@ private constructor(
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
 
     /**
-     * The description you choose for the Lockbox.
+     * The description you choose for the Lockbox Address.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -132,15 +94,16 @@ private constructor(
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
-     * The recipient name you choose for the Lockbox.
+     * The status of the Lockbox Address.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
+    fun status(): Status = status.getRequired("status")
 
     /**
-     * A constant representing the object's type. For this resource it will always be `lockbox`.
+     * A constant representing the object's type. For this resource it will always be
+     * `lockbox_address`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -155,28 +118,11 @@ private constructor(
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
 
     /**
-     * Returns the raw JSON value of [accountId].
-     *
-     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
-
-    /**
      * Returns the raw JSON value of [address].
      *
      * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
-
-    /**
-     * Returns the raw JSON value of [checkDepositBehavior].
-     *
-     * Unlike [checkDepositBehavior], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    @JsonProperty("check_deposit_behavior")
-    @ExcludeMissing
-    fun _checkDepositBehavior(): JsonField<CheckDepositBehavior> = checkDepositBehavior
 
     /**
      * Returns the raw JSON value of [createdAt].
@@ -204,13 +150,11 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
-     * Returns the raw JSON value of [recipientName].
+     * Returns the raw JSON value of [status].
      *
-     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    @JsonProperty("recipient_name")
-    @ExcludeMissing
-    fun _recipientName(): JsonField<String> = recipientName
+    @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
     /**
      * Returns the raw JSON value of [type].
@@ -234,53 +178,47 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [Lockbox].
+         * Returns a mutable builder for constructing an instance of [LockboxAddress].
          *
          * The following fields are required:
          * ```java
          * .id()
-         * .accountId()
          * .address()
-         * .checkDepositBehavior()
          * .createdAt()
          * .description()
          * .idempotencyKey()
-         * .recipientName()
+         * .status()
          * .type()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [Lockbox]. */
+    /** A builder for [LockboxAddress]. */
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
-        private var accountId: JsonField<String>? = null
         private var address: JsonField<Address>? = null
-        private var checkDepositBehavior: JsonField<CheckDepositBehavior>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var description: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
-        private var recipientName: JsonField<String>? = null
+        private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
-        internal fun from(lockbox: Lockbox) = apply {
-            id = lockbox.id
-            accountId = lockbox.accountId
-            address = lockbox.address
-            checkDepositBehavior = lockbox.checkDepositBehavior
-            createdAt = lockbox.createdAt
-            description = lockbox.description
-            idempotencyKey = lockbox.idempotencyKey
-            recipientName = lockbox.recipientName
-            type = lockbox.type
-            additionalProperties = lockbox.additionalProperties.toMutableMap()
+        internal fun from(lockboxAddress: LockboxAddress) = apply {
+            id = lockboxAddress.id
+            address = lockboxAddress.address
+            createdAt = lockboxAddress.createdAt
+            description = lockboxAddress.description
+            idempotencyKey = lockboxAddress.idempotencyKey
+            status = lockboxAddress.status
+            type = lockboxAddress.type
+            additionalProperties = lockboxAddress.additionalProperties.toMutableMap()
         }
 
-        /** The Lockbox identifier. */
+        /** The Lockbox Address identifier. */
         fun id(id: String) = id(JsonField.of(id))
 
         /**
@@ -291,20 +229,14 @@ private constructor(
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
 
-        /** The identifier for the Account checks sent to this lockbox will be deposited into. */
-        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
-
         /**
-         * Sets [Builder.accountId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * The mailing address for the Lockbox Address. It will be present after Increase generates
+         * it.
          */
-        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
+        fun address(address: Address?) = address(JsonField.ofNullable(address))
 
-        /** The mailing address for the Lockbox. */
-        fun address(address: Address) = address(JsonField.of(address))
+        /** Alias for calling [Builder.address] with `address.orElse(null)`. */
+        fun address(address: Optional<Address>) = address(address.getOrNull())
 
         /**
          * Sets [Builder.address] to an arbitrary JSON value.
@@ -314,24 +246,9 @@ private constructor(
          */
         fun address(address: JsonField<Address>) = apply { this.address = address }
 
-        /** Indicates if checks mailed to this lockbox will be deposited. */
-        fun checkDepositBehavior(checkDepositBehavior: CheckDepositBehavior) =
-            checkDepositBehavior(JsonField.of(checkDepositBehavior))
-
         /**
-         * Sets [Builder.checkDepositBehavior] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.checkDepositBehavior] with a well-typed
-         * [CheckDepositBehavior] value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
-         */
-        fun checkDepositBehavior(checkDepositBehavior: JsonField<CheckDepositBehavior>) = apply {
-            this.checkDepositBehavior = checkDepositBehavior
-        }
-
-        /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Lockbox was
-         * created.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the Lockbox Address
+         * was created.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
@@ -344,7 +261,7 @@ private constructor(
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
 
-        /** The description you choose for the Lockbox. */
+        /** The description you choose for the Lockbox Address. */
         fun description(description: String?) = description(JsonField.ofNullable(description))
 
         /** Alias for calling [Builder.description] with `description.orElse(null)`. */
@@ -382,27 +299,20 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
-        /** The recipient name you choose for the Lockbox. */
-        fun recipientName(recipientName: String?) =
-            recipientName(JsonField.ofNullable(recipientName))
-
-        /** Alias for calling [Builder.recipientName] with `recipientName.orElse(null)`. */
-        fun recipientName(recipientName: Optional<String>) =
-            recipientName(recipientName.getOrNull())
+        /** The status of the Lockbox Address. */
+        fun status(status: Status) = status(JsonField.of(status))
 
         /**
-         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun recipientName(recipientName: JsonField<String>) = apply {
-            this.recipientName = recipientName
-        }
+        fun status(status: JsonField<Status>) = apply { this.status = status }
 
         /**
-         * A constant representing the object's type. For this resource it will always be `lockbox`.
+         * A constant representing the object's type. For this resource it will always be
+         * `lockbox_address`.
          */
         fun type(type: Type) = type(JsonField.of(type))
 
@@ -434,35 +344,31 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [Lockbox].
+         * Returns an immutable instance of [LockboxAddress].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
          * .id()
-         * .accountId()
          * .address()
-         * .checkDepositBehavior()
          * .createdAt()
          * .description()
          * .idempotencyKey()
-         * .recipientName()
+         * .status()
          * .type()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): Lockbox =
-            Lockbox(
+        fun build(): LockboxAddress =
+            LockboxAddress(
                 checkRequired("id", id),
-                checkRequired("accountId", accountId),
                 checkRequired("address", address),
-                checkRequired("checkDepositBehavior", checkDepositBehavior),
                 checkRequired("createdAt", createdAt),
                 checkRequired("description", description),
                 checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("recipientName", recipientName),
+                checkRequired("status", status),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
             )
@@ -470,19 +376,17 @@ private constructor(
 
     private var validated: Boolean = false
 
-    fun validate(): Lockbox = apply {
+    fun validate(): LockboxAddress = apply {
         if (validated) {
             return@apply
         }
 
         id()
-        accountId()
-        address().validate()
-        checkDepositBehavior().validate()
+        address().ifPresent { it.validate() }
         createdAt()
         description()
         idempotencyKey()
-        recipientName()
+        status().validate()
         type().validate()
         validated = true
     }
@@ -503,16 +407,16 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
-            (if (accountId.asKnown().isPresent) 1 else 0) +
             (address.asKnown().getOrNull()?.validity() ?: 0) +
-            (checkDepositBehavior.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
-            (if (recipientName.asKnown().isPresent) 1 else 0) +
+            (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
-    /** The mailing address for the Lockbox. */
+    /**
+     * The mailing address for the Lockbox Address. It will be present after Increase generates it.
+     */
     class Address
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
@@ -520,7 +424,6 @@ private constructor(
         private val line1: JsonField<String>,
         private val line2: JsonField<String>,
         private val postalCode: JsonField<String>,
-        private val recipient: JsonField<String>,
         private val state: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -533,11 +436,8 @@ private constructor(
             @JsonProperty("postal_code")
             @ExcludeMissing
             postalCode: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("recipient")
-            @ExcludeMissing
-            recipient: JsonField<String> = JsonMissing.of(),
             @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
-        ) : this(city, line1, line2, postalCode, recipient, state, mutableMapOf())
+        ) : this(city, line1, line2, postalCode, state, mutableMapOf())
 
         /**
          * The city of the address.
@@ -570,16 +470,6 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun postalCode(): String = postalCode.getRequired("postal_code")
-
-        /**
-         * The recipient line of the address. This will include the recipient name you provide when
-         * creating the address, as well as an ATTN suffix to help route the mail to your lockbox.
-         * Mail senders must include this ATTN line to receive mail at this Lockbox.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun recipient(): Optional<String> = recipient.getOptional("recipient")
 
         /**
          * The two-letter United States Postal Service (USPS) abbreviation for the state of the
@@ -621,13 +511,6 @@ private constructor(
         fun _postalCode(): JsonField<String> = postalCode
 
         /**
-         * Returns the raw JSON value of [recipient].
-         *
-         * Unlike [recipient], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("recipient") @ExcludeMissing fun _recipient(): JsonField<String> = recipient
-
-        /**
          * Returns the raw JSON value of [state].
          *
          * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
@@ -657,7 +540,6 @@ private constructor(
              * .line1()
              * .line2()
              * .postalCode()
-             * .recipient()
              * .state()
              * ```
              */
@@ -671,7 +553,6 @@ private constructor(
             private var line1: JsonField<String>? = null
             private var line2: JsonField<String>? = null
             private var postalCode: JsonField<String>? = null
-            private var recipient: JsonField<String>? = null
             private var state: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -681,7 +562,6 @@ private constructor(
                 line1 = address.line1
                 line2 = address.line2
                 postalCode = address.postalCode
-                recipient = address.recipient
                 state = address.state
                 additionalProperties = address.additionalProperties.toMutableMap()
             }
@@ -735,25 +615,6 @@ private constructor(
             fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
 
             /**
-             * The recipient line of the address. This will include the recipient name you provide
-             * when creating the address, as well as an ATTN suffix to help route the mail to your
-             * lockbox. Mail senders must include this ATTN line to receive mail at this Lockbox.
-             */
-            fun recipient(recipient: String?) = recipient(JsonField.ofNullable(recipient))
-
-            /** Alias for calling [Builder.recipient] with `recipient.orElse(null)`. */
-            fun recipient(recipient: Optional<String>) = recipient(recipient.getOrNull())
-
-            /**
-             * Sets [Builder.recipient] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.recipient] with a well-typed [String] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun recipient(recipient: JsonField<String>) = apply { this.recipient = recipient }
-
-            /**
              * The two-letter United States Postal Service (USPS) abbreviation for the state of the
              * address.
              */
@@ -798,7 +659,6 @@ private constructor(
              * .line1()
              * .line2()
              * .postalCode()
-             * .recipient()
              * .state()
              * ```
              *
@@ -810,7 +670,6 @@ private constructor(
                     checkRequired("line1", line1),
                     checkRequired("line2", line2),
                     checkRequired("postalCode", postalCode),
-                    checkRequired("recipient", recipient),
                     checkRequired("state", state),
                     additionalProperties.toMutableMap(),
                 )
@@ -827,7 +686,6 @@ private constructor(
             line1()
             line2()
             postalCode()
-            recipient()
             state()
             validated = true
         }
@@ -852,7 +710,6 @@ private constructor(
                 (if (line1.asKnown().isPresent) 1 else 0) +
                 (if (line2.asKnown().isPresent) 1 else 0) +
                 (if (postalCode.asKnown().isPresent) 1 else 0) +
-                (if (recipient.asKnown().isPresent) 1 else 0) +
                 (if (state.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -865,25 +722,22 @@ private constructor(
                 line1 == other.line1 &&
                 line2 == other.line2 &&
                 postalCode == other.postalCode &&
-                recipient == other.recipient &&
                 state == other.state &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(city, line1, line2, postalCode, recipient, state, additionalProperties)
+            Objects.hash(city, line1, line2, postalCode, state, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, recipient=$recipient, state=$state, additionalProperties=$additionalProperties}"
+            "Address{city=$city, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
     }
 
-    /** Indicates if checks mailed to this lockbox will be deposited. */
-    class CheckDepositBehavior
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    /** The status of the Lockbox Address. */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -897,49 +751,52 @@ private constructor(
 
         companion object {
 
-            /** Checks mailed to this Lockbox will be deposited. */
-            @JvmField val ENABLED = of("enabled")
+            /** Increase is generating this Lockbox Address. */
+            @JvmField val PENDING = of("pending")
 
-            /** Checks mailed to this Lockbox will not be deposited. */
+            /** This Lockbox Address is active. */
+            @JvmField val ACTIVE = of("active")
+
+            /** This Lockbox Address is disabled. */
             @JvmField val DISABLED = of("disabled")
 
-            /** Checks mailed to this Lockbox will be pending until actioned. */
-            @JvmField val PEND_FOR_PROCESSING = of("pend_for_processing")
+            /** This Lockbox Address is permanently disabled. */
+            @JvmField val CANCELED = of("canceled")
 
-            @JvmStatic fun of(value: String) = CheckDepositBehavior(JsonField.of(value))
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
-        /** An enum containing [CheckDepositBehavior]'s known values. */
+        /** An enum containing [Status]'s known values. */
         enum class Known {
-            /** Checks mailed to this Lockbox will be deposited. */
-            ENABLED,
-            /** Checks mailed to this Lockbox will not be deposited. */
+            /** Increase is generating this Lockbox Address. */
+            PENDING,
+            /** This Lockbox Address is active. */
+            ACTIVE,
+            /** This Lockbox Address is disabled. */
             DISABLED,
-            /** Checks mailed to this Lockbox will be pending until actioned. */
-            PEND_FOR_PROCESSING,
+            /** This Lockbox Address is permanently disabled. */
+            CANCELED,
         }
 
         /**
-         * An enum containing [CheckDepositBehavior]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [CheckDepositBehavior] can contain an unknown value in a couple of cases:
+         * An instance of [Status] can contain an unknown value in a couple of cases:
          * - It was deserialized from data that doesn't match any known member. For example, if the
          *   SDK is on an older version than the API, then the API may respond with new members that
          *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** Checks mailed to this Lockbox will be deposited. */
-            ENABLED,
-            /** Checks mailed to this Lockbox will not be deposited. */
+            /** Increase is generating this Lockbox Address. */
+            PENDING,
+            /** This Lockbox Address is active. */
+            ACTIVE,
+            /** This Lockbox Address is disabled. */
             DISABLED,
-            /** Checks mailed to this Lockbox will be pending until actioned. */
-            PEND_FOR_PROCESSING,
-            /**
-             * An enum member indicating that [CheckDepositBehavior] was instantiated with an
-             * unknown value.
-             */
+            /** This Lockbox Address is permanently disabled. */
+            CANCELED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
@@ -952,9 +809,10 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                ENABLED -> Value.ENABLED
+                PENDING -> Value.PENDING
+                ACTIVE -> Value.ACTIVE
                 DISABLED -> Value.DISABLED
-                PEND_FOR_PROCESSING -> Value.PEND_FOR_PROCESSING
+                CANCELED -> Value.CANCELED
                 else -> Value._UNKNOWN
             }
 
@@ -969,10 +827,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                ENABLED -> Known.ENABLED
+                PENDING -> Known.PENDING
+                ACTIVE -> Known.ACTIVE
                 DISABLED -> Known.DISABLED
-                PEND_FOR_PROCESSING -> Known.PEND_FOR_PROCESSING
-                else -> throw IncreaseInvalidDataException("Unknown CheckDepositBehavior: $value")
+                CANCELED -> Known.CANCELED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
         /**
@@ -991,7 +850,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CheckDepositBehavior = apply {
+        fun validate(): Status = apply {
             if (validated) {
                 return@apply
             }
@@ -1021,7 +880,7 @@ private constructor(
                 return true
             }
 
-            return other is CheckDepositBehavior && value == other.value
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -1029,7 +888,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** A constant representing the object's type. For this resource it will always be `lockbox`. */
+    /**
+     * A constant representing the object's type. For this resource it will always be
+     * `lockbox_address`.
+     */
     class Type @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -1044,14 +906,14 @@ private constructor(
 
         companion object {
 
-            @JvmField val LOCKBOX = of("lockbox")
+            @JvmField val LOCKBOX_ADDRESS = of("lockbox_address")
 
             @JvmStatic fun of(value: String) = Type(JsonField.of(value))
         }
 
         /** An enum containing [Type]'s known values. */
         enum class Known {
-            LOCKBOX
+            LOCKBOX_ADDRESS
         }
 
         /**
@@ -1064,7 +926,7 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            LOCKBOX,
+            LOCKBOX_ADDRESS,
             /** An enum member indicating that [Type] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1078,7 +940,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                LOCKBOX -> Value.LOCKBOX
+                LOCKBOX_ADDRESS -> Value.LOCKBOX_ADDRESS
                 else -> Value._UNKNOWN
             }
 
@@ -1093,7 +955,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                LOCKBOX -> Known.LOCKBOX
+                LOCKBOX_ADDRESS -> Known.LOCKBOX_ADDRESS
                 else -> throw IncreaseInvalidDataException("Unknown Type: $value")
             }
 
@@ -1156,15 +1018,13 @@ private constructor(
             return true
         }
 
-        return other is Lockbox &&
+        return other is LockboxAddress &&
             id == other.id &&
-            accountId == other.accountId &&
             address == other.address &&
-            checkDepositBehavior == other.checkDepositBehavior &&
             createdAt == other.createdAt &&
             description == other.description &&
             idempotencyKey == other.idempotencyKey &&
-            recipientName == other.recipientName &&
+            status == other.status &&
             type == other.type &&
             additionalProperties == other.additionalProperties
     }
@@ -1172,13 +1032,11 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
-            accountId,
             address,
-            checkDepositBehavior,
             createdAt,
             description,
             idempotencyKey,
-            recipientName,
+            status,
             type,
             additionalProperties,
         )
@@ -1187,5 +1045,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Lockbox{id=$id, accountId=$accountId, address=$address, checkDepositBehavior=$checkDepositBehavior, createdAt=$createdAt, description=$description, idempotencyKey=$idempotencyKey, recipientName=$recipientName, type=$type, additionalProperties=$additionalProperties}"
+        "LockboxAddress{id=$id, address=$address, createdAt=$createdAt, description=$description, idempotencyKey=$idempotencyKey, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

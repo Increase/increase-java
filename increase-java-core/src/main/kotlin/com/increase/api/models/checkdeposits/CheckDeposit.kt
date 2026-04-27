@@ -40,7 +40,7 @@ private constructor(
     private val idempotencyKey: JsonField<String>,
     private val inboundFundsHold: JsonField<InboundFundsHold>,
     private val inboundMailItemId: JsonField<String>,
-    private val lockboxId: JsonField<String>,
+    private val lockboxRecipientId: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
@@ -88,7 +88,9 @@ private constructor(
         @JsonProperty("inbound_mail_item_id")
         @ExcludeMissing
         inboundMailItemId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("lockbox_id") @ExcludeMissing lockboxId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("lockbox_recipient_id")
+        @ExcludeMissing
+        lockboxRecipientId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_id")
         @ExcludeMissing
@@ -110,7 +112,7 @@ private constructor(
         idempotencyKey,
         inboundFundsHold,
         inboundMailItemId,
-        lockboxId,
+        lockboxRecipientId,
         status,
         transactionId,
         type,
@@ -252,13 +254,14 @@ private constructor(
         inboundMailItemId.getOptional("inbound_mail_item_id")
 
     /**
-     * If the Check Deposit was the result of an Inbound Mail Item, this will contain the identifier
-     * of the Lockbox that received it.
+     * If the Check Deposit was the result of an Inbound Mail Item routed to a Lockbox Recipient,
+     * this will contain the identifier of the Lockbox Recipient that received it.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lockboxId(): Optional<String> = lockboxId.getOptional("lockbox_id")
+    fun lockboxRecipientId(): Optional<String> =
+        lockboxRecipientId.getOptional("lockbox_recipient_id")
 
     /**
      * The status of the Check Deposit.
@@ -420,11 +423,14 @@ private constructor(
     fun _inboundMailItemId(): JsonField<String> = inboundMailItemId
 
     /**
-     * Returns the raw JSON value of [lockboxId].
+     * Returns the raw JSON value of [lockboxRecipientId].
      *
-     * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [lockboxRecipientId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
+    @JsonProperty("lockbox_recipient_id")
+    @ExcludeMissing
+    fun _lockboxRecipientId(): JsonField<String> = lockboxRecipientId
 
     /**
      * Returns the raw JSON value of [status].
@@ -483,7 +489,7 @@ private constructor(
          * .idempotencyKey()
          * .inboundFundsHold()
          * .inboundMailItemId()
-         * .lockboxId()
+         * .lockboxRecipientId()
          * .status()
          * .transactionId()
          * .type()
@@ -510,7 +516,7 @@ private constructor(
         private var idempotencyKey: JsonField<String>? = null
         private var inboundFundsHold: JsonField<InboundFundsHold>? = null
         private var inboundMailItemId: JsonField<String>? = null
-        private var lockboxId: JsonField<String>? = null
+        private var lockboxRecipientId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var transactionId: JsonField<String>? = null
         private var type: JsonField<Type>? = null
@@ -533,7 +539,7 @@ private constructor(
             idempotencyKey = checkDeposit.idempotencyKey
             inboundFundsHold = checkDeposit.inboundFundsHold
             inboundMailItemId = checkDeposit.inboundMailItemId
-            lockboxId = checkDeposit.lockboxId
+            lockboxRecipientId = checkDeposit.lockboxRecipientId
             status = checkDeposit.status
             transactionId = checkDeposit.transactionId
             type = checkDeposit.type
@@ -821,22 +827,28 @@ private constructor(
         }
 
         /**
-         * If the Check Deposit was the result of an Inbound Mail Item, this will contain the
-         * identifier of the Lockbox that received it.
+         * If the Check Deposit was the result of an Inbound Mail Item routed to a Lockbox
+         * Recipient, this will contain the identifier of the Lockbox Recipient that received it.
          */
-        fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
-
-        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
-        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
+        fun lockboxRecipientId(lockboxRecipientId: String?) =
+            lockboxRecipientId(JsonField.ofNullable(lockboxRecipientId))
 
         /**
-         * Sets [Builder.lockboxId] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * Alias for calling [Builder.lockboxRecipientId] with `lockboxRecipientId.orElse(null)`.
          */
-        fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
+        fun lockboxRecipientId(lockboxRecipientId: Optional<String>) =
+            lockboxRecipientId(lockboxRecipientId.getOrNull())
+
+        /**
+         * Sets [Builder.lockboxRecipientId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockboxRecipientId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun lockboxRecipientId(lockboxRecipientId: JsonField<String>) = apply {
+            this.lockboxRecipientId = lockboxRecipientId
+        }
 
         /** The status of the Check Deposit. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -923,7 +935,7 @@ private constructor(
          * .idempotencyKey()
          * .inboundFundsHold()
          * .inboundMailItemId()
-         * .lockboxId()
+         * .lockboxRecipientId()
          * .status()
          * .transactionId()
          * .type()
@@ -948,7 +960,7 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("inboundFundsHold", inboundFundsHold),
                 checkRequired("inboundMailItemId", inboundMailItemId),
-                checkRequired("lockboxId", lockboxId),
+                checkRequired("lockboxRecipientId", lockboxRecipientId),
                 checkRequired("status", status),
                 checkRequired("transactionId", transactionId),
                 checkRequired("type", type),
@@ -978,7 +990,7 @@ private constructor(
         idempotencyKey()
         inboundFundsHold().ifPresent { it.validate() }
         inboundMailItemId()
-        lockboxId()
+        lockboxRecipientId()
         status().validate()
         transactionId()
         type().validate()
@@ -1015,7 +1027,7 @@ private constructor(
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (inboundFundsHold.asKnown().getOrNull()?.validity() ?: 0) +
             (if (inboundMailItemId.asKnown().isPresent) 1 else 0) +
-            (if (lockboxId.asKnown().isPresent) 1 else 0) +
+            (if (lockboxRecipientId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (transactionId.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
@@ -5272,7 +5284,7 @@ private constructor(
             idempotencyKey == other.idempotencyKey &&
             inboundFundsHold == other.inboundFundsHold &&
             inboundMailItemId == other.inboundMailItemId &&
-            lockboxId == other.lockboxId &&
+            lockboxRecipientId == other.lockboxRecipientId &&
             status == other.status &&
             transactionId == other.transactionId &&
             type == other.type &&
@@ -5296,7 +5308,7 @@ private constructor(
             idempotencyKey,
             inboundFundsHold,
             inboundMailItemId,
-            lockboxId,
+            lockboxRecipientId,
             status,
             transactionId,
             type,
@@ -5307,5 +5319,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositAdjustments=$depositAdjustments, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxId=$lockboxId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CheckDeposit{id=$id, accountId=$accountId, amount=$amount, backImageFileId=$backImageFileId, createdAt=$createdAt, depositAcceptance=$depositAcceptance, depositAdjustments=$depositAdjustments, depositRejection=$depositRejection, depositReturn=$depositReturn, depositSubmission=$depositSubmission, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, inboundFundsHold=$inboundFundsHold, inboundMailItemId=$inboundMailItemId, lockboxRecipientId=$lockboxRecipientId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
