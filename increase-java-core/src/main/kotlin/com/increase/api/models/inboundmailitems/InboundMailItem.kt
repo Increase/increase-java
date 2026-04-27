@@ -21,7 +21,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox. */
+/** Inbound Mail Items represent pieces of physical mail delivered to a Lockbox Address. */
 class InboundMailItem
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
@@ -29,7 +29,8 @@ private constructor(
     private val checks: JsonField<List<Check>>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val fileId: JsonField<String>,
-    private val lockboxId: JsonField<String>,
+    private val lockboxAddressId: JsonField<String>,
+    private val lockboxRecipientId: JsonField<String>,
     private val recipientName: JsonField<String>,
     private val rejectionReason: JsonField<RejectionReason>,
     private val status: JsonField<Status>,
@@ -45,7 +46,12 @@ private constructor(
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("file_id") @ExcludeMissing fileId: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("lockbox_id") @ExcludeMissing lockboxId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("lockbox_address_id")
+        @ExcludeMissing
+        lockboxAddressId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("lockbox_recipient_id")
+        @ExcludeMissing
+        lockboxRecipientId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("recipient_name")
         @ExcludeMissing
         recipientName: JsonField<String> = JsonMissing.of(),
@@ -59,7 +65,8 @@ private constructor(
         checks,
         createdAt,
         fileId,
-        lockboxId,
+        lockboxAddressId,
+        lockboxRecipientId,
         recipientName,
         rejectionReason,
         status,
@@ -101,13 +108,22 @@ private constructor(
     fun fileId(): String = fileId.getRequired("file_id")
 
     /**
-     * The identifier for the Lockbox that received this mail item. For mail items that could not be
-     * processed due to an invalid address, this will be null.
+     * The identifier for the Lockbox Address that received this mail item.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun lockboxId(): Optional<String> = lockboxId.getOptional("lockbox_id")
+    fun lockboxAddressId(): Optional<String> = lockboxAddressId.getOptional("lockbox_address_id")
+
+    /**
+     * The identifier for the Lockbox Recipient that received this mail item. For mail items that
+     * could not be routed to a Lockbox Recipient, this will be null.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun lockboxRecipientId(): Optional<String> =
+        lockboxRecipientId.getOptional("lockbox_recipient_id")
 
     /**
      * The recipient name as written on the mail item.
@@ -174,11 +190,24 @@ private constructor(
     @JsonProperty("file_id") @ExcludeMissing fun _fileId(): JsonField<String> = fileId
 
     /**
-     * Returns the raw JSON value of [lockboxId].
+     * Returns the raw JSON value of [lockboxAddressId].
      *
-     * Unlike [lockboxId], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [lockboxAddressId], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    @JsonProperty("lockbox_id") @ExcludeMissing fun _lockboxId(): JsonField<String> = lockboxId
+    @JsonProperty("lockbox_address_id")
+    @ExcludeMissing
+    fun _lockboxAddressId(): JsonField<String> = lockboxAddressId
+
+    /**
+     * Returns the raw JSON value of [lockboxRecipientId].
+     *
+     * Unlike [lockboxRecipientId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("lockbox_recipient_id")
+    @ExcludeMissing
+    fun _lockboxRecipientId(): JsonField<String> = lockboxRecipientId
 
     /**
      * Returns the raw JSON value of [recipientName].
@@ -235,7 +264,8 @@ private constructor(
          * .checks()
          * .createdAt()
          * .fileId()
-         * .lockboxId()
+         * .lockboxAddressId()
+         * .lockboxRecipientId()
          * .recipientName()
          * .rejectionReason()
          * .status()
@@ -252,7 +282,8 @@ private constructor(
         private var checks: JsonField<MutableList<Check>>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var fileId: JsonField<String>? = null
-        private var lockboxId: JsonField<String>? = null
+        private var lockboxAddressId: JsonField<String>? = null
+        private var lockboxRecipientId: JsonField<String>? = null
         private var recipientName: JsonField<String>? = null
         private var rejectionReason: JsonField<RejectionReason>? = null
         private var status: JsonField<Status>? = null
@@ -265,7 +296,8 @@ private constructor(
             checks = inboundMailItem.checks.map { it.toMutableList() }
             createdAt = inboundMailItem.createdAt
             fileId = inboundMailItem.fileId
-            lockboxId = inboundMailItem.lockboxId
+            lockboxAddressId = inboundMailItem.lockboxAddressId
+            lockboxRecipientId = inboundMailItem.lockboxRecipientId
             recipientName = inboundMailItem.recipientName
             rejectionReason = inboundMailItem.rejectionReason
             status = inboundMailItem.status
@@ -336,23 +368,48 @@ private constructor(
          */
         fun fileId(fileId: JsonField<String>) = apply { this.fileId = fileId }
 
-        /**
-         * The identifier for the Lockbox that received this mail item. For mail items that could
-         * not be processed due to an invalid address, this will be null.
-         */
-        fun lockboxId(lockboxId: String?) = lockboxId(JsonField.ofNullable(lockboxId))
+        /** The identifier for the Lockbox Address that received this mail item. */
+        fun lockboxAddressId(lockboxAddressId: String?) =
+            lockboxAddressId(JsonField.ofNullable(lockboxAddressId))
 
-        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
-        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
+        /** Alias for calling [Builder.lockboxAddressId] with `lockboxAddressId.orElse(null)`. */
+        fun lockboxAddressId(lockboxAddressId: Optional<String>) =
+            lockboxAddressId(lockboxAddressId.getOrNull())
 
         /**
-         * Sets [Builder.lockboxId] to an arbitrary JSON value.
+         * Sets [Builder.lockboxAddressId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.lockboxId] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.lockboxAddressId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun lockboxId(lockboxId: JsonField<String>) = apply { this.lockboxId = lockboxId }
+        fun lockboxAddressId(lockboxAddressId: JsonField<String>) = apply {
+            this.lockboxAddressId = lockboxAddressId
+        }
+
+        /**
+         * The identifier for the Lockbox Recipient that received this mail item. For mail items
+         * that could not be routed to a Lockbox Recipient, this will be null.
+         */
+        fun lockboxRecipientId(lockboxRecipientId: String?) =
+            lockboxRecipientId(JsonField.ofNullable(lockboxRecipientId))
+
+        /**
+         * Alias for calling [Builder.lockboxRecipientId] with `lockboxRecipientId.orElse(null)`.
+         */
+        fun lockboxRecipientId(lockboxRecipientId: Optional<String>) =
+            lockboxRecipientId(lockboxRecipientId.getOrNull())
+
+        /**
+         * Sets [Builder.lockboxRecipientId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.lockboxRecipientId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun lockboxRecipientId(lockboxRecipientId: JsonField<String>) = apply {
+            this.lockboxRecipientId = lockboxRecipientId
+        }
 
         /** The recipient name as written on the mail item. */
         fun recipientName(recipientName: String?) =
@@ -447,7 +504,8 @@ private constructor(
          * .checks()
          * .createdAt()
          * .fileId()
-         * .lockboxId()
+         * .lockboxAddressId()
+         * .lockboxRecipientId()
          * .recipientName()
          * .rejectionReason()
          * .status()
@@ -462,7 +520,8 @@ private constructor(
                 checkRequired("checks", checks).map { it.toImmutable() },
                 checkRequired("createdAt", createdAt),
                 checkRequired("fileId", fileId),
-                checkRequired("lockboxId", lockboxId),
+                checkRequired("lockboxAddressId", lockboxAddressId),
+                checkRequired("lockboxRecipientId", lockboxRecipientId),
                 checkRequired("recipientName", recipientName),
                 checkRequired("rejectionReason", rejectionReason),
                 checkRequired("status", status),
@@ -482,7 +541,8 @@ private constructor(
         checks().forEach { it.validate() }
         createdAt()
         fileId()
-        lockboxId()
+        lockboxAddressId()
+        lockboxRecipientId()
         recipientName()
         rejectionReason().ifPresent { it.validate() }
         status().validate()
@@ -509,7 +569,8 @@ private constructor(
             (checks.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (fileId.asKnown().isPresent) 1 else 0) +
-            (if (lockboxId.asKnown().isPresent) 1 else 0) +
+            (if (lockboxAddressId.asKnown().isPresent) 1 else 0) +
+            (if (lockboxRecipientId.asKnown().isPresent) 1 else 0) +
             (if (recipientName.asKnown().isPresent) 1 else 0) +
             (rejectionReason.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1035,6 +1096,12 @@ private constructor(
             /** The Lockbox or its associated Account is not active. */
             @JvmField val LOCKBOX_NOT_ACTIVE = of("lockbox_not_active")
 
+            /** The Lockbox Address is not active. */
+            @JvmField val LOCKBOX_ADDRESS_NOT_ACTIVE = of("lockbox_address_not_active")
+
+            /** The Lockbox Recipient or its associated Account is not active. */
+            @JvmField val LOCKBOX_RECIPIENT_NOT_ACTIVE = of("lockbox_recipient_not_active")
+
             @JvmStatic fun of(value: String) = RejectionReason(JsonField.of(value))
         }
 
@@ -1046,6 +1113,10 @@ private constructor(
             NO_CHECK,
             /** The Lockbox or its associated Account is not active. */
             LOCKBOX_NOT_ACTIVE,
+            /** The Lockbox Address is not active. */
+            LOCKBOX_ADDRESS_NOT_ACTIVE,
+            /** The Lockbox Recipient or its associated Account is not active. */
+            LOCKBOX_RECIPIENT_NOT_ACTIVE,
         }
 
         /**
@@ -1064,6 +1135,10 @@ private constructor(
             NO_CHECK,
             /** The Lockbox or its associated Account is not active. */
             LOCKBOX_NOT_ACTIVE,
+            /** The Lockbox Address is not active. */
+            LOCKBOX_ADDRESS_NOT_ACTIVE,
+            /** The Lockbox Recipient or its associated Account is not active. */
+            LOCKBOX_RECIPIENT_NOT_ACTIVE,
             /**
              * An enum member indicating that [RejectionReason] was instantiated with an unknown
              * value.
@@ -1083,6 +1158,8 @@ private constructor(
                 NO_MATCHING_LOCKBOX -> Value.NO_MATCHING_LOCKBOX
                 NO_CHECK -> Value.NO_CHECK
                 LOCKBOX_NOT_ACTIVE -> Value.LOCKBOX_NOT_ACTIVE
+                LOCKBOX_ADDRESS_NOT_ACTIVE -> Value.LOCKBOX_ADDRESS_NOT_ACTIVE
+                LOCKBOX_RECIPIENT_NOT_ACTIVE -> Value.LOCKBOX_RECIPIENT_NOT_ACTIVE
                 else -> Value._UNKNOWN
             }
 
@@ -1100,6 +1177,8 @@ private constructor(
                 NO_MATCHING_LOCKBOX -> Known.NO_MATCHING_LOCKBOX
                 NO_CHECK -> Known.NO_CHECK
                 LOCKBOX_NOT_ACTIVE -> Known.LOCKBOX_NOT_ACTIVE
+                LOCKBOX_ADDRESS_NOT_ACTIVE -> Known.LOCKBOX_ADDRESS_NOT_ACTIVE
+                LOCKBOX_RECIPIENT_NOT_ACTIVE -> Known.LOCKBOX_RECIPIENT_NOT_ACTIVE
                 else -> throw IncreaseInvalidDataException("Unknown RejectionReason: $value")
             }
 
@@ -1435,7 +1514,8 @@ private constructor(
             checks == other.checks &&
             createdAt == other.createdAt &&
             fileId == other.fileId &&
-            lockboxId == other.lockboxId &&
+            lockboxAddressId == other.lockboxAddressId &&
+            lockboxRecipientId == other.lockboxRecipientId &&
             recipientName == other.recipientName &&
             rejectionReason == other.rejectionReason &&
             status == other.status &&
@@ -1449,7 +1529,8 @@ private constructor(
             checks,
             createdAt,
             fileId,
-            lockboxId,
+            lockboxAddressId,
+            lockboxRecipientId,
             recipientName,
             rejectionReason,
             status,
@@ -1461,5 +1542,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundMailItem{id=$id, checks=$checks, createdAt=$createdAt, fileId=$fileId, lockboxId=$lockboxId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "InboundMailItem{id=$id, checks=$checks, createdAt=$createdAt, fileId=$fileId, lockboxAddressId=$lockboxAddressId, lockboxRecipientId=$lockboxRecipientId, recipientName=$recipientName, rejectionReason=$rejectionReason, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

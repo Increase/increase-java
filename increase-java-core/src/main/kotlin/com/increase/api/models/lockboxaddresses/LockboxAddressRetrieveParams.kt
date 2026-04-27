@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxaddresses
 
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
@@ -9,16 +9,16 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Lockbox */
-class LockboxRetrieveParams
+/** Retrieve a Lockbox Address */
+class LockboxAddressRetrieveParams
 private constructor(
-    private val lockboxId: String?,
+    private val lockboxAddressId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Lockbox to retrieve. */
-    fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId)
+    /** The identifier of the Lockbox Address to retrieve. */
+    fun lockboxAddressId(): Optional<String> = Optional.ofNullable(lockboxAddressId)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -30,31 +30,36 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): LockboxRetrieveParams = builder().build()
+        @JvmStatic fun none(): LockboxAddressRetrieveParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [LockboxRetrieveParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [LockboxAddressRetrieveParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [LockboxRetrieveParams]. */
+    /** A builder for [LockboxAddressRetrieveParams]. */
     class Builder internal constructor() {
 
-        private var lockboxId: String? = null
+        private var lockboxAddressId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(lockboxRetrieveParams: LockboxRetrieveParams) = apply {
-            lockboxId = lockboxRetrieveParams.lockboxId
-            additionalHeaders = lockboxRetrieveParams.additionalHeaders.toBuilder()
-            additionalQueryParams = lockboxRetrieveParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxAddressRetrieveParams: LockboxAddressRetrieveParams) = apply {
+            lockboxAddressId = lockboxAddressRetrieveParams.lockboxAddressId
+            additionalHeaders = lockboxAddressRetrieveParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxAddressRetrieveParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Lockbox to retrieve. */
-        fun lockboxId(lockboxId: String?) = apply { this.lockboxId = lockboxId }
+        /** The identifier of the Lockbox Address to retrieve. */
+        fun lockboxAddressId(lockboxAddressId: String?) = apply {
+            this.lockboxAddressId = lockboxAddressId
+        }
 
-        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
-        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
+        /** Alias for calling [Builder.lockboxAddressId] with `lockboxAddressId.orElse(null)`. */
+        fun lockboxAddressId(lockboxAddressId: Optional<String>) =
+            lockboxAddressId(lockboxAddressId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -155,13 +160,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxRetrieveParams].
+         * Returns an immutable instance of [LockboxAddressRetrieveParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): LockboxRetrieveParams =
-            LockboxRetrieveParams(
-                lockboxId,
+        fun build(): LockboxAddressRetrieveParams =
+            LockboxAddressRetrieveParams(
+                lockboxAddressId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -169,7 +174,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> lockboxId ?: ""
+            0 -> lockboxAddressId ?: ""
             else -> ""
         }
 
@@ -182,14 +187,15 @@ private constructor(
             return true
         }
 
-        return other is LockboxRetrieveParams &&
-            lockboxId == other.lockboxId &&
+        return other is LockboxAddressRetrieveParams &&
+            lockboxAddressId == other.lockboxAddressId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
-    override fun hashCode(): Int = Objects.hash(lockboxId, additionalHeaders, additionalQueryParams)
+    override fun hashCode(): Int =
+        Objects.hash(lockboxAddressId, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LockboxRetrieveParams{lockboxId=$lockboxId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxAddressRetrieveParams{lockboxAddressId=$lockboxAddressId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

@@ -1,19 +1,19 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.inboundmailitems
+package com.increase.api.models.lockboxaddresses
 
 import com.increase.api.core.http.QueryParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class InboundMailItemListParamsTest {
+internal class LockboxAddressListParamsTest {
 
     @Test
     fun create() {
-        InboundMailItemListParams.builder()
+        LockboxAddressListParams.builder()
             .createdAt(
-                InboundMailItemListParams.CreatedAt.builder()
+                LockboxAddressListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -21,18 +21,17 @@ internal class InboundMailItemListParamsTest {
                     .build()
             )
             .cursor("cursor")
+            .idempotencyKey("x")
             .limit(1L)
-            .lockboxAddressId("lockbox_address_id")
-            .lockboxRecipientId("lockbox_recipient_id")
             .build()
     }
 
     @Test
     fun queryParams() {
         val params =
-            InboundMailItemListParams.builder()
+            LockboxAddressListParams.builder()
                 .createdAt(
-                    InboundMailItemListParams.CreatedAt.builder()
+                    LockboxAddressListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -40,9 +39,8 @@ internal class InboundMailItemListParamsTest {
                         .build()
                 )
                 .cursor("cursor")
+                .idempotencyKey("x")
                 .limit(1L)
-                .lockboxAddressId("lockbox_address_id")
-                .lockboxRecipientId("lockbox_recipient_id")
                 .build()
 
         val queryParams = params._queryParams()
@@ -55,16 +53,15 @@ internal class InboundMailItemListParamsTest {
                     .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
                     .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
                     .put("cursor", "cursor")
+                    .put("idempotency_key", "x")
                     .put("limit", "1")
-                    .put("lockbox_address_id", "lockbox_address_id")
-                    .put("lockbox_recipient_id", "lockbox_recipient_id")
                     .build()
             )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = InboundMailItemListParams.builder().build()
+        val params = LockboxAddressListParams.builder().build()
 
         val queryParams = params._queryParams()
 

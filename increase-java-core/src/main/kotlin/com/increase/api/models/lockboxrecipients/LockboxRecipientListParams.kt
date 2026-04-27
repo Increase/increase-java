@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxrecipients
 
 import com.increase.api.core.Params
 import com.increase.api.core.http.Headers
@@ -11,19 +11,20 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Lockboxes */
-class LockboxListParams
+/** List Lockbox Recipients */
+class LockboxRecipientListParams
 private constructor(
     private val accountId: String?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val idempotencyKey: String?,
     private val limit: Long?,
+    private val lockboxAddressId: String?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** Filter Lockboxes to those associated with the provided Account. */
+    /** Filter Lockbox Recipients to those associated with the provided Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
@@ -41,6 +42,9 @@ private constructor(
     /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
+    /** Filter Lockbox Recipients to those associated with the provided Lockbox Address. */
+    fun lockboxAddressId(): Optional<String> = Optional.ofNullable(lockboxAddressId)
+
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
 
@@ -51,13 +55,15 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): LockboxListParams = builder().build()
+        @JvmStatic fun none(): LockboxRecipientListParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [LockboxListParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [LockboxRecipientListParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [LockboxListParams]. */
+    /** A builder for [LockboxRecipientListParams]. */
     class Builder internal constructor() {
 
         private var accountId: String? = null
@@ -65,21 +71,23 @@ private constructor(
         private var cursor: String? = null
         private var idempotencyKey: String? = null
         private var limit: Long? = null
+        private var lockboxAddressId: String? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(lockboxListParams: LockboxListParams) = apply {
-            accountId = lockboxListParams.accountId
-            createdAt = lockboxListParams.createdAt
-            cursor = lockboxListParams.cursor
-            idempotencyKey = lockboxListParams.idempotencyKey
-            limit = lockboxListParams.limit
-            additionalHeaders = lockboxListParams.additionalHeaders.toBuilder()
-            additionalQueryParams = lockboxListParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxRecipientListParams: LockboxRecipientListParams) = apply {
+            accountId = lockboxRecipientListParams.accountId
+            createdAt = lockboxRecipientListParams.createdAt
+            cursor = lockboxRecipientListParams.cursor
+            idempotencyKey = lockboxRecipientListParams.idempotencyKey
+            limit = lockboxRecipientListParams.limit
+            lockboxAddressId = lockboxRecipientListParams.lockboxAddressId
+            additionalHeaders = lockboxRecipientListParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxRecipientListParams.additionalQueryParams.toBuilder()
         }
 
-        /** Filter Lockboxes to those associated with the provided Account. */
+        /** Filter Lockbox Recipients to those associated with the provided Account. */
         fun accountId(accountId: String?) = apply { this.accountId = accountId }
 
         /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
@@ -122,6 +130,15 @@ private constructor(
 
         /** Alias for calling [Builder.limit] with `limit.orElse(null)`. */
         fun limit(limit: Optional<Long>) = limit(limit.getOrNull())
+
+        /** Filter Lockbox Recipients to those associated with the provided Lockbox Address. */
+        fun lockboxAddressId(lockboxAddressId: String?) = apply {
+            this.lockboxAddressId = lockboxAddressId
+        }
+
+        /** Alias for calling [Builder.lockboxAddressId] with `lockboxAddressId.orElse(null)`. */
+        fun lockboxAddressId(lockboxAddressId: Optional<String>) =
+            lockboxAddressId(lockboxAddressId.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -222,17 +239,18 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxListParams].
+         * Returns an immutable instance of [LockboxRecipientListParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): LockboxListParams =
-            LockboxListParams(
+        fun build(): LockboxRecipientListParams =
+            LockboxRecipientListParams(
                 accountId,
                 createdAt,
                 cursor,
                 idempotencyKey,
                 limit,
+                lockboxAddressId,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -272,6 +290,7 @@ private constructor(
                 cursor?.let { put("cursor", it) }
                 idempotencyKey?.let { put("idempotency_key", it) }
                 limit?.let { put("limit", it.toString()) }
+                lockboxAddressId?.let { put("lockbox_address_id", it) }
                 putAll(additionalQueryParams)
             }
             .build()
@@ -459,12 +478,13 @@ private constructor(
             return true
         }
 
-        return other is LockboxListParams &&
+        return other is LockboxRecipientListParams &&
             accountId == other.accountId &&
             createdAt == other.createdAt &&
             cursor == other.cursor &&
             idempotencyKey == other.idempotencyKey &&
             limit == other.limit &&
+            lockboxAddressId == other.lockboxAddressId &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -476,10 +496,11 @@ private constructor(
             cursor,
             idempotencyKey,
             limit,
+            lockboxAddressId,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "LockboxListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxRecipientListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, lockboxAddressId=$lockboxAddressId, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

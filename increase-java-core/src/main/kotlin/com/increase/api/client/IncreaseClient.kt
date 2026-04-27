@@ -42,7 +42,8 @@ import com.increase.api.services.blocking.InboundWireTransferService
 import com.increase.api.services.blocking.IntrafiAccountEnrollmentService
 import com.increase.api.services.blocking.IntrafiBalanceService
 import com.increase.api.services.blocking.IntrafiExclusionService
-import com.increase.api.services.blocking.LockboxService
+import com.increase.api.services.blocking.LockboxAddressService
+import com.increase.api.services.blocking.LockboxRecipientService
 import com.increase.api.services.blocking.OAuthApplicationService
 import com.increase.api.services.blocking.OAuthConnectionService
 import com.increase.api.services.blocking.OAuthTokenService
@@ -155,7 +156,9 @@ interface IncreaseClient {
 
     fun checkDeposits(): CheckDepositService
 
-    fun lockboxes(): LockboxService
+    fun lockboxAddresses(): LockboxAddressService
+
+    fun lockboxRecipients(): LockboxRecipientService
 
     fun inboundMailItems(): InboundMailItemService
 
@@ -291,7 +294,9 @@ interface IncreaseClient {
 
         fun checkDeposits(): CheckDepositService.WithRawResponse
 
-        fun lockboxes(): LockboxService.WithRawResponse
+        fun lockboxAddresses(): LockboxAddressService.WithRawResponse
+
+        fun lockboxRecipients(): LockboxRecipientService.WithRawResponse
 
         fun inboundMailItems(): InboundMailItemService.WithRawResponse
 

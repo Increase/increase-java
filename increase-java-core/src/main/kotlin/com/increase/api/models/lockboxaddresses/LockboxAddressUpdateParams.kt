@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxaddresses
 
 import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
@@ -20,28 +20,20 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Update a Lockbox */
-class LockboxUpdateParams
+/** Update a Lockbox Address */
+class LockboxAddressUpdateParams
 private constructor(
-    private val lockboxId: String?,
+    private val lockboxAddressId: String?,
     private val body: Body,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Lockbox. */
-    fun lockboxId(): Optional<String> = Optional.ofNullable(lockboxId)
+    /** The identifier of the Lockbox Address. */
+    fun lockboxAddressId(): Optional<String> = Optional.ofNullable(lockboxAddressId)
 
     /**
-     * This indicates if checks mailed to this lockbox will be deposited.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun checkDepositBehavior(): Optional<CheckDepositBehavior> = body.checkDepositBehavior()
-
-    /**
-     * The description you choose for the Lockbox.
+     * The description you choose for the Lockbox Address.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -49,20 +41,12 @@ private constructor(
     fun description(): Optional<String> = body.description()
 
     /**
-     * The recipient name you choose for the Lockbox.
+     * The status of the Lockbox Address.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun recipientName(): Optional<String> = body.recipientName()
-
-    /**
-     * Returns the raw JSON value of [checkDepositBehavior].
-     *
-     * Unlike [checkDepositBehavior], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _checkDepositBehavior(): JsonField<CheckDepositBehavior> = body._checkDepositBehavior()
+    fun status(): Optional<Status> = body.status()
 
     /**
      * Returns the raw JSON value of [description].
@@ -72,11 +56,11 @@ private constructor(
     fun _description(): JsonField<String> = body._description()
 
     /**
-     * Returns the raw JSON value of [recipientName].
+     * Returns the raw JSON value of [status].
      *
-     * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
-    fun _recipientName(): JsonField<String> = body._recipientName()
+    fun _status(): JsonField<Status> = body._status()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -90,62 +74,50 @@ private constructor(
 
     companion object {
 
-        @JvmStatic fun none(): LockboxUpdateParams = builder().build()
+        @JvmStatic fun none(): LockboxAddressUpdateParams = builder().build()
 
-        /** Returns a mutable builder for constructing an instance of [LockboxUpdateParams]. */
+        /**
+         * Returns a mutable builder for constructing an instance of [LockboxAddressUpdateParams].
+         */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [LockboxUpdateParams]. */
+    /** A builder for [LockboxAddressUpdateParams]. */
     class Builder internal constructor() {
 
-        private var lockboxId: String? = null
+        private var lockboxAddressId: String? = null
         private var body: Body.Builder = Body.builder()
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(lockboxUpdateParams: LockboxUpdateParams) = apply {
-            lockboxId = lockboxUpdateParams.lockboxId
-            body = lockboxUpdateParams.body.toBuilder()
-            additionalHeaders = lockboxUpdateParams.additionalHeaders.toBuilder()
-            additionalQueryParams = lockboxUpdateParams.additionalQueryParams.toBuilder()
+        internal fun from(lockboxAddressUpdateParams: LockboxAddressUpdateParams) = apply {
+            lockboxAddressId = lockboxAddressUpdateParams.lockboxAddressId
+            body = lockboxAddressUpdateParams.body.toBuilder()
+            additionalHeaders = lockboxAddressUpdateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = lockboxAddressUpdateParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Lockbox. */
-        fun lockboxId(lockboxId: String?) = apply { this.lockboxId = lockboxId }
+        /** The identifier of the Lockbox Address. */
+        fun lockboxAddressId(lockboxAddressId: String?) = apply {
+            this.lockboxAddressId = lockboxAddressId
+        }
 
-        /** Alias for calling [Builder.lockboxId] with `lockboxId.orElse(null)`. */
-        fun lockboxId(lockboxId: Optional<String>) = lockboxId(lockboxId.getOrNull())
+        /** Alias for calling [Builder.lockboxAddressId] with `lockboxAddressId.orElse(null)`. */
+        fun lockboxAddressId(lockboxAddressId: Optional<String>) =
+            lockboxAddressId(lockboxAddressId.getOrNull())
 
         /**
          * Sets the entire request body.
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [checkDepositBehavior]
          * - [description]
-         * - [recipientName]
+         * - [status]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** This indicates if checks mailed to this lockbox will be deposited. */
-        fun checkDepositBehavior(checkDepositBehavior: CheckDepositBehavior) = apply {
-            body.checkDepositBehavior(checkDepositBehavior)
-        }
-
-        /**
-         * Sets [Builder.checkDepositBehavior] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.checkDepositBehavior] with a well-typed
-         * [CheckDepositBehavior] value instead. This method is primarily for setting the field to
-         * an undocumented or not yet supported value.
-         */
-        fun checkDepositBehavior(checkDepositBehavior: JsonField<CheckDepositBehavior>) = apply {
-            body.checkDepositBehavior(checkDepositBehavior)
-        }
-
-        /** The description you choose for the Lockbox. */
+        /** The description you choose for the Lockbox Address. */
         fun description(description: String) = apply { body.description(description) }
 
         /**
@@ -157,19 +129,16 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
-        /** The recipient name you choose for the Lockbox. */
-        fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
+        /** The status of the Lockbox Address. */
+        fun status(status: Status) = apply { body.status(status) }
 
         /**
-         * Sets [Builder.recipientName] to an arbitrary JSON value.
+         * Sets [Builder.status] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.recipientName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
          */
-        fun recipientName(recipientName: JsonField<String>) = apply {
-            body.recipientName(recipientName)
-        }
+        fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -289,13 +258,13 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [LockboxUpdateParams].
+         * Returns an immutable instance of [LockboxAddressUpdateParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          */
-        fun build(): LockboxUpdateParams =
-            LockboxUpdateParams(
-                lockboxId,
+        fun build(): LockboxAddressUpdateParams =
+            LockboxAddressUpdateParams(
+                lockboxAddressId,
                 body.build(),
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
@@ -306,7 +275,7 @@ private constructor(
 
     fun _pathParam(index: Int): String =
         when (index) {
-            0 -> lockboxId ?: ""
+            0 -> lockboxAddressId ?: ""
             else -> ""
         }
 
@@ -317,36 +286,21 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val checkDepositBehavior: JsonField<CheckDepositBehavior>,
         private val description: JsonField<String>,
-        private val recipientName: JsonField<String>,
+        private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("check_deposit_behavior")
-            @ExcludeMissing
-            checkDepositBehavior: JsonField<CheckDepositBehavior> = JsonMissing.of(),
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("recipient_name")
-            @ExcludeMissing
-            recipientName: JsonField<String> = JsonMissing.of(),
-        ) : this(checkDepositBehavior, description, recipientName, mutableMapOf())
+            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        ) : this(description, status, mutableMapOf())
 
         /**
-         * This indicates if checks mailed to this lockbox will be deposited.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun checkDepositBehavior(): Optional<CheckDepositBehavior> =
-            checkDepositBehavior.getOptional("check_deposit_behavior")
-
-        /**
-         * The description you choose for the Lockbox.
+         * The description you choose for the Lockbox Address.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -354,22 +308,12 @@ private constructor(
         fun description(): Optional<String> = description.getOptional("description")
 
         /**
-         * The recipient name you choose for the Lockbox.
+         * The status of the Lockbox Address.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun recipientName(): Optional<String> = recipientName.getOptional("recipient_name")
-
-        /**
-         * Returns the raw JSON value of [checkDepositBehavior].
-         *
-         * Unlike [checkDepositBehavior], this method doesn't throw if the JSON field has an
-         * unexpected type.
-         */
-        @JsonProperty("check_deposit_behavior")
-        @ExcludeMissing
-        fun _checkDepositBehavior(): JsonField<CheckDepositBehavior> = checkDepositBehavior
+        fun status(): Optional<Status> = status.getOptional("status")
 
         /**
          * Returns the raw JSON value of [description].
@@ -381,14 +325,11 @@ private constructor(
         fun _description(): JsonField<String> = description
 
         /**
-         * Returns the raw JSON value of [recipientName].
+         * Returns the raw JSON value of [status].
          *
-         * Unlike [recipientName], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
-        @JsonProperty("recipient_name")
-        @ExcludeMissing
-        fun _recipientName(): JsonField<String> = recipientName
+        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -411,36 +352,18 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var checkDepositBehavior: JsonField<CheckDepositBehavior> = JsonMissing.of()
             private var description: JsonField<String> = JsonMissing.of()
-            private var recipientName: JsonField<String> = JsonMissing.of()
+            private var status: JsonField<Status> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                checkDepositBehavior = body.checkDepositBehavior
                 description = body.description
-                recipientName = body.recipientName
+                status = body.status
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** This indicates if checks mailed to this lockbox will be deposited. */
-            fun checkDepositBehavior(checkDepositBehavior: CheckDepositBehavior) =
-                checkDepositBehavior(JsonField.of(checkDepositBehavior))
-
-            /**
-             * Sets [Builder.checkDepositBehavior] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.checkDepositBehavior] with a well-typed
-             * [CheckDepositBehavior] value instead. This method is primarily for setting the field
-             * to an undocumented or not yet supported value.
-             */
-            fun checkDepositBehavior(checkDepositBehavior: JsonField<CheckDepositBehavior>) =
-                apply {
-                    this.checkDepositBehavior = checkDepositBehavior
-                }
-
-            /** The description you choose for the Lockbox. */
+            /** The description you choose for the Lockbox Address. */
             fun description(description: String) = description(JsonField.of(description))
 
             /**
@@ -454,19 +377,17 @@ private constructor(
                 this.description = description
             }
 
-            /** The recipient name you choose for the Lockbox. */
-            fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
+            /** The status of the Lockbox Address. */
+            fun status(status: Status) = status(JsonField.of(status))
 
             /**
-             * Sets [Builder.recipientName] to an arbitrary JSON value.
+             * Sets [Builder.status] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.recipientName] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * You should usually call [Builder.status] with a well-typed [Status] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun recipientName(recipientName: JsonField<String>) = apply {
-                this.recipientName = recipientName
-            }
+            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -492,13 +413,7 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body =
-                Body(
-                    checkDepositBehavior,
-                    description,
-                    recipientName,
-                    additionalProperties.toMutableMap(),
-                )
+            fun build(): Body = Body(description, status, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -508,9 +423,8 @@ private constructor(
                 return@apply
             }
 
-            checkDepositBehavior().ifPresent { it.validate() }
             description()
-            recipientName()
+            status().ifPresent { it.validate() }
             validated = true
         }
 
@@ -530,9 +444,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (checkDepositBehavior.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (description.asKnown().isPresent) 1 else 0) +
-                (if (recipientName.asKnown().isPresent) 1 else 0)
+            (if (description.asKnown().isPresent) 1 else 0) +
+                (status.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -540,26 +453,23 @@ private constructor(
             }
 
             return other is Body &&
-                checkDepositBehavior == other.checkDepositBehavior &&
                 description == other.description &&
-                recipientName == other.recipientName &&
+                status == other.status &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(checkDepositBehavior, description, recipientName, additionalProperties)
+            Objects.hash(description, status, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{checkDepositBehavior=$checkDepositBehavior, description=$description, recipientName=$recipientName, additionalProperties=$additionalProperties}"
+            "Body{description=$description, status=$status, additionalProperties=$additionalProperties}"
     }
 
-    /** This indicates if checks mailed to this lockbox will be deposited. */
-    class CheckDepositBehavior
-    @JsonCreator
-    private constructor(private val value: JsonField<String>) : Enum {
+    /** The status of the Lockbox Address. */
+    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -573,49 +483,45 @@ private constructor(
 
         companion object {
 
-            /** Checks mailed to this Lockbox will be deposited. */
-            @JvmField val ENABLED = of("enabled")
+            /** This Lockbox Address is active. */
+            @JvmField val ACTIVE = of("active")
 
-            /** Checks mailed to this Lockbox will not be deposited. */
+            /** This Lockbox Address is disabled. */
             @JvmField val DISABLED = of("disabled")
 
-            /** Checks mailed to this Lockbox will be pending until actioned. */
-            @JvmField val PEND_FOR_PROCESSING = of("pend_for_processing")
+            /** This Lockbox Address is permanently disabled. */
+            @JvmField val CANCELED = of("canceled")
 
-            @JvmStatic fun of(value: String) = CheckDepositBehavior(JsonField.of(value))
+            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
-        /** An enum containing [CheckDepositBehavior]'s known values. */
+        /** An enum containing [Status]'s known values. */
         enum class Known {
-            /** Checks mailed to this Lockbox will be deposited. */
-            ENABLED,
-            /** Checks mailed to this Lockbox will not be deposited. */
+            /** This Lockbox Address is active. */
+            ACTIVE,
+            /** This Lockbox Address is disabled. */
             DISABLED,
-            /** Checks mailed to this Lockbox will be pending until actioned. */
-            PEND_FOR_PROCESSING,
+            /** This Lockbox Address is permanently disabled. */
+            CANCELED,
         }
 
         /**
-         * An enum containing [CheckDepositBehavior]'s known values, as well as an [_UNKNOWN]
-         * member.
+         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
          *
-         * An instance of [CheckDepositBehavior] can contain an unknown value in a couple of cases:
+         * An instance of [Status] can contain an unknown value in a couple of cases:
          * - It was deserialized from data that doesn't match any known member. For example, if the
          *   SDK is on an older version than the API, then the API may respond with new members that
          *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** Checks mailed to this Lockbox will be deposited. */
-            ENABLED,
-            /** Checks mailed to this Lockbox will not be deposited. */
+            /** This Lockbox Address is active. */
+            ACTIVE,
+            /** This Lockbox Address is disabled. */
             DISABLED,
-            /** Checks mailed to this Lockbox will be pending until actioned. */
-            PEND_FOR_PROCESSING,
-            /**
-             * An enum member indicating that [CheckDepositBehavior] was instantiated with an
-             * unknown value.
-             */
+            /** This Lockbox Address is permanently disabled. */
+            CANCELED,
+            /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
 
@@ -628,9 +534,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                ENABLED -> Value.ENABLED
+                ACTIVE -> Value.ACTIVE
                 DISABLED -> Value.DISABLED
-                PEND_FOR_PROCESSING -> Value.PEND_FOR_PROCESSING
+                CANCELED -> Value.CANCELED
                 else -> Value._UNKNOWN
             }
 
@@ -645,10 +551,10 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                ENABLED -> Known.ENABLED
+                ACTIVE -> Known.ACTIVE
                 DISABLED -> Known.DISABLED
-                PEND_FOR_PROCESSING -> Known.PEND_FOR_PROCESSING
-                else -> throw IncreaseInvalidDataException("Unknown CheckDepositBehavior: $value")
+                CANCELED -> Known.CANCELED
+                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
         /**
@@ -667,7 +573,7 @@ private constructor(
 
         private var validated: Boolean = false
 
-        fun validate(): CheckDepositBehavior = apply {
+        fun validate(): Status = apply {
             if (validated) {
                 return@apply
             }
@@ -697,7 +603,7 @@ private constructor(
                 return true
             }
 
-            return other is CheckDepositBehavior && value == other.value
+            return other is Status && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
@@ -710,16 +616,16 @@ private constructor(
             return true
         }
 
-        return other is LockboxUpdateParams &&
-            lockboxId == other.lockboxId &&
+        return other is LockboxAddressUpdateParams &&
+            lockboxAddressId == other.lockboxAddressId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
 
     override fun hashCode(): Int =
-        Objects.hash(lockboxId, body, additionalHeaders, additionalQueryParams)
+        Objects.hash(lockboxAddressId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "LockboxUpdateParams{lockboxId=$lockboxId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "LockboxAddressUpdateParams{lockboxAddressId=$lockboxAddressId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

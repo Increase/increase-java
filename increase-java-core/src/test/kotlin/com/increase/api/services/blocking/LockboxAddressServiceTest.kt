@@ -4,13 +4,13 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
-import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxUpdateParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressCreateParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressUpdateParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
 @ExtendWith(TestServerExtension::class)
-internal class LockboxServiceTest {
+internal class LockboxAddressServiceTest {
 
     @Test
     fun create() {
@@ -19,18 +19,14 @@ internal class LockboxServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxService = client.lockboxes()
+        val lockboxAddressService = client.lockboxAddresses()
 
-        val lockbox =
-            lockboxService.create(
-                LockboxCreateParams.builder()
-                    .accountId("account_in71c4amph0vgo2qllky")
-                    .description("Rent payments")
-                    .recipientName("x")
-                    .build()
+        val lockboxAddress =
+            lockboxAddressService.create(
+                LockboxAddressCreateParams.builder().description("Lockbox Address 1").build()
             )
 
-        lockbox.validate()
+        lockboxAddress.validate()
     }
 
     @Test
@@ -40,11 +36,11 @@ internal class LockboxServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxService = client.lockboxes()
+        val lockboxAddressService = client.lockboxAddresses()
 
-        val lockbox = lockboxService.retrieve("lockbox_3xt21ok13q19advds4t5")
+        val lockboxAddress = lockboxAddressService.retrieve("lockbox_address_lw6sbzl9ol5dfd8hdml6")
 
-        lockbox.validate()
+        lockboxAddress.validate()
     }
 
     @Test
@@ -54,19 +50,18 @@ internal class LockboxServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxService = client.lockboxes()
+        val lockboxAddressService = client.lockboxAddresses()
 
-        val lockbox =
-            lockboxService.update(
-                LockboxUpdateParams.builder()
-                    .lockboxId("lockbox_3xt21ok13q19advds4t5")
-                    .checkDepositBehavior(LockboxUpdateParams.CheckDepositBehavior.DISABLED)
+        val lockboxAddress =
+            lockboxAddressService.update(
+                LockboxAddressUpdateParams.builder()
+                    .lockboxAddressId("lockbox_address_lw6sbzl9ol5dfd8hdml6")
                     .description("x")
-                    .recipientName("x")
+                    .status(LockboxAddressUpdateParams.Status.DISABLED)
                     .build()
             )
 
-        lockbox.validate()
+        lockboxAddress.validate()
     }
 
     @Test
@@ -76,9 +71,9 @@ internal class LockboxServiceTest {
                 .baseUrl(TestServerExtension.BASE_URL)
                 .apiKey("My API Key")
                 .build()
-        val lockboxService = client.lockboxes()
+        val lockboxAddressService = client.lockboxAddresses()
 
-        val page = lockboxService.list()
+        val page = lockboxAddressService.list()
 
         page.response().validate()
     }
