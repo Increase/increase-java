@@ -1,6 +1,6 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxaddresses
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
@@ -8,99 +8,91 @@ import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class LockboxListPageResponseTest {
+internal class LockboxAddressListPageResponseTest {
 
     @Test
     fun create() {
-        val lockboxListPageResponse =
-            LockboxListPageResponse.builder()
+        val lockboxAddressListPageResponse =
+            LockboxAddressListPageResponse.builder()
                 .addData(
-                    Lockbox.builder()
-                        .id("lockbox_3xt21ok13q19advds4t5")
-                        .accountId("account_in71c4amph0vgo2qllky")
+                    LockboxAddress.builder()
+                        .id("lockbox_address_lw6sbzl9ol5dfd8hdml6")
                         .address(
-                            Lockbox.Address.builder()
+                            LockboxAddress.Address.builder()
                                 .city("San Francisco")
                                 .line1("1234 Market St")
                                 .line2("Ste 567")
                                 .postalCode("94114")
-                                .recipient("Company Inc. ATTN: VRE6P")
                                 .state("CA")
                                 .build()
                         )
-                        .checkDepositBehavior(Lockbox.CheckDepositBehavior.ENABLED)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .description("Lockbox 1")
+                        .description("Lockbox Address 1")
                         .idempotencyKey(null)
-                        .recipientName("Company Inc.")
-                        .type(Lockbox.Type.LOCKBOX)
+                        .status(LockboxAddress.Status.ACTIVE)
+                        .type(LockboxAddress.Type.LOCKBOX_ADDRESS)
                         .build()
                 )
                 .nextCursor("v57w5d")
                 .build()
 
-        assertThat(lockboxListPageResponse.data())
+        assertThat(lockboxAddressListPageResponse.data())
             .containsExactly(
-                Lockbox.builder()
-                    .id("lockbox_3xt21ok13q19advds4t5")
-                    .accountId("account_in71c4amph0vgo2qllky")
+                LockboxAddress.builder()
+                    .id("lockbox_address_lw6sbzl9ol5dfd8hdml6")
                     .address(
-                        Lockbox.Address.builder()
+                        LockboxAddress.Address.builder()
                             .city("San Francisco")
                             .line1("1234 Market St")
                             .line2("Ste 567")
                             .postalCode("94114")
-                            .recipient("Company Inc. ATTN: VRE6P")
                             .state("CA")
                             .build()
                     )
-                    .checkDepositBehavior(Lockbox.CheckDepositBehavior.ENABLED)
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .description("Lockbox 1")
+                    .description("Lockbox Address 1")
                     .idempotencyKey(null)
-                    .recipientName("Company Inc.")
-                    .type(Lockbox.Type.LOCKBOX)
+                    .status(LockboxAddress.Status.ACTIVE)
+                    .type(LockboxAddress.Type.LOCKBOX_ADDRESS)
                     .build()
             )
-        assertThat(lockboxListPageResponse.nextCursor()).contains("v57w5d")
+        assertThat(lockboxAddressListPageResponse.nextCursor()).contains("v57w5d")
     }
 
     @Test
     fun roundtrip() {
         val jsonMapper = jsonMapper()
-        val lockboxListPageResponse =
-            LockboxListPageResponse.builder()
+        val lockboxAddressListPageResponse =
+            LockboxAddressListPageResponse.builder()
                 .addData(
-                    Lockbox.builder()
-                        .id("lockbox_3xt21ok13q19advds4t5")
-                        .accountId("account_in71c4amph0vgo2qllky")
+                    LockboxAddress.builder()
+                        .id("lockbox_address_lw6sbzl9ol5dfd8hdml6")
                         .address(
-                            Lockbox.Address.builder()
+                            LockboxAddress.Address.builder()
                                 .city("San Francisco")
                                 .line1("1234 Market St")
                                 .line2("Ste 567")
                                 .postalCode("94114")
-                                .recipient("Company Inc. ATTN: VRE6P")
                                 .state("CA")
                                 .build()
                         )
-                        .checkDepositBehavior(Lockbox.CheckDepositBehavior.ENABLED)
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .description("Lockbox 1")
+                        .description("Lockbox Address 1")
                         .idempotencyKey(null)
-                        .recipientName("Company Inc.")
-                        .type(Lockbox.Type.LOCKBOX)
+                        .status(LockboxAddress.Status.ACTIVE)
+                        .type(LockboxAddress.Type.LOCKBOX_ADDRESS)
                         .build()
                 )
                 .nextCursor("v57w5d")
                 .build()
 
-        val roundtrippedLockboxListPageResponse =
+        val roundtrippedLockboxAddressListPageResponse =
             jsonMapper.readValue(
-                jsonMapper.writeValueAsString(lockboxListPageResponse),
-                jacksonTypeRef<LockboxListPageResponse>(),
+                jsonMapper.writeValueAsString(lockboxAddressListPageResponse),
+                jacksonTypeRef<LockboxAddressListPageResponse>(),
             )
 
-        assertThat(roundtrippedLockboxListPageResponse).isEqualTo(lockboxListPageResponse)
+        assertThat(roundtrippedLockboxAddressListPageResponse)
+            .isEqualTo(lockboxAddressListPageResponse)
     }
 }

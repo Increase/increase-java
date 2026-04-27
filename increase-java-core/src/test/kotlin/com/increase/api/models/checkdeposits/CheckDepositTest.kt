@@ -82,7 +82,7 @@ internal class CheckDepositTest {
                         .build()
                 )
                 .inboundMailItemId(null)
-                .lockboxId(null)
+                .lockboxRecipientId(null)
                 .status(CheckDeposit.Status.SUBMITTED)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(CheckDeposit.Type.CHECK_DEPOSIT)
@@ -162,7 +162,7 @@ internal class CheckDepositTest {
                     .build()
             )
         assertThat(checkDeposit.inboundMailItemId()).isEmpty
-        assertThat(checkDeposit.lockboxId()).isEmpty
+        assertThat(checkDeposit.lockboxRecipientId()).isEmpty
         assertThat(checkDeposit.status()).isEqualTo(CheckDeposit.Status.SUBMITTED)
         assertThat(checkDeposit.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(checkDeposit.type()).isEqualTo(CheckDeposit.Type.CHECK_DEPOSIT)
@@ -241,7 +241,7 @@ internal class CheckDepositTest {
                         .build()
                 )
                 .inboundMailItemId(null)
-                .lockboxId(null)
+                .lockboxRecipientId(null)
                 .status(CheckDeposit.Status.SUBMITTED)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(CheckDeposit.Type.CHECK_DEPOSIT)

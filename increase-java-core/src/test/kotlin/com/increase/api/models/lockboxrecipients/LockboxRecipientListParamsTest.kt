@@ -1,20 +1,20 @@
 // File generated from our OpenAPI spec by Stainless.
 
-package com.increase.api.models.lockboxes
+package com.increase.api.models.lockboxrecipients
 
 import com.increase.api.core.http.QueryParams
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
-internal class LockboxListParamsTest {
+internal class LockboxRecipientListParamsTest {
 
     @Test
     fun create() {
-        LockboxListParams.builder()
+        LockboxRecipientListParams.builder()
             .accountId("account_id")
             .createdAt(
-                LockboxListParams.CreatedAt.builder()
+                LockboxRecipientListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -24,16 +24,17 @@ internal class LockboxListParamsTest {
             .cursor("cursor")
             .idempotencyKey("x")
             .limit(1L)
+            .lockboxAddressId("lockbox_address_id")
             .build()
     }
 
     @Test
     fun queryParams() {
         val params =
-            LockboxListParams.builder()
+            LockboxRecipientListParams.builder()
                 .accountId("account_id")
                 .createdAt(
-                    LockboxListParams.CreatedAt.builder()
+                    LockboxRecipientListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -43,6 +44,7 @@ internal class LockboxListParamsTest {
                 .cursor("cursor")
                 .idempotencyKey("x")
                 .limit(1L)
+                .lockboxAddressId("lockbox_address_id")
                 .build()
 
         val queryParams = params._queryParams()
@@ -58,13 +60,14 @@ internal class LockboxListParamsTest {
                     .put("cursor", "cursor")
                     .put("idempotency_key", "x")
                     .put("limit", "1")
+                    .put("lockbox_address_id", "lockbox_address_id")
                     .build()
             )
     }
 
     @Test
     fun queryParamsWithoutOptionalFields() {
-        val params = LockboxListParams.builder().build()
+        val params = LockboxRecipientListParams.builder().build()
 
         val queryParams = params._queryParams()
 

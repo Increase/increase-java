@@ -16,68 +16,81 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
-import com.increase.api.models.lockboxes.Lockbox
-import com.increase.api.models.lockboxes.LockboxCreateParams
-import com.increase.api.models.lockboxes.LockboxListPage
-import com.increase.api.models.lockboxes.LockboxListPageResponse
-import com.increase.api.models.lockboxes.LockboxListParams
-import com.increase.api.models.lockboxes.LockboxRetrieveParams
-import com.increase.api.models.lockboxes.LockboxUpdateParams
+import com.increase.api.models.lockboxaddresses.LockboxAddress
+import com.increase.api.models.lockboxaddresses.LockboxAddressCreateParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressListPage
+import com.increase.api.models.lockboxaddresses.LockboxAddressListPageResponse
+import com.increase.api.models.lockboxaddresses.LockboxAddressListParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressRetrieveParams
+import com.increase.api.models.lockboxaddresses.LockboxAddressUpdateParams
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
-class LockboxServiceImpl internal constructor(private val clientOptions: ClientOptions) :
-    LockboxService {
+class LockboxAddressServiceImpl internal constructor(private val clientOptions: ClientOptions) :
+    LockboxAddressService {
 
-    private val withRawResponse: LockboxService.WithRawResponse by lazy {
+    private val withRawResponse: LockboxAddressService.WithRawResponse by lazy {
         WithRawResponseImpl(clientOptions)
     }
 
-    override fun withRawResponse(): LockboxService.WithRawResponse = withRawResponse
+    override fun withRawResponse(): LockboxAddressService.WithRawResponse = withRawResponse
 
-    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LockboxService =
-        LockboxServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
+    override fun withOptions(modifier: Consumer<ClientOptions.Builder>): LockboxAddressService =
+        LockboxAddressServiceImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun create(params: LockboxCreateParams, requestOptions: RequestOptions): Lockbox =
-        // post /lockboxes
+    override fun create(
+        params: LockboxAddressCreateParams,
+        requestOptions: RequestOptions,
+    ): LockboxAddress =
+        // post /lockbox_addresses
         withRawResponse().create(params, requestOptions).parse()
 
-    override fun retrieve(params: LockboxRetrieveParams, requestOptions: RequestOptions): Lockbox =
-        // get /lockboxes/{lockbox_id}
+    override fun retrieve(
+        params: LockboxAddressRetrieveParams,
+        requestOptions: RequestOptions,
+    ): LockboxAddress =
+        // get /lockbox_addresses/{lockbox_address_id}
         withRawResponse().retrieve(params, requestOptions).parse()
 
-    override fun update(params: LockboxUpdateParams, requestOptions: RequestOptions): Lockbox =
-        // patch /lockboxes/{lockbox_id}
+    override fun update(
+        params: LockboxAddressUpdateParams,
+        requestOptions: RequestOptions,
+    ): LockboxAddress =
+        // patch /lockbox_addresses/{lockbox_address_id}
         withRawResponse().update(params, requestOptions).parse()
 
-    override fun list(params: LockboxListParams, requestOptions: RequestOptions): LockboxListPage =
-        // get /lockboxes
+    override fun list(
+        params: LockboxAddressListParams,
+        requestOptions: RequestOptions,
+    ): LockboxAddressListPage =
+        // get /lockbox_addresses
         withRawResponse().list(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
-        LockboxService.WithRawResponse {
+        LockboxAddressService.WithRawResponse {
 
         private val errorHandler: Handler<HttpResponse> =
             errorHandler(errorBodyHandler(clientOptions.jsonMapper))
 
         override fun withOptions(
             modifier: Consumer<ClientOptions.Builder>
-        ): LockboxService.WithRawResponse =
-            LockboxServiceImpl.WithRawResponseImpl(
+        ): LockboxAddressService.WithRawResponse =
+            LockboxAddressServiceImpl.WithRawResponseImpl(
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val createHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper)
+        private val createHandler: Handler<LockboxAddress> =
+            jsonHandler<LockboxAddress>(clientOptions.jsonMapper)
 
         override fun create(
-            params: LockboxCreateParams,
+            params: LockboxAddressCreateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
+        ): HttpResponseFor<LockboxAddress> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes")
+                    .addPathSegments("lockbox_addresses")
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -94,21 +107,21 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val retrieveHandler: Handler<Lockbox> =
-            jsonHandler<Lockbox>(clientOptions.jsonMapper)
+        private val retrieveHandler: Handler<LockboxAddress> =
+            jsonHandler<LockboxAddress>(clientOptions.jsonMapper)
 
         override fun retrieve(
-            params: LockboxRetrieveParams,
+            params: LockboxAddressRetrieveParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
+        ): HttpResponseFor<LockboxAddress> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("lockboxId", params.lockboxId().getOrNull())
+            checkRequired("lockboxAddressId", params.lockboxAddressId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes", params._pathParam(0))
+                    .addPathSegments("lockbox_addresses", params._pathParam(0))
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -124,20 +137,21 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val updateHandler: Handler<Lockbox> = jsonHandler<Lockbox>(clientOptions.jsonMapper)
+        private val updateHandler: Handler<LockboxAddress> =
+            jsonHandler<LockboxAddress>(clientOptions.jsonMapper)
 
         override fun update(
-            params: LockboxUpdateParams,
+            params: LockboxAddressUpdateParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<Lockbox> {
+        ): HttpResponseFor<LockboxAddress> {
             // We check here instead of in the params builder because this can be specified
             // positionally or in the params class.
-            checkRequired("lockboxId", params.lockboxId().getOrNull())
+            checkRequired("lockboxAddressId", params.lockboxAddressId().getOrNull())
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.PATCH)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes", params._pathParam(0))
+                    .addPathSegments("lockbox_addresses", params._pathParam(0))
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepare(clientOptions, params)
@@ -154,18 +168,18 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
             }
         }
 
-        private val listHandler: Handler<LockboxListPageResponse> =
-            jsonHandler<LockboxListPageResponse>(clientOptions.jsonMapper)
+        private val listHandler: Handler<LockboxAddressListPageResponse> =
+            jsonHandler<LockboxAddressListPageResponse>(clientOptions.jsonMapper)
 
         override fun list(
-            params: LockboxListParams,
+            params: LockboxAddressListParams,
             requestOptions: RequestOptions,
-        ): HttpResponseFor<LockboxListPage> {
+        ): HttpResponseFor<LockboxAddressListPage> {
             val request =
                 HttpRequest.builder()
                     .method(HttpMethod.GET)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("lockboxes")
+                    .addPathSegments("lockbox_addresses")
                     .build()
                     .prepare(clientOptions, params)
             val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
@@ -179,8 +193,8 @@ class LockboxServiceImpl internal constructor(private val clientOptions: ClientO
                         }
                     }
                     .let {
-                        LockboxListPage.builder()
-                            .service(LockboxServiceImpl(clientOptions))
+                        LockboxAddressListPage.builder()
+                            .service(LockboxAddressServiceImpl(clientOptions))
                             .params(params)
                             .response(it)
                             .build()
