@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.527.0 (2026-04-27)
+
+Full Changelog: [v0.526.0...v0.527.0](https://github.com/Increase/increase-java/compare/v0.526.0...v0.527.0)
+
+### Features
+
+* support setting headers via env ([18f9836](https://github.com/Increase/increase-java/commit/18f983666aefa0cee6b8fe89f75965f8ab52cc04))
+
 ## 0.526.0 (2026-04-27)
 
 Full Changelog: [v0.525.0...v0.526.0](https://github.com/Increase/increase-java/compare/v0.525.0...v0.526.0)
