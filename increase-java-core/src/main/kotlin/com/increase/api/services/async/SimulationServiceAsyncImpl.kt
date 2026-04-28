@@ -3,6 +3,8 @@
 package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
+import com.increase.api.services.async.simulations.AccountRevenuePaymentServiceAsync
+import com.increase.api.services.async.simulations.AccountRevenuePaymentServiceAsyncImpl
 import com.increase.api.services.async.simulations.AccountStatementServiceAsync
 import com.increase.api.services.async.simulations.AccountStatementServiceAsyncImpl
 import com.increase.api.services.async.simulations.AchTransferServiceAsync
@@ -80,6 +82,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     private val interestPayments: InterestPaymentServiceAsync by lazy {
         InterestPaymentServiceAsyncImpl(clientOptions)
+    }
+
+    private val accountRevenuePayments: AccountRevenuePaymentServiceAsync by lazy {
+        AccountRevenuePaymentServiceAsyncImpl(clientOptions)
     }
 
     private val cardAuthorizations: CardAuthorizationServiceAsync by lazy {
@@ -214,6 +220,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
     override fun interestPayments(): InterestPaymentServiceAsync = interestPayments
 
+    override fun accountRevenuePayments(): AccountRevenuePaymentServiceAsync =
+        accountRevenuePayments
+
     override fun cardAuthorizations(): CardAuthorizationServiceAsync = cardAuthorizations
 
     override fun cardBalanceInquiries(): CardBalanceInquiryServiceAsync = cardBalanceInquiries
@@ -291,6 +300,11 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
         private val interestPayments: InterestPaymentServiceAsync.WithRawResponse by lazy {
             InterestPaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val accountRevenuePayments:
+            AccountRevenuePaymentServiceAsync.WithRawResponse by lazy {
+            AccountRevenuePaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val cardAuthorizations: CardAuthorizationServiceAsync.WithRawResponse by lazy {
@@ -439,6 +453,9 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
         override fun interestPayments(): InterestPaymentServiceAsync.WithRawResponse =
             interestPayments
+
+        override fun accountRevenuePayments(): AccountRevenuePaymentServiceAsync.WithRawResponse =
+            accountRevenuePayments
 
         override fun cardAuthorizations(): CardAuthorizationServiceAsync.WithRawResponse =
             cardAuthorizations
