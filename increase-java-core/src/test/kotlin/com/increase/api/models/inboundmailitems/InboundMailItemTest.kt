@@ -65,7 +65,7 @@ internal class InboundMailItemTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(inboundMailItem.fileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(inboundMailItem.lockboxAddressId())
-            .contains("lockbox_address_lw6sbzl9ol5dfd8hdml6")
+            .isEqualTo("lockbox_address_lw6sbzl9ol5dfd8hdml6")
         assertThat(inboundMailItem.lockboxRecipientId()).contains("lockbox_3xt21ok13q19advds4t5")
         assertThat(inboundMailItem.recipientName()).contains("Ian Crease")
         assertThat(inboundMailItem.rejectionReason()).isEmpty
