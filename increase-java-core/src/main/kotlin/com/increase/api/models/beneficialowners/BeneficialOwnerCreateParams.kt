@@ -1375,7 +1375,8 @@ private constructor(
 
             /**
              * An identification number that can be used to verify the individual's identity, such
-             * as a social security number.
+             * as a social security number. For Social Security Numbers and Individual Taxpayer
+             * Identification Numbers, submit nine digits with no dashes or other separators.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -1512,7 +1513,9 @@ private constructor(
 
                 /**
                  * An identification number that can be used to verify the individual's identity,
-                 * such as a social security number.
+                 * such as a social security number. For Social Security Numbers and Individual
+                 * Taxpayer Identification Numbers, submit nine digits with no dashes or other
+                 * separators.
                  */
                 fun number(number: String) = number(JsonField.of(number))
 
