@@ -195,12 +195,12 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         AchTransferServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val achPrenotifications: AchPrenotificationServiceAsync by lazy {
-        AchPrenotificationServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val inboundAchTransfers: InboundAchTransferServiceAsync by lazy {
         InboundAchTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val achPrenotifications: AchPrenotificationServiceAsync by lazy {
+        AchPrenotificationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val wireTransfers: WireTransferServiceAsync by lazy {
@@ -400,9 +400,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun achTransfers(): AchTransferServiceAsync = achTransfers
 
-    override fun achPrenotifications(): AchPrenotificationServiceAsync = achPrenotifications
-
     override fun inboundAchTransfers(): InboundAchTransferServiceAsync = inboundAchTransfers
+
+    override fun achPrenotifications(): AchPrenotificationServiceAsync = achPrenotifications
 
     override fun wireTransfers(): WireTransferServiceAsync = wireTransfers
 
@@ -556,12 +556,12 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             AchTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val achPrenotifications: AchPrenotificationServiceAsync.WithRawResponse by lazy {
-            AchPrenotificationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val inboundAchTransfers: InboundAchTransferServiceAsync.WithRawResponse by lazy {
             InboundAchTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val achPrenotifications: AchPrenotificationServiceAsync.WithRawResponse by lazy {
+            AchPrenotificationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val wireTransfers: WireTransferServiceAsync.WithRawResponse by lazy {
@@ -775,11 +775,11 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun achTransfers(): AchTransferServiceAsync.WithRawResponse = achTransfers
 
-        override fun achPrenotifications(): AchPrenotificationServiceAsync.WithRawResponse =
-            achPrenotifications
-
         override fun inboundAchTransfers(): InboundAchTransferServiceAsync.WithRawResponse =
             inboundAchTransfers
+
+        override fun achPrenotifications(): AchPrenotificationServiceAsync.WithRawResponse =
+            achPrenotifications
 
         override fun wireTransfers(): WireTransferServiceAsync.WithRawResponse = wireTransfers
 

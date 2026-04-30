@@ -193,12 +193,12 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         AchTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val achPrenotifications: AchPrenotificationService by lazy {
-        AchPrenotificationServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val inboundAchTransfers: InboundAchTransferService by lazy {
         InboundAchTransferServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val achPrenotifications: AchPrenotificationService by lazy {
+        AchPrenotificationServiceImpl(clientOptionsWithUserAgent)
     }
 
     private val wireTransfers: WireTransferService by lazy {
@@ -386,9 +386,9 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun achTransfers(): AchTransferService = achTransfers
 
-    override fun achPrenotifications(): AchPrenotificationService = achPrenotifications
-
     override fun inboundAchTransfers(): InboundAchTransferService = inboundAchTransfers
+
+    override fun achPrenotifications(): AchPrenotificationService = achPrenotifications
 
     override fun wireTransfers(): WireTransferService = wireTransfers
 
@@ -540,12 +540,12 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             AchTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val achPrenotifications: AchPrenotificationService.WithRawResponse by lazy {
-            AchPrenotificationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val inboundAchTransfers: InboundAchTransferService.WithRawResponse by lazy {
             InboundAchTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val achPrenotifications: AchPrenotificationService.WithRawResponse by lazy {
+            AchPrenotificationServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val wireTransfers: WireTransferService.WithRawResponse by lazy {
@@ -756,11 +756,11 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun achTransfers(): AchTransferService.WithRawResponse = achTransfers
 
-        override fun achPrenotifications(): AchPrenotificationService.WithRawResponse =
-            achPrenotifications
-
         override fun inboundAchTransfers(): InboundAchTransferService.WithRawResponse =
             inboundAchTransfers
+
+        override fun achPrenotifications(): AchPrenotificationService.WithRawResponse =
+            achPrenotifications
 
         override fun wireTransfers(): WireTransferService.WithRawResponse = wireTransfers
 
