@@ -17,7 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -34,12 +34,12 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
     override fun withOptions(modifier: Consumer<ClientOptions.Builder>): EntityServiceAsync =
         EntityServiceAsyncImpl(clientOptions.toBuilder().apply(modifier::accept).build())
 
-    override fun validation(
-        params: EntityValidationParams,
+    override fun updateValidation(
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions,
     ): CompletableFuture<Entity> =
-        // post /simulations/entities/{entity_id}/validation
-        withRawResponse().validation(params, requestOptions).thenApply { it.parse() }
+        // post /simulations/entities/{entity_id}/update_validation
+        withRawResponse().updateValidation(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         EntityServiceAsync.WithRawResponse {
@@ -54,11 +54,11 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 clientOptions.toBuilder().apply(modifier::accept).build()
             )
 
-        private val validationHandler: Handler<Entity> =
+        private val updateValidationHandler: Handler<Entity> =
             jsonHandler<Entity>(clientOptions.jsonMapper)
 
-        override fun validation(
-            params: EntityValidationParams,
+        override fun updateValidation(
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<Entity>> {
             // We check here instead of in the params builder because this can be specified
@@ -68,7 +68,12 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 HttpRequest.builder()
                     .method(HttpMethod.POST)
                     .baseUrl(clientOptions.baseUrl())
-                    .addPathSegments("simulations", "entities", params._pathParam(0), "validation")
+                    .addPathSegments(
+                        "simulations",
+                        "entities",
+                        params._pathParam(0),
+                        "update_validation",
+                    )
                     .body(json(clientOptions.jsonMapper, params._body()))
                     .build()
                     .prepareAsync(clientOptions, params)
@@ -78,7 +83,7 @@ class EntityServiceAsyncImpl internal constructor(private val clientOptions: Cli
                 .thenApply { response ->
                     errorHandler.handle(response).parseable {
                         response
-                            .use { validationHandler.handle(it) }
+                            .use { updateValidationHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

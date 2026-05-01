@@ -24,13 +24,13 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Set the status for an
+ * Simulate updates to an
  * [Entity's validation](/documentation/api/entities#entity-object.validation). In production, Know
- * Your Customer validations
- * [run automatically](/documentation/entity-validation#entity-validation). While developing, it can
- * be helpful to override the behavior in Sandbox.
+ * Your Customer validations [run automatically](/documentation/entity-validation#entity-validation)
+ * for eligible programs. While developing, use this API to simulate issues with information
+ * submissions.
  */
-class EntityValidationParams
+class EntityUpdateValidationParams
 private constructor(
     private val entityId: String?,
     private val body: Body,
@@ -42,7 +42,8 @@ private constructor(
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     /**
-     * The validation issues to attach. Only allowed when `status` is `invalid`.
+     * The validation issues to attach. If no issues are provided, the validation status will be set
+     * to `valid`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -50,26 +51,11 @@ private constructor(
     fun issues(): List<Issue> = body.issues()
 
     /**
-     * The validation status to set on the Entity.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun status(): Status = body.status()
-
-    /**
      * Returns the raw JSON value of [issues].
      *
      * Unlike [issues], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _issues(): JsonField<List<Issue>> = body._issues()
-
-    /**
-     * Returns the raw JSON value of [status].
-     *
-     * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    fun _status(): JsonField<Status> = body._status()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -84,18 +70,17 @@ private constructor(
     companion object {
 
         /**
-         * Returns a mutable builder for constructing an instance of [EntityValidationParams].
+         * Returns a mutable builder for constructing an instance of [EntityUpdateValidationParams].
          *
          * The following fields are required:
          * ```java
          * .issues()
-         * .status()
          * ```
          */
         @JvmStatic fun builder() = Builder()
     }
 
-    /** A builder for [EntityValidationParams]. */
+    /** A builder for [EntityUpdateValidationParams]. */
     class Builder internal constructor() {
 
         private var entityId: String? = null
@@ -104,11 +89,11 @@ private constructor(
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
         @JvmSynthetic
-        internal fun from(entityValidationParams: EntityValidationParams) = apply {
-            entityId = entityValidationParams.entityId
-            body = entityValidationParams.body.toBuilder()
-            additionalHeaders = entityValidationParams.additionalHeaders.toBuilder()
-            additionalQueryParams = entityValidationParams.additionalQueryParams.toBuilder()
+        internal fun from(entityUpdateValidationParams: EntityUpdateValidationParams) = apply {
+            entityId = entityUpdateValidationParams.entityId
+            body = entityUpdateValidationParams.body.toBuilder()
+            additionalHeaders = entityUpdateValidationParams.additionalHeaders.toBuilder()
+            additionalQueryParams = entityUpdateValidationParams.additionalQueryParams.toBuilder()
         }
 
         /** The identifier of the Entity whose validation status to update. */
@@ -123,11 +108,13 @@ private constructor(
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
          * - [issues]
-         * - [status]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The validation issues to attach. Only allowed when `status` is `invalid`. */
+        /**
+         * The validation issues to attach. If no issues are provided, the validation status will be
+         * set to `valid`.
+         */
         fun issues(issues: List<Issue>) = apply { body.issues(issues) }
 
         /**
@@ -145,17 +132,6 @@ private constructor(
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addIssue(issue: Issue) = apply { body.addIssue(issue) }
-
-        /** The validation status to set on the Entity. */
-        fun status(status: Status) = apply { body.status(status) }
-
-        /**
-         * Sets [Builder.status] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.status] with a well-typed [Status] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun status(status: JsonField<Status>) = apply { body.status(status) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -275,20 +251,19 @@ private constructor(
         }
 
         /**
-         * Returns an immutable instance of [EntityValidationParams].
+         * Returns an immutable instance of [EntityUpdateValidationParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
          *
          * The following fields are required:
          * ```java
          * .issues()
-         * .status()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
          */
-        fun build(): EntityValidationParams =
-            EntityValidationParams(
+        fun build(): EntityUpdateValidationParams =
+            EntityUpdateValidationParams(
                 entityId,
                 body.build(),
                 additionalHeaders.build(),
@@ -312,7 +287,6 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val issues: JsonField<List<Issue>>,
-        private val status: JsonField<Status>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -320,12 +294,12 @@ private constructor(
         private constructor(
             @JsonProperty("issues")
             @ExcludeMissing
-            issues: JsonField<List<Issue>> = JsonMissing.of(),
-            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        ) : this(issues, status, mutableMapOf())
+            issues: JsonField<List<Issue>> = JsonMissing.of()
+        ) : this(issues, mutableMapOf())
 
         /**
-         * The validation issues to attach. Only allowed when `status` is `invalid`.
+         * The validation issues to attach. If no issues are provided, the validation status will be
+         * set to `valid`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -333,26 +307,11 @@ private constructor(
         fun issues(): List<Issue> = issues.getRequired("issues")
 
         /**
-         * The validation status to set on the Entity.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun status(): Status = status.getRequired("status")
-
-        /**
          * Returns the raw JSON value of [issues].
          *
          * Unlike [issues], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("issues") @ExcludeMissing fun _issues(): JsonField<List<Issue>> = issues
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -374,7 +333,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .issues()
-             * .status()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -384,17 +342,18 @@ private constructor(
         class Builder internal constructor() {
 
             private var issues: JsonField<MutableList<Issue>>? = null
-            private var status: JsonField<Status>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
                 issues = body.issues.map { it.toMutableList() }
-                status = body.status
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The validation issues to attach. Only allowed when `status` is `invalid`. */
+            /**
+             * The validation issues to attach. If no issues are provided, the validation status
+             * will be set to `valid`.
+             */
             fun issues(issues: List<Issue>) = issues(JsonField.of(issues))
 
             /**
@@ -419,18 +378,6 @@ private constructor(
                         checkKnown("issues", it).add(issue)
                     }
             }
-
-            /** The validation status to set on the Entity. */
-            fun status(status: Status) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
@@ -459,7 +406,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .issues()
-             * .status()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -467,7 +413,6 @@ private constructor(
             fun build(): Body =
                 Body(
                     checkRequired("issues", issues).map { it.toImmutable() },
-                    checkRequired("status", status),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -480,7 +425,6 @@ private constructor(
             }
 
             issues().forEach { it.validate() }
-            status().validate()
             validated = true
         }
 
@@ -500,8 +444,7 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (issues.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
-                (status.asKnown().getOrNull()?.validity() ?: 0)
+            (issues.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -510,16 +453,14 @@ private constructor(
 
             return other is Body &&
                 issues == other.issues &&
-                status == other.status &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(issues, status, additionalProperties) }
+        private val hashCode: Int by lazy { Objects.hash(issues, additionalProperties) }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() =
-            "Body{issues=$issues, status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() = "Body{issues=$issues, additionalProperties=$additionalProperties}"
     }
 
     class Issue
@@ -875,155 +816,12 @@ private constructor(
             "Issue{category=$category, additionalProperties=$additionalProperties}"
     }
 
-    /** The validation status to set on the Entity. */
-    class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** The submitted data is valid. */
-            @JvmField val VALID = of("valid")
-
-            /** Additional information is required to validate the data. */
-            @JvmField val INVALID = of("invalid")
-
-            /** The submitted data is being validated. */
-            @JvmField val PENDING = of("pending")
-
-            @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-        }
-
-        /** An enum containing [Status]'s known values. */
-        enum class Known {
-            /** The submitted data is valid. */
-            VALID,
-            /** Additional information is required to validate the data. */
-            INVALID,
-            /** The submitted data is being validated. */
-            PENDING,
-        }
-
-        /**
-         * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [Status] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** The submitted data is valid. */
-            VALID,
-            /** Additional information is required to validate the data. */
-            INVALID,
-            /** The submitted data is being validated. */
-            PENDING,
-            /** An enum member indicating that [Status] was instantiated with an unknown value. */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                VALID -> Value.VALID
-                INVALID -> Value.INVALID
-                PENDING -> Value.PENDING
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                VALID -> Known.VALID
-                INVALID -> Known.INVALID
-                PENDING -> Known.PENDING
-                else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        fun validate(): Status = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Status && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
         }
 
-        return other is EntityValidationParams &&
+        return other is EntityUpdateValidationParams &&
             entityId == other.entityId &&
             body == other.body &&
             additionalHeaders == other.additionalHeaders &&
@@ -1034,5 +832,5 @@ private constructor(
         Objects.hash(entityId, body, additionalHeaders, additionalQueryParams)
 
     override fun toString() =
-        "EntityValidationParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EntityUpdateValidationParams{entityId=$entityId, body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }

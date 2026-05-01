@@ -6,7 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.entities.Entity
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -25,30 +25,32 @@ interface EntityServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): EntityServiceAsync
 
     /**
-     * Set the status for an
+     * Simulate updates to an
      * [Entity's validation](/documentation/api/entities#entity-object.validation). In production,
      * Know Your Customer validations
-     * [run automatically](/documentation/entity-validation#entity-validation). While developing, it
-     * can be helpful to override the behavior in Sandbox.
+     * [run automatically](/documentation/entity-validation#entity-validation) for eligible
+     * programs. While developing, use this API to simulate issues with information submissions.
      */
-    fun validation(entityId: String, params: EntityValidationParams): CompletableFuture<Entity> =
-        validation(entityId, params, RequestOptions.none())
-
-    /** @see validation */
-    fun validation(
+    fun updateValidation(
         entityId: String,
-        params: EntityValidationParams,
+        params: EntityUpdateValidationParams,
+    ): CompletableFuture<Entity> = updateValidation(entityId, params, RequestOptions.none())
+
+    /** @see updateValidation */
+    fun updateValidation(
+        entityId: String,
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity> =
-        validation(params.toBuilder().entityId(entityId).build(), requestOptions)
+        updateValidation(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-    /** @see validation */
-    fun validation(params: EntityValidationParams): CompletableFuture<Entity> =
-        validation(params, RequestOptions.none())
+    /** @see updateValidation */
+    fun updateValidation(params: EntityUpdateValidationParams): CompletableFuture<Entity> =
+        updateValidation(params, RequestOptions.none())
 
-    /** @see validation */
-    fun validation(
-        params: EntityValidationParams,
+    /** @see updateValidation */
+    fun updateValidation(
+        params: EntityUpdateValidationParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<Entity>
 
@@ -67,30 +69,33 @@ interface EntityServiceAsync {
         ): EntityServiceAsync.WithRawResponse
 
         /**
-         * Returns a raw HTTP response for `post /simulations/entities/{entity_id}/validation`, but
-         * is otherwise the same as [EntityServiceAsync.validation].
+         * Returns a raw HTTP response for `post
+         * /simulations/entities/{entity_id}/update_validation`, but is otherwise the same as
+         * [EntityServiceAsync.updateValidation].
          */
-        fun validation(
+        fun updateValidation(
             entityId: String,
-            params: EntityValidationParams,
+            params: EntityUpdateValidationParams,
         ): CompletableFuture<HttpResponseFor<Entity>> =
-            validation(entityId, params, RequestOptions.none())
+            updateValidation(entityId, params, RequestOptions.none())
 
-        /** @see validation */
-        fun validation(
+        /** @see updateValidation */
+        fun updateValidation(
             entityId: String,
-            params: EntityValidationParams,
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>> =
-            validation(params.toBuilder().entityId(entityId).build(), requestOptions)
+            updateValidation(params.toBuilder().entityId(entityId).build(), requestOptions)
 
-        /** @see validation */
-        fun validation(params: EntityValidationParams): CompletableFuture<HttpResponseFor<Entity>> =
-            validation(params, RequestOptions.none())
+        /** @see updateValidation */
+        fun updateValidation(
+            params: EntityUpdateValidationParams
+        ): CompletableFuture<HttpResponseFor<Entity>> =
+            updateValidation(params, RequestOptions.none())
 
-        /** @see validation */
-        fun validation(
-            params: EntityValidationParams,
+        /** @see updateValidation */
+        fun updateValidation(
+            params: EntityUpdateValidationParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<Entity>>
     }
