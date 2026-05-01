@@ -25,8 +25,8 @@ interface InboundMailItemServiceAsync {
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): InboundMailItemServiceAsync
 
     /**
-     * Simulates an inbound mail item to your account, as if someone had mailed a physical check to
-     * one of your account's Lockboxes.
+     * Simulates an Inbound Mail Item to one of your Lockbox Addresses or Lockbox Recipients, as if
+     * someone had mailed a physical check.
      */
     fun create(params: InboundMailItemCreateParams): CompletableFuture<InboundMailItem> =
         create(params, RequestOptions.none())
