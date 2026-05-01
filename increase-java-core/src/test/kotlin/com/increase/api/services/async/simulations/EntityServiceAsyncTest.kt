@@ -4,7 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
-import com.increase.api.models.simulations.entities.EntityValidationParams
+import com.increase.api.models.simulations.entities.EntityUpdateValidationParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -12,7 +12,7 @@ import org.junit.jupiter.api.extension.ExtendWith
 internal class EntityServiceAsyncTest {
 
     @Test
-    fun validation() {
+    fun updateValidation() {
         val client =
             IncreaseOkHttpClientAsync.builder()
                 .baseUrl(TestServerExtension.BASE_URL)
@@ -21,15 +21,16 @@ internal class EntityServiceAsyncTest {
         val entityServiceAsync = client.simulations().entities()
 
         val entityFuture =
-            entityServiceAsync.validation(
-                EntityValidationParams.builder()
+            entityServiceAsync.updateValidation(
+                EntityUpdateValidationParams.builder()
                     .entityId("entity_n8y8tnk2p9339ti393yi")
                     .addIssue(
-                        EntityValidationParams.Issue.builder()
-                            .category(EntityValidationParams.Issue.Category.ENTITY_TAX_IDENTIFIER)
+                        EntityUpdateValidationParams.Issue.builder()
+                            .category(
+                                EntityUpdateValidationParams.Issue.Category.ENTITY_TAX_IDENTIFIER
+                            )
                             .build()
                     )
-                    .status(EntityValidationParams.Status.INVALID)
                     .build()
             )
 
