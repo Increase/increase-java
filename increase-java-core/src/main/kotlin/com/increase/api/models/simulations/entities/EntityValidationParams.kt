@@ -38,11 +38,11 @@ private constructor(
     private val additionalQueryParams: QueryParams,
 ) : Params {
 
-    /** The identifier of the Entity to set the validation on. */
+    /** The identifier of the Entity whose validation status to update. */
     fun entityId(): Optional<String> = Optional.ofNullable(entityId)
 
     /**
-     * The issues to attach to the new managed compliance validation.
+     * The validation issues to attach. Only allowed when `status` is `invalid`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -50,7 +50,7 @@ private constructor(
     fun issues(): List<Issue> = body.issues()
 
     /**
-     * The status to set on the new managed compliance validation.
+     * The validation status to set on the Entity.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -111,7 +111,7 @@ private constructor(
             additionalQueryParams = entityValidationParams.additionalQueryParams.toBuilder()
         }
 
-        /** The identifier of the Entity to set the validation on. */
+        /** The identifier of the Entity whose validation status to update. */
         fun entityId(entityId: String?) = apply { this.entityId = entityId }
 
         /** Alias for calling [Builder.entityId] with `entityId.orElse(null)`. */
@@ -127,7 +127,7 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The issues to attach to the new managed compliance validation. */
+        /** The validation issues to attach. Only allowed when `status` is `invalid`. */
         fun issues(issues: List<Issue>) = apply { body.issues(issues) }
 
         /**
@@ -146,7 +146,7 @@ private constructor(
          */
         fun addIssue(issue: Issue) = apply { body.addIssue(issue) }
 
-        /** The status to set on the new managed compliance validation. */
+        /** The validation status to set on the Entity. */
         fun status(status: Status) = apply { body.status(status) }
 
         /**
@@ -325,7 +325,7 @@ private constructor(
         ) : this(issues, status, mutableMapOf())
 
         /**
-         * The issues to attach to the new managed compliance validation.
+         * The validation issues to attach. Only allowed when `status` is `invalid`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -333,7 +333,7 @@ private constructor(
         fun issues(): List<Issue> = issues.getRequired("issues")
 
         /**
-         * The status to set on the new managed compliance validation.
+         * The validation status to set on the Entity.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -394,7 +394,7 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The issues to attach to the new managed compliance validation. */
+            /** The validation issues to attach. Only allowed when `status` is `invalid`. */
             fun issues(issues: List<Issue>) = issues(JsonField.of(issues))
 
             /**
@@ -420,7 +420,7 @@ private constructor(
                     }
             }
 
-            /** The status to set on the new managed compliance validation. */
+            /** The validation status to set on the Entity. */
             fun status(status: Status) = status(JsonField.of(status))
 
             /**
@@ -537,7 +537,7 @@ private constructor(
         ) : this(category, mutableMapOf())
 
         /**
-         * The category of the issue.
+         * The type of issue.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -588,7 +588,7 @@ private constructor(
                 additionalProperties = issue.additionalProperties.toMutableMap()
             }
 
-            /** The category of the issue. */
+            /** The type of issue. */
             fun category(category: Category) = category(JsonField.of(category))
 
             /**
@@ -663,7 +663,7 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int = (category.asKnown().getOrNull()?.validity() ?: 0)
 
-        /** The category of the issue. */
+        /** The type of issue. */
         class Category @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {
 
@@ -875,7 +875,7 @@ private constructor(
             "Issue{category=$category, additionalProperties=$additionalProperties}"
     }
 
-    /** The status to set on the new managed compliance validation. */
+    /** The validation status to set on the Entity. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
