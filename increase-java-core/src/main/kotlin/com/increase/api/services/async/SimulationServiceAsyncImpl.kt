@@ -41,6 +41,8 @@ import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServ
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsync
 import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsyncImpl
+import com.increase.api.services.async.simulations.EntityServiceAsync
+import com.increase.api.services.async.simulations.EntityServiceAsyncImpl
 import com.increase.api.services.async.simulations.ExportServiceAsync
 import com.increase.api.services.async.simulations.ExportServiceAsyncImpl
 import com.increase.api.services.async.simulations.InboundAchTransferServiceAsync
@@ -197,6 +199,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         InboundMailItemServiceAsyncImpl(clientOptions)
     }
 
+    private val entities: EntityServiceAsync by lazy { EntityServiceAsyncImpl(clientOptions) }
+
     private val entityOnboardingSessions: EntityOnboardingSessionServiceAsync by lazy {
         EntityOnboardingSessionServiceAsyncImpl(clientOptions)
     }
@@ -283,6 +287,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
     override fun checkDeposits(): CheckDepositServiceAsync = checkDeposits
 
     override fun inboundMailItems(): InboundMailItemServiceAsync = inboundMailItems
+
+    override fun entities(): EntityServiceAsync = entities
 
     override fun entityOnboardingSessions(): EntityOnboardingSessionServiceAsync =
         entityOnboardingSessions
@@ -423,6 +429,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             InboundMailItemServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val entities: EntityServiceAsync.WithRawResponse by lazy {
+            EntityServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val entityOnboardingSessions:
             EntityOnboardingSessionServiceAsync.WithRawResponse by lazy {
             EntityOnboardingSessionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -528,6 +538,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
 
         override fun inboundMailItems(): InboundMailItemServiceAsync.WithRawResponse =
             inboundMailItems
+
+        override fun entities(): EntityServiceAsync.WithRawResponse = entities
 
         override fun entityOnboardingSessions():
             EntityOnboardingSessionServiceAsync.WithRawResponse = entityOnboardingSessions
