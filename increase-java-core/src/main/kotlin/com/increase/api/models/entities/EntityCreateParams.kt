@@ -1556,7 +1556,7 @@ private constructor(
         fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
 
         /**
-         * The website of the corporation.
+         * A website for the business. Not every program requires a website for submitted Entities.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1850,7 +1850,10 @@ private constructor(
                 this.industryCode = industryCode
             }
 
-            /** The website of the corporation. */
+            /**
+             * A website for the business. Not every program requires a website for submitted
+             * Entities.
+             */
             fun website(website: String) = website(JsonField.of(website))
 
             /**
@@ -5685,7 +5688,8 @@ private constructor(
         fun taxIdentifier(): String = taxIdentifier.getRequired("tax_identifier")
 
         /**
-         * The website of the government authority.
+         * A website for the government authority. Not every program requires a website for
+         * submitted Entities.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5874,7 +5878,10 @@ private constructor(
                 this.taxIdentifier = taxIdentifier
             }
 
-            /** The website of the government authority. */
+            /**
+             * A website for the government authority. Not every program requires a website for
+             * submitted Entities.
+             */
             fun website(website: String) = website(JsonField.of(website))
 
             /**
