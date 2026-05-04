@@ -5,6 +5,7 @@ package com.increase.api.errors
 import com.increase.api.core.JsonValue
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
+import com.increase.api.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
@@ -14,7 +15,11 @@ private constructor(
     private val headers: Headers,
     private val body: JsonValue,
     cause: Throwable?,
-) : IncreaseServiceException("$statusCode: $body", cause) {
+) :
+    IncreaseServiceException(
+        "$statusCode: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = statusCode
 

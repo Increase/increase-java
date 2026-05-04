@@ -5,12 +5,16 @@ package com.increase.api.errors
 import com.increase.api.core.JsonValue
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
+import com.increase.api.core.jsonMapper
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 class UnprocessableEntityException
 private constructor(private val headers: Headers, private val body: JsonValue, cause: Throwable?) :
-    IncreaseServiceException("422: $body", cause) {
+    IncreaseServiceException(
+        "422: ${if (body.isMissing()) "Unknown" else jsonMapper().writeValueAsString(body)}",
+        cause,
+    ) {
 
     override fun statusCode(): Int = 422
 
