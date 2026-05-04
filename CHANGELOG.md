@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.542.0 (2026-05-04)
+
+Full Changelog: [v0.541.0...v0.542.0](https://github.com/Increase/increase-java/compare/v0.541.0...v0.542.0)
+
+### Features
+
+* **api:** api update ([913ad34](https://github.com/Increase/increase-java/commit/913ad34b6114818d6a2ae4b632f3d2b9b0b2e703))
+
+
+### Chores
+
+* remove duplicated dokka setup ([66808a9](https://github.com/Increase/increase-java/commit/66808a9b6f9361950ae8d16f73164786624418ac))
+
 ## 0.541.0 (2026-05-04)
 
 Full Changelog: [v0.540.0...v0.541.0](https://github.com/Increase/increase-java/compare/v0.540.0...v0.541.0)
