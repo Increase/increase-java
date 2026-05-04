@@ -621,6 +621,14 @@ private constructor(
 
     private var validated: Boolean = false
 
+    /**
+     * Validates that the types of all values in this object match their expected types recursively.
+     *
+     * This method is _not_ forwards compatible with new types from the API for existing fields.
+     *
+     * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+     *   expected type.
+     */
     fun validate(): PendingTransaction = apply {
         if (validated) {
             return@apply
@@ -761,6 +769,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Currency = apply {
             if (validated) {
                 return@apply
@@ -906,6 +923,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): RouteType = apply {
             if (validated) {
                 return@apply
@@ -1994,6 +2020,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Source = apply {
             if (validated) {
                 return@apply
@@ -2401,6 +2436,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): Category = apply {
                 if (validated) {
                     return@apply
@@ -2655,6 +2700,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): AccountTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -2780,6 +2835,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Currency = apply {
                     if (validated) {
                         return@apply
@@ -3008,6 +3073,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): AchTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -3241,6 +3316,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): BlockchainOfframpTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -3511,6 +3596,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): BlockchainOnrampTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -5045,6 +5140,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): CardAuthorization = apply {
                 if (validated) {
                     return@apply
@@ -5240,6 +5345,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Actioner = apply {
                     if (validated) {
                         return@apply
@@ -5828,6 +5943,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): AdditionalAmounts = apply {
                     if (validated) {
                         return@apply
@@ -6050,6 +6175,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Clinic = apply {
                         if (validated) {
                             return@apply
@@ -6277,6 +6412,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Dental = apply {
                         if (validated) {
                             return@apply
@@ -6504,6 +6649,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Original = apply {
                         if (validated) {
                             return@apply
@@ -6731,6 +6886,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Prescription = apply {
                         if (validated) {
                             return@apply
@@ -6958,6 +7123,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Surcharge = apply {
                         if (validated) {
                             return@apply
@@ -7189,6 +7364,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): TotalCumulative = apply {
                         if (validated) {
                             return@apply
@@ -7418,6 +7603,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): TotalHealthcare = apply {
                         if (validated) {
                             return@apply
@@ -7645,6 +7840,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Transit = apply {
                         if (validated) {
                             return@apply
@@ -7872,6 +8077,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Unknown = apply {
                         if (validated) {
                             return@apply
@@ -8099,6 +8314,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Vision = apply {
                         if (validated) {
                             return@apply
@@ -8284,6 +8509,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Currency = apply {
                     if (validated) {
                         return@apply
@@ -8434,6 +8669,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Direction = apply {
                     if (validated) {
                         return@apply
@@ -8676,6 +8921,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): NetworkDetails = apply {
                     if (validated) {
                         return@apply
@@ -8810,6 +9065,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Category = apply {
                         if (validated) {
                             return@apply
@@ -8919,6 +9184,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Pulse = apply {
                         if (validated) {
                             return@apply
@@ -9307,6 +9582,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Visa = apply {
                         if (validated) {
                             return@apply
@@ -9625,6 +9910,16 @@ private constructor(
 
                         private var validated: Boolean = false
 
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
                         fun validate(): ElectronicCommerceIndicator = apply {
                             if (validated) {
                                 return@apply
@@ -9861,6 +10156,16 @@ private constructor(
 
                         private var validated: Boolean = false
 
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
                         fun validate(): PointOfServiceEntryMode = apply {
                             if (validated) {
                                 return@apply
@@ -10127,6 +10432,16 @@ private constructor(
 
                         private var validated: Boolean = false
 
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
                         fun validate(): StandInProcessingReason = apply {
                             if (validated) {
                                 return@apply
@@ -10371,6 +10686,16 @@ private constructor(
 
                         private var validated: Boolean = false
 
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
                         fun validate(): TerminalEntryCapability = apply {
                             if (validated) {
                                 return@apply
@@ -10787,6 +11112,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): NetworkIdentifiers = apply {
                     if (validated) {
                         return@apply
@@ -11086,6 +11421,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): ProcessingCategory = apply {
                     if (validated) {
                         return@apply
@@ -11491,6 +11836,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): SchemeFee = apply {
                     if (validated) {
                         return@apply
@@ -11625,6 +11980,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): Currency = apply {
                         if (validated) {
                             return@apply
@@ -12367,6 +12732,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): FeeType = apply {
                         if (validated) {
                             return@apply
@@ -12529,6 +12904,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Type = apply {
                     if (validated) {
                         return@apply
@@ -12799,6 +13184,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Verification = apply {
                     if (validated) {
                         return@apply
@@ -12962,6 +13357,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): CardVerificationCode = apply {
                         if (validated) {
                             return@apply
@@ -13107,6 +13512,16 @@ private constructor(
 
                         private var validated: Boolean = false
 
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
                         fun validate(): Result = apply {
                             if (validated) {
                                 return@apply
@@ -13507,6 +13922,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): CardholderAddress = apply {
                         if (validated) {
                             return@apply
@@ -13721,6 +14146,16 @@ private constructor(
 
                         private var validated: Boolean = false
 
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
                         fun validate(): Result = apply {
                             if (validated) {
                                 return@apply
@@ -14039,6 +14474,16 @@ private constructor(
 
                     private var validated: Boolean = false
 
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
                     fun validate(): CardholderName = apply {
                         if (validated) {
                             return@apply
@@ -14374,6 +14819,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): CardPushTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -14749,6 +15204,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): CheckDepositInstruction = apply {
                 if (validated) {
                     return@apply
@@ -14878,6 +15343,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Currency = apply {
                     if (validated) {
                         return@apply
@@ -15158,6 +15633,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): CheckTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -15282,6 +15767,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Currency = apply {
                     if (validated) {
                         return@apply
@@ -15475,6 +15970,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): FednowTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -16020,6 +16525,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): InboundFundsHold = apply {
                 if (validated) {
                     return@apply
@@ -16156,6 +16671,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Currency = apply {
                     if (validated) {
                         return@apply
@@ -16294,6 +16819,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Status = apply {
                     if (validated) {
                         return@apply
@@ -16422,6 +16957,16 @@ private constructor(
 
                 private var validated: Boolean = false
 
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
                 fun validate(): Type = apply {
                     if (validated) {
                         return@apply
@@ -16637,6 +17182,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): InboundWireTransferReversal = apply {
                 if (validated) {
                     return@apply
@@ -16753,6 +17308,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): Other = apply {
                 if (validated) {
                     return@apply
@@ -16966,6 +17531,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): RealTimePaymentsTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -17149,6 +17724,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): SwiftTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -17262,6 +17847,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): UserInitiatedHold = apply {
                 if (validated) {
                     return@apply
@@ -17614,6 +18209,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): WireTransferInstruction = apply {
                 if (validated) {
                     return@apply
@@ -17844,6 +18449,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Status = apply {
             if (validated) {
                 return@apply
@@ -17969,6 +18583,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Type = apply {
             if (validated) {
                 return@apply

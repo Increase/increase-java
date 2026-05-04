@@ -455,6 +455,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Body = apply {
             if (validated) {
                 return@apply
@@ -593,6 +602,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Network = apply {
             if (validated) {
                 return@apply
@@ -1229,6 +1247,15 @@ private constructor(
 
         private var validated: Boolean = false
 
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
         fun validate(): Visa = apply {
             if (validated) {
                 return@apply
@@ -1541,6 +1568,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): Action = apply {
                 if (validated) {
                     return@apply
@@ -1650,6 +1687,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): AcceptChargeback = apply {
                 if (validated) {
                     return@apply
@@ -1763,6 +1810,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): AcceptUserSubmission = apply {
                 if (validated) {
                     return@apply
@@ -1879,6 +1936,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): DeclineUserPrearbitration = apply {
                 if (validated) {
                     return@apply
@@ -1996,6 +2063,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): ReceiveMerchantPrearbitration = apply {
                 if (validated) {
                     return@apply
@@ -2107,6 +2184,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): Represent = apply {
                 if (validated) {
                     return@apply
@@ -2272,6 +2359,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): RequestFurtherInformation = apply {
                 if (validated) {
                     return@apply
@@ -2388,6 +2485,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): TimeOutChargeback = apply {
                 if (validated) {
                     return@apply
@@ -2505,6 +2612,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): TimeOutMerchantPrearbitration = apply {
                 if (validated) {
                     return@apply
@@ -2619,6 +2736,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): TimeOutRepresentment = apply {
                 if (validated) {
                     return@apply
@@ -2735,6 +2862,16 @@ private constructor(
 
             private var validated: Boolean = false
 
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
             fun validate(): TimeOutUserPrearbitration = apply {
                 if (validated) {
                     return@apply
