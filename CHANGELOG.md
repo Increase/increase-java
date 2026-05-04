@@ -1,5 +1,13 @@
 # Changelog
 
+## 0.541.0 (2026-05-04)
+
+Full Changelog: [v0.540.0...v0.541.0](https://github.com/Increase/increase-java/compare/v0.540.0...v0.541.0)
+
+### Features
+
+* **client:** more robust error parsing ([5b08e39](https://github.com/Increase/increase-java/commit/5b08e3942ce71c60ebc5b36b4535df8e4f92badc))
+
 ## 0.540.0 (2026-05-04)
 
 Full Changelog: [v0.539.0...v0.540.0](https://github.com/Increase/increase-java/compare/v0.539.0...v0.540.0)
