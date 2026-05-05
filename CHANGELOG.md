@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.543.0 (2026-05-05)
+
+Full Changelog: [v0.542.0...v0.543.0](https://github.com/Increase/increase-java/compare/v0.542.0...v0.543.0)
+
+### Features
+
+* **client:** support proxy authentication ([3026992](https://github.com/Increase/increase-java/commit/3026992f800d7dfdfb15271e9e2b62fa120400f2))
+
+
+### Performance Improvements
+
+* **client:** create one json mapper ([e4f0e11](https://github.com/Increase/increase-java/commit/e4f0e116f44b1fe14ba462602db621f56c26e853))
+
 ## 0.542.0 (2026-05-04)
 
 Full Changelog: [v0.541.0...v0.542.0](https://github.com/Increase/increase-java/compare/v0.541.0...v0.542.0)
