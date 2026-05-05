@@ -520,6 +520,21 @@ IncreaseClient client = IncreaseOkHttpClient.builder()
     .build();
 ```
 
+If the proxy responds with `407 Proxy Authentication Required`, supply credentials by also configuring `proxyAuthenticator`:
+
+```java
+import com.increase.api.client.IncreaseClient;
+import com.increase.api.client.okhttp.IncreaseOkHttpClient;
+import com.increase.api.core.http.ProxyAuthenticator;
+
+IncreaseClient client = IncreaseOkHttpClient.builder()
+    .fromEnv()
+    .proxy(...)
+    // Or a custom implementation of `ProxyAuthenticator`.
+    .proxyAuthenticator(ProxyAuthenticator.basic("username", "password"))
+    .build();
+```
+
 ### Connection pooling
 
 To customize the underlying OkHttp connection pool, configure the client using the `maxIdleConnections` and `keepAliveDuration` methods:
