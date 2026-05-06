@@ -14,7 +14,7 @@ internal class CardPushTransferCreateParamsTest {
                 CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
             )
             .cardTokenId("outbound_card_token_zlt0ml6youq3q7vcdlg0")
-            .merchantCategoryCode("1234")
+            .merchantCategoryCode("5734")
             .merchantCityName("New York")
             .merchantName("Acme Corp")
             .merchantNamePrefix("Acme")
@@ -51,7 +51,7 @@ internal class CardPushTransferCreateParamsTest {
                     CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
                 )
                 .cardTokenId("outbound_card_token_zlt0ml6youq3q7vcdlg0")
-                .merchantCategoryCode("1234")
+                .merchantCategoryCode("5734")
                 .merchantCityName("New York")
                 .merchantName("Acme Corp")
                 .merchantNamePrefix("Acme")
@@ -86,7 +86,7 @@ internal class CardPushTransferCreateParamsTest {
                 CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
             )
         assertThat(body.cardTokenId()).isEqualTo("outbound_card_token_zlt0ml6youq3q7vcdlg0")
-        assertThat(body.merchantCategoryCode()).isEqualTo("1234")
+        assertThat(body.merchantCategoryCode()).isEqualTo("5734")
         assertThat(body.merchantCityName()).isEqualTo("New York")
         assertThat(body.merchantName()).isEqualTo("Acme Corp")
         assertThat(body.merchantNamePrefix()).isEqualTo("Acme")
@@ -123,7 +123,7 @@ internal class CardPushTransferCreateParamsTest {
                     CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
                 )
                 .cardTokenId("outbound_card_token_zlt0ml6youq3q7vcdlg0")
-                .merchantCategoryCode("1234")
+                .merchantCategoryCode("5734")
                 .merchantCityName("New York")
                 .merchantName("Acme Corp")
                 .merchantNamePrefix("Acme")
@@ -151,7 +151,7 @@ internal class CardPushTransferCreateParamsTest {
                 CardPushTransferCreateParams.BusinessApplicationIdentifier.FUNDS_DISBURSEMENT
             )
         assertThat(body.cardTokenId()).isEqualTo("outbound_card_token_zlt0ml6youq3q7vcdlg0")
-        assertThat(body.merchantCategoryCode()).isEqualTo("1234")
+        assertThat(body.merchantCategoryCode()).isEqualTo("5734")
         assertThat(body.merchantCityName()).isEqualTo("New York")
         assertThat(body.merchantName()).isEqualTo("Acme Corp")
         assertThat(body.merchantNamePrefix()).isEqualTo("Acme")
