@@ -6,6 +6,7 @@ import com.fasterxml.jackson.databind.json.JsonMapper
 import com.increase.api.client.IncreaseClientAsync
 import com.increase.api.client.IncreaseClientAsyncImpl
 import com.increase.api.core.ClientOptions
+import com.increase.api.core.LogLevel
 import com.increase.api.core.Sleeper
 import com.increase.api.core.Timeout
 import com.increase.api.core.http.AsyncStreamResponse
@@ -295,6 +296,15 @@ class IncreaseOkHttpClientAsync private constructor() {
          * Defaults to 2.
          */
         fun maxRetries(maxRetries: Int) = apply { clientOptions.maxRetries(maxRetries) }
+
+        /**
+         * The level at which to log request and response information.
+         *
+         * [fromEnv] will set the level from environment variables. See [LogLevel.fromEnv].
+         *
+         * Defaults to [LogLevel.fromEnv].
+         */
+        fun logLevel(logLevel: LogLevel) = apply { clientOptions.logLevel(logLevel) }
 
         fun apiKey(apiKey: String) = apply { clientOptions.apiKey(apiKey) }
 
