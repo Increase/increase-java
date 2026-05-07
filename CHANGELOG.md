@@ -1,5 +1,18 @@
 # Changelog
 
+## 0.545.0 (2026-05-07)
+
+Full Changelog: [v0.544.0...v0.545.0](https://github.com/Increase/increase-java/compare/v0.544.0...v0.545.0)
+
+### Features
+
+* **client:** improve logging ([9b9bef7](https://github.com/Increase/increase-java/commit/9b9bef7b960b9042b143e72989fcd6c39461c327))
+
+
+### Chores
+
+* redact api-key headers in debug logs ([5343ac4](https://github.com/Increase/increase-java/commit/5343ac4d42079700f5efcf704b2356dbe643dd7f))
+
 ## 0.544.0 (2026-05-06)
 
 Full Changelog: [v0.543.0...v0.544.0](https://github.com/Increase/increase-java/compare/v0.543.0...v0.544.0)
