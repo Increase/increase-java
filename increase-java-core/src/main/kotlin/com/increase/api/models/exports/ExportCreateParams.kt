@@ -1281,7 +1281,10 @@ private constructor(
             /** Export a CSV of all transactions for a given time range. */
             @JvmField val TRANSACTION_CSV = of("transaction_csv")
 
-            /** Export a CSV of account balances for the dates in a given range. */
+            /**
+             * Export a CSV of account balances for the dates in a given range. (deprecated, use
+             * `daily_account_balance_csv` instead)
+             */
             @JvmField val BALANCE_CSV = of("balance_csv")
 
             /** Export a CSV of bookkeeping account balances for the dates in a given range. */
@@ -1325,7 +1328,10 @@ private constructor(
             ACCOUNT_STATEMENT_BAI2,
             /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
-            /** Export a CSV of account balances for the dates in a given range. */
+            /**
+             * Export a CSV of account balances for the dates in a given range. (deprecated, use
+             * `daily_account_balance_csv` instead)
+             */
             BALANCE_CSV,
             /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
@@ -1368,7 +1374,10 @@ private constructor(
             ACCOUNT_STATEMENT_BAI2,
             /** Export a CSV of all transactions for a given time range. */
             TRANSACTION_CSV,
-            /** Export a CSV of account balances for the dates in a given range. */
+            /**
+             * Export a CSV of account balances for the dates in a given range. (deprecated, use
+             * `daily_account_balance_csv` instead)
+             */
             BALANCE_CSV,
             /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
