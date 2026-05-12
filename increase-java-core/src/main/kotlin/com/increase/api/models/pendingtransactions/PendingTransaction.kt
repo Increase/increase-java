@@ -981,8 +981,7 @@ private constructor(
         private val category: JsonField<Category>,
         private val accountTransferInstruction: JsonField<AccountTransferInstruction>,
         private val achTransferInstruction: JsonField<AchTransferInstruction>,
-        private val blockchainOfframpTransferInstruction:
-            JsonField<BlockchainOfframpTransferInstruction>,
+        private val blockchainOfframpTransfer: JsonField<BlockchainOfframpTransfer>,
         private val blockchainOnrampTransferInstruction:
             JsonField<BlockchainOnrampTransferInstruction>,
         private val cardAuthorization: JsonField<CardAuthorization>,
@@ -1012,10 +1011,9 @@ private constructor(
             @JsonProperty("ach_transfer_instruction")
             @ExcludeMissing
             achTransferInstruction: JsonField<AchTransferInstruction> = JsonMissing.of(),
-            @JsonProperty("blockchain_offramp_transfer_instruction")
+            @JsonProperty("blockchain_offramp_transfer")
             @ExcludeMissing
-            blockchainOfframpTransferInstruction: JsonField<BlockchainOfframpTransferInstruction> =
-                JsonMissing.of(),
+            blockchainOfframpTransfer: JsonField<BlockchainOfframpTransfer> = JsonMissing.of(),
             @JsonProperty("blockchain_onramp_transfer_instruction")
             @ExcludeMissing
             blockchainOnrampTransferInstruction: JsonField<BlockchainOnrampTransferInstruction> =
@@ -1059,7 +1057,7 @@ private constructor(
             category,
             accountTransferInstruction,
             achTransferInstruction,
-            blockchainOfframpTransferInstruction,
+            blockchainOfframpTransfer,
             blockchainOnrampTransferInstruction,
             cardAuthorization,
             cardPushTransferInstruction,
@@ -1106,16 +1104,16 @@ private constructor(
             achTransferInstruction.getOptional("ach_transfer_instruction")
 
         /**
-         * A Blockchain Off-Ramp Transfer Instruction object. This field will be present in the JSON
-         * response if and only if `category` is equal to `blockchain_offramp_transfer_instruction`.
+         * A Blockchain Off-Ramp Transfer object. This field will be present in the JSON response if
+         * and only if `category` is equal to `blockchain_offramp_transfer`. Blockchain Off-Ramp
+         * Transfers move funds from a Blockchain Address to an Account. They're automatically
+         * created when funds land in a Blockchain Address.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun blockchainOfframpTransferInstruction(): Optional<BlockchainOfframpTransferInstruction> =
-            blockchainOfframpTransferInstruction.getOptional(
-                "blockchain_offramp_transfer_instruction"
-            )
+        fun blockchainOfframpTransfer(): Optional<BlockchainOfframpTransfer> =
+            blockchainOfframpTransfer.getOptional("blockchain_offramp_transfer")
 
         /**
          * A Blockchain On-Ramp Transfer Instruction object. This field will be present in the JSON
@@ -1285,15 +1283,15 @@ private constructor(
         fun _achTransferInstruction(): JsonField<AchTransferInstruction> = achTransferInstruction
 
         /**
-         * Returns the raw JSON value of [blockchainOfframpTransferInstruction].
+         * Returns the raw JSON value of [blockchainOfframpTransfer].
          *
-         * Unlike [blockchainOfframpTransferInstruction], this method doesn't throw if the JSON
-         * field has an unexpected type.
+         * Unlike [blockchainOfframpTransfer], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
-        @JsonProperty("blockchain_offramp_transfer_instruction")
+        @JsonProperty("blockchain_offramp_transfer")
         @ExcludeMissing
-        fun _blockchainOfframpTransferInstruction():
-            JsonField<BlockchainOfframpTransferInstruction> = blockchainOfframpTransferInstruction
+        fun _blockchainOfframpTransfer(): JsonField<BlockchainOfframpTransfer> =
+            blockchainOfframpTransfer
 
         /**
          * Returns the raw JSON value of [blockchainOnrampTransferInstruction].
@@ -1461,8 +1459,7 @@ private constructor(
             private var accountTransferInstruction: JsonField<AccountTransferInstruction> =
                 JsonMissing.of()
             private var achTransferInstruction: JsonField<AchTransferInstruction> = JsonMissing.of()
-            private var blockchainOfframpTransferInstruction:
-                JsonField<BlockchainOfframpTransferInstruction> =
+            private var blockchainOfframpTransfer: JsonField<BlockchainOfframpTransfer> =
                 JsonMissing.of()
             private var blockchainOnrampTransferInstruction:
                 JsonField<BlockchainOnrampTransferInstruction> =
@@ -1495,7 +1492,7 @@ private constructor(
                 category = source.category
                 accountTransferInstruction = source.accountTransferInstruction
                 achTransferInstruction = source.achTransferInstruction
-                blockchainOfframpTransferInstruction = source.blockchainOfframpTransferInstruction
+                blockchainOfframpTransfer = source.blockchainOfframpTransfer
                 blockchainOnrampTransferInstruction = source.blockchainOnrampTransferInstruction
                 cardAuthorization = source.cardAuthorization
                 cardPushTransferInstruction = source.cardPushTransferInstruction
@@ -1581,41 +1578,32 @@ private constructor(
                 }
 
             /**
-             * A Blockchain Off-Ramp Transfer Instruction object. This field will be present in the
-             * JSON response if and only if `category` is equal to
-             * `blockchain_offramp_transfer_instruction`.
+             * A Blockchain Off-Ramp Transfer object. This field will be present in the JSON
+             * response if and only if `category` is equal to `blockchain_offramp_transfer`.
+             * Blockchain Off-Ramp Transfers move funds from a Blockchain Address to an Account.
+             * They're automatically created when funds land in a Blockchain Address.
              */
-            fun blockchainOfframpTransferInstruction(
-                blockchainOfframpTransferInstruction: BlockchainOfframpTransferInstruction?
-            ) =
-                blockchainOfframpTransferInstruction(
-                    JsonField.ofNullable(blockchainOfframpTransferInstruction)
-                )
+            fun blockchainOfframpTransfer(blockchainOfframpTransfer: BlockchainOfframpTransfer?) =
+                blockchainOfframpTransfer(JsonField.ofNullable(blockchainOfframpTransfer))
 
             /**
-             * Alias for calling [Builder.blockchainOfframpTransferInstruction] with
-             * `blockchainOfframpTransferInstruction.orElse(null)`.
+             * Alias for calling [Builder.blockchainOfframpTransfer] with
+             * `blockchainOfframpTransfer.orElse(null)`.
              */
-            fun blockchainOfframpTransferInstruction(
-                blockchainOfframpTransferInstruction: Optional<BlockchainOfframpTransferInstruction>
-            ) =
-                blockchainOfframpTransferInstruction(
-                    blockchainOfframpTransferInstruction.getOrNull()
-                )
+            fun blockchainOfframpTransfer(
+                blockchainOfframpTransfer: Optional<BlockchainOfframpTransfer>
+            ) = blockchainOfframpTransfer(blockchainOfframpTransfer.getOrNull())
 
             /**
-             * Sets [Builder.blockchainOfframpTransferInstruction] to an arbitrary JSON value.
+             * Sets [Builder.blockchainOfframpTransfer] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.blockchainOfframpTransferInstruction] with a
-             * well-typed [BlockchainOfframpTransferInstruction] value instead. This method is
-             * primarily for setting the field to an undocumented or not yet supported value.
+             * You should usually call [Builder.blockchainOfframpTransfer] with a well-typed
+             * [BlockchainOfframpTransfer] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun blockchainOfframpTransferInstruction(
-                blockchainOfframpTransferInstruction:
-                    JsonField<BlockchainOfframpTransferInstruction>
-            ) = apply {
-                this.blockchainOfframpTransferInstruction = blockchainOfframpTransferInstruction
-            }
+            fun blockchainOfframpTransfer(
+                blockchainOfframpTransfer: JsonField<BlockchainOfframpTransfer>
+            ) = apply { this.blockchainOfframpTransfer = blockchainOfframpTransfer }
 
             /**
              * A Blockchain On-Ramp Transfer Instruction object. This field will be present in the
@@ -2000,7 +1988,7 @@ private constructor(
                     checkRequired("category", category),
                     accountTransferInstruction,
                     achTransferInstruction,
-                    blockchainOfframpTransferInstruction,
+                    blockchainOfframpTransfer,
                     blockchainOnrampTransferInstruction,
                     cardAuthorization,
                     cardPushTransferInstruction,
@@ -2037,7 +2025,7 @@ private constructor(
             category().validate()
             accountTransferInstruction().ifPresent { it.validate() }
             achTransferInstruction().ifPresent { it.validate() }
-            blockchainOfframpTransferInstruction().ifPresent { it.validate() }
+            blockchainOfframpTransfer().ifPresent { it.validate() }
             blockchainOnrampTransferInstruction().ifPresent { it.validate() }
             cardAuthorization().ifPresent { it.validate() }
             cardPushTransferInstruction().ifPresent { it.validate() }
@@ -2073,7 +2061,7 @@ private constructor(
             (category.asKnown().getOrNull()?.validity() ?: 0) +
                 (accountTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (achTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
-                (blockchainOfframpTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
+                (blockchainOfframpTransfer.asKnown().getOrNull()?.validity() ?: 0) +
                 (blockchainOnrampTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardAuthorization.asKnown().getOrNull()?.validity() ?: 0) +
                 (cardPushTransferInstruction.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2187,12 +2175,10 @@ private constructor(
                     of("blockchain_onramp_transfer_instruction")
 
                 /**
-                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_offramp_transfer_instruction` object.
+                 * Blockchain Off-Ramp Transfer: details will be under the
+                 * `blockchain_offramp_transfer` object.
                  */
-                @JvmField
-                val BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION =
-                    of("blockchain_offramp_transfer_instruction")
+                @JvmField val BLOCKCHAIN_OFFRAMP_TRANSFER = of("blockchain_offramp_transfer")
 
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
@@ -2264,10 +2250,10 @@ private constructor(
                  */
                 BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
                 /**
-                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_offramp_transfer_instruction` object.
+                 * Blockchain Off-Ramp Transfer: details will be under the
+                 * `blockchain_offramp_transfer` object.
                  */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
+                BLOCKCHAIN_OFFRAMP_TRANSFER,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -2344,10 +2330,10 @@ private constructor(
                  */
                 BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION,
                 /**
-                 * Blockchain Off-Ramp Transfer Instruction: details will be under the
-                 * `blockchain_offramp_transfer_instruction` object.
+                 * Blockchain Off-Ramp Transfer: details will be under the
+                 * `blockchain_offramp_transfer` object.
                  */
-                BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION,
+                BLOCKCHAIN_OFFRAMP_TRANSFER,
                 /** The Pending Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -2381,8 +2367,7 @@ private constructor(
                     CARD_PUSH_TRANSFER_INSTRUCTION -> Value.CARD_PUSH_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
-                        Value.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER -> Value.BLOCKCHAIN_OFFRAMP_TRANSFER
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -2414,8 +2399,7 @@ private constructor(
                     CARD_PUSH_TRANSFER_INSTRUCTION -> Known.CARD_PUSH_TRANSFER_INSTRUCTION
                     BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION ->
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INSTRUCTION
-                    BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION ->
-                        Known.BLOCKCHAIN_OFFRAMP_TRANSFER_INSTRUCTION
+                    BLOCKCHAIN_OFFRAMP_TRANSFER -> Known.BLOCKCHAIN_OFFRAMP_TRANSFER
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -3134,29 +3118,124 @@ private constructor(
         }
 
         /**
-         * A Blockchain Off-Ramp Transfer Instruction object. This field will be present in the JSON
-         * response if and only if `category` is equal to `blockchain_offramp_transfer_instruction`.
+         * A Blockchain Off-Ramp Transfer object. This field will be present in the JSON response if
+         * and only if `category` is equal to `blockchain_offramp_transfer`. Blockchain Off-Ramp
+         * Transfers move funds from a Blockchain Address to an Account. They're automatically
+         * created when funds land in a Blockchain Address.
          */
-        class BlockchainOfframpTransferInstruction
+        class BlockchainOfframpTransfer
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
+            private val id: JsonField<String>,
+            private val token: JsonField<Token>,
+            private val amount: JsonField<Long>,
+            private val createdAt: JsonField<OffsetDateTime>,
+            private val destinationAccountId: JsonField<String>,
+            private val initiatingTransactionHash: JsonField<String>,
             private val sourceBlockchainAddressId: JsonField<String>,
-            private val transferId: JsonField<String>,
+            private val status: JsonField<Status>,
+            private val transactionId: JsonField<String>,
+            private val type: JsonField<Type>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
+                @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("token") @ExcludeMissing token: JsonField<Token> = JsonMissing.of(),
+                @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("created_at")
+                @ExcludeMissing
+                createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("destination_account_id")
+                @ExcludeMissing
+                destinationAccountId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("initiating_transaction_hash")
+                @ExcludeMissing
+                initiatingTransactionHash: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("source_blockchain_address_id")
                 @ExcludeMissing
                 sourceBlockchainAddressId: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("transfer_id")
+                @JsonProperty("status")
                 @ExcludeMissing
-                transferId: JsonField<String> = JsonMissing.of(),
-            ) : this(sourceBlockchainAddressId, transferId, mutableMapOf())
+                status: JsonField<Status> = JsonMissing.of(),
+                @JsonProperty("transaction_id")
+                @ExcludeMissing
+                transactionId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+            ) : this(
+                id,
+                token,
+                amount,
+                createdAt,
+                destinationAccountId,
+                initiatingTransactionHash,
+                sourceBlockchainAddressId,
+                status,
+                transactionId,
+                type,
+                mutableMapOf(),
+            )
 
             /**
-             * The identifier of the Blockchain Address the funds were received at.
+             * The Blockchain Off-Ramp Transfer's identifier.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun id(): String = id.getRequired("id")
+
+            /**
+             * The token that was received.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun token(): Token = token.getRequired("token")
+
+            /**
+             * The transfer amount in USD cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun amount(): Long = amount.getRequired("amount")
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * transfer was created.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+            /**
+             * The Account the funds were transferred into.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun destinationAccountId(): String =
+                destinationAccountId.getRequired("destination_account_id")
+
+            /**
+             * The transaction hash of the blockchain transaction that initiated this transfer.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun initiatingTransactionHash(): String =
+                initiatingTransactionHash.getRequired("initiating_transaction_hash")
+
+            /**
+             * The Blockchain Address from which the transfer originated.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -3166,13 +3245,82 @@ private constructor(
                 sourceBlockchainAddressId.getRequired("source_blockchain_address_id")
 
             /**
-             * The identifier of the Blockchain Off-Ramp Transfer that led to this Transaction.
+             * The lifecycle status of the transfer.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
-            fun transferId(): String = transferId.getRequired("transfer_id")
+            fun status(): Status = status.getRequired("status")
+
+            /**
+             * The Transaction crediting the Account once the transfer is settled.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun transactionId(): Optional<String> = transactionId.getOptional("transaction_id")
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `blockchain_offramp_transfer`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun type(): Type = type.getRequired("type")
+
+            /**
+             * Returns the raw JSON value of [id].
+             *
+             * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+            /**
+             * Returns the raw JSON value of [token].
+             *
+             * Unlike [token], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("token") @ExcludeMissing fun _token(): JsonField<Token> = token
+
+            /**
+             * Returns the raw JSON value of [amount].
+             *
+             * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
+
+            /**
+             * Returns the raw JSON value of [createdAt].
+             *
+             * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("created_at")
+            @ExcludeMissing
+            fun _createdAt(): JsonField<OffsetDateTime> = createdAt
+
+            /**
+             * Returns the raw JSON value of [destinationAccountId].
+             *
+             * Unlike [destinationAccountId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("destination_account_id")
+            @ExcludeMissing
+            fun _destinationAccountId(): JsonField<String> = destinationAccountId
+
+            /**
+             * Returns the raw JSON value of [initiatingTransactionHash].
+             *
+             * Unlike [initiatingTransactionHash], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("initiating_transaction_hash")
+            @ExcludeMissing
+            fun _initiatingTransactionHash(): JsonField<String> = initiatingTransactionHash
 
             /**
              * Returns the raw JSON value of [sourceBlockchainAddressId].
@@ -3185,14 +3333,28 @@ private constructor(
             fun _sourceBlockchainAddressId(): JsonField<String> = sourceBlockchainAddressId
 
             /**
-             * Returns the raw JSON value of [transferId].
+             * Returns the raw JSON value of [status].
              *
-             * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
+             * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+            /**
+             * Returns the raw JSON value of [transactionId].
+             *
+             * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected
              * type.
              */
-            @JsonProperty("transfer_id")
+            @JsonProperty("transaction_id")
             @ExcludeMissing
-            fun _transferId(): JsonField<String> = transferId
+            fun _transactionId(): JsonField<String> = transactionId
+
+            /**
+             * Returns the raw JSON value of [type].
+             *
+             * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -3210,36 +3372,143 @@ private constructor(
 
                 /**
                  * Returns a mutable builder for constructing an instance of
-                 * [BlockchainOfframpTransferInstruction].
+                 * [BlockchainOfframpTransfer].
                  *
                  * The following fields are required:
                  * ```java
+                 * .id()
+                 * .token()
+                 * .amount()
+                 * .createdAt()
+                 * .destinationAccountId()
+                 * .initiatingTransactionHash()
                  * .sourceBlockchainAddressId()
-                 * .transferId()
+                 * .status()
+                 * .transactionId()
+                 * .type()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
             }
 
-            /** A builder for [BlockchainOfframpTransferInstruction]. */
+            /** A builder for [BlockchainOfframpTransfer]. */
             class Builder internal constructor() {
 
+                private var id: JsonField<String>? = null
+                private var token: JsonField<Token>? = null
+                private var amount: JsonField<Long>? = null
+                private var createdAt: JsonField<OffsetDateTime>? = null
+                private var destinationAccountId: JsonField<String>? = null
+                private var initiatingTransactionHash: JsonField<String>? = null
                 private var sourceBlockchainAddressId: JsonField<String>? = null
-                private var transferId: JsonField<String>? = null
+                private var status: JsonField<Status>? = null
+                private var transactionId: JsonField<String>? = null
+                private var type: JsonField<Type>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
-                internal fun from(
-                    blockchainOfframpTransferInstruction: BlockchainOfframpTransferInstruction
-                ) = apply {
-                    sourceBlockchainAddressId =
-                        blockchainOfframpTransferInstruction.sourceBlockchainAddressId
-                    transferId = blockchainOfframpTransferInstruction.transferId
+                internal fun from(blockchainOfframpTransfer: BlockchainOfframpTransfer) = apply {
+                    id = blockchainOfframpTransfer.id
+                    token = blockchainOfframpTransfer.token
+                    amount = blockchainOfframpTransfer.amount
+                    createdAt = blockchainOfframpTransfer.createdAt
+                    destinationAccountId = blockchainOfframpTransfer.destinationAccountId
+                    initiatingTransactionHash = blockchainOfframpTransfer.initiatingTransactionHash
+                    sourceBlockchainAddressId = blockchainOfframpTransfer.sourceBlockchainAddressId
+                    status = blockchainOfframpTransfer.status
+                    transactionId = blockchainOfframpTransfer.transactionId
+                    type = blockchainOfframpTransfer.type
                     additionalProperties =
-                        blockchainOfframpTransferInstruction.additionalProperties.toMutableMap()
+                        blockchainOfframpTransfer.additionalProperties.toMutableMap()
                 }
 
-                /** The identifier of the Blockchain Address the funds were received at. */
+                /** The Blockchain Off-Ramp Transfer's identifier. */
+                fun id(id: String) = id(JsonField.of(id))
+
+                /**
+                 * Sets [Builder.id] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.id] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun id(id: JsonField<String>) = apply { this.id = id }
+
+                /** The token that was received. */
+                fun token(token: Token) = token(JsonField.of(token))
+
+                /**
+                 * Sets [Builder.token] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.token] with a well-typed [Token] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun token(token: JsonField<Token>) = apply { this.token = token }
+
+                /** The transfer amount in USD cents. */
+                fun amount(amount: Long) = amount(JsonField.of(amount))
+
+                /**
+                 * Sets [Builder.amount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.amount] with a well-typed [Long] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * transfer was created.
+                 */
+                fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
+
+                /**
+                 * Sets [Builder.createdAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.createdAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply {
+                    this.createdAt = createdAt
+                }
+
+                /** The Account the funds were transferred into. */
+                fun destinationAccountId(destinationAccountId: String) =
+                    destinationAccountId(JsonField.of(destinationAccountId))
+
+                /**
+                 * Sets [Builder.destinationAccountId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.destinationAccountId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun destinationAccountId(destinationAccountId: JsonField<String>) = apply {
+                    this.destinationAccountId = destinationAccountId
+                }
+
+                /**
+                 * The transaction hash of the blockchain transaction that initiated this transfer.
+                 */
+                fun initiatingTransactionHash(initiatingTransactionHash: String) =
+                    initiatingTransactionHash(JsonField.of(initiatingTransactionHash))
+
+                /**
+                 * Sets [Builder.initiatingTransactionHash] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.initiatingTransactionHash] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun initiatingTransactionHash(initiatingTransactionHash: JsonField<String>) =
+                    apply {
+                        this.initiatingTransactionHash = initiatingTransactionHash
+                    }
+
+                /** The Blockchain Address from which the transfer originated. */
                 fun sourceBlockchainAddressId(sourceBlockchainAddressId: String) =
                     sourceBlockchainAddressId(JsonField.of(sourceBlockchainAddressId))
 
@@ -3255,21 +3524,51 @@ private constructor(
                         this.sourceBlockchainAddressId = sourceBlockchainAddressId
                     }
 
-                /**
-                 * The identifier of the Blockchain Off-Ramp Transfer that led to this Transaction.
-                 */
-                fun transferId(transferId: String) = transferId(JsonField.of(transferId))
+                /** The lifecycle status of the transfer. */
+                fun status(status: Status) = status(JsonField.of(status))
 
                 /**
-                 * Sets [Builder.transferId] to an arbitrary JSON value.
+                 * Sets [Builder.status] to an arbitrary JSON value.
                  *
-                 * You should usually call [Builder.transferId] with a well-typed [String] value
+                 * You should usually call [Builder.status] with a well-typed [Status] value
                  * instead. This method is primarily for setting the field to an undocumented or not
                  * yet supported value.
                  */
-                fun transferId(transferId: JsonField<String>) = apply {
-                    this.transferId = transferId
+                fun status(status: JsonField<Status>) = apply { this.status = status }
+
+                /** The Transaction crediting the Account once the transfer is settled. */
+                fun transactionId(transactionId: String?) =
+                    transactionId(JsonField.ofNullable(transactionId))
+
+                /** Alias for calling [Builder.transactionId] with `transactionId.orElse(null)`. */
+                fun transactionId(transactionId: Optional<String>) =
+                    transactionId(transactionId.getOrNull())
+
+                /**
+                 * Sets [Builder.transactionId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.transactionId] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun transactionId(transactionId: JsonField<String>) = apply {
+                    this.transactionId = transactionId
                 }
+
+                /**
+                 * A constant representing the object's type. For this resource it will always be
+                 * `blockchain_offramp_transfer`.
+                 */
+                fun type(type: Type) = type(JsonField.of(type))
+
+                /**
+                 * Sets [Builder.type] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.type] with a well-typed [Type] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun type(type: JsonField<Type>) = apply { this.type = type }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -3294,22 +3593,38 @@ private constructor(
                 }
 
                 /**
-                 * Returns an immutable instance of [BlockchainOfframpTransferInstruction].
+                 * Returns an immutable instance of [BlockchainOfframpTransfer].
                  *
                  * Further updates to this [Builder] will not mutate the returned instance.
                  *
                  * The following fields are required:
                  * ```java
+                 * .id()
+                 * .token()
+                 * .amount()
+                 * .createdAt()
+                 * .destinationAccountId()
+                 * .initiatingTransactionHash()
                  * .sourceBlockchainAddressId()
-                 * .transferId()
+                 * .status()
+                 * .transactionId()
+                 * .type()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
                  */
-                fun build(): BlockchainOfframpTransferInstruction =
-                    BlockchainOfframpTransferInstruction(
+                fun build(): BlockchainOfframpTransfer =
+                    BlockchainOfframpTransfer(
+                        checkRequired("id", id),
+                        checkRequired("token", token),
+                        checkRequired("amount", amount),
+                        checkRequired("createdAt", createdAt),
+                        checkRequired("destinationAccountId", destinationAccountId),
+                        checkRequired("initiatingTransactionHash", initiatingTransactionHash),
                         checkRequired("sourceBlockchainAddressId", sourceBlockchainAddressId),
-                        checkRequired("transferId", transferId),
+                        checkRequired("status", status),
+                        checkRequired("transactionId", transactionId),
+                        checkRequired("type", type),
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -3326,13 +3641,21 @@ private constructor(
              * @throws IncreaseInvalidDataException if any value type in this object doesn't match
              *   its expected type.
              */
-            fun validate(): BlockchainOfframpTransferInstruction = apply {
+            fun validate(): BlockchainOfframpTransfer = apply {
                 if (validated) {
                     return@apply
                 }
 
+                id()
+                token().validate()
+                amount()
+                createdAt()
+                destinationAccountId()
+                initiatingTransactionHash()
                 sourceBlockchainAddressId()
-                transferId()
+                status().validate()
+                transactionId()
+                type().validate()
                 validated = true
             }
 
@@ -3352,28 +3675,481 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (if (sourceBlockchainAddressId.asKnown().isPresent) 1 else 0) +
-                    (if (transferId.asKnown().isPresent) 1 else 0)
+                (if (id.asKnown().isPresent) 1 else 0) +
+                    (token.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (amount.asKnown().isPresent) 1 else 0) +
+                    (if (createdAt.asKnown().isPresent) 1 else 0) +
+                    (if (destinationAccountId.asKnown().isPresent) 1 else 0) +
+                    (if (initiatingTransactionHash.asKnown().isPresent) 1 else 0) +
+                    (if (sourceBlockchainAddressId.asKnown().isPresent) 1 else 0) +
+                    (status.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (transactionId.asKnown().isPresent) 1 else 0) +
+                    (type.asKnown().getOrNull()?.validity() ?: 0)
+
+            /** The token that was received. */
+            class Token @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** A USD stablecoin issued by Circle. */
+                    @JvmField val USDC = of("usdc")
+
+                    @JvmStatic fun of(value: String) = Token(JsonField.of(value))
+                }
+
+                /** An enum containing [Token]'s known values. */
+                enum class Known {
+                    /** A USD stablecoin issued by Circle. */
+                    USDC
+                }
+
+                /**
+                 * An enum containing [Token]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Token] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** A USD stablecoin issued by Circle. */
+                    USDC,
+                    /**
+                     * An enum member indicating that [Token] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        USDC -> Value.USDC
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        USDC -> Known.USDC
+                        else -> throw IncreaseInvalidDataException("Unknown Token: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Token = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Token && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /** The lifecycle status of the transfer. */
+            class Status @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    /** The transfer is pending settlement at Increase. */
+                    @JvmField val PENDING_SETTLEMENT = of("pending_settlement")
+
+                    /** The transfer has been settled and funds have been credited. */
+                    @JvmField val SETTLED = of("settled")
+
+                    @JvmStatic fun of(value: String) = Status(JsonField.of(value))
+                }
+
+                /** An enum containing [Status]'s known values. */
+                enum class Known {
+                    /** The transfer is pending settlement at Increase. */
+                    PENDING_SETTLEMENT,
+                    /** The transfer has been settled and funds have been credited. */
+                    SETTLED,
+                }
+
+                /**
+                 * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Status] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    /** The transfer is pending settlement at Increase. */
+                    PENDING_SETTLEMENT,
+                    /** The transfer has been settled and funds have been credited. */
+                    SETTLED,
+                    /**
+                     * An enum member indicating that [Status] was instantiated with an unknown
+                     * value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        PENDING_SETTLEMENT -> Value.PENDING_SETTLEMENT
+                        SETTLED -> Value.SETTLED
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        PENDING_SETTLEMENT -> Known.PENDING_SETTLEMENT
+                        SETTLED -> Known.SETTLED
+                        else -> throw IncreaseInvalidDataException("Unknown Status: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Status = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Status && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
+
+            /**
+             * A constant representing the object's type. For this resource it will always be
+             * `blockchain_offramp_transfer`.
+             */
+            class Type @JsonCreator private constructor(private val value: JsonField<String>) :
+                Enum {
+
+                /**
+                 * Returns this class instance's raw value.
+                 *
+                 * This is usually only useful if this instance was deserialized from data that
+                 * doesn't match any known member, and you want to know that value. For example, if
+                 * the SDK is on an older version than the API, then the API may respond with new
+                 * members that the SDK is unaware of.
+                 */
+                @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+                companion object {
+
+                    @JvmField val BLOCKCHAIN_OFFRAMP_TRANSFER = of("blockchain_offramp_transfer")
+
+                    @JvmStatic fun of(value: String) = Type(JsonField.of(value))
+                }
+
+                /** An enum containing [Type]'s known values. */
+                enum class Known {
+                    BLOCKCHAIN_OFFRAMP_TRANSFER
+                }
+
+                /**
+                 * An enum containing [Type]'s known values, as well as an [_UNKNOWN] member.
+                 *
+                 * An instance of [Type] can contain an unknown value in a couple of cases:
+                 * - It was deserialized from data that doesn't match any known member. For example,
+                 *   if the SDK is on an older version than the API, then the API may respond with
+                 *   new members that the SDK is unaware of.
+                 * - It was constructed with an arbitrary value using the [of] method.
+                 */
+                enum class Value {
+                    BLOCKCHAIN_OFFRAMP_TRANSFER,
+                    /**
+                     * An enum member indicating that [Type] was instantiated with an unknown value.
+                     */
+                    _UNKNOWN,
+                }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value, or
+                 * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                 *
+                 * Use the [known] method instead if you're certain the value is always known or if
+                 * you want to throw for the unknown case.
+                 */
+                fun value(): Value =
+                    when (this) {
+                        BLOCKCHAIN_OFFRAMP_TRANSFER -> Value.BLOCKCHAIN_OFFRAMP_TRANSFER
+                        else -> Value._UNKNOWN
+                    }
+
+                /**
+                 * Returns an enum member corresponding to this class instance's value.
+                 *
+                 * Use the [value] method instead if you're uncertain the value is always known and
+                 * don't want to throw for the unknown case.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value is a not a
+                 *   known member.
+                 */
+                fun known(): Known =
+                    when (this) {
+                        BLOCKCHAIN_OFFRAMP_TRANSFER -> Known.BLOCKCHAIN_OFFRAMP_TRANSFER
+                        else -> throw IncreaseInvalidDataException("Unknown Type: $value")
+                    }
+
+                /**
+                 * Returns this class instance's primitive wire representation.
+                 *
+                 * This differs from the [toString] method because that method is primarily for
+                 * debugging and generally doesn't throw.
+                 *
+                 * @throws IncreaseInvalidDataException if this class instance's value does not have
+                 *   the expected primitive type.
+                 */
+                fun asString(): String =
+                    _value().asString().orElseThrow {
+                        IncreaseInvalidDataException("Value is not a String")
+                    }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Type = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    known()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Type && value == other.value
+                }
+
+                override fun hashCode() = value.hashCode()
+
+                override fun toString() = value.toString()
+            }
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
                     return true
                 }
 
-                return other is BlockchainOfframpTransferInstruction &&
+                return other is BlockchainOfframpTransfer &&
+                    id == other.id &&
+                    token == other.token &&
+                    amount == other.amount &&
+                    createdAt == other.createdAt &&
+                    destinationAccountId == other.destinationAccountId &&
+                    initiatingTransactionHash == other.initiatingTransactionHash &&
                     sourceBlockchainAddressId == other.sourceBlockchainAddressId &&
-                    transferId == other.transferId &&
+                    status == other.status &&
+                    transactionId == other.transactionId &&
+                    type == other.type &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(sourceBlockchainAddressId, transferId, additionalProperties)
+                Objects.hash(
+                    id,
+                    token,
+                    amount,
+                    createdAt,
+                    destinationAccountId,
+                    initiatingTransactionHash,
+                    sourceBlockchainAddressId,
+                    status,
+                    transactionId,
+                    type,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "BlockchainOfframpTransferInstruction{sourceBlockchainAddressId=$sourceBlockchainAddressId, transferId=$transferId, additionalProperties=$additionalProperties}"
+                "BlockchainOfframpTransfer{id=$id, token=$token, amount=$amount, createdAt=$createdAt, destinationAccountId=$destinationAccountId, initiatingTransactionHash=$initiatingTransactionHash, sourceBlockchainAddressId=$sourceBlockchainAddressId, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -18294,8 +19070,7 @@ private constructor(
                 category == other.category &&
                 accountTransferInstruction == other.accountTransferInstruction &&
                 achTransferInstruction == other.achTransferInstruction &&
-                blockchainOfframpTransferInstruction ==
-                    other.blockchainOfframpTransferInstruction &&
+                blockchainOfframpTransfer == other.blockchainOfframpTransfer &&
                 blockchainOnrampTransferInstruction == other.blockchainOnrampTransferInstruction &&
                 cardAuthorization == other.cardAuthorization &&
                 cardPushTransferInstruction == other.cardPushTransferInstruction &&
@@ -18317,7 +19092,7 @@ private constructor(
                 category,
                 accountTransferInstruction,
                 achTransferInstruction,
-                blockchainOfframpTransferInstruction,
+                blockchainOfframpTransfer,
                 blockchainOnrampTransferInstruction,
                 cardAuthorization,
                 cardPushTransferInstruction,
@@ -18338,7 +19113,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, blockchainOfframpTransferInstruction=$blockchainOfframpTransferInstruction, blockchainOnrampTransferInstruction=$blockchainOnrampTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fednowTransferInstruction=$fednowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountTransferInstruction=$accountTransferInstruction, achTransferInstruction=$achTransferInstruction, blockchainOfframpTransfer=$blockchainOfframpTransfer, blockchainOnrampTransferInstruction=$blockchainOnrampTransferInstruction, cardAuthorization=$cardAuthorization, cardPushTransferInstruction=$cardPushTransferInstruction, checkDepositInstruction=$checkDepositInstruction, checkTransferInstruction=$checkTransferInstruction, fednowTransferInstruction=$fednowTransferInstruction, inboundFundsHold=$inboundFundsHold, inboundWireTransferReversal=$inboundWireTransferReversal, other=$other, realTimePaymentsTransferInstruction=$realTimePaymentsTransferInstruction, swiftTransferInstruction=$swiftTransferInstruction, userInitiatedHold=$userInitiatedHold, wireTransferInstruction=$wireTransferInstruction, additionalProperties=$additionalProperties}"
     }
 
     /** Whether the Pending Transaction has been confirmed and has an associated Transaction. */
