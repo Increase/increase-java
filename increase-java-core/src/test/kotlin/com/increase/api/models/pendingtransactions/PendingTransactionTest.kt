@@ -44,12 +44,30 @@ internal class PendingTransactionTest {
                                 .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                 .build()
                         )
-                        .blockchainOfframpTransferInstruction(
-                            PendingTransaction.Source.BlockchainOfframpTransferInstruction.builder()
+                        .blockchainOfframpTransfer(
+                            PendingTransaction.Source.BlockchainOfframpTransfer.builder()
+                                .id("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                .token(
+                                    PendingTransaction.Source.BlockchainOfframpTransfer.Token.USDC
+                                )
+                                .amount(10000L)
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .destinationAccountId("account_in71c4amph0vgo2qllky")
+                                .initiatingTransactionHash(
+                                    "0xcd7c2ab9e2075a3be3740c3a1f6e6e2c112e37d6b3f4a15e9e3e5a93b82c2c0a"
+                                )
                                 .sourceBlockchainAddressId(
                                     "blockchain_address_tijjpqp9t5d358ehydqi"
                                 )
-                                .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                .status(
+                                    PendingTransaction.Source.BlockchainOfframpTransfer.Status
+                                        .SETTLED
+                                )
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .type(
+                                    PendingTransaction.Source.BlockchainOfframpTransfer.Type
+                                        .BLOCKCHAIN_OFFRAMP_TRANSFER
+                                )
                                 .build()
                         )
                         .blockchainOnrampTransferInstruction(
@@ -428,10 +446,25 @@ internal class PendingTransactionTest {
                             .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                             .build()
                     )
-                    .blockchainOfframpTransferInstruction(
-                        PendingTransaction.Source.BlockchainOfframpTransferInstruction.builder()
+                    .blockchainOfframpTransfer(
+                        PendingTransaction.Source.BlockchainOfframpTransfer.builder()
+                            .id("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                            .token(PendingTransaction.Source.BlockchainOfframpTransfer.Token.USDC)
+                            .amount(10000L)
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .destinationAccountId("account_in71c4amph0vgo2qllky")
+                            .initiatingTransactionHash(
+                                "0xcd7c2ab9e2075a3be3740c3a1f6e6e2c112e37d6b3f4a15e9e3e5a93b82c2c0a"
+                            )
                             .sourceBlockchainAddressId("blockchain_address_tijjpqp9t5d358ehydqi")
-                            .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                            .status(
+                                PendingTransaction.Source.BlockchainOfframpTransfer.Status.SETTLED
+                            )
+                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                            .type(
+                                PendingTransaction.Source.BlockchainOfframpTransfer.Type
+                                    .BLOCKCHAIN_OFFRAMP_TRANSFER
+                            )
                             .build()
                     )
                     .blockchainOnrampTransferInstruction(
@@ -803,12 +836,30 @@ internal class PendingTransactionTest {
                                 .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                                 .build()
                         )
-                        .blockchainOfframpTransferInstruction(
-                            PendingTransaction.Source.BlockchainOfframpTransferInstruction.builder()
+                        .blockchainOfframpTransfer(
+                            PendingTransaction.Source.BlockchainOfframpTransfer.builder()
+                                .id("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                .token(
+                                    PendingTransaction.Source.BlockchainOfframpTransfer.Token.USDC
+                                )
+                                .amount(10000L)
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .destinationAccountId("account_in71c4amph0vgo2qllky")
+                                .initiatingTransactionHash(
+                                    "0xcd7c2ab9e2075a3be3740c3a1f6e6e2c112e37d6b3f4a15e9e3e5a93b82c2c0a"
+                                )
                                 .sourceBlockchainAddressId(
                                     "blockchain_address_tijjpqp9t5d358ehydqi"
                                 )
-                                .transferId("blockchain_offramp_transfer_sqd2x3ti6u2sy91v696m")
+                                .status(
+                                    PendingTransaction.Source.BlockchainOfframpTransfer.Status
+                                        .SETTLED
+                                )
+                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                                .type(
+                                    PendingTransaction.Source.BlockchainOfframpTransfer.Type
+                                        .BLOCKCHAIN_OFFRAMP_TRANSFER
+                                )
                                 .build()
                         )
                         .blockchainOnrampTransferInstruction(
