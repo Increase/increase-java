@@ -15,19 +15,19 @@ internal class AchPrenotificationTest {
         val achPrenotification =
             AchPrenotification.builder()
                 .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
-                .accountId(null)
+                .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
                 .addendum(null)
                 .companyDescriptiveDate(null)
                 .companyDiscretionaryData(null)
-                .companyEntryDescription(null)
-                .companyName(null)
+                .companyEntryDescription("Account Funding")
+                .companyName("National Phonograph Company")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .creditDebitIndicator(null)
-                .effectiveDate(null)
+                .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
+                .effectiveDate(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .individualId(null)
-                .individualName(null)
+                .individualName("Ian Crease")
                 .addNotificationsOfChange(
                     AchPrenotification.NotificationsOfChange.builder()
                         .changeCode(
@@ -48,26 +48,30 @@ internal class AchPrenotificationTest {
                         .build()
                 )
                 .routingNumber("101050001")
-                .standardEntryClassCode(null)
+                .standardEntryClassCode(
+                    AchPrenotification.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
+                )
                 .status(AchPrenotification.Status.SUBMITTED)
                 .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                 .build()
 
         assertThat(achPrenotification.id()).isEqualTo("ach_prenotification_ubjf9qqsxl3obbcn1u34")
-        assertThat(achPrenotification.accountId()).isEmpty
+        assertThat(achPrenotification.accountId()).contains("account_in71c4amph0vgo2qllky")
         assertThat(achPrenotification.accountNumber()).isEqualTo("987654321")
         assertThat(achPrenotification.addendum()).isEmpty
         assertThat(achPrenotification.companyDescriptiveDate()).isEmpty
         assertThat(achPrenotification.companyDiscretionaryData()).isEmpty
-        assertThat(achPrenotification.companyEntryDescription()).isEmpty
-        assertThat(achPrenotification.companyName()).isEmpty
+        assertThat(achPrenotification.companyEntryDescription()).contains("Account Funding")
+        assertThat(achPrenotification.companyName()).contains("National Phonograph Company")
         assertThat(achPrenotification.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(achPrenotification.creditDebitIndicator()).isEmpty
-        assertThat(achPrenotification.effectiveDate()).isEmpty
+        assertThat(achPrenotification.creditDebitIndicator())
+            .contains(AchPrenotification.CreditDebitIndicator.CREDIT)
+        assertThat(achPrenotification.effectiveDate())
+            .contains(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(achPrenotification.idempotencyKey()).isEmpty
         assertThat(achPrenotification.individualId()).isEmpty
-        assertThat(achPrenotification.individualName()).isEmpty
+        assertThat(achPrenotification.individualName()).contains("Ian Crease")
         assertThat(achPrenotification.notificationsOfChange())
             .containsExactly(
                 AchPrenotification.NotificationsOfChange.builder()
@@ -90,7 +94,8 @@ internal class AchPrenotificationTest {
                     .build()
             )
         assertThat(achPrenotification.routingNumber()).isEqualTo("101050001")
-        assertThat(achPrenotification.standardEntryClassCode()).isEmpty
+        assertThat(achPrenotification.standardEntryClassCode())
+            .contains(AchPrenotification.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
         assertThat(achPrenotification.status()).isEqualTo(AchPrenotification.Status.SUBMITTED)
         assertThat(achPrenotification.type()).isEqualTo(AchPrenotification.Type.ACH_PRENOTIFICATION)
     }
@@ -101,19 +106,19 @@ internal class AchPrenotificationTest {
         val achPrenotification =
             AchPrenotification.builder()
                 .id("ach_prenotification_ubjf9qqsxl3obbcn1u34")
-                .accountId(null)
+                .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
                 .addendum(null)
                 .companyDescriptiveDate(null)
                 .companyDiscretionaryData(null)
-                .companyEntryDescription(null)
-                .companyName(null)
+                .companyEntryDescription("Account Funding")
+                .companyName("National Phonograph Company")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .creditDebitIndicator(null)
-                .effectiveDate(null)
+                .creditDebitIndicator(AchPrenotification.CreditDebitIndicator.CREDIT)
+                .effectiveDate(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
                 .individualId(null)
-                .individualName(null)
+                .individualName("Ian Crease")
                 .addNotificationsOfChange(
                     AchPrenotification.NotificationsOfChange.builder()
                         .changeCode(
@@ -134,7 +139,9 @@ internal class AchPrenotificationTest {
                         .build()
                 )
                 .routingNumber("101050001")
-                .standardEntryClassCode(null)
+                .standardEntryClassCode(
+                    AchPrenotification.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
+                )
                 .status(AchPrenotification.Status.SUBMITTED)
                 .type(AchPrenotification.Type.ACH_PRENOTIFICATION)
                 .build()
