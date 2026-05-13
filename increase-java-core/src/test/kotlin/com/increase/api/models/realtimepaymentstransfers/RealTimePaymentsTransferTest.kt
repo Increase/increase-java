@@ -58,7 +58,7 @@ internal class RealTimePaymentsTransferTest {
                 )
                 .creditorName("Ian Crease")
                 .currency(RealTimePaymentsTransfer.Currency.USD)
-                .debtorName(null)
+                .debtorName("National Phonograph Company")
                 .externalAccountId(null)
                 .idempotencyKey(null)
                 .pendingTransactionId(null)
@@ -138,7 +138,7 @@ internal class RealTimePaymentsTransferTest {
         assertThat(realTimePaymentsTransfer.creditorName()).isEqualTo("Ian Crease")
         assertThat(realTimePaymentsTransfer.currency())
             .isEqualTo(RealTimePaymentsTransfer.Currency.USD)
-        assertThat(realTimePaymentsTransfer.debtorName()).isEmpty
+        assertThat(realTimePaymentsTransfer.debtorName()).contains("National Phonograph Company")
         assertThat(realTimePaymentsTransfer.externalAccountId()).isEmpty
         assertThat(realTimePaymentsTransfer.idempotencyKey()).isEmpty
         assertThat(realTimePaymentsTransfer.pendingTransactionId()).isEmpty
@@ -223,7 +223,7 @@ internal class RealTimePaymentsTransferTest {
                 )
                 .creditorName("Ian Crease")
                 .currency(RealTimePaymentsTransfer.Currency.USD)
-                .debtorName(null)
+                .debtorName("National Phonograph Company")
                 .externalAccountId(null)
                 .idempotencyKey(null)
                 .pendingTransactionId(null)

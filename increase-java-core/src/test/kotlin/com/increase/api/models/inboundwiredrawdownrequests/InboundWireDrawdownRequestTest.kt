@@ -29,12 +29,12 @@ internal class InboundWireDrawdownRequestTest {
                 .debtorAddressLine3(null)
                 .debtorName("Ian Crease")
                 .endToEndIdentification("Invoice 29582")
-                .inputMessageAccountabilityData(null)
-                .instructionIdentification(null)
+                .inputMessageAccountabilityData("20220118MMQFMP0P000001")
+                .instructionIdentification("202201180000001")
                 .recipientAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .type(InboundWireDrawdownRequest.Type.INBOUND_WIRE_DRAWDOWN_REQUEST)
-                .uniqueEndToEndTransactionReference(null)
-                .unstructuredRemittanceInformation(null)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
+                .unstructuredRemittanceInformation("INVOICE 2468")
                 .build()
 
         assertThat(inboundWireDrawdownRequest.id())
@@ -55,14 +55,18 @@ internal class InboundWireDrawdownRequestTest {
         assertThat(inboundWireDrawdownRequest.debtorAddressLine3()).isEmpty
         assertThat(inboundWireDrawdownRequest.debtorName()).contains("Ian Crease")
         assertThat(inboundWireDrawdownRequest.endToEndIdentification()).contains("Invoice 29582")
-        assertThat(inboundWireDrawdownRequest.inputMessageAccountabilityData()).isEmpty
-        assertThat(inboundWireDrawdownRequest.instructionIdentification()).isEmpty
+        assertThat(inboundWireDrawdownRequest.inputMessageAccountabilityData())
+            .contains("20220118MMQFMP0P000001")
+        assertThat(inboundWireDrawdownRequest.instructionIdentification())
+            .contains("202201180000001")
         assertThat(inboundWireDrawdownRequest.recipientAccountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(inboundWireDrawdownRequest.type())
             .isEqualTo(InboundWireDrawdownRequest.Type.INBOUND_WIRE_DRAWDOWN_REQUEST)
-        assertThat(inboundWireDrawdownRequest.uniqueEndToEndTransactionReference()).isEmpty
-        assertThat(inboundWireDrawdownRequest.unstructuredRemittanceInformation()).isEmpty
+        assertThat(inboundWireDrawdownRequest.uniqueEndToEndTransactionReference())
+            .contains("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
+        assertThat(inboundWireDrawdownRequest.unstructuredRemittanceInformation())
+            .contains("INVOICE 2468")
     }
 
     @Test
@@ -85,12 +89,12 @@ internal class InboundWireDrawdownRequestTest {
                 .debtorAddressLine3(null)
                 .debtorName("Ian Crease")
                 .endToEndIdentification("Invoice 29582")
-                .inputMessageAccountabilityData(null)
-                .instructionIdentification(null)
+                .inputMessageAccountabilityData("20220118MMQFMP0P000001")
+                .instructionIdentification("202201180000001")
                 .recipientAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .type(InboundWireDrawdownRequest.Type.INBOUND_WIRE_DRAWDOWN_REQUEST)
-                .uniqueEndToEndTransactionReference(null)
-                .unstructuredRemittanceInformation(null)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
+                .unstructuredRemittanceInformation("INVOICE 2468")
                 .build()
 
         val roundtrippedInboundWireDrawdownRequest =
