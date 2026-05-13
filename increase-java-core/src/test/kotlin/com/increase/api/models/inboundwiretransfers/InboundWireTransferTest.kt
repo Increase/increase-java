@@ -17,27 +17,27 @@ internal class InboundWireTransferTest {
                 .id("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                 .acceptance(
                     InboundWireTransfer.Acceptance.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .transactionId("transaction_id")
+                        .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .transactionId("transaction_uyrp7fld2ium70oa7oi")
                         .build()
                 )
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(100L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .creditorAddressLine1(null)
-                .creditorAddressLine2(null)
+                .creditorAddressLine1("33 Liberty Street")
+                .creditorAddressLine2("New York, NY, 10045")
                 .creditorAddressLine3(null)
-                .creditorName(null)
-                .debtorAddressLine1(null)
-                .debtorAddressLine2(null)
+                .creditorName("National Phonograph Company")
+                .debtorAddressLine1("33 Liberty Street")
+                .debtorAddressLine2("New York, NY, 10045")
                 .debtorAddressLine3(null)
-                .debtorName(null)
+                .debtorName("Ian Crease")
                 .description("Inbound wire transfer")
-                .endToEndIdentification(null)
-                .inputMessageAccountabilityData(null)
-                .instructingAgentRoutingNumber(null)
-                .instructionIdentification(null)
+                .endToEndIdentification("Invoice 29582")
+                .inputMessageAccountabilityData("20220118MMQFMP0P000001")
+                .instructingAgentRoutingNumber("101050001")
+                .instructionIdentification("202201180000001")
                 .reversal(
                     InboundWireTransfer.Reversal.builder()
                         .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
@@ -46,8 +46,8 @@ internal class InboundWireTransferTest {
                 )
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
-                .uniqueEndToEndTransactionReference(null)
-                .unstructuredRemittanceInformation(null)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
+                .unstructuredRemittanceInformation("INVOICE 2468")
                 .wireDrawdownRequestId(null)
                 .build()
 
@@ -55,8 +55,8 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.acceptance())
             .contains(
                 InboundWireTransfer.Acceptance.builder()
-                    .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .transactionId("transaction_id")
+                    .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .transactionId("transaction_uyrp7fld2ium70oa7oi")
                     .build()
             )
         assertThat(inboundWireTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
@@ -65,19 +65,20 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.amount()).isEqualTo(100L)
         assertThat(inboundWireTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-        assertThat(inboundWireTransfer.creditorAddressLine1()).isEmpty
-        assertThat(inboundWireTransfer.creditorAddressLine2()).isEmpty
+        assertThat(inboundWireTransfer.creditorAddressLine1()).contains("33 Liberty Street")
+        assertThat(inboundWireTransfer.creditorAddressLine2()).contains("New York, NY, 10045")
         assertThat(inboundWireTransfer.creditorAddressLine3()).isEmpty
-        assertThat(inboundWireTransfer.creditorName()).isEmpty
-        assertThat(inboundWireTransfer.debtorAddressLine1()).isEmpty
-        assertThat(inboundWireTransfer.debtorAddressLine2()).isEmpty
+        assertThat(inboundWireTransfer.creditorName()).contains("National Phonograph Company")
+        assertThat(inboundWireTransfer.debtorAddressLine1()).contains("33 Liberty Street")
+        assertThat(inboundWireTransfer.debtorAddressLine2()).contains("New York, NY, 10045")
         assertThat(inboundWireTransfer.debtorAddressLine3()).isEmpty
-        assertThat(inboundWireTransfer.debtorName()).isEmpty
+        assertThat(inboundWireTransfer.debtorName()).contains("Ian Crease")
         assertThat(inboundWireTransfer.description()).isEqualTo("Inbound wire transfer")
-        assertThat(inboundWireTransfer.endToEndIdentification()).isEmpty
-        assertThat(inboundWireTransfer.inputMessageAccountabilityData()).isEmpty
-        assertThat(inboundWireTransfer.instructingAgentRoutingNumber()).isEmpty
-        assertThat(inboundWireTransfer.instructionIdentification()).isEmpty
+        assertThat(inboundWireTransfer.endToEndIdentification()).contains("Invoice 29582")
+        assertThat(inboundWireTransfer.inputMessageAccountabilityData())
+            .contains("20220118MMQFMP0P000001")
+        assertThat(inboundWireTransfer.instructingAgentRoutingNumber()).contains("101050001")
+        assertThat(inboundWireTransfer.instructionIdentification()).contains("202201180000001")
         assertThat(inboundWireTransfer.reversal())
             .contains(
                 InboundWireTransfer.Reversal.builder()
@@ -88,8 +89,9 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.status()).isEqualTo(InboundWireTransfer.Status.ACCEPTED)
         assertThat(inboundWireTransfer.type())
             .isEqualTo(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
-        assertThat(inboundWireTransfer.uniqueEndToEndTransactionReference()).isEmpty
-        assertThat(inboundWireTransfer.unstructuredRemittanceInformation()).isEmpty
+        assertThat(inboundWireTransfer.uniqueEndToEndTransactionReference())
+            .contains("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
+        assertThat(inboundWireTransfer.unstructuredRemittanceInformation()).contains("INVOICE 2468")
         assertThat(inboundWireTransfer.wireDrawdownRequestId()).isEmpty
     }
 
@@ -101,27 +103,27 @@ internal class InboundWireTransferTest {
                 .id("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                 .acceptance(
                     InboundWireTransfer.Acceptance.builder()
-                        .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .transactionId("transaction_id")
+                        .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .transactionId("transaction_uyrp7fld2ium70oa7oi")
                         .build()
                 )
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .amount(100L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                .creditorAddressLine1(null)
-                .creditorAddressLine2(null)
+                .creditorAddressLine1("33 Liberty Street")
+                .creditorAddressLine2("New York, NY, 10045")
                 .creditorAddressLine3(null)
-                .creditorName(null)
-                .debtorAddressLine1(null)
-                .debtorAddressLine2(null)
+                .creditorName("National Phonograph Company")
+                .debtorAddressLine1("33 Liberty Street")
+                .debtorAddressLine2("New York, NY, 10045")
                 .debtorAddressLine3(null)
-                .debtorName(null)
+                .debtorName("Ian Crease")
                 .description("Inbound wire transfer")
-                .endToEndIdentification(null)
-                .inputMessageAccountabilityData(null)
-                .instructingAgentRoutingNumber(null)
-                .instructionIdentification(null)
+                .endToEndIdentification("Invoice 29582")
+                .inputMessageAccountabilityData("20220118MMQFMP0P000001")
+                .instructingAgentRoutingNumber("101050001")
+                .instructionIdentification("202201180000001")
                 .reversal(
                     InboundWireTransfer.Reversal.builder()
                         .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
@@ -130,8 +132,8 @@ internal class InboundWireTransferTest {
                 )
                 .status(InboundWireTransfer.Status.ACCEPTED)
                 .type(InboundWireTransfer.Type.INBOUND_WIRE_TRANSFER)
-                .uniqueEndToEndTransactionReference(null)
-                .unstructuredRemittanceInformation(null)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
+                .unstructuredRemittanceInformation("INVOICE 2468")
                 .wireDrawdownRequestId(null)
                 .build()
 
