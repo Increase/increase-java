@@ -45,7 +45,7 @@ internal class CardTest {
                                 .addBlocked(
                                     Card.AuthorizationControls.MerchantCategoryCode.Blocked
                                         .builder()
-                                        .code("code")
+                                        .code("5734")
                                         .build()
                                 )
                                 .build()
@@ -66,7 +66,7 @@ internal class CardTest {
                         )
                         .usage(
                             Card.AuthorizationControls.Usage.builder()
-                                .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                                .category(Card.AuthorizationControls.Usage.Category.MULTI_USE)
                                 .multiUse(
                                     Card.AuthorizationControls.Usage.MultiUse.builder()
                                         .addSpendingLimit(
@@ -76,7 +76,7 @@ internal class CardTest {
                                                     Card.AuthorizationControls.Usage.MultiUse
                                                         .SpendingLimit
                                                         .Interval
-                                                        .ALL_TIME
+                                                        .PER_MONTH
                                                 )
                                                 .addMerchantCategoryCode(
                                                     Card.AuthorizationControls.Usage.MultiUse
@@ -86,7 +86,7 @@ internal class CardTest {
                                                         .code("code")
                                                         .build()
                                                 )
-                                                .settlementAmount(0L)
+                                                .settlementAmount(100000L)
                                                 .build()
                                         )
                                         .build()
@@ -169,7 +169,7 @@ internal class CardTest {
                             )
                             .addBlocked(
                                 Card.AuthorizationControls.MerchantCategoryCode.Blocked.builder()
-                                    .code("code")
+                                    .code("5734")
                                     .build()
                             )
                             .build()
@@ -190,7 +190,7 @@ internal class CardTest {
                     )
                     .usage(
                         Card.AuthorizationControls.Usage.builder()
-                            .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                            .category(Card.AuthorizationControls.Usage.Category.MULTI_USE)
                             .multiUse(
                                 Card.AuthorizationControls.Usage.MultiUse.builder()
                                     .addSpendingLimit(
@@ -200,7 +200,7 @@ internal class CardTest {
                                                 Card.AuthorizationControls.Usage.MultiUse
                                                     .SpendingLimit
                                                     .Interval
-                                                    .ALL_TIME
+                                                    .PER_MONTH
                                             )
                                             .addMerchantCategoryCode(
                                                 Card.AuthorizationControls.Usage.MultiUse
@@ -210,7 +210,7 @@ internal class CardTest {
                                                     .code("code")
                                                     .build()
                                             )
-                                            .settlementAmount(0L)
+                                            .settlementAmount(100000L)
                                             .build()
                                     )
                                     .build()
@@ -300,7 +300,7 @@ internal class CardTest {
                                 .addBlocked(
                                     Card.AuthorizationControls.MerchantCategoryCode.Blocked
                                         .builder()
-                                        .code("code")
+                                        .code("5734")
                                         .build()
                                 )
                                 .build()
@@ -321,7 +321,7 @@ internal class CardTest {
                         )
                         .usage(
                             Card.AuthorizationControls.Usage.builder()
-                                .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                                .category(Card.AuthorizationControls.Usage.Category.MULTI_USE)
                                 .multiUse(
                                     Card.AuthorizationControls.Usage.MultiUse.builder()
                                         .addSpendingLimit(
@@ -331,7 +331,7 @@ internal class CardTest {
                                                     Card.AuthorizationControls.Usage.MultiUse
                                                         .SpendingLimit
                                                         .Interval
-                                                        .ALL_TIME
+                                                        .PER_MONTH
                                                 )
                                                 .addMerchantCategoryCode(
                                                     Card.AuthorizationControls.Usage.MultiUse
@@ -341,7 +341,7 @@ internal class CardTest {
                                                         .code("code")
                                                         .build()
                                                 )
-                                                .settlementAmount(0L)
+                                                .settlementAmount(100000L)
                                                 .build()
                                         )
                                         .build()

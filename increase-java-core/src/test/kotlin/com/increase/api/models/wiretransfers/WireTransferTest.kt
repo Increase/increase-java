@@ -55,7 +55,7 @@ internal class WireTransferTest {
                                 .unstructured(
                                     WireTransfer.Creditor.Address.Unstructured.builder()
                                         .line1("33 Liberty Street")
-                                        .line2(null)
+                                        .line2("New York, NY, 10045")
                                         .line3(null)
                                         .build()
                                 )
@@ -71,14 +71,14 @@ internal class WireTransferTest {
                             WireTransfer.Debtor.Address.builder()
                                 .unstructured(
                                     WireTransfer.Debtor.Address.Unstructured.builder()
-                                        .line1("line1")
-                                        .line2("line2")
-                                        .line3("line3")
+                                        .line1("1500 Pennsylvania Avenue, NW")
+                                        .line2("Washington, D.C. 20220")
+                                        .line3(null)
                                         .build()
                                 )
                                 .build()
                         )
-                        .name("name")
+                        .name("Ian Crease")
                         .build()
                 )
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
@@ -122,7 +122,7 @@ internal class WireTransferTest {
                         .build()
                 )
                 .routingNumber("101050001")
-                .sourceAccountNumberId(null)
+                .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .status(WireTransfer.Status.COMPLETE)
                 .submission(
                     WireTransfer.Submission.builder()
@@ -132,7 +132,7 @@ internal class WireTransferTest {
                 )
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
-                .uniqueEndToEndTransactionReference(null)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                 .build()
 
         assertThat(wireTransfer.id()).isEqualTo("wire_transfer_5akynk7dqsq25qwk9q2u")
@@ -175,7 +175,7 @@ internal class WireTransferTest {
                             .unstructured(
                                 WireTransfer.Creditor.Address.Unstructured.builder()
                                     .line1("33 Liberty Street")
-                                    .line2(null)
+                                    .line2("New York, NY, 10045")
                                     .line3(null)
                                     .build()
                             )
@@ -192,14 +192,14 @@ internal class WireTransferTest {
                         WireTransfer.Debtor.Address.builder()
                             .unstructured(
                                 WireTransfer.Debtor.Address.Unstructured.builder()
-                                    .line1("line1")
-                                    .line2("line2")
-                                    .line3("line3")
+                                    .line1("1500 Pennsylvania Avenue, NW")
+                                    .line2("Washington, D.C. 20220")
+                                    .line3(null)
                                     .build()
                             )
                             .build()
                     )
-                    .name("name")
+                    .name("Ian Crease")
                     .build()
             )
         assertThat(wireTransfer.externalAccountId())
@@ -246,7 +246,8 @@ internal class WireTransferTest {
                     .build()
             )
         assertThat(wireTransfer.routingNumber()).isEqualTo("101050001")
-        assertThat(wireTransfer.sourceAccountNumberId()).isEmpty
+        assertThat(wireTransfer.sourceAccountNumberId())
+            .contains("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(wireTransfer.status()).isEqualTo(WireTransfer.Status.COMPLETE)
         assertThat(wireTransfer.submission())
             .contains(
@@ -257,7 +258,8 @@ internal class WireTransferTest {
             )
         assertThat(wireTransfer.transactionId()).contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(wireTransfer.type()).isEqualTo(WireTransfer.Type.WIRE_TRANSFER)
-        assertThat(wireTransfer.uniqueEndToEndTransactionReference()).isEmpty
+        assertThat(wireTransfer.uniqueEndToEndTransactionReference())
+            .contains("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
     }
 
     @Test
@@ -305,7 +307,7 @@ internal class WireTransferTest {
                                 .unstructured(
                                     WireTransfer.Creditor.Address.Unstructured.builder()
                                         .line1("33 Liberty Street")
-                                        .line2(null)
+                                        .line2("New York, NY, 10045")
                                         .line3(null)
                                         .build()
                                 )
@@ -321,14 +323,14 @@ internal class WireTransferTest {
                             WireTransfer.Debtor.Address.builder()
                                 .unstructured(
                                     WireTransfer.Debtor.Address.Unstructured.builder()
-                                        .line1("line1")
-                                        .line2("line2")
-                                        .line3("line3")
+                                        .line1("1500 Pennsylvania Avenue, NW")
+                                        .line2("Washington, D.C. 20220")
+                                        .line3(null)
                                         .build()
                                 )
                                 .build()
                         )
-                        .name("name")
+                        .name("Ian Crease")
                         .build()
                 )
                 .externalAccountId("external_account_ukk55lr923a3ac0pp7iv")
@@ -372,7 +374,7 @@ internal class WireTransferTest {
                         .build()
                 )
                 .routingNumber("101050001")
-                .sourceAccountNumberId(null)
+                .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .status(WireTransfer.Status.COMPLETE)
                 .submission(
                     WireTransfer.Submission.builder()
@@ -382,7 +384,7 @@ internal class WireTransferTest {
                 )
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(WireTransfer.Type.WIRE_TRANSFER)
-                .uniqueEndToEndTransactionReference(null)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                 .build()
 
         val roundtrippedWireTransfer =

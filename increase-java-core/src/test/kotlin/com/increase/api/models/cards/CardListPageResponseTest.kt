@@ -49,7 +49,7 @@ internal class CardListPageResponseTest {
                                         .addBlocked(
                                             Card.AuthorizationControls.MerchantCategoryCode.Blocked
                                                 .builder()
-                                                .code("code")
+                                                .code("5734")
                                                 .build()
                                         )
                                         .build()
@@ -73,7 +73,7 @@ internal class CardListPageResponseTest {
                                 .usage(
                                     Card.AuthorizationControls.Usage.builder()
                                         .category(
-                                            Card.AuthorizationControls.Usage.Category.SINGLE_USE
+                                            Card.AuthorizationControls.Usage.Category.MULTI_USE
                                         )
                                         .multiUse(
                                             Card.AuthorizationControls.Usage.MultiUse.builder()
@@ -86,7 +86,7 @@ internal class CardListPageResponseTest {
                                                                 .MultiUse
                                                                 .SpendingLimit
                                                                 .Interval
-                                                                .ALL_TIME
+                                                                .PER_MONTH
                                                         )
                                                         .addMerchantCategoryCode(
                                                             Card.AuthorizationControls.Usage
@@ -97,7 +97,7 @@ internal class CardListPageResponseTest {
                                                                 .code("code")
                                                                 .build()
                                                         )
-                                                        .settlementAmount(0L)
+                                                        .settlementAmount(100000L)
                                                         .build()
                                                 )
                                                 .build()
@@ -190,7 +190,7 @@ internal class CardListPageResponseTest {
                                     .addBlocked(
                                         Card.AuthorizationControls.MerchantCategoryCode.Blocked
                                             .builder()
-                                            .code("code")
+                                            .code("5734")
                                             .build()
                                     )
                                     .build()
@@ -211,7 +211,7 @@ internal class CardListPageResponseTest {
                             )
                             .usage(
                                 Card.AuthorizationControls.Usage.builder()
-                                    .category(Card.AuthorizationControls.Usage.Category.SINGLE_USE)
+                                    .category(Card.AuthorizationControls.Usage.Category.MULTI_USE)
                                     .multiUse(
                                         Card.AuthorizationControls.Usage.MultiUse.builder()
                                             .addSpendingLimit(
@@ -222,7 +222,7 @@ internal class CardListPageResponseTest {
                                                         Card.AuthorizationControls.Usage.MultiUse
                                                             .SpendingLimit
                                                             .Interval
-                                                            .ALL_TIME
+                                                            .PER_MONTH
                                                     )
                                                     .addMerchantCategoryCode(
                                                         Card.AuthorizationControls.Usage.MultiUse
@@ -232,7 +232,7 @@ internal class CardListPageResponseTest {
                                                             .code("code")
                                                             .build()
                                                     )
-                                                    .settlementAmount(0L)
+                                                    .settlementAmount(100000L)
                                                     .build()
                                             )
                                             .build()
@@ -328,7 +328,7 @@ internal class CardListPageResponseTest {
                                         .addBlocked(
                                             Card.AuthorizationControls.MerchantCategoryCode.Blocked
                                                 .builder()
-                                                .code("code")
+                                                .code("5734")
                                                 .build()
                                         )
                                         .build()
@@ -352,7 +352,7 @@ internal class CardListPageResponseTest {
                                 .usage(
                                     Card.AuthorizationControls.Usage.builder()
                                         .category(
-                                            Card.AuthorizationControls.Usage.Category.SINGLE_USE
+                                            Card.AuthorizationControls.Usage.Category.MULTI_USE
                                         )
                                         .multiUse(
                                             Card.AuthorizationControls.Usage.MultiUse.builder()
@@ -365,7 +365,7 @@ internal class CardListPageResponseTest {
                                                                 .MultiUse
                                                                 .SpendingLimit
                                                                 .Interval
-                                                                .ALL_TIME
+                                                                .PER_MONTH
                                                         )
                                                         .addMerchantCategoryCode(
                                                             Card.AuthorizationControls.Usage
@@ -376,7 +376,7 @@ internal class CardListPageResponseTest {
                                                                 .code("code")
                                                                 .build()
                                                         )
-                                                        .settlementAmount(0L)
+                                                        .settlementAmount(100000L)
                                                         .build()
                                                 )
                                                 .build()
