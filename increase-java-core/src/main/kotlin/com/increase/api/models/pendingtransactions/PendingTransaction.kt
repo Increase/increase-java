@@ -3841,6 +3841,9 @@ private constructor(
 
                 companion object {
 
+                    /** The transfer has been canceled. */
+                    @JvmField val CANCELED = of("canceled")
+
                     /** The transfer is pending settlement at Increase. */
                     @JvmField val PENDING_SETTLEMENT = of("pending_settlement")
 
@@ -3852,6 +3855,8 @@ private constructor(
 
                 /** An enum containing [Status]'s known values. */
                 enum class Known {
+                    /** The transfer has been canceled. */
+                    CANCELED,
                     /** The transfer is pending settlement at Increase. */
                     PENDING_SETTLEMENT,
                     /** The transfer has been settled and funds have been credited. */
@@ -3868,6 +3873,8 @@ private constructor(
                  * - It was constructed with an arbitrary value using the [of] method.
                  */
                 enum class Value {
+                    /** The transfer has been canceled. */
+                    CANCELED,
                     /** The transfer is pending settlement at Increase. */
                     PENDING_SETTLEMENT,
                     /** The transfer has been settled and funds have been credited. */
@@ -3888,6 +3895,7 @@ private constructor(
                  */
                 fun value(): Value =
                     when (this) {
+                        CANCELED -> Value.CANCELED
                         PENDING_SETTLEMENT -> Value.PENDING_SETTLEMENT
                         SETTLED -> Value.SETTLED
                         else -> Value._UNKNOWN
@@ -3904,6 +3912,7 @@ private constructor(
                  */
                 fun known(): Known =
                     when (this) {
+                        CANCELED -> Known.CANCELED
                         PENDING_SETTLEMENT -> Known.PENDING_SETTLEMENT
                         SETTLED -> Known.SETTLED
                         else -> throw IncreaseInvalidDataException("Unknown Status: $value")
