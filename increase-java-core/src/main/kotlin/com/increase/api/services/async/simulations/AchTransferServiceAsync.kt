@@ -70,16 +70,17 @@ interface AchTransferServiceAsync {
         acknowledge(achTransferId, AchTransferAcknowledgeParams.none(), requestOptions)
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
-    fun createNotificationOfChange(
-        achTransferId: String,
-        params: AchTransferCreateNotificationOfChangeParams,
-    ): CompletableFuture<AchTransfer> =
-        createNotificationOfChange(achTransferId, params, RequestOptions.none())
+    fun createNotificationOfChange(achTransferId: String): CompletableFuture<AchTransfer> =
+        createNotificationOfChange(
+            achTransferId,
+            AchTransferCreateNotificationOfChangeParams.none(),
+        )
 
     /** @see createNotificationOfChange */
     fun createNotificationOfChange(
         achTransferId: String,
-        params: AchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams =
+            AchTransferCreateNotificationOfChangeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer> =
         createNotificationOfChange(
@@ -89,14 +90,33 @@ interface AchTransferServiceAsync {
 
     /** @see createNotificationOfChange */
     fun createNotificationOfChange(
-        params: AchTransferCreateNotificationOfChangeParams
-    ): CompletableFuture<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
+        achTransferId: String,
+        params: AchTransferCreateNotificationOfChangeParams =
+            AchTransferCreateNotificationOfChangeParams.none(),
+    ): CompletableFuture<AchTransfer> =
+        createNotificationOfChange(achTransferId, params, RequestOptions.none())
 
     /** @see createNotificationOfChange */
     fun createNotificationOfChange(
         params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<AchTransfer>
+
+    /** @see createNotificationOfChange */
+    fun createNotificationOfChange(
+        params: AchTransferCreateNotificationOfChangeParams
+    ): CompletableFuture<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
+
+    /** @see createNotificationOfChange */
+    fun createNotificationOfChange(
+        achTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<AchTransfer> =
+        createNotificationOfChange(
+            achTransferId,
+            AchTransferCreateNotificationOfChangeParams.none(),
+            requestOptions,
+        )
 
     /**
      * Simulates the return of an [ACH Transfer](#ach-transfers) by the Federal Reserve due to an
@@ -285,15 +305,18 @@ interface AchTransferServiceAsync {
          * otherwise the same as [AchTransferServiceAsync.createNotificationOfChange].
          */
         fun createNotificationOfChange(
-            achTransferId: String,
-            params: AchTransferCreateNotificationOfChangeParams,
+            achTransferId: String
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
-            createNotificationOfChange(achTransferId, params, RequestOptions.none())
+            createNotificationOfChange(
+                achTransferId,
+                AchTransferCreateNotificationOfChangeParams.none(),
+            )
 
         /** @see createNotificationOfChange */
         fun createNotificationOfChange(
             achTransferId: String,
-            params: AchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams =
+                AchTransferCreateNotificationOfChangeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
             createNotificationOfChange(
@@ -303,15 +326,34 @@ interface AchTransferServiceAsync {
 
         /** @see createNotificationOfChange */
         fun createNotificationOfChange(
-            params: AchTransferCreateNotificationOfChangeParams
+            achTransferId: String,
+            params: AchTransferCreateNotificationOfChangeParams =
+                AchTransferCreateNotificationOfChangeParams.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>> =
-            createNotificationOfChange(params, RequestOptions.none())
+            createNotificationOfChange(achTransferId, params, RequestOptions.none())
 
         /** @see createNotificationOfChange */
         fun createNotificationOfChange(
             params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<AchTransfer>>
+
+        /** @see createNotificationOfChange */
+        fun createNotificationOfChange(
+            params: AchTransferCreateNotificationOfChangeParams
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            createNotificationOfChange(params, RequestOptions.none())
+
+        /** @see createNotificationOfChange */
+        fun createNotificationOfChange(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<AchTransfer>> =
+            createNotificationOfChange(
+                achTransferId,
+                AchTransferCreateNotificationOfChangeParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post

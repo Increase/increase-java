@@ -107,9 +107,15 @@ internal class AchTransferTest {
                 .addNotificationsOfChange(
                     AchTransfer.NotificationsOfChange.builder()
                         .changeCode(
-                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_TRANSACTION_CODE
+                            AchTransfer.NotificationsOfChange.ChangeCode
+                                .INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
                         )
-                        .correctedData("32")
+                        .correctedAccountFunding(
+                            AchTransfer.NotificationsOfChange.CorrectedAccountFunding.CHECKING
+                        )
+                        .correctedAccountNumber("987654321")
+                        .correctedIndividualId(null)
+                        .correctedRoutingNumber("123456789")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
@@ -255,9 +261,15 @@ internal class AchTransferTest {
             .containsExactly(
                 AchTransfer.NotificationsOfChange.builder()
                     .changeCode(
-                        AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_TRANSACTION_CODE
+                        AchTransfer.NotificationsOfChange.ChangeCode
+                            .INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
                     )
-                    .correctedData("32")
+                    .correctedAccountFunding(
+                        AchTransfer.NotificationsOfChange.CorrectedAccountFunding.CHECKING
+                    )
+                    .correctedAccountNumber("987654321")
+                    .correctedIndividualId(null)
+                    .correctedRoutingNumber("123456789")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
@@ -407,9 +419,15 @@ internal class AchTransferTest {
                 .addNotificationsOfChange(
                     AchTransfer.NotificationsOfChange.builder()
                         .changeCode(
-                            AchTransfer.NotificationsOfChange.ChangeCode.INCORRECT_TRANSACTION_CODE
+                            AchTransfer.NotificationsOfChange.ChangeCode
+                                .INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
                         )
-                        .correctedData("32")
+                        .correctedAccountFunding(
+                            AchTransfer.NotificationsOfChange.CorrectedAccountFunding.CHECKING
+                        )
+                        .correctedAccountNumber("987654321")
+                        .correctedIndividualId(null)
+                        .correctedRoutingNumber("123456789")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
