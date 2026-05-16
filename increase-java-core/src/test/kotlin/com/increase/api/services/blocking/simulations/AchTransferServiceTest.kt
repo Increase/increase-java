@@ -40,11 +40,12 @@ internal class AchTransferServiceTest {
             achTransferService.createNotificationOfChange(
                 AchTransferCreateNotificationOfChangeParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
-                    .changeCode(
-                        AchTransferCreateNotificationOfChangeParams.ChangeCode
-                            .INCORRECT_ROUTING_NUMBER
+                    .correctedAccountFunding(
+                        AchTransferCreateNotificationOfChangeParams.CorrectedAccountFunding.CHECKING
                     )
-                    .correctedData("123456789")
+                    .correctedAccountNumber("x")
+                    .correctedIndividualId("x")
+                    .correctedRoutingNumber("123456789")
                     .build()
             )
 
