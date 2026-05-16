@@ -34,9 +34,15 @@ internal class AchPrenotificationListPageResponseTest {
                             AchPrenotification.NotificationsOfChange.builder()
                                 .changeCode(
                                     AchPrenotification.NotificationsOfChange.ChangeCode
-                                        .INCORRECT_TRANSACTION_CODE
+                                        .INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
                                 )
-                                .correctedData("32")
+                                .correctedAccountFunding(
+                                    AchPrenotification.NotificationsOfChange.CorrectedAccountFunding
+                                        .CHECKING
+                                )
+                                .correctedAccountNumber("987654321")
+                                .correctedIndividualId(null)
+                                .correctedRoutingNumber("123456789")
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
@@ -81,9 +87,15 @@ internal class AchPrenotificationListPageResponseTest {
                         AchPrenotification.NotificationsOfChange.builder()
                             .changeCode(
                                 AchPrenotification.NotificationsOfChange.ChangeCode
-                                    .INCORRECT_TRANSACTION_CODE
+                                    .INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
                             )
-                            .correctedData("32")
+                            .correctedAccountFunding(
+                                AchPrenotification.NotificationsOfChange.CorrectedAccountFunding
+                                    .CHECKING
+                            )
+                            .correctedAccountNumber("987654321")
+                            .correctedIndividualId(null)
+                            .correctedRoutingNumber("123456789")
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .build()
                     )
@@ -132,9 +144,15 @@ internal class AchPrenotificationListPageResponseTest {
                             AchPrenotification.NotificationsOfChange.builder()
                                 .changeCode(
                                     AchPrenotification.NotificationsOfChange.ChangeCode
-                                        .INCORRECT_TRANSACTION_CODE
+                                        .INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
                                 )
-                                .correctedData("32")
+                                .correctedAccountFunding(
+                                    AchPrenotification.NotificationsOfChange.CorrectedAccountFunding
+                                        .CHECKING
+                                )
+                                .correctedAccountNumber("987654321")
+                                .correctedIndividualId(null)
+                                .correctedRoutingNumber("123456789")
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )

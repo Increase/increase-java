@@ -12,7 +12,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -34,34 +33,70 @@ private constructor(
     fun achTransferId(): Optional<String> = Optional.ofNullable(achTransferId)
 
     /**
-     * The reason for the notification of change.
+     * The corrected account funding type.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun changeCode(): ChangeCode = body.changeCode()
+    fun correctedAccountFunding(): Optional<CorrectedAccountFunding> =
+        body.correctedAccountFunding()
 
     /**
-     * The corrected data for the notification of change (e.g., a new routing number).
+     * The corrected account number.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun correctedData(): String = body.correctedData()
+    fun correctedAccountNumber(): Optional<String> = body.correctedAccountNumber()
 
     /**
-     * Returns the raw JSON value of [changeCode].
+     * The corrected individual identifier.
      *
-     * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun _changeCode(): JsonField<ChangeCode> = body._changeCode()
+    fun correctedIndividualId(): Optional<String> = body.correctedIndividualId()
 
     /**
-     * Returns the raw JSON value of [correctedData].
+     * The corrected routing number.
      *
-     * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected type.
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun _correctedData(): JsonField<String> = body._correctedData()
+    fun correctedRoutingNumber(): Optional<String> = body.correctedRoutingNumber()
+
+    /**
+     * Returns the raw JSON value of [correctedAccountFunding].
+     *
+     * Unlike [correctedAccountFunding], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _correctedAccountFunding(): JsonField<CorrectedAccountFunding> =
+        body._correctedAccountFunding()
+
+    /**
+     * Returns the raw JSON value of [correctedAccountNumber].
+     *
+     * Unlike [correctedAccountNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _correctedAccountNumber(): JsonField<String> = body._correctedAccountNumber()
+
+    /**
+     * Returns the raw JSON value of [correctedIndividualId].
+     *
+     * Unlike [correctedIndividualId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _correctedIndividualId(): JsonField<String> = body._correctedIndividualId()
+
+    /**
+     * Returns the raw JSON value of [correctedRoutingNumber].
+     *
+     * Unlike [correctedRoutingNumber], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _correctedRoutingNumber(): JsonField<String> = body._correctedRoutingNumber()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -75,15 +110,11 @@ private constructor(
 
     companion object {
 
+        @JvmStatic fun none(): AchTransferCreateNotificationOfChangeParams = builder().build()
+
         /**
          * Returns a mutable builder for constructing an instance of
          * [AchTransferCreateNotificationOfChangeParams].
-         *
-         * The following fields are required:
-         * ```java
-         * .changeCode()
-         * .correctedData()
-         * ```
          */
         @JvmStatic fun builder() = Builder()
     }
@@ -120,35 +151,76 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [changeCode]
-         * - [correctedData]
+         * - [correctedAccountFunding]
+         * - [correctedAccountNumber]
+         * - [correctedIndividualId]
+         * - [correctedRoutingNumber]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The reason for the notification of change. */
-        fun changeCode(changeCode: ChangeCode) = apply { body.changeCode(changeCode) }
+        /** The corrected account funding type. */
+        fun correctedAccountFunding(correctedAccountFunding: CorrectedAccountFunding) = apply {
+            body.correctedAccountFunding(correctedAccountFunding)
+        }
 
         /**
-         * Sets [Builder.changeCode] to an arbitrary JSON value.
+         * Sets [Builder.correctedAccountFunding] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
+         * You should usually call [Builder.correctedAccountFunding] with a well-typed
+         * [CorrectedAccountFunding] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun correctedAccountFunding(correctedAccountFunding: JsonField<CorrectedAccountFunding>) =
+            apply {
+                body.correctedAccountFunding(correctedAccountFunding)
+            }
+
+        /** The corrected account number. */
+        fun correctedAccountNumber(correctedAccountNumber: String) = apply {
+            body.correctedAccountNumber(correctedAccountNumber)
+        }
+
+        /**
+         * Sets [Builder.correctedAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.correctedAccountNumber] with a well-typed [String] value
          * instead. This method is primarily for setting the field to an undocumented or not yet
          * supported value.
          */
-        fun changeCode(changeCode: JsonField<ChangeCode>) = apply { body.changeCode(changeCode) }
+        fun correctedAccountNumber(correctedAccountNumber: JsonField<String>) = apply {
+            body.correctedAccountNumber(correctedAccountNumber)
+        }
 
-        /** The corrected data for the notification of change (e.g., a new routing number). */
-        fun correctedData(correctedData: String) = apply { body.correctedData(correctedData) }
+        /** The corrected individual identifier. */
+        fun correctedIndividualId(correctedIndividualId: String) = apply {
+            body.correctedIndividualId(correctedIndividualId)
+        }
 
         /**
-         * Sets [Builder.correctedData] to an arbitrary JSON value.
+         * Sets [Builder.correctedIndividualId] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.correctedData] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
+         * You should usually call [Builder.correctedIndividualId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
          */
-        fun correctedData(correctedData: JsonField<String>) = apply {
-            body.correctedData(correctedData)
+        fun correctedIndividualId(correctedIndividualId: JsonField<String>) = apply {
+            body.correctedIndividualId(correctedIndividualId)
+        }
+
+        /** The corrected routing number. */
+        fun correctedRoutingNumber(correctedRoutingNumber: String) = apply {
+            body.correctedRoutingNumber(correctedRoutingNumber)
+        }
+
+        /**
+         * Sets [Builder.correctedRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.correctedRoutingNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun correctedRoutingNumber(correctedRoutingNumber: JsonField<String>) = apply {
+            body.correctedRoutingNumber(correctedRoutingNumber)
         }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
@@ -272,14 +344,6 @@ private constructor(
          * Returns an immutable instance of [AchTransferCreateNotificationOfChangeParams].
          *
          * Further updates to this [Builder] will not mutate the returned instance.
-         *
-         * The following fields are required:
-         * ```java
-         * .changeCode()
-         * .correctedData()
-         * ```
-         *
-         * @throws IllegalStateException if any required field is unset.
          */
         fun build(): AchTransferCreateNotificationOfChangeParams =
             AchTransferCreateNotificationOfChangeParams(
@@ -305,55 +369,110 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val changeCode: JsonField<ChangeCode>,
-        private val correctedData: JsonField<String>,
+        private val correctedAccountFunding: JsonField<CorrectedAccountFunding>,
+        private val correctedAccountNumber: JsonField<String>,
+        private val correctedIndividualId: JsonField<String>,
+        private val correctedRoutingNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("change_code")
+            @JsonProperty("corrected_account_funding")
             @ExcludeMissing
-            changeCode: JsonField<ChangeCode> = JsonMissing.of(),
-            @JsonProperty("corrected_data")
+            correctedAccountFunding: JsonField<CorrectedAccountFunding> = JsonMissing.of(),
+            @JsonProperty("corrected_account_number")
             @ExcludeMissing
-            correctedData: JsonField<String> = JsonMissing.of(),
-        ) : this(changeCode, correctedData, mutableMapOf())
+            correctedAccountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("corrected_individual_id")
+            @ExcludeMissing
+            correctedIndividualId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("corrected_routing_number")
+            @ExcludeMissing
+            correctedRoutingNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            correctedAccountFunding,
+            correctedAccountNumber,
+            correctedIndividualId,
+            correctedRoutingNumber,
+            mutableMapOf(),
+        )
 
         /**
-         * The reason for the notification of change.
+         * The corrected account funding type.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun changeCode(): ChangeCode = changeCode.getRequired("change_code")
+        fun correctedAccountFunding(): Optional<CorrectedAccountFunding> =
+            correctedAccountFunding.getOptional("corrected_account_funding")
 
         /**
-         * The corrected data for the notification of change (e.g., a new routing number).
+         * The corrected account number.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun correctedData(): String = correctedData.getRequired("corrected_data")
+        fun correctedAccountNumber(): Optional<String> =
+            correctedAccountNumber.getOptional("corrected_account_number")
 
         /**
-         * Returns the raw JSON value of [changeCode].
+         * The corrected individual identifier.
          *
-         * Unlike [changeCode], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("change_code")
+        fun correctedIndividualId(): Optional<String> =
+            correctedIndividualId.getOptional("corrected_individual_id")
+
+        /**
+         * The corrected routing number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun correctedRoutingNumber(): Optional<String> =
+            correctedRoutingNumber.getOptional("corrected_routing_number")
+
+        /**
+         * Returns the raw JSON value of [correctedAccountFunding].
+         *
+         * Unlike [correctedAccountFunding], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("corrected_account_funding")
         @ExcludeMissing
-        fun _changeCode(): JsonField<ChangeCode> = changeCode
+        fun _correctedAccountFunding(): JsonField<CorrectedAccountFunding> = correctedAccountFunding
 
         /**
-         * Returns the raw JSON value of [correctedData].
+         * Returns the raw JSON value of [correctedAccountNumber].
          *
-         * Unlike [correctedData], this method doesn't throw if the JSON field has an unexpected
-         * type.
+         * Unlike [correctedAccountNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
          */
-        @JsonProperty("corrected_data")
+        @JsonProperty("corrected_account_number")
         @ExcludeMissing
-        fun _correctedData(): JsonField<String> = correctedData
+        fun _correctedAccountNumber(): JsonField<String> = correctedAccountNumber
+
+        /**
+         * Returns the raw JSON value of [correctedIndividualId].
+         *
+         * Unlike [correctedIndividualId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("corrected_individual_id")
+        @ExcludeMissing
+        fun _correctedIndividualId(): JsonField<String> = correctedIndividualId
+
+        /**
+         * Returns the raw JSON value of [correctedRoutingNumber].
+         *
+         * Unlike [correctedRoutingNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("corrected_routing_number")
+        @ExcludeMissing
+        fun _correctedRoutingNumber(): JsonField<String> = correctedRoutingNumber
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -369,58 +488,87 @@ private constructor(
 
         companion object {
 
-            /**
-             * Returns a mutable builder for constructing an instance of [Body].
-             *
-             * The following fields are required:
-             * ```java
-             * .changeCode()
-             * .correctedData()
-             * ```
-             */
+            /** Returns a mutable builder for constructing an instance of [Body]. */
             @JvmStatic fun builder() = Builder()
         }
 
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var changeCode: JsonField<ChangeCode>? = null
-            private var correctedData: JsonField<String>? = null
+            private var correctedAccountFunding: JsonField<CorrectedAccountFunding> =
+                JsonMissing.of()
+            private var correctedAccountNumber: JsonField<String> = JsonMissing.of()
+            private var correctedIndividualId: JsonField<String> = JsonMissing.of()
+            private var correctedRoutingNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                changeCode = body.changeCode
-                correctedData = body.correctedData
+                correctedAccountFunding = body.correctedAccountFunding
+                correctedAccountNumber = body.correctedAccountNumber
+                correctedIndividualId = body.correctedIndividualId
+                correctedRoutingNumber = body.correctedRoutingNumber
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The reason for the notification of change. */
-            fun changeCode(changeCode: ChangeCode) = changeCode(JsonField.of(changeCode))
+            /** The corrected account funding type. */
+            fun correctedAccountFunding(correctedAccountFunding: CorrectedAccountFunding) =
+                correctedAccountFunding(JsonField.of(correctedAccountFunding))
 
             /**
-             * Sets [Builder.changeCode] to an arbitrary JSON value.
+             * Sets [Builder.correctedAccountFunding] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.changeCode] with a well-typed [ChangeCode] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.correctedAccountFunding] with a well-typed
+             * [CorrectedAccountFunding] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
              */
-            fun changeCode(changeCode: JsonField<ChangeCode>) = apply {
-                this.changeCode = changeCode
+            fun correctedAccountFunding(
+                correctedAccountFunding: JsonField<CorrectedAccountFunding>
+            ) = apply { this.correctedAccountFunding = correctedAccountFunding }
+
+            /** The corrected account number. */
+            fun correctedAccountNumber(correctedAccountNumber: String) =
+                correctedAccountNumber(JsonField.of(correctedAccountNumber))
+
+            /**
+             * Sets [Builder.correctedAccountNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.correctedAccountNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun correctedAccountNumber(correctedAccountNumber: JsonField<String>) = apply {
+                this.correctedAccountNumber = correctedAccountNumber
             }
 
-            /** The corrected data for the notification of change (e.g., a new routing number). */
-            fun correctedData(correctedData: String) = correctedData(JsonField.of(correctedData))
+            /** The corrected individual identifier. */
+            fun correctedIndividualId(correctedIndividualId: String) =
+                correctedIndividualId(JsonField.of(correctedIndividualId))
 
             /**
-             * Sets [Builder.correctedData] to an arbitrary JSON value.
+             * Sets [Builder.correctedIndividualId] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.correctedData] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.correctedIndividualId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun correctedData(correctedData: JsonField<String>) = apply {
-                this.correctedData = correctedData
+            fun correctedIndividualId(correctedIndividualId: JsonField<String>) = apply {
+                this.correctedIndividualId = correctedIndividualId
+            }
+
+            /** The corrected routing number. */
+            fun correctedRoutingNumber(correctedRoutingNumber: String) =
+                correctedRoutingNumber(JsonField.of(correctedRoutingNumber))
+
+            /**
+             * Sets [Builder.correctedRoutingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.correctedRoutingNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun correctedRoutingNumber(correctedRoutingNumber: JsonField<String>) = apply {
+                this.correctedRoutingNumber = correctedRoutingNumber
             }
 
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
@@ -446,19 +594,13 @@ private constructor(
              * Returns an immutable instance of [Body].
              *
              * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .changeCode()
-             * .correctedData()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
              */
             fun build(): Body =
                 Body(
-                    checkRequired("changeCode", changeCode),
-                    checkRequired("correctedData", correctedData),
+                    correctedAccountFunding,
+                    correctedAccountNumber,
+                    correctedIndividualId,
+                    correctedRoutingNumber,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -479,8 +621,10 @@ private constructor(
                 return@apply
             }
 
-            changeCode().validate()
-            correctedData()
+            correctedAccountFunding().ifPresent { it.validate() }
+            correctedAccountNumber()
+            correctedIndividualId()
+            correctedRoutingNumber()
             validated = true
         }
 
@@ -500,8 +644,10 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (changeCode.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (correctedData.asKnown().isPresent) 1 else 0)
+            (correctedAccountFunding.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (correctedAccountNumber.asKnown().isPresent) 1 else 0) +
+                (if (correctedIndividualId.asKnown().isPresent) 1 else 0) +
+                (if (correctedRoutingNumber.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -509,23 +655,33 @@ private constructor(
             }
 
             return other is Body &&
-                changeCode == other.changeCode &&
-                correctedData == other.correctedData &&
+                correctedAccountFunding == other.correctedAccountFunding &&
+                correctedAccountNumber == other.correctedAccountNumber &&
+                correctedIndividualId == other.correctedIndividualId &&
+                correctedRoutingNumber == other.correctedRoutingNumber &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(changeCode, correctedData, additionalProperties)
+            Objects.hash(
+                correctedAccountFunding,
+                correctedAccountNumber,
+                correctedIndividualId,
+                correctedRoutingNumber,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{changeCode=$changeCode, correctedData=$correctedData, additionalProperties=$additionalProperties}"
+            "Body{correctedAccountFunding=$correctedAccountFunding, correctedAccountNumber=$correctedAccountNumber, correctedIndividualId=$correctedIndividualId, correctedRoutingNumber=$correctedRoutingNumber, additionalProperties=$additionalProperties}"
     }
 
-    /** The reason for the notification of change. */
-    class ChangeCode @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+    /** The corrected account funding type. */
+    class CorrectedAccountFunding
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
 
         /**
          * Returns this class instance's raw value.
@@ -539,214 +695,49 @@ private constructor(
 
         companion object {
 
-            /** The account number was incorrect. */
-            @JvmField val INCORRECT_ACCOUNT_NUMBER = of("incorrect_account_number")
+            /** A checking account. */
+            @JvmField val CHECKING = of("checking")
 
-            /** The routing number was incorrect. */
-            @JvmField val INCORRECT_ROUTING_NUMBER = of("incorrect_routing_number")
+            /** A savings account. */
+            @JvmField val SAVINGS = of("savings")
 
-            /** Both the routing number and the account number were incorrect. */
-            @JvmField
-            val INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER =
-                of("incorrect_routing_number_and_account_number")
+            /** A bank's general ledger. Uncommon. */
+            @JvmField val GENERAL_LEDGER = of("general_ledger")
 
-            /**
-             * The transaction code was incorrect. Try changing the `funding` parameter from
-             * checking to savings or vice-versa.
-             */
-            @JvmField val INCORRECT_TRANSACTION_CODE = of("incorrect_transaction_code")
-
-            /** The account number and the transaction code were incorrect. */
-            @JvmField
-            val INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
-                of("incorrect_account_number_and_transaction_code")
-
-            /** The routing number, account number, and transaction code were incorrect. */
-            @JvmField
-            val INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE =
-                of("incorrect_routing_number_account_number_and_transaction_code")
-
-            /** The receiving depository financial institution identification was incorrect. */
-            @JvmField
-            val INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION =
-                of("incorrect_receiving_depository_financial_institution_identification")
-
-            /** The individual identification number was incorrect. */
-            @JvmField
-            val INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER =
-                of("incorrect_individual_identification_number")
-
-            /** The addenda had an incorrect format. */
-            @JvmField val ADDENDA_FORMAT_ERROR = of("addenda_format_error")
-
-            /**
-             * The standard entry class code was incorrect for an outbound international payment.
-             */
-            @JvmField
-            val INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT =
-                of("incorrect_standard_entry_class_code_for_outbound_international_payment")
-
-            /** The notification of change was misrouted. */
-            @JvmField val MISROUTED_NOTIFICATION_OF_CHANGE = of("misrouted_notification_of_change")
-
-            /** The trace number was incorrect. */
-            @JvmField val INCORRECT_TRACE_NUMBER = of("incorrect_trace_number")
-
-            /** The company identification number was incorrect. */
-            @JvmField
-            val INCORRECT_COMPANY_IDENTIFICATION_NUMBER =
-                of("incorrect_company_identification_number")
-
-            /** The individual identification number or identification number was incorrect. */
-            @JvmField val INCORRECT_IDENTIFICATION_NUMBER = of("incorrect_identification_number")
-
-            /** The corrected data was incorrectly formatted. */
-            @JvmField
-            val INCORRECTLY_FORMATTED_CORRECTED_DATA = of("incorrectly_formatted_corrected_data")
-
-            /** The discretionary data was incorrect. */
-            @JvmField val INCORRECT_DISCRETIONARY_DATA = of("incorrect_discretionary_data")
-
-            /** The routing number was not from the original entry detail record. */
-            @JvmField
-            val ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
-                of("routing_number_not_from_original_entry_detail_record")
-
-            /**
-             * The depository financial institution account number was not from the original entry
-             * detail record.
-             */
-            @JvmField
-            val DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD =
-                of(
-                    "depository_financial_institution_account_number_not_from_original_entry_detail_record"
-                )
-
-            /**
-             * The transaction code was incorrect, initiated by the originating depository financial
-             * institution.
-             */
-            @JvmField
-            val INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION =
-                of("incorrect_transaction_code_by_originating_depository_financial_institution")
-
-            @JvmStatic fun of(value: String) = ChangeCode(JsonField.of(value))
+            @JvmStatic fun of(value: String) = CorrectedAccountFunding(JsonField.of(value))
         }
 
-        /** An enum containing [ChangeCode]'s known values. */
+        /** An enum containing [CorrectedAccountFunding]'s known values. */
         enum class Known {
-            /** The account number was incorrect. */
-            INCORRECT_ACCOUNT_NUMBER,
-            /** The routing number was incorrect. */
-            INCORRECT_ROUTING_NUMBER,
-            /** Both the routing number and the account number were incorrect. */
-            INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
-            /**
-             * The transaction code was incorrect. Try changing the `funding` parameter from
-             * checking to savings or vice-versa.
-             */
-            INCORRECT_TRANSACTION_CODE,
-            /** The account number and the transaction code were incorrect. */
-            INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
-            /** The routing number, account number, and transaction code were incorrect. */
-            INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
-            /** The receiving depository financial institution identification was incorrect. */
-            INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
-            /** The individual identification number was incorrect. */
-            INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
-            /** The addenda had an incorrect format. */
-            ADDENDA_FORMAT_ERROR,
-            /**
-             * The standard entry class code was incorrect for an outbound international payment.
-             */
-            INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
-            /** The notification of change was misrouted. */
-            MISROUTED_NOTIFICATION_OF_CHANGE,
-            /** The trace number was incorrect. */
-            INCORRECT_TRACE_NUMBER,
-            /** The company identification number was incorrect. */
-            INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
-            /** The individual identification number or identification number was incorrect. */
-            INCORRECT_IDENTIFICATION_NUMBER,
-            /** The corrected data was incorrectly formatted. */
-            INCORRECTLY_FORMATTED_CORRECTED_DATA,
-            /** The discretionary data was incorrect. */
-            INCORRECT_DISCRETIONARY_DATA,
-            /** The routing number was not from the original entry detail record. */
-            ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
-            /**
-             * The depository financial institution account number was not from the original entry
-             * detail record.
-             */
-            DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
-            /**
-             * The transaction code was incorrect, initiated by the originating depository financial
-             * institution.
-             */
-            INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
+            /** A checking account. */
+            CHECKING,
+            /** A savings account. */
+            SAVINGS,
+            /** A bank's general ledger. Uncommon. */
+            GENERAL_LEDGER,
         }
 
         /**
-         * An enum containing [ChangeCode]'s known values, as well as an [_UNKNOWN] member.
+         * An enum containing [CorrectedAccountFunding]'s known values, as well as an [_UNKNOWN]
+         * member.
          *
-         * An instance of [ChangeCode] can contain an unknown value in a couple of cases:
+         * An instance of [CorrectedAccountFunding] can contain an unknown value in a couple of
+         * cases:
          * - It was deserialized from data that doesn't match any known member. For example, if the
          *   SDK is on an older version than the API, then the API may respond with new members that
          *   the SDK is unaware of.
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** The account number was incorrect. */
-            INCORRECT_ACCOUNT_NUMBER,
-            /** The routing number was incorrect. */
-            INCORRECT_ROUTING_NUMBER,
-            /** Both the routing number and the account number were incorrect. */
-            INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER,
+            /** A checking account. */
+            CHECKING,
+            /** A savings account. */
+            SAVINGS,
+            /** A bank's general ledger. Uncommon. */
+            GENERAL_LEDGER,
             /**
-             * The transaction code was incorrect. Try changing the `funding` parameter from
-             * checking to savings or vice-versa.
-             */
-            INCORRECT_TRANSACTION_CODE,
-            /** The account number and the transaction code were incorrect. */
-            INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
-            /** The routing number, account number, and transaction code were incorrect. */
-            INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE,
-            /** The receiving depository financial institution identification was incorrect. */
-            INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION,
-            /** The individual identification number was incorrect. */
-            INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER,
-            /** The addenda had an incorrect format. */
-            ADDENDA_FORMAT_ERROR,
-            /**
-             * The standard entry class code was incorrect for an outbound international payment.
-             */
-            INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT,
-            /** The notification of change was misrouted. */
-            MISROUTED_NOTIFICATION_OF_CHANGE,
-            /** The trace number was incorrect. */
-            INCORRECT_TRACE_NUMBER,
-            /** The company identification number was incorrect. */
-            INCORRECT_COMPANY_IDENTIFICATION_NUMBER,
-            /** The individual identification number or identification number was incorrect. */
-            INCORRECT_IDENTIFICATION_NUMBER,
-            /** The corrected data was incorrectly formatted. */
-            INCORRECTLY_FORMATTED_CORRECTED_DATA,
-            /** The discretionary data was incorrect. */
-            INCORRECT_DISCRETIONARY_DATA,
-            /** The routing number was not from the original entry detail record. */
-            ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
-            /**
-             * The depository financial institution account number was not from the original entry
-             * detail record.
-             */
-            DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD,
-            /**
-             * The transaction code was incorrect, initiated by the originating depository financial
-             * institution.
-             */
-            INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION,
-            /**
-             * An enum member indicating that [ChangeCode] was instantiated with an unknown value.
+             * An enum member indicating that [CorrectedAccountFunding] was instantiated with an
+             * unknown value.
              */
             _UNKNOWN,
         }
@@ -760,36 +751,9 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                INCORRECT_ACCOUNT_NUMBER -> Value.INCORRECT_ACCOUNT_NUMBER
-                INCORRECT_ROUTING_NUMBER -> Value.INCORRECT_ROUTING_NUMBER
-                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
-                    Value.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
-                INCORRECT_TRANSACTION_CODE -> Value.INCORRECT_TRANSACTION_CODE
-                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
-                    Value.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
-                    Value.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
-                    Value.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
-                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
-                    Value.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
-                ADDENDA_FORMAT_ERROR -> Value.ADDENDA_FORMAT_ERROR
-                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
-                    Value.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
-                MISROUTED_NOTIFICATION_OF_CHANGE -> Value.MISROUTED_NOTIFICATION_OF_CHANGE
-                INCORRECT_TRACE_NUMBER -> Value.INCORRECT_TRACE_NUMBER
-                INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
-                    Value.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
-                INCORRECT_IDENTIFICATION_NUMBER -> Value.INCORRECT_IDENTIFICATION_NUMBER
-                INCORRECTLY_FORMATTED_CORRECTED_DATA -> Value.INCORRECTLY_FORMATTED_CORRECTED_DATA
-                INCORRECT_DISCRETIONARY_DATA -> Value.INCORRECT_DISCRETIONARY_DATA
-                ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
-                    Value.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
-                    Value
-                        .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
-                    Value.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
+                CHECKING -> Value.CHECKING
+                SAVINGS -> Value.SAVINGS
+                GENERAL_LEDGER -> Value.GENERAL_LEDGER
                 else -> Value._UNKNOWN
             }
 
@@ -804,37 +768,11 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                INCORRECT_ACCOUNT_NUMBER -> Known.INCORRECT_ACCOUNT_NUMBER
-                INCORRECT_ROUTING_NUMBER -> Known.INCORRECT_ROUTING_NUMBER
-                INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER ->
-                    Known.INCORRECT_ROUTING_NUMBER_AND_ACCOUNT_NUMBER
-                INCORRECT_TRANSACTION_CODE -> Known.INCORRECT_TRANSACTION_CODE
-                INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
-                    Known.INCORRECT_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE ->
-                    Known.INCORRECT_ROUTING_NUMBER_ACCOUNT_NUMBER_AND_TRANSACTION_CODE
-                INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION ->
-                    Known.INCORRECT_RECEIVING_DEPOSITORY_FINANCIAL_INSTITUTION_IDENTIFICATION
-                INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER ->
-                    Known.INCORRECT_INDIVIDUAL_IDENTIFICATION_NUMBER
-                ADDENDA_FORMAT_ERROR -> Known.ADDENDA_FORMAT_ERROR
-                INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT ->
-                    Known.INCORRECT_STANDARD_ENTRY_CLASS_CODE_FOR_OUTBOUND_INTERNATIONAL_PAYMENT
-                MISROUTED_NOTIFICATION_OF_CHANGE -> Known.MISROUTED_NOTIFICATION_OF_CHANGE
-                INCORRECT_TRACE_NUMBER -> Known.INCORRECT_TRACE_NUMBER
-                INCORRECT_COMPANY_IDENTIFICATION_NUMBER ->
-                    Known.INCORRECT_COMPANY_IDENTIFICATION_NUMBER
-                INCORRECT_IDENTIFICATION_NUMBER -> Known.INCORRECT_IDENTIFICATION_NUMBER
-                INCORRECTLY_FORMATTED_CORRECTED_DATA -> Known.INCORRECTLY_FORMATTED_CORRECTED_DATA
-                INCORRECT_DISCRETIONARY_DATA -> Known.INCORRECT_DISCRETIONARY_DATA
-                ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
-                    Known.ROUTING_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD ->
-                    Known
-                        .DEPOSITORY_FINANCIAL_INSTITUTION_ACCOUNT_NUMBER_NOT_FROM_ORIGINAL_ENTRY_DETAIL_RECORD
-                INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION ->
-                    Known.INCORRECT_TRANSACTION_CODE_BY_ORIGINATING_DEPOSITORY_FINANCIAL_INSTITUTION
-                else -> throw IncreaseInvalidDataException("Unknown ChangeCode: $value")
+                CHECKING -> Known.CHECKING
+                SAVINGS -> Known.SAVINGS
+                GENERAL_LEDGER -> Known.GENERAL_LEDGER
+                else ->
+                    throw IncreaseInvalidDataException("Unknown CorrectedAccountFunding: $value")
             }
 
         /**
@@ -862,7 +800,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): ChangeCode = apply {
+        fun validate(): CorrectedAccountFunding = apply {
             if (validated) {
                 return@apply
             }
@@ -892,7 +830,7 @@ private constructor(
                 return true
             }
 
-            return other is ChangeCode && value == other.value
+            return other is CorrectedAccountFunding && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

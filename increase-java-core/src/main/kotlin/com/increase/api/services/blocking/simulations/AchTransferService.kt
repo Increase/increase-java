@@ -67,15 +67,17 @@ interface AchTransferService {
         acknowledge(achTransferId, AchTransferAcknowledgeParams.none(), requestOptions)
 
     /** Simulates receiving a Notification of Change for an [ACH Transfer](#ach-transfers). */
-    fun createNotificationOfChange(
-        achTransferId: String,
-        params: AchTransferCreateNotificationOfChangeParams,
-    ): AchTransfer = createNotificationOfChange(achTransferId, params, RequestOptions.none())
+    fun createNotificationOfChange(achTransferId: String): AchTransfer =
+        createNotificationOfChange(
+            achTransferId,
+            AchTransferCreateNotificationOfChangeParams.none(),
+        )
 
     /** @see createNotificationOfChange */
     fun createNotificationOfChange(
         achTransferId: String,
-        params: AchTransferCreateNotificationOfChangeParams,
+        params: AchTransferCreateNotificationOfChangeParams =
+            AchTransferCreateNotificationOfChangeParams.none(),
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer =
         createNotificationOfChange(
@@ -85,14 +87,32 @@ interface AchTransferService {
 
     /** @see createNotificationOfChange */
     fun createNotificationOfChange(
-        params: AchTransferCreateNotificationOfChangeParams
-    ): AchTransfer = createNotificationOfChange(params, RequestOptions.none())
+        achTransferId: String,
+        params: AchTransferCreateNotificationOfChangeParams =
+            AchTransferCreateNotificationOfChangeParams.none(),
+    ): AchTransfer = createNotificationOfChange(achTransferId, params, RequestOptions.none())
 
     /** @see createNotificationOfChange */
     fun createNotificationOfChange(
         params: AchTransferCreateNotificationOfChangeParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): AchTransfer
+
+    /** @see createNotificationOfChange */
+    fun createNotificationOfChange(
+        params: AchTransferCreateNotificationOfChangeParams
+    ): AchTransfer = createNotificationOfChange(params, RequestOptions.none())
+
+    /** @see createNotificationOfChange */
+    fun createNotificationOfChange(
+        achTransferId: String,
+        requestOptions: RequestOptions,
+    ): AchTransfer =
+        createNotificationOfChange(
+            achTransferId,
+            AchTransferCreateNotificationOfChangeParams.none(),
+            requestOptions,
+        )
 
     /**
      * Simulates the return of an [ACH Transfer](#ach-transfers) by the Federal Reserve due to an
@@ -270,17 +290,18 @@ interface AchTransferService {
          * otherwise the same as [AchTransferService.createNotificationOfChange].
          */
         @MustBeClosed
-        fun createNotificationOfChange(
-            achTransferId: String,
-            params: AchTransferCreateNotificationOfChangeParams,
-        ): HttpResponseFor<AchTransfer> =
-            createNotificationOfChange(achTransferId, params, RequestOptions.none())
+        fun createNotificationOfChange(achTransferId: String): HttpResponseFor<AchTransfer> =
+            createNotificationOfChange(
+                achTransferId,
+                AchTransferCreateNotificationOfChangeParams.none(),
+            )
 
         /** @see createNotificationOfChange */
         @MustBeClosed
         fun createNotificationOfChange(
             achTransferId: String,
-            params: AchTransferCreateNotificationOfChangeParams,
+            params: AchTransferCreateNotificationOfChangeParams =
+                AchTransferCreateNotificationOfChangeParams.none(),
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer> =
             createNotificationOfChange(
@@ -291,8 +312,11 @@ interface AchTransferService {
         /** @see createNotificationOfChange */
         @MustBeClosed
         fun createNotificationOfChange(
-            params: AchTransferCreateNotificationOfChangeParams
-        ): HttpResponseFor<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
+            achTransferId: String,
+            params: AchTransferCreateNotificationOfChangeParams =
+                AchTransferCreateNotificationOfChangeParams.none(),
+        ): HttpResponseFor<AchTransfer> =
+            createNotificationOfChange(achTransferId, params, RequestOptions.none())
 
         /** @see createNotificationOfChange */
         @MustBeClosed
@@ -300,6 +324,24 @@ interface AchTransferService {
             params: AchTransferCreateNotificationOfChangeParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): HttpResponseFor<AchTransfer>
+
+        /** @see createNotificationOfChange */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            params: AchTransferCreateNotificationOfChangeParams
+        ): HttpResponseFor<AchTransfer> = createNotificationOfChange(params, RequestOptions.none())
+
+        /** @see createNotificationOfChange */
+        @MustBeClosed
+        fun createNotificationOfChange(
+            achTransferId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<AchTransfer> =
+            createNotificationOfChange(
+                achTransferId,
+                AchTransferCreateNotificationOfChangeParams.none(),
+                requestOptions,
+            )
 
         /**
          * Returns a raw HTTP response for `post
