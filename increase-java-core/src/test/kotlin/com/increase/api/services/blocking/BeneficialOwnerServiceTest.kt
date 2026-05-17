@@ -163,6 +163,7 @@ internal class BeneficialOwnerServiceTest {
                             .build()
                     )
                     .name("x")
+                    .addProng(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
                     .build()
             )
 
