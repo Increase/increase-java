@@ -3,6 +3,7 @@
 package com.increase.api.models.beneficialowners
 
 import java.time.LocalDate
+import kotlin.jvm.optionals.getOrNull
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -56,6 +57,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .build()
             )
             .name("x")
+            .addProng(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
             .build()
     }
 
@@ -120,6 +122,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                         .build()
                 )
                 .name("x")
+                .addProng(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
                 .build()
 
         val body = params._body()
@@ -170,6 +173,8 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .build()
             )
         assertThat(body.name()).contains("x")
+        assertThat(body.prongs().getOrNull())
+            .containsExactly(BeneficialOwnerUpdateParams.Prong.OWNERSHIP)
     }
 
     @Test
