@@ -1505,9 +1505,11 @@ private constructor(
         fun address(): Address = address.getRequired("address")
 
         /**
-         * The identifying details of each person who owns 25% or more of the business and one
-         * control person, like the CEO, CFO, or other executive. You can submit between 1 and 5
-         * people to this list.
+         * The identifying details of one control person (`control`), like the CEO, CFO, or other
+         * executive, plus each person who owns 25% or more of the business (`ownership`). At least
+         * one control person is required, and frequently, the `control` person is also `ownership`.
+         * In some cases, there are no individuals who own 25% or more of the business. In that
+         * case, you should submit a single `control` person.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1734,9 +1736,11 @@ private constructor(
             fun address(address: JsonField<Address>) = apply { this.address = address }
 
             /**
-             * The identifying details of each person who owns 25% or more of the business and one
-             * control person, like the CEO, CFO, or other executive. You can submit between 1 and 5
-             * people to this list.
+             * The identifying details of one control person (`control`), like the CEO, CFO, or
+             * other executive, plus each person who owns 25% or more of the business (`ownership`).
+             * At least one control person is required, and frequently, the `control` person is also
+             * `ownership`. In some cases, there are no individuals who own 25% or more of the
+             * business. In that case, you should submit a single `control` person.
              */
             fun beneficialOwners(beneficialOwners: List<BeneficialOwner>) =
                 beneficialOwners(JsonField.of(beneficialOwners))
