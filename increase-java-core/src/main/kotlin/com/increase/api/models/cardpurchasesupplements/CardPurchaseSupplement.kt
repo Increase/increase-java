@@ -32,6 +32,7 @@ private constructor(
     private val cardPaymentId: JsonField<String>,
     private val invoice: JsonField<Invoice>,
     private val lineItems: JsonField<List<LineItem>>,
+    private val shipping: JsonField<Shipping>,
     private val transactionId: JsonField<String>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -47,11 +48,12 @@ private constructor(
         @JsonProperty("line_items")
         @ExcludeMissing
         lineItems: JsonField<List<LineItem>> = JsonMissing.of(),
+        @JsonProperty("shipping") @ExcludeMissing shipping: JsonField<Shipping> = JsonMissing.of(),
         @JsonProperty("transaction_id")
         @ExcludeMissing
         transactionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, cardPaymentId, invoice, lineItems, transactionId, type, mutableMapOf())
+    ) : this(id, cardPaymentId, invoice, lineItems, shipping, transactionId, type, mutableMapOf())
 
     /**
      * The Card Purchase Supplement identifier.
@@ -84,6 +86,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun lineItems(): Optional<List<LineItem>> = lineItems.getOptional("line_items")
+
+    /**
+     * Shipping information for the purchase.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun shipping(): Optional<Shipping> = shipping.getOptional("shipping")
 
     /**
      * The ID of the transaction.
@@ -135,6 +145,13 @@ private constructor(
     fun _lineItems(): JsonField<List<LineItem>> = lineItems
 
     /**
+     * Returns the raw JSON value of [shipping].
+     *
+     * Unlike [shipping], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("shipping") @ExcludeMissing fun _shipping(): JsonField<Shipping> = shipping
+
+    /**
      * Returns the raw JSON value of [transactionId].
      *
      * Unlike [transactionId], this method doesn't throw if the JSON field has an unexpected type.
@@ -173,6 +190,7 @@ private constructor(
          * .cardPaymentId()
          * .invoice()
          * .lineItems()
+         * .shipping()
          * .transactionId()
          * .type()
          * ```
@@ -187,6 +205,7 @@ private constructor(
         private var cardPaymentId: JsonField<String>? = null
         private var invoice: JsonField<Invoice>? = null
         private var lineItems: JsonField<MutableList<LineItem>>? = null
+        private var shipping: JsonField<Shipping>? = null
         private var transactionId: JsonField<String>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -197,6 +216,7 @@ private constructor(
             cardPaymentId = cardPurchaseSupplement.cardPaymentId
             invoice = cardPurchaseSupplement.invoice
             lineItems = cardPurchaseSupplement.lineItems.map { it.toMutableList() }
+            shipping = cardPurchaseSupplement.shipping
             transactionId = cardPurchaseSupplement.transactionId
             type = cardPurchaseSupplement.type
             additionalProperties = cardPurchaseSupplement.additionalProperties.toMutableMap()
@@ -275,6 +295,21 @@ private constructor(
                 }
         }
 
+        /** Shipping information for the purchase. */
+        fun shipping(shipping: Shipping?) = shipping(JsonField.ofNullable(shipping))
+
+        /** Alias for calling [Builder.shipping] with `shipping.orElse(null)`. */
+        fun shipping(shipping: Optional<Shipping>) = shipping(shipping.getOrNull())
+
+        /**
+         * Sets [Builder.shipping] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.shipping] with a well-typed [Shipping] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun shipping(shipping: JsonField<Shipping>) = apply { this.shipping = shipping }
+
         /** The ID of the transaction. */
         fun transactionId(transactionId: String) = transactionId(JsonField.of(transactionId))
 
@@ -333,6 +368,7 @@ private constructor(
          * .cardPaymentId()
          * .invoice()
          * .lineItems()
+         * .shipping()
          * .transactionId()
          * .type()
          * ```
@@ -345,6 +381,7 @@ private constructor(
                 checkRequired("cardPaymentId", cardPaymentId),
                 checkRequired("invoice", invoice),
                 checkRequired("lineItems", lineItems).map { it.toImmutable() },
+                checkRequired("shipping", shipping),
                 checkRequired("transactionId", transactionId),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -370,6 +407,7 @@ private constructor(
         cardPaymentId()
         invoice().ifPresent { it.validate() }
         lineItems().ifPresent { it.forEach { it.validate() } }
+        shipping().ifPresent { it.validate() }
         transactionId()
         type().validate()
         validated = true
@@ -394,6 +432,7 @@ private constructor(
             (if (cardPaymentId.asKnown().isPresent) 1 else 0) +
             (invoice.asKnown().getOrNull()?.validity() ?: 0) +
             (lineItems.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (shipping.asKnown().getOrNull()?.validity() ?: 0) +
             (if (transactionId.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -3127,6 +3166,1211 @@ private constructor(
             "LineItem{id=$id, detailIndicator=$detailIndicator, discountAmount=$discountAmount, discountCurrency=$discountCurrency, discountTreatmentCode=$discountTreatmentCode, itemCommodityCode=$itemCommodityCode, itemDescriptor=$itemDescriptor, itemQuantity=$itemQuantity, productCode=$productCode, salesTaxAmount=$salesTaxAmount, salesTaxCurrency=$salesTaxCurrency, salesTaxRate=$salesTaxRate, totalAmount=$totalAmount, totalAmountCurrency=$totalAmountCurrency, unitCost=$unitCost, unitCostCurrency=$unitCostCurrency, unitOfMeasureCode=$unitOfMeasureCode, additionalProperties=$additionalProperties}"
     }
 
+    /** Shipping information for the purchase. */
+    class Shipping
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val customerReferenceNumber: JsonField<String>,
+        private val destinationAddress: JsonField<String>,
+        private val destinationCountryCode: JsonField<String>,
+        private val destinationPostalCode: JsonField<String>,
+        private val destinationReceiverName: JsonField<String>,
+        private val discountAmount: JsonField<Long>,
+        private val netAmount: JsonField<Long>,
+        private val numberOfPackages: JsonField<Long>,
+        private val originAddress: JsonField<String>,
+        private val originCountryCode: JsonField<String>,
+        private val originPostalCode: JsonField<String>,
+        private val originSenderName: JsonField<String>,
+        private val pickUpDate: JsonField<LocalDate>,
+        private val serviceDescription: JsonField<String>,
+        private val serviceLevelCode: JsonField<String>,
+        private val shippingCourierName: JsonField<String>,
+        private val taxAmount: JsonField<Long>,
+        private val trackingNumber: JsonField<String>,
+        private val unitOfMeasure: JsonField<String>,
+        private val weight: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("customer_reference_number")
+            @ExcludeMissing
+            customerReferenceNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("destination_address")
+            @ExcludeMissing
+            destinationAddress: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("destination_country_code")
+            @ExcludeMissing
+            destinationCountryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("destination_postal_code")
+            @ExcludeMissing
+            destinationPostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("destination_receiver_name")
+            @ExcludeMissing
+            destinationReceiverName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("discount_amount")
+            @ExcludeMissing
+            discountAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("net_amount")
+            @ExcludeMissing
+            netAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("number_of_packages")
+            @ExcludeMissing
+            numberOfPackages: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("origin_address")
+            @ExcludeMissing
+            originAddress: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("origin_country_code")
+            @ExcludeMissing
+            originCountryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("origin_postal_code")
+            @ExcludeMissing
+            originPostalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("origin_sender_name")
+            @ExcludeMissing
+            originSenderName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("pick_up_date")
+            @ExcludeMissing
+            pickUpDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("service_description")
+            @ExcludeMissing
+            serviceDescription: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("service_level_code")
+            @ExcludeMissing
+            serviceLevelCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("shipping_courier_name")
+            @ExcludeMissing
+            shippingCourierName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("tax_amount")
+            @ExcludeMissing
+            taxAmount: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("tracking_number")
+            @ExcludeMissing
+            trackingNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("unit_of_measure")
+            @ExcludeMissing
+            unitOfMeasure: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("weight") @ExcludeMissing weight: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            customerReferenceNumber,
+            destinationAddress,
+            destinationCountryCode,
+            destinationPostalCode,
+            destinationReceiverName,
+            discountAmount,
+            netAmount,
+            numberOfPackages,
+            originAddress,
+            originCountryCode,
+            originPostalCode,
+            originSenderName,
+            pickUpDate,
+            serviceDescription,
+            serviceLevelCode,
+            shippingCourierName,
+            taxAmount,
+            trackingNumber,
+            unitOfMeasure,
+            weight,
+            mutableMapOf(),
+        )
+
+        /**
+         * The customer reference number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun customerReferenceNumber(): Optional<String> =
+            customerReferenceNumber.getOptional("customer_reference_number")
+
+        /**
+         * Address of the destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun destinationAddress(): Optional<String> =
+            destinationAddress.getOptional("destination_address")
+
+        /**
+         * Country code of the destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun destinationCountryCode(): Optional<String> =
+            destinationCountryCode.getOptional("destination_country_code")
+
+        /**
+         * Postal code of the destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun destinationPostalCode(): Optional<String> =
+            destinationPostalCode.getOptional("destination_postal_code")
+
+        /**
+         * Name of the receiver at the destination.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun destinationReceiverName(): Optional<String> =
+            destinationReceiverName.getOptional("destination_receiver_name")
+
+        /**
+         * Discount amount for the shipment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun discountAmount(): Optional<Long> = discountAmount.getOptional("discount_amount")
+
+        /**
+         * Net shipping amount.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun netAmount(): Optional<Long> = netAmount.getOptional("net_amount")
+
+        /**
+         * Number of packages shipped.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun numberOfPackages(): Optional<Long> = numberOfPackages.getOptional("number_of_packages")
+
+        /**
+         * Address of the origin.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun originAddress(): Optional<String> = originAddress.getOptional("origin_address")
+
+        /**
+         * Country code of the origin.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun originCountryCode(): Optional<String> =
+            originCountryCode.getOptional("origin_country_code")
+
+        /**
+         * Postal code of the origin.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun originPostalCode(): Optional<String> =
+            originPostalCode.getOptional("origin_postal_code")
+
+        /**
+         * Name of the sender at the origin.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun originSenderName(): Optional<String> =
+            originSenderName.getOptional("origin_sender_name")
+
+        /**
+         * Date the shipment should be picked up.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun pickUpDate(): Optional<LocalDate> = pickUpDate.getOptional("pick_up_date")
+
+        /**
+         * Description of the shipping service.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun serviceDescription(): Optional<String> =
+            serviceDescription.getOptional("service_description")
+
+        /**
+         * Service level code for the shipment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun serviceLevelCode(): Optional<String> =
+            serviceLevelCode.getOptional("service_level_code")
+
+        /**
+         * Name of the shipping courier.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingCourierName(): Optional<String> =
+            shippingCourierName.getOptional("shipping_courier_name")
+
+        /**
+         * Tax amount for the shipment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun taxAmount(): Optional<Long> = taxAmount.getOptional("tax_amount")
+
+        /**
+         * Tracking number for the shipment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun trackingNumber(): Optional<String> = trackingNumber.getOptional("tracking_number")
+
+        /**
+         * Unit of measure for the shipment weight.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun unitOfMeasure(): Optional<String> = unitOfMeasure.getOptional("unit_of_measure")
+
+        /**
+         * Weight of the shipment.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun weight(): Optional<String> = weight.getOptional("weight")
+
+        /**
+         * Returns the raw JSON value of [customerReferenceNumber].
+         *
+         * Unlike [customerReferenceNumber], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("customer_reference_number")
+        @ExcludeMissing
+        fun _customerReferenceNumber(): JsonField<String> = customerReferenceNumber
+
+        /**
+         * Returns the raw JSON value of [destinationAddress].
+         *
+         * Unlike [destinationAddress], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("destination_address")
+        @ExcludeMissing
+        fun _destinationAddress(): JsonField<String> = destinationAddress
+
+        /**
+         * Returns the raw JSON value of [destinationCountryCode].
+         *
+         * Unlike [destinationCountryCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("destination_country_code")
+        @ExcludeMissing
+        fun _destinationCountryCode(): JsonField<String> = destinationCountryCode
+
+        /**
+         * Returns the raw JSON value of [destinationPostalCode].
+         *
+         * Unlike [destinationPostalCode], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("destination_postal_code")
+        @ExcludeMissing
+        fun _destinationPostalCode(): JsonField<String> = destinationPostalCode
+
+        /**
+         * Returns the raw JSON value of [destinationReceiverName].
+         *
+         * Unlike [destinationReceiverName], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("destination_receiver_name")
+        @ExcludeMissing
+        fun _destinationReceiverName(): JsonField<String> = destinationReceiverName
+
+        /**
+         * Returns the raw JSON value of [discountAmount].
+         *
+         * Unlike [discountAmount], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("discount_amount")
+        @ExcludeMissing
+        fun _discountAmount(): JsonField<Long> = discountAmount
+
+        /**
+         * Returns the raw JSON value of [netAmount].
+         *
+         * Unlike [netAmount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("net_amount") @ExcludeMissing fun _netAmount(): JsonField<Long> = netAmount
+
+        /**
+         * Returns the raw JSON value of [numberOfPackages].
+         *
+         * Unlike [numberOfPackages], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("number_of_packages")
+        @ExcludeMissing
+        fun _numberOfPackages(): JsonField<Long> = numberOfPackages
+
+        /**
+         * Returns the raw JSON value of [originAddress].
+         *
+         * Unlike [originAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("origin_address")
+        @ExcludeMissing
+        fun _originAddress(): JsonField<String> = originAddress
+
+        /**
+         * Returns the raw JSON value of [originCountryCode].
+         *
+         * Unlike [originCountryCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("origin_country_code")
+        @ExcludeMissing
+        fun _originCountryCode(): JsonField<String> = originCountryCode
+
+        /**
+         * Returns the raw JSON value of [originPostalCode].
+         *
+         * Unlike [originPostalCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("origin_postal_code")
+        @ExcludeMissing
+        fun _originPostalCode(): JsonField<String> = originPostalCode
+
+        /**
+         * Returns the raw JSON value of [originSenderName].
+         *
+         * Unlike [originSenderName], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("origin_sender_name")
+        @ExcludeMissing
+        fun _originSenderName(): JsonField<String> = originSenderName
+
+        /**
+         * Returns the raw JSON value of [pickUpDate].
+         *
+         * Unlike [pickUpDate], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("pick_up_date")
+        @ExcludeMissing
+        fun _pickUpDate(): JsonField<LocalDate> = pickUpDate
+
+        /**
+         * Returns the raw JSON value of [serviceDescription].
+         *
+         * Unlike [serviceDescription], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("service_description")
+        @ExcludeMissing
+        fun _serviceDescription(): JsonField<String> = serviceDescription
+
+        /**
+         * Returns the raw JSON value of [serviceLevelCode].
+         *
+         * Unlike [serviceLevelCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("service_level_code")
+        @ExcludeMissing
+        fun _serviceLevelCode(): JsonField<String> = serviceLevelCode
+
+        /**
+         * Returns the raw JSON value of [shippingCourierName].
+         *
+         * Unlike [shippingCourierName], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("shipping_courier_name")
+        @ExcludeMissing
+        fun _shippingCourierName(): JsonField<String> = shippingCourierName
+
+        /**
+         * Returns the raw JSON value of [taxAmount].
+         *
+         * Unlike [taxAmount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("tax_amount") @ExcludeMissing fun _taxAmount(): JsonField<Long> = taxAmount
+
+        /**
+         * Returns the raw JSON value of [trackingNumber].
+         *
+         * Unlike [trackingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("tracking_number")
+        @ExcludeMissing
+        fun _trackingNumber(): JsonField<String> = trackingNumber
+
+        /**
+         * Returns the raw JSON value of [unitOfMeasure].
+         *
+         * Unlike [unitOfMeasure], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("unit_of_measure")
+        @ExcludeMissing
+        fun _unitOfMeasure(): JsonField<String> = unitOfMeasure
+
+        /**
+         * Returns the raw JSON value of [weight].
+         *
+         * Unlike [weight], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("weight") @ExcludeMissing fun _weight(): JsonField<String> = weight
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Shipping].
+             *
+             * The following fields are required:
+             * ```java
+             * .customerReferenceNumber()
+             * .destinationAddress()
+             * .destinationCountryCode()
+             * .destinationPostalCode()
+             * .destinationReceiverName()
+             * .discountAmount()
+             * .netAmount()
+             * .numberOfPackages()
+             * .originAddress()
+             * .originCountryCode()
+             * .originPostalCode()
+             * .originSenderName()
+             * .pickUpDate()
+             * .serviceDescription()
+             * .serviceLevelCode()
+             * .shippingCourierName()
+             * .taxAmount()
+             * .trackingNumber()
+             * .unitOfMeasure()
+             * .weight()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Shipping]. */
+        class Builder internal constructor() {
+
+            private var customerReferenceNumber: JsonField<String>? = null
+            private var destinationAddress: JsonField<String>? = null
+            private var destinationCountryCode: JsonField<String>? = null
+            private var destinationPostalCode: JsonField<String>? = null
+            private var destinationReceiverName: JsonField<String>? = null
+            private var discountAmount: JsonField<Long>? = null
+            private var netAmount: JsonField<Long>? = null
+            private var numberOfPackages: JsonField<Long>? = null
+            private var originAddress: JsonField<String>? = null
+            private var originCountryCode: JsonField<String>? = null
+            private var originPostalCode: JsonField<String>? = null
+            private var originSenderName: JsonField<String>? = null
+            private var pickUpDate: JsonField<LocalDate>? = null
+            private var serviceDescription: JsonField<String>? = null
+            private var serviceLevelCode: JsonField<String>? = null
+            private var shippingCourierName: JsonField<String>? = null
+            private var taxAmount: JsonField<Long>? = null
+            private var trackingNumber: JsonField<String>? = null
+            private var unitOfMeasure: JsonField<String>? = null
+            private var weight: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(shipping: Shipping) = apply {
+                customerReferenceNumber = shipping.customerReferenceNumber
+                destinationAddress = shipping.destinationAddress
+                destinationCountryCode = shipping.destinationCountryCode
+                destinationPostalCode = shipping.destinationPostalCode
+                destinationReceiverName = shipping.destinationReceiverName
+                discountAmount = shipping.discountAmount
+                netAmount = shipping.netAmount
+                numberOfPackages = shipping.numberOfPackages
+                originAddress = shipping.originAddress
+                originCountryCode = shipping.originCountryCode
+                originPostalCode = shipping.originPostalCode
+                originSenderName = shipping.originSenderName
+                pickUpDate = shipping.pickUpDate
+                serviceDescription = shipping.serviceDescription
+                serviceLevelCode = shipping.serviceLevelCode
+                shippingCourierName = shipping.shippingCourierName
+                taxAmount = shipping.taxAmount
+                trackingNumber = shipping.trackingNumber
+                unitOfMeasure = shipping.unitOfMeasure
+                weight = shipping.weight
+                additionalProperties = shipping.additionalProperties.toMutableMap()
+            }
+
+            /** The customer reference number. */
+            fun customerReferenceNumber(customerReferenceNumber: String?) =
+                customerReferenceNumber(JsonField.ofNullable(customerReferenceNumber))
+
+            /**
+             * Alias for calling [Builder.customerReferenceNumber] with
+             * `customerReferenceNumber.orElse(null)`.
+             */
+            fun customerReferenceNumber(customerReferenceNumber: Optional<String>) =
+                customerReferenceNumber(customerReferenceNumber.getOrNull())
+
+            /**
+             * Sets [Builder.customerReferenceNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.customerReferenceNumber] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun customerReferenceNumber(customerReferenceNumber: JsonField<String>) = apply {
+                this.customerReferenceNumber = customerReferenceNumber
+            }
+
+            /** Address of the destination. */
+            fun destinationAddress(destinationAddress: String?) =
+                destinationAddress(JsonField.ofNullable(destinationAddress))
+
+            /**
+             * Alias for calling [Builder.destinationAddress] with
+             * `destinationAddress.orElse(null)`.
+             */
+            fun destinationAddress(destinationAddress: Optional<String>) =
+                destinationAddress(destinationAddress.getOrNull())
+
+            /**
+             * Sets [Builder.destinationAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationAddress] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun destinationAddress(destinationAddress: JsonField<String>) = apply {
+                this.destinationAddress = destinationAddress
+            }
+
+            /** Country code of the destination. */
+            fun destinationCountryCode(destinationCountryCode: String?) =
+                destinationCountryCode(JsonField.ofNullable(destinationCountryCode))
+
+            /**
+             * Alias for calling [Builder.destinationCountryCode] with
+             * `destinationCountryCode.orElse(null)`.
+             */
+            fun destinationCountryCode(destinationCountryCode: Optional<String>) =
+                destinationCountryCode(destinationCountryCode.getOrNull())
+
+            /**
+             * Sets [Builder.destinationCountryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationCountryCode] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun destinationCountryCode(destinationCountryCode: JsonField<String>) = apply {
+                this.destinationCountryCode = destinationCountryCode
+            }
+
+            /** Postal code of the destination. */
+            fun destinationPostalCode(destinationPostalCode: String?) =
+                destinationPostalCode(JsonField.ofNullable(destinationPostalCode))
+
+            /**
+             * Alias for calling [Builder.destinationPostalCode] with
+             * `destinationPostalCode.orElse(null)`.
+             */
+            fun destinationPostalCode(destinationPostalCode: Optional<String>) =
+                destinationPostalCode(destinationPostalCode.getOrNull())
+
+            /**
+             * Sets [Builder.destinationPostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationPostalCode] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun destinationPostalCode(destinationPostalCode: JsonField<String>) = apply {
+                this.destinationPostalCode = destinationPostalCode
+            }
+
+            /** Name of the receiver at the destination. */
+            fun destinationReceiverName(destinationReceiverName: String?) =
+                destinationReceiverName(JsonField.ofNullable(destinationReceiverName))
+
+            /**
+             * Alias for calling [Builder.destinationReceiverName] with
+             * `destinationReceiverName.orElse(null)`.
+             */
+            fun destinationReceiverName(destinationReceiverName: Optional<String>) =
+                destinationReceiverName(destinationReceiverName.getOrNull())
+
+            /**
+             * Sets [Builder.destinationReceiverName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.destinationReceiverName] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun destinationReceiverName(destinationReceiverName: JsonField<String>) = apply {
+                this.destinationReceiverName = destinationReceiverName
+            }
+
+            /** Discount amount for the shipment. */
+            fun discountAmount(discountAmount: Long?) =
+                discountAmount(JsonField.ofNullable(discountAmount))
+
+            /**
+             * Alias for [Builder.discountAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun discountAmount(discountAmount: Long) = discountAmount(discountAmount as Long?)
+
+            /** Alias for calling [Builder.discountAmount] with `discountAmount.orElse(null)`. */
+            fun discountAmount(discountAmount: Optional<Long>) =
+                discountAmount(discountAmount.getOrNull())
+
+            /**
+             * Sets [Builder.discountAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.discountAmount] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun discountAmount(discountAmount: JsonField<Long>) = apply {
+                this.discountAmount = discountAmount
+            }
+
+            /** Net shipping amount. */
+            fun netAmount(netAmount: Long?) = netAmount(JsonField.ofNullable(netAmount))
+
+            /**
+             * Alias for [Builder.netAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun netAmount(netAmount: Long) = netAmount(netAmount as Long?)
+
+            /** Alias for calling [Builder.netAmount] with `netAmount.orElse(null)`. */
+            fun netAmount(netAmount: Optional<Long>) = netAmount(netAmount.getOrNull())
+
+            /**
+             * Sets [Builder.netAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.netAmount] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun netAmount(netAmount: JsonField<Long>) = apply { this.netAmount = netAmount }
+
+            /** Number of packages shipped. */
+            fun numberOfPackages(numberOfPackages: Long?) =
+                numberOfPackages(JsonField.ofNullable(numberOfPackages))
+
+            /**
+             * Alias for [Builder.numberOfPackages].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun numberOfPackages(numberOfPackages: Long) =
+                numberOfPackages(numberOfPackages as Long?)
+
+            /**
+             * Alias for calling [Builder.numberOfPackages] with `numberOfPackages.orElse(null)`.
+             */
+            fun numberOfPackages(numberOfPackages: Optional<Long>) =
+                numberOfPackages(numberOfPackages.getOrNull())
+
+            /**
+             * Sets [Builder.numberOfPackages] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.numberOfPackages] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun numberOfPackages(numberOfPackages: JsonField<Long>) = apply {
+                this.numberOfPackages = numberOfPackages
+            }
+
+            /** Address of the origin. */
+            fun originAddress(originAddress: String?) =
+                originAddress(JsonField.ofNullable(originAddress))
+
+            /** Alias for calling [Builder.originAddress] with `originAddress.orElse(null)`. */
+            fun originAddress(originAddress: Optional<String>) =
+                originAddress(originAddress.getOrNull())
+
+            /**
+             * Sets [Builder.originAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originAddress] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun originAddress(originAddress: JsonField<String>) = apply {
+                this.originAddress = originAddress
+            }
+
+            /** Country code of the origin. */
+            fun originCountryCode(originCountryCode: String?) =
+                originCountryCode(JsonField.ofNullable(originCountryCode))
+
+            /**
+             * Alias for calling [Builder.originCountryCode] with `originCountryCode.orElse(null)`.
+             */
+            fun originCountryCode(originCountryCode: Optional<String>) =
+                originCountryCode(originCountryCode.getOrNull())
+
+            /**
+             * Sets [Builder.originCountryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originCountryCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun originCountryCode(originCountryCode: JsonField<String>) = apply {
+                this.originCountryCode = originCountryCode
+            }
+
+            /** Postal code of the origin. */
+            fun originPostalCode(originPostalCode: String?) =
+                originPostalCode(JsonField.ofNullable(originPostalCode))
+
+            /**
+             * Alias for calling [Builder.originPostalCode] with `originPostalCode.orElse(null)`.
+             */
+            fun originPostalCode(originPostalCode: Optional<String>) =
+                originPostalCode(originPostalCode.getOrNull())
+
+            /**
+             * Sets [Builder.originPostalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originPostalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun originPostalCode(originPostalCode: JsonField<String>) = apply {
+                this.originPostalCode = originPostalCode
+            }
+
+            /** Name of the sender at the origin. */
+            fun originSenderName(originSenderName: String?) =
+                originSenderName(JsonField.ofNullable(originSenderName))
+
+            /**
+             * Alias for calling [Builder.originSenderName] with `originSenderName.orElse(null)`.
+             */
+            fun originSenderName(originSenderName: Optional<String>) =
+                originSenderName(originSenderName.getOrNull())
+
+            /**
+             * Sets [Builder.originSenderName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originSenderName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun originSenderName(originSenderName: JsonField<String>) = apply {
+                this.originSenderName = originSenderName
+            }
+
+            /** Date the shipment should be picked up. */
+            fun pickUpDate(pickUpDate: LocalDate?) = pickUpDate(JsonField.ofNullable(pickUpDate))
+
+            /** Alias for calling [Builder.pickUpDate] with `pickUpDate.orElse(null)`. */
+            fun pickUpDate(pickUpDate: Optional<LocalDate>) = pickUpDate(pickUpDate.getOrNull())
+
+            /**
+             * Sets [Builder.pickUpDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.pickUpDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun pickUpDate(pickUpDate: JsonField<LocalDate>) = apply {
+                this.pickUpDate = pickUpDate
+            }
+
+            /** Description of the shipping service. */
+            fun serviceDescription(serviceDescription: String?) =
+                serviceDescription(JsonField.ofNullable(serviceDescription))
+
+            /**
+             * Alias for calling [Builder.serviceDescription] with
+             * `serviceDescription.orElse(null)`.
+             */
+            fun serviceDescription(serviceDescription: Optional<String>) =
+                serviceDescription(serviceDescription.getOrNull())
+
+            /**
+             * Sets [Builder.serviceDescription] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.serviceDescription] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun serviceDescription(serviceDescription: JsonField<String>) = apply {
+                this.serviceDescription = serviceDescription
+            }
+
+            /** Service level code for the shipment. */
+            fun serviceLevelCode(serviceLevelCode: String?) =
+                serviceLevelCode(JsonField.ofNullable(serviceLevelCode))
+
+            /**
+             * Alias for calling [Builder.serviceLevelCode] with `serviceLevelCode.orElse(null)`.
+             */
+            fun serviceLevelCode(serviceLevelCode: Optional<String>) =
+                serviceLevelCode(serviceLevelCode.getOrNull())
+
+            /**
+             * Sets [Builder.serviceLevelCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.serviceLevelCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun serviceLevelCode(serviceLevelCode: JsonField<String>) = apply {
+                this.serviceLevelCode = serviceLevelCode
+            }
+
+            /** Name of the shipping courier. */
+            fun shippingCourierName(shippingCourierName: String?) =
+                shippingCourierName(JsonField.ofNullable(shippingCourierName))
+
+            /**
+             * Alias for calling [Builder.shippingCourierName] with
+             * `shippingCourierName.orElse(null)`.
+             */
+            fun shippingCourierName(shippingCourierName: Optional<String>) =
+                shippingCourierName(shippingCourierName.getOrNull())
+
+            /**
+             * Sets [Builder.shippingCourierName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingCourierName] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun shippingCourierName(shippingCourierName: JsonField<String>) = apply {
+                this.shippingCourierName = shippingCourierName
+            }
+
+            /** Tax amount for the shipment. */
+            fun taxAmount(taxAmount: Long?) = taxAmount(JsonField.ofNullable(taxAmount))
+
+            /**
+             * Alias for [Builder.taxAmount].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun taxAmount(taxAmount: Long) = taxAmount(taxAmount as Long?)
+
+            /** Alias for calling [Builder.taxAmount] with `taxAmount.orElse(null)`. */
+            fun taxAmount(taxAmount: Optional<Long>) = taxAmount(taxAmount.getOrNull())
+
+            /**
+             * Sets [Builder.taxAmount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxAmount] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun taxAmount(taxAmount: JsonField<Long>) = apply { this.taxAmount = taxAmount }
+
+            /** Tracking number for the shipment. */
+            fun trackingNumber(trackingNumber: String?) =
+                trackingNumber(JsonField.ofNullable(trackingNumber))
+
+            /** Alias for calling [Builder.trackingNumber] with `trackingNumber.orElse(null)`. */
+            fun trackingNumber(trackingNumber: Optional<String>) =
+                trackingNumber(trackingNumber.getOrNull())
+
+            /**
+             * Sets [Builder.trackingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.trackingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun trackingNumber(trackingNumber: JsonField<String>) = apply {
+                this.trackingNumber = trackingNumber
+            }
+
+            /** Unit of measure for the shipment weight. */
+            fun unitOfMeasure(unitOfMeasure: String?) =
+                unitOfMeasure(JsonField.ofNullable(unitOfMeasure))
+
+            /** Alias for calling [Builder.unitOfMeasure] with `unitOfMeasure.orElse(null)`. */
+            fun unitOfMeasure(unitOfMeasure: Optional<String>) =
+                unitOfMeasure(unitOfMeasure.getOrNull())
+
+            /**
+             * Sets [Builder.unitOfMeasure] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unitOfMeasure] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun unitOfMeasure(unitOfMeasure: JsonField<String>) = apply {
+                this.unitOfMeasure = unitOfMeasure
+            }
+
+            /** Weight of the shipment. */
+            fun weight(weight: String?) = weight(JsonField.ofNullable(weight))
+
+            /** Alias for calling [Builder.weight] with `weight.orElse(null)`. */
+            fun weight(weight: Optional<String>) = weight(weight.getOrNull())
+
+            /**
+             * Sets [Builder.weight] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.weight] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun weight(weight: JsonField<String>) = apply { this.weight = weight }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Shipping].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .customerReferenceNumber()
+             * .destinationAddress()
+             * .destinationCountryCode()
+             * .destinationPostalCode()
+             * .destinationReceiverName()
+             * .discountAmount()
+             * .netAmount()
+             * .numberOfPackages()
+             * .originAddress()
+             * .originCountryCode()
+             * .originPostalCode()
+             * .originSenderName()
+             * .pickUpDate()
+             * .serviceDescription()
+             * .serviceLevelCode()
+             * .shippingCourierName()
+             * .taxAmount()
+             * .trackingNumber()
+             * .unitOfMeasure()
+             * .weight()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Shipping =
+                Shipping(
+                    checkRequired("customerReferenceNumber", customerReferenceNumber),
+                    checkRequired("destinationAddress", destinationAddress),
+                    checkRequired("destinationCountryCode", destinationCountryCode),
+                    checkRequired("destinationPostalCode", destinationPostalCode),
+                    checkRequired("destinationReceiverName", destinationReceiverName),
+                    checkRequired("discountAmount", discountAmount),
+                    checkRequired("netAmount", netAmount),
+                    checkRequired("numberOfPackages", numberOfPackages),
+                    checkRequired("originAddress", originAddress),
+                    checkRequired("originCountryCode", originCountryCode),
+                    checkRequired("originPostalCode", originPostalCode),
+                    checkRequired("originSenderName", originSenderName),
+                    checkRequired("pickUpDate", pickUpDate),
+                    checkRequired("serviceDescription", serviceDescription),
+                    checkRequired("serviceLevelCode", serviceLevelCode),
+                    checkRequired("shippingCourierName", shippingCourierName),
+                    checkRequired("taxAmount", taxAmount),
+                    checkRequired("trackingNumber", trackingNumber),
+                    checkRequired("unitOfMeasure", unitOfMeasure),
+                    checkRequired("weight", weight),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Shipping = apply {
+            if (validated) {
+                return@apply
+            }
+
+            customerReferenceNumber()
+            destinationAddress()
+            destinationCountryCode()
+            destinationPostalCode()
+            destinationReceiverName()
+            discountAmount()
+            netAmount()
+            numberOfPackages()
+            originAddress()
+            originCountryCode()
+            originPostalCode()
+            originSenderName()
+            pickUpDate()
+            serviceDescription()
+            serviceLevelCode()
+            shippingCourierName()
+            taxAmount()
+            trackingNumber()
+            unitOfMeasure()
+            weight()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (customerReferenceNumber.asKnown().isPresent) 1 else 0) +
+                (if (destinationAddress.asKnown().isPresent) 1 else 0) +
+                (if (destinationCountryCode.asKnown().isPresent) 1 else 0) +
+                (if (destinationPostalCode.asKnown().isPresent) 1 else 0) +
+                (if (destinationReceiverName.asKnown().isPresent) 1 else 0) +
+                (if (discountAmount.asKnown().isPresent) 1 else 0) +
+                (if (netAmount.asKnown().isPresent) 1 else 0) +
+                (if (numberOfPackages.asKnown().isPresent) 1 else 0) +
+                (if (originAddress.asKnown().isPresent) 1 else 0) +
+                (if (originCountryCode.asKnown().isPresent) 1 else 0) +
+                (if (originPostalCode.asKnown().isPresent) 1 else 0) +
+                (if (originSenderName.asKnown().isPresent) 1 else 0) +
+                (if (pickUpDate.asKnown().isPresent) 1 else 0) +
+                (if (serviceDescription.asKnown().isPresent) 1 else 0) +
+                (if (serviceLevelCode.asKnown().isPresent) 1 else 0) +
+                (if (shippingCourierName.asKnown().isPresent) 1 else 0) +
+                (if (taxAmount.asKnown().isPresent) 1 else 0) +
+                (if (trackingNumber.asKnown().isPresent) 1 else 0) +
+                (if (unitOfMeasure.asKnown().isPresent) 1 else 0) +
+                (if (weight.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Shipping &&
+                customerReferenceNumber == other.customerReferenceNumber &&
+                destinationAddress == other.destinationAddress &&
+                destinationCountryCode == other.destinationCountryCode &&
+                destinationPostalCode == other.destinationPostalCode &&
+                destinationReceiverName == other.destinationReceiverName &&
+                discountAmount == other.discountAmount &&
+                netAmount == other.netAmount &&
+                numberOfPackages == other.numberOfPackages &&
+                originAddress == other.originAddress &&
+                originCountryCode == other.originCountryCode &&
+                originPostalCode == other.originPostalCode &&
+                originSenderName == other.originSenderName &&
+                pickUpDate == other.pickUpDate &&
+                serviceDescription == other.serviceDescription &&
+                serviceLevelCode == other.serviceLevelCode &&
+                shippingCourierName == other.shippingCourierName &&
+                taxAmount == other.taxAmount &&
+                trackingNumber == other.trackingNumber &&
+                unitOfMeasure == other.unitOfMeasure &&
+                weight == other.weight &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                customerReferenceNumber,
+                destinationAddress,
+                destinationCountryCode,
+                destinationPostalCode,
+                destinationReceiverName,
+                discountAmount,
+                netAmount,
+                numberOfPackages,
+                originAddress,
+                originCountryCode,
+                originPostalCode,
+                originSenderName,
+                pickUpDate,
+                serviceDescription,
+                serviceLevelCode,
+                shippingCourierName,
+                taxAmount,
+                trackingNumber,
+                unitOfMeasure,
+                weight,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Shipping{customerReferenceNumber=$customerReferenceNumber, destinationAddress=$destinationAddress, destinationCountryCode=$destinationCountryCode, destinationPostalCode=$destinationPostalCode, destinationReceiverName=$destinationReceiverName, discountAmount=$discountAmount, netAmount=$netAmount, numberOfPackages=$numberOfPackages, originAddress=$originAddress, originCountryCode=$originCountryCode, originPostalCode=$originPostalCode, originSenderName=$originSenderName, pickUpDate=$pickUpDate, serviceDescription=$serviceDescription, serviceLevelCode=$serviceLevelCode, shippingCourierName=$shippingCourierName, taxAmount=$taxAmount, trackingNumber=$trackingNumber, unitOfMeasure=$unitOfMeasure, weight=$weight, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `card_purchase_supplement`.
@@ -3271,6 +4515,7 @@ private constructor(
             cardPaymentId == other.cardPaymentId &&
             invoice == other.invoice &&
             lineItems == other.lineItems &&
+            shipping == other.shipping &&
             transactionId == other.transactionId &&
             type == other.type &&
             additionalProperties == other.additionalProperties
@@ -3282,6 +4527,7 @@ private constructor(
             cardPaymentId,
             invoice,
             lineItems,
+            shipping,
             transactionId,
             type,
             additionalProperties,
@@ -3291,5 +4537,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardPurchaseSupplement{id=$id, cardPaymentId=$cardPaymentId, invoice=$invoice, lineItems=$lineItems, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CardPurchaseSupplement{id=$id, cardPaymentId=$cardPaymentId, invoice=$invoice, lineItems=$lineItems, shipping=$shipping, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
