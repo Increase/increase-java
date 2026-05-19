@@ -187,7 +187,8 @@ private constructor(
 
     /**
      * If the Check Transfer was successfully deposited, this will contain the identifier of the
-     * Inbound Check Deposit object with details of the deposit.
+     * Inbound Check Deposit object with details of the deposit. The Inbound Check Deposit object
+     * will have information about any associated Transactions for this Check Transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -751,7 +752,8 @@ private constructor(
 
         /**
          * If the Check Transfer was successfully deposited, this will contain the identifier of the
-         * Inbound Check Deposit object with details of the deposit.
+         * Inbound Check Deposit object with details of the deposit. The Inbound Check Deposit
+         * object will have information about any associated Transactions for this Check Transfer.
          */
         fun approvedInboundCheckDepositId(approvedInboundCheckDepositId: String?) =
             approvedInboundCheckDepositId(JsonField.ofNullable(approvedInboundCheckDepositId))
