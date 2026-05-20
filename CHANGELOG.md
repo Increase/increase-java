@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.557.1](https://github.com/Increase/increase-java/compare/v0.557.0...v0.557.1) (2026-05-20)
+
+
+### Chores
+
+* add release workflow and migrate config to Increase/release-please fork ([#1323](https://github.com/Increase/increase-java/issues/1323)) ([9f6b9b2](https://github.com/Increase/increase-java/commit/9f6b9b2b89a4dcfcc6bc26859960ad3b0cfdacf7))
+* collapse CI into a single job ([#1326](https://github.com/Increase/increase-java/issues/1326)) ([537aa9c](https://github.com/Increase/increase-java/commit/537aa9cd175a7430d175d2dfeb007aaa8f709801))
+* cut over to Increase/release-please and prune Stainless CI cruft ([#1324](https://github.com/Increase/increase-java/issues/1324)) ([1e3a585](https://github.com/Increase/increase-java/commit/1e3a585f3fece489ce950211c3410221e8af022e))
+
 ## 0.557.0 (2026-05-20)
 
 Full Changelog: [v0.556.0...v0.557.0](https://github.com/Increase/increase-java/compare/v0.556.0...v0.557.0)
