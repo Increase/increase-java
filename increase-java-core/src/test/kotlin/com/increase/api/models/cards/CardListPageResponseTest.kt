@@ -133,6 +133,7 @@ internal class CardListPageResponseTest {
                                 .state("NY")
                                 .build()
                         )
+                        .bin("42424242")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .description("Office Expenses")
                         .digitalWallet(
@@ -267,6 +268,7 @@ internal class CardListPageResponseTest {
                             .state("NY")
                             .build()
                     )
+                    .bin("42424242")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .description("Office Expenses")
                     .digitalWallet(
@@ -412,6 +414,7 @@ internal class CardListPageResponseTest {
                                 .state("NY")
                                 .build()
                         )
+                        .bin("42424242")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .description("Office Expenses")
                         .digitalWallet(

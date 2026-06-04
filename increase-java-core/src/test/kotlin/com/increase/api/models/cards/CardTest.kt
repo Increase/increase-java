@@ -121,6 +121,7 @@ internal class CardTest {
                         .state("NY")
                         .build()
                 )
+                .bin("42424242")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Office Expenses")
                 .digitalWallet(
@@ -245,6 +246,7 @@ internal class CardTest {
                     .state("NY")
                     .build()
             )
+        assertThat(card.bin()).isEqualTo("42424242")
         assertThat(card.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(card.description()).contains("Office Expenses")
         assertThat(card.digitalWallet())
@@ -376,6 +378,7 @@ internal class CardTest {
                         .state("NY")
                         .build()
                 )
+                .bin("42424242")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Office Expenses")
                 .digitalWallet(

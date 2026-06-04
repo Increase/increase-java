@@ -18,7 +18,7 @@ internal class SwiftTransferTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
                 .amount(100L)
-                .bankIdentificationCode("ECBFDEFFTPP")
+                .bankIdentificationCode("FRNYUS33XXX")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     SwiftTransfer.CreatedBy.builder()
@@ -75,7 +75,7 @@ internal class SwiftTransferTest {
         assertThat(swiftTransfer.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(swiftTransfer.accountNumber()).isEqualTo("987654321")
         assertThat(swiftTransfer.amount()).isEqualTo(100L)
-        assertThat(swiftTransfer.bankIdentificationCode()).isEqualTo("ECBFDEFFTPP")
+        assertThat(swiftTransfer.bankIdentificationCode()).isEqualTo("FRNYUS33XXX")
         assertThat(swiftTransfer.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(swiftTransfer.createdBy())
@@ -142,7 +142,7 @@ internal class SwiftTransferTest {
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
                 .amount(100L)
-                .bankIdentificationCode("ECBFDEFFTPP")
+                .bankIdentificationCode("FRNYUS33XXX")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .createdBy(
                     SwiftTransfer.CreatedBy.builder()

@@ -84,6 +84,7 @@ internal class CheckDepositServiceAsyncTest {
                             .accountNumber("x")
                             .routingNumber("x")
                             .auxiliaryOnUs("x")
+                            .serialNumber("x")
                             .build()
                     )
                     .build()
