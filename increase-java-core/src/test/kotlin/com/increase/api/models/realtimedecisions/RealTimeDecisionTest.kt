@@ -230,6 +230,15 @@ internal class RealTimeDecisionTest {
                         )
                         .digitalWalletTokenId(null)
                         .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
+                        .healthcare(
+                            RealTimeDecision.CardAuthorization.Healthcare.builder()
+                                .merchantNinetyPercentEligibility(
+                                    RealTimeDecision.CardAuthorization.Healthcare
+                                        .MerchantNinetyPercentEligibility
+                                        .ELIGIBLE
+                                )
+                                .build()
+                        )
                         .merchantAcceptorId("5665270011000168")
                         .merchantCategoryCode("5734")
                         .merchantCity("New York")
@@ -785,6 +794,15 @@ internal class RealTimeDecisionTest {
                     )
                     .digitalWalletTokenId(null)
                     .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
+                    .healthcare(
+                        RealTimeDecision.CardAuthorization.Healthcare.builder()
+                            .merchantNinetyPercentEligibility(
+                                RealTimeDecision.CardAuthorization.Healthcare
+                                    .MerchantNinetyPercentEligibility
+                                    .ELIGIBLE
+                            )
+                            .build()
+                    )
                     .merchantAcceptorId("5665270011000168")
                     .merchantCategoryCode("5734")
                     .merchantCity("New York")
@@ -1346,6 +1364,15 @@ internal class RealTimeDecisionTest {
                         )
                         .digitalWalletTokenId(null)
                         .direction(RealTimeDecision.CardAuthorization.Direction.SETTLEMENT)
+                        .healthcare(
+                            RealTimeDecision.CardAuthorization.Healthcare.builder()
+                                .merchantNinetyPercentEligibility(
+                                    RealTimeDecision.CardAuthorization.Healthcare
+                                        .MerchantNinetyPercentEligibility
+                                        .ELIGIBLE
+                                )
+                                .build()
+                        )
                         .merchantAcceptorId("5665270011000168")
                         .merchantCategoryCode("5734")
                         .merchantCity("New York")

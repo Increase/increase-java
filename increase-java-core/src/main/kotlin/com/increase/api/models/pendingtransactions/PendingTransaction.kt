@@ -4452,6 +4452,7 @@ private constructor(
             private val digitalWalletTokenId: JsonField<String>,
             private val direction: JsonField<Direction>,
             private val expiresAt: JsonField<OffsetDateTime>,
+            private val healthcare: JsonField<Healthcare>,
             private val merchantAcceptorId: JsonField<String>,
             private val merchantCategoryCode: JsonField<String>,
             private val merchantCity: JsonField<String>,
@@ -4500,6 +4501,9 @@ private constructor(
                 @JsonProperty("expires_at")
                 @ExcludeMissing
                 expiresAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("healthcare")
+                @ExcludeMissing
+                healthcare: JsonField<Healthcare> = JsonMissing.of(),
                 @JsonProperty("merchant_acceptor_id")
                 @ExcludeMissing
                 merchantAcceptorId: JsonField<String> = JsonMissing.of(),
@@ -4568,6 +4572,7 @@ private constructor(
                 digitalWalletTokenId,
                 direction,
                 expiresAt,
+                healthcare,
                 merchantAcceptorId,
                 merchantCategoryCode,
                 merchantCity,
@@ -4680,6 +4685,15 @@ private constructor(
              *   value).
              */
             fun expiresAt(): OffsetDateTime = expiresAt.getRequired("expires_at")
+
+            /**
+             * The healthcare-related fields for this authorization. Only present for specific
+             * programs.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun healthcare(): Optional<Healthcare> = healthcare.getOptional("healthcare")
 
             /**
              * The merchant identifier (commonly abbreviated as MID) of the merchant the card is
@@ -4957,6 +4971,16 @@ private constructor(
             fun _expiresAt(): JsonField<OffsetDateTime> = expiresAt
 
             /**
+             * Returns the raw JSON value of [healthcare].
+             *
+             * Unlike [healthcare], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("healthcare")
+            @ExcludeMissing
+            fun _healthcare(): JsonField<Healthcare> = healthcare
+
+            /**
              * Returns the raw JSON value of [merchantAcceptorId].
              *
              * Unlike [merchantAcceptorId], this method doesn't throw if the JSON field has an
@@ -5181,6 +5205,7 @@ private constructor(
                  * .digitalWalletTokenId()
                  * .direction()
                  * .expiresAt()
+                 * .healthcare()
                  * .merchantAcceptorId()
                  * .merchantCategoryCode()
                  * .merchantCity()
@@ -5218,6 +5243,7 @@ private constructor(
                 private var digitalWalletTokenId: JsonField<String>? = null
                 private var direction: JsonField<Direction>? = null
                 private var expiresAt: JsonField<OffsetDateTime>? = null
+                private var healthcare: JsonField<Healthcare>? = null
                 private var merchantAcceptorId: JsonField<String>? = null
                 private var merchantCategoryCode: JsonField<String>? = null
                 private var merchantCity: JsonField<String>? = null
@@ -5251,6 +5277,7 @@ private constructor(
                     digitalWalletTokenId = cardAuthorization.digitalWalletTokenId
                     direction = cardAuthorization.direction
                     expiresAt = cardAuthorization.expiresAt
+                    healthcare = cardAuthorization.healthcare
                     merchantAcceptorId = cardAuthorization.merchantAcceptorId
                     merchantCategoryCode = cardAuthorization.merchantCategoryCode
                     merchantCity = cardAuthorization.merchantCity
@@ -5422,6 +5449,28 @@ private constructor(
                  */
                 fun expiresAt(expiresAt: JsonField<OffsetDateTime>) = apply {
                     this.expiresAt = expiresAt
+                }
+
+                /**
+                 * The healthcare-related fields for this authorization. Only present for specific
+                 * programs.
+                 */
+                fun healthcare(healthcare: Healthcare?) =
+                    healthcare(JsonField.ofNullable(healthcare))
+
+                /** Alias for calling [Builder.healthcare] with `healthcare.orElse(null)`. */
+                fun healthcare(healthcare: Optional<Healthcare>) =
+                    healthcare(healthcare.getOrNull())
+
+                /**
+                 * Sets [Builder.healthcare] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.healthcare] with a well-typed [Healthcare] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun healthcare(healthcare: JsonField<Healthcare>) = apply {
+                    this.healthcare = healthcare
                 }
 
                 /**
@@ -5855,6 +5904,7 @@ private constructor(
                  * .digitalWalletTokenId()
                  * .direction()
                  * .expiresAt()
+                 * .healthcare()
                  * .merchantAcceptorId()
                  * .merchantCategoryCode()
                  * .merchantCity()
@@ -5890,6 +5940,7 @@ private constructor(
                         checkRequired("digitalWalletTokenId", digitalWalletTokenId),
                         checkRequired("direction", direction),
                         checkRequired("expiresAt", expiresAt),
+                        checkRequired("healthcare", healthcare),
                         checkRequired("merchantAcceptorId", merchantAcceptorId),
                         checkRequired("merchantCategoryCode", merchantCategoryCode),
                         checkRequired("merchantCity", merchantCity),
@@ -5940,6 +5991,7 @@ private constructor(
                 digitalWalletTokenId()
                 direction().validate()
                 expiresAt()
+                healthcare().ifPresent { it.validate() }
                 merchantAcceptorId()
                 merchantCategoryCode()
                 merchantCity()
@@ -5988,6 +6040,7 @@ private constructor(
                     (if (digitalWalletTokenId.asKnown().isPresent) 1 else 0) +
                     (direction.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (expiresAt.asKnown().isPresent) 1 else 0) +
+                    (healthcare.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (merchantAcceptorId.asKnown().isPresent) 1 else 0) +
                     (if (merchantCategoryCode.asKnown().isPresent) 1 else 0) +
                     (if (merchantCity.asKnown().isPresent) 1 else 0) +
@@ -9491,6 +9544,387 @@ private constructor(
                 override fun hashCode() = value.hashCode()
 
                 override fun toString() = value.toString()
+            }
+
+            /**
+             * The healthcare-related fields for this authorization. Only present for specific
+             * programs.
+             */
+            class Healthcare
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val merchantNinetyPercentEligibility:
+                    JsonField<MerchantNinetyPercentEligibility>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("merchant_ninety_percent_eligibility")
+                    @ExcludeMissing
+                    merchantNinetyPercentEligibility: JsonField<MerchantNinetyPercentEligibility> =
+                        JsonMissing.of()
+                ) : this(merchantNinetyPercentEligibility, mutableMapOf())
+
+                /**
+                 * The merchant's eligibility under the Internal Revenue Service's 90% Rule for
+                 * Flexible Spending Account (FSA) and Health Savings Account (HSA) eligible
+                 * products. The eligibility is determined based on the list of merchants maintained
+                 * by the Special Interest Group for IIAS Standards (SIGIS).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun merchantNinetyPercentEligibility(): MerchantNinetyPercentEligibility =
+                    merchantNinetyPercentEligibility.getRequired(
+                        "merchant_ninety_percent_eligibility"
+                    )
+
+                /**
+                 * Returns the raw JSON value of [merchantNinetyPercentEligibility].
+                 *
+                 * Unlike [merchantNinetyPercentEligibility], this method doesn't throw if the JSON
+                 * field has an unexpected type.
+                 */
+                @JsonProperty("merchant_ninety_percent_eligibility")
+                @ExcludeMissing
+                fun _merchantNinetyPercentEligibility():
+                    JsonField<MerchantNinetyPercentEligibility> = merchantNinetyPercentEligibility
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Healthcare].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .merchantNinetyPercentEligibility()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Healthcare]. */
+                class Builder internal constructor() {
+
+                    private var merchantNinetyPercentEligibility:
+                        JsonField<MerchantNinetyPercentEligibility>? =
+                        null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(healthcare: Healthcare) = apply {
+                        merchantNinetyPercentEligibility =
+                            healthcare.merchantNinetyPercentEligibility
+                        additionalProperties = healthcare.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * The merchant's eligibility under the Internal Revenue Service's 90% Rule for
+                     * Flexible Spending Account (FSA) and Health Savings Account (HSA) eligible
+                     * products. The eligibility is determined based on the list of merchants
+                     * maintained by the Special Interest Group for IIAS Standards (SIGIS).
+                     */
+                    fun merchantNinetyPercentEligibility(
+                        merchantNinetyPercentEligibility: MerchantNinetyPercentEligibility
+                    ) =
+                        merchantNinetyPercentEligibility(
+                            JsonField.of(merchantNinetyPercentEligibility)
+                        )
+
+                    /**
+                     * Sets [Builder.merchantNinetyPercentEligibility] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.merchantNinetyPercentEligibility] with a
+                     * well-typed [MerchantNinetyPercentEligibility] value instead. This method is
+                     * primarily for setting the field to an undocumented or not yet supported
+                     * value.
+                     */
+                    fun merchantNinetyPercentEligibility(
+                        merchantNinetyPercentEligibility:
+                            JsonField<MerchantNinetyPercentEligibility>
+                    ) = apply {
+                        this.merchantNinetyPercentEligibility = merchantNinetyPercentEligibility
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Healthcare].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .merchantNinetyPercentEligibility()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Healthcare =
+                        Healthcare(
+                            checkRequired(
+                                "merchantNinetyPercentEligibility",
+                                merchantNinetyPercentEligibility,
+                            ),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Healthcare = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    merchantNinetyPercentEligibility().validate()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (merchantNinetyPercentEligibility.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * The merchant's eligibility under the Internal Revenue Service's 90% Rule for
+                 * Flexible Spending Account (FSA) and Health Savings Account (HSA) eligible
+                 * products. The eligibility is determined based on the list of merchants maintained
+                 * by the Special Interest Group for IIAS Standards (SIGIS).
+                 */
+                class MerchantNinetyPercentEligibility
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** The merchant is eligible for treatment under the 90% rule. */
+                        @JvmField val ELIGIBLE = of("eligible")
+
+                        /** The merchant is not eligible for treatment under the 90% rule. */
+                        @JvmField val NOT_ELIGIBLE = of("not_eligible")
+
+                        @JvmStatic
+                        fun of(value: String) =
+                            MerchantNinetyPercentEligibility(JsonField.of(value))
+                    }
+
+                    /** An enum containing [MerchantNinetyPercentEligibility]'s known values. */
+                    enum class Known {
+                        /** The merchant is eligible for treatment under the 90% rule. */
+                        ELIGIBLE,
+                        /** The merchant is not eligible for treatment under the 90% rule. */
+                        NOT_ELIGIBLE,
+                    }
+
+                    /**
+                     * An enum containing [MerchantNinetyPercentEligibility]'s known values, as well
+                     * as an [_UNKNOWN] member.
+                     *
+                     * An instance of [MerchantNinetyPercentEligibility] can contain an unknown
+                     * value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** The merchant is eligible for treatment under the 90% rule. */
+                        ELIGIBLE,
+                        /** The merchant is not eligible for treatment under the 90% rule. */
+                        NOT_ELIGIBLE,
+                        /**
+                         * An enum member indicating that [MerchantNinetyPercentEligibility] was
+                         * instantiated with an unknown value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            ELIGIBLE -> Value.ELIGIBLE
+                            NOT_ELIGIBLE -> Value.NOT_ELIGIBLE
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            ELIGIBLE -> Known.ELIGIBLE
+                            NOT_ELIGIBLE -> Known.NOT_ELIGIBLE
+                            else ->
+                                throw IncreaseInvalidDataException(
+                                    "Unknown MerchantNinetyPercentEligibility: $value"
+                                )
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): MerchantNinetyPercentEligibility = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is MerchantNinetyPercentEligibility && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Healthcare &&
+                        merchantNinetyPercentEligibility ==
+                            other.merchantNinetyPercentEligibility &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(merchantNinetyPercentEligibility, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Healthcare{merchantNinetyPercentEligibility=$merchantNinetyPercentEligibility, additionalProperties=$additionalProperties}"
             }
 
             /** Fields specific to the `network`. */
@@ -15360,6 +15794,7 @@ private constructor(
                     digitalWalletTokenId == other.digitalWalletTokenId &&
                     direction == other.direction &&
                     expiresAt == other.expiresAt &&
+                    healthcare == other.healthcare &&
                     merchantAcceptorId == other.merchantAcceptorId &&
                     merchantCategoryCode == other.merchantCategoryCode &&
                     merchantCity == other.merchantCity &&
@@ -15394,6 +15829,7 @@ private constructor(
                     digitalWalletTokenId,
                     direction,
                     expiresAt,
+                    healthcare,
                     merchantAcceptorId,
                     merchantCategoryCode,
                     merchantCity,
@@ -15421,7 +15857,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthorization{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, schemeFees=$schemeFees, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, healthcare=$healthcare, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, schemeFees=$schemeFees, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**

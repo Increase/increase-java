@@ -40,6 +40,7 @@ internal class InboundWireTransferListPageResponseTest {
                         .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                         .instructingAgentRoutingNumber("101050001")
                         .instructionIdentification("202201180000001")
+                        .purpose("CASH")
                         .reversal(
                             InboundWireTransfer.Reversal.builder()
                                 .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
@@ -83,6 +84,7 @@ internal class InboundWireTransferListPageResponseTest {
                     .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                     .instructingAgentRoutingNumber("101050001")
                     .instructionIdentification("202201180000001")
+                    .purpose("CASH")
                     .reversal(
                         InboundWireTransfer.Reversal.builder()
                             .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
@@ -130,6 +132,7 @@ internal class InboundWireTransferListPageResponseTest {
                         .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                         .instructingAgentRoutingNumber("101050001")
                         .instructionIdentification("202201180000001")
+                        .purpose("CASH")
                         .reversal(
                             InboundWireTransfer.Reversal.builder()
                                 .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)

@@ -35,6 +35,7 @@ private constructor(
     private val creator: JsonField<Creator>,
     private val description: JsonField<String>,
     private val frontImageFileId: JsonField<String>,
+    private val frontText: JsonField<FrontText>,
     private val idempotencyKey: JsonField<String>,
     private val isDefault: JsonField<Boolean>,
     private val programId: JsonField<String>,
@@ -65,6 +66,9 @@ private constructor(
         @JsonProperty("front_image_file_id")
         @ExcludeMissing
         frontImageFileId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("front_text")
+        @ExcludeMissing
+        frontText: JsonField<FrontText> = JsonMissing.of(),
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -83,6 +87,7 @@ private constructor(
         creator,
         description,
         frontImageFileId,
+        frontText,
         idempotencyKey,
         isDefault,
         programId,
@@ -159,6 +164,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun frontImageFileId(): Optional<String> = frontImageFileId.getOptional("front_image_file_id")
+
+    /**
+     * Text printed on the front of the card. Reach out to
+     * [support@increase.com](mailto:support@increase.com) for more information.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun frontText(): Optional<FrontText> = frontText.getOptional("front_text")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -272,6 +286,13 @@ private constructor(
     fun _frontImageFileId(): JsonField<String> = frontImageFileId
 
     /**
+     * Returns the raw JSON value of [frontText].
+     *
+     * Unlike [frontText], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("front_text") @ExcludeMissing fun _frontText(): JsonField<FrontText> = frontText
+
+    /**
      * Returns the raw JSON value of [idempotencyKey].
      *
      * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
@@ -335,6 +356,7 @@ private constructor(
          * .creator()
          * .description()
          * .frontImageFileId()
+         * .frontText()
          * .idempotencyKey()
          * .isDefault()
          * .programId()
@@ -356,6 +378,7 @@ private constructor(
         private var creator: JsonField<Creator>? = null
         private var description: JsonField<String>? = null
         private var frontImageFileId: JsonField<String>? = null
+        private var frontText: JsonField<FrontText>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var isDefault: JsonField<Boolean>? = null
         private var programId: JsonField<String>? = null
@@ -373,6 +396,7 @@ private constructor(
             creator = physicalCardProfile.creator
             description = physicalCardProfile.description
             frontImageFileId = physicalCardProfile.frontImageFileId
+            frontText = physicalCardProfile.frontText
             idempotencyKey = physicalCardProfile.idempotencyKey
             isDefault = physicalCardProfile.isDefault
             programId = physicalCardProfile.programId
@@ -516,6 +540,24 @@ private constructor(
         }
 
         /**
+         * Text printed on the front of the card. Reach out to
+         * [support@increase.com](mailto:support@increase.com) for more information.
+         */
+        fun frontText(frontText: FrontText?) = frontText(JsonField.ofNullable(frontText))
+
+        /** Alias for calling [Builder.frontText] with `frontText.orElse(null)`. */
+        fun frontText(frontText: Optional<FrontText>) = frontText(frontText.getOrNull())
+
+        /**
+         * Sets [Builder.frontText] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.frontText] with a well-typed [FrontText] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun frontText(frontText: JsonField<FrontText>) = apply { this.frontText = frontText }
+
+        /**
          * The idempotency key you chose for this object. This value is unique across Increase and
          * is used to ensure that a request is only processed once. Learn more about
          * [idempotency](https://increase.com/documentation/idempotency-keys).
@@ -623,6 +665,7 @@ private constructor(
          * .creator()
          * .description()
          * .frontImageFileId()
+         * .frontText()
          * .idempotencyKey()
          * .isDefault()
          * .programId()
@@ -642,6 +685,7 @@ private constructor(
                 checkRequired("creator", creator),
                 checkRequired("description", description),
                 checkRequired("frontImageFileId", frontImageFileId),
+                checkRequired("frontText", frontText),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("isDefault", isDefault),
                 checkRequired("programId", programId),
@@ -674,6 +718,7 @@ private constructor(
         creator().validate()
         description()
         frontImageFileId()
+        frontText().ifPresent { it.validate() }
         idempotencyKey()
         isDefault()
         programId()
@@ -705,6 +750,7 @@ private constructor(
             (creator.asKnown().getOrNull()?.validity() ?: 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (frontImageFileId.asKnown().isPresent) 1 else 0) +
+            (frontText.asKnown().getOrNull()?.validity() ?: 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (isDefault.asKnown().isPresent) 1 else 0) +
             (if (programId.asKnown().isPresent) 1 else 0) +
@@ -852,6 +898,225 @@ private constructor(
         override fun hashCode() = value.hashCode()
 
         override fun toString() = value.toString()
+    }
+
+    /**
+     * Text printed on the front of the card. Reach out to
+     * [support@increase.com](mailto:support@increase.com) for more information.
+     */
+    class FrontText
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val line1: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+        ) : this(line1, line2, mutableMapOf())
+
+        /**
+         * The first line of text on the front of the card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun line1(): String = line1.getRequired("line1")
+
+        /**
+         * The second line of text on the front of the card. Providing a second line moves the first
+         * line slightly higher and prints the second line in the spot where the first line would
+         * have otherwise been printed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun line2(): Optional<String> = line2.getOptional("line2")
+
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [FrontText].
+             *
+             * The following fields are required:
+             * ```java
+             * .line1()
+             * .line2()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [FrontText]. */
+        class Builder internal constructor() {
+
+            private var line1: JsonField<String>? = null
+            private var line2: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(frontText: FrontText) = apply {
+                line1 = frontText.line1
+                line2 = frontText.line2
+                additionalProperties = frontText.additionalProperties.toMutableMap()
+            }
+
+            /** The first line of text on the front of the card. */
+            fun line1(line1: String) = line1(JsonField.of(line1))
+
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+            /**
+             * The second line of text on the front of the card. Providing a second line moves the
+             * first line slightly higher and prints the second line in the spot where the first
+             * line would have otherwise been printed.
+             */
+            fun line2(line2: String?) = line2(JsonField.ofNullable(line2))
+
+            /** Alias for calling [Builder.line2] with `line2.orElse(null)`. */
+            fun line2(line2: Optional<String>) = line2(line2.getOrNull())
+
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [FrontText].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .line1()
+             * .line2()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): FrontText =
+                FrontText(
+                    checkRequired("line1", line1),
+                    checkRequired("line2", line2),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): FrontText = apply {
+            if (validated) {
+                return@apply
+            }
+
+            line1()
+            line2()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (line1.asKnown().isPresent) 1 else 0) + (if (line2.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is FrontText &&
+                line1 == other.line1 &&
+                line2 == other.line2 &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(line1, line2, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "FrontText{line1=$line1, line2=$line2, additionalProperties=$additionalProperties}"
     }
 
     /** The status of the Physical Card Profile. */
@@ -1190,6 +1455,7 @@ private constructor(
             creator == other.creator &&
             description == other.description &&
             frontImageFileId == other.frontImageFileId &&
+            frontText == other.frontText &&
             idempotencyKey == other.idempotencyKey &&
             isDefault == other.isDefault &&
             programId == other.programId &&
@@ -1208,6 +1474,7 @@ private constructor(
             creator,
             description,
             frontImageFileId,
+            frontText,
             idempotencyKey,
             isDefault,
             programId,
@@ -1220,5 +1487,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, idempotencyKey=$idempotencyKey, isDefault=$isDefault, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCardProfile{id=$id, backImageFileId=$backImageFileId, carrierImageFileId=$carrierImageFileId, contactPhone=$contactPhone, createdAt=$createdAt, creator=$creator, description=$description, frontImageFileId=$frontImageFileId, frontText=$frontText, idempotencyKey=$idempotencyKey, isDefault=$isDefault, programId=$programId, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

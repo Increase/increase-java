@@ -107,7 +107,9 @@ internal class CheckTransferListPageResponseTest {
                                         .state("NY")
                                         .build()
                                 )
-                                .shippingMethod(null)
+                                .shippingMethod(
+                                    CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
+                                )
                                 .signature(
                                     CheckTransfer.PhysicalCheck.Signature.builder()
                                         .imageFileId(null)
@@ -266,7 +268,9 @@ internal class CheckTransferListPageResponseTest {
                                     .state("NY")
                                     .build()
                             )
-                            .shippingMethod(null)
+                            .shippingMethod(
+                                CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
+                            )
                             .signature(
                                 CheckTransfer.PhysicalCheck.Signature.builder()
                                     .imageFileId(null)
@@ -425,7 +429,9 @@ internal class CheckTransferListPageResponseTest {
                                         .state("NY")
                                         .build()
                                 )
-                                .shippingMethod(null)
+                                .shippingMethod(
+                                    CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
+                                )
                                 .signature(
                                     CheckTransfer.PhysicalCheck.Signature.builder()
                                         .imageFileId(null)
