@@ -65,6 +65,19 @@ internal class ExportServiceAsyncTest {
                             .build()
                     )
                     .entityCsv(ExportCreateParams.EntityCsv.builder().build())
+                    .feeCsv(
+                        ExportCreateParams.FeeCsv.builder()
+                            .createdAt(
+                                ExportCreateParams.FeeCsv.CreatedAt.builder()
+                                    .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .before(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .onOrAfter(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                    .build()
+                            )
+                            .programId("program_id")
+                            .build()
+                    )
                     .fundingInstructions(
                         ExportCreateParams.FundingInstructions.builder()
                             .accountNumberId("account_number_id")

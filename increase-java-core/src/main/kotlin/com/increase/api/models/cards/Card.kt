@@ -34,6 +34,7 @@ private constructor(
     private val accountId: JsonField<String>,
     private val authorizationControls: JsonField<AuthorizationControls>,
     private val billingAddress: JsonField<BillingAddress>,
+    private val bin: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val description: JsonField<String>,
     private val digitalWallet: JsonField<DigitalWallet>,
@@ -57,6 +58,7 @@ private constructor(
         @JsonProperty("billing_address")
         @ExcludeMissing
         billingAddress: JsonField<BillingAddress> = JsonMissing.of(),
+        @JsonProperty("bin") @ExcludeMissing bin: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -84,6 +86,7 @@ private constructor(
         accountId,
         authorizationControls,
         billingAddress,
+        bin,
         createdAt,
         description,
         digitalWallet,
@@ -129,6 +132,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun billingAddress(): BillingAddress = billingAddress.getRequired("billing_address")
+
+    /**
+     * The Bank Identification Number (BIN) of the Card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun bin(): String = bin.getRequired("bin")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card was
@@ -248,6 +259,13 @@ private constructor(
     fun _billingAddress(): JsonField<BillingAddress> = billingAddress
 
     /**
+     * Returns the raw JSON value of [bin].
+     *
+     * Unlike [bin], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("bin") @ExcludeMissing fun _bin(): JsonField<String> = bin
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -350,6 +368,7 @@ private constructor(
          * .accountId()
          * .authorizationControls()
          * .billingAddress()
+         * .bin()
          * .createdAt()
          * .description()
          * .digitalWallet()
@@ -372,6 +391,7 @@ private constructor(
         private var accountId: JsonField<String>? = null
         private var authorizationControls: JsonField<AuthorizationControls>? = null
         private var billingAddress: JsonField<BillingAddress>? = null
+        private var bin: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var description: JsonField<String>? = null
         private var digitalWallet: JsonField<DigitalWallet>? = null
@@ -390,6 +410,7 @@ private constructor(
             accountId = card.accountId
             authorizationControls = card.authorizationControls
             billingAddress = card.billingAddress
+            bin = card.bin
             createdAt = card.createdAt
             description = card.description
             digitalWallet = card.digitalWallet
@@ -462,6 +483,17 @@ private constructor(
         fun billingAddress(billingAddress: JsonField<BillingAddress>) = apply {
             this.billingAddress = billingAddress
         }
+
+        /** The Bank Identification Number (BIN) of the Card. */
+        fun bin(bin: String) = bin(JsonField.of(bin))
+
+        /**
+         * Sets [Builder.bin] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.bin] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun bin(bin: JsonField<String>) = apply { this.bin = bin }
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
@@ -645,6 +677,7 @@ private constructor(
          * .accountId()
          * .authorizationControls()
          * .billingAddress()
+         * .bin()
          * .createdAt()
          * .description()
          * .digitalWallet()
@@ -665,6 +698,7 @@ private constructor(
                 checkRequired("accountId", accountId),
                 checkRequired("authorizationControls", authorizationControls),
                 checkRequired("billingAddress", billingAddress),
+                checkRequired("bin", bin),
                 checkRequired("createdAt", createdAt),
                 checkRequired("description", description),
                 checkRequired("digitalWallet", digitalWallet),
@@ -698,6 +732,7 @@ private constructor(
         accountId()
         authorizationControls().ifPresent { it.validate() }
         billingAddress().validate()
+        bin()
         createdAt()
         description()
         digitalWallet().ifPresent { it.validate() }
@@ -730,6 +765,7 @@ private constructor(
             (if (accountId.asKnown().isPresent) 1 else 0) +
             (authorizationControls.asKnown().getOrNull()?.validity() ?: 0) +
             (billingAddress.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (bin.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (digitalWallet.asKnown().getOrNull()?.validity() ?: 0) +
@@ -5788,6 +5824,7 @@ private constructor(
             accountId == other.accountId &&
             authorizationControls == other.authorizationControls &&
             billingAddress == other.billingAddress &&
+            bin == other.bin &&
             createdAt == other.createdAt &&
             description == other.description &&
             digitalWallet == other.digitalWallet &&
@@ -5807,6 +5844,7 @@ private constructor(
             accountId,
             authorizationControls,
             billingAddress,
+            bin,
             createdAt,
             description,
             digitalWallet,
@@ -5824,5 +5862,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Card{id=$id, accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Card{id=$id, accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, bin=$bin, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

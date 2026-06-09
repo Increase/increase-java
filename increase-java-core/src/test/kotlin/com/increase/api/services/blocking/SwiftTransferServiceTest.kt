@@ -25,7 +25,7 @@ internal class SwiftTransferServiceTest {
                 SwiftTransferCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .accountNumber("987654321")
-                    .bankIdentificationCode("ECBFDEFFTPP")
+                    .bankIdentificationCode("FRNYUS33XXX")
                     .creditorAddress(
                         SwiftTransferCreateParams.CreditorAddress.builder()
                             .city("Frankfurt")

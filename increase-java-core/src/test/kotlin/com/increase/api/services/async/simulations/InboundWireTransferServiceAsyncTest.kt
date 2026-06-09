@@ -36,6 +36,7 @@ internal class InboundWireTransferServiceAsyncTest {
                     .endToEndIdentification("x")
                     .instructingAgentRoutingNumber("x")
                     .instructionIdentification("x")
+                    .purpose("x")
                     .uniqueEndToEndTransactionReference("x")
                     .unstructuredRemittanceInformation("x")
                     .wireDrawdownRequestId("wire_drawdown_request_id")

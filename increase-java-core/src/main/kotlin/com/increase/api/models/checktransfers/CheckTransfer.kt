@@ -3518,11 +3518,10 @@ private constructor(
         /**
          * The shipping method for the check.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun shippingMethod(): Optional<ShippingMethod> =
-            shippingMethod.getOptional("shipping_method")
+        fun shippingMethod(): ShippingMethod = shippingMethod.getRequired("shipping_method")
 
         /**
          * The signature that will appear on the check.
@@ -3859,12 +3858,8 @@ private constructor(
             }
 
             /** The shipping method for the check. */
-            fun shippingMethod(shippingMethod: ShippingMethod?) =
-                shippingMethod(JsonField.ofNullable(shippingMethod))
-
-            /** Alias for calling [Builder.shippingMethod] with `shippingMethod.orElse(null)`. */
-            fun shippingMethod(shippingMethod: Optional<ShippingMethod>) =
-                shippingMethod(shippingMethod.getOrNull())
+            fun shippingMethod(shippingMethod: ShippingMethod) =
+                shippingMethod(JsonField.of(shippingMethod))
 
             /**
              * Sets [Builder.shippingMethod] to an arbitrary JSON value.
@@ -3998,7 +3993,7 @@ private constructor(
             payer().forEach { it.validate() }
             recipientName()
             returnAddress().ifPresent { it.validate() }
-            shippingMethod().ifPresent { it.validate() }
+            shippingMethod().validate()
             signature().validate()
             trackingUpdates().forEach { it.validate() }
             validated = true
@@ -5781,7 +5776,11 @@ private constructor(
                     /** The check has been processed for delivery. */
                     @JvmField val PROCESSED_FOR_DELIVERY = of("processed_for_delivery")
 
-                    /** The check has been delivered. */
+                    /**
+                     * The check has been delivered. Note that some couriers track delivery status
+                     * based on driver location data rather than an explicit scan. While uncommon, a
+                     * single check may have more than one delivered event.
+                     */
                     @JvmField val DELIVERED = of("delivered")
 
                     /**
@@ -5803,7 +5802,11 @@ private constructor(
                     IN_TRANSIT,
                     /** The check has been processed for delivery. */
                     PROCESSED_FOR_DELIVERY,
-                    /** The check has been delivered. */
+                    /**
+                     * The check has been delivered. Note that some couriers track delivery status
+                     * based on driver location data rather than an explicit scan. While uncommon, a
+                     * single check may have more than one delivered event.
+                     */
                     DELIVERED,
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again
@@ -5829,7 +5832,11 @@ private constructor(
                     IN_TRANSIT,
                     /** The check has been processed for delivery. */
                     PROCESSED_FOR_DELIVERY,
-                    /** The check has been delivered. */
+                    /**
+                     * The check has been delivered. Note that some couriers track delivery status
+                     * based on driver location data rather than an explicit scan. While uncommon, a
+                     * single check may have more than one delivered event.
+                     */
                     DELIVERED,
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again

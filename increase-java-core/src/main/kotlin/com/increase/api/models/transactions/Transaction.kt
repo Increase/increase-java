@@ -1194,8 +1194,9 @@ private constructor(
 
         /**
          * A Card Financial object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_financial`. Card Financials are temporary holds placed on a
-         * customer's funds with the intent to later clear a transaction.
+         * `category` is equal to `card_financial`. Card Financials are card transactions that have
+         * cleared and settled. Unlike a Card Settlement, which clears a previous authorization, a
+         * Card Financial is authorized and cleared in a single message.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2346,8 +2347,9 @@ private constructor(
 
             /**
              * A Card Financial object. This field will be present in the JSON response if and only
-             * if `category` is equal to `card_financial`. Card Financials are temporary holds
-             * placed on a customer's funds with the intent to later clear a transaction.
+             * if `category` is equal to `card_financial`. Card Financials are card transactions
+             * that have cleared and settled. Unlike a Card Settlement, which clears a previous
+             * authorization, a Card Financial is authorized and cleared in a single message.
              */
             fun cardFinancial(cardFinancial: CardFinancial?) =
                 cardFinancial(JsonField.ofNullable(cardFinancial))
@@ -9139,8 +9141,9 @@ private constructor(
 
         /**
          * A Card Financial object. This field will be present in the JSON response if and only if
-         * `category` is equal to `card_financial`. Card Financials are temporary holds placed on a
-         * customer's funds with the intent to later clear a transaction.
+         * `category` is equal to `card_financial`. Card Financials are card transactions that have
+         * cleared and settled. Unlike a Card Settlement, which clears a previous authorization, a
+         * Card Financial is authorized and cleared in a single message.
          */
         class CardFinancial
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -51545,6 +51548,7 @@ private constructor(
             private val inputMessageAccountabilityData: JsonField<String>,
             private val instructingAgentRoutingNumber: JsonField<String>,
             private val instructionIdentification: JsonField<String>,
+            private val purpose: JsonField<String>,
             private val transferId: JsonField<String>,
             private val uniqueEndToEndTransactionReference: JsonField<String>,
             private val unstructuredRemittanceInformation: JsonField<String>,
@@ -51593,6 +51597,9 @@ private constructor(
                 @JsonProperty("instruction_identification")
                 @ExcludeMissing
                 instructionIdentification: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("purpose")
+                @ExcludeMissing
+                purpose: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("transfer_id")
                 @ExcludeMissing
                 transferId: JsonField<String> = JsonMissing.of(),
@@ -51617,6 +51624,7 @@ private constructor(
                 inputMessageAccountabilityData,
                 instructingAgentRoutingNumber,
                 instructionIdentification,
+                purpose,
                 transferId,
                 uniqueEndToEndTransactionReference,
                 unstructuredRemittanceInformation,
@@ -51748,6 +51756,14 @@ private constructor(
              */
             fun instructionIdentification(): Optional<String> =
                 instructionIdentification.getOptional("instruction_identification")
+
+            /**
+             * The reason for the wire transfer, as set by the sender.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun purpose(): Optional<String> = purpose.getOptional("purpose")
 
             /**
              * The ID of the Inbound Wire Transfer object that resulted in this Transaction.
@@ -51919,6 +51935,13 @@ private constructor(
             fun _instructionIdentification(): JsonField<String> = instructionIdentification
 
             /**
+             * Returns the raw JSON value of [purpose].
+             *
+             * Unlike [purpose], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("purpose") @ExcludeMissing fun _purpose(): JsonField<String> = purpose
+
+            /**
              * Returns the raw JSON value of [transferId].
              *
              * Unlike [transferId], this method doesn't throw if the JSON field has an unexpected
@@ -51983,6 +52006,7 @@ private constructor(
                  * .inputMessageAccountabilityData()
                  * .instructingAgentRoutingNumber()
                  * .instructionIdentification()
+                 * .purpose()
                  * .transferId()
                  * .uniqueEndToEndTransactionReference()
                  * .unstructuredRemittanceInformation()
@@ -52008,6 +52032,7 @@ private constructor(
                 private var inputMessageAccountabilityData: JsonField<String>? = null
                 private var instructingAgentRoutingNumber: JsonField<String>? = null
                 private var instructionIdentification: JsonField<String>? = null
+                private var purpose: JsonField<String>? = null
                 private var transferId: JsonField<String>? = null
                 private var uniqueEndToEndTransactionReference: JsonField<String>? = null
                 private var unstructuredRemittanceInformation: JsonField<String>? = null
@@ -52031,6 +52056,7 @@ private constructor(
                     instructingAgentRoutingNumber =
                         inboundWireTransfer.instructingAgentRoutingNumber
                     instructionIdentification = inboundWireTransfer.instructionIdentification
+                    purpose = inboundWireTransfer.purpose
                     transferId = inboundWireTransfer.transferId
                     uniqueEndToEndTransactionReference =
                         inboundWireTransfer.uniqueEndToEndTransactionReference
@@ -52336,6 +52362,21 @@ private constructor(
                         this.instructionIdentification = instructionIdentification
                     }
 
+                /** The reason for the wire transfer, as set by the sender. */
+                fun purpose(purpose: String?) = purpose(JsonField.ofNullable(purpose))
+
+                /** Alias for calling [Builder.purpose] with `purpose.orElse(null)`. */
+                fun purpose(purpose: Optional<String>) = purpose(purpose.getOrNull())
+
+                /**
+                 * Sets [Builder.purpose] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.purpose] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun purpose(purpose: JsonField<String>) = apply { this.purpose = purpose }
+
                 /** The ID of the Inbound Wire Transfer object that resulted in this Transaction. */
                 fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
@@ -52456,6 +52497,7 @@ private constructor(
                  * .inputMessageAccountabilityData()
                  * .instructingAgentRoutingNumber()
                  * .instructionIdentification()
+                 * .purpose()
                  * .transferId()
                  * .uniqueEndToEndTransactionReference()
                  * .unstructuredRemittanceInformation()
@@ -52485,6 +52527,7 @@ private constructor(
                             instructingAgentRoutingNumber,
                         ),
                         checkRequired("instructionIdentification", instructionIdentification),
+                        checkRequired("purpose", purpose),
                         checkRequired("transferId", transferId),
                         checkRequired(
                             "uniqueEndToEndTransactionReference",
@@ -52529,6 +52572,7 @@ private constructor(
                 inputMessageAccountabilityData()
                 instructingAgentRoutingNumber()
                 instructionIdentification()
+                purpose()
                 transferId()
                 uniqueEndToEndTransactionReference()
                 unstructuredRemittanceInformation()
@@ -52565,6 +52609,7 @@ private constructor(
                     (if (inputMessageAccountabilityData.asKnown().isPresent) 1 else 0) +
                     (if (instructingAgentRoutingNumber.asKnown().isPresent) 1 else 0) +
                     (if (instructionIdentification.asKnown().isPresent) 1 else 0) +
+                    (if (purpose.asKnown().isPresent) 1 else 0) +
                     (if (transferId.asKnown().isPresent) 1 else 0) +
                     (if (uniqueEndToEndTransactionReference.asKnown().isPresent) 1 else 0) +
                     (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0)
@@ -52589,6 +52634,7 @@ private constructor(
                     inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
                     instructingAgentRoutingNumber == other.instructingAgentRoutingNumber &&
                     instructionIdentification == other.instructionIdentification &&
+                    purpose == other.purpose &&
                     transferId == other.transferId &&
                     uniqueEndToEndTransactionReference ==
                         other.uniqueEndToEndTransactionReference &&
@@ -52612,6 +52658,7 @@ private constructor(
                     inputMessageAccountabilityData,
                     instructingAgentRoutingNumber,
                     instructionIdentification,
+                    purpose,
                     transferId,
                     uniqueEndToEndTransactionReference,
                     unstructuredRemittanceInformation,
@@ -52622,7 +52669,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InboundWireTransfer{amount=$amount, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, transferId=$transferId, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+                "InboundWireTransfer{amount=$amount, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, purpose=$purpose, transferId=$transferId, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
         }
 
         /**
