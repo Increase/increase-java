@@ -187,9 +187,9 @@ internal class EntityTest {
                 )
                 .addTermsAgreement(
                     Entity.TermsAgreement.builder()
-                        .agreedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .ipAddress("128.32.0.1")
-                        .termsUrl("https://increase.com/example_terms")
+                        .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .ipAddress("ip_address")
+                        .termsUrl("terms_url")
                         .build()
                 )
                 .thirdPartyVerification(
@@ -487,9 +487,9 @@ internal class EntityTest {
         assertThat(entity.termsAgreements())
             .containsExactly(
                 Entity.TermsAgreement.builder()
-                    .agreedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .ipAddress("128.32.0.1")
-                    .termsUrl("https://increase.com/example_terms")
+                    .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .ipAddress("ip_address")
+                    .termsUrl("terms_url")
                     .build()
             )
         assertThat(entity.thirdPartyVerification())
@@ -789,9 +789,9 @@ internal class EntityTest {
                 )
                 .addTermsAgreement(
                     Entity.TermsAgreement.builder()
-                        .agreedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .ipAddress("128.32.0.1")
-                        .termsUrl("https://increase.com/example_terms")
+                        .agreedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .ipAddress("ip_address")
+                        .termsUrl("terms_url")
                         .build()
                 )
                 .thirdPartyVerification(

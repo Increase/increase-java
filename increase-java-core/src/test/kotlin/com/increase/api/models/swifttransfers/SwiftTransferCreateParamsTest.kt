@@ -12,7 +12,7 @@ internal class SwiftTransferCreateParamsTest {
         SwiftTransferCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .accountNumber("987654321")
-            .bankIdentificationCode("ECBFDEFFTPP")
+            .bankIdentificationCode("FRNYUS33XXX")
             .creditorAddress(
                 SwiftTransferCreateParams.CreditorAddress.builder()
                     .city("Frankfurt")
@@ -50,7 +50,7 @@ internal class SwiftTransferCreateParamsTest {
             SwiftTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
-                .bankIdentificationCode("ECBFDEFFTPP")
+                .bankIdentificationCode("FRNYUS33XXX")
                 .creditorAddress(
                     SwiftTransferCreateParams.CreditorAddress.builder()
                         .city("Frankfurt")
@@ -85,7 +85,7 @@ internal class SwiftTransferCreateParamsTest {
 
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")
-        assertThat(body.bankIdentificationCode()).isEqualTo("ECBFDEFFTPP")
+        assertThat(body.bankIdentificationCode()).isEqualTo("FRNYUS33XXX")
         assertThat(body.creditorAddress())
             .isEqualTo(
                 SwiftTransferCreateParams.CreditorAddress.builder()
@@ -125,7 +125,7 @@ internal class SwiftTransferCreateParamsTest {
             SwiftTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .accountNumber("987654321")
-                .bankIdentificationCode("ECBFDEFFTPP")
+                .bankIdentificationCode("FRNYUS33XXX")
                 .creditorAddress(
                     SwiftTransferCreateParams.CreditorAddress.builder()
                         .city("Frankfurt")
@@ -152,7 +152,7 @@ internal class SwiftTransferCreateParamsTest {
 
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.accountNumber()).isEqualTo("987654321")
-        assertThat(body.bankIdentificationCode()).isEqualTo("ECBFDEFFTPP")
+        assertThat(body.bankIdentificationCode()).isEqualTo("FRNYUS33XXX")
         assertThat(body.creditorAddress())
             .isEqualTo(
                 SwiftTransferCreateParams.CreditorAddress.builder()

@@ -46,6 +46,7 @@ internal class WireDrawdownRequestListPageResponseTest {
                         .debtorExternalAccountId(null)
                         .debtorName("Ian Crease")
                         .debtorRoutingNumber("101050001")
+                        .endToEndIdentification("Invoice 29582")
                         .fulfillmentInboundWireTransferId(
                             "inbound_wire_transfer_f228m6bmhtcxjco9pwp0"
                         )
@@ -57,6 +58,7 @@ internal class WireDrawdownRequestListPageResponseTest {
                                 .build()
                         )
                         .type(WireDrawdownRequest.Type.WIRE_DRAWDOWN_REQUEST)
+                        .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                         .unstructuredRemittanceInformation("Invoice 29582")
                         .build()
                 )
@@ -96,6 +98,7 @@ internal class WireDrawdownRequestListPageResponseTest {
                     .debtorExternalAccountId(null)
                     .debtorName("Ian Crease")
                     .debtorRoutingNumber("101050001")
+                    .endToEndIdentification("Invoice 29582")
                     .fulfillmentInboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                     .idempotencyKey(null)
                     .status(WireDrawdownRequest.Status.FULFILLED)
@@ -105,6 +108,7 @@ internal class WireDrawdownRequestListPageResponseTest {
                             .build()
                     )
                     .type(WireDrawdownRequest.Type.WIRE_DRAWDOWN_REQUEST)
+                    .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                     .unstructuredRemittanceInformation("Invoice 29582")
                     .build()
             )
@@ -148,6 +152,7 @@ internal class WireDrawdownRequestListPageResponseTest {
                         .debtorExternalAccountId(null)
                         .debtorName("Ian Crease")
                         .debtorRoutingNumber("101050001")
+                        .endToEndIdentification("Invoice 29582")
                         .fulfillmentInboundWireTransferId(
                             "inbound_wire_transfer_f228m6bmhtcxjco9pwp0"
                         )
@@ -159,6 +164,7 @@ internal class WireDrawdownRequestListPageResponseTest {
                                 .build()
                         )
                         .type(WireDrawdownRequest.Type.WIRE_DRAWDOWN_REQUEST)
+                        .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                         .unstructuredRemittanceInformation("Invoice 29582")
                         .build()
                 )

@@ -294,9 +294,7 @@ internal class EntityServiceTest {
                             .build()
                     )
                     .addSupplementalDocument(
-                        EntityCreateParams.SupplementalDocument.builder()
-                            .fileId("file_makxrc67oh9l6sg7w9yc")
-                            .build()
+                        EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build()
                     )
                     .addTermsAgreement(
                         EntityCreateParams.TermsAgreement.builder()

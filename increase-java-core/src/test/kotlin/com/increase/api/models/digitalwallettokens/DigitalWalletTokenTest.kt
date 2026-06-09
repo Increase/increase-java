@@ -18,6 +18,11 @@ internal class DigitalWalletTokenTest {
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .cardholder(DigitalWalletToken.Cardholder.builder().name("John Smith").build())
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .decline(
+                    DigitalWalletToken.Decline.builder()
+                        .reason(DigitalWalletToken.Decline.Reason.CARD_NOT_ACTIVE)
+                        .build()
+                )
                 .device(
                     DigitalWalletToken.Device.builder()
                         .deviceType(DigitalWalletToken.Device.DeviceType.MOBILE_PHONE)
@@ -49,6 +54,12 @@ internal class DigitalWalletTokenTest {
             .isEqualTo(DigitalWalletToken.Cardholder.builder().name("John Smith").build())
         assertThat(digitalWalletToken.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(digitalWalletToken.decline())
+            .contains(
+                DigitalWalletToken.Decline.builder()
+                    .reason(DigitalWalletToken.Decline.Reason.CARD_NOT_ACTIVE)
+                    .build()
+            )
         assertThat(digitalWalletToken.device())
             .isEqualTo(
                 DigitalWalletToken.Device.builder()
@@ -88,6 +99,11 @@ internal class DigitalWalletTokenTest {
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .cardholder(DigitalWalletToken.Cardholder.builder().name("John Smith").build())
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .decline(
+                    DigitalWalletToken.Decline.builder()
+                        .reason(DigitalWalletToken.Decline.Reason.CARD_NOT_ACTIVE)
+                        .build()
+                )
                 .device(
                     DigitalWalletToken.Device.builder()
                         .deviceType(DigitalWalletToken.Device.DeviceType.MOBILE_PHONE)

@@ -74,16 +74,22 @@ internal class CardPushTransferTest {
                 .idempotencyKey(null)
                 .merchantCategoryCode("1234")
                 .merchantCityName("New York")
+                .merchantLegalBusinessName(null)
                 .merchantName("Acme Corp")
                 .merchantNamePrefix("Acme")
                 .merchantPostalCode("10045")
                 .merchantState("NY")
+                .merchantStreetAddress(null)
                 .presentmentAmount(
                     CardPushTransfer.PresentmentAmount.builder()
                         .currency(CardPushTransfer.PresentmentAmount.Currency.USD)
                         .value("12.34")
                         .build()
                 )
+                .recipientAddressCity(null)
+                .recipientAddressLine1(null)
+                .recipientAddressPostalCode(null)
+                .recipientAddressState(null)
                 .recipientName("Ian Crease")
                 .route(CardPushTransfer.Route.VISA)
                 .senderAddressCity("New York")
@@ -165,10 +171,12 @@ internal class CardPushTransferTest {
         assertThat(cardPushTransfer.idempotencyKey()).isEmpty
         assertThat(cardPushTransfer.merchantCategoryCode()).isEqualTo("1234")
         assertThat(cardPushTransfer.merchantCityName()).isEqualTo("New York")
+        assertThat(cardPushTransfer.merchantLegalBusinessName()).isEmpty
         assertThat(cardPushTransfer.merchantName()).isEqualTo("Acme Corp")
         assertThat(cardPushTransfer.merchantNamePrefix()).isEqualTo("Acme")
         assertThat(cardPushTransfer.merchantPostalCode()).isEqualTo("10045")
         assertThat(cardPushTransfer.merchantState()).isEqualTo("NY")
+        assertThat(cardPushTransfer.merchantStreetAddress()).isEmpty
         assertThat(cardPushTransfer.presentmentAmount())
             .isEqualTo(
                 CardPushTransfer.PresentmentAmount.builder()
@@ -176,6 +184,10 @@ internal class CardPushTransferTest {
                     .value("12.34")
                     .build()
             )
+        assertThat(cardPushTransfer.recipientAddressCity()).isEmpty
+        assertThat(cardPushTransfer.recipientAddressLine1()).isEmpty
+        assertThat(cardPushTransfer.recipientAddressPostalCode()).isEmpty
+        assertThat(cardPushTransfer.recipientAddressState()).isEmpty
         assertThat(cardPushTransfer.recipientName()).isEqualTo("Ian Crease")
         assertThat(cardPushTransfer.route()).isEqualTo(CardPushTransfer.Route.VISA)
         assertThat(cardPushTransfer.senderAddressCity()).isEqualTo("New York")
@@ -263,16 +275,22 @@ internal class CardPushTransferTest {
                 .idempotencyKey(null)
                 .merchantCategoryCode("1234")
                 .merchantCityName("New York")
+                .merchantLegalBusinessName(null)
                 .merchantName("Acme Corp")
                 .merchantNamePrefix("Acme")
                 .merchantPostalCode("10045")
                 .merchantState("NY")
+                .merchantStreetAddress(null)
                 .presentmentAmount(
                     CardPushTransfer.PresentmentAmount.builder()
                         .currency(CardPushTransfer.PresentmentAmount.Currency.USD)
                         .value("12.34")
                         .build()
                 )
+                .recipientAddressCity(null)
+                .recipientAddressLine1(null)
+                .recipientAddressPostalCode(null)
+                .recipientAddressState(null)
                 .recipientName("Ian Crease")
                 .route(CardPushTransfer.Route.VISA)
                 .senderAddressCity("New York")

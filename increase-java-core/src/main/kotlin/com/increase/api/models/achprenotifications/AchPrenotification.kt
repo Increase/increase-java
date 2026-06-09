@@ -1113,10 +1113,10 @@ private constructor(
 
         companion object {
 
-            /** The Prenotification is for an anticipated credit. */
+            /** Credit */
             @JvmField val CREDIT = of("credit")
 
-            /** The Prenotification is for an anticipated debit. */
+            /** Debit */
             @JvmField val DEBIT = of("debit")
 
             @JvmStatic fun of(value: String) = CreditDebitIndicator(JsonField.of(value))
@@ -1124,9 +1124,9 @@ private constructor(
 
         /** An enum containing [CreditDebitIndicator]'s known values. */
         enum class Known {
-            /** The Prenotification is for an anticipated credit. */
+            /** Credit */
             CREDIT,
-            /** The Prenotification is for an anticipated debit. */
+            /** Debit */
             DEBIT,
         }
 
@@ -1141,9 +1141,9 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
-            /** The Prenotification is for an anticipated credit. */
+            /** Credit */
             CREDIT,
-            /** The Prenotification is for an anticipated debit. */
+            /** Debit */
             DEBIT,
             /**
              * An enum member indicating that [CreditDebitIndicator] was instantiated with an
@@ -2092,6 +2092,9 @@ private constructor(
                 /** A savings account. */
                 @JvmField val SAVINGS = of("savings")
 
+                /** A loan account used in a lender-borrower relationship. Uncommon. */
+                @JvmField val LOAN = of("loan")
+
                 /** A bank's general ledger. Uncommon. */
                 @JvmField val GENERAL_LEDGER = of("general_ledger")
 
@@ -2104,6 +2107,8 @@ private constructor(
                 CHECKING,
                 /** A savings account. */
                 SAVINGS,
+                /** A loan account used in a lender-borrower relationship. Uncommon. */
+                LOAN,
                 /** A bank's general ledger. Uncommon. */
                 GENERAL_LEDGER,
             }
@@ -2124,6 +2129,8 @@ private constructor(
                 CHECKING,
                 /** A savings account. */
                 SAVINGS,
+                /** A loan account used in a lender-borrower relationship. Uncommon. */
+                LOAN,
                 /** A bank's general ledger. Uncommon. */
                 GENERAL_LEDGER,
                 /**
@@ -2144,6 +2151,7 @@ private constructor(
                 when (this) {
                     CHECKING -> Value.CHECKING
                     SAVINGS -> Value.SAVINGS
+                    LOAN -> Value.LOAN
                     GENERAL_LEDGER -> Value.GENERAL_LEDGER
                     else -> Value._UNKNOWN
                 }
@@ -2161,6 +2169,7 @@ private constructor(
                 when (this) {
                     CHECKING -> Known.CHECKING
                     SAVINGS -> Known.SAVINGS
+                    LOAN -> Known.LOAN
                     GENERAL_LEDGER -> Known.GENERAL_LEDGER
                     else ->
                         throw IncreaseInvalidDataException(

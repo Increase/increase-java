@@ -639,7 +639,7 @@ private constructor(
             companion object {
 
                 /**
-                 * The entity's tax identifier could not be validated. Update the tax ID with the
+                 * The entity's tax identifier could not be verified. Update the tax ID with the
                  * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
                  */
                 @JvmField val ENTITY_TAX_IDENTIFIER = of("entity_tax_identifier")
@@ -669,7 +669,7 @@ private constructor(
             /** An enum containing [Category]'s known values. */
             enum class Known {
                 /**
-                 * The entity's tax identifier could not be validated. Update the tax ID with the
+                 * The entity's tax identifier could not be verified. Update the tax ID with the
                  * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
                  */
                 ENTITY_TAX_IDENTIFIER,
@@ -702,7 +702,7 @@ private constructor(
              */
             enum class Value {
                 /**
-                 * The entity's tax identifier could not be validated. Update the tax ID with the
+                 * The entity's tax identifier could not be verified. Update the tax ID with the
                  * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
                  */
                 ENTITY_TAX_IDENTIFIER,
