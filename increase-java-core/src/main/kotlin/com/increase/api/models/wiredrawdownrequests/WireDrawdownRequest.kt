@@ -41,11 +41,13 @@ private constructor(
     private val debtorExternalAccountId: JsonField<String>,
     private val debtorName: JsonField<String>,
     private val debtorRoutingNumber: JsonField<String>,
+    private val endToEndIdentification: JsonField<String>,
     private val fulfillmentInboundWireTransferId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val type: JsonField<Type>,
+    private val uniqueEndToEndTransactionReference: JsonField<String>,
     private val unstructuredRemittanceInformation: JsonField<String>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
@@ -82,6 +84,9 @@ private constructor(
         @JsonProperty("debtor_routing_number")
         @ExcludeMissing
         debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("end_to_end_identification")
+        @ExcludeMissing
+        endToEndIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("fulfillment_inbound_wire_transfer_id")
         @ExcludeMissing
         fulfillmentInboundWireTransferId: JsonField<String> = JsonMissing.of(),
@@ -93,6 +98,9 @@ private constructor(
         @ExcludeMissing
         submission: JsonField<Submission> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
+        @JsonProperty("unique_end_to_end_transaction_reference")
+        @ExcludeMissing
+        uniqueEndToEndTransactionReference: JsonField<String> = JsonMissing.of(),
         @JsonProperty("unstructured_remittance_information")
         @ExcludeMissing
         unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
@@ -109,11 +117,13 @@ private constructor(
         debtorExternalAccountId,
         debtorName,
         debtorRoutingNumber,
+        endToEndIdentification,
         fulfillmentInboundWireTransferId,
         idempotencyKey,
         status,
         submission,
         type,
+        uniqueEndToEndTransactionReference,
         unstructuredRemittanceInformation,
         mutableMapOf(),
     )
@@ -219,6 +229,16 @@ private constructor(
     fun debtorRoutingNumber(): String = debtorRoutingNumber.getRequired("debtor_routing_number")
 
     /**
+     * A free-form reference string set by the sender, to be mirrored back in the subsequent wire
+     * transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endToEndIdentification(): Optional<String> =
+        endToEndIdentification.getOptional("end_to_end_identification")
+
+    /**
      * If the recipient fulfills the drawdown request by sending funds, then this will be the
      * identifier of the corresponding Transaction.
      *
@@ -262,6 +282,17 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun type(): Type = type.getRequired("type")
+
+    /**
+     * The unique end-to-end transaction reference
+     * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr)) of
+     * the drawdown request.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun uniqueEndToEndTransactionReference(): Optional<String> =
+        uniqueEndToEndTransactionReference.getOptional("unique_end_to_end_transaction_reference")
 
     /**
      * Remittance information the debtor will see as part of the drawdown request.
@@ -376,6 +407,16 @@ private constructor(
     fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
 
     /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("end_to_end_identification")
+    @ExcludeMissing
+    fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
+
+    /**
      * Returns the raw JSON value of [fulfillmentInboundWireTransferId].
      *
      * Unlike [fulfillmentInboundWireTransferId], this method doesn't throw if the JSON field has an
@@ -418,6 +459,17 @@ private constructor(
     @JsonProperty("type") @ExcludeMissing fun _type(): JsonField<Type> = type
 
     /**
+     * Returns the raw JSON value of [uniqueEndToEndTransactionReference].
+     *
+     * Unlike [uniqueEndToEndTransactionReference], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("unique_end_to_end_transaction_reference")
+    @ExcludeMissing
+    fun _uniqueEndToEndTransactionReference(): JsonField<String> =
+        uniqueEndToEndTransactionReference
+
+    /**
      * Returns the raw JSON value of [unstructuredRemittanceInformation].
      *
      * Unlike [unstructuredRemittanceInformation], this method doesn't throw if the JSON field has
@@ -458,11 +510,13 @@ private constructor(
          * .debtorExternalAccountId()
          * .debtorName()
          * .debtorRoutingNumber()
+         * .endToEndIdentification()
          * .fulfillmentInboundWireTransferId()
          * .idempotencyKey()
          * .status()
          * .submission()
          * .type()
+         * .uniqueEndToEndTransactionReference()
          * .unstructuredRemittanceInformation()
          * ```
          */
@@ -484,11 +538,13 @@ private constructor(
         private var debtorExternalAccountId: JsonField<String>? = null
         private var debtorName: JsonField<String>? = null
         private var debtorRoutingNumber: JsonField<String>? = null
+        private var endToEndIdentification: JsonField<String>? = null
         private var fulfillmentInboundWireTransferId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var submission: JsonField<Submission>? = null
         private var type: JsonField<Type>? = null
+        private var uniqueEndToEndTransactionReference: JsonField<String>? = null
         private var unstructuredRemittanceInformation: JsonField<String>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -506,11 +562,14 @@ private constructor(
             debtorExternalAccountId = wireDrawdownRequest.debtorExternalAccountId
             debtorName = wireDrawdownRequest.debtorName
             debtorRoutingNumber = wireDrawdownRequest.debtorRoutingNumber
+            endToEndIdentification = wireDrawdownRequest.endToEndIdentification
             fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
             idempotencyKey = wireDrawdownRequest.idempotencyKey
             status = wireDrawdownRequest.status
             submission = wireDrawdownRequest.submission
             type = wireDrawdownRequest.type
+            uniqueEndToEndTransactionReference =
+                wireDrawdownRequest.uniqueEndToEndTransactionReference
             unstructuredRemittanceInformation =
                 wireDrawdownRequest.unstructuredRemittanceInformation
             additionalProperties = wireDrawdownRequest.additionalProperties.toMutableMap()
@@ -693,6 +752,31 @@ private constructor(
         }
 
         /**
+         * A free-form reference string set by the sender, to be mirrored back in the subsequent
+         * wire transfer.
+         */
+        fun endToEndIdentification(endToEndIdentification: String?) =
+            endToEndIdentification(JsonField.ofNullable(endToEndIdentification))
+
+        /**
+         * Alias for calling [Builder.endToEndIdentification] with
+         * `endToEndIdentification.orElse(null)`.
+         */
+        fun endToEndIdentification(endToEndIdentification: Optional<String>) =
+            endToEndIdentification(endToEndIdentification.getOrNull())
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            this.endToEndIdentification = endToEndIdentification
+        }
+
+        /**
          * If the recipient fulfills the drawdown request by sending funds, then this will be the
          * identifier of the corresponding Transaction.
          */
@@ -784,6 +868,35 @@ private constructor(
          */
         fun type(type: JsonField<Type>) = apply { this.type = type }
 
+        /**
+         * The unique end-to-end transaction reference
+         * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr))
+         * of the drawdown request.
+         */
+        fun uniqueEndToEndTransactionReference(uniqueEndToEndTransactionReference: String?) =
+            uniqueEndToEndTransactionReference(
+                JsonField.ofNullable(uniqueEndToEndTransactionReference)
+            )
+
+        /**
+         * Alias for calling [Builder.uniqueEndToEndTransactionReference] with
+         * `uniqueEndToEndTransactionReference.orElse(null)`.
+         */
+        fun uniqueEndToEndTransactionReference(
+            uniqueEndToEndTransactionReference: Optional<String>
+        ) = uniqueEndToEndTransactionReference(uniqueEndToEndTransactionReference.getOrNull())
+
+        /**
+         * Sets [Builder.uniqueEndToEndTransactionReference] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.uniqueEndToEndTransactionReference] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun uniqueEndToEndTransactionReference(
+            uniqueEndToEndTransactionReference: JsonField<String>
+        ) = apply { this.uniqueEndToEndTransactionReference = uniqueEndToEndTransactionReference }
+
         /** Remittance information the debtor will see as part of the drawdown request. */
         fun unstructuredRemittanceInformation(unstructuredRemittanceInformation: String) =
             unstructuredRemittanceInformation(JsonField.of(unstructuredRemittanceInformation))
@@ -837,11 +950,13 @@ private constructor(
          * .debtorExternalAccountId()
          * .debtorName()
          * .debtorRoutingNumber()
+         * .endToEndIdentification()
          * .fulfillmentInboundWireTransferId()
          * .idempotencyKey()
          * .status()
          * .submission()
          * .type()
+         * .uniqueEndToEndTransactionReference()
          * .unstructuredRemittanceInformation()
          * ```
          *
@@ -861,11 +976,16 @@ private constructor(
                 checkRequired("debtorExternalAccountId", debtorExternalAccountId),
                 checkRequired("debtorName", debtorName),
                 checkRequired("debtorRoutingNumber", debtorRoutingNumber),
+                checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("fulfillmentInboundWireTransferId", fulfillmentInboundWireTransferId),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("status", status),
                 checkRequired("submission", submission),
                 checkRequired("type", type),
+                checkRequired(
+                    "uniqueEndToEndTransactionReference",
+                    uniqueEndToEndTransactionReference,
+                ),
                 checkRequired(
                     "unstructuredRemittanceInformation",
                     unstructuredRemittanceInformation,
@@ -901,11 +1021,13 @@ private constructor(
         debtorExternalAccountId()
         debtorName()
         debtorRoutingNumber()
+        endToEndIdentification()
         fulfillmentInboundWireTransferId()
         idempotencyKey()
         status().validate()
         submission().ifPresent { it.validate() }
         type().validate()
+        uniqueEndToEndTransactionReference()
         unstructuredRemittanceInformation()
         validated = true
     }
@@ -937,11 +1059,13 @@ private constructor(
             (if (debtorExternalAccountId.asKnown().isPresent) 1 else 0) +
             (if (debtorName.asKnown().isPresent) 1 else 0) +
             (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
+            (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
             (if (fulfillmentInboundWireTransferId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (submission.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (uniqueEndToEndTransactionReference.asKnown().isPresent) 1 else 0) +
             (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0)
 
     /** The creditor's address. */
@@ -2196,11 +2320,13 @@ private constructor(
             debtorExternalAccountId == other.debtorExternalAccountId &&
             debtorName == other.debtorName &&
             debtorRoutingNumber == other.debtorRoutingNumber &&
+            endToEndIdentification == other.endToEndIdentification &&
             fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
             idempotencyKey == other.idempotencyKey &&
             status == other.status &&
             submission == other.submission &&
             type == other.type &&
+            uniqueEndToEndTransactionReference == other.uniqueEndToEndTransactionReference &&
             unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
             additionalProperties == other.additionalProperties
     }
@@ -2219,11 +2345,13 @@ private constructor(
             debtorExternalAccountId,
             debtorName,
             debtorRoutingNumber,
+            endToEndIdentification,
             fulfillmentInboundWireTransferId,
             idempotencyKey,
             status,
             submission,
             type,
+            uniqueEndToEndTransactionReference,
             unstructuredRemittanceInformation,
             additionalProperties,
         )
@@ -2232,5 +2360,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{id=$id, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

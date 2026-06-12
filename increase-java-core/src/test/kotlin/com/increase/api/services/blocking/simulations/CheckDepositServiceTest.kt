@@ -79,6 +79,7 @@ internal class CheckDepositServiceTest {
                             .accountNumber("x")
                             .routingNumber("x")
                             .auxiliaryOnUs("x")
+                            .serialNumber("x")
                             .build()
                     )
                     .build()

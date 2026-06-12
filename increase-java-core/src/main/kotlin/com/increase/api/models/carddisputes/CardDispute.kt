@@ -37,6 +37,7 @@ private constructor(
     private val idempotencyKey: JsonField<String>,
     private val loss: JsonField<Loss>,
     private val network: JsonField<Network>,
+    private val rejection: JsonField<Rejection>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val userSubmissionRequiredBy: JsonField<OffsetDateTime>,
@@ -62,6 +63,9 @@ private constructor(
         idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("loss") @ExcludeMissing loss: JsonField<Loss> = JsonMissing.of(),
         @JsonProperty("network") @ExcludeMissing network: JsonField<Network> = JsonMissing.of(),
+        @JsonProperty("rejection")
+        @ExcludeMissing
+        rejection: JsonField<Rejection> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
         @JsonProperty("user_submission_required_by")
@@ -81,6 +85,7 @@ private constructor(
         idempotencyKey,
         loss,
         network,
+        rejection,
         status,
         type,
         userSubmissionRequiredBy,
@@ -157,6 +162,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun network(): Network = network.getRequired("network")
+
+    /**
+     * If the Card Dispute has been rejected, this will contain details of the rejection.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun rejection(): Optional<Rejection> = rejection.getOptional("rejection")
 
     /**
      * The status of the Card Dispute.
@@ -275,6 +288,13 @@ private constructor(
     @JsonProperty("network") @ExcludeMissing fun _network(): JsonField<Network> = network
 
     /**
+     * Returns the raw JSON value of [rejection].
+     *
+     * Unlike [rejection], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("rejection") @ExcludeMissing fun _rejection(): JsonField<Rejection> = rejection
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -348,6 +368,7 @@ private constructor(
          * .idempotencyKey()
          * .loss()
          * .network()
+         * .rejection()
          * .status()
          * .type()
          * .userSubmissionRequiredBy()
@@ -370,6 +391,7 @@ private constructor(
         private var idempotencyKey: JsonField<String>? = null
         private var loss: JsonField<Loss>? = null
         private var network: JsonField<Network>? = null
+        private var rejection: JsonField<Rejection>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
         private var userSubmissionRequiredBy: JsonField<OffsetDateTime>? = null
@@ -388,6 +410,7 @@ private constructor(
             idempotencyKey = cardDispute.idempotencyKey
             loss = cardDispute.loss
             network = cardDispute.network
+            rejection = cardDispute.rejection
             status = cardDispute.status
             type = cardDispute.type
             userSubmissionRequiredBy = cardDispute.userSubmissionRequiredBy
@@ -509,6 +532,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun network(network: JsonField<Network>) = apply { this.network = network }
+
+        /** If the Card Dispute has been rejected, this will contain details of the rejection. */
+        fun rejection(rejection: Rejection?) = rejection(JsonField.ofNullable(rejection))
+
+        /** Alias for calling [Builder.rejection] with `rejection.orElse(null)`. */
+        fun rejection(rejection: Optional<Rejection>) = rejection(rejection.getOrNull())
+
+        /**
+         * Sets [Builder.rejection] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.rejection] with a well-typed [Rejection] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun rejection(rejection: JsonField<Rejection>) = apply { this.rejection = rejection }
 
         /** The status of the Card Dispute. */
         fun status(status: Status) = status(JsonField.of(status))
@@ -641,6 +679,7 @@ private constructor(
          * .idempotencyKey()
          * .loss()
          * .network()
+         * .rejection()
          * .status()
          * .type()
          * .userSubmissionRequiredBy()
@@ -661,6 +700,7 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("loss", loss),
                 checkRequired("network", network),
+                checkRequired("rejection", rejection),
                 checkRequired("status", status),
                 checkRequired("type", type),
                 checkRequired("userSubmissionRequiredBy", userSubmissionRequiredBy),
@@ -694,6 +734,7 @@ private constructor(
         idempotencyKey()
         loss().ifPresent { it.validate() }
         network().validate()
+        rejection().ifPresent { it.validate() }
         status().validate()
         type().validate()
         userSubmissionRequiredBy()
@@ -726,6 +767,7 @@ private constructor(
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (loss.asKnown().getOrNull()?.validity() ?: 0) +
             (network.asKnown().getOrNull()?.validity() ?: 0) +
+            (rejection.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (if (userSubmissionRequiredBy.asKnown().isPresent) 1 else 0) +
@@ -1236,6 +1278,232 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** If the Card Dispute has been rejected, this will contain details of the rejection. */
+    class Rejection
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val explanation: JsonField<String>,
+        private val rejectedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            explanation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("rejected_at")
+            @ExcludeMissing
+            rejectedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(explanation, rejectedAt, mutableMapOf())
+
+        /**
+         * Why the Card Dispute was rejected.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun explanation(): String = explanation.getRequired("explanation")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * Dispute was rejected.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun rejectedAt(): OffsetDateTime = rejectedAt.getRequired("rejected_at")
+
+        /**
+         * Returns the raw JSON value of [explanation].
+         *
+         * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("explanation")
+        @ExcludeMissing
+        fun _explanation(): JsonField<String> = explanation
+
+        /**
+         * Returns the raw JSON value of [rejectedAt].
+         *
+         * Unlike [rejectedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("rejected_at")
+        @ExcludeMissing
+        fun _rejectedAt(): JsonField<OffsetDateTime> = rejectedAt
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Rejection].
+             *
+             * The following fields are required:
+             * ```java
+             * .explanation()
+             * .rejectedAt()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Rejection]. */
+        class Builder internal constructor() {
+
+            private var explanation: JsonField<String>? = null
+            private var rejectedAt: JsonField<OffsetDateTime>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(rejection: Rejection) = apply {
+                explanation = rejection.explanation
+                rejectedAt = rejection.rejectedAt
+                additionalProperties = rejection.additionalProperties.toMutableMap()
+            }
+
+            /** Why the Card Dispute was rejected. */
+            fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+            /**
+             * Sets [Builder.explanation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.explanation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun explanation(explanation: JsonField<String>) = apply {
+                this.explanation = explanation
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Card Dispute was rejected.
+             */
+            fun rejectedAt(rejectedAt: OffsetDateTime) = rejectedAt(JsonField.of(rejectedAt))
+
+            /**
+             * Sets [Builder.rejectedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rejectedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun rejectedAt(rejectedAt: JsonField<OffsetDateTime>) = apply {
+                this.rejectedAt = rejectedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Rejection].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .explanation()
+             * .rejectedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Rejection =
+                Rejection(
+                    checkRequired("explanation", explanation),
+                    checkRequired("rejectedAt", rejectedAt),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Rejection = apply {
+            if (validated) {
+                return@apply
+            }
+
+            explanation()
+            rejectedAt()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (explanation.asKnown().isPresent) 1 else 0) +
+                (if (rejectedAt.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Rejection &&
+                explanation == other.explanation &&
+                rejectedAt == other.rejectedAt &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(explanation, rejectedAt, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Rejection{explanation=$explanation, rejectedAt=$rejectedAt, additionalProperties=$additionalProperties}"
+    }
+
     /** The status of the Card Dispute. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1278,6 +1546,12 @@ private constructor(
             /** The Card Dispute has been won and no further action can be taken. */
             @JvmField val WON = of("won")
 
+            /**
+             * The Card Dispute has been reviewed and rejected, please review the explanation for
+             * more details.
+             */
+            @JvmField val REJECTED = of("rejected")
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -1300,6 +1574,11 @@ private constructor(
             LOST,
             /** The Card Dispute has been won and no further action can be taken. */
             WON,
+            /**
+             * The Card Dispute has been reviewed and rejected, please review the explanation for
+             * more details.
+             */
+            REJECTED,
         }
 
         /**
@@ -1329,6 +1608,11 @@ private constructor(
             LOST,
             /** The Card Dispute has been won and no further action can be taken. */
             WON,
+            /**
+             * The Card Dispute has been reviewed and rejected, please review the explanation for
+             * more details.
+             */
+            REJECTED,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -1349,6 +1633,7 @@ private constructor(
                 PENDING_RESPONSE -> Value.PENDING_RESPONSE
                 LOST -> Value.LOST
                 WON -> Value.WON
+                REJECTED -> Value.REJECTED
                 else -> Value._UNKNOWN
             }
 
@@ -1370,6 +1655,7 @@ private constructor(
                 PENDING_RESPONSE -> Known.PENDING_RESPONSE
                 LOST -> Known.LOST
                 WON -> Known.WON
+                REJECTED -> Known.REJECTED
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
@@ -43163,6 +43449,7 @@ private constructor(
             idempotencyKey == other.idempotencyKey &&
             loss == other.loss &&
             network == other.network &&
+            rejection == other.rejection &&
             status == other.status &&
             type == other.type &&
             userSubmissionRequiredBy == other.userSubmissionRequiredBy &&
@@ -43182,6 +43469,7 @@ private constructor(
             idempotencyKey,
             loss,
             network,
+            rejection,
             status,
             type,
             userSubmissionRequiredBy,
@@ -43195,5 +43483,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardDispute{id=$id, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
+        "CardDispute{id=$id, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, rejection=$rejection, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
 }

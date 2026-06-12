@@ -324,6 +324,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -2716,6 +2727,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -5108,6 +5130,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -7500,6 +7533,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -9911,6 +9955,16 @@ internal class CardPaymentListPageResponseTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .healthcare(
+                                            CardPayment.Element.CardAuthorization.Healthcare
+                                                .builder()
+                                                .merchantNinetyPercentEligibility(
+                                                    CardPayment.Element.CardAuthorization.Healthcare
+                                                        .MerchantNinetyPercentEligibility
+                                                        .ELIGIBLE
+                                                )
+                                                .build()
+                                        )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -12171,6 +12225,16 @@ internal class CardPaymentListPageResponseTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .healthcare(
+                                            CardPayment.Element.CardAuthorization.Healthcare
+                                                .builder()
+                                                .merchantNinetyPercentEligibility(
+                                                    CardPayment.Element.CardAuthorization.Healthcare
+                                                        .MerchantNinetyPercentEligibility
+                                                        .ELIGIBLE
+                                                )
+                                                .build()
+                                        )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -14431,6 +14495,16 @@ internal class CardPaymentListPageResponseTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .healthcare(
+                                            CardPayment.Element.CardAuthorization.Healthcare
+                                                .builder()
+                                                .merchantNinetyPercentEligibility(
+                                                    CardPayment.Element.CardAuthorization.Healthcare
+                                                        .MerchantNinetyPercentEligibility
+                                                        .ELIGIBLE
+                                                )
+                                                .build()
+                                        )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -16691,6 +16765,16 @@ internal class CardPaymentListPageResponseTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .healthcare(
+                                            CardPayment.Element.CardAuthorization.Healthcare
+                                                .builder()
+                                                .merchantNinetyPercentEligibility(
+                                                    CardPayment.Element.CardAuthorization.Healthcare
+                                                        .MerchantNinetyPercentEligibility
+                                                        .ELIGIBLE
+                                                )
+                                                .build()
+                                        )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -18996,6 +19080,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -21388,6 +21483,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -23780,6 +23886,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")
@@ -26172,6 +26289,17 @@ internal class CardPaymentListPageResponseTest {
                                                     .SETTLEMENT
                                             )
                                             .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                            .healthcare(
+                                                CardPayment.Element.CardAuthorization.Healthcare
+                                                    .builder()
+                                                    .merchantNinetyPercentEligibility(
+                                                        CardPayment.Element.CardAuthorization
+                                                            .Healthcare
+                                                            .MerchantNinetyPercentEligibility
+                                                            .ELIGIBLE
+                                                    )
+                                                    .build()
+                                            )
                                             .merchantAcceptorId("5665270011000168")
                                             .merchantCategoryCode("5734")
                                             .merchantCity("New York")

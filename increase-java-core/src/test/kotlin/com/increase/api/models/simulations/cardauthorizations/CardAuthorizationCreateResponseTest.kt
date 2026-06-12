@@ -598,6 +598,17 @@ internal class CardAuthorizationCreateResponseTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .healthcare(
+                                            PendingTransaction.Source.CardAuthorization.Healthcare
+                                                .builder()
+                                                .merchantNinetyPercentEligibility(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .Healthcare
+                                                        .MerchantNinetyPercentEligibility
+                                                        .ELIGIBLE
+                                                )
+                                                .build()
+                                        )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
@@ -1428,6 +1439,17 @@ internal class CardAuthorizationCreateResponseTest {
                                             .SETTLEMENT
                                     )
                                     .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .healthcare(
+                                        PendingTransaction.Source.CardAuthorization.Healthcare
+                                            .builder()
+                                            .merchantNinetyPercentEligibility(
+                                                PendingTransaction.Source.CardAuthorization
+                                                    .Healthcare
+                                                    .MerchantNinetyPercentEligibility
+                                                    .ELIGIBLE
+                                            )
+                                            .build()
+                                    )
                                     .merchantAcceptorId("5665270011000168")
                                     .merchantCategoryCode("5734")
                                     .merchantCity("New York")
@@ -2265,6 +2287,17 @@ internal class CardAuthorizationCreateResponseTest {
                                                 .SETTLEMENT
                                         )
                                         .expiresAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .healthcare(
+                                            PendingTransaction.Source.CardAuthorization.Healthcare
+                                                .builder()
+                                                .merchantNinetyPercentEligibility(
+                                                    PendingTransaction.Source.CardAuthorization
+                                                        .Healthcare
+                                                        .MerchantNinetyPercentEligibility
+                                                        .ELIGIBLE
+                                                )
+                                                .build()
+                                        )
                                         .merchantAcceptorId("5665270011000168")
                                         .merchantCategoryCode("5734")
                                         .merchantCity("New York")
