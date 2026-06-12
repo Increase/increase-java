@@ -42,6 +42,7 @@ private constructor(
     private val inputMessageAccountabilityData: JsonField<String>,
     private val instructingAgentRoutingNumber: JsonField<String>,
     private val instructionIdentification: JsonField<String>,
+    private val purpose: JsonField<String>,
     private val reversal: JsonField<Reversal>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
@@ -104,6 +105,7 @@ private constructor(
         @JsonProperty("instruction_identification")
         @ExcludeMissing
         instructionIdentification: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("purpose") @ExcludeMissing purpose: JsonField<String> = JsonMissing.of(),
         @JsonProperty("reversal") @ExcludeMissing reversal: JsonField<Reversal> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
@@ -136,6 +138,7 @@ private constructor(
         inputMessageAccountabilityData,
         instructingAgentRoutingNumber,
         instructionIdentification,
+        purpose,
         reversal,
         status,
         type,
@@ -309,6 +312,14 @@ private constructor(
      */
     fun instructionIdentification(): Optional<String> =
         instructionIdentification.getOptional("instruction_identification")
+
+    /**
+     * The reason for the wire transfer, as set by the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun purpose(): Optional<String> = purpose.getOptional("purpose")
 
     /**
      * If the transfer is reversed, this will contain details of the reversal.
@@ -536,6 +547,13 @@ private constructor(
     fun _instructionIdentification(): JsonField<String> = instructionIdentification
 
     /**
+     * Returns the raw JSON value of [purpose].
+     *
+     * Unlike [purpose], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("purpose") @ExcludeMissing fun _purpose(): JsonField<String> = purpose
+
+    /**
      * Returns the raw JSON value of [reversal].
      *
      * Unlike [reversal], this method doesn't throw if the JSON field has an unexpected type.
@@ -625,6 +643,7 @@ private constructor(
          * .inputMessageAccountabilityData()
          * .instructingAgentRoutingNumber()
          * .instructionIdentification()
+         * .purpose()
          * .reversal()
          * .status()
          * .type()
@@ -658,6 +677,7 @@ private constructor(
         private var inputMessageAccountabilityData: JsonField<String>? = null
         private var instructingAgentRoutingNumber: JsonField<String>? = null
         private var instructionIdentification: JsonField<String>? = null
+        private var purpose: JsonField<String>? = null
         private var reversal: JsonField<Reversal>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
@@ -687,6 +707,7 @@ private constructor(
             inputMessageAccountabilityData = inboundWireTransfer.inputMessageAccountabilityData
             instructingAgentRoutingNumber = inboundWireTransfer.instructingAgentRoutingNumber
             instructionIdentification = inboundWireTransfer.instructionIdentification
+            purpose = inboundWireTransfer.purpose
             reversal = inboundWireTransfer.reversal
             status = inboundWireTransfer.status
             type = inboundWireTransfer.type
@@ -1044,6 +1065,20 @@ private constructor(
             this.instructionIdentification = instructionIdentification
         }
 
+        /** The reason for the wire transfer, as set by the sender. */
+        fun purpose(purpose: String?) = purpose(JsonField.ofNullable(purpose))
+
+        /** Alias for calling [Builder.purpose] with `purpose.orElse(null)`. */
+        fun purpose(purpose: Optional<String>) = purpose(purpose.getOrNull())
+
+        /**
+         * Sets [Builder.purpose] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.purpose] with a well-typed [String] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun purpose(purpose: JsonField<String>) = apply { this.purpose = purpose }
+
         /** If the transfer is reversed, this will contain details of the reversal. */
         fun reversal(reversal: Reversal?) = reversal(JsonField.ofNullable(reversal))
 
@@ -1204,6 +1239,7 @@ private constructor(
          * .inputMessageAccountabilityData()
          * .instructingAgentRoutingNumber()
          * .instructionIdentification()
+         * .purpose()
          * .reversal()
          * .status()
          * .type()
@@ -1235,6 +1271,7 @@ private constructor(
                 checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
                 checkRequired("instructingAgentRoutingNumber", instructingAgentRoutingNumber),
                 checkRequired("instructionIdentification", instructionIdentification),
+                checkRequired("purpose", purpose),
                 checkRequired("reversal", reversal),
                 checkRequired("status", status),
                 checkRequired("type", type),
@@ -1285,6 +1322,7 @@ private constructor(
         inputMessageAccountabilityData()
         instructingAgentRoutingNumber()
         instructionIdentification()
+        purpose()
         reversal().ifPresent { it.validate() }
         status().validate()
         type().validate()
@@ -1328,6 +1366,7 @@ private constructor(
             (if (inputMessageAccountabilityData.asKnown().isPresent) 1 else 0) +
             (if (instructingAgentRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (instructionIdentification.asKnown().isPresent) 1 else 0) +
+            (if (purpose.asKnown().isPresent) 1 else 0) +
             (reversal.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2270,6 +2309,7 @@ private constructor(
             inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
             instructingAgentRoutingNumber == other.instructingAgentRoutingNumber &&
             instructionIdentification == other.instructionIdentification &&
+            purpose == other.purpose &&
             reversal == other.reversal &&
             status == other.status &&
             type == other.type &&
@@ -2300,6 +2340,7 @@ private constructor(
             inputMessageAccountabilityData,
             instructingAgentRoutingNumber,
             instructionIdentification,
+            purpose,
             reversal,
             status,
             type,
@@ -2313,5 +2354,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, purpose=$purpose, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
 }

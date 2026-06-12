@@ -16,6 +16,7 @@ internal class CheckDepositSubmitParamsTest {
                     .accountNumber("x")
                     .routingNumber("x")
                     .auxiliaryOnUs("x")
+                    .serialNumber("x")
                     .build()
             )
             .build()
@@ -43,6 +44,7 @@ internal class CheckDepositSubmitParamsTest {
                         .accountNumber("x")
                         .routingNumber("x")
                         .auxiliaryOnUs("x")
+                        .serialNumber("x")
                         .build()
                 )
                 .build()
@@ -55,6 +57,7 @@ internal class CheckDepositSubmitParamsTest {
                     .accountNumber("x")
                     .routingNumber("x")
                     .auxiliaryOnUs("x")
+                    .serialNumber("x")
                     .build()
             )
     }

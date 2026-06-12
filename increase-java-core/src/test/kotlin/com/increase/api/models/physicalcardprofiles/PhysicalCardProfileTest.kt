@@ -22,6 +22,9 @@ internal class PhysicalCardProfileTest {
                 .creator(PhysicalCardProfile.Creator.USER)
                 .description("Corporate logo card")
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .frontText(
+                    PhysicalCardProfile.FrontText.builder().line1("line1").line2("line2").build()
+                )
                 .idempotencyKey(null)
                 .isDefault(false)
                 .programId("program_i2v2os4mwza1oetokh9i")
@@ -38,6 +41,8 @@ internal class PhysicalCardProfileTest {
         assertThat(physicalCardProfile.creator()).isEqualTo(PhysicalCardProfile.Creator.USER)
         assertThat(physicalCardProfile.description()).isEqualTo("Corporate logo card")
         assertThat(physicalCardProfile.frontImageFileId()).contains("file_makxrc67oh9l6sg7w9yc")
+        assertThat(physicalCardProfile.frontText())
+            .contains(PhysicalCardProfile.FrontText.builder().line1("line1").line2("line2").build())
         assertThat(physicalCardProfile.idempotencyKey()).isEmpty
         assertThat(physicalCardProfile.isDefault()).isEqualTo(false)
         assertThat(physicalCardProfile.programId()).isEqualTo("program_i2v2os4mwza1oetokh9i")
@@ -59,6 +64,9 @@ internal class PhysicalCardProfileTest {
                 .creator(PhysicalCardProfile.Creator.USER)
                 .description("Corporate logo card")
                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
+                .frontText(
+                    PhysicalCardProfile.FrontText.builder().line1("line1").line2("line2").build()
+                )
                 .idempotencyKey(null)
                 .isDefault(false)
                 .programId("program_i2v2os4mwza1oetokh9i")
