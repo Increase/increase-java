@@ -101,7 +101,7 @@ private constructor(
     fun amount(): Long = amount.getRequired("amount")
 
     /**
-     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Transaction
      * occurred.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -336,8 +336,8 @@ private constructor(
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
         /**
-         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date on which the Transaction
-         * occurred.
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+         * Transaction occurred.
          */
         fun createdAt(createdAt: OffsetDateTime) = createdAt(JsonField.of(createdAt))
 
@@ -16671,6 +16671,12 @@ private constructor(
                     @JvmField val CASH_DISBURSEMENT = of("cash_disbursement")
 
                     /**
+                     * Cash deposit transactions are used to deposit cash at an ATM or a point of
+                     * sale.
+                     */
+                    @JvmField val CASH_DEPOSIT = of("cash_deposit")
+
+                    /**
                      * A balance inquiry transaction is used to check the balance of an account
                      * associated with a card.
                      */
@@ -16716,6 +16722,11 @@ private constructor(
                      * point of sale.
                      */
                     CASH_DISBURSEMENT,
+                    /**
+                     * Cash deposit transactions are used to deposit cash at an ATM or a point of
+                     * sale.
+                     */
+                    CASH_DEPOSIT,
                     /**
                      * A balance inquiry transaction is used to check the balance of an account
                      * associated with a card.
@@ -16770,6 +16781,11 @@ private constructor(
                      */
                     CASH_DISBURSEMENT,
                     /**
+                     * Cash deposit transactions are used to deposit cash at an ATM or a point of
+                     * sale.
+                     */
+                    CASH_DEPOSIT,
+                    /**
                      * A balance inquiry transaction is used to check the balance of an account
                      * associated with a card.
                      */
@@ -16800,6 +16816,7 @@ private constructor(
                         QUASI_CASH -> Value.QUASI_CASH
                         REFUND -> Value.REFUND
                         CASH_DISBURSEMENT -> Value.CASH_DISBURSEMENT
+                        CASH_DEPOSIT -> Value.CASH_DEPOSIT
                         BALANCE_INQUIRY -> Value.BALANCE_INQUIRY
                         UNKNOWN -> Value.UNKNOWN
                         else -> Value._UNKNOWN
@@ -16824,6 +16841,7 @@ private constructor(
                         QUASI_CASH -> Known.QUASI_CASH
                         REFUND -> Known.REFUND
                         CASH_DISBURSEMENT -> Known.CASH_DISBURSEMENT
+                        CASH_DEPOSIT -> Known.CASH_DEPOSIT
                         BALANCE_INQUIRY -> Known.BALANCE_INQUIRY
                         UNKNOWN -> Known.UNKNOWN
                         else ->
