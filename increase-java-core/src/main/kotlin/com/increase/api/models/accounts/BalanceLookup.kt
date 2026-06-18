@@ -348,6 +348,7 @@ private constructor(
         private val dueAt: JsonField<OffsetDateTime>,
         private val dueBalance: JsonField<Long>,
         private val pastDueBalance: JsonField<Long>,
+        private val receivables: JsonField<Receivables>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -362,7 +363,10 @@ private constructor(
             @JsonProperty("past_due_balance")
             @ExcludeMissing
             pastDueBalance: JsonField<Long> = JsonMissing.of(),
-        ) : this(dueAt, dueBalance, pastDueBalance, mutableMapOf())
+            @JsonProperty("receivables")
+            @ExcludeMissing
+            receivables: JsonField<Receivables> = JsonMissing.of(),
+        ) : this(dueAt, dueBalance, pastDueBalance, receivables, mutableMapOf())
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the loan payment is
@@ -390,6 +394,14 @@ private constructor(
         fun pastDueBalance(): Long = pastDueBalance.getRequired("past_due_balance")
 
         /**
+         * The receivables balances for the loan.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun receivables(): Optional<Receivables> = receivables.getOptional("receivables")
+
+        /**
          * Returns the raw JSON value of [dueAt].
          *
          * Unlike [dueAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -413,6 +425,15 @@ private constructor(
         @ExcludeMissing
         fun _pastDueBalance(): JsonField<Long> = pastDueBalance
 
+        /**
+         * Returns the raw JSON value of [receivables].
+         *
+         * Unlike [receivables], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("receivables")
+        @ExcludeMissing
+        fun _receivables(): JsonField<Receivables> = receivables
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -435,6 +456,7 @@ private constructor(
              * .dueAt()
              * .dueBalance()
              * .pastDueBalance()
+             * .receivables()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -446,6 +468,7 @@ private constructor(
             private var dueAt: JsonField<OffsetDateTime>? = null
             private var dueBalance: JsonField<Long>? = null
             private var pastDueBalance: JsonField<Long>? = null
+            private var receivables: JsonField<Receivables>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -453,6 +476,7 @@ private constructor(
                 dueAt = loan.dueAt
                 dueBalance = loan.dueBalance
                 pastDueBalance = loan.pastDueBalance
+                receivables = loan.receivables
                 additionalProperties = loan.additionalProperties.toMutableMap()
             }
 
@@ -500,6 +524,25 @@ private constructor(
                 this.pastDueBalance = pastDueBalance
             }
 
+            /** The receivables balances for the loan. */
+            fun receivables(receivables: Receivables?) =
+                receivables(JsonField.ofNullable(receivables))
+
+            /** Alias for calling [Builder.receivables] with `receivables.orElse(null)`. */
+            fun receivables(receivables: Optional<Receivables>) =
+                receivables(receivables.getOrNull())
+
+            /**
+             * Sets [Builder.receivables] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.receivables] with a well-typed [Receivables] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun receivables(receivables: JsonField<Receivables>) = apply {
+                this.receivables = receivables
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -529,6 +572,7 @@ private constructor(
              * .dueAt()
              * .dueBalance()
              * .pastDueBalance()
+             * .receivables()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -538,6 +582,7 @@ private constructor(
                     checkRequired("dueAt", dueAt),
                     checkRequired("dueBalance", dueBalance),
                     checkRequired("pastDueBalance", pastDueBalance),
+                    checkRequired("receivables", receivables),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -561,6 +606,7 @@ private constructor(
             dueAt()
             dueBalance()
             pastDueBalance()
+            receivables().ifPresent { it.validate() }
             validated = true
         }
 
@@ -582,7 +628,240 @@ private constructor(
         internal fun validity(): Int =
             (if (dueAt.asKnown().isPresent) 1 else 0) +
                 (if (dueBalance.asKnown().isPresent) 1 else 0) +
-                (if (pastDueBalance.asKnown().isPresent) 1 else 0)
+                (if (pastDueBalance.asKnown().isPresent) 1 else 0) +
+                (receivables.asKnown().getOrNull()?.validity() ?: 0)
+
+        /** The receivables balances for the loan. */
+        class Receivables
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val purchasableBalance: JsonField<Long>,
+            private val purchasedBalance: JsonField<Long>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("purchasable_balance")
+                @ExcludeMissing
+                purchasableBalance: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("purchased_balance")
+                @ExcludeMissing
+                purchasedBalance: JsonField<Long> = JsonMissing.of(),
+            ) : this(purchasableBalance, purchasedBalance, mutableMapOf())
+
+            /**
+             * The balance of seasoned receivables available to be purchased.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun purchasableBalance(): Long = purchasableBalance.getRequired("purchasable_balance")
+
+            /**
+             * The balance of receivables that have been purchased.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun purchasedBalance(): Long = purchasedBalance.getRequired("purchased_balance")
+
+            /**
+             * Returns the raw JSON value of [purchasableBalance].
+             *
+             * Unlike [purchasableBalance], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("purchasable_balance")
+            @ExcludeMissing
+            fun _purchasableBalance(): JsonField<Long> = purchasableBalance
+
+            /**
+             * Returns the raw JSON value of [purchasedBalance].
+             *
+             * Unlike [purchasedBalance], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("purchased_balance")
+            @ExcludeMissing
+            fun _purchasedBalance(): JsonField<Long> = purchasedBalance
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Receivables].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .purchasableBalance()
+                 * .purchasedBalance()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Receivables]. */
+            class Builder internal constructor() {
+
+                private var purchasableBalance: JsonField<Long>? = null
+                private var purchasedBalance: JsonField<Long>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(receivables: Receivables) = apply {
+                    purchasableBalance = receivables.purchasableBalance
+                    purchasedBalance = receivables.purchasedBalance
+                    additionalProperties = receivables.additionalProperties.toMutableMap()
+                }
+
+                /** The balance of seasoned receivables available to be purchased. */
+                fun purchasableBalance(purchasableBalance: Long) =
+                    purchasableBalance(JsonField.of(purchasableBalance))
+
+                /**
+                 * Sets [Builder.purchasableBalance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.purchasableBalance] with a well-typed [Long]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun purchasableBalance(purchasableBalance: JsonField<Long>) = apply {
+                    this.purchasableBalance = purchasableBalance
+                }
+
+                /** The balance of receivables that have been purchased. */
+                fun purchasedBalance(purchasedBalance: Long) =
+                    purchasedBalance(JsonField.of(purchasedBalance))
+
+                /**
+                 * Sets [Builder.purchasedBalance] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.purchasedBalance] with a well-typed [Long] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun purchasedBalance(purchasedBalance: JsonField<Long>) = apply {
+                    this.purchasedBalance = purchasedBalance
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Receivables].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .purchasableBalance()
+                 * .purchasedBalance()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Receivables =
+                    Receivables(
+                        checkRequired("purchasableBalance", purchasableBalance),
+                        checkRequired("purchasedBalance", purchasedBalance),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): Receivables = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                purchasableBalance()
+                purchasedBalance()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (purchasableBalance.asKnown().isPresent) 1 else 0) +
+                    (if (purchasedBalance.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Receivables &&
+                    purchasableBalance == other.purchasableBalance &&
+                    purchasedBalance == other.purchasedBalance &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(purchasableBalance, purchasedBalance, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Receivables{purchasableBalance=$purchasableBalance, purchasedBalance=$purchasedBalance, additionalProperties=$additionalProperties}"
+        }
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -593,17 +872,18 @@ private constructor(
                 dueAt == other.dueAt &&
                 dueBalance == other.dueBalance &&
                 pastDueBalance == other.pastDueBalance &&
+                receivables == other.receivables &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(dueAt, dueBalance, pastDueBalance, additionalProperties)
+            Objects.hash(dueAt, dueBalance, pastDueBalance, receivables, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Loan{dueAt=$dueAt, dueBalance=$dueBalance, pastDueBalance=$pastDueBalance, additionalProperties=$additionalProperties}"
+            "Loan{dueAt=$dueAt, dueBalance=$dueBalance, pastDueBalance=$pastDueBalance, receivables=$receivables, additionalProperties=$additionalProperties}"
     }
 
     /**
