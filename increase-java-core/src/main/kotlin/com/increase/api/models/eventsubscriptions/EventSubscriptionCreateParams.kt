@@ -1189,11 +1189,17 @@ private constructor(
                 /** Occurs whenever a Loan Application is updated. */
                 @JvmField val LOAN_APPLICATION_UPDATED = of("loan_application.updated")
 
+                /** Occurs whenever a Loan Distribution is created. */
+                @JvmField val LOAN_DISTRIBUTION_CREATED = of("loan_distribution.created")
+
                 /** Occurs whenever a Loan Offer is created. */
                 @JvmField val LOAN_OFFER_CREATED = of("loan_offer.created")
 
                 /** Occurs whenever a Loan Offer is updated. */
                 @JvmField val LOAN_OFFER_UPDATED = of("loan_offer.updated")
+
+                /** Occurs whenever a Loan Purchase is created. */
+                @JvmField val LOAN_PURCHASE_CREATED = of("loan_purchase.created")
 
                 /** Occurs whenever a Lockbox is created. */
                 @JvmField val LOCKBOX_CREATED = of("lockbox.created")
@@ -1498,10 +1504,14 @@ private constructor(
                 LOAN_APPLICATION_CREATED,
                 /** Occurs whenever a Loan Application is updated. */
                 LOAN_APPLICATION_UPDATED,
+                /** Occurs whenever a Loan Distribution is created. */
+                LOAN_DISTRIBUTION_CREATED,
                 /** Occurs whenever a Loan Offer is created. */
                 LOAN_OFFER_CREATED,
                 /** Occurs whenever a Loan Offer is updated. */
                 LOAN_OFFER_UPDATED,
+                /** Occurs whenever a Loan Purchase is created. */
+                LOAN_PURCHASE_CREATED,
                 /** Occurs whenever a Lockbox is created. */
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
@@ -1753,10 +1763,14 @@ private constructor(
                 LOAN_APPLICATION_CREATED,
                 /** Occurs whenever a Loan Application is updated. */
                 LOAN_APPLICATION_UPDATED,
+                /** Occurs whenever a Loan Distribution is created. */
+                LOAN_DISTRIBUTION_CREATED,
                 /** Occurs whenever a Loan Offer is created. */
                 LOAN_OFFER_CREATED,
                 /** Occurs whenever a Loan Offer is updated. */
                 LOAN_OFFER_UPDATED,
+                /** Occurs whenever a Loan Purchase is created. */
+                LOAN_PURCHASE_CREATED,
                 /** Occurs whenever a Lockbox is created. */
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
@@ -1940,8 +1954,10 @@ private constructor(
                     INTRAFI_EXCLUSION_UPDATED -> Value.INTRAFI_EXCLUSION_UPDATED
                     LOAN_APPLICATION_CREATED -> Value.LOAN_APPLICATION_CREATED
                     LOAN_APPLICATION_UPDATED -> Value.LOAN_APPLICATION_UPDATED
+                    LOAN_DISTRIBUTION_CREATED -> Value.LOAN_DISTRIBUTION_CREATED
                     LOAN_OFFER_CREATED -> Value.LOAN_OFFER_CREATED
                     LOAN_OFFER_UPDATED -> Value.LOAN_OFFER_UPDATED
+                    LOAN_PURCHASE_CREATED -> Value.LOAN_PURCHASE_CREATED
                     LOCKBOX_CREATED -> Value.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Value.LOCKBOX_UPDATED
                     OAUTH_CONNECTION_CREATED -> Value.OAUTH_CONNECTION_CREATED
@@ -2078,8 +2094,10 @@ private constructor(
                     INTRAFI_EXCLUSION_UPDATED -> Known.INTRAFI_EXCLUSION_UPDATED
                     LOAN_APPLICATION_CREATED -> Known.LOAN_APPLICATION_CREATED
                     LOAN_APPLICATION_UPDATED -> Known.LOAN_APPLICATION_UPDATED
+                    LOAN_DISTRIBUTION_CREATED -> Known.LOAN_DISTRIBUTION_CREATED
                     LOAN_OFFER_CREATED -> Known.LOAN_OFFER_CREATED
                     LOAN_OFFER_UPDATED -> Known.LOAN_OFFER_UPDATED
+                    LOAN_PURCHASE_CREATED -> Known.LOAN_PURCHASE_CREATED
                     LOCKBOX_CREATED -> Known.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Known.LOCKBOX_UPDATED
                     OAUTH_CONNECTION_CREATED -> Known.OAUTH_CONNECTION_CREATED
