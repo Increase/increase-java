@@ -1976,12 +1976,6 @@ private constructor(
             /** The subscription is permanently disabled and Events will not be delivered. */
             @JvmField val DELETED = of("deleted")
 
-            /**
-             * The subscription is temporarily disabled due to delivery errors and Events will not
-             * be delivered.
-             */
-            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
-
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -1993,11 +1987,6 @@ private constructor(
             DISABLED,
             /** The subscription is permanently disabled and Events will not be delivered. */
             DELETED,
-            /**
-             * The subscription is temporarily disabled due to delivery errors and Events will not
-             * be delivered.
-             */
-            REQUIRES_ATTENTION,
         }
 
         /**
@@ -2016,11 +2005,6 @@ private constructor(
             DISABLED,
             /** The subscription is permanently disabled and Events will not be delivered. */
             DELETED,
-            /**
-             * The subscription is temporarily disabled due to delivery errors and Events will not
-             * be delivered.
-             */
-            REQUIRES_ATTENTION,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -2037,7 +2021,6 @@ private constructor(
                 ACTIVE -> Value.ACTIVE
                 DISABLED -> Value.DISABLED
                 DELETED -> Value.DELETED
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 else -> Value._UNKNOWN
             }
 
@@ -2055,7 +2038,6 @@ private constructor(
                 ACTIVE -> Known.ACTIVE
                 DISABLED -> Known.DISABLED
                 DELETED -> Known.DELETED
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
