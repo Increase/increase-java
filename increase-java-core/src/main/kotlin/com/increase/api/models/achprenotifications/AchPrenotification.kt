@@ -3993,14 +3993,14 @@ private constructor(
             /** The Prenotification is pending submission. */
             @JvmField val PENDING_SUBMITTING = of("pending_submitting")
 
-            /** The Prenotification requires attention. */
-            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
-
             /** The Prenotification has been returned. */
             @JvmField val RETURNED = of("returned")
 
             /** The Prenotification is complete. */
             @JvmField val SUBMITTED = of("submitted")
+
+            /** The Prenotification requires attention. */
+            @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
@@ -4009,12 +4009,12 @@ private constructor(
         enum class Known {
             /** The Prenotification is pending submission. */
             PENDING_SUBMITTING,
-            /** The Prenotification requires attention. */
-            REQUIRES_ATTENTION,
             /** The Prenotification has been returned. */
             RETURNED,
             /** The Prenotification is complete. */
             SUBMITTED,
+            /** The Prenotification requires attention. */
+            REQUIRES_ATTENTION,
         }
 
         /**
@@ -4029,12 +4029,12 @@ private constructor(
         enum class Value {
             /** The Prenotification is pending submission. */
             PENDING_SUBMITTING,
-            /** The Prenotification requires attention. */
-            REQUIRES_ATTENTION,
             /** The Prenotification has been returned. */
             RETURNED,
             /** The Prenotification is complete. */
             SUBMITTED,
+            /** The Prenotification requires attention. */
+            REQUIRES_ATTENTION,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -4049,9 +4049,9 @@ private constructor(
         fun value(): Value =
             when (this) {
                 PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
-                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 RETURNED -> Value.RETURNED
                 SUBMITTED -> Value.SUBMITTED
+                REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 else -> Value._UNKNOWN
             }
 
@@ -4067,9 +4067,9 @@ private constructor(
         fun known(): Known =
             when (this) {
                 PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
-                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 RETURNED -> Known.RETURNED
                 SUBMITTED -> Known.SUBMITTED
+                REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
