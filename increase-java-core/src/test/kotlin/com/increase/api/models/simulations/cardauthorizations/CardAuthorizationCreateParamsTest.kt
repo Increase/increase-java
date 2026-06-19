@@ -26,10 +26,25 @@ internal class CardAuthorizationCreateParamsTest {
                 CardAuthorizationCreateParams.NetworkDetails.builder()
                     .visa(
                         CardAuthorizationCreateParams.NetworkDetails.Visa.builder()
+                            .electronicCommerceIndicator(
+                                CardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .ElectronicCommerceIndicator
+                                    .MAIL_PHONE_ORDER
+                            )
+                            .pointOfServiceEntryMode(
+                                CardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .PointOfServiceEntryMode
+                                    .UNKNOWN
+                            )
                             .standInProcessingReason(
                                 CardAuthorizationCreateParams.NetworkDetails.Visa
                                     .StandInProcessingReason
                                     .ISSUER_ERROR
+                            )
+                            .terminalEntryCapability(
+                                CardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .TerminalEntryCapability
+                                    .UNKNOWN
                             )
                             .build()
                     )
@@ -73,10 +88,25 @@ internal class CardAuthorizationCreateParamsTest {
                     CardAuthorizationCreateParams.NetworkDetails.builder()
                         .visa(
                             CardAuthorizationCreateParams.NetworkDetails.Visa.builder()
+                                .electronicCommerceIndicator(
+                                    CardAuthorizationCreateParams.NetworkDetails.Visa
+                                        .ElectronicCommerceIndicator
+                                        .MAIL_PHONE_ORDER
+                                )
+                                .pointOfServiceEntryMode(
+                                    CardAuthorizationCreateParams.NetworkDetails.Visa
+                                        .PointOfServiceEntryMode
+                                        .UNKNOWN
+                                )
                                 .standInProcessingReason(
                                     CardAuthorizationCreateParams.NetworkDetails.Visa
                                         .StandInProcessingReason
                                         .ISSUER_ERROR
+                                )
+                                .terminalEntryCapability(
+                                    CardAuthorizationCreateParams.NetworkDetails.Visa
+                                        .TerminalEntryCapability
+                                        .UNKNOWN
                                 )
                                 .build()
                         )
@@ -121,10 +151,25 @@ internal class CardAuthorizationCreateParamsTest {
                 CardAuthorizationCreateParams.NetworkDetails.builder()
                     .visa(
                         CardAuthorizationCreateParams.NetworkDetails.Visa.builder()
+                            .electronicCommerceIndicator(
+                                CardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .ElectronicCommerceIndicator
+                                    .MAIL_PHONE_ORDER
+                            )
+                            .pointOfServiceEntryMode(
+                                CardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .PointOfServiceEntryMode
+                                    .UNKNOWN
+                            )
                             .standInProcessingReason(
                                 CardAuthorizationCreateParams.NetworkDetails.Visa
                                     .StandInProcessingReason
                                     .ISSUER_ERROR
+                            )
+                            .terminalEntryCapability(
+                                CardAuthorizationCreateParams.NetworkDetails.Visa
+                                    .TerminalEntryCapability
+                                    .UNKNOWN
                             )
                             .build()
                     )
