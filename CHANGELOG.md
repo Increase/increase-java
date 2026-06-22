@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.561.0](https://github.com/Increase/increase-java/compare/v0.560.0...v0.561.0) (2026-06-22)
+
+
+### Features
+
+* **api:** add Visa network fields to card authorization simulations ([03e64f7](https://github.com/Increase/increase-java/commit/03e64f7e6282c21f378c29aca4f1d9a8cfda6e8c))
+
 ## [0.560.0](https://github.com/Increase/increase-java/compare/v0.559.0...v0.560.0) (2026-06-18)
 
 
