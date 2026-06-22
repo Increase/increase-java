@@ -82,6 +82,9 @@ internal class FednowTransferListPageResponseTest {
                             FednowTransfer.Submission.builder()
                                 .messageIdentification("20250308723260130GT4LAKENDXBHQCZDWS")
                                 .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .uniqueEndToEndTransactionReference(
+                                    "9a21e10a-7600-4a24-8ff3-2cbc5943c27a"
+                                )
                                 .build()
                         )
                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -162,6 +165,9 @@ internal class FednowTransferListPageResponseTest {
                         FednowTransfer.Submission.builder()
                             .messageIdentification("20250308723260130GT4LAKENDXBHQCZDWS")
                             .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .uniqueEndToEndTransactionReference(
+                                "9a21e10a-7600-4a24-8ff3-2cbc5943c27a"
+                            )
                             .build()
                     )
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -246,6 +252,9 @@ internal class FednowTransferListPageResponseTest {
                             FednowTransfer.Submission.builder()
                                 .messageIdentification("20250308723260130GT4LAKENDXBHQCZDWS")
                                 .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .uniqueEndToEndTransactionReference(
+                                    "9a21e10a-7600-4a24-8ff3-2cbc5943c27a"
+                                )
                                 .build()
                         )
                         .transactionId("transaction_uyrp7fld2ium70oa7oi")

@@ -4053,6 +4053,7 @@ private constructor(
     private constructor(
         private val messageIdentification: JsonField<String>,
         private val submittedAt: JsonField<OffsetDateTime>,
+        private val uniqueEndToEndTransactionReference: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -4064,7 +4065,15 @@ private constructor(
             @JsonProperty("submitted_at")
             @ExcludeMissing
             submittedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        ) : this(messageIdentification, submittedAt, mutableMapOf())
+            @JsonProperty("unique_end_to_end_transaction_reference")
+            @ExcludeMissing
+            uniqueEndToEndTransactionReference: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            messageIdentification,
+            submittedAt,
+            uniqueEndToEndTransactionReference,
+            mutableMapOf(),
+        )
 
         /**
          * The FedNow network identification of the message submitted.
@@ -4085,6 +4094,19 @@ private constructor(
         fun submittedAt(): Optional<OffsetDateTime> = submittedAt.getOptional("submitted_at")
 
         /**
+         * The Unique End-to-end Transaction Reference
+         * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr))
+         * of the transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun uniqueEndToEndTransactionReference(): String =
+            uniqueEndToEndTransactionReference.getRequired(
+                "unique_end_to_end_transaction_reference"
+            )
+
+        /**
          * Returns the raw JSON value of [messageIdentification].
          *
          * Unlike [messageIdentification], this method doesn't throw if the JSON field has an
@@ -4102,6 +4124,17 @@ private constructor(
         @JsonProperty("submitted_at")
         @ExcludeMissing
         fun _submittedAt(): JsonField<OffsetDateTime> = submittedAt
+
+        /**
+         * Returns the raw JSON value of [uniqueEndToEndTransactionReference].
+         *
+         * Unlike [uniqueEndToEndTransactionReference], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("unique_end_to_end_transaction_reference")
+        @ExcludeMissing
+        fun _uniqueEndToEndTransactionReference(): JsonField<String> =
+            uniqueEndToEndTransactionReference
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -4124,6 +4157,7 @@ private constructor(
              * ```java
              * .messageIdentification()
              * .submittedAt()
+             * .uniqueEndToEndTransactionReference()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -4134,12 +4168,14 @@ private constructor(
 
             private var messageIdentification: JsonField<String>? = null
             private var submittedAt: JsonField<OffsetDateTime>? = null
+            private var uniqueEndToEndTransactionReference: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(submission: Submission) = apply {
                 messageIdentification = submission.messageIdentification
                 submittedAt = submission.submittedAt
+                uniqueEndToEndTransactionReference = submission.uniqueEndToEndTransactionReference
                 additionalProperties = submission.additionalProperties.toMutableMap()
             }
 
@@ -4180,6 +4216,27 @@ private constructor(
                 this.submittedAt = submittedAt
             }
 
+            /**
+             * The Unique End-to-end Transaction Reference
+             * ([UETR](https://www.swift.com/payments/what-unique-end-end-transaction-reference-uetr))
+             * of the transfer.
+             */
+            fun uniqueEndToEndTransactionReference(uniqueEndToEndTransactionReference: String) =
+                uniqueEndToEndTransactionReference(JsonField.of(uniqueEndToEndTransactionReference))
+
+            /**
+             * Sets [Builder.uniqueEndToEndTransactionReference] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.uniqueEndToEndTransactionReference] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun uniqueEndToEndTransactionReference(
+                uniqueEndToEndTransactionReference: JsonField<String>
+            ) = apply {
+                this.uniqueEndToEndTransactionReference = uniqueEndToEndTransactionReference
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -4208,6 +4265,7 @@ private constructor(
              * ```java
              * .messageIdentification()
              * .submittedAt()
+             * .uniqueEndToEndTransactionReference()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -4216,6 +4274,10 @@ private constructor(
                 Submission(
                     checkRequired("messageIdentification", messageIdentification),
                     checkRequired("submittedAt", submittedAt),
+                    checkRequired(
+                        "uniqueEndToEndTransactionReference",
+                        uniqueEndToEndTransactionReference,
+                    ),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -4238,6 +4300,7 @@ private constructor(
 
             messageIdentification()
             submittedAt()
+            uniqueEndToEndTransactionReference()
             validated = true
         }
 
@@ -4258,7 +4321,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (messageIdentification.asKnown().isPresent) 1 else 0) +
-                (if (submittedAt.asKnown().isPresent) 1 else 0)
+                (if (submittedAt.asKnown().isPresent) 1 else 0) +
+                (if (uniqueEndToEndTransactionReference.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -4268,17 +4332,23 @@ private constructor(
             return other is Submission &&
                 messageIdentification == other.messageIdentification &&
                 submittedAt == other.submittedAt &&
+                uniqueEndToEndTransactionReference == other.uniqueEndToEndTransactionReference &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(messageIdentification, submittedAt, additionalProperties)
+            Objects.hash(
+                messageIdentification,
+                submittedAt,
+                uniqueEndToEndTransactionReference,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Submission{messageIdentification=$messageIdentification, submittedAt=$submittedAt, additionalProperties=$additionalProperties}"
+            "Submission{messageIdentification=$messageIdentification, submittedAt=$submittedAt, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, additionalProperties=$additionalProperties}"
     }
 
     /**
