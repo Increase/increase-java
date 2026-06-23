@@ -38,6 +38,7 @@ internal class InboundFednowTransferTest {
                 .status(InboundFednowTransfer.Status.CONFIRMED)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(InboundFednowTransfer.Type.INBOUND_FEDNOW_TRANSFER)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                 .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
@@ -72,6 +73,8 @@ internal class InboundFednowTransferTest {
             .contains("transaction_uyrp7fld2ium70oa7oi")
         assertThat(inboundFednowTransfer.type())
             .isEqualTo(InboundFednowTransfer.Type.INBOUND_FEDNOW_TRANSFER)
+        assertThat(inboundFednowTransfer.uniqueEndToEndTransactionReference())
+            .contains("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
         assertThat(inboundFednowTransfer.unstructuredRemittanceInformation())
             .contains("Invoice 29582")
     }
@@ -105,6 +108,7 @@ internal class InboundFednowTransferTest {
                 .status(InboundFednowTransfer.Status.CONFIRMED)
                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                 .type(InboundFednowTransfer.Type.INBOUND_FEDNOW_TRANSFER)
+                .uniqueEndToEndTransactionReference("9a21e10a-7600-4a24-8ff3-2cbc5943c27a")
                 .unstructuredRemittanceInformation("Invoice 29582")
                 .build()
 
