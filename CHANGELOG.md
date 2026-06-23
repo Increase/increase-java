@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.562.0](https://github.com/Increase/increase-java/compare/v0.561.0...v0.562.0) (2026-06-23)
+
+
+### Features
+
+* **api:** add UETR field to inbound FedNow transfers ([0faec14](https://github.com/Increase/increase-java/commit/0faec147b10614dd2bdcff1c65523453238c075b))
+
 ## [0.561.0](https://github.com/Increase/increase-java/compare/v0.560.0...v0.561.0) (2026-06-22)
 
 
