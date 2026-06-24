@@ -18,7 +18,11 @@ import java.util.Collections
 import java.util.Objects
 import java.util.Optional
 
-/** Create a Lockbox Address */
+/**
+ * The Lockbox Address starts with a `pending` status and a null `address`. Shortly after creation,
+ * Increase generates the mailing address and the status becomes `active`. You can only create
+ * Lockbox Recipients for an `active` Lockbox Address.
+ */
 class LockboxAddressCreateParams
 private constructor(
     private val body: Body,
