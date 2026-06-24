@@ -3856,6 +3856,9 @@ private constructor(
 
         companion object {
 
+            /** The transfer is queued to be submitted to FedNow. */
+            @JvmField val PENDING_SUBMITTING = of("pending_submitting")
+
             /** The transfer is pending review by Increase. */
             @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
@@ -3871,9 +3874,6 @@ private constructor(
             /** The transfer is pending approval. */
             @JvmField val PENDING_APPROVAL = of("pending_approval")
 
-            /** The transfer is queued to be submitted to FedNow. */
-            @JvmField val PENDING_SUBMITTING = of("pending_submitting")
-
             /** The transfer has been submitted and is pending a response from FedNow. */
             @JvmField val PENDING_RESPONSE = of("pending_response")
 
@@ -3888,6 +3888,8 @@ private constructor(
 
         /** An enum containing [Status]'s known values. */
         enum class Known {
+            /** The transfer is queued to be submitted to FedNow. */
+            PENDING_SUBMITTING,
             /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
             /** The transfer has been canceled. */
@@ -3898,8 +3900,6 @@ private constructor(
             REQUIRES_ATTENTION,
             /** The transfer is pending approval. */
             PENDING_APPROVAL,
-            /** The transfer is queued to be submitted to FedNow. */
-            PENDING_SUBMITTING,
             /** The transfer has been submitted and is pending a response from FedNow. */
             PENDING_RESPONSE,
             /** The transfer has been sent successfully and is complete. */
@@ -3918,6 +3918,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            /** The transfer is queued to be submitted to FedNow. */
+            PENDING_SUBMITTING,
             /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
             /** The transfer has been canceled. */
@@ -3928,8 +3930,6 @@ private constructor(
             REQUIRES_ATTENTION,
             /** The transfer is pending approval. */
             PENDING_APPROVAL,
-            /** The transfer is queued to be submitted to FedNow. */
-            PENDING_SUBMITTING,
             /** The transfer has been submitted and is pending a response from FedNow. */
             PENDING_RESPONSE,
             /** The transfer has been sent successfully and is complete. */
@@ -3949,12 +3949,12 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 CANCELED -> Value.CANCELED
                 REVIEWING_REJECTED -> Value.REVIEWING_REJECTED
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
-                PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
                 PENDING_RESPONSE -> Value.PENDING_RESPONSE
                 COMPLETE -> Value.COMPLETE
                 REJECTED -> Value.REJECTED
@@ -3972,12 +3972,12 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 CANCELED -> Known.CANCELED
                 REVIEWING_REJECTED -> Known.REVIEWING_REJECTED
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
-                PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
                 PENDING_RESPONSE -> Known.PENDING_RESPONSE
                 COMPLETE -> Known.COMPLETE
                 REJECTED -> Known.REJECTED

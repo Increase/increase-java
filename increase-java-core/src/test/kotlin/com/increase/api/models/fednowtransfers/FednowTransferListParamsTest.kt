@@ -27,7 +27,7 @@ internal class FednowTransferListParamsTest {
             .limit(1L)
             .status(
                 FednowTransferListParams.Status.builder()
-                    .addIn(FednowTransferListParams.Status.In.PENDING_REVIEWING)
+                    .addIn(FednowTransferListParams.Status.In.PENDING_SUBMITTING)
                     .build()
             )
             .build()
@@ -52,7 +52,7 @@ internal class FednowTransferListParamsTest {
                 .limit(1L)
                 .status(
                     FednowTransferListParams.Status.builder()
-                        .addIn(FednowTransferListParams.Status.In.PENDING_REVIEWING)
+                        .addIn(FednowTransferListParams.Status.In.PENDING_SUBMITTING)
                         .build()
                 )
                 .build()
@@ -71,7 +71,7 @@ internal class FednowTransferListParamsTest {
                     .put("external_account_id", "external_account_id")
                     .put("idempotency_key", "x")
                     .put("limit", "1")
-                    .put("status.in", listOf("pending_reviewing").joinToString(","))
+                    .put("status.in", listOf("pending_submitting").joinToString(","))
                     .build()
             )
     }

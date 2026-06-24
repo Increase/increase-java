@@ -607,14 +607,14 @@ private constructor(
                 /** The transfer has been canceled. */
                 @JvmField val CANCELED = of("canceled")
 
+                /** The transfer is queued to be submitted to the card network. */
+                @JvmField val PENDING_SUBMISSION = of("pending_submission")
+
                 /** The transfer is pending review by Increase. */
                 @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
                 /** The transfer requires attention from an Increase operator. */
                 @JvmField val REQUIRES_ATTENTION = of("requires_attention")
-
-                /** The transfer is queued to be submitted to the card network. */
-                @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
                 /**
                  * The transfer has been submitted and is pending a response from the card network.
@@ -636,12 +636,12 @@ private constructor(
                 PENDING_APPROVAL,
                 /** The transfer has been canceled. */
                 CANCELED,
+                /** The transfer is queued to be submitted to the card network. */
+                PENDING_SUBMISSION,
                 /** The transfer is pending review by Increase. */
                 PENDING_REVIEWING,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
-                /** The transfer is queued to be submitted to the card network. */
-                PENDING_SUBMISSION,
                 /**
                  * The transfer has been submitted and is pending a response from the card network.
                  */
@@ -666,12 +666,12 @@ private constructor(
                 PENDING_APPROVAL,
                 /** The transfer has been canceled. */
                 CANCELED,
+                /** The transfer is queued to be submitted to the card network. */
+                PENDING_SUBMISSION,
                 /** The transfer is pending review by Increase. */
                 PENDING_REVIEWING,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
-                /** The transfer is queued to be submitted to the card network. */
-                PENDING_SUBMISSION,
                 /**
                  * The transfer has been submitted and is pending a response from the card network.
                  */
@@ -695,9 +695,9 @@ private constructor(
                 when (this) {
                     PENDING_APPROVAL -> Value.PENDING_APPROVAL
                     CANCELED -> Value.CANCELED
+                    PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                    PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                     SUBMITTED -> Value.SUBMITTED
                     COMPLETE -> Value.COMPLETE
                     DECLINED -> Value.DECLINED
@@ -717,9 +717,9 @@ private constructor(
                 when (this) {
                     PENDING_APPROVAL -> Known.PENDING_APPROVAL
                     CANCELED -> Known.CANCELED
+                    PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                    PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                     SUBMITTED -> Known.SUBMITTED
                     COMPLETE -> Known.COMPLETE
                     DECLINED -> Known.DECLINED

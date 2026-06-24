@@ -1644,7 +1644,10 @@ private constructor(
             /** The transfer is pending confirmation. */
             @JvmField val PENDING_CONFIRMING = of("pending_confirming")
 
-            /** The transfer was not responded to in time. */
+            /**
+             * The transfer was not responded to in time. This is rare and represents an error at
+             * Increase.
+             */
             @JvmField val TIMED_OUT = of("timed_out")
 
             /** The transfer has been received successfully and is confirmed. */
@@ -1660,7 +1663,10 @@ private constructor(
         enum class Known {
             /** The transfer is pending confirmation. */
             PENDING_CONFIRMING,
-            /** The transfer was not responded to in time. */
+            /**
+             * The transfer was not responded to in time. This is rare and represents an error at
+             * Increase.
+             */
             TIMED_OUT,
             /** The transfer has been received successfully and is confirmed. */
             CONFIRMED,
@@ -1680,7 +1686,10 @@ private constructor(
         enum class Value {
             /** The transfer is pending confirmation. */
             PENDING_CONFIRMING,
-            /** The transfer was not responded to in time. */
+            /**
+             * The transfer was not responded to in time. This is rare and represents an error at
+             * Increase.
+             */
             TIMED_OUT,
             /** The transfer has been received successfully and is confirmed. */
             CONFIRMED,
