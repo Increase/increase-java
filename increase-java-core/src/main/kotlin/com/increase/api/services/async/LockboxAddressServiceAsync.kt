@@ -28,7 +28,11 @@ interface LockboxAddressServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): LockboxAddressServiceAsync
 
-    /** Create a Lockbox Address */
+    /**
+     * The Lockbox Address starts with a `pending` status and a null `address`. Shortly after
+     * creation, Increase generates the mailing address and the status becomes `active`. You can
+     * only create Lockbox Recipients for an `active` Lockbox Address.
+     */
     fun create(): CompletableFuture<LockboxAddress> = create(LockboxAddressCreateParams.none())
 
     /** @see create */

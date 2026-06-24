@@ -72,8 +72,8 @@ private constructor(
     fun loan(): Optional<Loan> = body.loan()
 
     /**
-     * The identifier for the Program that this Account falls under. Required if you operate more
-     * than one Program.
+     * The identifier for the Program that this Account falls under. Required if your Group operates
+     * more than one Program. List your [Programs](#programs) to find their identifiers.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -238,8 +238,9 @@ private constructor(
         fun loan(loan: JsonField<Loan>) = apply { body.loan(loan) }
 
         /**
-         * The identifier for the Program that this Account falls under. Required if you operate
-         * more than one Program.
+         * The identifier for the Program that this Account falls under. Required if your Group
+         * operates more than one Program. List your [Programs](#programs) to find their
+         * identifiers.
          */
         fun programId(programId: String) = apply { body.programId(programId) }
 
@@ -466,8 +467,9 @@ private constructor(
         fun loan(): Optional<Loan> = loan.getOptional("loan")
 
         /**
-         * The identifier for the Program that this Account falls under. Required if you operate
-         * more than one Program.
+         * The identifier for the Program that this Account falls under. Required if your Group
+         * operates more than one Program. List your [Programs](#programs) to find their
+         * identifiers.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -633,8 +635,9 @@ private constructor(
             fun loan(loan: JsonField<Loan>) = apply { this.loan = loan }
 
             /**
-             * The identifier for the Program that this Account falls under. Required if you operate
-             * more than one Program.
+             * The identifier for the Program that this Account falls under. Required if your Group
+             * operates more than one Program. List your [Programs](#programs) to find their
+             * identifiers.
              */
             fun programId(programId: String) = programId(JsonField.of(programId))
 
