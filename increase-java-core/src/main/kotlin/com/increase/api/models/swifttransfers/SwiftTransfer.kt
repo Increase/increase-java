@@ -3035,14 +3035,14 @@ private constructor(
             /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
+            /** The transfer is pending initiation. */
+            @JvmField val PENDING_INITIATING = of("pending_initiating")
+
             /** The transfer is pending review by Increase. */
             @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
             /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
-
-            /** The transfer is pending initiation. */
-            @JvmField val PENDING_INITIATING = of("pending_initiating")
 
             /** The transfer has been initiated. */
             @JvmField val INITIATED = of("initiated")
@@ -3062,12 +3062,12 @@ private constructor(
             PENDING_APPROVAL,
             /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending initiation. */
+            PENDING_INITIATING,
             /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
-            /** The transfer is pending initiation. */
-            PENDING_INITIATING,
             /** The transfer has been initiated. */
             INITIATED,
             /** The transfer has been rejected by Increase. */
@@ -3090,12 +3090,12 @@ private constructor(
             PENDING_APPROVAL,
             /** The transfer has been canceled. */
             CANCELED,
+            /** The transfer is pending initiation. */
+            PENDING_INITIATING,
             /** The transfer is pending review by Increase. */
             PENDING_REVIEWING,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
-            /** The transfer is pending initiation. */
-            PENDING_INITIATING,
             /** The transfer has been initiated. */
             INITIATED,
             /** The transfer has been rejected by Increase. */
@@ -3117,9 +3117,9 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 CANCELED -> Value.CANCELED
+                PENDING_INITIATING -> Value.PENDING_INITIATING
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                PENDING_INITIATING -> Value.PENDING_INITIATING
                 INITIATED -> Value.INITIATED
                 REJECTED -> Value.REJECTED
                 RETURNED -> Value.RETURNED
@@ -3139,9 +3139,9 @@ private constructor(
             when (this) {
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 CANCELED -> Known.CANCELED
+                PENDING_INITIATING -> Known.PENDING_INITIATING
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                PENDING_INITIATING -> Known.PENDING_INITIATING
                 INITIATED -> Known.INITIATED
                 REJECTED -> Known.REJECTED
                 RETURNED -> Known.RETURNED

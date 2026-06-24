@@ -622,6 +622,9 @@ private constructor(
                 /** The transfer has been canceled. */
                 @JvmField val CANCELED = of("canceled")
 
+                /** The transfer is pending creation. */
+                @JvmField val PENDING_CREATING = of("pending_creating")
+
                 /** The transfer is pending review by Increase. */
                 @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
@@ -630,9 +633,6 @@ private constructor(
 
                 /** The transfer requires attention from an Increase operator. */
                 @JvmField val REQUIRES_ATTENTION = of("requires_attention")
-
-                /** The transfer is pending creation. */
-                @JvmField val PENDING_CREATING = of("pending_creating")
 
                 /** The transfer has been reversed. */
                 @JvmField val REVERSED = of("reversed")
@@ -652,14 +652,14 @@ private constructor(
                 PENDING_APPROVAL,
                 /** The transfer has been canceled. */
                 CANCELED,
+                /** The transfer is pending creation. */
+                PENDING_CREATING,
                 /** The transfer is pending review by Increase. */
                 PENDING_REVIEWING,
                 /** The transfer has been rejected by Increase. */
                 REJECTED,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
-                /** The transfer is pending creation. */
-                PENDING_CREATING,
                 /** The transfer has been reversed. */
                 REVERSED,
                 /** The transfer has been submitted to Fedwire. */
@@ -682,14 +682,14 @@ private constructor(
                 PENDING_APPROVAL,
                 /** The transfer has been canceled. */
                 CANCELED,
+                /** The transfer is pending creation. */
+                PENDING_CREATING,
                 /** The transfer is pending review by Increase. */
                 PENDING_REVIEWING,
                 /** The transfer has been rejected by Increase. */
                 REJECTED,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
-                /** The transfer is pending creation. */
-                PENDING_CREATING,
                 /** The transfer has been reversed. */
                 REVERSED,
                 /** The transfer has been submitted to Fedwire. */
@@ -711,10 +711,10 @@ private constructor(
                 when (this) {
                     PENDING_APPROVAL -> Value.PENDING_APPROVAL
                     CANCELED -> Value.CANCELED
+                    PENDING_CREATING -> Value.PENDING_CREATING
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     REJECTED -> Value.REJECTED
                     REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
-                    PENDING_CREATING -> Value.PENDING_CREATING
                     REVERSED -> Value.REVERSED
                     SUBMITTED -> Value.SUBMITTED
                     COMPLETE -> Value.COMPLETE
@@ -734,10 +734,10 @@ private constructor(
                 when (this) {
                     PENDING_APPROVAL -> Known.PENDING_APPROVAL
                     CANCELED -> Known.CANCELED
+                    PENDING_CREATING -> Known.PENDING_CREATING
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     REJECTED -> Known.REJECTED
                     REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
-                    PENDING_CREATING -> Known.PENDING_CREATING
                     REVERSED -> Known.REVERSED
                     SUBMITTED -> Known.SUBMITTED
                     COMPLETE -> Known.COMPLETE

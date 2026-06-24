@@ -627,6 +627,9 @@ private constructor(
                 /** The transfer has been canceled. */
                 @JvmField val CANCELED = of("canceled")
 
+                /** The transfer is queued to be submitted to Real-Time Payments. */
+                @JvmField val PENDING_SUBMISSION = of("pending_submission")
+
                 /** The transfer is pending review by Increase. */
                 @JvmField val PENDING_REVIEWING = of("pending_reviewing")
 
@@ -635,9 +638,6 @@ private constructor(
 
                 /** The transfer was rejected by the network or the recipient's bank. */
                 @JvmField val REJECTED = of("rejected")
-
-                /** The transfer is queued to be submitted to Real-Time Payments. */
-                @JvmField val PENDING_SUBMISSION = of("pending_submission")
 
                 /**
                  * The transfer has been submitted and is pending a response from Real-Time
@@ -657,14 +657,14 @@ private constructor(
                 PENDING_APPROVAL,
                 /** The transfer has been canceled. */
                 CANCELED,
+                /** The transfer is queued to be submitted to Real-Time Payments. */
+                PENDING_SUBMISSION,
                 /** The transfer is pending review by Increase. */
                 PENDING_REVIEWING,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
                 /** The transfer was rejected by the network or the recipient's bank. */
                 REJECTED,
-                /** The transfer is queued to be submitted to Real-Time Payments. */
-                PENDING_SUBMISSION,
                 /**
                  * The transfer has been submitted and is pending a response from Real-Time
                  * Payments.
@@ -688,14 +688,14 @@ private constructor(
                 PENDING_APPROVAL,
                 /** The transfer has been canceled. */
                 CANCELED,
+                /** The transfer is queued to be submitted to Real-Time Payments. */
+                PENDING_SUBMISSION,
                 /** The transfer is pending review by Increase. */
                 PENDING_REVIEWING,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
                 /** The transfer was rejected by the network or the recipient's bank. */
                 REJECTED,
-                /** The transfer is queued to be submitted to Real-Time Payments. */
-                PENDING_SUBMISSION,
                 /**
                  * The transfer has been submitted and is pending a response from Real-Time
                  * Payments.
@@ -718,10 +718,10 @@ private constructor(
                 when (this) {
                     PENDING_APPROVAL -> Value.PENDING_APPROVAL
                     CANCELED -> Value.CANCELED
+                    PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                     REJECTED -> Value.REJECTED
-                    PENDING_SUBMISSION -> Value.PENDING_SUBMISSION
                     SUBMITTED -> Value.SUBMITTED
                     COMPLETE -> Value.COMPLETE
                     else -> Value._UNKNOWN
@@ -740,10 +740,10 @@ private constructor(
                 when (this) {
                     PENDING_APPROVAL -> Known.PENDING_APPROVAL
                     CANCELED -> Known.CANCELED
+                    PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                     REJECTED -> Known.REJECTED
-                    PENDING_SUBMISSION -> Known.PENDING_SUBMISSION
                     SUBMITTED -> Known.SUBMITTED
                     COMPLETE -> Known.COMPLETE
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
