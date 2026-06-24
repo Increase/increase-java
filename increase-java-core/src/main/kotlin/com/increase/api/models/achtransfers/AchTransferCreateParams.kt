@@ -188,7 +188,7 @@ private constructor(
 
     /**
      * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to use
-     * for the transfer.
+     * for the transfer. If not provided, the default is `corporate_credit_or_debit`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -686,7 +686,7 @@ private constructor(
 
         /**
          * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to
-         * use for the transfer.
+         * use for the transfer. If not provided, the default is `corporate_credit_or_debit`.
          */
         fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) = apply {
             body.standardEntryClassCode(standardEntryClassCode)
@@ -1129,7 +1129,7 @@ private constructor(
 
         /**
          * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to
-         * use for the transfer.
+         * use for the transfer. If not provided, the default is `corporate_credit_or_debit`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1683,7 +1683,7 @@ private constructor(
 
             /**
              * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes)
-             * to use for the transfer.
+             * to use for the transfer. If not provided, the default is `corporate_credit_or_debit`.
              */
             fun standardEntryClassCode(standardEntryClassCode: StandardEntryClassCode) =
                 standardEntryClassCode(JsonField.of(standardEntryClassCode))
@@ -3878,7 +3878,7 @@ private constructor(
 
     /**
      * The [Standard Entry Class (SEC) code](/documentation/ach-standard-entry-class-codes) to use
-     * for the transfer.
+     * for the transfer. If not provided, the default is `corporate_credit_or_debit`.
      */
     class StandardEntryClassCode
     @JsonCreator
