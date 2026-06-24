@@ -82,7 +82,10 @@ interface InboundMailItemServiceAsync {
     fun list(requestOptions: RequestOptions): CompletableFuture<InboundMailItemListPageAsync> =
         list(InboundMailItemListParams.none(), requestOptions)
 
-    /** Action an Inbound Mail Item */
+    /**
+     * Deposits or ignores each check contained in a pending Inbound Mail Item. Depositing a check
+     * creates a [Check Deposit](#check-deposits) into the Account you specify.
+     */
     fun action(
         inboundMailItemId: String,
         params: InboundMailItemActionParams,

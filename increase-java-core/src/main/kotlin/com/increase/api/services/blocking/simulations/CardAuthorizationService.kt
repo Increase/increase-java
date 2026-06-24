@@ -30,7 +30,9 @@ interface CardAuthorizationService {
      * [Pending Transaction](#pending-transactions) of type `card_authorization` or a
      * [Declined Transaction](#declined-transactions) of type `card_decline`. You can pass either a
      * Card id or a [Digital Wallet Token](#digital-wallet-tokens) id to simulate the two different
-     * ways purchases can be made.
+     * ways purchases can be made. The response will contain either a `pending_transaction` or a
+     * `declined_transaction`; the other attribute will be null. If the authorization is declined,
+     * the reason is available on the Declined Transaction at `source.card_decline.reason`.
      */
     fun create(params: CardAuthorizationCreateParams): CardAuthorizationCreateResponse =
         create(params, RequestOptions.none())
