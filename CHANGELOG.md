@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.562.1](https://github.com/Increase/increase-java/compare/v0.562.0...v0.562.1) (2026-06-24)
+
+
+### Bug Fixes
+
+* **docs:** clarify transfer status and ACH default descriptions ([6cf7486](https://github.com/Increase/increase-java/commit/6cf74865b3113279f5e0ebb5b0b24cff13ed3692))
+
 ## [0.562.0](https://github.com/Increase/increase-java/compare/v0.561.0...v0.562.0) (2026-06-23)
 
 
