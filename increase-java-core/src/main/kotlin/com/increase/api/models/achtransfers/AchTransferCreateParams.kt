@@ -63,7 +63,9 @@ private constructor(
     fun statementDescriptor(): String = body.statementDescriptor()
 
     /**
-     * The account number for the destination account.
+     * The receiver's account number. For credit transfers (positive `amount`) this is the account
+     * that funds will be sent to. For debit transfers (negative `amount`) this is the account that
+     * funds will be pulled from.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -71,8 +73,10 @@ private constructor(
     fun accountNumber(): Optional<String> = body.accountNumber()
 
     /**
-     * Additional information that will be sent to the recipient. This is included in the transfer
-     * data sent to the receiving bank.
+     * Additional information passed through to the receiving bank with the transfer. Most ACH
+     * transfers do not need this. Only set this if your recipient has asked for addendum data,
+     * typically unstructured remittance information. Corporate Trade Exchange (CTX) flows can carry
+     * structured X12 remittance advice instead.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -80,8 +84,9 @@ private constructor(
     fun addenda(): Optional<Addenda> = body.addenda()
 
     /**
-     * The description of the date of the transfer, usually in the format `YYMMDD`. This is included
-     * in the transfer data sent to the receiving bank.
+     * A description of the transfer date (typically `YYMMDD`), sent in the company batch header.
+     * This value is informational and does not affect funds movement, settlement timing, or
+     * returns. Only set this if your recipient has asked for it.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -89,8 +94,9 @@ private constructor(
     fun companyDescriptiveDate(): Optional<String> = body.companyDescriptiveDate()
 
     /**
-     * The data you choose to associate with the transfer. This is included in the transfer data
-     * sent to the receiving bank.
+     * Custom data sent in the company batch header. This value is informational and does not affect
+     * funds movement, settlement timing, or returns. Most ACH transfers do not need this. Only set
+     * this if your recipient has asked for it.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -98,9 +104,10 @@ private constructor(
     fun companyDiscretionaryData(): Optional<String> = body.companyDiscretionaryData()
 
     /**
-     * A description of the transfer, included in the transfer data sent to the receiving bank.
-     * Standardized formatting may be required, for example `PAYROLL` for payroll-related
-     * Prearranged Payments and Deposits (PPD) credit transfers.
+     * A short description sent in the company batch header. Most receivers do not surface this.
+     * Only set this if your recipient has asked for a specific value or if Nacha mandates one for
+     * your Standard Entry Class (SEC) code and use case. For example, Prearranged Payment and
+     * Deposit (PPD) payroll credits must use `PAYROLL`, and reversals must use `REVERSAL`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -108,8 +115,9 @@ private constructor(
     fun companyEntryDescription(): Optional<String> = body.companyEntryDescription()
 
     /**
-     * The name by which the recipient knows you. This is included in the transfer data sent to the
-     * receiving bank.
+     * The name by which the recipient knows you, sent in the company batch header. We recommend
+     * setting this on every transfer; if you do not, we fall back to the ACH company name
+     * configured on your account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -117,7 +125,7 @@ private constructor(
     fun companyName(): Optional<String> = body.companyName()
 
     /**
-     * The type of entity that owns the account to which the ACH Transfer is being sent.
+     * The type of entity that owns the receiver's account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -135,7 +143,7 @@ private constructor(
     fun externalAccountId(): Optional<String> = body.externalAccountId()
 
     /**
-     * The type of the account to which the transfer will be sent.
+     * The type of the receiver's bank account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -143,7 +151,8 @@ private constructor(
     fun funding(): Optional<Funding> = body.funding()
 
     /**
-     * Your identifier for the transfer recipient.
+     * Your internal identifier for the transfer recipient. This value is informational and not
+     * verified by the recipient's bank. Most callers can leave this unset.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -178,8 +187,7 @@ private constructor(
     fun requireApproval(): Optional<Boolean> = body.requireApproval()
 
     /**
-     * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-     * account.
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) of the receiver's bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -451,7 +459,11 @@ private constructor(
             body.statementDescriptor(statementDescriptor)
         }
 
-        /** The account number for the destination account. */
+        /**
+         * The receiver's account number. For credit transfers (positive `amount`) this is the
+         * account that funds will be sent to. For debit transfers (negative `amount`) this is the
+         * account that funds will be pulled from.
+         */
         fun accountNumber(accountNumber: String) = apply { body.accountNumber(accountNumber) }
 
         /**
@@ -466,8 +478,10 @@ private constructor(
         }
 
         /**
-         * Additional information that will be sent to the recipient. This is included in the
-         * transfer data sent to the receiving bank.
+         * Additional information passed through to the receiving bank with the transfer. Most ACH
+         * transfers do not need this. Only set this if your recipient has asked for addendum data,
+         * typically unstructured remittance information. Corporate Trade Exchange (CTX) flows can
+         * carry structured X12 remittance advice instead.
          */
         fun addenda(addenda: Addenda) = apply { body.addenda(addenda) }
 
@@ -480,8 +494,9 @@ private constructor(
         fun addenda(addenda: JsonField<Addenda>) = apply { body.addenda(addenda) }
 
         /**
-         * The description of the date of the transfer, usually in the format `YYMMDD`. This is
-         * included in the transfer data sent to the receiving bank.
+         * A description of the transfer date (typically `YYMMDD`), sent in the company batch
+         * header. This value is informational and does not affect funds movement, settlement
+         * timing, or returns. Only set this if your recipient has asked for it.
          */
         fun companyDescriptiveDate(companyDescriptiveDate: String) = apply {
             body.companyDescriptiveDate(companyDescriptiveDate)
@@ -499,8 +514,9 @@ private constructor(
         }
 
         /**
-         * The data you choose to associate with the transfer. This is included in the transfer data
-         * sent to the receiving bank.
+         * Custom data sent in the company batch header. This value is informational and does not
+         * affect funds movement, settlement timing, or returns. Most ACH transfers do not need
+         * this. Only set this if your recipient has asked for it.
          */
         fun companyDiscretionaryData(companyDiscretionaryData: String) = apply {
             body.companyDiscretionaryData(companyDiscretionaryData)
@@ -518,9 +534,10 @@ private constructor(
         }
 
         /**
-         * A description of the transfer, included in the transfer data sent to the receiving bank.
-         * Standardized formatting may be required, for example `PAYROLL` for payroll-related
-         * Prearranged Payments and Deposits (PPD) credit transfers.
+         * A short description sent in the company batch header. Most receivers do not surface this.
+         * Only set this if your recipient has asked for a specific value or if Nacha mandates one
+         * for your Standard Entry Class (SEC) code and use case. For example, Prearranged Payment
+         * and Deposit (PPD) payroll credits must use `PAYROLL`, and reversals must use `REVERSAL`.
          */
         fun companyEntryDescription(companyEntryDescription: String) = apply {
             body.companyEntryDescription(companyEntryDescription)
@@ -538,8 +555,9 @@ private constructor(
         }
 
         /**
-         * The name by which the recipient knows you. This is included in the transfer data sent to
-         * the receiving bank.
+         * The name by which the recipient knows you, sent in the company batch header. We recommend
+         * setting this on every transfer; if you do not, we fall back to the ACH company name
+         * configured on your account.
          */
         fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
@@ -552,7 +570,7 @@ private constructor(
          */
         fun companyName(companyName: JsonField<String>) = apply { body.companyName(companyName) }
 
-        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        /** The type of entity that owns the receiver's account. */
         fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) = apply {
             body.destinationAccountHolder(destinationAccountHolder)
         }
@@ -587,7 +605,7 @@ private constructor(
             body.externalAccountId(externalAccountId)
         }
 
-        /** The type of the account to which the transfer will be sent. */
+        /** The type of the receiver's bank account. */
         fun funding(funding: Funding) = apply { body.funding(funding) }
 
         /**
@@ -598,7 +616,10 @@ private constructor(
          */
         fun funding(funding: JsonField<Funding>) = apply { body.funding(funding) }
 
-        /** Your identifier for the transfer recipient. */
+        /**
+         * Your internal identifier for the transfer recipient. This value is informational and not
+         * verified by the recipient's bank. Most callers can leave this unset.
+         */
         fun individualId(individualId: String) = apply { body.individualId(individualId) }
 
         /**
@@ -668,8 +689,8 @@ private constructor(
         }
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) of the receiver's
+         * bank.
          */
         fun routingNumber(routingNumber: String) = apply { body.routingNumber(routingNumber) }
 
@@ -998,7 +1019,9 @@ private constructor(
         fun statementDescriptor(): String = statementDescriptor.getRequired("statement_descriptor")
 
         /**
-         * The account number for the destination account.
+         * The receiver's account number. For credit transfers (positive `amount`) this is the
+         * account that funds will be sent to. For debit transfers (negative `amount`) this is the
+         * account that funds will be pulled from.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1006,8 +1029,10 @@ private constructor(
         fun accountNumber(): Optional<String> = accountNumber.getOptional("account_number")
 
         /**
-         * Additional information that will be sent to the recipient. This is included in the
-         * transfer data sent to the receiving bank.
+         * Additional information passed through to the receiving bank with the transfer. Most ACH
+         * transfers do not need this. Only set this if your recipient has asked for addendum data,
+         * typically unstructured remittance information. Corporate Trade Exchange (CTX) flows can
+         * carry structured X12 remittance advice instead.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1015,8 +1040,9 @@ private constructor(
         fun addenda(): Optional<Addenda> = addenda.getOptional("addenda")
 
         /**
-         * The description of the date of the transfer, usually in the format `YYMMDD`. This is
-         * included in the transfer data sent to the receiving bank.
+         * A description of the transfer date (typically `YYMMDD`), sent in the company batch
+         * header. This value is informational and does not affect funds movement, settlement
+         * timing, or returns. Only set this if your recipient has asked for it.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1025,8 +1051,9 @@ private constructor(
             companyDescriptiveDate.getOptional("company_descriptive_date")
 
         /**
-         * The data you choose to associate with the transfer. This is included in the transfer data
-         * sent to the receiving bank.
+         * Custom data sent in the company batch header. This value is informational and does not
+         * affect funds movement, settlement timing, or returns. Most ACH transfers do not need
+         * this. Only set this if your recipient has asked for it.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1035,9 +1062,10 @@ private constructor(
             companyDiscretionaryData.getOptional("company_discretionary_data")
 
         /**
-         * A description of the transfer, included in the transfer data sent to the receiving bank.
-         * Standardized formatting may be required, for example `PAYROLL` for payroll-related
-         * Prearranged Payments and Deposits (PPD) credit transfers.
+         * A short description sent in the company batch header. Most receivers do not surface this.
+         * Only set this if your recipient has asked for a specific value or if Nacha mandates one
+         * for your Standard Entry Class (SEC) code and use case. For example, Prearranged Payment
+         * and Deposit (PPD) payroll credits must use `PAYROLL`, and reversals must use `REVERSAL`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1046,8 +1074,9 @@ private constructor(
             companyEntryDescription.getOptional("company_entry_description")
 
         /**
-         * The name by which the recipient knows you. This is included in the transfer data sent to
-         * the receiving bank.
+         * The name by which the recipient knows you, sent in the company batch header. We recommend
+         * setting this on every transfer; if you do not, we fall back to the ACH company name
+         * configured on your account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1055,7 +1084,7 @@ private constructor(
         fun companyName(): Optional<String> = companyName.getOptional("company_name")
 
         /**
-         * The type of entity that owns the account to which the ACH Transfer is being sent.
+         * The type of entity that owns the receiver's account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1074,7 +1103,7 @@ private constructor(
             externalAccountId.getOptional("external_account_id")
 
         /**
-         * The type of the account to which the transfer will be sent.
+         * The type of the receiver's bank account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1082,7 +1111,8 @@ private constructor(
         fun funding(): Optional<Funding> = funding.getOptional("funding")
 
         /**
-         * Your identifier for the transfer recipient.
+         * Your internal identifier for the transfer recipient. This value is informational and not
+         * verified by the recipient's bank. Most callers can leave this unset.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1119,8 +1149,8 @@ private constructor(
         fun requireApproval(): Optional<Boolean> = requireApproval.getOptional("require_approval")
 
         /**
-         * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the destination
-         * account.
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) of the receiver's
+         * bank.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1450,7 +1480,11 @@ private constructor(
                 this.statementDescriptor = statementDescriptor
             }
 
-            /** The account number for the destination account. */
+            /**
+             * The receiver's account number. For credit transfers (positive `amount`) this is the
+             * account that funds will be sent to. For debit transfers (negative `amount`) this is
+             * the account that funds will be pulled from.
+             */
             fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
             /**
@@ -1465,8 +1499,10 @@ private constructor(
             }
 
             /**
-             * Additional information that will be sent to the recipient. This is included in the
-             * transfer data sent to the receiving bank.
+             * Additional information passed through to the receiving bank with the transfer. Most
+             * ACH transfers do not need this. Only set this if your recipient has asked for
+             * addendum data, typically unstructured remittance information. Corporate Trade
+             * Exchange (CTX) flows can carry structured X12 remittance advice instead.
              */
             fun addenda(addenda: Addenda) = addenda(JsonField.of(addenda))
 
@@ -1480,8 +1516,9 @@ private constructor(
             fun addenda(addenda: JsonField<Addenda>) = apply { this.addenda = addenda }
 
             /**
-             * The description of the date of the transfer, usually in the format `YYMMDD`. This is
-             * included in the transfer data sent to the receiving bank.
+             * A description of the transfer date (typically `YYMMDD`), sent in the company batch
+             * header. This value is informational and does not affect funds movement, settlement
+             * timing, or returns. Only set this if your recipient has asked for it.
              */
             fun companyDescriptiveDate(companyDescriptiveDate: String) =
                 companyDescriptiveDate(JsonField.of(companyDescriptiveDate))
@@ -1498,8 +1535,9 @@ private constructor(
             }
 
             /**
-             * The data you choose to associate with the transfer. This is included in the transfer
-             * data sent to the receiving bank.
+             * Custom data sent in the company batch header. This value is informational and does
+             * not affect funds movement, settlement timing, or returns. Most ACH transfers do not
+             * need this. Only set this if your recipient has asked for it.
              */
             fun companyDiscretionaryData(companyDiscretionaryData: String) =
                 companyDiscretionaryData(JsonField.of(companyDiscretionaryData))
@@ -1516,9 +1554,11 @@ private constructor(
             }
 
             /**
-             * A description of the transfer, included in the transfer data sent to the receiving
-             * bank. Standardized formatting may be required, for example `PAYROLL` for
-             * payroll-related Prearranged Payments and Deposits (PPD) credit transfers.
+             * A short description sent in the company batch header. Most receivers do not surface
+             * this. Only set this if your recipient has asked for a specific value or if Nacha
+             * mandates one for your Standard Entry Class (SEC) code and use case. For example,
+             * Prearranged Payment and Deposit (PPD) payroll credits must use `PAYROLL`, and
+             * reversals must use `REVERSAL`.
              */
             fun companyEntryDescription(companyEntryDescription: String) =
                 companyEntryDescription(JsonField.of(companyEntryDescription))
@@ -1535,8 +1575,9 @@ private constructor(
             }
 
             /**
-             * The name by which the recipient knows you. This is included in the transfer data sent
-             * to the receiving bank.
+             * The name by which the recipient knows you, sent in the company batch header. We
+             * recommend setting this on every transfer; if you do not, we fall back to the ACH
+             * company name configured on your account.
              */
             fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
@@ -1551,7 +1592,7 @@ private constructor(
                 this.companyName = companyName
             }
 
-            /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+            /** The type of entity that owns the receiver's account. */
             fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
                 destinationAccountHolder(JsonField.of(destinationAccountHolder))
 
@@ -1584,7 +1625,7 @@ private constructor(
                 this.externalAccountId = externalAccountId
             }
 
-            /** The type of the account to which the transfer will be sent. */
+            /** The type of the receiver's bank account. */
             fun funding(funding: Funding) = funding(JsonField.of(funding))
 
             /**
@@ -1596,7 +1637,10 @@ private constructor(
              */
             fun funding(funding: JsonField<Funding>) = apply { this.funding = funding }
 
-            /** Your identifier for the transfer recipient. */
+            /**
+             * Your internal identifier for the transfer recipient. This value is informational and
+             * not verified by the recipient's bank. Most callers can leave this unset.
+             */
             fun individualId(individualId: String) = individualId(JsonField.of(individualId))
 
             /**
@@ -1665,8 +1709,8 @@ private constructor(
             }
 
             /**
-             * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the
-             * destination account.
+             * The American Bankers' Association (ABA) Routing Transit Number (RTN) of the
+             * receiver's bank.
              */
             fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
@@ -1907,8 +1951,10 @@ private constructor(
     }
 
     /**
-     * Additional information that will be sent to the recipient. This is included in the transfer
-     * data sent to the receiving bank.
+     * Additional information passed through to the receiving bank with the transfer. Most ACH
+     * transfers do not need this. Only set this if your recipient has asked for addendum data,
+     * typically unstructured remittance information. Corporate Trade Exchange (CTX) flows can carry
+     * structured X12 remittance advice instead.
      */
     class Addenda
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -3164,7 +3210,7 @@ private constructor(
             "Addenda{category=$category, freeform=$freeform, paymentOrderRemittanceAdvice=$paymentOrderRemittanceAdvice, additionalProperties=$additionalProperties}"
     }
 
-    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+    /** The type of entity that owns the receiver's account. */
     class DestinationAccountHolder
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -3324,7 +3370,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The type of the account to which the transfer will be sent. */
+    /** The type of the receiver's bank account. */
     class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -3698,7 +3744,7 @@ private constructor(
                  * The chosen effective date will be the same as the ACH processing date on which
                  * the transfer is submitted. This is necessary, but not sufficient for the transfer
                  * to be settled same-day: it must also be submitted before the last same-day cutoff
-                 * and be less than or equal to $1,000.000.00.
+                 * and be less than or equal to $1,000,000.00.
                  */
                 @JvmField val SAME_DAY = of("same_day")
 
@@ -3718,7 +3764,7 @@ private constructor(
                  * The chosen effective date will be the same as the ACH processing date on which
                  * the transfer is submitted. This is necessary, but not sufficient for the transfer
                  * to be settled same-day: it must also be submitted before the last same-day cutoff
-                 * and be less than or equal to $1,000.000.00.
+                 * and be less than or equal to $1,000,000.00.
                  */
                 SAME_DAY,
                 /**
@@ -3745,7 +3791,7 @@ private constructor(
                  * The chosen effective date will be the same as the ACH processing date on which
                  * the transfer is submitted. This is necessary, but not sufficient for the transfer
                  * to be settled same-day: it must also be submitted before the last same-day cutoff
-                 * and be less than or equal to $1,000.000.00.
+                 * and be less than or equal to $1,000,000.00.
                  */
                 SAME_DAY,
                 /**

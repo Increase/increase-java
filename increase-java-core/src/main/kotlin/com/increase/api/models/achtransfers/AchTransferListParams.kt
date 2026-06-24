@@ -639,7 +639,11 @@ private constructor(
                 /** The transfer has been rejected. */
                 @JvmField val REJECTED = of("rejected")
 
-                /** The transfer is complete. */
+                /**
+                 * The transfer has been submitted to the Federal Reserve. When the transfer
+                 * settles, the status remains `submitted` and the `settlement` sub-object is
+                 * populated.
+                 */
                 @JvmField val SUBMITTED = of("submitted")
 
                 /** The transfer has been returned. */
@@ -664,7 +668,11 @@ private constructor(
                 REQUIRES_ATTENTION,
                 /** The transfer has been rejected. */
                 REJECTED,
-                /** The transfer is complete. */
+                /**
+                 * The transfer has been submitted to the Federal Reserve. When the transfer
+                 * settles, the status remains `submitted` and the `settlement` sub-object is
+                 * populated.
+                 */
                 SUBMITTED,
                 /** The transfer has been returned. */
                 RETURNED,
@@ -694,7 +702,11 @@ private constructor(
                 REQUIRES_ATTENTION,
                 /** The transfer has been rejected. */
                 REJECTED,
-                /** The transfer is complete. */
+                /**
+                 * The transfer has been submitted to the Federal Reserve. When the transfer
+                 * settles, the status remains `submitted` and the `settlement` sub-object is
+                 * populated.
+                 */
                 SUBMITTED,
                 /** The transfer has been returned. */
                 RETURNED,
