@@ -100,7 +100,8 @@ private constructor(
     fun companyId(): Optional<String> = body.companyId()
 
     /**
-     * The name of the sender.
+     * The name of the sender. This corresponds to the `originator_company_name` field on the
+     * resulting Inbound ACH Transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -384,7 +385,10 @@ private constructor(
          */
         fun companyId(companyId: JsonField<String>) = apply { body.companyId(companyId) }
 
-        /** The name of the sender. */
+        /**
+         * The name of the sender. This corresponds to the `originator_company_name` field on the
+         * resulting Inbound ACH Transfer.
+         */
         fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
         /**
@@ -732,7 +736,8 @@ private constructor(
         fun companyId(): Optional<String> = companyId.getOptional("company_id")
 
         /**
-         * The name of the sender.
+         * The name of the sender. This corresponds to the `originator_company_name` field on the
+         * resulting Inbound ACH Transfer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1043,7 +1048,10 @@ private constructor(
              */
             fun companyId(companyId: JsonField<String>) = apply { this.companyId = companyId }
 
-            /** The name of the sender. */
+            /**
+             * The name of the sender. This corresponds to the `originator_company_name` field on
+             * the resulting Inbound ACH Transfer.
+             */
             fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
             /**

@@ -211,7 +211,7 @@ private constructor(
     fun accountId(): String = accountId.getRequired("account_id")
 
     /**
-     * The destination account number.
+     * The receiver's account number.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -334,7 +334,7 @@ private constructor(
     fun currency(): Currency = currency.getRequired("currency")
 
     /**
-     * The type of entity that owns the account to which the ACH Transfer is being sent.
+     * The type of entity that owns the receiver's account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -351,7 +351,7 @@ private constructor(
     fun externalAccountId(): Optional<String> = externalAccountId.getOptional("external_account_id")
 
     /**
-     * The type of the account to which the transfer will be sent.
+     * The type of the receiver's bank account.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -379,7 +379,8 @@ private constructor(
         inboundFundsHold.getOptional("inbound_funds_hold")
 
     /**
-     * Your identifier for the transfer recipient.
+     * Your internal identifier for the transfer recipient. This value is informational and not
+     * verified by the recipient's bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -445,7 +446,7 @@ private constructor(
     fun return_(): Optional<Return> = return_.getOptional("return")
 
     /**
-     * The American Bankers' Association (ABA) Routing Transit Number (RTN).
+     * The American Bankers' Association (ABA) Routing Transit Number (RTN) of the receiver's bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -989,7 +990,7 @@ private constructor(
          */
         fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-        /** The destination account number. */
+        /** The receiver's account number. */
         fun accountNumber(accountNumber: String) = accountNumber(JsonField.of(accountNumber))
 
         /**
@@ -1232,7 +1233,7 @@ private constructor(
          */
         fun currency(currency: JsonField<Currency>) = apply { this.currency = currency }
 
-        /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+        /** The type of entity that owns the receiver's account. */
         fun destinationAccountHolder(destinationAccountHolder: DestinationAccountHolder) =
             destinationAccountHolder(JsonField.of(destinationAccountHolder))
 
@@ -1266,7 +1267,7 @@ private constructor(
             this.externalAccountId = externalAccountId
         }
 
-        /** The type of the account to which the transfer will be sent. */
+        /** The type of the receiver's bank account. */
         fun funding(funding: Funding) = funding(JsonField.of(funding))
 
         /**
@@ -1322,7 +1323,10 @@ private constructor(
             this.inboundFundsHold = inboundFundsHold
         }
 
-        /** Your identifier for the transfer recipient. */
+        /**
+         * Your internal identifier for the transfer recipient. This value is informational and not
+         * verified by the recipient's bank.
+         */
         fun individualId(individualId: String?) = individualId(JsonField.ofNullable(individualId))
 
         /** Alias for calling [Builder.individualId] with `individualId.orElse(null)`. */
@@ -1465,7 +1469,10 @@ private constructor(
          */
         fun return_(return_: JsonField<Return>) = apply { this.return_ = return_ }
 
-        /** The American Bankers' Association (ABA) Routing Transit Number (RTN). */
+        /**
+         * The American Bankers' Association (ABA) Routing Transit Number (RTN) of the receiver's
+         * bank.
+         */
         fun routingNumber(routingNumber: String) = routingNumber(JsonField.of(routingNumber))
 
         /**
@@ -4860,7 +4867,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The type of entity that owns the account to which the ACH Transfer is being sent. */
+    /** The type of entity that owns the receiver's account. */
     class DestinationAccountHolder
     @JsonCreator
     private constructor(private val value: JsonField<String>) : Enum {
@@ -5020,7 +5027,7 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** The type of the account to which the transfer will be sent. */
+    /** The type of the receiver's bank account. */
     class Funding @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
@@ -7569,7 +7576,7 @@ private constructor(
                  * The chosen effective date will be the same as the ACH processing date on which
                  * the transfer is submitted. This is necessary, but not sufficient for the transfer
                  * to be settled same-day: it must also be submitted before the last same-day cutoff
-                 * and be less than or equal to $1,000.000.00.
+                 * and be less than or equal to $1,000,000.00.
                  */
                 @JvmField val SAME_DAY = of("same_day")
 
@@ -7589,7 +7596,7 @@ private constructor(
                  * The chosen effective date will be the same as the ACH processing date on which
                  * the transfer is submitted. This is necessary, but not sufficient for the transfer
                  * to be settled same-day: it must also be submitted before the last same-day cutoff
-                 * and be less than or equal to $1,000.000.00.
+                 * and be less than or equal to $1,000,000.00.
                  */
                 SAME_DAY,
                 /**
@@ -7616,7 +7623,7 @@ private constructor(
                  * The chosen effective date will be the same as the ACH processing date on which
                  * the transfer is submitted. This is necessary, but not sufficient for the transfer
                  * to be settled same-day: it must also be submitted before the last same-day cutoff
-                 * and be less than or equal to $1,000.000.00.
+                 * and be less than or equal to $1,000,000.00.
                  */
                 SAME_DAY,
                 /**
@@ -7838,7 +7845,8 @@ private constructor(
         fun transactionId(): String = transactionId.getRequired("transaction_id")
 
         /**
-         * The identifier of the ACH Transfer associated with this return.
+         * The identifier of the ACH Transfer associated with this return. This matches the original
+         * Transaction's `source.ach_transfer_intention.transfer_id`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -8037,7 +8045,10 @@ private constructor(
                 this.transactionId = transactionId
             }
 
-            /** The identifier of the ACH Transfer associated with this return. */
+            /**
+             * The identifier of the ACH Transfer associated with this return. This matches the
+             * original Transaction's `source.ach_transfer_intention.transfer_id`.
+             */
             fun transferId(transferId: String) = transferId(JsonField.of(transferId))
 
             /**
@@ -9872,7 +9883,10 @@ private constructor(
             /** The transfer has been rejected. */
             @JvmField val REJECTED = of("rejected")
 
-            /** The transfer is complete. */
+            /**
+             * The transfer has been submitted to the Federal Reserve. When the transfer settles,
+             * the status remains `submitted` and the `settlement` sub-object is populated.
+             */
             @JvmField val SUBMITTED = of("submitted")
 
             /** The transfer has been returned. */
@@ -9897,7 +9911,10 @@ private constructor(
             REQUIRES_ATTENTION,
             /** The transfer has been rejected. */
             REJECTED,
-            /** The transfer is complete. */
+            /**
+             * The transfer has been submitted to the Federal Reserve. When the transfer settles,
+             * the status remains `submitted` and the `settlement` sub-object is populated.
+             */
             SUBMITTED,
             /** The transfer has been returned. */
             RETURNED,
@@ -9927,7 +9944,10 @@ private constructor(
             REQUIRES_ATTENTION,
             /** The transfer has been rejected. */
             REJECTED,
-            /** The transfer is complete. */
+            /**
+             * The transfer has been submitted to the Federal Reserve. When the transfer settles,
+             * the status remains `submitted` and the `settlement` sub-object is populated.
+             */
             SUBMITTED,
             /** The transfer has been returned. */
             RETURNED,

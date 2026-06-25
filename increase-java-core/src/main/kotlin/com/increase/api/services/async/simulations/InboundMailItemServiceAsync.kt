@@ -26,7 +26,9 @@ interface InboundMailItemServiceAsync {
 
     /**
      * Simulates an Inbound Mail Item to one of your Lockbox Addresses or Lockbox Recipients, as if
-     * someone had mailed a physical check.
+     * someone had mailed a physical check. Increase automatically deposits a check mailed to a
+     * Lockbox Recipient into the recipient's Account. A check mailed to a Lockbox Address must be
+     * deposited or ignored with the [Action an Inbound Mail Item](#inbound-mail-items) endpoint.
      */
     fun create(params: InboundMailItemCreateParams): CompletableFuture<InboundMailItem> =
         create(params, RequestOptions.none())

@@ -5785,12 +5785,15 @@ private constructor(
 
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again
-                     * if possible. If the issue cannot be resolved, the check will be returned to
-                     * sender.
+                     * if possible. If the issue cannot be resolved, the check will be rerouted to
+                     * the return address.
                      */
                     @JvmField val DELIVERY_ISSUE = of("delivery_issue")
 
-                    /** Delivery failed and the check was returned to sender. */
+                    /** The check has been rerouted to the return address. */
+                    @JvmField val RETURNING_TO_SENDER = of("returning_to_sender")
+
+                    /** The check has been delivered to the return address. */
                     @JvmField val RETURNED_TO_SENDER = of("returned_to_sender")
 
                     @JvmStatic fun of(value: String) = Category(JsonField.of(value))
@@ -5810,11 +5813,13 @@ private constructor(
                     DELIVERED,
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again
-                     * if possible. If the issue cannot be resolved, the check will be returned to
-                     * sender.
+                     * if possible. If the issue cannot be resolved, the check will be rerouted to
+                     * the return address.
                      */
                     DELIVERY_ISSUE,
-                    /** Delivery failed and the check was returned to sender. */
+                    /** The check has been rerouted to the return address. */
+                    RETURNING_TO_SENDER,
+                    /** The check has been delivered to the return address. */
                     RETURNED_TO_SENDER,
                 }
 
@@ -5840,11 +5845,13 @@ private constructor(
                     DELIVERED,
                     /**
                      * There is an issue preventing delivery. The delivery will be attempted again
-                     * if possible. If the issue cannot be resolved, the check will be returned to
-                     * sender.
+                     * if possible. If the issue cannot be resolved, the check will be rerouted to
+                     * the return address.
                      */
                     DELIVERY_ISSUE,
-                    /** Delivery failed and the check was returned to sender. */
+                    /** The check has been rerouted to the return address. */
+                    RETURNING_TO_SENDER,
+                    /** The check has been delivered to the return address. */
                     RETURNED_TO_SENDER,
                     /**
                      * An enum member indicating that [Category] was instantiated with an unknown
@@ -5866,6 +5873,7 @@ private constructor(
                         PROCESSED_FOR_DELIVERY -> Value.PROCESSED_FOR_DELIVERY
                         DELIVERED -> Value.DELIVERED
                         DELIVERY_ISSUE -> Value.DELIVERY_ISSUE
+                        RETURNING_TO_SENDER -> Value.RETURNING_TO_SENDER
                         RETURNED_TO_SENDER -> Value.RETURNED_TO_SENDER
                         else -> Value._UNKNOWN
                     }
@@ -5885,6 +5893,7 @@ private constructor(
                         PROCESSED_FOR_DELIVERY -> Known.PROCESSED_FOR_DELIVERY
                         DELIVERED -> Known.DELIVERED
                         DELIVERY_ISSUE -> Known.DELIVERY_ISSUE
+                        RETURNING_TO_SENDER -> Known.RETURNING_TO_SENDER
                         RETURNED_TO_SENDER -> Known.RETURNED_TO_SENDER
                         else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                     }
