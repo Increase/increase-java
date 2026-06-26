@@ -19,7 +19,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Supplemental Documents are uploaded files connected to an Entity during onboarding. */
+/**
+ * Supplemental Documents are uploaded files connected to an Entity during onboarding. Not all
+ * programs require supplemental documents.
+ */
 class EntitySupplementalDocument
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(

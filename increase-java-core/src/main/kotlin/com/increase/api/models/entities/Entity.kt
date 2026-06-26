@@ -24,8 +24,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Entities are the legal entities that own accounts. They can be people, corporations,
- * partnerships, government authorities, or trusts. To learn more, see
+ * Entities are the legal entities that own accounts. They can be people, corporations, joint
+ * accounts, trusts, or government authorities. To learn more, see
  * [Entities](/documentation/entities).
  */
 class Entity
@@ -1174,7 +1174,7 @@ private constructor(
         fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
 
         /**
-         * The legal identifier of the corporation.
+         * The legal identifier of the corporation, like an Employer Identification Number (EIN).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1476,7 +1476,10 @@ private constructor(
                 this.industryCode = industryCode
             }
 
-            /** The legal identifier of the corporation. */
+            /**
+             * The legal identifier of the corporation, like an Employer Identification Number
+             * (EIN).
+             */
             fun legalIdentifier(legalIdentifier: LegalIdentifier?) =
                 legalIdentifier(JsonField.ofNullable(legalIdentifier))
 
@@ -3819,7 +3822,9 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        /** The legal identifier of the corporation. */
+        /**
+         * The legal identifier of the corporation, like an Employer Identification Number (EIN).
+         */
         class LegalIdentifier
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -3846,7 +3851,7 @@ private constructor(
             fun category(): Category = category.getRequired("category")
 
             /**
-             * The identifier of the legal identifier.
+             * The legal identifier itself.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -3923,7 +3928,7 @@ private constructor(
                  */
                 fun category(category: JsonField<Category>) = apply { this.category = category }
 
-                /** The identifier of the legal identifier. */
+                /** The legal identifier itself. */
                 fun value(value: String) = value(JsonField.of(value))
 
                 /**
