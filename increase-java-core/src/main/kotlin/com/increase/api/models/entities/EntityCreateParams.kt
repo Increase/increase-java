@@ -5165,8 +5165,8 @@ private constructor(
             ) : this(value, category, mutableMapOf())
 
             /**
-             * The legal identifier. For US Employer Identification Numbers, submit nine digits with
-             * no dashes or other separators. When testing in sandbox, use one of our
+             * The legal identifier itself. For US Employer Identification Numbers, submit nine
+             * digits with no dashes or other separators. When testing in sandbox, use one of our
              * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -5241,8 +5241,9 @@ private constructor(
                 }
 
                 /**
-                 * The legal identifier. For US Employer Identification Numbers, submit nine digits
-                 * with no dashes or other separators. When testing in sandbox, use one of our
+                 * The legal identifier itself. For US Employer Identification Numbers, submit nine
+                 * digits with no dashes or other separators. When testing in sandbox, use one of
+                 * our
                  * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
                  */
                 fun value(value: String) = value(JsonField.of(value))
