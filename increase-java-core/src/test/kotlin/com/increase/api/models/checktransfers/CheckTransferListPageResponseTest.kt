@@ -107,6 +107,7 @@ internal class CheckTransferListPageResponseTest {
                                         .state("NY")
                                         .build()
                                 )
+                                .returnAddressName(null)
                                 .shippingMethod(
                                     CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                                 )
@@ -268,6 +269,7 @@ internal class CheckTransferListPageResponseTest {
                                     .state("NY")
                                     .build()
                             )
+                            .returnAddressName(null)
                             .shippingMethod(
                                 CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                             )
@@ -429,6 +431,7 @@ internal class CheckTransferListPageResponseTest {
                                         .state("NY")
                                         .build()
                                 )
+                                .returnAddressName(null)
                                 .shippingMethod(
                                     CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS
                                 )
