@@ -24,6 +24,7 @@ private constructor(
     private val idempotencyKey: String?,
     private val limit: Long?,
     private val status: Status?,
+    private val validationStatus: ValidationStatus?,
     private val additionalHeaders: Headers,
     private val additionalQueryParams: QueryParams,
 ) : Params {
@@ -44,6 +45,8 @@ private constructor(
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     fun status(): Optional<Status> = Optional.ofNullable(status)
+
+    fun validationStatus(): Optional<ValidationStatus> = Optional.ofNullable(validationStatus)
 
     /** Additional headers to send with the request. */
     fun _additionalHeaders(): Headers = additionalHeaders
@@ -69,6 +72,7 @@ private constructor(
         private var idempotencyKey: String? = null
         private var limit: Long? = null
         private var status: Status? = null
+        private var validationStatus: ValidationStatus? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
         private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
 
@@ -79,6 +83,7 @@ private constructor(
             idempotencyKey = entityListParams.idempotencyKey
             limit = entityListParams.limit
             status = entityListParams.status
+            validationStatus = entityListParams.validationStatus
             additionalHeaders = entityListParams.additionalHeaders.toBuilder()
             additionalQueryParams = entityListParams.additionalQueryParams.toBuilder()
         }
@@ -125,6 +130,14 @@ private constructor(
 
         /** Alias for calling [Builder.status] with `status.orElse(null)`. */
         fun status(status: Optional<Status>) = status(status.getOrNull())
+
+        fun validationStatus(validationStatus: ValidationStatus?) = apply {
+            this.validationStatus = validationStatus
+        }
+
+        /** Alias for calling [Builder.validationStatus] with `validationStatus.orElse(null)`. */
+        fun validationStatus(validationStatus: Optional<ValidationStatus>) =
+            validationStatus(validationStatus.getOrNull())
 
         fun additionalHeaders(additionalHeaders: Headers) = apply {
             this.additionalHeaders.clear()
@@ -236,6 +249,7 @@ private constructor(
                 idempotencyKey,
                 limit,
                 status,
+                validationStatus,
                 additionalHeaders.build(),
                 additionalQueryParams.build(),
             )
@@ -279,6 +293,16 @@ private constructor(
                     it._additionalProperties().keys().forEach { key ->
                         it._additionalProperties().values(key).forEach { value ->
                             put("status.$key", value)
+                        }
+                    }
+                }
+                validationStatus?.let {
+                    it.in_().ifPresent {
+                        put("validation_status.in", it.joinToString(",") { it.toString() })
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("validation_status.$key", value)
                         }
                     }
                 }
@@ -740,6 +764,284 @@ private constructor(
         override fun toString() = "Status{in_=$in_, additionalProperties=$additionalProperties}"
     }
 
+    class ValidationStatus
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
+
+        /**
+         * Filter Entities for those with the specified validation status. For GET requests, this
+         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+         */
+        fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ValidationStatus]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ValidationStatus]. */
+        class Builder internal constructor() {
+
+            private var in_: MutableList<In>? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(validationStatus: ValidationStatus) = apply {
+                in_ = validationStatus.in_?.toMutableList()
+                additionalProperties = validationStatus.additionalProperties.toBuilder()
+            }
+
+            /**
+             * Filter Entities for those with the specified validation status. For GET requests,
+             * this should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
+            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
+
+            /**
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [ValidationStatus].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ValidationStatus =
+                ValidationStatus(in_?.toImmutable(), additionalProperties.build())
+        }
+
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** The submitted data is being validated. */
+                @JvmField val PENDING = of("pending")
+
+                /** The submitted data is valid. */
+                @JvmField val VALID = of("valid")
+
+                /** Additional information is required to validate the data. */
+                @JvmField val INVALID = of("invalid")
+
+                @JvmStatic fun of(value: String) = In(JsonField.of(value))
+            }
+
+            /** An enum containing [In]'s known values. */
+            enum class Known {
+                /** The submitted data is being validated. */
+                PENDING,
+                /** The submitted data is valid. */
+                VALID,
+                /** Additional information is required to validate the data. */
+                INVALID,
+            }
+
+            /**
+             * An enum containing [In]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [In] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** The submitted data is being validated. */
+                PENDING,
+                /** The submitted data is valid. */
+                VALID,
+                /** Additional information is required to validate the data. */
+                INVALID,
+                /** An enum member indicating that [In] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    PENDING -> Value.PENDING
+                    VALID -> Value.VALID
+                    INVALID -> Value.INVALID
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    PENDING -> Known.PENDING
+                    VALID -> Known.VALID
+                    INVALID -> Known.INVALID
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): In = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is In && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ValidationStatus &&
+                in_ == other.in_ &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ValidationStatus{in_=$in_, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -751,6 +1053,7 @@ private constructor(
             idempotencyKey == other.idempotencyKey &&
             limit == other.limit &&
             status == other.status &&
+            validationStatus == other.validationStatus &&
             additionalHeaders == other.additionalHeaders &&
             additionalQueryParams == other.additionalQueryParams
     }
@@ -762,10 +1065,11 @@ private constructor(
             idempotencyKey,
             limit,
             status,
+            validationStatus,
             additionalHeaders,
             additionalQueryParams,
         )
 
     override fun toString() =
-        "EntityListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "EntityListParams{createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, validationStatus=$validationStatus, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
