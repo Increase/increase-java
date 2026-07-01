@@ -1,5 +1,13 @@
 # Changelog
 
+## [0.563.0](https://github.com/Increase/increase-java/compare/v0.562.1...v0.563.0) (2026-06-29)
+
+
+### Features
+
+* **api:** add pending_reviewing check transfer status ([a342fe3](https://github.com/Increase/increase-java/commit/a342fe31f227c50ff63cd2f6fb21481007380439))
+* **api:** api update ([#1356](https://github.com/Increase/increase-java/issues/1356)) ([3a6ff99](https://github.com/Increase/increase-java/commit/3a6ff996016f29621b4af099840b08a85ce92d4f))
+
 ## [0.562.1](https://github.com/Increase/increase-java/compare/v0.562.0...v0.562.1) (2026-06-24)
 
 
