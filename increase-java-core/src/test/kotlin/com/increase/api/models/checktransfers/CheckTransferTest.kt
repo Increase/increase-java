@@ -101,6 +101,7 @@ internal class CheckTransferTest {
                                 .state("NY")
                                 .build()
                         )
+                        .returnAddressName(null)
                         .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
                         .signature(
                             CheckTransfer.PhysicalCheck.Signature.builder()
@@ -250,6 +251,7 @@ internal class CheckTransferTest {
                             .state("NY")
                             .build()
                     )
+                    .returnAddressName(null)
                     .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
                     .signature(
                         CheckTransfer.PhysicalCheck.Signature.builder()
@@ -398,6 +400,7 @@ internal class CheckTransferTest {
                                 .state("NY")
                                 .build()
                         )
+                        .returnAddressName(null)
                         .shippingMethod(CheckTransfer.PhysicalCheck.ShippingMethod.USPS_FIRST_CLASS)
                         .signature(
                             CheckTransfer.PhysicalCheck.Signature.builder()

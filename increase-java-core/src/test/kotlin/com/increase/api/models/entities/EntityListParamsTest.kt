@@ -26,6 +26,11 @@ internal class EntityListParamsTest {
             .status(
                 EntityListParams.Status.builder().addIn(EntityListParams.Status.In.ACTIVE).build()
             )
+            .validationStatus(
+                EntityListParams.ValidationStatus.builder()
+                    .addIn(EntityListParams.ValidationStatus.In.PENDING)
+                    .build()
+            )
             .build()
     }
 
@@ -49,6 +54,11 @@ internal class EntityListParamsTest {
                         .addIn(EntityListParams.Status.In.ACTIVE)
                         .build()
                 )
+                .validationStatus(
+                    EntityListParams.ValidationStatus.builder()
+                        .addIn(EntityListParams.ValidationStatus.In.PENDING)
+                        .build()
+                )
                 .build()
 
         val queryParams = params._queryParams()
@@ -64,6 +74,7 @@ internal class EntityListParamsTest {
                     .put("idempotency_key", "x")
                     .put("limit", "1")
                     .put("status.in", listOf("active").joinToString(","))
+                    .put("validation_status.in", listOf("pending").joinToString(","))
                     .build()
             )
     }
