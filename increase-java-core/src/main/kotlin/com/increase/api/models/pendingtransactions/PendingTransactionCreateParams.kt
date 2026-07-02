@@ -42,8 +42,8 @@ private constructor(
 
     /**
      * The amount to hold in the minor unit of the account's currency. For dollars, for example,
-     * this is cents. This should be a negative amount - to hold $1.00 from the account, you would
-     * pass -100.
+     * this is cents. This should be a negative amount: To hold $1.00 from the account, pass -100 as
+     * `amount`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -143,8 +143,8 @@ private constructor(
 
         /**
          * The amount to hold in the minor unit of the account's currency. For dollars, for example,
-         * this is cents. This should be a negative amount - to hold $1.00 from the account, you
-         * would pass -100.
+         * this is cents. This should be a negative amount: To hold $1.00 from the account, pass
+         * -100 as `amount`.
          */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
@@ -342,8 +342,8 @@ private constructor(
 
         /**
          * The amount to hold in the minor unit of the account's currency. For dollars, for example,
-         * this is cents. This should be a negative amount - to hold $1.00 from the account, you
-         * would pass -100.
+         * this is cents. This should be a negative amount: To hold $1.00 from the account, pass
+         * -100 as `amount`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -437,8 +437,8 @@ private constructor(
 
             /**
              * The amount to hold in the minor unit of the account's currency. For dollars, for
-             * example, this is cents. This should be a negative amount - to hold $1.00 from the
-             * account, you would pass -100.
+             * example, this is cents. This should be a negative amount: To hold $1.00 from the
+             * account, pass -100 as `amount`.
              */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 

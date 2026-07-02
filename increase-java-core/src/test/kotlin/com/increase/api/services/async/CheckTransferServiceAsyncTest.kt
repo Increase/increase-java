@@ -45,15 +45,23 @@ internal class CheckTransferServiceAsyncTest {
                                     .build()
                             )
                             .memo("Check payment")
+                            .payer(
+                                listOf(
+                                    CheckTransferCreateParams.PhysicalCheck.Payer.builder()
+                                        .contents("National Phonograph Company")
+                                        .build(),
+                                    CheckTransferCreateParams.PhysicalCheck.Payer.builder()
+                                        .contents("33 Liberty Street")
+                                        .build(),
+                                    CheckTransferCreateParams.PhysicalCheck.Payer.builder()
+                                        .contents("New York, NY 10045")
+                                        .build(),
+                                )
+                            )
                             .recipientName("Ian Crease")
                             .attachmentFileId("attachment_file_id")
                             .checkVoucherImageFileId("check_voucher_image_file_id")
                             .note("note")
-                            .addPayer(
-                                CheckTransferCreateParams.PhysicalCheck.Payer.builder()
-                                    .contents("contents")
-                                    .build()
-                            )
                             .returnAddress(
                                 CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                                     .city("city")
@@ -65,6 +73,7 @@ internal class CheckTransferServiceAsyncTest {
                                     .phone("x")
                                     .build()
                             )
+                            .returnAddressName("return_address_name")
                             .shippingMethod(
                                 CheckTransferCreateParams.PhysicalCheck.ShippingMethod
                                     .USPS_FIRST_CLASS
