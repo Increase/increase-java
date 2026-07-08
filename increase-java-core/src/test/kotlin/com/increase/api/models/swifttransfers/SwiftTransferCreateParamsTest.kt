@@ -39,6 +39,7 @@ internal class SwiftTransferCreateParamsTest {
             .instructedCurrency(SwiftTransferCreateParams.InstructedCurrency.USD)
             .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
             .unstructuredRemittanceInformation("New Swift transfer")
+            .intermediaryBankIdentificationCode("210BF73A")
             .requireApproval(true)
             .routingNumber("sq")
             .build()
@@ -77,6 +78,7 @@ internal class SwiftTransferCreateParamsTest {
                 .instructedCurrency(SwiftTransferCreateParams.InstructedCurrency.USD)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .unstructuredRemittanceInformation("New Swift transfer")
+                .intermediaryBankIdentificationCode("210BF73A")
                 .requireApproval(true)
                 .routingNumber("sq")
                 .build()
@@ -115,6 +117,7 @@ internal class SwiftTransferCreateParamsTest {
             .isEqualTo(SwiftTransferCreateParams.InstructedCurrency.USD)
         assertThat(body.sourceAccountNumberId()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
         assertThat(body.unstructuredRemittanceInformation()).isEqualTo("New Swift transfer")
+        assertThat(body.intermediaryBankIdentificationCode()).contains("210BF73A")
         assertThat(body.requireApproval()).contains(true)
         assertThat(body.routingNumber()).contains("sq")
     }

@@ -52,6 +52,7 @@ internal class SwiftTransferServiceTest {
                     .instructedCurrency(SwiftTransferCreateParams.InstructedCurrency.USD)
                     .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .unstructuredRemittanceInformation("New Swift transfer")
+                    .intermediaryBankIdentificationCode("210BF73A")
                     .requireApproval(true)
                     .routingNumber("sq")
                     .build()
