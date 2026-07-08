@@ -37,6 +37,7 @@ private constructor(
     private val idempotencyKey: JsonField<String>,
     private val instructedAmount: JsonField<Long>,
     private val instructedCurrency: JsonField<InstructedCurrency>,
+    private val intermediaryBankIdentificationCode: JsonField<String>,
     private val pendingTransactionId: JsonField<String>,
     private val routingNumber: JsonField<String>,
     private val sourceAccountNumberId: JsonField<String>,
@@ -86,6 +87,9 @@ private constructor(
         @JsonProperty("instructed_currency")
         @ExcludeMissing
         instructedCurrency: JsonField<InstructedCurrency> = JsonMissing.of(),
+        @JsonProperty("intermediary_bank_identification_code")
+        @ExcludeMissing
+        intermediaryBankIdentificationCode: JsonField<String> = JsonMissing.of(),
         @JsonProperty("pending_transaction_id")
         @ExcludeMissing
         pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -121,6 +125,7 @@ private constructor(
         idempotencyKey,
         instructedAmount,
         instructedCurrency,
+        intermediaryBankIdentificationCode,
         pendingTransactionId,
         routingNumber,
         sourceAccountNumberId,
@@ -249,6 +254,16 @@ private constructor(
      */
     fun instructedCurrency(): InstructedCurrency =
         instructedCurrency.getRequired("instructed_currency")
+
+    /**
+     * The bank identification code (BIC) of the intermediary bank, if the transfer is routed
+     * through one.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun intermediaryBankIdentificationCode(): Optional<String> =
+        intermediaryBankIdentificationCode.getOptional("intermediary_bank_identification_code")
 
     /**
      * The ID for the pending transaction representing the transfer.
@@ -442,6 +457,17 @@ private constructor(
     fun _instructedCurrency(): JsonField<InstructedCurrency> = instructedCurrency
 
     /**
+     * Returns the raw JSON value of [intermediaryBankIdentificationCode].
+     *
+     * Unlike [intermediaryBankIdentificationCode], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("intermediary_bank_identification_code")
+    @ExcludeMissing
+    fun _intermediaryBankIdentificationCode(): JsonField<String> =
+        intermediaryBankIdentificationCode
+
+    /**
      * Returns the raw JSON value of [pendingTransactionId].
      *
      * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an unexpected
@@ -547,6 +573,7 @@ private constructor(
          * .idempotencyKey()
          * .instructedAmount()
          * .instructedCurrency()
+         * .intermediaryBankIdentificationCode()
          * .pendingTransactionId()
          * .routingNumber()
          * .sourceAccountNumberId()
@@ -577,6 +604,7 @@ private constructor(
         private var idempotencyKey: JsonField<String>? = null
         private var instructedAmount: JsonField<Long>? = null
         private var instructedCurrency: JsonField<InstructedCurrency>? = null
+        private var intermediaryBankIdentificationCode: JsonField<String>? = null
         private var pendingTransactionId: JsonField<String>? = null
         private var routingNumber: JsonField<String>? = null
         private var sourceAccountNumberId: JsonField<String>? = null
@@ -603,6 +631,7 @@ private constructor(
             idempotencyKey = swiftTransfer.idempotencyKey
             instructedAmount = swiftTransfer.instructedAmount
             instructedCurrency = swiftTransfer.instructedCurrency
+            intermediaryBankIdentificationCode = swiftTransfer.intermediaryBankIdentificationCode
             pendingTransactionId = swiftTransfer.pendingTransactionId
             routingNumber = swiftTransfer.routingNumber
             sourceAccountNumberId = swiftTransfer.sourceAccountNumberId
@@ -818,6 +847,34 @@ private constructor(
             this.instructedCurrency = instructedCurrency
         }
 
+        /**
+         * The bank identification code (BIC) of the intermediary bank, if the transfer is routed
+         * through one.
+         */
+        fun intermediaryBankIdentificationCode(intermediaryBankIdentificationCode: String?) =
+            intermediaryBankIdentificationCode(
+                JsonField.ofNullable(intermediaryBankIdentificationCode)
+            )
+
+        /**
+         * Alias for calling [Builder.intermediaryBankIdentificationCode] with
+         * `intermediaryBankIdentificationCode.orElse(null)`.
+         */
+        fun intermediaryBankIdentificationCode(
+            intermediaryBankIdentificationCode: Optional<String>
+        ) = intermediaryBankIdentificationCode(intermediaryBankIdentificationCode.getOrNull())
+
+        /**
+         * Sets [Builder.intermediaryBankIdentificationCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.intermediaryBankIdentificationCode] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun intermediaryBankIdentificationCode(
+            intermediaryBankIdentificationCode: JsonField<String>
+        ) = apply { this.intermediaryBankIdentificationCode = intermediaryBankIdentificationCode }
+
         /** The ID for the pending transaction representing the transfer. */
         fun pendingTransactionId(pendingTransactionId: String?) =
             pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
@@ -995,6 +1052,7 @@ private constructor(
          * .idempotencyKey()
          * .instructedAmount()
          * .instructedCurrency()
+         * .intermediaryBankIdentificationCode()
          * .pendingTransactionId()
          * .routingNumber()
          * .sourceAccountNumberId()
@@ -1023,6 +1081,10 @@ private constructor(
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("instructedAmount", instructedAmount),
                 checkRequired("instructedCurrency", instructedCurrency),
+                checkRequired(
+                    "intermediaryBankIdentificationCode",
+                    intermediaryBankIdentificationCode,
+                ),
                 checkRequired("pendingTransactionId", pendingTransactionId),
                 checkRequired("routingNumber", routingNumber),
                 checkRequired("sourceAccountNumberId", sourceAccountNumberId),
@@ -1070,6 +1132,7 @@ private constructor(
         idempotencyKey()
         instructedAmount()
         instructedCurrency().validate()
+        intermediaryBankIdentificationCode()
         pendingTransactionId()
         routingNumber()
         sourceAccountNumberId()
@@ -1110,6 +1173,7 @@ private constructor(
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (instructedAmount.asKnown().isPresent) 1 else 0) +
             (instructedCurrency.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (intermediaryBankIdentificationCode.asKnown().isPresent) 1 else 0) +
             (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
             (if (routingNumber.asKnown().isPresent) 1 else 0) +
             (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
@@ -3365,6 +3429,7 @@ private constructor(
             idempotencyKey == other.idempotencyKey &&
             instructedAmount == other.instructedAmount &&
             instructedCurrency == other.instructedCurrency &&
+            intermediaryBankIdentificationCode == other.intermediaryBankIdentificationCode &&
             pendingTransactionId == other.pendingTransactionId &&
             routingNumber == other.routingNumber &&
             sourceAccountNumberId == other.sourceAccountNumberId &&
@@ -3392,6 +3457,7 @@ private constructor(
             idempotencyKey,
             instructedAmount,
             instructedCurrency,
+            intermediaryBankIdentificationCode,
             pendingTransactionId,
             routingNumber,
             sourceAccountNumberId,
@@ -3407,5 +3473,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "SwiftTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, bankIdentificationCode=$bankIdentificationCode, createdAt=$createdAt, createdBy=$createdBy, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, idempotencyKey=$idempotencyKey, instructedAmount=$instructedAmount, instructedCurrency=$instructedCurrency, pendingTransactionId=$pendingTransactionId, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, transactionId=$transactionId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "SwiftTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, amount=$amount, bankIdentificationCode=$bankIdentificationCode, createdAt=$createdAt, createdBy=$createdBy, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, idempotencyKey=$idempotencyKey, instructedAmount=$instructedAmount, instructedCurrency=$instructedCurrency, intermediaryBankIdentificationCode=$intermediaryBankIdentificationCode, pendingTransactionId=$pendingTransactionId, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, transactionId=$transactionId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

@@ -121,6 +121,16 @@ private constructor(
     fun unstructuredRemittanceInformation(): String = body.unstructuredRemittanceInformation()
 
     /**
+     * The bank identification code (BIC) of the intermediary bank, if the transfer should be routed
+     * through one.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun intermediaryBankIdentificationCode(): Optional<String> =
+        body.intermediaryBankIdentificationCode()
+
+    /**
      * Whether the transfer requires explicit approval via the dashboard or API.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -218,6 +228,15 @@ private constructor(
      */
     fun _unstructuredRemittanceInformation(): JsonField<String> =
         body._unstructuredRemittanceInformation()
+
+    /**
+     * Returns the raw JSON value of [intermediaryBankIdentificationCode].
+     *
+     * Unlike [intermediaryBankIdentificationCode], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    fun _intermediaryBankIdentificationCode(): JsonField<String> =
+        body._intermediaryBankIdentificationCode()
 
     /**
      * Returns the raw JSON value of [requireApproval].
@@ -465,6 +484,25 @@ private constructor(
             unstructuredRemittanceInformation: JsonField<String>
         ) = apply { body.unstructuredRemittanceInformation(unstructuredRemittanceInformation) }
 
+        /**
+         * The bank identification code (BIC) of the intermediary bank, if the transfer should be
+         * routed through one.
+         */
+        fun intermediaryBankIdentificationCode(intermediaryBankIdentificationCode: String) = apply {
+            body.intermediaryBankIdentificationCode(intermediaryBankIdentificationCode)
+        }
+
+        /**
+         * Sets [Builder.intermediaryBankIdentificationCode] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.intermediaryBankIdentificationCode] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun intermediaryBankIdentificationCode(
+            intermediaryBankIdentificationCode: JsonField<String>
+        ) = apply { body.intermediaryBankIdentificationCode(intermediaryBankIdentificationCode) }
+
         /** Whether the transfer requires explicit approval via the dashboard or API. */
         fun requireApproval(requireApproval: Boolean) = apply {
             body.requireApproval(requireApproval)
@@ -662,6 +700,7 @@ private constructor(
         private val instructedCurrency: JsonField<InstructedCurrency>,
         private val sourceAccountNumberId: JsonField<String>,
         private val unstructuredRemittanceInformation: JsonField<String>,
+        private val intermediaryBankIdentificationCode: JsonField<String>,
         private val requireApproval: JsonField<Boolean>,
         private val routingNumber: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -702,6 +741,9 @@ private constructor(
             @JsonProperty("unstructured_remittance_information")
             @ExcludeMissing
             unstructuredRemittanceInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("intermediary_bank_identification_code")
+            @ExcludeMissing
+            intermediaryBankIdentificationCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("require_approval")
             @ExcludeMissing
             requireApproval: JsonField<Boolean> = JsonMissing.of(),
@@ -720,6 +762,7 @@ private constructor(
             instructedCurrency,
             sourceAccountNumberId,
             unstructuredRemittanceInformation,
+            intermediaryBankIdentificationCode,
             requireApproval,
             routingNumber,
             mutableMapOf(),
@@ -819,6 +862,16 @@ private constructor(
          */
         fun unstructuredRemittanceInformation(): String =
             unstructuredRemittanceInformation.getRequired("unstructured_remittance_information")
+
+        /**
+         * The bank identification code (BIC) of the intermediary bank, if the transfer should be
+         * routed through one.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun intermediaryBankIdentificationCode(): Optional<String> =
+            intermediaryBankIdentificationCode.getOptional("intermediary_bank_identification_code")
 
         /**
          * Whether the transfer requires explicit approval via the dashboard or API.
@@ -944,6 +997,17 @@ private constructor(
             unstructuredRemittanceInformation
 
         /**
+         * Returns the raw JSON value of [intermediaryBankIdentificationCode].
+         *
+         * Unlike [intermediaryBankIdentificationCode], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("intermediary_bank_identification_code")
+        @ExcludeMissing
+        fun _intermediaryBankIdentificationCode(): JsonField<String> =
+            intermediaryBankIdentificationCode
+
+        /**
          * Returns the raw JSON value of [requireApproval].
          *
          * Unlike [requireApproval], this method doesn't throw if the JSON field has an unexpected
@@ -1012,6 +1076,7 @@ private constructor(
             private var instructedCurrency: JsonField<InstructedCurrency>? = null
             private var sourceAccountNumberId: JsonField<String>? = null
             private var unstructuredRemittanceInformation: JsonField<String>? = null
+            private var intermediaryBankIdentificationCode: JsonField<String> = JsonMissing.of()
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var routingNumber: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -1029,6 +1094,7 @@ private constructor(
                 instructedCurrency = body.instructedCurrency
                 sourceAccountNumberId = body.sourceAccountNumberId
                 unstructuredRemittanceInformation = body.unstructuredRemittanceInformation
+                intermediaryBankIdentificationCode = body.intermediaryBankIdentificationCode
                 requireApproval = body.requireApproval
                 routingNumber = body.routingNumber
                 additionalProperties = body.additionalProperties.toMutableMap()
@@ -1198,6 +1264,26 @@ private constructor(
                 unstructuredRemittanceInformation: JsonField<String>
             ) = apply { this.unstructuredRemittanceInformation = unstructuredRemittanceInformation }
 
+            /**
+             * The bank identification code (BIC) of the intermediary bank, if the transfer should
+             * be routed through one.
+             */
+            fun intermediaryBankIdentificationCode(intermediaryBankIdentificationCode: String) =
+                intermediaryBankIdentificationCode(JsonField.of(intermediaryBankIdentificationCode))
+
+            /**
+             * Sets [Builder.intermediaryBankIdentificationCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.intermediaryBankIdentificationCode] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun intermediaryBankIdentificationCode(
+                intermediaryBankIdentificationCode: JsonField<String>
+            ) = apply {
+                this.intermediaryBankIdentificationCode = intermediaryBankIdentificationCode
+            }
+
             /** Whether the transfer requires explicit approval via the dashboard or API. */
             fun requireApproval(requireApproval: Boolean) =
                 requireApproval(JsonField.of(requireApproval))
@@ -1286,6 +1372,7 @@ private constructor(
                         "unstructuredRemittanceInformation",
                         unstructuredRemittanceInformation,
                     ),
+                    intermediaryBankIdentificationCode,
                     requireApproval,
                     routingNumber,
                     additionalProperties.toMutableMap(),
@@ -1319,6 +1406,7 @@ private constructor(
             instructedCurrency().validate()
             sourceAccountNumberId()
             unstructuredRemittanceInformation()
+            intermediaryBankIdentificationCode()
             requireApproval()
             routingNumber()
             validated = true
@@ -1351,6 +1439,7 @@ private constructor(
                 (instructedCurrency.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
                 (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0) +
+                (if (intermediaryBankIdentificationCode.asKnown().isPresent) 1 else 0) +
                 (if (requireApproval.asKnown().isPresent) 1 else 0) +
                 (if (routingNumber.asKnown().isPresent) 1 else 0)
 
@@ -1371,6 +1460,7 @@ private constructor(
                 instructedCurrency == other.instructedCurrency &&
                 sourceAccountNumberId == other.sourceAccountNumberId &&
                 unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
+                intermediaryBankIdentificationCode == other.intermediaryBankIdentificationCode &&
                 requireApproval == other.requireApproval &&
                 routingNumber == other.routingNumber &&
                 additionalProperties == other.additionalProperties
@@ -1389,6 +1479,7 @@ private constructor(
                 instructedCurrency,
                 sourceAccountNumberId,
                 unstructuredRemittanceInformation,
+                intermediaryBankIdentificationCode,
                 requireApproval,
                 routingNumber,
                 additionalProperties,
@@ -1398,7 +1489,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, accountNumber=$accountNumber, bankIdentificationCode=$bankIdentificationCode, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, instructedAmount=$instructedAmount, instructedCurrency=$instructedCurrency, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, accountNumber=$accountNumber, bankIdentificationCode=$bankIdentificationCode, creditorAddress=$creditorAddress, creditorName=$creditorName, debtorAddress=$debtorAddress, debtorName=$debtorName, instructedAmount=$instructedAmount, instructedCurrency=$instructedCurrency, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, intermediaryBankIdentificationCode=$intermediaryBankIdentificationCode, requireApproval=$requireApproval, routingNumber=$routingNumber, additionalProperties=$additionalProperties}"
     }
 
     /** The creditor's address. */
