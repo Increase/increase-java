@@ -11,8 +11,8 @@ internal class CardSettlementCreateParamsTest {
     fun create() {
         CardSettlementCreateParams.builder()
             .cardId("card_oubs0hwk5rn6knuecxg2")
-            .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
             .amount(1L)
+            .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
             .build()
     }
 
@@ -21,30 +21,24 @@ internal class CardSettlementCreateParamsTest {
         val params =
             CardSettlementCreateParams.builder()
                 .cardId("card_oubs0hwk5rn6knuecxg2")
-                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .amount(1L)
+                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .build()
 
         val body = params._body()
 
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
-        assertThat(body.pendingTransactionId())
-            .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
         assertThat(body.amount()).contains(1L)
+        assertThat(body.pendingTransactionId()).contains("pending_transaction_k1sfetcau2qbvjbzgju4")
     }
 
     @Test
     fun bodyWithoutOptionalFields() {
         val params =
-            CardSettlementCreateParams.builder()
-                .cardId("card_oubs0hwk5rn6knuecxg2")
-                .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
-                .build()
+            CardSettlementCreateParams.builder().cardId("card_oubs0hwk5rn6knuecxg2").build()
 
         val body = params._body()
 
         assertThat(body.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
-        assertThat(body.pendingTransactionId())
-            .isEqualTo("pending_transaction_k1sfetcau2qbvjbzgju4")
     }
 }

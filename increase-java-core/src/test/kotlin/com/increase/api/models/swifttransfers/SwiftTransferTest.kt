@@ -61,6 +61,7 @@ internal class SwiftTransferTest {
                 .idempotencyKey(null)
                 .instructedAmount(100L)
                 .instructedCurrency(SwiftTransfer.InstructedCurrency.USD)
+                .intermediaryBankIdentificationCode(null)
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .routingNumber(null)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
@@ -119,6 +120,7 @@ internal class SwiftTransferTest {
         assertThat(swiftTransfer.instructedAmount()).isEqualTo(100L)
         assertThat(swiftTransfer.instructedCurrency())
             .isEqualTo(SwiftTransfer.InstructedCurrency.USD)
+        assertThat(swiftTransfer.intermediaryBankIdentificationCode()).isEmpty
         assertThat(swiftTransfer.pendingTransactionId())
             .contains("pending_transaction_k1sfetcau2qbvjbzgju4")
         assertThat(swiftTransfer.routingNumber()).isEmpty
@@ -185,6 +187,7 @@ internal class SwiftTransferTest {
                 .idempotencyKey(null)
                 .instructedAmount(100L)
                 .instructedCurrency(SwiftTransfer.InstructedCurrency.USD)
+                .intermediaryBankIdentificationCode(null)
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                 .routingNumber(null)
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
