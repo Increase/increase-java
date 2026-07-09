@@ -24,8 +24,8 @@ internal class CardSettlementServiceTest {
             cardSettlementService.create(
                 CardSettlementCreateParams.builder()
                     .cardId("card_oubs0hwk5rn6knuecxg2")
-                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .amount(1L)
+                    .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
                     .build()
             )
 
