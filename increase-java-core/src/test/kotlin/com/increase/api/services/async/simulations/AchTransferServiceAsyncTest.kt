@@ -68,6 +68,7 @@ internal class AchTransferServiceAsyncTest {
             achTransferServiceAsync.return_(
                 AchTransferReturnParams.builder()
                     .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                    .addendaInformation("x")
                     .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                     .build()
             )

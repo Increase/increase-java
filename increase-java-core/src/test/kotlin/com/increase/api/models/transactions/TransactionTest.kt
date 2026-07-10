@@ -59,6 +59,7 @@ internal class TransactionTest {
                         )
                         .achTransferReturn(
                             Transaction.Source.AchTransferReturn.builder()
+                                .addendaInformation(null)
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .rawReturnReasonCode("R01")
                                 .returnReasonCode(
@@ -1134,6 +1135,7 @@ internal class TransactionTest {
                     )
                     .achTransferReturn(
                         Transaction.Source.AchTransferReturn.builder()
+                            .addendaInformation(null)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .rawReturnReasonCode("R01")
                             .returnReasonCode(
@@ -2157,6 +2159,7 @@ internal class TransactionTest {
                         )
                         .achTransferReturn(
                             Transaction.Source.AchTransferReturn.builder()
+                                .addendaInformation(null)
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .rawReturnReasonCode("R01")
                                 .returnReasonCode(
