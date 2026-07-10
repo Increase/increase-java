@@ -11,6 +11,7 @@ internal class AchTransferReturnParamsTest {
     fun create() {
         AchTransferReturnParams.builder()
             .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+            .addendaInformation("x")
             .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
             .build()
     }
@@ -32,11 +33,13 @@ internal class AchTransferReturnParamsTest {
         val params =
             AchTransferReturnParams.builder()
                 .achTransferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                .addendaInformation("x")
                 .reason(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
                 .build()
 
         val body = params._body()
 
+        assertThat(body.addendaInformation()).contains("x")
         assertThat(body.reason()).contains(AchTransferReturnParams.Reason.INSUFFICIENT_FUND)
     }
 

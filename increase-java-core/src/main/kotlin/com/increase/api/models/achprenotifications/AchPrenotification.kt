@@ -2582,7 +2582,12 @@ private constructor(
                 /** Code R13. The routing number is invalid. */
                 @JvmField val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
-                /** Code R17. The receiving bank is unable to process a field in the transfer. */
+                /**
+                 * Code R17. This return code has multiple meanings. The receiving bank was either
+                 * unable to process a field in the transfer, or believes the transfer was initiated
+                 * under questionable circumstances (such as fraud), or identified an
+                 * improperly-initiated reversing entry.
+                 */
                 @JvmField val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
                 /** Code R45. A rare return reason. The individual name field was invalid. */
@@ -2958,7 +2963,12 @@ private constructor(
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
-                /** Code R17. The receiving bank is unable to process a field in the transfer. */
+                /**
+                 * Code R17. This return code has multiple meanings. The receiving bank was either
+                 * unable to process a field in the transfer, or believes the transfer was initiated
+                 * under questionable circumstances (such as fraud), or identified an
+                 * improperly-initiated reversing entry.
+                 */
                 FILE_RECORD_EDIT_CRITERIA,
                 /** Code R45. A rare return reason. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,
@@ -3250,7 +3260,12 @@ private constructor(
                 AUTHORIZATION_REVOKED_BY_CUSTOMER,
                 /** Code R13. The routing number is invalid. */
                 INVALID_ACH_ROUTING_NUMBER,
-                /** Code R17. The receiving bank is unable to process a field in the transfer. */
+                /**
+                 * Code R17. This return code has multiple meanings. The receiving bank was either
+                 * unable to process a field in the transfer, or believes the transfer was initiated
+                 * under questionable circumstances (such as fraud), or identified an
+                 * improperly-initiated reversing entry.
+                 */
                 FILE_RECORD_EDIT_CRITERIA,
                 /** Code R45. A rare return reason. The individual name field was invalid. */
                 ENR_INVALID_INDIVIDUAL_NAME,

@@ -37,6 +37,16 @@ private constructor(
     fun achTransferId(): Optional<String> = Optional.ofNullable(achTransferId)
 
     /**
+     * Free-form information the returning bank includes in the return addenda. For a
+     * `file_record_edit_criteria` (R17) return, set this to `QUESTIONABLE` to simulate a return the
+     * bank believes was initiated under questionable circumstances.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun addendaInformation(): Optional<String> = body.addendaInformation()
+
+    /**
      * The reason why the Federal Reserve or destination bank returned this transfer. Defaults to
      * `no_account`.
      *
@@ -44,6 +54,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun reason(): Optional<Reason> = body.reason()
+
+    /**
+     * Returns the raw JSON value of [addendaInformation].
+     *
+     * Unlike [addendaInformation], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _addendaInformation(): JsonField<String> = body._addendaInformation()
 
     /**
      * Returns the raw JSON value of [reason].
@@ -98,9 +116,30 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [addendaInformation]
          * - [reason]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /**
+         * Free-form information the returning bank includes in the return addenda. For a
+         * `file_record_edit_criteria` (R17) return, set this to `QUESTIONABLE` to simulate a return
+         * the bank believes was initiated under questionable circumstances.
+         */
+        fun addendaInformation(addendaInformation: String) = apply {
+            body.addendaInformation(addendaInformation)
+        }
+
+        /**
+         * Sets [Builder.addendaInformation] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.addendaInformation] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun addendaInformation(addendaInformation: JsonField<String>) = apply {
+            body.addendaInformation(addendaInformation)
+        }
 
         /**
          * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
@@ -262,14 +301,29 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val addendaInformation: JsonField<String>,
         private val reason: JsonField<Reason>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of()
-        ) : this(reason, mutableMapOf())
+            @JsonProperty("addenda_information")
+            @ExcludeMissing
+            addendaInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+        ) : this(addendaInformation, reason, mutableMapOf())
+
+        /**
+         * Free-form information the returning bank includes in the return addenda. For a
+         * `file_record_edit_criteria` (R17) return, set this to `QUESTIONABLE` to simulate a return
+         * the bank believes was initiated under questionable circumstances.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun addendaInformation(): Optional<String> =
+            addendaInformation.getOptional("addenda_information")
 
         /**
          * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
@@ -279,6 +333,16 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun reason(): Optional<Reason> = reason.getOptional("reason")
+
+        /**
+         * Returns the raw JSON value of [addendaInformation].
+         *
+         * Unlike [addendaInformation], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("addenda_information")
+        @ExcludeMissing
+        fun _addendaInformation(): JsonField<String> = addendaInformation
 
         /**
          * Returns the raw JSON value of [reason].
@@ -308,13 +372,34 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
+            private var addendaInformation: JsonField<String> = JsonMissing.of()
             private var reason: JsonField<Reason> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
+                addendaInformation = body.addendaInformation
                 reason = body.reason
                 additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Free-form information the returning bank includes in the return addenda. For a
+             * `file_record_edit_criteria` (R17) return, set this to `QUESTIONABLE` to simulate a
+             * return the bank believes was initiated under questionable circumstances.
+             */
+            fun addendaInformation(addendaInformation: String) =
+                addendaInformation(JsonField.of(addendaInformation))
+
+            /**
+             * Sets [Builder.addendaInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addendaInformation] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun addendaInformation(addendaInformation: JsonField<String>) = apply {
+                this.addendaInformation = addendaInformation
             }
 
             /**
@@ -356,7 +441,8 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): Body = Body(reason, additionalProperties.toMutableMap())
+            fun build(): Body =
+                Body(addendaInformation, reason, additionalProperties.toMutableMap())
         }
 
         private var validated: Boolean = false
@@ -375,6 +461,7 @@ private constructor(
                 return@apply
             }
 
+            addendaInformation()
             reason().ifPresent { it.validate() }
             validated = true
         }
@@ -393,7 +480,10 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic internal fun validity(): Int = (reason.asKnown().getOrNull()?.validity() ?: 0)
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (addendaInformation.asKnown().isPresent) 1 else 0) +
+                (reason.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -401,15 +491,19 @@ private constructor(
             }
 
             return other is Body &&
+                addendaInformation == other.addendaInformation &&
                 reason == other.reason &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(addendaInformation, reason, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
-        override fun toString() = "Body{reason=$reason, additionalProperties=$additionalProperties}"
+        override fun toString() =
+            "Body{addendaInformation=$addendaInformation, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -509,7 +603,12 @@ private constructor(
             /** Code R13. The routing number is invalid. */
             @JvmField val INVALID_ACH_ROUTING_NUMBER = of("invalid_ach_routing_number")
 
-            /** Code R17. The receiving bank is unable to process a field in the transfer. */
+            /**
+             * Code R17. This return code has multiple meanings. The receiving bank was either
+             * unable to process a field in the transfer, or believes the transfer was initiated
+             * under questionable circumstances (such as fraud), or identified an
+             * improperly-initiated reversing entry.
+             */
             @JvmField val FILE_RECORD_EDIT_CRITERIA = of("file_record_edit_criteria")
 
             /** Code R45. A rare return reason. The individual name field was invalid. */
@@ -871,7 +970,12 @@ private constructor(
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
             /** Code R13. The routing number is invalid. */
             INVALID_ACH_ROUTING_NUMBER,
-            /** Code R17. The receiving bank is unable to process a field in the transfer. */
+            /**
+             * Code R17. This return code has multiple meanings. The receiving bank was either
+             * unable to process a field in the transfer, or believes the transfer was initiated
+             * under questionable circumstances (such as fraud), or identified an
+             * improperly-initiated reversing entry.
+             */
             FILE_RECORD_EDIT_CRITERIA,
             /** Code R45. A rare return reason. The individual name field was invalid. */
             ENR_INVALID_INDIVIDUAL_NAME,
@@ -1154,7 +1258,12 @@ private constructor(
             AUTHORIZATION_REVOKED_BY_CUSTOMER,
             /** Code R13. The routing number is invalid. */
             INVALID_ACH_ROUTING_NUMBER,
-            /** Code R17. The receiving bank is unable to process a field in the transfer. */
+            /**
+             * Code R17. This return code has multiple meanings. The receiving bank was either
+             * unable to process a field in the transfer, or believes the transfer was initiated
+             * under questionable circumstances (such as fraud), or identified an
+             * improperly-initiated reversing entry.
+             */
             FILE_RECORD_EDIT_CRITERIA,
             /** Code R45. A rare return reason. The individual name field was invalid. */
             ENR_INVALID_INDIVIDUAL_NAME,

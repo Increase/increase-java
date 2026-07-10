@@ -139,6 +139,7 @@ internal class AchTransferListPageResponseTest {
                         )
                         .return_(
                             AchTransfer.Return.builder()
+                                .addendaInformation(null)
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .rawReturnReasonCode("R01")
                                 .returnReasonCode(
@@ -305,6 +306,7 @@ internal class AchTransferListPageResponseTest {
                     )
                     .return_(
                         AchTransfer.Return.builder()
+                            .addendaInformation(null)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .rawReturnReasonCode("R01")
                             .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
@@ -474,6 +476,7 @@ internal class AchTransferListPageResponseTest {
                         )
                         .return_(
                             AchTransfer.Return.builder()
+                                .addendaInformation(null)
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .rawReturnReasonCode("R01")
                                 .returnReasonCode(

@@ -33,10 +33,12 @@ private constructor(
     private val creditorAddressLine2: JsonField<String>,
     private val creditorAddressLine3: JsonField<String>,
     private val creditorName: JsonField<String>,
+    private val debtorAccountNumber: JsonField<String>,
     private val debtorAddressLine1: JsonField<String>,
     private val debtorAddressLine2: JsonField<String>,
     private val debtorAddressLine3: JsonField<String>,
     private val debtorName: JsonField<String>,
+    private val debtorRoutingNumber: JsonField<String>,
     private val description: JsonField<String>,
     private val endToEndIdentification: JsonField<String>,
     private val inputMessageAccountabilityData: JsonField<String>,
@@ -78,6 +80,9 @@ private constructor(
         @JsonProperty("creditor_name")
         @ExcludeMissing
         creditorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_account_number")
+        @ExcludeMissing
+        debtorAccountNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("debtor_address_line1")
         @ExcludeMissing
         debtorAddressLine1: JsonField<String> = JsonMissing.of(),
@@ -90,6 +95,9 @@ private constructor(
         @JsonProperty("debtor_name")
         @ExcludeMissing
         debtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("debtor_routing_number")
+        @ExcludeMissing
+        debtorRoutingNumber: JsonField<String> = JsonMissing.of(),
         @JsonProperty("description")
         @ExcludeMissing
         description: JsonField<String> = JsonMissing.of(),
@@ -129,10 +137,12 @@ private constructor(
         creditorAddressLine2,
         creditorAddressLine3,
         creditorName,
+        debtorAccountNumber,
         debtorAddressLine1,
         debtorAddressLine2,
         debtorAddressLine3,
         debtorName,
+        debtorRoutingNumber,
         description,
         endToEndIdentification,
         inputMessageAccountabilityData,
@@ -233,6 +243,15 @@ private constructor(
     fun creditorName(): Optional<String> = creditorName.getOptional("creditor_name")
 
     /**
+     * The account number of the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun debtorAccountNumber(): Optional<String> =
+        debtorAccountNumber.getOptional("debtor_account_number")
+
+    /**
      * A free-form address field set by the sender.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -266,6 +285,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
+
+    /**
+     * The American Banking Association (ABA) routing number of the sender.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun debtorRoutingNumber(): Optional<String> =
+        debtorRoutingNumber.getOptional("debtor_routing_number")
 
     /**
      * An Increase-constructed description of the transfer.
@@ -463,6 +491,16 @@ private constructor(
     fun _creditorName(): JsonField<String> = creditorName
 
     /**
+     * Returns the raw JSON value of [debtorAccountNumber].
+     *
+     * Unlike [debtorAccountNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("debtor_account_number")
+    @ExcludeMissing
+    fun _debtorAccountNumber(): JsonField<String> = debtorAccountNumber
+
+    /**
      * Returns the raw JSON value of [debtorAddressLine1].
      *
      * Unlike [debtorAddressLine1], this method doesn't throw if the JSON field has an unexpected
@@ -498,6 +536,16 @@ private constructor(
      * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName(): JsonField<String> = debtorName
+
+    /**
+     * Returns the raw JSON value of [debtorRoutingNumber].
+     *
+     * Unlike [debtorRoutingNumber], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("debtor_routing_number")
+    @ExcludeMissing
+    fun _debtorRoutingNumber(): JsonField<String> = debtorRoutingNumber
 
     /**
      * Returns the raw JSON value of [description].
@@ -634,10 +682,12 @@ private constructor(
          * .creditorAddressLine2()
          * .creditorAddressLine3()
          * .creditorName()
+         * .debtorAccountNumber()
          * .debtorAddressLine1()
          * .debtorAddressLine2()
          * .debtorAddressLine3()
          * .debtorName()
+         * .debtorRoutingNumber()
          * .description()
          * .endToEndIdentification()
          * .inputMessageAccountabilityData()
@@ -668,10 +718,12 @@ private constructor(
         private var creditorAddressLine2: JsonField<String>? = null
         private var creditorAddressLine3: JsonField<String>? = null
         private var creditorName: JsonField<String>? = null
+        private var debtorAccountNumber: JsonField<String>? = null
         private var debtorAddressLine1: JsonField<String>? = null
         private var debtorAddressLine2: JsonField<String>? = null
         private var debtorAddressLine3: JsonField<String>? = null
         private var debtorName: JsonField<String>? = null
+        private var debtorRoutingNumber: JsonField<String>? = null
         private var description: JsonField<String>? = null
         private var endToEndIdentification: JsonField<String>? = null
         private var inputMessageAccountabilityData: JsonField<String>? = null
@@ -698,10 +750,12 @@ private constructor(
             creditorAddressLine2 = inboundWireTransfer.creditorAddressLine2
             creditorAddressLine3 = inboundWireTransfer.creditorAddressLine3
             creditorName = inboundWireTransfer.creditorName
+            debtorAccountNumber = inboundWireTransfer.debtorAccountNumber
             debtorAddressLine1 = inboundWireTransfer.debtorAddressLine1
             debtorAddressLine2 = inboundWireTransfer.debtorAddressLine2
             debtorAddressLine3 = inboundWireTransfer.debtorAddressLine3
             debtorName = inboundWireTransfer.debtorName
+            debtorRoutingNumber = inboundWireTransfer.debtorRoutingNumber
             description = inboundWireTransfer.description
             endToEndIdentification = inboundWireTransfer.endToEndIdentification
             inputMessageAccountabilityData = inboundWireTransfer.inputMessageAccountabilityData
@@ -881,6 +935,27 @@ private constructor(
             this.creditorName = creditorName
         }
 
+        /** The account number of the sender. */
+        fun debtorAccountNumber(debtorAccountNumber: String?) =
+            debtorAccountNumber(JsonField.ofNullable(debtorAccountNumber))
+
+        /**
+         * Alias for calling [Builder.debtorAccountNumber] with `debtorAccountNumber.orElse(null)`.
+         */
+        fun debtorAccountNumber(debtorAccountNumber: Optional<String>) =
+            debtorAccountNumber(debtorAccountNumber.getOrNull())
+
+        /**
+         * Sets [Builder.debtorAccountNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorAccountNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun debtorAccountNumber(debtorAccountNumber: JsonField<String>) = apply {
+            this.debtorAccountNumber = debtorAccountNumber
+        }
+
         /** A free-form address field set by the sender. */
         fun debtorAddressLine1(debtorAddressLine1: String?) =
             debtorAddressLine1(JsonField.ofNullable(debtorAddressLine1))
@@ -958,6 +1033,27 @@ private constructor(
          * value.
          */
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
+
+        /** The American Banking Association (ABA) routing number of the sender. */
+        fun debtorRoutingNumber(debtorRoutingNumber: String?) =
+            debtorRoutingNumber(JsonField.ofNullable(debtorRoutingNumber))
+
+        /**
+         * Alias for calling [Builder.debtorRoutingNumber] with `debtorRoutingNumber.orElse(null)`.
+         */
+        fun debtorRoutingNumber(debtorRoutingNumber: Optional<String>) =
+            debtorRoutingNumber(debtorRoutingNumber.getOrNull())
+
+        /**
+         * Sets [Builder.debtorRoutingNumber] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorRoutingNumber] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun debtorRoutingNumber(debtorRoutingNumber: JsonField<String>) = apply {
+            this.debtorRoutingNumber = debtorRoutingNumber
+        }
 
         /** An Increase-constructed description of the transfer. */
         fun description(description: String) = description(JsonField.of(description))
@@ -1230,10 +1326,12 @@ private constructor(
          * .creditorAddressLine2()
          * .creditorAddressLine3()
          * .creditorName()
+         * .debtorAccountNumber()
          * .debtorAddressLine1()
          * .debtorAddressLine2()
          * .debtorAddressLine3()
          * .debtorName()
+         * .debtorRoutingNumber()
          * .description()
          * .endToEndIdentification()
          * .inputMessageAccountabilityData()
@@ -1262,10 +1360,12 @@ private constructor(
                 checkRequired("creditorAddressLine2", creditorAddressLine2),
                 checkRequired("creditorAddressLine3", creditorAddressLine3),
                 checkRequired("creditorName", creditorName),
+                checkRequired("debtorAccountNumber", debtorAccountNumber),
                 checkRequired("debtorAddressLine1", debtorAddressLine1),
                 checkRequired("debtorAddressLine2", debtorAddressLine2),
                 checkRequired("debtorAddressLine3", debtorAddressLine3),
                 checkRequired("debtorName", debtorName),
+                checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                 checkRequired("description", description),
                 checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("inputMessageAccountabilityData", inputMessageAccountabilityData),
@@ -1313,10 +1413,12 @@ private constructor(
         creditorAddressLine2()
         creditorAddressLine3()
         creditorName()
+        debtorAccountNumber()
         debtorAddressLine1()
         debtorAddressLine2()
         debtorAddressLine3()
         debtorName()
+        debtorRoutingNumber()
         description()
         endToEndIdentification()
         inputMessageAccountabilityData()
@@ -1357,10 +1459,12 @@ private constructor(
             (if (creditorAddressLine2.asKnown().isPresent) 1 else 0) +
             (if (creditorAddressLine3.asKnown().isPresent) 1 else 0) +
             (if (creditorName.asKnown().isPresent) 1 else 0) +
+            (if (debtorAccountNumber.asKnown().isPresent) 1 else 0) +
             (if (debtorAddressLine1.asKnown().isPresent) 1 else 0) +
             (if (debtorAddressLine2.asKnown().isPresent) 1 else 0) +
             (if (debtorAddressLine3.asKnown().isPresent) 1 else 0) +
             (if (debtorName.asKnown().isPresent) 1 else 0) +
+            (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
             (if (inputMessageAccountabilityData.asKnown().isPresent) 1 else 0) +
@@ -2300,10 +2404,12 @@ private constructor(
             creditorAddressLine2 == other.creditorAddressLine2 &&
             creditorAddressLine3 == other.creditorAddressLine3 &&
             creditorName == other.creditorName &&
+            debtorAccountNumber == other.debtorAccountNumber &&
             debtorAddressLine1 == other.debtorAddressLine1 &&
             debtorAddressLine2 == other.debtorAddressLine2 &&
             debtorAddressLine3 == other.debtorAddressLine3 &&
             debtorName == other.debtorName &&
+            debtorRoutingNumber == other.debtorRoutingNumber &&
             description == other.description &&
             endToEndIdentification == other.endToEndIdentification &&
             inputMessageAccountabilityData == other.inputMessageAccountabilityData &&
@@ -2331,10 +2437,12 @@ private constructor(
             creditorAddressLine2,
             creditorAddressLine3,
             creditorName,
+            debtorAccountNumber,
             debtorAddressLine1,
             debtorAddressLine2,
             debtorAddressLine3,
             debtorName,
+            debtorRoutingNumber,
             description,
             endToEndIdentification,
             inputMessageAccountabilityData,
@@ -2354,5 +2462,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, purpose=$purpose, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
+        "InboundWireTransfer{id=$id, acceptance=$acceptance, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddressLine1=$creditorAddressLine1, creditorAddressLine2=$creditorAddressLine2, creditorAddressLine3=$creditorAddressLine3, creditorName=$creditorName, debtorAccountNumber=$debtorAccountNumber, debtorAddressLine1=$debtorAddressLine1, debtorAddressLine2=$debtorAddressLine2, debtorAddressLine3=$debtorAddressLine3, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, description=$description, endToEndIdentification=$endToEndIdentification, inputMessageAccountabilityData=$inputMessageAccountabilityData, instructingAgentRoutingNumber=$instructingAgentRoutingNumber, instructionIdentification=$instructionIdentification, purpose=$purpose, reversal=$reversal, status=$status, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, wireDrawdownRequestId=$wireDrawdownRequestId, additionalProperties=$additionalProperties}"
 }
