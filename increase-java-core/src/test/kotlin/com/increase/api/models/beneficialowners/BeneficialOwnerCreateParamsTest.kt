@@ -17,8 +17,8 @@ internal class BeneficialOwnerCreateParamsTest {
                     .address(
                         BeneficialOwnerCreateParams.Individual.Address.builder()
                             .city("New York")
-                            .country("US")
                             .line1("33 Liberty Street")
+                            .country("US")
                             .line2("x")
                             .state("NY")
                             .zip("10045")
@@ -80,8 +80,8 @@ internal class BeneficialOwnerCreateParamsTest {
                         .address(
                             BeneficialOwnerCreateParams.Individual.Address.builder()
                                 .city("New York")
-                                .country("US")
                                 .line1("33 Liberty Street")
+                                .country("US")
                                 .line2("x")
                                 .state("NY")
                                 .zip("10045")
@@ -142,8 +142,8 @@ internal class BeneficialOwnerCreateParamsTest {
                     .address(
                         BeneficialOwnerCreateParams.Individual.Address.builder()
                             .city("New York")
-                            .country("US")
                             .line1("33 Liberty Street")
+                            .country("US")
                             .line2("x")
                             .state("NY")
                             .zip("10045")
@@ -204,7 +204,6 @@ internal class BeneficialOwnerCreateParamsTest {
                         .address(
                             BeneficialOwnerCreateParams.Individual.Address.builder()
                                 .city("New York")
-                                .country("US")
                                 .line1("33 Liberty Street")
                                 .build()
                         )
@@ -233,7 +232,6 @@ internal class BeneficialOwnerCreateParamsTest {
                     .address(
                         BeneficialOwnerCreateParams.Individual.Address.builder()
                             .city("New York")
-                            .country("US")
                             .line1("33 Liberty Street")
                             .build()
                     )
