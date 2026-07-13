@@ -1,5 +1,17 @@
 # Changelog
 
+## [0.565.0](https://github.com/Increase/increase-java/compare/v0.564.0...v0.565.0) (2026-07-13)
+
+
+### Features
+
+* **api:** api update ([#1380](https://github.com/Increase/increase-java/issues/1380)) ([288ebf4](https://github.com/Increase/increase-java/commit/288ebf4ffc47a5e8be583650aebcfd9285ee80b9))
+
+
+### Bug Fixes
+
+* **api:** make address country optional, defaulting to US ([2f87a0e](https://github.com/Increase/increase-java/commit/2f87a0e026fd4c3dc64fda6afc56edcceaef9fbd))
+
 ## [0.564.0](https://github.com/Increase/increase-java/compare/v0.563.0...v0.564.0) (2026-07-02)
 
 
