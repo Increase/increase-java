@@ -254,6 +254,54 @@ FileCreateParams params = FileCreateParams.builder()
 File file = client.files().create(params);
 ```
 
+## Binary responses
+
+The SDK defines methods that return binary responses, which are used for API responses that shouldn't necessarily be parsed, like non-JSON data.
+
+These methods return [`HttpResponse`](increase-java-core/src/main/kotlin/com/increase/api/core/http/HttpResponse.kt):
+
+```java
+import com.increase.api.core.http.HttpResponse;
+import com.increase.api.models.files.FileContentsParams;
+
+HttpResponse response = client.files().contents("file_makxrc67oh9l6sg7w9yc");
+```
+
+To save the response content to a file, use the [`Files.copy(...)`](https://docs.oracle.com/javase/8/docs/api/java/nio/file/Files.html#copy-java.io.InputStream-java.nio.file.Path-java.nio.file.CopyOption...-) method:
+
+```java
+import com.increase.api.core.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
+
+try (HttpResponse response = client.files().contents(params)) {
+    Files.copy(
+        response.body(),
+        Paths.get(path),
+        StandardCopyOption.REPLACE_EXISTING
+    );
+} catch (Exception e) {
+    System.out.println("Something went wrong!");
+    throw new RuntimeException(e);
+}
+```
+
+Or transfer the response content to any [`OutputStream`](https://docs.oracle.com/javase/8/docs/api/java/io/OutputStream.html):
+
+```java
+import com.increase.api.core.http.HttpResponse;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+
+try (HttpResponse response = client.files().contents(params)) {
+    response.body().transferTo(Files.newOutputStream(Paths.get(path)));
+} catch (Exception e) {
+    System.out.println("Something went wrong!");
+    throw new RuntimeException(e);
+}
+```
+
 ## Raw responses
 
 The SDK defines methods that deserialize responses into instances of Java classes. However, these methods don't provide access to the response headers, status code, or the raw response body.

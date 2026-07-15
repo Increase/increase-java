@@ -35,17 +35,9 @@ private constructor(
     override fun execute(request: HttpRequest, requestOptions: RequestOptions): HttpResponse {
         var modifiedRequest = maybeAddIdempotencyHeader(request)
 
-        // Don't send the current retry count in the headers if the caller set their own value.
-        val shouldSendRetryCount =
-            !modifiedRequest.headers.names().contains("X-Stainless-Retry-Count")
-
         var retries = 0
 
         while (true) {
-            if (shouldSendRetryCount) {
-                modifiedRequest = setRetryCountHeader(modifiedRequest, retries)
-            }
-
             if (!isRetryable(modifiedRequest)) {
                 return httpClient.execute(modifiedRequest, requestOptions)
             }
@@ -79,21 +71,15 @@ private constructor(
     ): CompletableFuture<HttpResponse> {
         val modifiedRequest = maybeAddIdempotencyHeader(request)
 
-        // Don't send the current retry count in the headers if the caller set their own value.
-        val shouldSendRetryCount =
-            !modifiedRequest.headers.names().contains("X-Stainless-Retry-Count")
-
         var retries = 0
 
         fun executeWithRetries(
             request: HttpRequest,
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponse> {
-            val requestWithRetryCount =
-                if (shouldSendRetryCount) setRetryCountHeader(request, retries) else request
 
-            val responseFuture = httpClient.executeAsync(requestWithRetryCount, requestOptions)
-            if (!isRetryable(requestWithRetryCount)) {
+            val responseFuture = httpClient.executeAsync(request, requestOptions)
+            if (!isRetryable(request)) {
                 return responseFuture
             }
 
@@ -119,7 +105,7 @@ private constructor(
                         // All responses must be closed, so close the failed one before retrying.
                         response?.close()
                         return sleeper.sleepAsync(backoffDuration).thenCompose {
-                            executeWithRetries(requestWithRetryCount, requestOptions)
+                            executeWithRetries(request, requestOptions)
                         }
                     }
                 ) {
@@ -141,9 +127,6 @@ private constructor(
         // Some requests, such as when a request body is being streamed, cannot be retried because
         // the body data aren't available on subsequent attempts.
         request.body?.repeatable() ?: true
-
-    private fun setRetryCountHeader(request: HttpRequest, retries: Int): HttpRequest =
-        request.toBuilder().replaceHeaders("X-Stainless-Retry-Count", retries.toString()).build()
 
     private fun idempotencyKey(): String = "increase-java-retry-${UUID.randomUUID()}"
 

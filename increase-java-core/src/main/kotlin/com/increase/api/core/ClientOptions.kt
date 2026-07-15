@@ -504,14 +504,6 @@ private constructor(
 
             val headers = Headers.builder()
             val queryParams = QueryParams.builder()
-            headers.put("X-Stainless-Lang", "java")
-            headers.put("X-Stainless-Arch", getOsArch())
-            headers.put("X-Stainless-OS", getOsName())
-            headers.put("X-Stainless-OS-Version", getOsVersion())
-            headers.put("X-Stainless-Package-Version", getPackageVersion())
-            headers.put("X-Stainless-Runtime", "JRE")
-            headers.put("X-Stainless-Runtime-Version", getJavaVersion())
-            headers.put("X-Stainless-Kotlin-Version", KotlinVersion.CURRENT.toString())
             // We replace after all the default headers to allow end-users to overwrite them.
             headers.replaceAll(this.headers.build())
             queryParams.replaceAll(this.queryParams.build())
