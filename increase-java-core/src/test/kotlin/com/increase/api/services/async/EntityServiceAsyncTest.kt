@@ -32,8 +32,8 @@ internal class EntityServiceAsyncTest {
                             .address(
                                 EntityCreateParams.Corporation.Address.builder()
                                     .city("New York")
-                                    .line1("33 Liberty Street")
                                     .country("x")
+                                    .line1("33 Liberty Street")
                                     .line2("x")
                                     .state("NY")
                                     .zip("10045")
@@ -50,8 +50,8 @@ internal class EntityServiceAsyncTest {
                                                     .Address
                                                     .builder()
                                                     .city("New York")
-                                                    .line1("33 Liberty Street")
                                                     .country("x")
+                                                    .line1("33 Liberty Street")
                                                     .line2("x")
                                                     .state("NY")
                                                     .zip("10045")
@@ -179,8 +179,8 @@ internal class EntityServiceAsyncTest {
                                     .address(
                                         EntityCreateParams.Joint.Individual.Address.builder()
                                             .city("x")
-                                            .line1("x")
                                             .country("x")
+                                            .line1("x")
                                             .line2("x")
                                             .state("x")
                                             .zip("x")
@@ -238,8 +238,8 @@ internal class EntityServiceAsyncTest {
                             .address(
                                 EntityCreateParams.NaturalPerson.Address.builder()
                                     .city("x")
-                                    .line1("x")
                                     .country("x")
+                                    .line1("x")
                                     .line2("x")
                                     .state("x")
                                     .zip("x")
@@ -333,8 +333,8 @@ internal class EntityServiceAsyncTest {
                                                 EntityCreateParams.Trust.Trustee.Individual.Address
                                                     .builder()
                                                     .city("x")
-                                                    .line1("x")
                                                     .country("x")
+                                                    .line1("x")
                                                     .line2("x")
                                                     .state("x")
                                                     .zip("x")
@@ -406,8 +406,8 @@ internal class EntityServiceAsyncTest {
                                     .address(
                                         EntityCreateParams.Trust.Grantor.Address.builder()
                                             .city("x")
-                                            .line1("x")
                                             .country("x")
+                                            .line1("x")
                                             .line2("x")
                                             .state("x")
                                             .zip("x")
@@ -501,8 +501,8 @@ internal class EntityServiceAsyncTest {
                             .address(
                                 EntityUpdateParams.Corporation.Address.builder()
                                     .city("New York")
-                                    .line1("33 Liberty Street")
                                     .country("US")
+                                    .line1("33 Liberty Street")
                                     .line2("Unit 2")
                                     .state("NY")
                                     .zip("10045")
@@ -544,8 +544,8 @@ internal class EntityServiceAsyncTest {
                             .address(
                                 EntityUpdateParams.NaturalPerson.Address.builder()
                                     .city("x")
-                                    .line1("x")
                                     .country("x")
+                                    .line1("x")
                                     .line2("x")
                                     .state("x")
                                     .zip("x")
