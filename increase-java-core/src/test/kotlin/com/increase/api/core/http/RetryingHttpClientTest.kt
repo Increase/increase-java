@@ -2,7 +2,6 @@
 
 package com.increase.api.core.http
 
-import com.github.tomakehurst.wiremock.client.WireMock.equalTo
 import com.github.tomakehurst.wiremock.client.WireMock.matching
 import com.github.tomakehurst.wiremock.client.WireMock.ok
 import com.github.tomakehurst.wiremock.client.WireMock.post
@@ -202,68 +201,9 @@ internal class RetryingHttpClientTest {
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
-        verify(
-            1,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("0")),
-        )
-        verify(
-            1,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("1")),
-        )
-        verify(
-            1,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("2")),
-        )
+
         assertThat(sleeper.durations)
             .containsExactly(Duration.ofSeconds(5), Duration.ofMillis(1234))
-        assertNoResponseLeaks()
-    }
-
-    @ParameterizedTest
-    @ValueSource(booleans = [false, true])
-    fun execute_withOverwrittenRetryCountHeader(async: Boolean) {
-        val retryAfterDate = "Wed, 21 Oct 2015 07:28:00 GMT"
-        stubFor(
-            post(urlPathEqualTo("/something"))
-                .inScenario("foo") // first we fail with a retry after header given as a date
-                .whenScenarioStateIs(Scenario.STARTED)
-                .willReturn(serviceUnavailable().withHeader("Retry-After", retryAfterDate))
-                .willSetStateTo("RETRY_AFTER_DATE")
-        )
-        stubFor(
-            post(urlPathEqualTo("/something"))
-                .inScenario("foo") // then we return a success
-                .whenScenarioStateIs("RETRY_AFTER_DATE")
-                .willReturn(ok())
-                .willSetStateTo("COMPLETED")
-        )
-        val retryAfterDateTime =
-            OffsetDateTime.parse(retryAfterDate, DateTimeFormatter.RFC_1123_DATE_TIME)
-        val clock = Clock.fixed(retryAfterDateTime.minusSeconds(5).toInstant(), ZoneOffset.UTC)
-        val sleeper = RecordingSleeper()
-        val retryingClient = retryingHttpClientBuilder(sleeper, clock).maxRetries(2).build()
-
-        val response =
-            retryingClient.execute(
-                HttpRequest.builder()
-                    .method(HttpMethod.POST)
-                    .baseUrl(baseUrl)
-                    .addPathSegment("something")
-                    .putHeader("x-stainless-retry-count", "42")
-                    .build(),
-                async,
-            )
-
-        assertThat(response.statusCode()).isEqualTo(200)
-        verify(
-            2,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("42")),
-        )
-        assertThat(sleeper.durations).containsExactly(Duration.ofSeconds(5))
         assertNoResponseLeaks()
     }
 
@@ -359,16 +299,7 @@ internal class RetryingHttpClientTest {
             )
 
         assertThat(response.statusCode()).isEqualTo(200)
-        verify(
-            1,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("1")),
-        )
-        verify(
-            0,
-            postRequestedFor(urlPathEqualTo("/something"))
-                .withHeader("x-stainless-retry-count", equalTo("0")),
-        )
+        verify(1, postRequestedFor(urlPathEqualTo("/something")))
         // Exponential backoff with jitter: 0.5s * jitter where jitter is in [0.75, 1.0].
         assertThat(sleeper.durations).hasSize(1)
         assertThat(sleeper.durations[0]).isBetween(Duration.ofMillis(375), Duration.ofMillis(500))

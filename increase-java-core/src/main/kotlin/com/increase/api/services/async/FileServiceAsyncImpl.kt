@@ -17,6 +17,7 @@ import com.increase.api.core.http.multipartFormData
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.files.File
+import com.increase.api.models.files.FileContentsParams
 import com.increase.api.models.files.FileCreateParams
 import com.increase.api.models.files.FileListPageAsync
 import com.increase.api.models.files.FileListPageResponse
@@ -58,6 +59,13 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CompletableFuture<FileListPageAsync> =
         // get /files
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun contents(
+        params: FileContentsParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<HttpResponse> =
+        // get /files/{file_id}/contents
+        withRawResponse().contents(params, requestOptions)
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         FileServiceAsync.WithRawResponse {
@@ -170,6 +178,27 @@ class FileServiceAsyncImpl internal constructor(private val clientOptions: Clien
                             }
                     }
                 }
+        }
+
+        override fun contents(
+            params: FileContentsParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("fileId", params.fileId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.GET)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("files", params._pathParam(0), "contents")
+                    .putHeader("Accept", "application/octet-stream")
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response -> errorHandler.handle(response) }
         }
     }
 }
