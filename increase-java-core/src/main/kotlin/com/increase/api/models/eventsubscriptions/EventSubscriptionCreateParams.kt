@@ -1259,11 +1259,11 @@ private constructor(
                 /** Occurs whenever a Physical Check is updated. */
                 @JvmField val PHYSICAL_CHECK_UPDATED = of("physical_check.updated")
 
-                /** Occurs whenever a Physical Check Book is created. */
-                @JvmField val PHYSICAL_CHECK_BOOK_CREATED = of("physical_check_book.created")
+                /** Occurs whenever a Checkbook is created. */
+                @JvmField val CHECKBOOK_CREATED = of("checkbook.created")
 
-                /** Occurs whenever a Physical Check Book is updated. */
-                @JvmField val PHYSICAL_CHECK_BOOK_UPDATED = of("physical_check_book.updated")
+                /** Occurs whenever a Checkbook is updated. */
+                @JvmField val CHECKBOOK_UPDATED = of("checkbook.updated")
 
                 /** Occurs whenever a Program is created. */
                 @JvmField val PROGRAM_CREATED = of("program.created")
@@ -1564,10 +1564,10 @@ private constructor(
                 PHYSICAL_CHECK_CREATED,
                 /** Occurs whenever a Physical Check is updated. */
                 PHYSICAL_CHECK_UPDATED,
-                /** Occurs whenever a Physical Check Book is created. */
-                PHYSICAL_CHECK_BOOK_CREATED,
-                /** Occurs whenever a Physical Check Book is updated. */
-                PHYSICAL_CHECK_BOOK_UPDATED,
+                /** Occurs whenever a Checkbook is created. */
+                CHECKBOOK_CREATED,
+                /** Occurs whenever a Checkbook is updated. */
+                CHECKBOOK_UPDATED,
                 /** Occurs whenever a Program is created. */
                 PROGRAM_CREATED,
                 /** Occurs whenever a Program is updated. */
@@ -1831,10 +1831,10 @@ private constructor(
                 PHYSICAL_CHECK_CREATED,
                 /** Occurs whenever a Physical Check is updated. */
                 PHYSICAL_CHECK_UPDATED,
-                /** Occurs whenever a Physical Check Book is created. */
-                PHYSICAL_CHECK_BOOK_CREATED,
-                /** Occurs whenever a Physical Check Book is updated. */
-                PHYSICAL_CHECK_BOOK_UPDATED,
+                /** Occurs whenever a Checkbook is created. */
+                CHECKBOOK_CREATED,
+                /** Occurs whenever a Checkbook is updated. */
+                CHECKBOOK_UPDATED,
                 /** Occurs whenever a Program is created. */
                 PROGRAM_CREATED,
                 /** Occurs whenever a Program is updated. */
@@ -2010,8 +2010,8 @@ private constructor(
                     PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
                     PHYSICAL_CHECK_CREATED -> Value.PHYSICAL_CHECK_CREATED
                     PHYSICAL_CHECK_UPDATED -> Value.PHYSICAL_CHECK_UPDATED
-                    PHYSICAL_CHECK_BOOK_CREATED -> Value.PHYSICAL_CHECK_BOOK_CREATED
-                    PHYSICAL_CHECK_BOOK_UPDATED -> Value.PHYSICAL_CHECK_BOOK_UPDATED
+                    CHECKBOOK_CREATED -> Value.CHECKBOOK_CREATED
+                    CHECKBOOK_UPDATED -> Value.CHECKBOOK_UPDATED
                     PROGRAM_CREATED -> Value.PROGRAM_CREATED
                     PROGRAM_UPDATED -> Value.PROGRAM_UPDATED
                     PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
@@ -2156,8 +2156,8 @@ private constructor(
                     PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
                     PHYSICAL_CHECK_CREATED -> Known.PHYSICAL_CHECK_CREATED
                     PHYSICAL_CHECK_UPDATED -> Known.PHYSICAL_CHECK_UPDATED
-                    PHYSICAL_CHECK_BOOK_CREATED -> Known.PHYSICAL_CHECK_BOOK_CREATED
-                    PHYSICAL_CHECK_BOOK_UPDATED -> Known.PHYSICAL_CHECK_BOOK_UPDATED
+                    CHECKBOOK_CREATED -> Known.CHECKBOOK_CREATED
+                    CHECKBOOK_UPDATED -> Known.CHECKBOOK_UPDATED
                     PROGRAM_CREATED -> Known.PROGRAM_CREATED
                     PROGRAM_UPDATED -> Known.PROGRAM_UPDATED
                     PROOF_OF_AUTHORIZATION_REQUEST_CREATED ->
