@@ -4,8 +4,10 @@ package com.increase.api.services.async
 
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
+import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.files.File
+import com.increase.api.models.files.FileContentsParams
 import com.increase.api.models.files.FileCreateParams
 import com.increase.api.models.files.FileListPageAsync
 import com.increase.api.models.files.FileListParams
@@ -88,6 +90,46 @@ interface FileServiceAsync {
     /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<FileListPageAsync> =
         list(FileListParams.none(), requestOptions)
+
+    /**
+     * Download the contents of a File. Responds with a 307 redirect whose `Location` header points
+     * at a short-lived, pre-signed URL. Our [SDKs](/documentation/software-development-kits) follow
+     * the redirect and return the File's contents; if you call the API directly, follow the
+     * redirect to download it. The pre-signed URL serves the File with a `Content-Type` matching
+     * its `mime` and a `Content-Disposition` header set to its `filename`. It expires in 10
+     * minutes. To share a File with someone who doesn't have access to your API key, create a File
+     * Link.
+     */
+    fun contents(fileId: String): CompletableFuture<HttpResponse> =
+        contents(fileId, FileContentsParams.none())
+
+    /** @see contents */
+    fun contents(
+        fileId: String,
+        params: FileContentsParams = FileContentsParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse> =
+        contents(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+    /** @see contents */
+    fun contents(
+        fileId: String,
+        params: FileContentsParams = FileContentsParams.none(),
+    ): CompletableFuture<HttpResponse> = contents(fileId, params, RequestOptions.none())
+
+    /** @see contents */
+    fun contents(
+        params: FileContentsParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<HttpResponse>
+
+    /** @see contents */
+    fun contents(params: FileContentsParams): CompletableFuture<HttpResponse> =
+        contents(params, RequestOptions.none())
+
+    /** @see contents */
+    fun contents(fileId: String, requestOptions: RequestOptions): CompletableFuture<HttpResponse> =
+        contents(fileId, FileContentsParams.none(), requestOptions)
 
     /** A view of [FileServiceAsync] that provides access to raw HTTP responses for each method. */
     interface WithRawResponse {
@@ -175,5 +217,43 @@ interface FileServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<FileListPageAsync>> =
             list(FileListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `get /files/{file_id}/contents`, but is otherwise the
+         * same as [FileServiceAsync.contents].
+         */
+        fun contents(fileId: String): CompletableFuture<HttpResponse> =
+            contents(fileId, FileContentsParams.none())
+
+        /** @see contents */
+        fun contents(
+            fileId: String,
+            params: FileContentsParams = FileContentsParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse> =
+            contents(params.toBuilder().fileId(fileId).build(), requestOptions)
+
+        /** @see contents */
+        fun contents(
+            fileId: String,
+            params: FileContentsParams = FileContentsParams.none(),
+        ): CompletableFuture<HttpResponse> = contents(fileId, params, RequestOptions.none())
+
+        /** @see contents */
+        fun contents(
+            params: FileContentsParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponse>
+
+        /** @see contents */
+        fun contents(params: FileContentsParams): CompletableFuture<HttpResponse> =
+            contents(params, RequestOptions.none())
+
+        /** @see contents */
+        fun contents(
+            fileId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponse> =
+            contents(fileId, FileContentsParams.none(), requestOptions)
     }
 }
