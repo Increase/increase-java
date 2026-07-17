@@ -5518,6 +5518,7 @@ private constructor(
         class TrackingUpdate
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
+            private val carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>,
             private val category: JsonField<Category>,
             private val country: JsonField<String>,
             private val createdAt: JsonField<OffsetDateTime>,
@@ -5527,6 +5528,9 @@ private constructor(
 
             @JsonCreator
             private constructor(
+                @JsonProperty("carrier_estimated_delivery_at")
+                @ExcludeMissing
+                carrierEstimatedDeliveryAt: JsonField<OffsetDateTime> = JsonMissing.of(),
                 @JsonProperty("category")
                 @ExcludeMissing
                 category: JsonField<Category> = JsonMissing.of(),
@@ -5539,7 +5543,24 @@ private constructor(
                 @JsonProperty("postal_code")
                 @ExcludeMissing
                 postalCode: JsonField<String> = JsonMissing.of(),
-            ) : this(category, country, createdAt, postalCode, mutableMapOf())
+            ) : this(
+                carrierEstimatedDeliveryAt,
+                category,
+                country,
+                createdAt,
+                postalCode,
+                mutableMapOf(),
+            )
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time when the carrier
+             * expects the check to be delivered.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun carrierEstimatedDeliveryAt(): Optional<OffsetDateTime> =
+                carrierEstimatedDeliveryAt.getOptional("carrier_estimated_delivery_at")
 
             /**
              * The type of tracking event.
@@ -5577,6 +5598,17 @@ private constructor(
              *   value).
              */
             fun postalCode(): String = postalCode.getRequired("postal_code")
+
+            /**
+             * Returns the raw JSON value of [carrierEstimatedDeliveryAt].
+             *
+             * Unlike [carrierEstimatedDeliveryAt], this method doesn't throw if the JSON field has
+             * an unexpected type.
+             */
+            @JsonProperty("carrier_estimated_delivery_at")
+            @ExcludeMissing
+            fun _carrierEstimatedDeliveryAt(): JsonField<OffsetDateTime> =
+                carrierEstimatedDeliveryAt
 
             /**
              * Returns the raw JSON value of [category].
@@ -5634,6 +5666,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
+                 * .carrierEstimatedDeliveryAt()
                  * .category()
                  * .country()
                  * .createdAt()
@@ -5646,6 +5679,7 @@ private constructor(
             /** A builder for [TrackingUpdate]. */
             class Builder internal constructor() {
 
+                private var carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>? = null
                 private var category: JsonField<Category>? = null
                 private var country: JsonField<String>? = null
                 private var createdAt: JsonField<OffsetDateTime>? = null
@@ -5654,12 +5688,39 @@ private constructor(
 
                 @JvmSynthetic
                 internal fun from(trackingUpdate: TrackingUpdate) = apply {
+                    carrierEstimatedDeliveryAt = trackingUpdate.carrierEstimatedDeliveryAt
                     category = trackingUpdate.category
                     country = trackingUpdate.country
                     createdAt = trackingUpdate.createdAt
                     postalCode = trackingUpdate.postalCode
                     additionalProperties = trackingUpdate.additionalProperties.toMutableMap()
                 }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time when the
+                 * carrier expects the check to be delivered.
+                 */
+                fun carrierEstimatedDeliveryAt(carrierEstimatedDeliveryAt: OffsetDateTime?) =
+                    carrierEstimatedDeliveryAt(JsonField.ofNullable(carrierEstimatedDeliveryAt))
+
+                /**
+                 * Alias for calling [Builder.carrierEstimatedDeliveryAt] with
+                 * `carrierEstimatedDeliveryAt.orElse(null)`.
+                 */
+                fun carrierEstimatedDeliveryAt(
+                    carrierEstimatedDeliveryAt: Optional<OffsetDateTime>
+                ) = carrierEstimatedDeliveryAt(carrierEstimatedDeliveryAt.getOrNull())
+
+                /**
+                 * Sets [Builder.carrierEstimatedDeliveryAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.carrierEstimatedDeliveryAt] with a well-typed
+                 * [OffsetDateTime] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
+                fun carrierEstimatedDeliveryAt(
+                    carrierEstimatedDeliveryAt: JsonField<OffsetDateTime>
+                ) = apply { this.carrierEstimatedDeliveryAt = carrierEstimatedDeliveryAt }
 
                 /** The type of tracking event. */
                 fun category(category: Category) = category(JsonField.of(category))
@@ -5747,6 +5808,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
+                 * .carrierEstimatedDeliveryAt()
                  * .category()
                  * .country()
                  * .createdAt()
@@ -5757,6 +5819,7 @@ private constructor(
                  */
                 fun build(): TrackingUpdate =
                     TrackingUpdate(
+                        checkRequired("carrierEstimatedDeliveryAt", carrierEstimatedDeliveryAt),
                         checkRequired("category", category),
                         checkRequired("country", country),
                         checkRequired("createdAt", createdAt),
@@ -5782,6 +5845,7 @@ private constructor(
                     return@apply
                 }
 
+                carrierEstimatedDeliveryAt()
                 category().validate()
                 country()
                 createdAt()
@@ -5805,7 +5869,8 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (category.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (carrierEstimatedDeliveryAt.asKnown().isPresent) 1 else 0) +
+                    (category.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (country.asKnown().isPresent) 1 else 0) +
                     (if (createdAt.asKnown().isPresent) 1 else 0) +
                     (if (postalCode.asKnown().isPresent) 1 else 0)
@@ -6024,6 +6089,7 @@ private constructor(
                 }
 
                 return other is TrackingUpdate &&
+                    carrierEstimatedDeliveryAt == other.carrierEstimatedDeliveryAt &&
                     category == other.category &&
                     country == other.country &&
                     createdAt == other.createdAt &&
@@ -6032,13 +6098,20 @@ private constructor(
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(category, country, createdAt, postalCode, additionalProperties)
+                Objects.hash(
+                    carrierEstimatedDeliveryAt,
+                    category,
+                    country,
+                    createdAt,
+                    postalCode,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "TrackingUpdate{category=$category, country=$country, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
+                "TrackingUpdate{carrierEstimatedDeliveryAt=$carrierEstimatedDeliveryAt, category=$category, country=$country, createdAt=$createdAt, postalCode=$postalCode, additionalProperties=$additionalProperties}"
         }
 
         override fun equals(other: Any?): Boolean {

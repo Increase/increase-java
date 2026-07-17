@@ -111,6 +111,9 @@ internal class CheckTransferTest {
                         )
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                                .carrierEstimatedDeliveryAt(
+                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                )
                                 .category(
                                     CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
                                 )
@@ -261,6 +264,9 @@ internal class CheckTransferTest {
                     )
                     .addTrackingUpdate(
                         CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                            .carrierEstimatedDeliveryAt(
+                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                            )
                             .category(
                                 CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
                             )
@@ -410,6 +416,9 @@ internal class CheckTransferTest {
                         )
                         .addTrackingUpdate(
                             CheckTransfer.PhysicalCheck.TrackingUpdate.builder()
+                                .carrierEstimatedDeliveryAt(
+                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                )
                                 .category(
                                     CheckTransfer.PhysicalCheck.TrackingUpdate.Category.IN_TRANSIT
                                 )
