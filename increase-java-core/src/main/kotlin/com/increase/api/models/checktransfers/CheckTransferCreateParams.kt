@@ -3166,10 +3166,16 @@ private constructor(
 
             companion object {
 
-                /** USPS First Class */
+                /**
+                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
+                 * (checks and attachments combined).
+                 */
                 @JvmField val USPS_FIRST_CLASS = of("usps_first_class")
 
-                /** FedEx Overnight */
+                /**
+                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
+                 * and attachments combined).
+                 */
                 @JvmField val FEDEX_OVERNIGHT = of("fedex_overnight")
 
                 @JvmStatic fun of(value: String) = ShippingMethod(JsonField.of(value))
@@ -3177,9 +3183,15 @@ private constructor(
 
             /** An enum containing [ShippingMethod]'s known values. */
             enum class Known {
-                /** USPS First Class */
+                /**
+                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
+                 * (checks and attachments combined).
+                 */
                 USPS_FIRST_CLASS,
-                /** FedEx Overnight */
+                /**
+                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
+                 * and attachments combined).
+                 */
                 FEDEX_OVERNIGHT,
             }
 
@@ -3193,9 +3205,15 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /** USPS First Class */
+                /**
+                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
+                 * (checks and attachments combined).
+                 */
                 USPS_FIRST_CLASS,
-                /** FedEx Overnight */
+                /**
+                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
+                 * and attachments combined).
+                 */
                 FEDEX_OVERNIGHT,
                 /**
                  * An enum member indicating that [ShippingMethod] was instantiated with an unknown
