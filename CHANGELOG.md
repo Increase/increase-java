@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.569.1](https://github.com/Increase/increase-java/compare/v0.569.0...v0.569.1) (2026-07-20)
+
+
+### Bug Fixes
+
+* **docs:** expand check transfer shipping method descriptions ([641ce6c](https://github.com/Increase/increase-java/commit/641ce6c61d0deae4691d807b7137c286c56659f8))
+
 ## [0.569.0](https://github.com/Increase/increase-java/compare/v0.568.0...v0.569.0) (2026-07-17)
 
 
