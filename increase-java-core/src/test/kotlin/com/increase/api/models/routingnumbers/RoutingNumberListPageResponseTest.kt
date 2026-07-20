@@ -18,6 +18,9 @@ internal class RoutingNumberListPageResponseTest {
                         .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
                         .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                         .name("First Bank of the United States")
+                        .realTimePaymentsRequestForPayment(
+                            RoutingNumberListResponse.RealTimePaymentsRequestForPayment.SUPPORTED
+                        )
                         .realTimePaymentsTransfers(
                             RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                         )
@@ -35,6 +38,9 @@ internal class RoutingNumberListPageResponseTest {
                     .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
                     .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                     .name("First Bank of the United States")
+                    .realTimePaymentsRequestForPayment(
+                        RoutingNumberListResponse.RealTimePaymentsRequestForPayment.SUPPORTED
+                    )
                     .realTimePaymentsTransfers(
                         RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                     )
@@ -56,6 +62,9 @@ internal class RoutingNumberListPageResponseTest {
                         .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
                         .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                         .name("First Bank of the United States")
+                        .realTimePaymentsRequestForPayment(
+                            RoutingNumberListResponse.RealTimePaymentsRequestForPayment.SUPPORTED
+                        )
                         .realTimePaymentsTransfers(
                             RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                         )
