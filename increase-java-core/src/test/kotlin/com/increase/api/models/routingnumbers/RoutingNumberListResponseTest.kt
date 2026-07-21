@@ -16,6 +16,9 @@ internal class RoutingNumberListResponseTest {
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
                 .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                 .name("First Bank of the United States")
+                .realTimePaymentsRequestForPayment(
+                    RoutingNumberListResponse.RealTimePaymentsRequestForPayment.SUPPORTED
+                )
                 .realTimePaymentsTransfers(
                     RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                 )
@@ -29,6 +32,8 @@ internal class RoutingNumberListResponseTest {
         assertThat(routingNumberListResponse.fednowTransfers())
             .isEqualTo(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
         assertThat(routingNumberListResponse.name()).isEqualTo("First Bank of the United States")
+        assertThat(routingNumberListResponse.realTimePaymentsRequestForPayment())
+            .isEqualTo(RoutingNumberListResponse.RealTimePaymentsRequestForPayment.SUPPORTED)
         assertThat(routingNumberListResponse.realTimePaymentsTransfers())
             .isEqualTo(RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED)
         assertThat(routingNumberListResponse.routingNumber()).isEqualTo("021000021")
@@ -46,6 +51,9 @@ internal class RoutingNumberListResponseTest {
                 .achTransfers(RoutingNumberListResponse.AchTransfers.SUPPORTED)
                 .fednowTransfers(RoutingNumberListResponse.FednowTransfers.SUPPORTED)
                 .name("First Bank of the United States")
+                .realTimePaymentsRequestForPayment(
+                    RoutingNumberListResponse.RealTimePaymentsRequestForPayment.SUPPORTED
+                )
                 .realTimePaymentsTransfers(
                     RoutingNumberListResponse.RealTimePaymentsTransfers.SUPPORTED
                 )
