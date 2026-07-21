@@ -625,6 +625,12 @@ private constructor(
             /** Occurs whenever an Inbound Wire Transfer is updated. */
             @JvmField val INBOUND_WIRE_TRANSFER_UPDATED = of("inbound_wire_transfer.updated")
 
+            /** Occurs whenever an Interest Rate Plan is created. */
+            @JvmField val INTEREST_RATE_PLAN_CREATED = of("interest_rate_plan.created")
+
+            /** Occurs whenever an Interest Rate Plan is updated. */
+            @JvmField val INTEREST_RATE_PLAN_UPDATED = of("interest_rate_plan.updated")
+
             /** Occurs whenever an IntraFi Account Enrollment is created. */
             @JvmField
             val INTRAFI_ACCOUNT_ENROLLMENT_CREATED = of("intrafi_account_enrollment.created")
@@ -956,6 +962,10 @@ private constructor(
             INBOUND_WIRE_TRANSFER_CREATED,
             /** Occurs whenever an Inbound Wire Transfer is updated. */
             INBOUND_WIRE_TRANSFER_UPDATED,
+            /** Occurs whenever an Interest Rate Plan is created. */
+            INTEREST_RATE_PLAN_CREATED,
+            /** Occurs whenever an Interest Rate Plan is updated. */
+            INTEREST_RATE_PLAN_UPDATED,
             /** Occurs whenever an IntraFi Account Enrollment is created. */
             INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
             /** Occurs whenever an IntraFi Account Enrollment is updated. */
@@ -1221,6 +1231,10 @@ private constructor(
             INBOUND_WIRE_TRANSFER_CREATED,
             /** Occurs whenever an Inbound Wire Transfer is updated. */
             INBOUND_WIRE_TRANSFER_UPDATED,
+            /** Occurs whenever an Interest Rate Plan is created. */
+            INTEREST_RATE_PLAN_CREATED,
+            /** Occurs whenever an Interest Rate Plan is updated. */
+            INTEREST_RATE_PLAN_UPDATED,
             /** Occurs whenever an IntraFi Account Enrollment is created. */
             INTRAFI_ACCOUNT_ENROLLMENT_CREATED,
             /** Occurs whenever an IntraFi Account Enrollment is updated. */
@@ -1420,6 +1434,8 @@ private constructor(
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Value.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Value.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Value.INBOUND_WIRE_TRANSFER_UPDATED
+                INTEREST_RATE_PLAN_CREATED -> Value.INTEREST_RATE_PLAN_CREATED
+                INTEREST_RATE_PLAN_UPDATED -> Value.INTEREST_RATE_PLAN_UPDATED
                 INTRAFI_ACCOUNT_ENROLLMENT_CREATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_CREATED
                 INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Value.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
                 INTRAFI_EXCLUSION_CREATED -> Value.INTRAFI_EXCLUSION_CREATED
@@ -1565,6 +1581,8 @@ private constructor(
                 INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED -> Known.INBOUND_WIRE_DRAWDOWN_REQUEST_CREATED
                 INBOUND_WIRE_TRANSFER_CREATED -> Known.INBOUND_WIRE_TRANSFER_CREATED
                 INBOUND_WIRE_TRANSFER_UPDATED -> Known.INBOUND_WIRE_TRANSFER_UPDATED
+                INTEREST_RATE_PLAN_CREATED -> Known.INTEREST_RATE_PLAN_CREATED
+                INTEREST_RATE_PLAN_UPDATED -> Known.INTEREST_RATE_PLAN_UPDATED
                 INTRAFI_ACCOUNT_ENROLLMENT_CREATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_CREATED
                 INTRAFI_ACCOUNT_ENROLLMENT_UPDATED -> Known.INTRAFI_ACCOUNT_ENROLLMENT_UPDATED
                 INTRAFI_EXCLUSION_CREATED -> Known.INTRAFI_EXCLUSION_CREATED
