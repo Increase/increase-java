@@ -49,7 +49,11 @@ private constructor(
     /** Filter Accounts for those belonging to the specified Entity as informational. */
     fun informationalEntityId(): Optional<String> = Optional.ofNullable(informationalEntityId)
 
-    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
+    /**
+     * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+     *
+     * Defaults to `100`.
+     */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     /** Filter Accounts for those in a specific Program. */
@@ -144,6 +148,8 @@ private constructor(
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         *
+         * Defaults to `100`.
          */
         fun limit(limit: Long?) = apply { this.limit = limit }
 

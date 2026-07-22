@@ -1852,6 +1852,8 @@ private constructor(
             /**
              * The reason for the decline.
              *
+             * Defaults to `do_not_honor`.
+             *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
@@ -1894,7 +1896,11 @@ private constructor(
                     additionalProperties = decline.additionalProperties.toMutableMap()
                 }
 
-                /** The reason for the decline. */
+                /**
+                 * The reason for the decline.
+                 *
+                 * Defaults to `do_not_honor`.
+                 */
                 fun reason(reason: Reason) = reason(JsonField.of(reason))
 
                 /**

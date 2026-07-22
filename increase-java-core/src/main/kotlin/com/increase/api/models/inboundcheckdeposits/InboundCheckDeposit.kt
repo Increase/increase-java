@@ -34,6 +34,7 @@ private constructor(
     private val accountNumberId: JsonField<String>,
     private val adjustments: JsonField<List<Adjustment>>,
     private val amount: JsonField<Long>,
+    private val automaticallyResolvesAt: JsonField<OffsetDateTime>,
     private val backImageFileId: JsonField<String>,
     private val bankOfFirstDepositRoutingNumber: JsonField<String>,
     private val checkNumber: JsonField<String>,
@@ -65,6 +66,9 @@ private constructor(
         @ExcludeMissing
         adjustments: JsonField<List<Adjustment>> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("automatically_resolves_at")
+        @ExcludeMissing
+        automaticallyResolvesAt: JsonField<OffsetDateTime> = JsonMissing.of(),
         @JsonProperty("back_image_file_id")
         @ExcludeMissing
         backImageFileId: JsonField<String> = JsonMissing.of(),
@@ -108,6 +112,7 @@ private constructor(
         accountNumberId,
         adjustments,
         amount,
+        automaticallyResolvesAt,
         backImageFileId,
         bankOfFirstDepositRoutingNumber,
         checkNumber,
@@ -174,6 +179,16 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun amount(): Long = amount.getRequired("amount")
+
+    /**
+     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Inbound
+     * Check Deposit will be automatically resolved if it has not been actioned by then.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun automaticallyResolvesAt(): OffsetDateTime =
+        automaticallyResolvesAt.getRequired("automatically_resolves_at")
 
     /**
      * The ID for the File containing the image of the back of the check.
@@ -347,6 +362,16 @@ private constructor(
     @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
     /**
+     * Returns the raw JSON value of [automaticallyResolvesAt].
+     *
+     * Unlike [automaticallyResolvesAt], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("automatically_resolves_at")
+    @ExcludeMissing
+    fun _automaticallyResolvesAt(): JsonField<OffsetDateTime> = automaticallyResolvesAt
+
+    /**
      * Returns the raw JSON value of [backImageFileId].
      *
      * Unlike [backImageFileId], this method doesn't throw if the JSON field has an unexpected type.
@@ -495,6 +520,7 @@ private constructor(
          * .accountNumberId()
          * .adjustments()
          * .amount()
+         * .automaticallyResolvesAt()
          * .backImageFileId()
          * .bankOfFirstDepositRoutingNumber()
          * .checkNumber()
@@ -523,6 +549,7 @@ private constructor(
         private var accountNumberId: JsonField<String>? = null
         private var adjustments: JsonField<MutableList<Adjustment>>? = null
         private var amount: JsonField<Long>? = null
+        private var automaticallyResolvesAt: JsonField<OffsetDateTime>? = null
         private var backImageFileId: JsonField<String>? = null
         private var bankOfFirstDepositRoutingNumber: JsonField<String>? = null
         private var checkNumber: JsonField<String>? = null
@@ -547,6 +574,7 @@ private constructor(
             accountNumberId = inboundCheckDeposit.accountNumberId
             adjustments = inboundCheckDeposit.adjustments.map { it.toMutableList() }
             amount = inboundCheckDeposit.amount
+            automaticallyResolvesAt = inboundCheckDeposit.automaticallyResolvesAt
             backImageFileId = inboundCheckDeposit.backImageFileId
             bankOfFirstDepositRoutingNumber = inboundCheckDeposit.bankOfFirstDepositRoutingNumber
             checkNumber = inboundCheckDeposit.checkNumber
@@ -666,6 +694,24 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Inbound
+         * Check Deposit will be automatically resolved if it has not been actioned by then.
+         */
+        fun automaticallyResolvesAt(automaticallyResolvesAt: OffsetDateTime) =
+            automaticallyResolvesAt(JsonField.of(automaticallyResolvesAt))
+
+        /**
+         * Sets [Builder.automaticallyResolvesAt] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.automaticallyResolvesAt] with a well-typed
+         * [OffsetDateTime] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun automaticallyResolvesAt(automaticallyResolvesAt: JsonField<OffsetDateTime>) = apply {
+            this.automaticallyResolvesAt = automaticallyResolvesAt
+        }
 
         /** The ID for the File containing the image of the back of the check. */
         fun backImageFileId(backImageFileId: String?) =
@@ -957,6 +1003,7 @@ private constructor(
          * .accountNumberId()
          * .adjustments()
          * .amount()
+         * .automaticallyResolvesAt()
          * .backImageFileId()
          * .bankOfFirstDepositRoutingNumber()
          * .checkNumber()
@@ -983,6 +1030,7 @@ private constructor(
                 checkRequired("accountNumberId", accountNumberId),
                 checkRequired("adjustments", adjustments).map { it.toImmutable() },
                 checkRequired("amount", amount),
+                checkRequired("automaticallyResolvesAt", automaticallyResolvesAt),
                 checkRequired("backImageFileId", backImageFileId),
                 checkRequired("bankOfFirstDepositRoutingNumber", bankOfFirstDepositRoutingNumber),
                 checkRequired("checkNumber", checkNumber),
@@ -1022,6 +1070,7 @@ private constructor(
         accountNumberId()
         adjustments().forEach { it.validate() }
         amount()
+        automaticallyResolvesAt()
         backImageFileId()
         bankOfFirstDepositRoutingNumber()
         checkNumber()
@@ -1060,6 +1109,7 @@ private constructor(
             (if (accountNumberId.asKnown().isPresent) 1 else 0) +
             (adjustments.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (if (amount.asKnown().isPresent) 1 else 0) +
+            (if (automaticallyResolvesAt.asKnown().isPresent) 1 else 0) +
             (if (backImageFileId.asKnown().isPresent) 1 else 0) +
             (if (bankOfFirstDepositRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (checkNumber.asKnown().isPresent) 1 else 0) +
@@ -2586,6 +2636,7 @@ private constructor(
             accountNumberId == other.accountNumberId &&
             adjustments == other.adjustments &&
             amount == other.amount &&
+            automaticallyResolvesAt == other.automaticallyResolvesAt &&
             backImageFileId == other.backImageFileId &&
             bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
             checkNumber == other.checkNumber &&
@@ -2611,6 +2662,7 @@ private constructor(
             accountNumberId,
             adjustments,
             amount,
+            automaticallyResolvesAt,
             backImageFileId,
             bankOfFirstDepositRoutingNumber,
             checkNumber,
@@ -2632,5 +2684,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundCheckDeposit{id=$id, acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{id=$id, acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
