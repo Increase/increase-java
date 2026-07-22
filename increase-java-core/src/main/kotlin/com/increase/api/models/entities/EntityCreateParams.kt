@@ -5176,8 +5176,7 @@ private constructor(
             fun value(): String = value.getRequired("value")
 
             /**
-             * The category of the legal identifier. If not provided, the default is
-             * `us_employer_identification_number`.
+             * The category of the legal identifier.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -5257,10 +5256,7 @@ private constructor(
                  */
                 fun value(value: JsonField<String>) = apply { this.value = value }
 
-                /**
-                 * The category of the legal identifier. If not provided, the default is
-                 * `us_employer_identification_number`.
-                 */
+                /** The category of the legal identifier. */
                 fun category(category: Category) = category(JsonField.of(category))
 
                 /**
@@ -5355,10 +5351,7 @@ private constructor(
                 (if (value.asKnown().isPresent) 1 else 0) +
                     (category.asKnown().getOrNull()?.validity() ?: 0)
 
-            /**
-             * The category of the legal identifier. If not provided, the default is
-             * `us_employer_identification_number`.
-             */
+            /** The category of the legal identifier. */
             class Category @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
 

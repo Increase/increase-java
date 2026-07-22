@@ -47,8 +47,7 @@ private constructor(
     fun addendaInformation(): Optional<String> = body.addendaInformation()
 
     /**
-     * The reason why the Federal Reserve or destination bank returned this transfer. Defaults to
-     * `no_account`.
+     * The reason why the Federal Reserve or destination bank returned this transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -141,10 +140,7 @@ private constructor(
             body.addendaInformation(addendaInformation)
         }
 
-        /**
-         * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
-         * to `no_account`.
-         */
+        /** The reason why the Federal Reserve or destination bank returned this transfer. */
         fun reason(reason: Reason) = apply { body.reason(reason) }
 
         /**
@@ -326,8 +322,7 @@ private constructor(
             addendaInformation.getOptional("addenda_information")
 
         /**
-         * The reason why the Federal Reserve or destination bank returned this transfer. Defaults
-         * to `no_account`.
+         * The reason why the Federal Reserve or destination bank returned this transfer.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -402,10 +397,7 @@ private constructor(
                 this.addendaInformation = addendaInformation
             }
 
-            /**
-             * The reason why the Federal Reserve or destination bank returned this transfer.
-             * Defaults to `no_account`.
-             */
+            /** The reason why the Federal Reserve or destination bank returned this transfer. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
 
             /**
@@ -506,10 +498,7 @@ private constructor(
             "Body{addendaInformation=$addendaInformation, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
-    /**
-     * The reason why the Federal Reserve or destination bank returned this transfer. Defaults to
-     * `no_account`.
-     */
+    /** The reason why the Federal Reserve or destination bank returned this transfer. */
     class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

@@ -1372,7 +1372,7 @@ private constructor(
         fun line2(): Optional<String> = line2.getOptional("line2")
 
         /**
-         * The ZIP code of the address.
+         * The postal code of the address.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1531,7 +1531,7 @@ private constructor(
              */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-            /** The ZIP code of the address. */
+            /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
             /**
@@ -1732,7 +1732,7 @@ private constructor(
         fun line2(): Optional<String> = line2.getOptional("line2")
 
         /**
-         * The ZIP code of the address.
+         * The postal code of the address.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1891,7 +1891,7 @@ private constructor(
              */
             fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
-            /** The ZIP code of the address. */
+            /** The postal code of the address. */
             fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
 
             /**
