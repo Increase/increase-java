@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.570.0](https://github.com/Increase/increase-java/compare/v0.569.1...v0.570.0) (2026-07-22)
+
+
+### Features
+
+* **api:** add interest rate plan events and new fields ([2e4bad4](https://github.com/Increase/increase-java/commit/2e4bad4fea9dbe64a81992161a1ffe2d7ce4f41f))
+
 ## [0.569.1](https://github.com/Increase/increase-java/compare/v0.569.0...v0.569.1) (2026-07-20)
 
 
