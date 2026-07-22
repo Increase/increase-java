@@ -840,6 +840,9 @@ private constructor(
             /** Grasshopper Bank */
             @JvmField val GRASSHOPPER_BANK = of("grasshopper_bank")
 
+            /** Twin City Bank */
+            @JvmField val INCREASE_BANK = of("increase_bank")
+
             @JvmStatic fun of(value: String) = Bank(JsonField.of(value))
         }
 
@@ -851,6 +854,8 @@ private constructor(
             FIRST_INTERNET_BANK,
             /** Grasshopper Bank */
             GRASSHOPPER_BANK,
+            /** Twin City Bank */
+            INCREASE_BANK,
         }
 
         /**
@@ -869,6 +874,8 @@ private constructor(
             FIRST_INTERNET_BANK,
             /** Grasshopper Bank */
             GRASSHOPPER_BANK,
+            /** Twin City Bank */
+            INCREASE_BANK,
             /** An enum member indicating that [Bank] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -885,6 +892,7 @@ private constructor(
                 CORE_BANK -> Value.CORE_BANK
                 FIRST_INTERNET_BANK -> Value.FIRST_INTERNET_BANK
                 GRASSHOPPER_BANK -> Value.GRASSHOPPER_BANK
+                INCREASE_BANK -> Value.INCREASE_BANK
                 else -> Value._UNKNOWN
             }
 
@@ -902,6 +910,7 @@ private constructor(
                 CORE_BANK -> Known.CORE_BANK
                 FIRST_INTERNET_BANK -> Known.FIRST_INTERNET_BANK
                 GRASSHOPPER_BANK -> Known.GRASSHOPPER_BANK
+                INCREASE_BANK -> Known.INCREASE_BANK
                 else -> throw IncreaseInvalidDataException("Unknown Bank: $value")
             }
 

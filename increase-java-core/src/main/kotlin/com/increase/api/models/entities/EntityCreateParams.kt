@@ -2030,6 +2030,8 @@ private constructor(
             /**
              * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
              *
+             * Defaults to `US`.
+             *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -2173,7 +2175,11 @@ private constructor(
                  */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
-                /** The two-letter ISO 3166-1 alpha-2 code for the country of the address. */
+                /**
+                 * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                 *
+                 * Defaults to `US`.
+                 */
                 fun country(country: String) = country(JsonField.of(country))
 
                 /**
@@ -3026,6 +3032,8 @@ private constructor(
                     /**
                      * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
                      *
+                     * Defaults to `US`.
+                     *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
                      *   unexpected value).
@@ -3180,6 +3188,8 @@ private constructor(
 
                         /**
                          * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                         *
+                         * Defaults to `US`.
                          */
                         fun country(country: String) = country(JsonField.of(country))
 
@@ -3405,6 +3415,8 @@ private constructor(
                     /**
                      * A method that can be used to verify the individual's identity.
                      *
+                     * Defaults to `social_security_number`.
+                     *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
                      *   unexpected value).
@@ -3549,7 +3561,11 @@ private constructor(
                                 identification.additionalProperties.toMutableMap()
                         }
 
-                        /** A method that can be used to verify the individual's identity. */
+                        /**
+                         * A method that can be used to verify the individual's identity.
+                         *
+                         * Defaults to `social_security_number`.
+                         */
                         fun method(method: Method) = method(JsonField.of(method))
 
                         /**
@@ -5176,8 +5192,9 @@ private constructor(
             fun value(): String = value.getRequired("value")
 
             /**
-             * The category of the legal identifier. If not provided, the default is
-             * `us_employer_identification_number`.
+             * The category of the legal identifier.
+             *
+             * Defaults to `us_employer_identification_number`.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -5258,8 +5275,9 @@ private constructor(
                 fun value(value: JsonField<String>) = apply { this.value = value }
 
                 /**
-                 * The category of the legal identifier. If not provided, the default is
-                 * `us_employer_identification_number`.
+                 * The category of the legal identifier.
+                 *
+                 * Defaults to `us_employer_identification_number`.
                  */
                 fun category(category: Category) = category(JsonField.of(category))
 
@@ -5355,10 +5373,7 @@ private constructor(
                 (if (value.asKnown().isPresent) 1 else 0) +
                     (category.asKnown().getOrNull()?.validity() ?: 0)
 
-            /**
-             * The category of the legal identifier. If not provided, the default is
-             * `us_employer_identification_number`.
-             */
+            /** The category of the legal identifier. */
             class Category @JsonCreator private constructor(private val value: JsonField<String>) :
                 Enum {
 
@@ -7417,6 +7432,8 @@ private constructor(
                 /**
                  * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
                  *
+                 * Defaults to `US`.
+                 *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
@@ -7565,7 +7582,11 @@ private constructor(
                      */
                     fun city(city: JsonField<String>) = apply { this.city = city }
 
-                    /** The two-letter ISO 3166-1 alpha-2 code for the country of the address. */
+                    /**
+                     * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                     *
+                     * Defaults to `US`.
+                     */
                     fun country(country: String) = country(JsonField.of(country))
 
                     /**
@@ -7786,6 +7807,8 @@ private constructor(
                 /**
                  * A method that can be used to verify the individual's identity.
                  *
+                 * Defaults to `social_security_number`.
+                 *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
@@ -7923,7 +7946,11 @@ private constructor(
                         additionalProperties = identification.additionalProperties.toMutableMap()
                     }
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * A method that can be used to verify the individual's identity.
+                     *
+                     * Defaults to `social_security_number`.
+                     */
                     fun method(method: Method) = method(JsonField.of(method))
 
                     /**
@@ -9720,6 +9747,8 @@ private constructor(
             /**
              * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
              *
+             * Defaults to `US`.
+             *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -9863,7 +9892,11 @@ private constructor(
                  */
                 fun city(city: JsonField<String>) = apply { this.city = city }
 
-                /** The two-letter ISO 3166-1 alpha-2 code for the country of the address. */
+                /**
+                 * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                 *
+                 * Defaults to `US`.
+                 */
                 fun country(country: String) = country(JsonField.of(country))
 
                 /**
@@ -10080,6 +10113,8 @@ private constructor(
             /**
              * A method that can be used to verify the individual's identity.
              *
+             * Defaults to `social_security_number`.
+             *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
@@ -10214,7 +10249,11 @@ private constructor(
                     additionalProperties = identification.additionalProperties.toMutableMap()
                 }
 
-                /** A method that can be used to verify the individual's identity. */
+                /**
+                 * A method that can be used to verify the individual's identity.
+                 *
+                 * Defaults to `social_security_number`.
+                 */
                 fun method(method: Method) = method(JsonField.of(method))
 
                 /**
@@ -14469,6 +14508,8 @@ private constructor(
                     /**
                      * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
                      *
+                     * Defaults to `US`.
+                     *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
                      *   unexpected value).
@@ -14623,6 +14664,8 @@ private constructor(
 
                         /**
                          * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                         *
+                         * Defaults to `US`.
                          */
                         fun country(country: String) = country(JsonField.of(country))
 
@@ -14848,6 +14891,8 @@ private constructor(
                     /**
                      * A method that can be used to verify the individual's identity.
                      *
+                     * Defaults to `social_security_number`.
+                     *
                      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
                      *   or is unexpectedly missing or null (e.g. if the server responded with an
                      *   unexpected value).
@@ -14992,7 +15037,11 @@ private constructor(
                                 identification.additionalProperties.toMutableMap()
                         }
 
-                        /** A method that can be used to verify the individual's identity. */
+                        /**
+                         * A method that can be used to verify the individual's identity.
+                         *
+                         * Defaults to `social_security_number`.
+                         */
                         fun method(method: Method) = method(JsonField.of(method))
 
                         /**
@@ -16827,6 +16876,8 @@ private constructor(
                 /**
                  * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
                  *
+                 * Defaults to `US`.
+                 *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
@@ -16975,7 +17026,11 @@ private constructor(
                      */
                     fun city(city: JsonField<String>) = apply { this.city = city }
 
-                    /** The two-letter ISO 3166-1 alpha-2 code for the country of the address. */
+                    /**
+                     * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                     *
+                     * Defaults to `US`.
+                     */
                     fun country(country: String) = country(JsonField.of(country))
 
                     /**
@@ -17196,6 +17251,8 @@ private constructor(
                 /**
                  * A method that can be used to verify the individual's identity.
                  *
+                 * Defaults to `social_security_number`.
+                 *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
@@ -17333,7 +17390,11 @@ private constructor(
                         additionalProperties = identification.additionalProperties.toMutableMap()
                     }
 
-                    /** A method that can be used to verify the individual's identity. */
+                    /**
+                     * A method that can be used to verify the individual's identity.
+                     *
+                     * Defaults to `social_security_number`.
+                     */
                     fun method(method: Method) = method(JsonField.of(method))
 
                     /**

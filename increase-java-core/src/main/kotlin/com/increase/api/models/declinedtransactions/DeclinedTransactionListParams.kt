@@ -39,7 +39,11 @@ private constructor(
     /** Return the page of entries after this one. */
     fun cursor(): Optional<String> = Optional.ofNullable(cursor)
 
-    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
+    /**
+     * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+     *
+     * Defaults to `100`.
+     */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     /** Filter Declined Transactions to those belonging to the specified route. */
@@ -112,6 +116,8 @@ private constructor(
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         *
+         * Defaults to `100`.
          */
         fun limit(limit: Long?) = apply { this.limit = limit }
 

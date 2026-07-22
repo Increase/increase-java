@@ -20,7 +20,11 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Stop payment on a Check Transfer */
+/**
+ * Request a stop payment on a Check Transfer. This can be done any time before the check is
+ * deposited. A stopped check cannot be deposited and the funds held by the transfer's Pending
+ * Transaction are released back to the account's available balance.
+ */
 class CheckTransferStopPaymentParams
 private constructor(
     private val checkTransferId: String?,

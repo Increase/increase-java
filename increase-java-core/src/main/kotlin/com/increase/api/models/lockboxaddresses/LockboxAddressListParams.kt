@@ -34,7 +34,11 @@ private constructor(
      */
     fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
 
-    /** Limit the size of the list that is returned. The default (and maximum) is 100 objects. */
+    /**
+     * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+     *
+     * Defaults to `100`.
+     */
     fun limit(): Optional<Long> = Optional.ofNullable(limit)
 
     /** Additional headers to send with the request. */
@@ -98,6 +102,8 @@ private constructor(
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
+         *
+         * Defaults to `100`.
          */
         fun limit(limit: Long?) = apply { this.limit = limit }
 
