@@ -29,7 +29,9 @@ private constructor(
 ) : Params {
 
     /**
-     * The identifier of the File containing the physical card's carrier image.
+     * The identifier of the File containing the physical card's carrier image. This must have
+     * `purpose: physical_card_carrier` and be a 2550x3300 pixel PNG with a density of 300 dots per
+     * inch (DPI).
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -53,7 +55,9 @@ private constructor(
     fun description(): String = body.description()
 
     /**
-     * The identifier of the File containing the physical card's front image.
+     * The identifier of the File containing the physical card's front image. This must have
+     * `purpose: physical_card_front` and be a 2100x1344 pixel PNG with a density of 600 dots per
+     * inch (DPI).
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -179,7 +183,11 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The identifier of the File containing the physical card's carrier image. */
+        /**
+         * The identifier of the File containing the physical card's carrier image. This must have
+         * `purpose: physical_card_carrier` and be a 2550x3300 pixel PNG with a density of 300 dots
+         * per inch (DPI).
+         */
         fun carrierImageFileId(carrierImageFileId: String) = apply {
             body.carrierImageFileId(carrierImageFileId)
         }
@@ -221,7 +229,11 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
-        /** The identifier of the File containing the physical card's front image. */
+        /**
+         * The identifier of the File containing the physical card's front image. This must have
+         * `purpose: physical_card_front` and be a 2100x1344 pixel PNG with a density of 600 dots
+         * per inch (DPI).
+         */
         fun frontImageFileId(frontImageFileId: String) = apply {
             body.frontImageFileId(frontImageFileId)
         }
@@ -454,7 +466,9 @@ private constructor(
         )
 
         /**
-         * The identifier of the File containing the physical card's carrier image.
+         * The identifier of the File containing the physical card's carrier image. This must have
+         * `purpose: physical_card_carrier` and be a 2550x3300 pixel PNG with a density of 300 dots
+         * per inch (DPI).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -478,7 +492,9 @@ private constructor(
         fun description(): String = description.getRequired("description")
 
         /**
-         * The identifier of the File containing the physical card's front image.
+         * The identifier of the File containing the physical card's front image. This must have
+         * `purpose: physical_card_front` and be a 2100x1344 pixel PNG with a density of 600 dots
+         * per inch (DPI).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -608,7 +624,11 @@ private constructor(
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** The identifier of the File containing the physical card's carrier image. */
+            /**
+             * The identifier of the File containing the physical card's carrier image. This must
+             * have `purpose: physical_card_carrier` and be a 2550x3300 pixel PNG with a density of
+             * 300 dots per inch (DPI).
+             */
             fun carrierImageFileId(carrierImageFileId: String) =
                 carrierImageFileId(JsonField.of(carrierImageFileId))
 
@@ -651,7 +671,11 @@ private constructor(
                 this.description = description
             }
 
-            /** The identifier of the File containing the physical card's front image. */
+            /**
+             * The identifier of the File containing the physical card's front image. This must have
+             * `purpose: physical_card_front` and be a 2100x1344 pixel PNG with a density of 600
+             * dots per inch (DPI).
+             */
             fun frontImageFileId(frontImageFileId: String) =
                 frontImageFileId(JsonField.of(frontImageFileId))
 
