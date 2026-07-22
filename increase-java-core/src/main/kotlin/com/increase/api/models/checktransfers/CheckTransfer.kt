@@ -5154,16 +5154,10 @@ private constructor(
 
             companion object {
 
-                /**
-                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
-                 * (checks and attachments combined).
-                 */
+                /** USPS First Class */
                 @JvmField val USPS_FIRST_CLASS = of("usps_first_class")
 
-                /**
-                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
-                 * and attachments combined).
-                 */
+                /** FedEx Overnight */
                 @JvmField val FEDEX_OVERNIGHT = of("fedex_overnight")
 
                 @JvmStatic fun of(value: String) = ShippingMethod(JsonField.of(value))
@@ -5171,15 +5165,9 @@ private constructor(
 
             /** An enum containing [ShippingMethod]'s known values. */
             enum class Known {
-                /**
-                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
-                 * (checks and attachments combined).
-                 */
+                /** USPS First Class */
                 USPS_FIRST_CLASS,
-                /**
-                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
-                 * and attachments combined).
-                 */
+                /** FedEx Overnight */
                 FEDEX_OVERNIGHT,
             }
 
@@ -5193,15 +5181,9 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
-                /**
-                 * Ship the checks via USPS First Class, which supports a maximum of 1000 pages
-                 * (checks and attachments combined).
-                 */
+                /** USPS First Class */
                 USPS_FIRST_CLASS,
-                /**
-                 * Ship the checks via FedEx Overnight, which supports a maximum of 50 pages (checks
-                 * and attachments combined).
-                 */
+                /** FedEx Overnight */
                 FEDEX_OVERNIGHT,
                 /**
                  * An enum member indicating that [ShippingMethod] was instantiated with an unknown

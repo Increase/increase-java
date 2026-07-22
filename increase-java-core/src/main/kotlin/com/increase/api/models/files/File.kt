@@ -753,7 +753,7 @@ private constructor(
 
             /**
              * A card image to be printed on the front of a physical card. This must be a 2100x1344
-             * pixel PNG with no other color but black.
+             * pixel PNG with a density of 600 dots per inch (DPI) and no other color but black.
              */
             @JvmField val PHYSICAL_CARD_FRONT = of("physical_card_front")
 
@@ -762,7 +762,8 @@ private constructor(
 
             /**
              * An image representing the entirety of the carrier used for a physical card. This must
-             * be a 2550x3300 pixel PNG with no other color but black.
+             * be a 2550x3300 pixel PNG with a density of 300 dots per inch (DPI) and no other color
+             * but black.
              */
             @JvmField val PHYSICAL_CARD_CARRIER = of("physical_card_carrier")
 
@@ -869,14 +870,15 @@ private constructor(
             DIGITAL_WALLET_APP_ICON,
             /**
              * A card image to be printed on the front of a physical card. This must be a 2100x1344
-             * pixel PNG with no other color but black.
+             * pixel PNG with a density of 600 dots per inch (DPI) and no other color but black.
              */
             PHYSICAL_CARD_FRONT,
             /** The image to be printed on the back of a physical card. */
             PHYSICAL_CARD_BACK,
             /**
              * An image representing the entirety of the carrier used for a physical card. This must
-             * be a 2550x3300 pixel PNG with no other color but black.
+             * be a 2550x3300 pixel PNG with a density of 300 dots per inch (DPI) and no other color
+             * but black.
              */
             PHYSICAL_CARD_CARRIER,
             /** A document requested by Increase. */
@@ -975,14 +977,15 @@ private constructor(
             DIGITAL_WALLET_APP_ICON,
             /**
              * A card image to be printed on the front of a physical card. This must be a 2100x1344
-             * pixel PNG with no other color but black.
+             * pixel PNG with a density of 600 dots per inch (DPI) and no other color but black.
              */
             PHYSICAL_CARD_FRONT,
             /** The image to be printed on the back of a physical card. */
             PHYSICAL_CARD_BACK,
             /**
              * An image representing the entirety of the carrier used for a physical card. This must
-             * be a 2550x3300 pixel PNG with no other color but black.
+             * be a 2550x3300 pixel PNG with a density of 300 dots per inch (DPI) and no other color
+             * but black.
              */
             PHYSICAL_CARD_CARRIER,
             /** A document requested by Increase. */

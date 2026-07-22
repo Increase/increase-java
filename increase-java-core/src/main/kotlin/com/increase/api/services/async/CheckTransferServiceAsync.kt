@@ -166,7 +166,11 @@ interface CheckTransferServiceAsync {
     ): CompletableFuture<CheckTransfer> =
         cancel(checkTransferId, CheckTransferCancelParams.none(), requestOptions)
 
-    /** Stop payment on a Check Transfer */
+    /**
+     * Request a stop payment on a Check Transfer. This can be done any time before the check is
+     * deposited. A stopped check cannot be deposited and the funds held by the transfer's Pending
+     * Transaction are released back to the account's available balance.
+     */
     fun stopPayment(checkTransferId: String): CompletableFuture<CheckTransfer> =
         stopPayment(checkTransferId, CheckTransferStopPaymentParams.none())
 
