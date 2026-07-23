@@ -122,6 +122,9 @@ internal class CardTest {
                         .build()
                 )
                 .bin("42424242")
+                .cardholderName(
+                    Card.CardholderName.builder().first("Ian").last("Crease").middle(null).build()
+                )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Office Expenses")
                 .digitalWallet(
@@ -247,6 +250,10 @@ internal class CardTest {
                     .build()
             )
         assertThat(card.bin()).isEqualTo("42424242")
+        assertThat(card.cardholderName())
+            .contains(
+                Card.CardholderName.builder().first("Ian").last("Crease").middle(null).build()
+            )
         assertThat(card.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(card.description()).contains("Office Expenses")
         assertThat(card.digitalWallet())
@@ -379,6 +386,9 @@ internal class CardTest {
                         .build()
                 )
                 .bin("42424242")
+                .cardholderName(
+                    Card.CardholderName.builder().first("Ian").last("Crease").middle(null).build()
+                )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .description("Office Expenses")
                 .digitalWallet(

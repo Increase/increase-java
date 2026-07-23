@@ -126,6 +126,9 @@ internal class CardCreateParamsTest {
                     .line2("x")
                     .build()
             )
+            .cardholderName(
+                CardCreateParams.CardholderName.builder().first("x").last("x").middle("x").build()
+            )
             .description("Card for Ian Crease")
             .digitalWallet(
                 CardCreateParams.DigitalWallet.builder()
@@ -263,6 +266,13 @@ internal class CardCreateParamsTest {
                         .line2("x")
                         .build()
                 )
+                .cardholderName(
+                    CardCreateParams.CardholderName.builder()
+                        .first("x")
+                        .last("x")
+                        .middle("x")
+                        .build()
+                )
                 .description("Card for Ian Crease")
                 .digitalWallet(
                     CardCreateParams.DigitalWallet.builder()
@@ -393,6 +403,10 @@ internal class CardCreateParamsTest {
                     .state("x")
                     .line2("x")
                     .build()
+            )
+        assertThat(body.cardholderName())
+            .contains(
+                CardCreateParams.CardholderName.builder().first("x").last("x").middle("x").build()
             )
         assertThat(body.description()).contains("Card for Ian Crease")
         assertThat(body.digitalWallet())
