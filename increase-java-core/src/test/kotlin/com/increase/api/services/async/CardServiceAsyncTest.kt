@@ -155,6 +155,13 @@ internal class CardServiceAsyncTest {
                             .line2("x")
                             .build()
                     )
+                    .cardholderName(
+                        CardCreateParams.CardholderName.builder()
+                            .first("x")
+                            .last("x")
+                            .middle("x")
+                            .build()
+                    )
                     .description("Card for Ian Crease")
                     .digitalWallet(
                         CardCreateParams.DigitalWallet.builder()

@@ -134,6 +134,13 @@ internal class CardListPageResponseTest {
                                 .build()
                         )
                         .bin("42424242")
+                        .cardholderName(
+                            Card.CardholderName.builder()
+                                .first("Ian")
+                                .last("Crease")
+                                .middle(null)
+                                .build()
+                        )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .description("Office Expenses")
                         .digitalWallet(
@@ -269,6 +276,13 @@ internal class CardListPageResponseTest {
                             .build()
                     )
                     .bin("42424242")
+                    .cardholderName(
+                        Card.CardholderName.builder()
+                            .first("Ian")
+                            .last("Crease")
+                            .middle(null)
+                            .build()
+                    )
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .description("Office Expenses")
                     .digitalWallet(
@@ -415,6 +429,13 @@ internal class CardListPageResponseTest {
                                 .build()
                         )
                         .bin("42424242")
+                        .cardholderName(
+                            Card.CardholderName.builder()
+                                .first("Ian")
+                                .last("Crease")
+                                .middle(null)
+                                .build()
+                        )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .description("Office Expenses")
                         .digitalWallet(
