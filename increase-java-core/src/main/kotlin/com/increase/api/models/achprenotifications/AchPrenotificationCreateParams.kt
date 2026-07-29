@@ -123,7 +123,7 @@ private constructor(
     fun individualId(): Optional<String> = body.individualId()
 
     /**
-     * The name of therecipient. This value is informational and not verified by the recipient's
+     * The name of the recipient. This value is informational and not verified by the recipient's
      * bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -459,8 +459,8 @@ private constructor(
         }
 
         /**
-         * The name of therecipient. This value is informational and not verified by the recipient's
-         * bank.
+         * The name of the recipient. This value is informational and not verified by the
+         * recipient's bank.
          */
         fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
@@ -816,8 +816,8 @@ private constructor(
         fun individualId(): Optional<String> = individualId.getOptional("individual_id")
 
         /**
-         * The name of therecipient. This value is informational and not verified by the recipient's
-         * bank.
+         * The name of the recipient. This value is informational and not verified by the
+         * recipient's bank.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1188,7 +1188,7 @@ private constructor(
             }
 
             /**
-             * The name of therecipient. This value is informational and not verified by the
+             * The name of the recipient. This value is informational and not verified by the
              * recipient's bank.
              */
             fun individualName(individualName: String) =
