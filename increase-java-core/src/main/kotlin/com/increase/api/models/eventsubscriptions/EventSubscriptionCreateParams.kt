@@ -1223,6 +1223,12 @@ private constructor(
                 /** Occurs whenever a Lockbox is updated. */
                 @JvmField val LOCKBOX_UPDATED = of("lockbox.updated")
 
+                /** Occurs whenever a Lockbox Address is created. */
+                @JvmField val LOCKBOX_ADDRESS_CREATED = of("lockbox_address.created")
+
+                /** Occurs whenever a Lockbox Address is updated. */
+                @JvmField val LOCKBOX_ADDRESS_UPDATED = of("lockbox_address.updated")
+
                 /** Occurs whenever an OAuth Connection is created. */
                 @JvmField val OAUTH_CONNECTION_CREATED = of("oauth_connection.created")
 
@@ -1546,6 +1552,10 @@ private constructor(
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
                 LOCKBOX_UPDATED,
+                /** Occurs whenever a Lockbox Address is created. */
+                LOCKBOX_ADDRESS_CREATED,
+                /** Occurs whenever a Lockbox Address is updated. */
+                LOCKBOX_ADDRESS_UPDATED,
                 /** Occurs whenever an OAuth Connection is created. */
                 OAUTH_CONNECTION_CREATED,
                 /** Occurs whenever an OAuth Connection is deactivated. */
@@ -1817,6 +1827,10 @@ private constructor(
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
                 LOCKBOX_UPDATED,
+                /** Occurs whenever a Lockbox Address is created. */
+                LOCKBOX_ADDRESS_CREATED,
+                /** Occurs whenever a Lockbox Address is updated. */
+                LOCKBOX_ADDRESS_UPDATED,
                 /** Occurs whenever an OAuth Connection is created. */
                 OAUTH_CONNECTION_CREATED,
                 /** Occurs whenever an OAuth Connection is deactivated. */
@@ -2012,6 +2026,8 @@ private constructor(
                     LOAN_PURCHASE_CREATED -> Value.LOAN_PURCHASE_CREATED
                     LOCKBOX_CREATED -> Value.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Value.LOCKBOX_UPDATED
+                    LOCKBOX_ADDRESS_CREATED -> Value.LOCKBOX_ADDRESS_CREATED
+                    LOCKBOX_ADDRESS_UPDATED -> Value.LOCKBOX_ADDRESS_UPDATED
                     OAUTH_CONNECTION_CREATED -> Value.OAUTH_CONNECTION_CREATED
                     OAUTH_CONNECTION_DEACTIVATED -> Value.OAUTH_CONNECTION_DEACTIVATED
                     CARD_PUSH_TRANSFER_CREATED -> Value.CARD_PUSH_TRANSFER_CREATED
@@ -2160,6 +2176,8 @@ private constructor(
                     LOAN_PURCHASE_CREATED -> Known.LOAN_PURCHASE_CREATED
                     LOCKBOX_CREATED -> Known.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Known.LOCKBOX_UPDATED
+                    LOCKBOX_ADDRESS_CREATED -> Known.LOCKBOX_ADDRESS_CREATED
+                    LOCKBOX_ADDRESS_UPDATED -> Known.LOCKBOX_ADDRESS_UPDATED
                     OAUTH_CONNECTION_CREATED -> Known.OAUTH_CONNECTION_CREATED
                     OAUTH_CONNECTION_DEACTIVATED -> Known.OAUTH_CONNECTION_DEACTIVATED
                     CARD_PUSH_TRANSFER_CREATED -> Known.CARD_PUSH_TRANSFER_CREATED

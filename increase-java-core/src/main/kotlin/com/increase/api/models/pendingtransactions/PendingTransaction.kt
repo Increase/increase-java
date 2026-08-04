@@ -4467,6 +4467,7 @@ private constructor(
             private val networkDetails: JsonField<NetworkDetails>,
             private val networkIdentifiers: JsonField<NetworkIdentifiers>,
             private val networkRiskScore: JsonField<Long>,
+            private val originalCardPaymentId: JsonField<String>,
             private val pendingTransactionId: JsonField<String>,
             private val physicalCardId: JsonField<String>,
             private val presentmentAmount: JsonField<Long>,
@@ -4538,6 +4539,9 @@ private constructor(
                 @JsonProperty("network_risk_score")
                 @ExcludeMissing
                 networkRiskScore: JsonField<Long> = JsonMissing.of(),
+                @JsonProperty("original_card_payment_id")
+                @ExcludeMissing
+                originalCardPaymentId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("pending_transaction_id")
                 @ExcludeMissing
                 pendingTransactionId: JsonField<String> = JsonMissing.of(),
@@ -4587,6 +4591,7 @@ private constructor(
                 networkDetails,
                 networkIdentifiers,
                 networkRiskScore,
+                originalCardPaymentId,
                 pendingTransactionId,
                 physicalCardId,
                 presentmentAmount,
@@ -4794,6 +4799,19 @@ private constructor(
              */
             fun networkRiskScore(): Optional<Long> =
                 networkRiskScore.getOptional("network_risk_score")
+
+            /**
+             * The ID of the Card Payment containing the original authorization or card validation
+             * this transaction references. For a merchant-initiated transaction, this is the Card
+             * Payment from when the card was first stored, which is typically where the CVV2 was
+             * verified. The reference this is derived from is supplied by the merchant or their
+             * acquirer, so it is not guaranteed to be present.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun originalCardPaymentId(): Optional<String> =
+                originalCardPaymentId.getOptional("original_card_payment_id")
 
             /**
              * The identifier of the Pending Transaction associated with this Transaction.
@@ -5085,6 +5103,16 @@ private constructor(
             fun _networkRiskScore(): JsonField<Long> = networkRiskScore
 
             /**
+             * Returns the raw JSON value of [originalCardPaymentId].
+             *
+             * Unlike [originalCardPaymentId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("original_card_payment_id")
+            @ExcludeMissing
+            fun _originalCardPaymentId(): JsonField<String> = originalCardPaymentId
+
+            /**
              * Returns the raw JSON value of [pendingTransactionId].
              *
              * Unlike [pendingTransactionId], this method doesn't throw if the JSON field has an
@@ -5220,6 +5248,7 @@ private constructor(
                  * .networkDetails()
                  * .networkIdentifiers()
                  * .networkRiskScore()
+                 * .originalCardPaymentId()
                  * .pendingTransactionId()
                  * .physicalCardId()
                  * .presentmentAmount()
@@ -5258,6 +5287,7 @@ private constructor(
                 private var networkDetails: JsonField<NetworkDetails>? = null
                 private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
                 private var networkRiskScore: JsonField<Long>? = null
+                private var originalCardPaymentId: JsonField<String>? = null
                 private var pendingTransactionId: JsonField<String>? = null
                 private var physicalCardId: JsonField<String>? = null
                 private var presentmentAmount: JsonField<Long>? = null
@@ -5292,6 +5322,7 @@ private constructor(
                     networkDetails = cardAuthorization.networkDetails
                     networkIdentifiers = cardAuthorization.networkIdentifiers
                     networkRiskScore = cardAuthorization.networkRiskScore
+                    originalCardPaymentId = cardAuthorization.originalCardPaymentId
                     pendingTransactionId = cardAuthorization.pendingTransactionId
                     physicalCardId = cardAuthorization.physicalCardId
                     presentmentAmount = cardAuthorization.presentmentAmount
@@ -5670,6 +5701,34 @@ private constructor(
                     this.networkRiskScore = networkRiskScore
                 }
 
+                /**
+                 * The ID of the Card Payment containing the original authorization or card
+                 * validation this transaction references. For a merchant-initiated transaction,
+                 * this is the Card Payment from when the card was first stored, which is typically
+                 * where the CVV2 was verified. The reference this is derived from is supplied by
+                 * the merchant or their acquirer, so it is not guaranteed to be present.
+                 */
+                fun originalCardPaymentId(originalCardPaymentId: String?) =
+                    originalCardPaymentId(JsonField.ofNullable(originalCardPaymentId))
+
+                /**
+                 * Alias for calling [Builder.originalCardPaymentId] with
+                 * `originalCardPaymentId.orElse(null)`.
+                 */
+                fun originalCardPaymentId(originalCardPaymentId: Optional<String>) =
+                    originalCardPaymentId(originalCardPaymentId.getOrNull())
+
+                /**
+                 * Sets [Builder.originalCardPaymentId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.originalCardPaymentId] with a well-typed
+                 * [String] value instead. This method is primarily for setting the field to an
+                 * undocumented or not yet supported value.
+                 */
+                fun originalCardPaymentId(originalCardPaymentId: JsonField<String>) = apply {
+                    this.originalCardPaymentId = originalCardPaymentId
+                }
+
                 /** The identifier of the Pending Transaction associated with this Transaction. */
                 fun pendingTransactionId(pendingTransactionId: String?) =
                     pendingTransactionId(JsonField.ofNullable(pendingTransactionId))
@@ -5919,6 +5978,7 @@ private constructor(
                  * .networkDetails()
                  * .networkIdentifiers()
                  * .networkRiskScore()
+                 * .originalCardPaymentId()
                  * .pendingTransactionId()
                  * .physicalCardId()
                  * .presentmentAmount()
@@ -5955,6 +6015,7 @@ private constructor(
                         checkRequired("networkDetails", networkDetails),
                         checkRequired("networkIdentifiers", networkIdentifiers),
                         checkRequired("networkRiskScore", networkRiskScore),
+                        checkRequired("originalCardPaymentId", originalCardPaymentId),
                         checkRequired("pendingTransactionId", pendingTransactionId),
                         checkRequired("physicalCardId", physicalCardId),
                         checkRequired("presentmentAmount", presentmentAmount),
@@ -6006,6 +6067,7 @@ private constructor(
                 networkDetails().validate()
                 networkIdentifiers().validate()
                 networkRiskScore()
+                originalCardPaymentId()
                 pendingTransactionId()
                 physicalCardId()
                 presentmentAmount()
@@ -6055,6 +6117,7 @@ private constructor(
                     (networkDetails.asKnown().getOrNull()?.validity() ?: 0) +
                     (networkIdentifiers.asKnown().getOrNull()?.validity() ?: 0) +
                     (if (networkRiskScore.asKnown().isPresent) 1 else 0) +
+                    (if (originalCardPaymentId.asKnown().isPresent) 1 else 0) +
                     (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
                     (if (physicalCardId.asKnown().isPresent) 1 else 0) +
                     (if (presentmentAmount.asKnown().isPresent) 1 else 0) +
@@ -15827,6 +15890,7 @@ private constructor(
                     networkDetails == other.networkDetails &&
                     networkIdentifiers == other.networkIdentifiers &&
                     networkRiskScore == other.networkRiskScore &&
+                    originalCardPaymentId == other.originalCardPaymentId &&
                     pendingTransactionId == other.pendingTransactionId &&
                     physicalCardId == other.physicalCardId &&
                     presentmentAmount == other.presentmentAmount &&
@@ -15862,6 +15926,7 @@ private constructor(
                     networkDetails,
                     networkIdentifiers,
                     networkRiskScore,
+                    originalCardPaymentId,
                     pendingTransactionId,
                     physicalCardId,
                     presentmentAmount,
@@ -15879,7 +15944,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CardAuthorization{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, healthcare=$healthcare, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, schemeFees=$schemeFees, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
+                "CardAuthorization{id=$id, actioner=$actioner, additionalAmounts=$additionalAmounts, amount=$amount, cardPaymentId=$cardPaymentId, currency=$currency, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, expiresAt=$expiresAt, healthcare=$healthcare, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, originalCardPaymentId=$originalCardPaymentId, pendingTransactionId=$pendingTransactionId, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, realTimeDecisionId=$realTimeDecisionId, schemeFees=$schemeFees, terminalId=$terminalId, type=$type, verification=$verification, additionalProperties=$additionalProperties}"
         }
 
         /**

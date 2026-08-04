@@ -27,6 +27,7 @@ internal class CardDisputeActionParamsTest {
                     .receiveMerchantPrearbitration(
                         CardDisputeActionParams.Visa.ReceiveMerchantPrearbitration.builder().build()
                     )
+                    .reject(CardDisputeActionParams.Visa.Reject.builder().explanation("x").build())
                     .represent(CardDisputeActionParams.Visa.Represent.builder().build())
                     .requestFurtherInformation(
                         CardDisputeActionParams.Visa.RequestFurtherInformation.builder()
@@ -85,6 +86,9 @@ internal class CardDisputeActionParamsTest {
                             CardDisputeActionParams.Visa.ReceiveMerchantPrearbitration.builder()
                                 .build()
                         )
+                        .reject(
+                            CardDisputeActionParams.Visa.Reject.builder().explanation("x").build()
+                        )
                         .represent(CardDisputeActionParams.Visa.Represent.builder().build())
                         .requestFurtherInformation(
                             CardDisputeActionParams.Visa.RequestFurtherInformation.builder()
@@ -127,6 +131,7 @@ internal class CardDisputeActionParamsTest {
                     .receiveMerchantPrearbitration(
                         CardDisputeActionParams.Visa.ReceiveMerchantPrearbitration.builder().build()
                     )
+                    .reject(CardDisputeActionParams.Visa.Reject.builder().explanation("x").build())
                     .represent(CardDisputeActionParams.Visa.Represent.builder().build())
                     .requestFurtherInformation(
                         CardDisputeActionParams.Visa.RequestFurtherInformation.builder()
