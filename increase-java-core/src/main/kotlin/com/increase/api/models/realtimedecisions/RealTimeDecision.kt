@@ -6424,6 +6424,7 @@ private constructor(
         private val networkDetails: JsonField<NetworkDetails>,
         private val networkIdentifiers: JsonField<NetworkIdentifiers>,
         private val networkRiskScore: JsonField<Long>,
+        private val originalCardPaymentId: JsonField<String>,
         private val partialApprovalCapability: JsonField<PartialApprovalCapability>,
         private val physicalCardId: JsonField<String>,
         private val presentmentAmount: JsonField<Long>,
@@ -6493,6 +6494,9 @@ private constructor(
             @JsonProperty("network_risk_score")
             @ExcludeMissing
             networkRiskScore: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("original_card_payment_id")
+            @ExcludeMissing
+            originalCardPaymentId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("partial_approval_capability")
             @ExcludeMissing
             partialApprovalCapability: JsonField<PartialApprovalCapability> = JsonMissing.of(),
@@ -6546,6 +6550,7 @@ private constructor(
             networkDetails,
             networkIdentifiers,
             networkRiskScore,
+            originalCardPaymentId,
             partialApprovalCapability,
             physicalCardId,
             presentmentAmount,
@@ -6727,6 +6732,19 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun networkRiskScore(): Optional<Long> = networkRiskScore.getOptional("network_risk_score")
+
+        /**
+         * The identifier of the Card Payment containing the original authorization or card
+         * validation this transaction references. For a merchant-initiated transaction, this is the
+         * Card Payment from when the card was first stored, which is typically where the CVV2 was
+         * verified. The reference this is derived from is supplied by the merchant or their
+         * acquirer, so it is not guaranteed to be present.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun originalCardPaymentId(): Optional<String> =
+            originalCardPaymentId.getOptional("original_card_payment_id")
 
         /**
          * Whether or not the authorization supports partial approvals.
@@ -7001,6 +7019,16 @@ private constructor(
         fun _networkRiskScore(): JsonField<Long> = networkRiskScore
 
         /**
+         * Returns the raw JSON value of [originalCardPaymentId].
+         *
+         * Unlike [originalCardPaymentId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("original_card_payment_id")
+        @ExcludeMissing
+        fun _originalCardPaymentId(): JsonField<String> = originalCardPaymentId
+
+        /**
          * Returns the raw JSON value of [partialApprovalCapability].
          *
          * Unlike [partialApprovalCapability], this method doesn't throw if the JSON field has an
@@ -7148,6 +7176,7 @@ private constructor(
              * .networkDetails()
              * .networkIdentifiers()
              * .networkRiskScore()
+             * .originalCardPaymentId()
              * .partialApprovalCapability()
              * .physicalCardId()
              * .presentmentAmount()
@@ -7186,6 +7215,7 @@ private constructor(
             private var networkDetails: JsonField<NetworkDetails>? = null
             private var networkIdentifiers: JsonField<NetworkIdentifiers>? = null
             private var networkRiskScore: JsonField<Long>? = null
+            private var originalCardPaymentId: JsonField<String>? = null
             private var partialApprovalCapability: JsonField<PartialApprovalCapability>? = null
             private var physicalCardId: JsonField<String>? = null
             private var presentmentAmount: JsonField<Long>? = null
@@ -7220,6 +7250,7 @@ private constructor(
                 networkDetails = cardAuthorization.networkDetails
                 networkIdentifiers = cardAuthorization.networkIdentifiers
                 networkRiskScore = cardAuthorization.networkRiskScore
+                originalCardPaymentId = cardAuthorization.originalCardPaymentId
                 partialApprovalCapability = cardAuthorization.partialApprovalCapability
                 physicalCardId = cardAuthorization.physicalCardId
                 presentmentAmount = cardAuthorization.presentmentAmount
@@ -7580,6 +7611,34 @@ private constructor(
                 this.networkRiskScore = networkRiskScore
             }
 
+            /**
+             * The identifier of the Card Payment containing the original authorization or card
+             * validation this transaction references. For a merchant-initiated transaction, this is
+             * the Card Payment from when the card was first stored, which is typically where the
+             * CVV2 was verified. The reference this is derived from is supplied by the merchant or
+             * their acquirer, so it is not guaranteed to be present.
+             */
+            fun originalCardPaymentId(originalCardPaymentId: String?) =
+                originalCardPaymentId(JsonField.ofNullable(originalCardPaymentId))
+
+            /**
+             * Alias for calling [Builder.originalCardPaymentId] with
+             * `originalCardPaymentId.orElse(null)`.
+             */
+            fun originalCardPaymentId(originalCardPaymentId: Optional<String>) =
+                originalCardPaymentId(originalCardPaymentId.getOrNull())
+
+            /**
+             * Sets [Builder.originalCardPaymentId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.originalCardPaymentId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun originalCardPaymentId(originalCardPaymentId: JsonField<String>) = apply {
+                this.originalCardPaymentId = originalCardPaymentId
+            }
+
             /** Whether or not the authorization supports partial approvals. */
             fun partialApprovalCapability(partialApprovalCapability: PartialApprovalCapability) =
                 partialApprovalCapability(JsonField.of(partialApprovalCapability))
@@ -7818,6 +7877,7 @@ private constructor(
              * .networkDetails()
              * .networkIdentifiers()
              * .networkRiskScore()
+             * .originalCardPaymentId()
              * .partialApprovalCapability()
              * .physicalCardId()
              * .presentmentAmount()
@@ -7854,6 +7914,7 @@ private constructor(
                     checkRequired("networkDetails", networkDetails),
                     checkRequired("networkIdentifiers", networkIdentifiers),
                     checkRequired("networkRiskScore", networkRiskScore),
+                    checkRequired("originalCardPaymentId", originalCardPaymentId),
                     checkRequired("partialApprovalCapability", partialApprovalCapability),
                     checkRequired("physicalCardId", physicalCardId),
                     checkRequired("presentmentAmount", presentmentAmount),
@@ -7904,6 +7965,7 @@ private constructor(
             networkDetails().validate()
             networkIdentifiers().validate()
             networkRiskScore()
+            originalCardPaymentId()
             partialApprovalCapability().validate()
             physicalCardId()
             presentmentAmount()
@@ -7953,6 +8015,7 @@ private constructor(
                 (networkDetails.asKnown().getOrNull()?.validity() ?: 0) +
                 (networkIdentifiers.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (networkRiskScore.asKnown().isPresent) 1 else 0) +
+                (if (originalCardPaymentId.asKnown().isPresent) 1 else 0) +
                 (partialApprovalCapability.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (physicalCardId.asKnown().isPresent) 1 else 0) +
                 (if (presentmentAmount.asKnown().isPresent) 1 else 0) +
@@ -17511,6 +17574,7 @@ private constructor(
                 networkDetails == other.networkDetails &&
                 networkIdentifiers == other.networkIdentifiers &&
                 networkRiskScore == other.networkRiskScore &&
+                originalCardPaymentId == other.originalCardPaymentId &&
                 partialApprovalCapability == other.partialApprovalCapability &&
                 physicalCardId == other.physicalCardId &&
                 presentmentAmount == other.presentmentAmount &&
@@ -17546,6 +17610,7 @@ private constructor(
                 networkDetails,
                 networkIdentifiers,
                 networkRiskScore,
+                originalCardPaymentId,
                 partialApprovalCapability,
                 physicalCardId,
                 presentmentAmount,
@@ -17564,7 +17629,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "CardAuthorization{accountId=$accountId, additionalAmounts=$additionalAmounts, approval=$approval, cardId=$cardId, decision=$decision, decline=$decline, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, healthcare=$healthcare, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, partialApprovalCapability=$partialApprovalCapability, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
+            "CardAuthorization{accountId=$accountId, additionalAmounts=$additionalAmounts, approval=$approval, cardId=$cardId, decision=$decision, decline=$decline, digitalWalletTokenId=$digitalWalletTokenId, direction=$direction, healthcare=$healthcare, merchantAcceptorId=$merchantAcceptorId, merchantCategoryCode=$merchantCategoryCode, merchantCity=$merchantCity, merchantCountry=$merchantCountry, merchantDescriptor=$merchantDescriptor, merchantPostalCode=$merchantPostalCode, merchantState=$merchantState, networkDetails=$networkDetails, networkIdentifiers=$networkIdentifiers, networkRiskScore=$networkRiskScore, originalCardPaymentId=$originalCardPaymentId, partialApprovalCapability=$partialApprovalCapability, physicalCardId=$physicalCardId, presentmentAmount=$presentmentAmount, presentmentCurrency=$presentmentCurrency, processingCategory=$processingCategory, requestDetails=$requestDetails, settlementAmount=$settlementAmount, settlementCurrency=$settlementCurrency, terminalId=$terminalId, upcomingCardPaymentId=$upcomingCardPaymentId, verification=$verification, additionalProperties=$additionalProperties}"
     }
 
     /** Fields related to a card balance inquiry. */
