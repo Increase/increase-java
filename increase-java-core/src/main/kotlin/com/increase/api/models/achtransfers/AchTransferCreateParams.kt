@@ -206,14 +206,6 @@ private constructor(
     fun standardEntryClassCode(): Optional<StandardEntryClassCode> = body.standardEntryClassCode()
 
     /**
-     * The timing of the transaction.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun transactionTiming(): Optional<TransactionTiming> = body.transactionTiming()
-
-    /**
      * Returns the raw JSON value of [accountId].
      *
      * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -349,14 +341,6 @@ private constructor(
      */
     fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> =
         body._standardEntryClassCode()
-
-    /**
-     * Returns the raw JSON value of [transactionTiming].
-     *
-     * Unlike [transactionTiming], this method doesn't throw if the JSON field has an unexpected
-     * type.
-     */
-    fun _transactionTiming(): JsonField<TransactionTiming> = body._transactionTiming()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -731,22 +715,6 @@ private constructor(
                 body.standardEntryClassCode(standardEntryClassCode)
             }
 
-        /** The timing of the transaction. */
-        fun transactionTiming(transactionTiming: TransactionTiming) = apply {
-            body.transactionTiming(transactionTiming)
-        }
-
-        /**
-         * Sets [Builder.transactionTiming] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.transactionTiming] with a well-typed [TransactionTiming]
-         * value instead. This method is primarily for setting the field to an undocumented or not
-         * yet supported value.
-         */
-        fun transactionTiming(transactionTiming: JsonField<TransactionTiming>) = apply {
-            body.transactionTiming(transactionTiming)
-        }
-
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -913,7 +881,6 @@ private constructor(
         private val requireApproval: JsonField<Boolean>,
         private val routingNumber: JsonField<String>,
         private val standardEntryClassCode: JsonField<StandardEntryClassCode>,
-        private val transactionTiming: JsonField<TransactionTiming>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -967,9 +934,6 @@ private constructor(
             @JsonProperty("standard_entry_class_code")
             @ExcludeMissing
             standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of(),
-            @JsonProperty("transaction_timing")
-            @ExcludeMissing
-            transactionTiming: JsonField<TransactionTiming> = JsonMissing.of(),
         ) : this(
             accountId,
             amount,
@@ -989,7 +953,6 @@ private constructor(
             requireApproval,
             routingNumber,
             standardEntryClassCode,
-            transactionTiming,
             mutableMapOf(),
         )
 
@@ -1176,15 +1139,6 @@ private constructor(
             standardEntryClassCode.getOptional("standard_entry_class_code")
 
         /**
-         * The timing of the transaction.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun transactionTiming(): Optional<TransactionTiming> =
-            transactionTiming.getOptional("transaction_timing")
-
-        /**
          * Returns the raw JSON value of [accountId].
          *
          * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -1352,16 +1306,6 @@ private constructor(
         @ExcludeMissing
         fun _standardEntryClassCode(): JsonField<StandardEntryClassCode> = standardEntryClassCode
 
-        /**
-         * Returns the raw JSON value of [transactionTiming].
-         *
-         * Unlike [transactionTiming], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("transaction_timing")
-        @ExcludeMissing
-        fun _transactionTiming(): JsonField<TransactionTiming> = transactionTiming
-
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -1411,7 +1355,6 @@ private constructor(
             private var requireApproval: JsonField<Boolean> = JsonMissing.of()
             private var routingNumber: JsonField<String> = JsonMissing.of()
             private var standardEntryClassCode: JsonField<StandardEntryClassCode> = JsonMissing.of()
-            private var transactionTiming: JsonField<TransactionTiming> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1434,7 +1377,6 @@ private constructor(
                 requireApproval = body.requireApproval
                 routingNumber = body.routingNumber
                 standardEntryClassCode = body.standardEntryClassCode
-                transactionTiming = body.transactionTiming
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -1756,21 +1698,6 @@ private constructor(
                     this.standardEntryClassCode = standardEntryClassCode
                 }
 
-            /** The timing of the transaction. */
-            fun transactionTiming(transactionTiming: TransactionTiming) =
-                transactionTiming(JsonField.of(transactionTiming))
-
-            /**
-             * Sets [Builder.transactionTiming] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.transactionTiming] with a well-typed
-             * [TransactionTiming] value instead. This method is primarily for setting the field to
-             * an undocumented or not yet supported value.
-             */
-            fun transactionTiming(transactionTiming: JsonField<TransactionTiming>) = apply {
-                this.transactionTiming = transactionTiming
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1824,7 +1751,6 @@ private constructor(
                     requireApproval,
                     routingNumber,
                     standardEntryClassCode,
-                    transactionTiming,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1863,7 +1789,6 @@ private constructor(
             requireApproval()
             routingNumber()
             standardEntryClassCode().ifPresent { it.validate() }
-            transactionTiming().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1900,8 +1825,7 @@ private constructor(
                 (preferredEffectiveDate.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (requireApproval.asKnown().isPresent) 1 else 0) +
                 (if (routingNumber.asKnown().isPresent) 1 else 0) +
-                (standardEntryClassCode.asKnown().getOrNull()?.validity() ?: 0) +
-                (transactionTiming.asKnown().getOrNull()?.validity() ?: 0)
+                (standardEntryClassCode.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -1927,7 +1851,6 @@ private constructor(
                 requireApproval == other.requireApproval &&
                 routingNumber == other.routingNumber &&
                 standardEntryClassCode == other.standardEntryClassCode &&
-                transactionTiming == other.transactionTiming &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1951,7 +1874,6 @@ private constructor(
                 requireApproval,
                 routingNumber,
                 standardEntryClassCode,
-                transactionTiming,
                 additionalProperties,
             )
         }
@@ -1959,7 +1881,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, transactionTiming=$transactionTiming, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, amount=$amount, statementDescriptor=$statementDescriptor, accountNumber=$accountNumber, addenda=$addenda, companyDescriptiveDate=$companyDescriptiveDate, companyDiscretionaryData=$companyDiscretionaryData, companyEntryDescription=$companyEntryDescription, companyName=$companyName, destinationAccountHolder=$destinationAccountHolder, externalAccountId=$externalAccountId, funding=$funding, individualId=$individualId, individualName=$individualName, preferredEffectiveDate=$preferredEffectiveDate, requireApproval=$requireApproval, routingNumber=$routingNumber, standardEntryClassCode=$standardEntryClassCode, additionalProperties=$additionalProperties}"
     }
 
     /**
@@ -4128,153 +4050,6 @@ private constructor(
             }
 
             return other is StandardEntryClassCode && value == other.value
-        }
-
-        override fun hashCode() = value.hashCode()
-
-        override fun toString() = value.toString()
-    }
-
-    /** The timing of the transaction. */
-    class TransactionTiming @JsonCreator private constructor(private val value: JsonField<String>) :
-        Enum {
-
-        /**
-         * Returns this class instance's raw value.
-         *
-         * This is usually only useful if this instance was deserialized from data that doesn't
-         * match any known member, and you want to know that value. For example, if the SDK is on an
-         * older version than the API, then the API may respond with new members that the SDK is
-         * unaware of.
-         */
-        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-        companion object {
-
-            /** A Transaction will be created immediately. */
-            @JvmField val SYNCHRONOUS = of("synchronous")
-
-            /** A Transaction will be created when the funds settle at the Federal Reserve. */
-            @JvmField val ASYNCHRONOUS = of("asynchronous")
-
-            @JvmStatic fun of(value: String) = TransactionTiming(JsonField.of(value))
-        }
-
-        /** An enum containing [TransactionTiming]'s known values. */
-        enum class Known {
-            /** A Transaction will be created immediately. */
-            SYNCHRONOUS,
-            /** A Transaction will be created when the funds settle at the Federal Reserve. */
-            ASYNCHRONOUS,
-        }
-
-        /**
-         * An enum containing [TransactionTiming]'s known values, as well as an [_UNKNOWN] member.
-         *
-         * An instance of [TransactionTiming] can contain an unknown value in a couple of cases:
-         * - It was deserialized from data that doesn't match any known member. For example, if the
-         *   SDK is on an older version than the API, then the API may respond with new members that
-         *   the SDK is unaware of.
-         * - It was constructed with an arbitrary value using the [of] method.
-         */
-        enum class Value {
-            /** A Transaction will be created immediately. */
-            SYNCHRONOUS,
-            /** A Transaction will be created when the funds settle at the Federal Reserve. */
-            ASYNCHRONOUS,
-            /**
-             * An enum member indicating that [TransactionTiming] was instantiated with an unknown
-             * value.
-             */
-            _UNKNOWN,
-        }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
-         * if the class was instantiated with an unknown value.
-         *
-         * Use the [known] method instead if you're certain the value is always known or if you want
-         * to throw for the unknown case.
-         */
-        fun value(): Value =
-            when (this) {
-                SYNCHRONOUS -> Value.SYNCHRONOUS
-                ASYNCHRONOUS -> Value.ASYNCHRONOUS
-                else -> Value._UNKNOWN
-            }
-
-        /**
-         * Returns an enum member corresponding to this class instance's value.
-         *
-         * Use the [value] method instead if you're uncertain the value is always known and don't
-         * want to throw for the unknown case.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-         *   member.
-         */
-        fun known(): Known =
-            when (this) {
-                SYNCHRONOUS -> Known.SYNCHRONOUS
-                ASYNCHRONOUS -> Known.ASYNCHRONOUS
-                else -> throw IncreaseInvalidDataException("Unknown TransactionTiming: $value")
-            }
-
-        /**
-         * Returns this class instance's primitive wire representation.
-         *
-         * This differs from the [toString] method because that method is primarily for debugging
-         * and generally doesn't throw.
-         *
-         * @throws IncreaseInvalidDataException if this class instance's value does not have the
-         *   expected primitive type.
-         */
-        fun asString(): String =
-            _value().asString().orElseThrow {
-                IncreaseInvalidDataException("Value is not a String")
-            }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): TransactionTiming = apply {
-            if (validated) {
-                return@apply
-            }
-
-            known()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is TransactionTiming && value == other.value
         }
 
         override fun hashCode() = value.hashCode()
