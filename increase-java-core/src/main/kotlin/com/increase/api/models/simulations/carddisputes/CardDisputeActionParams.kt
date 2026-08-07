@@ -661,6 +661,7 @@ private constructor(
         private val acceptUserSubmission: JsonField<AcceptUserSubmission>,
         private val declineUserPrearbitration: JsonField<DeclineUserPrearbitration>,
         private val receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration>,
+        private val reject: JsonField<Reject>,
         private val represent: JsonField<Represent>,
         private val requestFurtherInformation: JsonField<RequestFurtherInformation>,
         private val timeOutChargeback: JsonField<TimeOutChargeback>,
@@ -686,6 +687,7 @@ private constructor(
             @ExcludeMissing
             receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration> =
                 JsonMissing.of(),
+            @JsonProperty("reject") @ExcludeMissing reject: JsonField<Reject> = JsonMissing.of(),
             @JsonProperty("represent")
             @ExcludeMissing
             represent: JsonField<Represent> = JsonMissing.of(),
@@ -711,6 +713,7 @@ private constructor(
             acceptUserSubmission,
             declineUserPrearbitration,
             receiveMerchantPrearbitration,
+            reject,
             represent,
             requestFurtherInformation,
             timeOutChargeback,
@@ -768,6 +771,14 @@ private constructor(
          */
         fun receiveMerchantPrearbitration(): Optional<ReceiveMerchantPrearbitration> =
             receiveMerchantPrearbitration.getOptional("receive_merchant_prearbitration")
+
+        /**
+         * The parameters for rejecting the dispute. Required if and only if `action` is `reject`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun reject(): Optional<Reject> = reject.getOptional("reject")
 
         /**
          * The parameters for re-presenting the dispute. Required if and only if `action` is
@@ -878,6 +889,13 @@ private constructor(
             receiveMerchantPrearbitration
 
         /**
+         * Returns the raw JSON value of [reject].
+         *
+         * Unlike [reject], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reject") @ExcludeMissing fun _reject(): JsonField<Reject> = reject
+
+        /**
          * Returns the raw JSON value of [represent].
          *
          * Unlike [represent], this method doesn't throw if the JSON field has an unexpected type.
@@ -974,6 +992,7 @@ private constructor(
                 JsonMissing.of()
             private var receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration> =
                 JsonMissing.of()
+            private var reject: JsonField<Reject> = JsonMissing.of()
             private var represent: JsonField<Represent> = JsonMissing.of()
             private var requestFurtherInformation: JsonField<RequestFurtherInformation> =
                 JsonMissing.of()
@@ -992,6 +1011,7 @@ private constructor(
                 acceptUserSubmission = visa.acceptUserSubmission
                 declineUserPrearbitration = visa.declineUserPrearbitration
                 receiveMerchantPrearbitration = visa.receiveMerchantPrearbitration
+                reject = visa.reject
                 represent = visa.represent
                 requestFurtherInformation = visa.requestFurtherInformation
                 timeOutChargeback = visa.timeOutChargeback
@@ -1089,6 +1109,21 @@ private constructor(
             fun receiveMerchantPrearbitration(
                 receiveMerchantPrearbitration: JsonField<ReceiveMerchantPrearbitration>
             ) = apply { this.receiveMerchantPrearbitration = receiveMerchantPrearbitration }
+
+            /**
+             * The parameters for rejecting the dispute. Required if and only if `action` is
+             * `reject`.
+             */
+            fun reject(reject: Reject) = reject(JsonField.of(reject))
+
+            /**
+             * Sets [Builder.reject] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reject] with a well-typed [Reject] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reject(reject: JsonField<Reject>) = apply { this.reject = reject }
 
             /**
              * The parameters for re-presenting the dispute. Required if and only if `action` is
@@ -1235,6 +1270,7 @@ private constructor(
                     acceptUserSubmission,
                     declineUserPrearbitration,
                     receiveMerchantPrearbitration,
+                    reject,
                     represent,
                     requestFurtherInformation,
                     timeOutChargeback,
@@ -1266,6 +1302,7 @@ private constructor(
             acceptUserSubmission().ifPresent { it.validate() }
             declineUserPrearbitration().ifPresent { it.validate() }
             receiveMerchantPrearbitration().ifPresent { it.validate() }
+            reject().ifPresent { it.validate() }
             represent().ifPresent { it.validate() }
             requestFurtherInformation().ifPresent { it.validate() }
             timeOutChargeback().ifPresent { it.validate() }
@@ -1296,6 +1333,7 @@ private constructor(
                 (acceptUserSubmission.asKnown().getOrNull()?.validity() ?: 0) +
                 (declineUserPrearbitration.asKnown().getOrNull()?.validity() ?: 0) +
                 (receiveMerchantPrearbitration.asKnown().getOrNull()?.validity() ?: 0) +
+                (reject.asKnown().getOrNull()?.validity() ?: 0) +
                 (represent.asKnown().getOrNull()?.validity() ?: 0) +
                 (requestFurtherInformation.asKnown().getOrNull()?.validity() ?: 0) +
                 (timeOutChargeback.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1345,6 +1383,12 @@ private constructor(
                  */
                 @JvmField
                 val RECEIVE_MERCHANT_PREARBITRATION = of("receive_merchant_prearbitration")
+
+                /**
+                 * Simulate the dispute being rejected before it is submitted to the network. This
+                 * will move the dispute to a `rejected` state.
+                 */
+                @JvmField val REJECT = of("reject")
 
                 /**
                  * Simulate the merchant re-presenting the dispute. This will move the dispute to a
@@ -1409,6 +1453,11 @@ private constructor(
                  */
                 RECEIVE_MERCHANT_PREARBITRATION,
                 /**
+                 * Simulate the dispute being rejected before it is submitted to the network. This
+                 * will move the dispute to a `rejected` state.
+                 */
+                REJECT,
+                /**
                  * Simulate the merchant re-presenting the dispute. This will move the dispute to a
                  * `user_submission_required` state.
                  */
@@ -1471,6 +1520,11 @@ private constructor(
                  */
                 RECEIVE_MERCHANT_PREARBITRATION,
                 /**
+                 * Simulate the dispute being rejected before it is submitted to the network. This
+                 * will move the dispute to a `rejected` state.
+                 */
+                REJECT,
+                /**
                  * Simulate the merchant re-presenting the dispute. This will move the dispute to a
                  * `user_submission_required` state.
                  */
@@ -1519,6 +1573,7 @@ private constructor(
                     ACCEPT_USER_SUBMISSION -> Value.ACCEPT_USER_SUBMISSION
                     DECLINE_USER_PREARBITRATION -> Value.DECLINE_USER_PREARBITRATION
                     RECEIVE_MERCHANT_PREARBITRATION -> Value.RECEIVE_MERCHANT_PREARBITRATION
+                    REJECT -> Value.REJECT
                     REPRESENT -> Value.REPRESENT
                     REQUEST_FURTHER_INFORMATION -> Value.REQUEST_FURTHER_INFORMATION
                     TIME_OUT_CHARGEBACK -> Value.TIME_OUT_CHARGEBACK
@@ -1543,6 +1598,7 @@ private constructor(
                     ACCEPT_USER_SUBMISSION -> Known.ACCEPT_USER_SUBMISSION
                     DECLINE_USER_PREARBITRATION -> Known.DECLINE_USER_PREARBITRATION
                     RECEIVE_MERCHANT_PREARBITRATION -> Known.RECEIVE_MERCHANT_PREARBITRATION
+                    REJECT -> Known.REJECT
                     REPRESENT -> Known.REPRESENT
                     REQUEST_FURTHER_INFORMATION -> Known.REQUEST_FURTHER_INFORMATION
                     TIME_OUT_CHARGEBACK -> Known.TIME_OUT_CHARGEBACK
@@ -2112,6 +2168,190 @@ private constructor(
 
             override fun toString() =
                 "ReceiveMerchantPrearbitration{additionalProperties=$additionalProperties}"
+        }
+
+        /**
+         * The parameters for rejecting the dispute. Required if and only if `action` is `reject`.
+         */
+        class Reject
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val explanation: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("explanation")
+                @ExcludeMissing
+                explanation: JsonField<String> = JsonMissing.of()
+            ) : this(explanation, mutableMapOf())
+
+            /**
+             * The explanation for rejecting the dispute.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun explanation(): String = explanation.getRequired("explanation")
+
+            /**
+             * Returns the raw JSON value of [explanation].
+             *
+             * Unlike [explanation], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("explanation")
+            @ExcludeMissing
+            fun _explanation(): JsonField<String> = explanation
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Reject].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .explanation()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Reject]. */
+            class Builder internal constructor() {
+
+                private var explanation: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(reject: Reject) = apply {
+                    explanation = reject.explanation
+                    additionalProperties = reject.additionalProperties.toMutableMap()
+                }
+
+                /** The explanation for rejecting the dispute. */
+                fun explanation(explanation: String) = explanation(JsonField.of(explanation))
+
+                /**
+                 * Sets [Builder.explanation] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.explanation] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun explanation(explanation: JsonField<String>) = apply {
+                    this.explanation = explanation
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Reject].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .explanation()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Reject =
+                    Reject(
+                        checkRequired("explanation", explanation),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): Reject = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                explanation()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (explanation.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Reject &&
+                    explanation == other.explanation &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(explanation, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Reject{explanation=$explanation, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -2924,6 +3164,7 @@ private constructor(
                 acceptUserSubmission == other.acceptUserSubmission &&
                 declineUserPrearbitration == other.declineUserPrearbitration &&
                 receiveMerchantPrearbitration == other.receiveMerchantPrearbitration &&
+                reject == other.reject &&
                 represent == other.represent &&
                 requestFurtherInformation == other.requestFurtherInformation &&
                 timeOutChargeback == other.timeOutChargeback &&
@@ -2940,6 +3181,7 @@ private constructor(
                 acceptUserSubmission,
                 declineUserPrearbitration,
                 receiveMerchantPrearbitration,
+                reject,
                 represent,
                 requestFurtherInformation,
                 timeOutChargeback,
@@ -2953,7 +3195,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Visa{action=$action, acceptChargeback=$acceptChargeback, acceptUserSubmission=$acceptUserSubmission, declineUserPrearbitration=$declineUserPrearbitration, receiveMerchantPrearbitration=$receiveMerchantPrearbitration, represent=$represent, requestFurtherInformation=$requestFurtherInformation, timeOutChargeback=$timeOutChargeback, timeOutMerchantPrearbitration=$timeOutMerchantPrearbitration, timeOutRepresentment=$timeOutRepresentment, timeOutUserPrearbitration=$timeOutUserPrearbitration, additionalProperties=$additionalProperties}"
+            "Visa{action=$action, acceptChargeback=$acceptChargeback, acceptUserSubmission=$acceptUserSubmission, declineUserPrearbitration=$declineUserPrearbitration, receiveMerchantPrearbitration=$receiveMerchantPrearbitration, reject=$reject, represent=$represent, requestFurtherInformation=$requestFurtherInformation, timeOutChargeback=$timeOutChargeback, timeOutMerchantPrearbitration=$timeOutMerchantPrearbitration, timeOutRepresentment=$timeOutRepresentment, timeOutUserPrearbitration=$timeOutUserPrearbitration, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

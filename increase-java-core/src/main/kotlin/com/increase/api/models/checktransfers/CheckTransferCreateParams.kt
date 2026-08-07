@@ -1512,6 +1512,7 @@ private constructor(
         private val attachmentFileId: JsonField<String>,
         private val checkVoucherImageFileId: JsonField<String>,
         private val note: JsonField<String>,
+        private val physicalCheckBatchId: JsonField<String>,
         private val returnAddress: JsonField<ReturnAddress>,
         private val returnAddressName: JsonField<String>,
         private val shippingMethod: JsonField<ShippingMethod>,
@@ -1536,6 +1537,9 @@ private constructor(
             @ExcludeMissing
             checkVoucherImageFileId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("note") @ExcludeMissing note: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("physical_check_batch_id")
+            @ExcludeMissing
+            physicalCheckBatchId: JsonField<String> = JsonMissing.of(),
             @JsonProperty("return_address")
             @ExcludeMissing
             returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
@@ -1556,6 +1560,7 @@ private constructor(
             attachmentFileId,
             checkVoucherImageFileId,
             note,
+            physicalCheckBatchId,
             returnAddress,
             returnAddressName,
             shippingMethod,
@@ -1564,7 +1569,8 @@ private constructor(
         )
 
         /**
-         * Details for where Increase will mail the check.
+         * Details for where Increase will mail the check. When `physical_check_batch_id` is set,
+         * the address must match the Physical Check Batch.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1627,8 +1633,18 @@ private constructor(
         fun note(): Optional<String> = note.getOptional("note")
 
         /**
-         * The return address to be printed on the check. If omitted this will default to an
-         * Increase-owned address that will mark checks as delivery failed and shred them.
+         * The identifier of the Physical Check Batch to mail this check as a part of.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun physicalCheckBatchId(): Optional<String> =
+            physicalCheckBatchId.getOptional("physical_check_batch_id")
+
+        /**
+         * Details for where the courier will return the check to if it is unable to be delivered.
+         * Defaults to an Increase-owned address that will mark checks as delivery failed and shred
+         * them.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1726,6 +1742,16 @@ private constructor(
         @JsonProperty("note") @ExcludeMissing fun _note(): JsonField<String> = note
 
         /**
+         * Returns the raw JSON value of [physicalCheckBatchId].
+         *
+         * Unlike [physicalCheckBatchId], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("physical_check_batch_id")
+        @ExcludeMissing
+        fun _physicalCheckBatchId(): JsonField<String> = physicalCheckBatchId
+
+        /**
          * Returns the raw JSON value of [returnAddress].
          *
          * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected
@@ -1802,6 +1828,7 @@ private constructor(
             private var attachmentFileId: JsonField<String> = JsonMissing.of()
             private var checkVoucherImageFileId: JsonField<String> = JsonMissing.of()
             private var note: JsonField<String> = JsonMissing.of()
+            private var physicalCheckBatchId: JsonField<String> = JsonMissing.of()
             private var returnAddress: JsonField<ReturnAddress> = JsonMissing.of()
             private var returnAddressName: JsonField<String> = JsonMissing.of()
             private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
@@ -1817,6 +1844,7 @@ private constructor(
                 attachmentFileId = physicalCheck.attachmentFileId
                 checkVoucherImageFileId = physicalCheck.checkVoucherImageFileId
                 note = physicalCheck.note
+                physicalCheckBatchId = physicalCheck.physicalCheckBatchId
                 returnAddress = physicalCheck.returnAddress
                 returnAddressName = physicalCheck.returnAddressName
                 shippingMethod = physicalCheck.shippingMethod
@@ -1824,7 +1852,10 @@ private constructor(
                 additionalProperties = physicalCheck.additionalProperties.toMutableMap()
             }
 
-            /** Details for where Increase will mail the check. */
+            /**
+             * Details for where Increase will mail the check. When `physical_check_batch_id` is
+             * set, the address must match the Physical Check Batch.
+             */
             fun mailingAddress(mailingAddress: MailingAddress) =
                 mailingAddress(JsonField.of(mailingAddress))
 
@@ -1945,9 +1976,25 @@ private constructor(
              */
             fun note(note: JsonField<String>) = apply { this.note = note }
 
+            /** The identifier of the Physical Check Batch to mail this check as a part of. */
+            fun physicalCheckBatchId(physicalCheckBatchId: String) =
+                physicalCheckBatchId(JsonField.of(physicalCheckBatchId))
+
             /**
-             * The return address to be printed on the check. If omitted this will default to an
-             * Increase-owned address that will mark checks as delivery failed and shred them.
+             * Sets [Builder.physicalCheckBatchId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.physicalCheckBatchId] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun physicalCheckBatchId(physicalCheckBatchId: JsonField<String>) = apply {
+                this.physicalCheckBatchId = physicalCheckBatchId
+            }
+
+            /**
+             * Details for where the courier will return the check to if it is unable to be
+             * delivered. Defaults to an Increase-owned address that will mark checks as delivery
+             * failed and shred them.
              */
             fun returnAddress(returnAddress: ReturnAddress) =
                 returnAddress(JsonField.of(returnAddress))
@@ -2058,6 +2105,7 @@ private constructor(
                     attachmentFileId,
                     checkVoucherImageFileId,
                     note,
+                    physicalCheckBatchId,
                     returnAddress,
                     returnAddressName,
                     shippingMethod,
@@ -2089,6 +2137,7 @@ private constructor(
             attachmentFileId()
             checkVoucherImageFileId()
             note()
+            physicalCheckBatchId()
             returnAddress().ifPresent { it.validate() }
             returnAddressName()
             shippingMethod().ifPresent { it.validate() }
@@ -2119,12 +2168,16 @@ private constructor(
                 (if (attachmentFileId.asKnown().isPresent) 1 else 0) +
                 (if (checkVoucherImageFileId.asKnown().isPresent) 1 else 0) +
                 (if (note.asKnown().isPresent) 1 else 0) +
+                (if (physicalCheckBatchId.asKnown().isPresent) 1 else 0) +
                 (returnAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (returnAddressName.asKnown().isPresent) 1 else 0) +
                 (shippingMethod.asKnown().getOrNull()?.validity() ?: 0) +
                 (signature.asKnown().getOrNull()?.validity() ?: 0)
 
-        /** Details for where Increase will mail the check. */
+        /**
+         * Details for where Increase will mail the check. When `physical_check_batch_id` is set,
+         * the address must match the Physical Check Batch.
+         */
         class MailingAddress
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -2722,8 +2775,9 @@ private constructor(
         }
 
         /**
-         * The return address to be printed on the check. If omitted this will default to an
-         * Increase-owned address that will mark checks as delivery failed and shred them.
+         * Details for where the courier will return the check to if it is unable to be delivered.
+         * Defaults to an Increase-owned address that will mark checks as delivery failed and shred
+         * them.
          */
         class ReturnAddress
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -3519,6 +3573,7 @@ private constructor(
                 attachmentFileId == other.attachmentFileId &&
                 checkVoucherImageFileId == other.checkVoucherImageFileId &&
                 note == other.note &&
+                physicalCheckBatchId == other.physicalCheckBatchId &&
                 returnAddress == other.returnAddress &&
                 returnAddressName == other.returnAddressName &&
                 shippingMethod == other.shippingMethod &&
@@ -3535,6 +3590,7 @@ private constructor(
                 attachmentFileId,
                 checkVoucherImageFileId,
                 note,
+                physicalCheckBatchId,
                 returnAddress,
                 returnAddressName,
                 shippingMethod,
@@ -3546,7 +3602,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, payer=$payer, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
+            "PhysicalCheck{mailingAddress=$mailingAddress, memo=$memo, payer=$payer, recipientName=$recipientName, attachmentFileId=$attachmentFileId, checkVoucherImageFileId=$checkVoucherImageFileId, note=$note, physicalCheckBatchId=$physicalCheckBatchId, returnAddress=$returnAddress, returnAddressName=$returnAddressName, shippingMethod=$shippingMethod, signature=$signature, additionalProperties=$additionalProperties}"
     }
 
     /**
