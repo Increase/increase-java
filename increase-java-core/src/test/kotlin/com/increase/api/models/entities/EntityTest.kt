@@ -301,6 +301,9 @@ internal class EntityTest {
                                         )
                                         .build()
                                 )
+                                .entityIdentity(
+                                    Entity.Validation.Issue.EntityIdentity.builder().build()
+                                )
                                 .entityTaxIdentifier(
                                     Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
                                 )
@@ -603,6 +606,9 @@ internal class EntityTest {
                                     )
                                     .build()
                             )
+                            .entityIdentity(
+                                Entity.Validation.Issue.EntityIdentity.builder().build()
+                            )
                             .entityTaxIdentifier(
                                 Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
                             )
@@ -902,6 +908,9 @@ internal class EntityTest {
                                                 .MAILBOX_ADDRESS
                                         )
                                         .build()
+                                )
+                                .entityIdentity(
+                                    Entity.Validation.Issue.EntityIdentity.builder().build()
                                 )
                                 .entityTaxIdentifier(
                                     Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
