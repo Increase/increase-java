@@ -314,6 +314,9 @@ internal class EntityListPageResponseTest {
                                                 )
                                                 .build()
                                         )
+                                        .entityIdentity(
+                                            Entity.Validation.Issue.EntityIdentity.builder().build()
+                                        )
                                         .entityTaxIdentifier(
                                             Entity.Validation.Issue.EntityTaxIdentifier.builder()
                                                 .build()
@@ -622,6 +625,9 @@ internal class EntityListPageResponseTest {
                                                     .MAILBOX_ADDRESS
                                             )
                                             .build()
+                                    )
+                                    .entityIdentity(
+                                        Entity.Validation.Issue.EntityIdentity.builder().build()
                                     )
                                     .entityTaxIdentifier(
                                         Entity.Validation.Issue.EntityTaxIdentifier.builder()
@@ -939,6 +945,9 @@ internal class EntityListPageResponseTest {
                                                         .MAILBOX_ADDRESS
                                                 )
                                                 .build()
+                                        )
+                                        .entityIdentity(
+                                            Entity.Validation.Issue.EntityIdentity.builder().build()
                                         )
                                         .entityTaxIdentifier(
                                             Entity.Validation.Issue.EntityTaxIdentifier.builder()
