@@ -42,6 +42,11 @@ internal class CardDisputeServiceAsyncTest {
                                 CardDisputeActionParams.Visa.ReceiveMerchantPrearbitration.builder()
                                     .build()
                             )
+                            .reject(
+                                CardDisputeActionParams.Visa.Reject.builder()
+                                    .explanation("x")
+                                    .build()
+                            )
                             .represent(CardDisputeActionParams.Visa.Represent.builder().build())
                             .requestFurtherInformation(
                                 CardDisputeActionParams.Visa.RequestFurtherInformation.builder()

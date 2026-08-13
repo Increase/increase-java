@@ -62,7 +62,6 @@ internal class AchTransferCreateParamsTest {
             .standardEntryClassCode(
                 AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
             )
-            .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
             .build()
     }
 
@@ -123,7 +122,6 @@ internal class AchTransferCreateParamsTest {
                 .standardEntryClassCode(
                     AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT
                 )
-                .transactionTiming(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
                 .build()
 
         val body = params._body()
@@ -181,8 +179,6 @@ internal class AchTransferCreateParamsTest {
         assertThat(body.routingNumber()).contains("101050001")
         assertThat(body.standardEntryClassCode())
             .contains(AchTransferCreateParams.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
-        assertThat(body.transactionTiming())
-            .contains(AchTransferCreateParams.TransactionTiming.SYNCHRONOUS)
     }
 
     @Test
