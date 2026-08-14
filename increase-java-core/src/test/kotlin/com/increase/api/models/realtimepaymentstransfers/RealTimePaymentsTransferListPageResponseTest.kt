@@ -63,6 +63,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .debtorName("National Phonograph Company")
                         .externalAccountId(null)
                         .idempotencyKey(null)
+                        .inboundRealTimePaymentsRequestForPaymentId(null)
                         .pendingTransactionId(null)
                         .rejection(
                             RealTimePaymentsTransfer.Rejection.builder()
@@ -143,6 +144,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                     .debtorName("National Phonograph Company")
                     .externalAccountId(null)
                     .idempotencyKey(null)
+                    .inboundRealTimePaymentsRequestForPaymentId(null)
                     .pendingTransactionId(null)
                     .rejection(
                         RealTimePaymentsTransfer.Rejection.builder()
@@ -226,6 +228,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .debtorName("National Phonograph Company")
                         .externalAccountId(null)
                         .idempotencyKey(null)
+                        .inboundRealTimePaymentsRequestForPaymentId(null)
                         .pendingTransactionId(null)
                         .rejection(
                             RealTimePaymentsTransfer.Rejection.builder()
