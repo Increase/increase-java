@@ -31,12 +31,15 @@ internal class WireTransferServiceAsyncTest {
                             .name("Ian Crease")
                             .address(
                                 WireTransferCreateParams.Creditor.Address.builder()
-                                    .unstructured(
-                                        WireTransferCreateParams.Creditor.Address.Unstructured
+                                    .structured(
+                                        WireTransferCreateParams.Creditor.Address.Structured
                                             .builder()
+                                            .city("New York")
+                                            .country("US")
                                             .line1("33 Liberty Street")
-                                            .line2("New York")
-                                            .line3("NY 10045")
+                                            .line2("line2")
+                                            .postalCode("10045")
+                                            .state("NY")
                                             .build()
                                     )
                                     .build()
@@ -66,12 +69,14 @@ internal class WireTransferServiceAsyncTest {
                             .name("name")
                             .address(
                                 WireTransferCreateParams.Debtor.Address.builder()
-                                    .unstructured(
-                                        WireTransferCreateParams.Debtor.Address.Unstructured
-                                            .builder()
+                                    .structured(
+                                        WireTransferCreateParams.Debtor.Address.Structured.builder()
+                                            .city("city")
+                                            .country("xx")
                                             .line1("line1")
                                             .line2("line2")
-                                            .line3("line3")
+                                            .postalCode("postal_code")
+                                            .state("state")
                                             .build()
                                     )
                                     .build()

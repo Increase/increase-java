@@ -620,8 +620,9 @@ private constructor(
                 @JvmField val WON = of("won")
 
                 /**
-                 * The Card Dispute has been reviewed and rejected, please review the explanation
-                 * for more details.
+                 * The Card Dispute was rejected before it was submitted to the network, either by
+                 * Increase or because the user withdrew it. Please review the explanation for more
+                 * details.
                  */
                 @JvmField val REJECTED = of("rejected")
 
@@ -648,8 +649,9 @@ private constructor(
                 /** The Card Dispute has been won and no further action can be taken. */
                 WON,
                 /**
-                 * The Card Dispute has been reviewed and rejected, please review the explanation
-                 * for more details.
+                 * The Card Dispute was rejected before it was submitted to the network, either by
+                 * Increase or because the user withdrew it. Please review the explanation for more
+                 * details.
                  */
                 REJECTED,
             }
@@ -682,8 +684,9 @@ private constructor(
                 /** The Card Dispute has been won and no further action can be taken. */
                 WON,
                 /**
-                 * The Card Dispute has been reviewed and rejected, please review the explanation
-                 * for more details.
+                 * The Card Dispute was rejected before it was submitted to the network, either by
+                 * Increase or because the user withdrew it. Please review the explanation for more
+                 * details.
                  */
                 REJECTED,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
