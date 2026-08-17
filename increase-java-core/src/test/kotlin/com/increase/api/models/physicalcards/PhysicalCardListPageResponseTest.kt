@@ -46,7 +46,7 @@ internal class PhysicalCardListPageResponseTest {
                                 .status(PhysicalCard.Shipment.Status.SHIPPED)
                                 .tracking(
                                     PhysicalCard.Shipment.Tracking.builder()
-                                        .number("9400110200881234567890")
+                                        .number(null)
                                         .returnNumber(null)
                                         .returnReason(null)
                                         .shippedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -55,7 +55,7 @@ internal class PhysicalCardListPageResponseTest {
                                                 .carrierEstimatedDeliveryAt(null)
                                                 .category(
                                                     PhysicalCard.Shipment.Tracking.Update.Category
-                                                        .DELIVERED
+                                                        .IN_TRANSIT
                                                 )
                                                 .city(null)
                                                 .createdAt(
@@ -109,7 +109,7 @@ internal class PhysicalCardListPageResponseTest {
                             .status(PhysicalCard.Shipment.Status.SHIPPED)
                             .tracking(
                                 PhysicalCard.Shipment.Tracking.builder()
-                                    .number("9400110200881234567890")
+                                    .number(null)
                                     .returnNumber(null)
                                     .returnReason(null)
                                     .shippedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -118,7 +118,7 @@ internal class PhysicalCardListPageResponseTest {
                                             .carrierEstimatedDeliveryAt(null)
                                             .category(
                                                 PhysicalCard.Shipment.Tracking.Update.Category
-                                                    .DELIVERED
+                                                    .IN_TRANSIT
                                             )
                                             .city(null)
                                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -174,7 +174,7 @@ internal class PhysicalCardListPageResponseTest {
                                 .status(PhysicalCard.Shipment.Status.SHIPPED)
                                 .tracking(
                                     PhysicalCard.Shipment.Tracking.builder()
-                                        .number("9400110200881234567890")
+                                        .number(null)
                                         .returnNumber(null)
                                         .returnReason(null)
                                         .shippedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -183,7 +183,7 @@ internal class PhysicalCardListPageResponseTest {
                                                 .carrierEstimatedDeliveryAt(null)
                                                 .category(
                                                     PhysicalCard.Shipment.Tracking.Update.Category
-                                                        .DELIVERED
+                                                        .IN_TRANSIT
                                                 )
                                                 .city(null)
                                                 .createdAt(
