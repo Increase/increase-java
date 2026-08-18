@@ -287,6 +287,7 @@ internal class RealTimeDecisionTest {
                                 .build()
                         )
                         .networkRiskScore(10L)
+                        .originalCardPaymentId(null)
                         .partialApprovalCapability(
                             RealTimeDecision.CardAuthorization.PartialApprovalCapability
                                 .NOT_SUPPORTED
@@ -850,6 +851,7 @@ internal class RealTimeDecisionTest {
                             .build()
                     )
                     .networkRiskScore(10L)
+                    .originalCardPaymentId(null)
                     .partialApprovalCapability(
                         RealTimeDecision.CardAuthorization.PartialApprovalCapability.NOT_SUPPORTED
                     )
@@ -1421,6 +1423,7 @@ internal class RealTimeDecisionTest {
                                 .build()
                         )
                         .networkRiskScore(10L)
+                        .originalCardPaymentId(null)
                         .partialApprovalCapability(
                             RealTimeDecision.CardAuthorization.PartialApprovalCapability
                                 .NOT_SUPPORTED

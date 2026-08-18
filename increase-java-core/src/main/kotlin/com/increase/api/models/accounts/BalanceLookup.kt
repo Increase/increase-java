@@ -347,6 +347,12 @@ private constructor(
     private constructor(
         private val dueAt: JsonField<OffsetDateTime>,
         private val dueBalance: JsonField<Long>,
+        private val dueFees: JsonField<Long>,
+        private val dueInterest: JsonField<Long>,
+        private val duePrincipal: JsonField<Long>,
+        private val notDueFees: JsonField<Long>,
+        private val notDueInterest: JsonField<Long>,
+        private val notDuePrincipal: JsonField<Long>,
         private val pastDueBalance: JsonField<Long>,
         private val receivables: JsonField<Receivables>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -360,13 +366,41 @@ private constructor(
             @JsonProperty("due_balance")
             @ExcludeMissing
             dueBalance: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("due_fees") @ExcludeMissing dueFees: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("due_interest")
+            @ExcludeMissing
+            dueInterest: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("due_principal")
+            @ExcludeMissing
+            duePrincipal: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("not_due_fees")
+            @ExcludeMissing
+            notDueFees: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("not_due_interest")
+            @ExcludeMissing
+            notDueInterest: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("not_due_principal")
+            @ExcludeMissing
+            notDuePrincipal: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("past_due_balance")
             @ExcludeMissing
             pastDueBalance: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("receivables")
             @ExcludeMissing
             receivables: JsonField<Receivables> = JsonMissing.of(),
-        ) : this(dueAt, dueBalance, pastDueBalance, receivables, mutableMapOf())
+        ) : this(
+            dueAt,
+            dueBalance,
+            dueFees,
+            dueInterest,
+            duePrincipal,
+            notDueFees,
+            notDueInterest,
+            notDuePrincipal,
+            pastDueBalance,
+            receivables,
+            mutableMapOf(),
+        )
 
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time at which the loan payment is
@@ -384,6 +418,54 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun dueBalance(): Long = dueBalance.getRequired("due_balance")
+
+        /**
+         * The fees on the loan that are due and unpaid.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun dueFees(): Optional<Long> = dueFees.getOptional("due_fees")
+
+        /**
+         * The interest on the loan that is due and unpaid.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun dueInterest(): Optional<Long> = dueInterest.getOptional("due_interest")
+
+        /**
+         * The principal on the loan that is due and unpaid.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun duePrincipal(): Optional<Long> = duePrincipal.getOptional("due_principal")
+
+        /**
+         * The fees on the loan that are not yet due.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun notDueFees(): Optional<Long> = notDueFees.getOptional("not_due_fees")
+
+        /**
+         * The interest on the loan that is not yet due.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun notDueInterest(): Optional<Long> = notDueInterest.getOptional("not_due_interest")
+
+        /**
+         * The principal on the loan that is not yet due.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun notDuePrincipal(): Optional<Long> = notDuePrincipal.getOptional("not_due_principal")
 
         /**
          * The amount past due on the loan.
@@ -414,6 +496,61 @@ private constructor(
          * Unlike [dueBalance], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("due_balance") @ExcludeMissing fun _dueBalance(): JsonField<Long> = dueBalance
+
+        /**
+         * Returns the raw JSON value of [dueFees].
+         *
+         * Unlike [dueFees], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("due_fees") @ExcludeMissing fun _dueFees(): JsonField<Long> = dueFees
+
+        /**
+         * Returns the raw JSON value of [dueInterest].
+         *
+         * Unlike [dueInterest], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("due_interest")
+        @ExcludeMissing
+        fun _dueInterest(): JsonField<Long> = dueInterest
+
+        /**
+         * Returns the raw JSON value of [duePrincipal].
+         *
+         * Unlike [duePrincipal], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("due_principal")
+        @ExcludeMissing
+        fun _duePrincipal(): JsonField<Long> = duePrincipal
+
+        /**
+         * Returns the raw JSON value of [notDueFees].
+         *
+         * Unlike [notDueFees], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("not_due_fees")
+        @ExcludeMissing
+        fun _notDueFees(): JsonField<Long> = notDueFees
+
+        /**
+         * Returns the raw JSON value of [notDueInterest].
+         *
+         * Unlike [notDueInterest], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("not_due_interest")
+        @ExcludeMissing
+        fun _notDueInterest(): JsonField<Long> = notDueInterest
+
+        /**
+         * Returns the raw JSON value of [notDuePrincipal].
+         *
+         * Unlike [notDuePrincipal], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("not_due_principal")
+        @ExcludeMissing
+        fun _notDuePrincipal(): JsonField<Long> = notDuePrincipal
 
         /**
          * Returns the raw JSON value of [pastDueBalance].
@@ -455,6 +592,12 @@ private constructor(
              * ```java
              * .dueAt()
              * .dueBalance()
+             * .dueFees()
+             * .dueInterest()
+             * .duePrincipal()
+             * .notDueFees()
+             * .notDueInterest()
+             * .notDuePrincipal()
              * .pastDueBalance()
              * .receivables()
              * ```
@@ -467,6 +610,12 @@ private constructor(
 
             private var dueAt: JsonField<OffsetDateTime>? = null
             private var dueBalance: JsonField<Long>? = null
+            private var dueFees: JsonField<Long>? = null
+            private var dueInterest: JsonField<Long>? = null
+            private var duePrincipal: JsonField<Long>? = null
+            private var notDueFees: JsonField<Long>? = null
+            private var notDueInterest: JsonField<Long>? = null
+            private var notDuePrincipal: JsonField<Long>? = null
             private var pastDueBalance: JsonField<Long>? = null
             private var receivables: JsonField<Receivables>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -475,6 +624,12 @@ private constructor(
             internal fun from(loan: Loan) = apply {
                 dueAt = loan.dueAt
                 dueBalance = loan.dueBalance
+                dueFees = loan.dueFees
+                dueInterest = loan.dueInterest
+                duePrincipal = loan.duePrincipal
+                notDueFees = loan.notDueFees
+                notDueInterest = loan.notDueInterest
+                notDuePrincipal = loan.notDuePrincipal
                 pastDueBalance = loan.pastDueBalance
                 receivables = loan.receivables
                 additionalProperties = loan.additionalProperties.toMutableMap()
@@ -509,6 +664,148 @@ private constructor(
              * supported value.
              */
             fun dueBalance(dueBalance: JsonField<Long>) = apply { this.dueBalance = dueBalance }
+
+            /** The fees on the loan that are due and unpaid. */
+            fun dueFees(dueFees: Long?) = dueFees(JsonField.ofNullable(dueFees))
+
+            /**
+             * Alias for [Builder.dueFees].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun dueFees(dueFees: Long) = dueFees(dueFees as Long?)
+
+            /** Alias for calling [Builder.dueFees] with `dueFees.orElse(null)`. */
+            fun dueFees(dueFees: Optional<Long>) = dueFees(dueFees.getOrNull())
+
+            /**
+             * Sets [Builder.dueFees] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dueFees] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dueFees(dueFees: JsonField<Long>) = apply { this.dueFees = dueFees }
+
+            /** The interest on the loan that is due and unpaid. */
+            fun dueInterest(dueInterest: Long?) = dueInterest(JsonField.ofNullable(dueInterest))
+
+            /**
+             * Alias for [Builder.dueInterest].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun dueInterest(dueInterest: Long) = dueInterest(dueInterest as Long?)
+
+            /** Alias for calling [Builder.dueInterest] with `dueInterest.orElse(null)`. */
+            fun dueInterest(dueInterest: Optional<Long>) = dueInterest(dueInterest.getOrNull())
+
+            /**
+             * Sets [Builder.dueInterest] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.dueInterest] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun dueInterest(dueInterest: JsonField<Long>) = apply { this.dueInterest = dueInterest }
+
+            /** The principal on the loan that is due and unpaid. */
+            fun duePrincipal(duePrincipal: Long?) = duePrincipal(JsonField.ofNullable(duePrincipal))
+
+            /**
+             * Alias for [Builder.duePrincipal].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun duePrincipal(duePrincipal: Long) = duePrincipal(duePrincipal as Long?)
+
+            /** Alias for calling [Builder.duePrincipal] with `duePrincipal.orElse(null)`. */
+            fun duePrincipal(duePrincipal: Optional<Long>) = duePrincipal(duePrincipal.getOrNull())
+
+            /**
+             * Sets [Builder.duePrincipal] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.duePrincipal] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun duePrincipal(duePrincipal: JsonField<Long>) = apply {
+                this.duePrincipal = duePrincipal
+            }
+
+            /** The fees on the loan that are not yet due. */
+            fun notDueFees(notDueFees: Long?) = notDueFees(JsonField.ofNullable(notDueFees))
+
+            /**
+             * Alias for [Builder.notDueFees].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun notDueFees(notDueFees: Long) = notDueFees(notDueFees as Long?)
+
+            /** Alias for calling [Builder.notDueFees] with `notDueFees.orElse(null)`. */
+            fun notDueFees(notDueFees: Optional<Long>) = notDueFees(notDueFees.getOrNull())
+
+            /**
+             * Sets [Builder.notDueFees] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.notDueFees] with a well-typed [Long] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun notDueFees(notDueFees: JsonField<Long>) = apply { this.notDueFees = notDueFees }
+
+            /** The interest on the loan that is not yet due. */
+            fun notDueInterest(notDueInterest: Long?) =
+                notDueInterest(JsonField.ofNullable(notDueInterest))
+
+            /**
+             * Alias for [Builder.notDueInterest].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun notDueInterest(notDueInterest: Long) = notDueInterest(notDueInterest as Long?)
+
+            /** Alias for calling [Builder.notDueInterest] with `notDueInterest.orElse(null)`. */
+            fun notDueInterest(notDueInterest: Optional<Long>) =
+                notDueInterest(notDueInterest.getOrNull())
+
+            /**
+             * Sets [Builder.notDueInterest] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.notDueInterest] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun notDueInterest(notDueInterest: JsonField<Long>) = apply {
+                this.notDueInterest = notDueInterest
+            }
+
+            /** The principal on the loan that is not yet due. */
+            fun notDuePrincipal(notDuePrincipal: Long?) =
+                notDuePrincipal(JsonField.ofNullable(notDuePrincipal))
+
+            /**
+             * Alias for [Builder.notDuePrincipal].
+             *
+             * This unboxed primitive overload exists for backwards compatibility.
+             */
+            fun notDuePrincipal(notDuePrincipal: Long) = notDuePrincipal(notDuePrincipal as Long?)
+
+            /** Alias for calling [Builder.notDuePrincipal] with `notDuePrincipal.orElse(null)`. */
+            fun notDuePrincipal(notDuePrincipal: Optional<Long>) =
+                notDuePrincipal(notDuePrincipal.getOrNull())
+
+            /**
+             * Sets [Builder.notDuePrincipal] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.notDuePrincipal] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun notDuePrincipal(notDuePrincipal: JsonField<Long>) = apply {
+                this.notDuePrincipal = notDuePrincipal
+            }
 
             /** The amount past due on the loan. */
             fun pastDueBalance(pastDueBalance: Long) = pastDueBalance(JsonField.of(pastDueBalance))
@@ -571,6 +868,12 @@ private constructor(
              * ```java
              * .dueAt()
              * .dueBalance()
+             * .dueFees()
+             * .dueInterest()
+             * .duePrincipal()
+             * .notDueFees()
+             * .notDueInterest()
+             * .notDuePrincipal()
              * .pastDueBalance()
              * .receivables()
              * ```
@@ -581,6 +884,12 @@ private constructor(
                 Loan(
                     checkRequired("dueAt", dueAt),
                     checkRequired("dueBalance", dueBalance),
+                    checkRequired("dueFees", dueFees),
+                    checkRequired("dueInterest", dueInterest),
+                    checkRequired("duePrincipal", duePrincipal),
+                    checkRequired("notDueFees", notDueFees),
+                    checkRequired("notDueInterest", notDueInterest),
+                    checkRequired("notDuePrincipal", notDuePrincipal),
                     checkRequired("pastDueBalance", pastDueBalance),
                     checkRequired("receivables", receivables),
                     additionalProperties.toMutableMap(),
@@ -605,6 +914,12 @@ private constructor(
 
             dueAt()
             dueBalance()
+            dueFees()
+            dueInterest()
+            duePrincipal()
+            notDueFees()
+            notDueInterest()
+            notDuePrincipal()
             pastDueBalance()
             receivables().ifPresent { it.validate() }
             validated = true
@@ -628,6 +943,12 @@ private constructor(
         internal fun validity(): Int =
             (if (dueAt.asKnown().isPresent) 1 else 0) +
                 (if (dueBalance.asKnown().isPresent) 1 else 0) +
+                (if (dueFees.asKnown().isPresent) 1 else 0) +
+                (if (dueInterest.asKnown().isPresent) 1 else 0) +
+                (if (duePrincipal.asKnown().isPresent) 1 else 0) +
+                (if (notDueFees.asKnown().isPresent) 1 else 0) +
+                (if (notDueInterest.asKnown().isPresent) 1 else 0) +
+                (if (notDuePrincipal.asKnown().isPresent) 1 else 0) +
                 (if (pastDueBalance.asKnown().isPresent) 1 else 0) +
                 (receivables.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -871,19 +1192,37 @@ private constructor(
             return other is Loan &&
                 dueAt == other.dueAt &&
                 dueBalance == other.dueBalance &&
+                dueFees == other.dueFees &&
+                dueInterest == other.dueInterest &&
+                duePrincipal == other.duePrincipal &&
+                notDueFees == other.notDueFees &&
+                notDueInterest == other.notDueInterest &&
+                notDuePrincipal == other.notDuePrincipal &&
                 pastDueBalance == other.pastDueBalance &&
                 receivables == other.receivables &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(dueAt, dueBalance, pastDueBalance, receivables, additionalProperties)
+            Objects.hash(
+                dueAt,
+                dueBalance,
+                dueFees,
+                dueInterest,
+                duePrincipal,
+                notDueFees,
+                notDueInterest,
+                notDuePrincipal,
+                pastDueBalance,
+                receivables,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Loan{dueAt=$dueAt, dueBalance=$dueBalance, pastDueBalance=$pastDueBalance, receivables=$receivables, additionalProperties=$additionalProperties}"
+            "Loan{dueAt=$dueAt, dueBalance=$dueBalance, dueFees=$dueFees, dueInterest=$dueInterest, duePrincipal=$duePrincipal, notDueFees=$notDueFees, notDueInterest=$notDueInterest, notDuePrincipal=$notDuePrincipal, pastDueBalance=$pastDueBalance, receivables=$receivables, additionalProperties=$additionalProperties}"
     }
 
     /**

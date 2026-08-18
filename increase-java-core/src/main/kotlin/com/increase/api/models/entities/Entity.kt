@@ -8606,10 +8606,10 @@ private constructor(
         /**
          * The IP address the Entity accessed reviewed the terms from.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun ipAddress(): String = ipAddress.getRequired("ip_address")
+        fun ipAddress(): Optional<String> = ipAddress.getOptional("ip_address")
 
         /**
          * The URL of the terms agreement. This link will be provided by your bank partner.
@@ -8698,7 +8698,10 @@ private constructor(
             fun agreedAt(agreedAt: JsonField<OffsetDateTime>) = apply { this.agreedAt = agreedAt }
 
             /** The IP address the Entity accessed reviewed the terms from. */
-            fun ipAddress(ipAddress: String) = ipAddress(JsonField.of(ipAddress))
+            fun ipAddress(ipAddress: String?) = ipAddress(JsonField.ofNullable(ipAddress))
+
+            /** Alias for calling [Builder.ipAddress] with `ipAddress.orElse(null)`. */
+            fun ipAddress(ipAddress: Optional<String>) = ipAddress(ipAddress.getOrNull())
 
             /**
              * Sets [Builder.ipAddress] to an arbitrary JSON value.
@@ -13261,6 +13264,7 @@ private constructor(
             private val beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>,
             private val category: JsonField<Category>,
             private val entityAddress: JsonField<EntityAddress>,
+            private val entityIdentity: JsonField<EntityIdentity>,
             private val entityTaxIdentifier: JsonField<EntityTaxIdentifier>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
@@ -13279,6 +13283,9 @@ private constructor(
                 @JsonProperty("entity_address")
                 @ExcludeMissing
                 entityAddress: JsonField<EntityAddress> = JsonMissing.of(),
+                @JsonProperty("entity_identity")
+                @ExcludeMissing
+                entityIdentity: JsonField<EntityIdentity> = JsonMissing.of(),
                 @JsonProperty("entity_tax_identifier")
                 @ExcludeMissing
                 entityTaxIdentifier: JsonField<EntityTaxIdentifier> = JsonMissing.of(),
@@ -13287,6 +13294,7 @@ private constructor(
                 beneficialOwnerIdentity,
                 category,
                 entityAddress,
+                entityIdentity,
                 entityTaxIdentifier,
                 mutableMapOf(),
             )
@@ -13327,6 +13335,15 @@ private constructor(
              */
             fun entityAddress(): Optional<EntityAddress> =
                 entityAddress.getOptional("entity_address")
+
+            /**
+             * Details when the issue is with the entity's identity verification.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun entityIdentity(): Optional<EntityIdentity> =
+                entityIdentity.getOptional("entity_identity")
 
             /**
              * Details when the issue is with the entity's tax ID.
@@ -13380,6 +13397,16 @@ private constructor(
             fun _entityAddress(): JsonField<EntityAddress> = entityAddress
 
             /**
+             * Returns the raw JSON value of [entityIdentity].
+             *
+             * Unlike [entityIdentity], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("entity_identity")
+            @ExcludeMissing
+            fun _entityIdentity(): JsonField<EntityIdentity> = entityIdentity
+
+            /**
              * Returns the raw JSON value of [entityTaxIdentifier].
              *
              * Unlike [entityTaxIdentifier], this method doesn't throw if the JSON field has an
@@ -13412,6 +13439,7 @@ private constructor(
                  * .beneficialOwnerIdentity()
                  * .category()
                  * .entityAddress()
+                 * .entityIdentity()
                  * .entityTaxIdentifier()
                  * ```
                  */
@@ -13425,6 +13453,7 @@ private constructor(
                 private var beneficialOwnerIdentity: JsonField<BeneficialOwnerIdentity>? = null
                 private var category: JsonField<Category>? = null
                 private var entityAddress: JsonField<EntityAddress>? = null
+                private var entityIdentity: JsonField<EntityIdentity>? = null
                 private var entityTaxIdentifier: JsonField<EntityTaxIdentifier>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -13434,6 +13463,7 @@ private constructor(
                     beneficialOwnerIdentity = issue.beneficialOwnerIdentity
                     category = issue.category
                     entityAddress = issue.entityAddress
+                    entityIdentity = issue.entityIdentity
                     entityTaxIdentifier = issue.entityTaxIdentifier
                     additionalProperties = issue.additionalProperties.toMutableMap()
                 }
@@ -13518,6 +13548,27 @@ private constructor(
                     this.entityAddress = entityAddress
                 }
 
+                /** Details when the issue is with the entity's identity verification. */
+                fun entityIdentity(entityIdentity: EntityIdentity?) =
+                    entityIdentity(JsonField.ofNullable(entityIdentity))
+
+                /**
+                 * Alias for calling [Builder.entityIdentity] with `entityIdentity.orElse(null)`.
+                 */
+                fun entityIdentity(entityIdentity: Optional<EntityIdentity>) =
+                    entityIdentity(entityIdentity.getOrNull())
+
+                /**
+                 * Sets [Builder.entityIdentity] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.entityIdentity] with a well-typed
+                 * [EntityIdentity] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
+                fun entityIdentity(entityIdentity: JsonField<EntityIdentity>) = apply {
+                    this.entityIdentity = entityIdentity
+                }
+
                 /** Details when the issue is with the entity's tax ID. */
                 fun entityTaxIdentifier(entityTaxIdentifier: EntityTaxIdentifier?) =
                     entityTaxIdentifier(JsonField.ofNullable(entityTaxIdentifier))
@@ -13574,6 +13625,7 @@ private constructor(
                  * .beneficialOwnerIdentity()
                  * .category()
                  * .entityAddress()
+                 * .entityIdentity()
                  * .entityTaxIdentifier()
                  * ```
                  *
@@ -13585,6 +13637,7 @@ private constructor(
                         checkRequired("beneficialOwnerIdentity", beneficialOwnerIdentity),
                         checkRequired("category", category),
                         checkRequired("entityAddress", entityAddress),
+                        checkRequired("entityIdentity", entityIdentity),
                         checkRequired("entityTaxIdentifier", entityTaxIdentifier),
                         additionalProperties.toMutableMap(),
                     )
@@ -13611,6 +13664,7 @@ private constructor(
                 beneficialOwnerIdentity().ifPresent { it.validate() }
                 category().validate()
                 entityAddress().ifPresent { it.validate() }
+                entityIdentity().ifPresent { it.validate() }
                 entityTaxIdentifier().ifPresent { it.validate() }
                 validated = true
             }
@@ -13635,6 +13689,7 @@ private constructor(
                     (beneficialOwnerIdentity.asKnown().getOrNull()?.validity() ?: 0) +
                     (category.asKnown().getOrNull()?.validity() ?: 0) +
                     (entityAddress.asKnown().getOrNull()?.validity() ?: 0) +
+                    (entityIdentity.asKnown().getOrNull()?.validity() ?: 0) +
                     (entityTaxIdentifier.asKnown().getOrNull()?.validity() ?: 0)
 
             /** Details when the issue is with a beneficial owner's address. */
@@ -14229,6 +14284,13 @@ private constructor(
                     @JvmField val ENTITY_ADDRESS = of("entity_address")
 
                     /**
+                     * The entity's identity could not be verified. Update the identification with
+                     * the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                     */
+                    @JvmField val ENTITY_IDENTITY = of("entity_identity")
+
+                    /**
                      * A beneficial owner's identity could not be verified. Update the
                      * identification with the
                      * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
@@ -14257,6 +14319,12 @@ private constructor(
                      * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
                      */
                     ENTITY_ADDRESS,
+                    /**
+                     * The entity's identity could not be verified. Update the identification with
+                     * the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                     */
+                    ENTITY_IDENTITY,
                     /**
                      * A beneficial owner's identity could not be verified. Update the
                      * identification with the
@@ -14292,6 +14360,12 @@ private constructor(
                      */
                     ENTITY_ADDRESS,
                     /**
+                     * The entity's identity could not be verified. Update the identification with
+                     * the
+                     * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                     */
+                    ENTITY_IDENTITY,
+                    /**
                      * A beneficial owner's identity could not be verified. Update the
                      * identification with the
                      * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
@@ -14321,6 +14395,7 @@ private constructor(
                     when (this) {
                         ENTITY_TAX_IDENTIFIER -> Value.ENTITY_TAX_IDENTIFIER
                         ENTITY_ADDRESS -> Value.ENTITY_ADDRESS
+                        ENTITY_IDENTITY -> Value.ENTITY_IDENTITY
                         BENEFICIAL_OWNER_IDENTITY -> Value.BENEFICIAL_OWNER_IDENTITY
                         BENEFICIAL_OWNER_ADDRESS -> Value.BENEFICIAL_OWNER_ADDRESS
                         else -> Value._UNKNOWN
@@ -14339,6 +14414,7 @@ private constructor(
                     when (this) {
                         ENTITY_TAX_IDENTIFIER -> Known.ENTITY_TAX_IDENTIFIER
                         ENTITY_ADDRESS -> Known.ENTITY_ADDRESS
+                        ENTITY_IDENTITY -> Known.ENTITY_IDENTITY
                         BENEFICIAL_OWNER_IDENTITY -> Known.BENEFICIAL_OWNER_IDENTITY
                         BENEFICIAL_OWNER_ADDRESS -> Known.BENEFICIAL_OWNER_ADDRESS
                         else -> throw IncreaseInvalidDataException("Unknown Category: $value")
@@ -14728,6 +14804,127 @@ private constructor(
                     "EntityAddress{reason=$reason, additionalProperties=$additionalProperties}"
             }
 
+            /** Details when the issue is with the entity's identity verification. */
+            class EntityIdentity
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(private val additionalProperties: MutableMap<String, JsonValue>) {
+
+                @JsonCreator private constructor() : this(mutableMapOf())
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [EntityIdentity].
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [EntityIdentity]. */
+                class Builder internal constructor() {
+
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(entityIdentity: EntityIdentity) = apply {
+                        additionalProperties = entityIdentity.additionalProperties.toMutableMap()
+                    }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [EntityIdentity].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     */
+                    fun build(): EntityIdentity =
+                        EntityIdentity(additionalProperties.toMutableMap())
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): EntityIdentity = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic internal fun validity(): Int = 0
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is EntityIdentity &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy { Objects.hash(additionalProperties) }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "EntityIdentity{additionalProperties=$additionalProperties}"
+            }
+
             /** Details when the issue is with the entity's tax ID. */
             class EntityTaxIdentifier
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -14861,6 +15058,7 @@ private constructor(
                     beneficialOwnerIdentity == other.beneficialOwnerIdentity &&
                     category == other.category &&
                     entityAddress == other.entityAddress &&
+                    entityIdentity == other.entityIdentity &&
                     entityTaxIdentifier == other.entityTaxIdentifier &&
                     additionalProperties == other.additionalProperties
             }
@@ -14871,6 +15069,7 @@ private constructor(
                     beneficialOwnerIdentity,
                     category,
                     entityAddress,
+                    entityIdentity,
                     entityTaxIdentifier,
                     additionalProperties,
                 )
@@ -14879,7 +15078,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Issue{beneficialOwnerAddress=$beneficialOwnerAddress, beneficialOwnerIdentity=$beneficialOwnerIdentity, category=$category, entityAddress=$entityAddress, entityTaxIdentifier=$entityTaxIdentifier, additionalProperties=$additionalProperties}"
+                "Issue{beneficialOwnerAddress=$beneficialOwnerAddress, beneficialOwnerIdentity=$beneficialOwnerIdentity, category=$category, entityAddress=$entityAddress, entityIdentity=$entityIdentity, entityTaxIdentifier=$entityTaxIdentifier, additionalProperties=$additionalProperties}"
         }
 
         /**
