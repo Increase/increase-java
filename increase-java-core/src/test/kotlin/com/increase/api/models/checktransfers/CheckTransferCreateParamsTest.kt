@@ -48,6 +48,7 @@ internal class CheckTransferCreateParamsTest {
                     .attachmentFileId("attachment_file_id")
                     .checkVoucherImageFileId("check_voucher_image_file_id")
                     .note("note")
+                    .physicalCheckBatchId("physical_check_batch_id")
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                             .city("city")
@@ -118,6 +119,7 @@ internal class CheckTransferCreateParamsTest {
                         .attachmentFileId("attachment_file_id")
                         .checkVoucherImageFileId("check_voucher_image_file_id")
                         .note("note")
+                        .physicalCheckBatchId("physical_check_batch_id")
                         .returnAddress(
                             CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                                 .city("city")
@@ -189,6 +191,7 @@ internal class CheckTransferCreateParamsTest {
                     .attachmentFileId("attachment_file_id")
                     .checkVoucherImageFileId("check_voucher_image_file_id")
                     .note("note")
+                    .physicalCheckBatchId("physical_check_batch_id")
                     .returnAddress(
                         CheckTransferCreateParams.PhysicalCheck.ReturnAddress.builder()
                             .city("city")

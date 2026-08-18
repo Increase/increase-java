@@ -89,6 +89,7 @@ internal class CheckTransferTest {
                                     .build(),
                             )
                         )
+                        .physicalCheckBatchId(null)
                         .recipientName("Ian Crease")
                         .returnAddress(
                             CheckTransfer.PhysicalCheck.ReturnAddress.builder()
@@ -242,6 +243,7 @@ internal class CheckTransferTest {
                                 .build(),
                         )
                     )
+                    .physicalCheckBatchId(null)
                     .recipientName("Ian Crease")
                     .returnAddress(
                         CheckTransfer.PhysicalCheck.ReturnAddress.builder()
@@ -394,6 +396,7 @@ internal class CheckTransferTest {
                                     .build(),
                             )
                         )
+                        .physicalCheckBatchId(null)
                         .recipientName("Ian Crease")
                         .returnAddress(
                             CheckTransfer.PhysicalCheck.ReturnAddress.builder()
