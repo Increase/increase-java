@@ -301,12 +301,15 @@ internal class EntityTest {
                                         )
                                         .build()
                                 )
+                                .entityIdentity(
+                                    Entity.Validation.Issue.EntityIdentity.builder().build()
+                                )
                                 .entityTaxIdentifier(
                                     Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
                                 )
                                 .build()
                         )
-                        .status(Entity.Validation.Status.PENDING)
+                        .status(Entity.Validation.Status.VALID)
                         .build()
                 )
                 .build()
@@ -603,12 +606,15 @@ internal class EntityTest {
                                     )
                                     .build()
                             )
+                            .entityIdentity(
+                                Entity.Validation.Issue.EntityIdentity.builder().build()
+                            )
                             .entityTaxIdentifier(
                                 Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
                             )
                             .build()
                     )
-                    .status(Entity.Validation.Status.PENDING)
+                    .status(Entity.Validation.Status.VALID)
                     .build()
             )
     }
@@ -903,12 +909,15 @@ internal class EntityTest {
                                         )
                                         .build()
                                 )
+                                .entityIdentity(
+                                    Entity.Validation.Issue.EntityIdentity.builder().build()
+                                )
                                 .entityTaxIdentifier(
                                     Entity.Validation.Issue.EntityTaxIdentifier.builder().build()
                                 )
                                 .build()
                         )
-                        .status(Entity.Validation.Status.PENDING)
+                        .status(Entity.Validation.Status.VALID)
                         .build()
                 )
                 .build()

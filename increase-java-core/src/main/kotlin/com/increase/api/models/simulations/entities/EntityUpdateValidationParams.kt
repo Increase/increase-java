@@ -651,6 +651,12 @@ private constructor(
                 @JvmField val ENTITY_ADDRESS = of("entity_address")
 
                 /**
+                 * The entity's identity could not be verified. Update the identification with the
+                 * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                 */
+                @JvmField val ENTITY_IDENTITY = of("entity_identity")
+
+                /**
                  * A beneficial owner's identity could not be verified. Update the identification
                  * with the
                  * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
@@ -678,6 +684,11 @@ private constructor(
                  * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
                  */
                 ENTITY_ADDRESS,
+                /**
+                 * The entity's identity could not be verified. Update the identification with the
+                 * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                 */
+                ENTITY_IDENTITY,
                 /**
                  * A beneficial owner's identity could not be verified. Update the identification
                  * with the
@@ -712,6 +723,11 @@ private constructor(
                  */
                 ENTITY_ADDRESS,
                 /**
+                 * The entity's identity could not be verified. Update the identification with the
+                 * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                 */
+                ENTITY_IDENTITY,
+                /**
                  * A beneficial owner's identity could not be verified. Update the identification
                  * with the
                  * [update a beneficial owner API](/documentation/api/beneficial-owners#update-a-beneficial-owner).
@@ -739,6 +755,7 @@ private constructor(
                 when (this) {
                     ENTITY_TAX_IDENTIFIER -> Value.ENTITY_TAX_IDENTIFIER
                     ENTITY_ADDRESS -> Value.ENTITY_ADDRESS
+                    ENTITY_IDENTITY -> Value.ENTITY_IDENTITY
                     BENEFICIAL_OWNER_IDENTITY -> Value.BENEFICIAL_OWNER_IDENTITY
                     BENEFICIAL_OWNER_ADDRESS -> Value.BENEFICIAL_OWNER_ADDRESS
                     else -> Value._UNKNOWN
@@ -757,6 +774,7 @@ private constructor(
                 when (this) {
                     ENTITY_TAX_IDENTIFIER -> Known.ENTITY_TAX_IDENTIFIER
                     ENTITY_ADDRESS -> Known.ENTITY_ADDRESS
+                    ENTITY_IDENTITY -> Known.ENTITY_IDENTITY
                     BENEFICIAL_OWNER_IDENTITY -> Known.BENEFICIAL_OWNER_IDENTITY
                     BENEFICIAL_OWNER_ADDRESS -> Known.BENEFICIAL_OWNER_ADDRESS
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")

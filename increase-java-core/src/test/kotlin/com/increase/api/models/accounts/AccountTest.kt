@@ -17,7 +17,7 @@ internal class AccountTest {
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
                 .accountRevenueRate(null)
-                .bank(Account.Bank.FIRST_INTERNET_BANK)
+                .bank(Account.Bank.INCREASE_BANK)
                 .closedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.USD)
@@ -43,7 +43,7 @@ internal class AccountTest {
 
         assertThat(account.id()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(account.accountRevenueRate()).isEmpty
-        assertThat(account.bank()).isEqualTo(Account.Bank.FIRST_INTERNET_BANK)
+        assertThat(account.bank()).isEqualTo(Account.Bank.INCREASE_BANK)
         assertThat(account.closedAt()).isEmpty
         assertThat(account.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(account.currency()).isEqualTo(Account.Currency.USD)
@@ -75,7 +75,7 @@ internal class AccountTest {
             Account.builder()
                 .id("account_in71c4amph0vgo2qllky")
                 .accountRevenueRate(null)
-                .bank(Account.Bank.FIRST_INTERNET_BANK)
+                .bank(Account.Bank.INCREASE_BANK)
                 .closedAt(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(Account.Currency.USD)
