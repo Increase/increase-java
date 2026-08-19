@@ -30,6 +30,9 @@ internal class RealTimePaymentsTransferServiceAsyncTest {
                     .accountNumber("987654321")
                     .debtorName("debtor_name")
                     .externalAccountId("external_account_id")
+                    .inboundRealTimePaymentsRequestForPaymentId(
+                        "inbound_real_time_payments_request_for_payment_id"
+                    )
                     .requireApproval(true)
                     .routingNumber("101050001")
                     .ultimateCreditorName("ultimate_creditor_name")
