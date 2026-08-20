@@ -129,6 +129,7 @@ internal class BeneficialOwnerServiceTest {
                             .build()
                     )
                     .confirmedNoUsTaxId(true)
+                    .dateOfBirth(LocalDate.parse("2019-12-27"))
                     .identification(
                         BeneficialOwnerUpdateParams.Identification.builder()
                             .method(

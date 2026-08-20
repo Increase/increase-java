@@ -24,6 +24,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .build()
             )
             .confirmedNoUsTaxId(true)
+            .dateOfBirth(LocalDate.parse("2019-12-27"))
             .identification(
                 BeneficialOwnerUpdateParams.Identification.builder()
                     .method(
@@ -89,6 +90,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                         .build()
                 )
                 .confirmedNoUsTaxId(true)
+                .dateOfBirth(LocalDate.parse("2019-12-27"))
                 .identification(
                     BeneficialOwnerUpdateParams.Identification.builder()
                         .method(
@@ -139,6 +141,7 @@ internal class BeneficialOwnerUpdateParamsTest {
                     .build()
             )
         assertThat(body.confirmedNoUsTaxId()).contains(true)
+        assertThat(body.dateOfBirth()).contains(LocalDate.parse("2019-12-27"))
         assertThat(body.identification())
             .contains(
                 BeneficialOwnerUpdateParams.Identification.builder()
