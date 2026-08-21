@@ -38,6 +38,12 @@ tasks.withType<Test>().configureEach {
     maxParallelForks = (Runtime.getRuntime().availableProcessors() / 2).coerceAtLeast(1)
     forkEvery = 100
 
+    // Mockito's inline mock maker attaches the Byte Buddy agent dynamically, which makes the
+    // JVM print a warning to stderr. Tests that capture stderr to assert on logging output run
+    // concurrently with tests that use Mockito, so that warning can land in their captured
+    // output and fail them. Enabling dynamic agent loading up front suppresses the warning.
+    jvmArgs("-XX:+EnableDynamicAgentLoading")
+
     testLogging {
         exceptionFormat = TestExceptionFormat.FULL
     }
