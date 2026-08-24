@@ -1014,6 +1014,9 @@ private constructor(
                 /** Occurs whenever a Physical Check is updated. */
                 @JvmField val PHYSICAL_CHECK_UPDATED = of("physical_check.updated")
 
+                /** Occurs whenever a Plaid Processor Token is created. */
+                @JvmField val PLAID_PROCESSOR_TOKEN_CREATED = of("plaid_processor_token.created")
+
                 /** Occurs whenever a Checkbook is created. */
                 @JvmField val CHECKBOOK_CREATED = of("checkbook.created")
 
@@ -1329,6 +1332,8 @@ private constructor(
                 PHYSICAL_CHECK_CREATED,
                 /** Occurs whenever a Physical Check is updated. */
                 PHYSICAL_CHECK_UPDATED,
+                /** Occurs whenever a Plaid Processor Token is created. */
+                PLAID_PROCESSOR_TOKEN_CREATED,
                 /** Occurs whenever a Checkbook is created. */
                 CHECKBOOK_CREATED,
                 /** Occurs whenever a Checkbook is updated. */
@@ -1606,6 +1611,8 @@ private constructor(
                 PHYSICAL_CHECK_CREATED,
                 /** Occurs whenever a Physical Check is updated. */
                 PHYSICAL_CHECK_UPDATED,
+                /** Occurs whenever a Plaid Processor Token is created. */
+                PLAID_PROCESSOR_TOKEN_CREATED,
                 /** Occurs whenever a Checkbook is created. */
                 CHECKBOOK_CREATED,
                 /** Occurs whenever a Checkbook is updated. */
@@ -1790,6 +1797,7 @@ private constructor(
                     PHYSICAL_CARD_PROFILE_UPDATED -> Value.PHYSICAL_CARD_PROFILE_UPDATED
                     PHYSICAL_CHECK_CREATED -> Value.PHYSICAL_CHECK_CREATED
                     PHYSICAL_CHECK_UPDATED -> Value.PHYSICAL_CHECK_UPDATED
+                    PLAID_PROCESSOR_TOKEN_CREATED -> Value.PLAID_PROCESSOR_TOKEN_CREATED
                     CHECKBOOK_CREATED -> Value.CHECKBOOK_CREATED
                     CHECKBOOK_UPDATED -> Value.CHECKBOOK_UPDATED
                     PROGRAM_CREATED -> Value.PROGRAM_CREATED
@@ -1941,6 +1949,7 @@ private constructor(
                     PHYSICAL_CARD_PROFILE_UPDATED -> Known.PHYSICAL_CARD_PROFILE_UPDATED
                     PHYSICAL_CHECK_CREATED -> Known.PHYSICAL_CHECK_CREATED
                     PHYSICAL_CHECK_UPDATED -> Known.PHYSICAL_CHECK_UPDATED
+                    PLAID_PROCESSOR_TOKEN_CREATED -> Known.PLAID_PROCESSOR_TOKEN_CREATED
                     CHECKBOOK_CREATED -> Known.CHECKBOOK_CREATED
                     CHECKBOOK_UPDATED -> Known.CHECKBOOK_UPDATED
                     PROGRAM_CREATED -> Known.PROGRAM_CREATED

@@ -1135,8 +1135,9 @@ private constructor(
                 /**
                  * The Pending Transaction is confirmed. An associated Transaction exists for this
                  * object. The Pending Transaction will no longer count against your balance and can
-                 * generally be hidden from UIs, etc. The Pending Transaction's `amount` is not
-                 * updated if the associated Transaction settles for a different amount.
+                 * generally be hidden from UIs, etc. The Pending Transaction's `amount` is the
+                 * amount that was still held when it completed, which can differ from the amount of
+                 * the associated Transaction.
                  */
                 @JvmField val COMPLETE = of("complete")
 
@@ -1150,8 +1151,9 @@ private constructor(
                 /**
                  * The Pending Transaction is confirmed. An associated Transaction exists for this
                  * object. The Pending Transaction will no longer count against your balance and can
-                 * generally be hidden from UIs, etc. The Pending Transaction's `amount` is not
-                 * updated if the associated Transaction settles for a different amount.
+                 * generally be hidden from UIs, etc. The Pending Transaction's `amount` is the
+                 * amount that was still held when it completed, which can differ from the amount of
+                 * the associated Transaction.
                  */
                 COMPLETE,
             }
@@ -1171,8 +1173,9 @@ private constructor(
                 /**
                  * The Pending Transaction is confirmed. An associated Transaction exists for this
                  * object. The Pending Transaction will no longer count against your balance and can
-                 * generally be hidden from UIs, etc. The Pending Transaction's `amount` is not
-                 * updated if the associated Transaction settles for a different amount.
+                 * generally be hidden from UIs, etc. The Pending Transaction's `amount` is the
+                 * amount that was still held when it completed, which can differ from the amount of
+                 * the associated Transaction.
                  */
                 COMPLETE,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
