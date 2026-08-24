@@ -932,9 +932,9 @@ private constructor(
     private constructor(
         private val creditLimit: JsonField<Long>,
         private val gracePeriodDays: JsonField<Long>,
+        private val maturityDate: JsonField<LocalDate>,
         private val statementDayOfMonth: JsonField<Long>,
         private val statementPaymentType: JsonField<StatementPaymentType>,
-        private val maturityDate: JsonField<LocalDate>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -946,21 +946,21 @@ private constructor(
             @JsonProperty("grace_period_days")
             @ExcludeMissing
             gracePeriodDays: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("maturity_date")
+            @ExcludeMissing
+            maturityDate: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("statement_day_of_month")
             @ExcludeMissing
             statementDayOfMonth: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("statement_payment_type")
             @ExcludeMissing
             statementPaymentType: JsonField<StatementPaymentType> = JsonMissing.of(),
-            @JsonProperty("maturity_date")
-            @ExcludeMissing
-            maturityDate: JsonField<LocalDate> = JsonMissing.of(),
         ) : this(
             creditLimit,
             gracePeriodDays,
+            maturityDate,
             statementDayOfMonth,
             statementPaymentType,
-            maturityDate,
             mutableMapOf(),
         )
 
@@ -976,27 +976,10 @@ private constructor(
          * The number of days after the statement date that the Account can be past due before being
          * considered delinquent.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        fun gracePeriodDays(): Long = gracePeriodDays.getRequired("grace_period_days")
-
-        /**
-         * The day of the month on which the loan statement is generated.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun statementDayOfMonth(): Long = statementDayOfMonth.getRequired("statement_day_of_month")
-
-        /**
-         * The type of statement payment for the account.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun statementPaymentType(): StatementPaymentType =
-            statementPaymentType.getRequired("statement_payment_type")
+        fun gracePeriodDays(): Optional<Long> = gracePeriodDays.getOptional("grace_period_days")
 
         /**
          * The date on which the loan matures.
@@ -1005,6 +988,24 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun maturityDate(): Optional<LocalDate> = maturityDate.getOptional("maturity_date")
+
+        /**
+         * The day of the month on which the loan statement is generated.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun statementDayOfMonth(): Optional<Long> =
+            statementDayOfMonth.getOptional("statement_day_of_month")
+
+        /**
+         * The type of statement payment for the account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun statementPaymentType(): Optional<StatementPaymentType> =
+            statementPaymentType.getOptional("statement_payment_type")
 
         /**
          * Returns the raw JSON value of [creditLimit].
@@ -1026,6 +1027,16 @@ private constructor(
         fun _gracePeriodDays(): JsonField<Long> = gracePeriodDays
 
         /**
+         * Returns the raw JSON value of [maturityDate].
+         *
+         * Unlike [maturityDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("maturity_date")
+        @ExcludeMissing
+        fun _maturityDate(): JsonField<LocalDate> = maturityDate
+
+        /**
          * Returns the raw JSON value of [statementDayOfMonth].
          *
          * Unlike [statementDayOfMonth], this method doesn't throw if the JSON field has an
@@ -1044,16 +1055,6 @@ private constructor(
         @JsonProperty("statement_payment_type")
         @ExcludeMissing
         fun _statementPaymentType(): JsonField<StatementPaymentType> = statementPaymentType
-
-        /**
-         * Returns the raw JSON value of [maturityDate].
-         *
-         * Unlike [maturityDate], this method doesn't throw if the JSON field has an unexpected
-         * type.
-         */
-        @JsonProperty("maturity_date")
-        @ExcludeMissing
-        fun _maturityDate(): JsonField<LocalDate> = maturityDate
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1075,9 +1076,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .creditLimit()
-             * .gracePeriodDays()
-             * .statementDayOfMonth()
-             * .statementPaymentType()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -1087,19 +1085,19 @@ private constructor(
         class Builder internal constructor() {
 
             private var creditLimit: JsonField<Long>? = null
-            private var gracePeriodDays: JsonField<Long>? = null
-            private var statementDayOfMonth: JsonField<Long>? = null
-            private var statementPaymentType: JsonField<StatementPaymentType>? = null
+            private var gracePeriodDays: JsonField<Long> = JsonMissing.of()
             private var maturityDate: JsonField<LocalDate> = JsonMissing.of()
+            private var statementDayOfMonth: JsonField<Long> = JsonMissing.of()
+            private var statementPaymentType: JsonField<StatementPaymentType> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(loan: Loan) = apply {
                 creditLimit = loan.creditLimit
                 gracePeriodDays = loan.gracePeriodDays
+                maturityDate = loan.maturityDate
                 statementDayOfMonth = loan.statementDayOfMonth
                 statementPaymentType = loan.statementPaymentType
-                maturityDate = loan.maturityDate
                 additionalProperties = loan.additionalProperties.toMutableMap()
             }
 
@@ -1133,6 +1131,20 @@ private constructor(
                 this.gracePeriodDays = gracePeriodDays
             }
 
+            /** The date on which the loan matures. */
+            fun maturityDate(maturityDate: LocalDate) = maturityDate(JsonField.of(maturityDate))
+
+            /**
+             * Sets [Builder.maturityDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.maturityDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun maturityDate(maturityDate: JsonField<LocalDate>) = apply {
+                this.maturityDate = maturityDate
+            }
+
             /** The day of the month on which the loan statement is generated. */
             fun statementDayOfMonth(statementDayOfMonth: Long) =
                 statementDayOfMonth(JsonField.of(statementDayOfMonth))
@@ -1164,20 +1176,6 @@ private constructor(
                     this.statementPaymentType = statementPaymentType
                 }
 
-            /** The date on which the loan matures. */
-            fun maturityDate(maturityDate: LocalDate) = maturityDate(JsonField.of(maturityDate))
-
-            /**
-             * Sets [Builder.maturityDate] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.maturityDate] with a well-typed [LocalDate] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun maturityDate(maturityDate: JsonField<LocalDate>) = apply {
-                this.maturityDate = maturityDate
-            }
-
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -1205,9 +1203,6 @@ private constructor(
              * The following fields are required:
              * ```java
              * .creditLimit()
-             * .gracePeriodDays()
-             * .statementDayOfMonth()
-             * .statementPaymentType()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -1215,10 +1210,10 @@ private constructor(
             fun build(): Loan =
                 Loan(
                     checkRequired("creditLimit", creditLimit),
-                    checkRequired("gracePeriodDays", gracePeriodDays),
-                    checkRequired("statementDayOfMonth", statementDayOfMonth),
-                    checkRequired("statementPaymentType", statementPaymentType),
+                    gracePeriodDays,
                     maturityDate,
+                    statementDayOfMonth,
+                    statementPaymentType,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -1241,9 +1236,9 @@ private constructor(
 
             creditLimit()
             gracePeriodDays()
-            statementDayOfMonth()
-            statementPaymentType().validate()
             maturityDate()
+            statementDayOfMonth()
+            statementPaymentType().ifPresent { it.validate() }
             validated = true
         }
 
@@ -1265,9 +1260,9 @@ private constructor(
         internal fun validity(): Int =
             (if (creditLimit.asKnown().isPresent) 1 else 0) +
                 (if (gracePeriodDays.asKnown().isPresent) 1 else 0) +
+                (if (maturityDate.asKnown().isPresent) 1 else 0) +
                 (if (statementDayOfMonth.asKnown().isPresent) 1 else 0) +
-                (statementPaymentType.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (maturityDate.asKnown().isPresent) 1 else 0)
+                (statementPaymentType.asKnown().getOrNull()?.validity() ?: 0)
 
         /** The type of statement payment for the account. */
         class StatementPaymentType
@@ -1444,9 +1439,9 @@ private constructor(
             return other is Loan &&
                 creditLimit == other.creditLimit &&
                 gracePeriodDays == other.gracePeriodDays &&
+                maturityDate == other.maturityDate &&
                 statementDayOfMonth == other.statementDayOfMonth &&
                 statementPaymentType == other.statementPaymentType &&
-                maturityDate == other.maturityDate &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -1454,9 +1449,9 @@ private constructor(
             Objects.hash(
                 creditLimit,
                 gracePeriodDays,
+                maturityDate,
                 statementDayOfMonth,
                 statementPaymentType,
-                maturityDate,
                 additionalProperties,
             )
         }
@@ -1464,7 +1459,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Loan{creditLimit=$creditLimit, gracePeriodDays=$gracePeriodDays, statementDayOfMonth=$statementDayOfMonth, statementPaymentType=$statementPaymentType, maturityDate=$maturityDate, additionalProperties=$additionalProperties}"
+            "Loan{creditLimit=$creditLimit, gracePeriodDays=$gracePeriodDays, maturityDate=$maturityDate, statementDayOfMonth=$statementDayOfMonth, statementPaymentType=$statementPaymentType, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

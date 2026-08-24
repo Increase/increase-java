@@ -81,11 +81,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -120,11 +120,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -159,11 +159,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -198,11 +198,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -237,11 +237,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -276,11 +276,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -315,11 +315,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -354,11 +354,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -393,11 +393,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -432,11 +432,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -471,11 +471,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -510,11 +510,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -549,11 +549,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -588,11 +588,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -627,11 +627,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -666,11 +666,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
@@ -703,11 +703,11 @@ internal class ErrorHandlingTest {
                             AccountCreateParams.Loan.builder()
                                 .creditLimit(0L)
                                 .gracePeriodDays(0L)
+                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .statementDayOfMonth(1L)
                                 .statementPaymentType(
                                     AccountCreateParams.Loan.StatementPaymentType.BALANCE
                                 )
-                                .maturityDate(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .programId("program_i2v2os4mwza1oetokh9i")
