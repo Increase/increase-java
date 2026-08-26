@@ -36,7 +36,10 @@ private constructor(
     fun inboundCheckDepositId(): Optional<String> = Optional.ofNullable(inboundCheckDepositId)
 
     /**
-     * The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit.
+     * The adjustment amount in cents. A positive amount means that the funds are being returned to
+     * you by the other bank and is a credit to your account, as happens for a `wrong_payee_credit`.
+     * A negative amount is a debit to your account, as happens for a `late_return`. Defaults to the
+     * amount of the Inbound Check Deposit.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -127,7 +130,12 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit. */
+        /**
+         * The adjustment amount in cents. A positive amount means that the funds are being returned
+         * to you by the other bank and is a credit to your account, as happens for a
+         * `wrong_payee_credit`. A negative amount is a debit to your account, as happens for a
+         * `late_return`. Defaults to the amount of the Inbound Check Deposit.
+         */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
@@ -307,7 +315,10 @@ private constructor(
         ) : this(amount, reason, mutableMapOf())
 
         /**
-         * The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit.
+         * The adjustment amount in cents. A positive amount means that the funds are being returned
+         * to you by the other bank and is a credit to your account, as happens for a
+         * `wrong_payee_credit`. A negative amount is a debit to your account, as happens for a
+         * `late_return`. Defaults to the amount of the Inbound Check Deposit.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -369,7 +380,10 @@ private constructor(
             }
 
             /**
-             * The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit.
+             * The adjustment amount in cents. A positive amount means that the funds are being
+             * returned to you by the other bank and is a credit to your account, as happens for a
+             * `wrong_payee_credit`. A negative amount is a debit to your account, as happens for a
+             * `late_return`. Defaults to the amount of the Inbound Check Deposit.
              */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
