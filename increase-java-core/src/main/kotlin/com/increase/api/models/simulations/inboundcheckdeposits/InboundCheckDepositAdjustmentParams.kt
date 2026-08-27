@@ -36,7 +36,10 @@ private constructor(
     fun inboundCheckDepositId(): Optional<String> = Optional.ofNullable(inboundCheckDepositId)
 
     /**
-     * The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit.
+     * The adjustment amount in cents. A positive amount means that the funds are being returned to
+     * you by the other bank and is a credit to your account, as happens for a `wrong_payee_credit`.
+     * A negative amount is a debit to your account, as happens for a `late_return`. Defaults to the
+     * amount of the Inbound Check Deposit.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -127,7 +130,12 @@ private constructor(
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit. */
+        /**
+         * The adjustment amount in cents. A positive amount means that the funds are being returned
+         * to you by the other bank and is a credit to your account, as happens for a
+         * `wrong_payee_credit`. A negative amount is a debit to your account, as happens for a
+         * `late_return`. Defaults to the amount of the Inbound Check Deposit.
+         */
         fun amount(amount: Long) = apply { body.amount(amount) }
 
         /**
@@ -307,7 +315,10 @@ private constructor(
         ) : this(amount, reason, mutableMapOf())
 
         /**
-         * The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit.
+         * The adjustment amount in cents. A positive amount means that the funds are being returned
+         * to you by the other bank and is a credit to your account, as happens for a
+         * `wrong_payee_credit`. A negative amount is a debit to your account, as happens for a
+         * `late_return`. Defaults to the amount of the Inbound Check Deposit.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -369,7 +380,10 @@ private constructor(
             }
 
             /**
-             * The adjustment amount in cents. Defaults to the amount of the Inbound Check Deposit.
+             * The adjustment amount in cents. A positive amount means that the funds are being
+             * returned to you by the other bank and is a credit to your account, as happens for a
+             * `wrong_payee_credit`. A negative amount is a debit to your account, as happens for a
+             * `late_return`. Defaults to the amount of the Inbound Check Deposit.
              */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
@@ -507,20 +521,6 @@ private constructor(
              */
             @JvmField val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
 
-            /**
-             * The check was deposited with a different amount than what was written on the check.
-             */
-            @JvmField val ADJUSTED_AMOUNT = of("adjusted_amount")
-
-            /**
-             * The recipient was not able to process the check. This usually happens for e.g., low
-             * quality images.
-             */
-            @JvmField val NON_CONFORMING_ITEM = of("non_conforming_item")
-
-            /** The check has already been deposited elsewhere and so this is a duplicate. */
-            @JvmField val PAID = of("paid")
-
             @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
         }
 
@@ -536,17 +536,6 @@ private constructor(
              * reimbursed the funds with a Wrong Payee Credit.
              */
             WRONG_PAYEE_CREDIT,
-            /**
-             * The check was deposited with a different amount than what was written on the check.
-             */
-            ADJUSTED_AMOUNT,
-            /**
-             * The recipient was not able to process the check. This usually happens for e.g., low
-             * quality images.
-             */
-            NON_CONFORMING_ITEM,
-            /** The check has already been deposited elsewhere and so this is a duplicate. */
-            PAID,
         }
 
         /**
@@ -569,17 +558,6 @@ private constructor(
              * reimbursed the funds with a Wrong Payee Credit.
              */
             WRONG_PAYEE_CREDIT,
-            /**
-             * The check was deposited with a different amount than what was written on the check.
-             */
-            ADJUSTED_AMOUNT,
-            /**
-             * The recipient was not able to process the check. This usually happens for e.g., low
-             * quality images.
-             */
-            NON_CONFORMING_ITEM,
-            /** The check has already been deposited elsewhere and so this is a duplicate. */
-            PAID,
             /** An enum member indicating that [Reason] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -595,9 +573,6 @@ private constructor(
             when (this) {
                 LATE_RETURN -> Value.LATE_RETURN
                 WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
-                ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
-                NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
-                PAID -> Value.PAID
                 else -> Value._UNKNOWN
             }
 
@@ -614,9 +589,6 @@ private constructor(
             when (this) {
                 LATE_RETURN -> Known.LATE_RETURN
                 WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
-                ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
-                NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
-                PAID -> Known.PAID
                 else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
             }
 

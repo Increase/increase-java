@@ -49102,7 +49102,8 @@ private constructor(
                 adjustedTransactionId.getRequired("adjusted_transaction_id")
 
             /**
-             * The amount of the check adjustment.
+             * The amount of the check adjustment in USD cents. A positive amount is a credit to
+             * your account and a negative amount is a debit.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
@@ -49203,7 +49204,10 @@ private constructor(
                     this.adjustedTransactionId = adjustedTransactionId
                 }
 
-                /** The amount of the check adjustment. */
+                /**
+                 * The amount of the check adjustment in USD cents. A positive amount is a credit to
+                 * your account and a negative amount is a debit.
+                 */
                 fun amount(amount: Long) = amount(JsonField.of(amount))
 
                 /**
