@@ -1156,7 +1156,8 @@ private constructor(
         fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
 
         /**
-         * The amount of the adjustment.
+         * The amount of the adjustment in USD cents. A positive amount is a credit to your account
+         * and a negative amount is a debit.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1272,7 +1273,10 @@ private constructor(
                 this.adjustedAt = adjustedAt
             }
 
-            /** The amount of the adjustment. */
+            /**
+             * The amount of the adjustment in USD cents. A positive amount is a credit to your
+             * account and a negative amount is a debit.
+             */
             fun amount(amount: Long) = amount(JsonField.of(amount))
 
             /**
