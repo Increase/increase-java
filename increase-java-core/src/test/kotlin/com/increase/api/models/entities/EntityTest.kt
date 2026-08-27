@@ -174,6 +174,52 @@ internal class EntityTest {
                         .rating(Entity.RiskRating.Rating.LOW)
                         .build()
                 )
+                .soleProprietorship(
+                    Entity.SoleProprietorship.builder()
+                        .address(
+                            Entity.SoleProprietorship.Address.builder()
+                                .city("New York")
+                                .country("US")
+                                .line1("33 Liberty Street")
+                                .line2(null)
+                                .state("NY")
+                                .zip("10045")
+                                .build()
+                        )
+                        .doingBusinessAsName("doing_business_as_name")
+                        .email("email")
+                        .industryCode("industry_code")
+                        .soleProprietor(
+                            Entity.SoleProprietorship.SoleProprietor.builder()
+                                .address(
+                                    Entity.SoleProprietorship.SoleProprietor.Address.builder()
+                                        .city("New York")
+                                        .country("US")
+                                        .line1("33 Liberty Street")
+                                        .line2(null)
+                                        .state("NY")
+                                        .zip("10045")
+                                        .build()
+                                )
+                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .identification(
+                                    Entity.SoleProprietorship.SoleProprietor.Identification
+                                        .builder()
+                                        .method(
+                                            Entity.SoleProprietorship.SoleProprietor.Identification
+                                                .Method
+                                                .SOCIAL_SECURITY_NUMBER
+                                        )
+                                        .numberLast4("number_last4")
+                                        .build()
+                                )
+                                .name("name")
+                                .build()
+                        )
+                        .taxIdentifier("tax_identifier")
+                        .website("website")
+                        .build()
+                )
                 .status(Entity.Status.ACTIVE)
                 .structure(Entity.Structure.CORPORATION)
                 .addSupplementalDocument(
@@ -473,6 +519,52 @@ internal class EntityTest {
                 Entity.RiskRating.builder()
                     .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .rating(Entity.RiskRating.Rating.LOW)
+                    .build()
+            )
+        assertThat(entity.soleProprietorship())
+            .contains(
+                Entity.SoleProprietorship.builder()
+                    .address(
+                        Entity.SoleProprietorship.Address.builder()
+                            .city("New York")
+                            .country("US")
+                            .line1("33 Liberty Street")
+                            .line2(null)
+                            .state("NY")
+                            .zip("10045")
+                            .build()
+                    )
+                    .doingBusinessAsName("doing_business_as_name")
+                    .email("email")
+                    .industryCode("industry_code")
+                    .soleProprietor(
+                        Entity.SoleProprietorship.SoleProprietor.builder()
+                            .address(
+                                Entity.SoleProprietorship.SoleProprietor.Address.builder()
+                                    .city("New York")
+                                    .country("US")
+                                    .line1("33 Liberty Street")
+                                    .line2(null)
+                                    .state("NY")
+                                    .zip("10045")
+                                    .build()
+                            )
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .identification(
+                                Entity.SoleProprietorship.SoleProprietor.Identification.builder()
+                                    .method(
+                                        Entity.SoleProprietorship.SoleProprietor.Identification
+                                            .Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .numberLast4("number_last4")
+                                    .build()
+                            )
+                            .name("name")
+                            .build()
+                    )
+                    .taxIdentifier("tax_identifier")
+                    .website("website")
                     .build()
             )
         assertThat(entity.status()).isEqualTo(Entity.Status.ACTIVE)
@@ -780,6 +872,52 @@ internal class EntityTest {
                     Entity.RiskRating.builder()
                         .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .rating(Entity.RiskRating.Rating.LOW)
+                        .build()
+                )
+                .soleProprietorship(
+                    Entity.SoleProprietorship.builder()
+                        .address(
+                            Entity.SoleProprietorship.Address.builder()
+                                .city("New York")
+                                .country("US")
+                                .line1("33 Liberty Street")
+                                .line2(null)
+                                .state("NY")
+                                .zip("10045")
+                                .build()
+                        )
+                        .doingBusinessAsName("doing_business_as_name")
+                        .email("email")
+                        .industryCode("industry_code")
+                        .soleProprietor(
+                            Entity.SoleProprietorship.SoleProprietor.builder()
+                                .address(
+                                    Entity.SoleProprietorship.SoleProprietor.Address.builder()
+                                        .city("New York")
+                                        .country("US")
+                                        .line1("33 Liberty Street")
+                                        .line2(null)
+                                        .state("NY")
+                                        .zip("10045")
+                                        .build()
+                                )
+                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .identification(
+                                    Entity.SoleProprietorship.SoleProprietor.Identification
+                                        .builder()
+                                        .method(
+                                            Entity.SoleProprietorship.SoleProprietor.Identification
+                                                .Method
+                                                .SOCIAL_SECURITY_NUMBER
+                                        )
+                                        .numberLast4("number_last4")
+                                        .build()
+                                )
+                                .name("name")
+                                .build()
+                        )
+                        .taxIdentifier("tax_identifier")
+                        .website("website")
                         .build()
                 )
                 .status(Entity.Status.ACTIVE)

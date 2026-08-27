@@ -38,7 +38,8 @@ private constructor(
     fun cardId(): String = body.cardId()
 
     /**
-     * Details about the cardholder, as it will appear on the physical card.
+     * Details about the cardholder, as it will appear on the physical card. The combined first name
+     * and last name cannot exceed 25 characters.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -153,7 +154,10 @@ private constructor(
          */
         fun cardId(cardId: JsonField<String>) = apply { body.cardId(cardId) }
 
-        /** Details about the cardholder, as it will appear on the physical card. */
+        /**
+         * Details about the cardholder, as it will appear on the physical card. The combined first
+         * name and last name cannot exceed 25 characters.
+         */
         fun cardholder(cardholder: Cardholder) = apply { body.cardholder(cardholder) }
 
         /**
@@ -374,7 +378,8 @@ private constructor(
         fun cardId(): String = cardId.getRequired("card_id")
 
         /**
-         * Details about the cardholder, as it will appear on the physical card.
+         * Details about the cardholder, as it will appear on the physical card. The combined first
+         * name and last name cannot exceed 25 characters.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -489,7 +494,10 @@ private constructor(
              */
             fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
 
-            /** Details about the cardholder, as it will appear on the physical card. */
+            /**
+             * Details about the cardholder, as it will appear on the physical card. The combined
+             * first name and last name cannot exceed 25 characters.
+             */
             fun cardholder(cardholder: Cardholder) = cardholder(JsonField.of(cardholder))
 
             /**
@@ -643,7 +651,10 @@ private constructor(
             "Body{cardId=$cardId, cardholder=$cardholder, shipment=$shipment, physicalCardProfileId=$physicalCardProfileId, additionalProperties=$additionalProperties}"
     }
 
-    /** Details about the cardholder, as it will appear on the physical card. */
+    /**
+     * Details about the cardholder, as it will appear on the physical card. The combined first name
+     * and last name cannot exceed 25 characters.
+     */
     class Cardholder
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
