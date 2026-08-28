@@ -30,6 +30,7 @@ class CardDispute
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
     private val amount: JsonField<Long>,
     private val cardId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -50,6 +51,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at")
@@ -78,6 +80,7 @@ private constructor(
         withdrawal: JsonField<Withdrawal> = JsonMissing.of(),
     ) : this(
         id,
+        accountId,
         amount,
         cardId,
         createdAt,
@@ -102,6 +105,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The Account that the Card Dispute is associated with.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The amount of the dispute.
@@ -230,6 +241,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * Returns the raw JSON value of [amount].
@@ -361,6 +379,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .amount()
          * .cardId()
          * .createdAt()
@@ -384,6 +403,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
         private var amount: JsonField<Long>? = null
         private var cardId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -403,6 +423,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(cardDispute: CardDispute) = apply {
             id = cardDispute.id
+            accountId = cardDispute.accountId
             amount = cardDispute.amount
             cardId = cardDispute.cardId
             createdAt = cardDispute.createdAt
@@ -430,6 +451,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The Account that the Card Dispute is associated with. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The amount of the dispute. */
         fun amount(amount: Long) = amount(JsonField.of(amount))
@@ -672,6 +705,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .amount()
          * .cardId()
          * .createdAt()
@@ -693,6 +727,7 @@ private constructor(
         fun build(): CardDispute =
             CardDispute(
                 checkRequired("id", id),
+                checkRequired("accountId", accountId),
                 checkRequired("amount", amount),
                 checkRequired("cardId", cardId),
                 checkRequired("createdAt", createdAt),
@@ -727,6 +762,7 @@ private constructor(
         }
 
         id()
+        accountId()
         amount()
         cardId()
         createdAt()
@@ -760,6 +796,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (amount.asKnown().isPresent) 1 else 0) +
             (if (cardId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -43445,6 +43482,7 @@ private constructor(
 
         return other is CardDispute &&
             id == other.id &&
+            accountId == other.accountId &&
             amount == other.amount &&
             cardId == other.cardId &&
             createdAt == other.createdAt &&
@@ -43465,6 +43503,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountId,
             amount,
             cardId,
             createdAt,
@@ -43486,5 +43525,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardDispute{id=$id, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, rejection=$rejection, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
+        "CardDispute{id=$id, accountId=$accountId, amount=$amount, cardId=$cardId, createdAt=$createdAt, disputedTransactionId=$disputedTransactionId, idempotencyKey=$idempotencyKey, loss=$loss, network=$network, rejection=$rejection, status=$status, type=$type, userSubmissionRequiredBy=$userSubmissionRequiredBy, visa=$visa, win=$win, withdrawal=$withdrawal, additionalProperties=$additionalProperties}"
 }
