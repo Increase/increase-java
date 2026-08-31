@@ -259,6 +259,53 @@ internal class EntityCreateParamsTest {
                     .rating(EntityCreateParams.RiskRating.Rating.LOW)
                     .build()
             )
+            .soleProprietorship(
+                EntityCreateParams.SoleProprietorship.builder()
+                    .address(
+                        EntityCreateParams.SoleProprietorship.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("xx")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .soleProprietor(
+                        EntityCreateParams.SoleProprietorship.SoleProprietor.builder()
+                            .address(
+                                EntityCreateParams.SoleProprietorship.SoleProprietor.Address
+                                    .builder()
+                                    .city("x")
+                                    .country("x")
+                                    .line1("x")
+                                    .line2("x")
+                                    .state("x")
+                                    .zip("x")
+                                    .build()
+                            )
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .identification(
+                                EntityCreateParams.SoleProprietorship.SoleProprietor.Identification
+                                    .builder()
+                                    .method(
+                                        EntityCreateParams.SoleProprietorship.SoleProprietor
+                                            .Identification
+                                            .Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .number("xxxx")
+                                    .build()
+                            )
+                            .name("x")
+                            .build()
+                    )
+                    .doingBusinessAsName("x")
+                    .email("dev@stainless.com")
+                    .industryCode("x")
+                    .taxIdentifier("x")
+                    .website("website")
+                    .build()
+            )
             .addSupplementalDocument(
                 EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build()
             )
@@ -682,6 +729,54 @@ internal class EntityCreateParamsTest {
                         .rating(EntityCreateParams.RiskRating.Rating.LOW)
                         .build()
                 )
+                .soleProprietorship(
+                    EntityCreateParams.SoleProprietorship.builder()
+                        .address(
+                            EntityCreateParams.SoleProprietorship.Address.builder()
+                                .city("x")
+                                .line1("x")
+                                .state("xx")
+                                .zip("x")
+                                .line2("x")
+                                .build()
+                        )
+                        .soleProprietor(
+                            EntityCreateParams.SoleProprietorship.SoleProprietor.builder()
+                                .address(
+                                    EntityCreateParams.SoleProprietorship.SoleProprietor.Address
+                                        .builder()
+                                        .city("x")
+                                        .country("x")
+                                        .line1("x")
+                                        .line2("x")
+                                        .state("x")
+                                        .zip("x")
+                                        .build()
+                                )
+                                .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                .identification(
+                                    EntityCreateParams.SoleProprietorship.SoleProprietor
+                                        .Identification
+                                        .builder()
+                                        .method(
+                                            EntityCreateParams.SoleProprietorship.SoleProprietor
+                                                .Identification
+                                                .Method
+                                                .SOCIAL_SECURITY_NUMBER
+                                        )
+                                        .number("xxxx")
+                                        .build()
+                                )
+                                .name("x")
+                                .build()
+                        )
+                        .doingBusinessAsName("x")
+                        .email("dev@stainless.com")
+                        .industryCode("x")
+                        .taxIdentifier("x")
+                        .website("website")
+                        .build()
+                )
                 .addSupplementalDocument(
                     EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build()
                 )
@@ -1098,6 +1193,54 @@ internal class EntityCreateParamsTest {
                 EntityCreateParams.RiskRating.builder()
                     .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .rating(EntityCreateParams.RiskRating.Rating.LOW)
+                    .build()
+            )
+        assertThat(body.soleProprietorship())
+            .contains(
+                EntityCreateParams.SoleProprietorship.builder()
+                    .address(
+                        EntityCreateParams.SoleProprietorship.Address.builder()
+                            .city("x")
+                            .line1("x")
+                            .state("xx")
+                            .zip("x")
+                            .line2("x")
+                            .build()
+                    )
+                    .soleProprietor(
+                        EntityCreateParams.SoleProprietorship.SoleProprietor.builder()
+                            .address(
+                                EntityCreateParams.SoleProprietorship.SoleProprietor.Address
+                                    .builder()
+                                    .city("x")
+                                    .country("x")
+                                    .line1("x")
+                                    .line2("x")
+                                    .state("x")
+                                    .zip("x")
+                                    .build()
+                            )
+                            .dateOfBirth(LocalDate.parse("2019-12-27"))
+                            .identification(
+                                EntityCreateParams.SoleProprietorship.SoleProprietor.Identification
+                                    .builder()
+                                    .method(
+                                        EntityCreateParams.SoleProprietorship.SoleProprietor
+                                            .Identification
+                                            .Method
+                                            .SOCIAL_SECURITY_NUMBER
+                                    )
+                                    .number("xxxx")
+                                    .build()
+                            )
+                            .name("x")
+                            .build()
+                    )
+                    .doingBusinessAsName("x")
+                    .email("dev@stainless.com")
+                    .industryCode("x")
+                    .taxIdentifier("x")
+                    .website("website")
                     .build()
             )
         assertThat(body.supplementalDocuments().getOrNull())
