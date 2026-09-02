@@ -17,6 +17,7 @@ internal class PhysicalCardListPageResponseTest {
                 .addData(
                     PhysicalCard.builder()
                         .id("physical_card_ode8duyq5v2ynhjoharl")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .cardholder(
                             PhysicalCard.Cardholder.builder()
@@ -80,6 +81,7 @@ internal class PhysicalCardListPageResponseTest {
             .containsExactly(
                 PhysicalCard.builder()
                     .id("physical_card_ode8duyq5v2ynhjoharl")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .cardholder(
                         PhysicalCard.Cardholder.builder()
@@ -145,6 +147,7 @@ internal class PhysicalCardListPageResponseTest {
                 .addData(
                     PhysicalCard.builder()
                         .id("physical_card_ode8duyq5v2ynhjoharl")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .cardholder(
                             PhysicalCard.Cardholder.builder()
