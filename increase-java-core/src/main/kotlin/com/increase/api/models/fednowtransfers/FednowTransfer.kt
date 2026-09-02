@@ -3865,9 +3865,6 @@ private constructor(
             /** The transfer has been canceled. */
             @JvmField val CANCELED = of("canceled")
 
-            /** The transfer has been rejected by Increase. */
-            @JvmField val REVIEWING_REJECTED = of("reviewing_rejected")
-
             /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
@@ -3894,8 +3891,6 @@ private constructor(
             PENDING_REVIEWING,
             /** The transfer has been canceled. */
             CANCELED,
-            /** The transfer has been rejected by Increase. */
-            REVIEWING_REJECTED,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
             /** The transfer is pending approval. */
@@ -3924,8 +3919,6 @@ private constructor(
             PENDING_REVIEWING,
             /** The transfer has been canceled. */
             CANCELED,
-            /** The transfer has been rejected by Increase. */
-            REVIEWING_REJECTED,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
             /** The transfer is pending approval. */
@@ -3952,7 +3945,6 @@ private constructor(
                 PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
                 PENDING_REVIEWING -> Value.PENDING_REVIEWING
                 CANCELED -> Value.CANCELED
-                REVIEWING_REJECTED -> Value.REVIEWING_REJECTED
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 PENDING_APPROVAL -> Value.PENDING_APPROVAL
                 PENDING_RESPONSE -> Value.PENDING_RESPONSE
@@ -3975,7 +3967,6 @@ private constructor(
                 PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
                 PENDING_REVIEWING -> Known.PENDING_REVIEWING
                 CANCELED -> Known.CANCELED
-                REVIEWING_REJECTED -> Known.REVIEWING_REJECTED
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 PENDING_APPROVAL -> Known.PENDING_APPROVAL
                 PENDING_RESPONSE -> Known.PENDING_RESPONSE
