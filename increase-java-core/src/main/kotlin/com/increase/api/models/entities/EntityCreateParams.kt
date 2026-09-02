@@ -95,6 +95,15 @@ private constructor(
     fun riskRating(): Optional<RiskRating> = body.riskRating()
 
     /**
+     * Details of the sole proprietorship entity to create. Required if `structure` is equal to
+     * `sole_proprietorship`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun soleProprietorship(): Optional<SoleProprietorship> = body.soleProprietorship()
+
+    /**
      * Additional documentation associated with the entity.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -176,6 +185,14 @@ private constructor(
      * Unlike [riskRating], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _riskRating(): JsonField<RiskRating> = body._riskRating()
+
+    /**
+     * Returns the raw JSON value of [soleProprietorship].
+     *
+     * Unlike [soleProprietorship], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    fun _soleProprietorship(): JsonField<SoleProprietorship> = body._soleProprietorship()
 
     /**
      * Returns the raw JSON value of [supplementalDocuments].
@@ -366,6 +383,25 @@ private constructor(
          * supported value.
          */
         fun riskRating(riskRating: JsonField<RiskRating>) = apply { body.riskRating(riskRating) }
+
+        /**
+         * Details of the sole proprietorship entity to create. Required if `structure` is equal to
+         * `sole_proprietorship`.
+         */
+        fun soleProprietorship(soleProprietorship: SoleProprietorship) = apply {
+            body.soleProprietorship(soleProprietorship)
+        }
+
+        /**
+         * Sets [Builder.soleProprietorship] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.soleProprietorship] with a well-typed
+         * [SoleProprietorship] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun soleProprietorship(soleProprietorship: JsonField<SoleProprietorship>) = apply {
+            body.soleProprietorship(soleProprietorship)
+        }
 
         /** Additional documentation associated with the entity. */
         fun supplementalDocuments(supplementalDocuments: List<SupplementalDocument>) = apply {
@@ -604,6 +640,7 @@ private constructor(
         private val joint: JsonField<Joint>,
         private val naturalPerson: JsonField<NaturalPerson>,
         private val riskRating: JsonField<RiskRating>,
+        private val soleProprietorship: JsonField<SoleProprietorship>,
         private val supplementalDocuments: JsonField<List<SupplementalDocument>>,
         private val termsAgreements: JsonField<List<TermsAgreement>>,
         private val thirdPartyVerification: JsonField<ThirdPartyVerification>,
@@ -632,6 +669,9 @@ private constructor(
             @JsonProperty("risk_rating")
             @ExcludeMissing
             riskRating: JsonField<RiskRating> = JsonMissing.of(),
+            @JsonProperty("sole_proprietorship")
+            @ExcludeMissing
+            soleProprietorship: JsonField<SoleProprietorship> = JsonMissing.of(),
             @JsonProperty("supplemental_documents")
             @ExcludeMissing
             supplementalDocuments: JsonField<List<SupplementalDocument>> = JsonMissing.of(),
@@ -650,6 +690,7 @@ private constructor(
             joint,
             naturalPerson,
             riskRating,
+            soleProprietorship,
             supplementalDocuments,
             termsAgreements,
             thirdPartyVerification,
@@ -719,6 +760,16 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun riskRating(): Optional<RiskRating> = riskRating.getOptional("risk_rating")
+
+        /**
+         * Details of the sole proprietorship entity to create. Required if `structure` is equal to
+         * `sole_proprietorship`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun soleProprietorship(): Optional<SoleProprietorship> =
+            soleProprietorship.getOptional("sole_proprietorship")
 
         /**
          * Additional documentation associated with the entity.
@@ -820,6 +871,16 @@ private constructor(
         fun _riskRating(): JsonField<RiskRating> = riskRating
 
         /**
+         * Returns the raw JSON value of [soleProprietorship].
+         *
+         * Unlike [soleProprietorship], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("sole_proprietorship")
+        @ExcludeMissing
+        fun _soleProprietorship(): JsonField<SoleProprietorship> = soleProprietorship
+
+        /**
          * Returns the raw JSON value of [supplementalDocuments].
          *
          * Unlike [supplementalDocuments], this method doesn't throw if the JSON field has an
@@ -891,6 +952,7 @@ private constructor(
             private var joint: JsonField<Joint> = JsonMissing.of()
             private var naturalPerson: JsonField<NaturalPerson> = JsonMissing.of()
             private var riskRating: JsonField<RiskRating> = JsonMissing.of()
+            private var soleProprietorship: JsonField<SoleProprietorship> = JsonMissing.of()
             private var supplementalDocuments: JsonField<MutableList<SupplementalDocument>>? = null
             private var termsAgreements: JsonField<MutableList<TermsAgreement>>? = null
             private var thirdPartyVerification: JsonField<ThirdPartyVerification> = JsonMissing.of()
@@ -906,6 +968,7 @@ private constructor(
                 joint = body.joint
                 naturalPerson = body.naturalPerson
                 riskRating = body.riskRating
+                soleProprietorship = body.soleProprietorship
                 supplementalDocuments = body.supplementalDocuments.map { it.toMutableList() }
                 termsAgreements = body.termsAgreements.map { it.toMutableList() }
                 thirdPartyVerification = body.thirdPartyVerification
@@ -1023,6 +1086,24 @@ private constructor(
              */
             fun riskRating(riskRating: JsonField<RiskRating>) = apply {
                 this.riskRating = riskRating
+            }
+
+            /**
+             * Details of the sole proprietorship entity to create. Required if `structure` is equal
+             * to `sole_proprietorship`.
+             */
+            fun soleProprietorship(soleProprietorship: SoleProprietorship) =
+                soleProprietorship(JsonField.of(soleProprietorship))
+
+            /**
+             * Sets [Builder.soleProprietorship] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.soleProprietorship] with a well-typed
+             * [SoleProprietorship] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun soleProprietorship(soleProprietorship: JsonField<SoleProprietorship>) = apply {
+                this.soleProprietorship = soleProprietorship
             }
 
             /** Additional documentation associated with the entity. */
@@ -1158,6 +1239,7 @@ private constructor(
                     joint,
                     naturalPerson,
                     riskRating,
+                    soleProprietorship,
                     (supplementalDocuments ?: JsonMissing.of()).map { it.toImmutable() },
                     (termsAgreements ?: JsonMissing.of()).map { it.toImmutable() },
                     thirdPartyVerification,
@@ -1189,6 +1271,7 @@ private constructor(
             joint().ifPresent { it.validate() }
             naturalPerson().ifPresent { it.validate() }
             riskRating().ifPresent { it.validate() }
+            soleProprietorship().ifPresent { it.validate() }
             supplementalDocuments().ifPresent { it.forEach { it.validate() } }
             termsAgreements().ifPresent { it.forEach { it.validate() } }
             thirdPartyVerification().ifPresent { it.validate() }
@@ -1219,6 +1302,7 @@ private constructor(
                 (joint.asKnown().getOrNull()?.validity() ?: 0) +
                 (naturalPerson.asKnown().getOrNull()?.validity() ?: 0) +
                 (riskRating.asKnown().getOrNull()?.validity() ?: 0) +
+                (soleProprietorship.asKnown().getOrNull()?.validity() ?: 0) +
                 (supplementalDocuments.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
                     ?: 0) +
                 (termsAgreements.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -1238,6 +1322,7 @@ private constructor(
                 joint == other.joint &&
                 naturalPerson == other.naturalPerson &&
                 riskRating == other.riskRating &&
+                soleProprietorship == other.soleProprietorship &&
                 supplementalDocuments == other.supplementalDocuments &&
                 termsAgreements == other.termsAgreements &&
                 thirdPartyVerification == other.thirdPartyVerification &&
@@ -1254,6 +1339,7 @@ private constructor(
                 joint,
                 naturalPerson,
                 riskRating,
+                soleProprietorship,
                 supplementalDocuments,
                 termsAgreements,
                 thirdPartyVerification,
@@ -1265,7 +1351,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
+            "Body{structure=$structure, corporation=$corporation, description=$description, governmentAuthority=$governmentAuthority, joint=$joint, naturalPerson=$naturalPerson, riskRating=$riskRating, soleProprietorship=$soleProprietorship, supplementalDocuments=$supplementalDocuments, termsAgreements=$termsAgreements, thirdPartyVerification=$thirdPartyVerification, trust=$trust, additionalProperties=$additionalProperties}"
     }
 
     /** The type of Entity to create. */
@@ -1298,6 +1384,9 @@ private constructor(
             /** A government authority. */
             @JvmField val GOVERNMENT_AUTHORITY = of("government_authority")
 
+            /** A sole proprietorship. */
+            @JvmField val SOLE_PROPRIETORSHIP = of("sole_proprietorship")
+
             @JvmStatic fun of(value: String) = Structure(JsonField.of(value))
         }
 
@@ -1313,6 +1402,8 @@ private constructor(
             TRUST,
             /** A government authority. */
             GOVERNMENT_AUTHORITY,
+            /** A sole proprietorship. */
+            SOLE_PROPRIETORSHIP,
         }
 
         /**
@@ -1335,6 +1426,8 @@ private constructor(
             TRUST,
             /** A government authority. */
             GOVERNMENT_AUTHORITY,
+            /** A sole proprietorship. */
+            SOLE_PROPRIETORSHIP,
             /**
              * An enum member indicating that [Structure] was instantiated with an unknown value.
              */
@@ -1355,6 +1448,7 @@ private constructor(
                 JOINT -> Value.JOINT
                 TRUST -> Value.TRUST
                 GOVERNMENT_AUTHORITY -> Value.GOVERNMENT_AUTHORITY
+                SOLE_PROPRIETORSHIP -> Value.SOLE_PROPRIETORSHIP
                 else -> Value._UNKNOWN
             }
 
@@ -1374,6 +1468,7 @@ private constructor(
                 JOINT -> Known.JOINT
                 TRUST -> Known.TRUST
                 GOVERNMENT_AUTHORITY -> Known.GOVERNMENT_AUTHORITY
+                SOLE_PROPRIETORSHIP -> Known.SOLE_PROPRIETORSHIP
                 else -> throw IncreaseInvalidDataException("Unknown Structure: $value")
             }
 
@@ -11989,6 +12084,1907 @@ private constructor(
 
         override fun toString() =
             "RiskRating{ratedAt=$ratedAt, rating=$rating, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Details of the sole proprietorship entity to create. Required if `structure` is equal to
+     * `sole_proprietorship`.
+     */
+    class SoleProprietorship
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val address: JsonField<Address>,
+        private val soleProprietor: JsonField<SoleProprietor>,
+        private val doingBusinessAsName: JsonField<String>,
+        private val email: JsonField<String>,
+        private val industryCode: JsonField<String>,
+        private val taxIdentifier: JsonField<String>,
+        private val website: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("address") @ExcludeMissing address: JsonField<Address> = JsonMissing.of(),
+            @JsonProperty("sole_proprietor")
+            @ExcludeMissing
+            soleProprietor: JsonField<SoleProprietor> = JsonMissing.of(),
+            @JsonProperty("doing_business_as_name")
+            @ExcludeMissing
+            doingBusinessAsName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("email") @ExcludeMissing email: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("industry_code")
+            @ExcludeMissing
+            industryCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("tax_identifier")
+            @ExcludeMissing
+            taxIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("website") @ExcludeMissing website: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            address,
+            soleProprietor,
+            doingBusinessAsName,
+            email,
+            industryCode,
+            taxIdentifier,
+            website,
+            mutableMapOf(),
+        )
+
+        /**
+         * The sole proprietorship's business address. Mail receiving locations like PO Boxes and
+         * PMB's are disallowed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun address(): Address = address.getRequired("address")
+
+        /**
+         * The individual who operates the sole proprietorship.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun soleProprietor(): SoleProprietor = soleProprietor.getRequired("sole_proprietor")
+
+        /**
+         * The name under which the sole proprietorship does business, if it is different from the
+         * name of the sole proprietor.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun doingBusinessAsName(): Optional<String> =
+            doingBusinessAsName.getOptional("doing_business_as_name")
+
+        /**
+         * An email address for the sole proprietorship. Not every program requires an email for
+         * submitted Entities.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun email(): Optional<String> = email.getOptional("email")
+
+        /**
+         * The North American Industry Classification System (NAICS) code for the sole
+         * proprietorship's primary line of business. This is a number, like `5132` for `Software
+         * Publishers`. A full list of classification codes is available
+         * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun industryCode(): Optional<String> = industryCode.getOptional("industry_code")
+
+        /**
+         * The United States Employer Identification Number (EIN) for the sole proprietorship, if
+         * the sole proprietor has one. Submit nine digits with no dashes or other separators.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun taxIdentifier(): Optional<String> = taxIdentifier.getOptional("tax_identifier")
+
+        /**
+         * A website for the sole proprietorship. Not every program requires a website for submitted
+         * Entities.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun website(): Optional<String> = website.getOptional("website")
+
+        /**
+         * Returns the raw JSON value of [address].
+         *
+         * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+        /**
+         * Returns the raw JSON value of [soleProprietor].
+         *
+         * Unlike [soleProprietor], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("sole_proprietor")
+        @ExcludeMissing
+        fun _soleProprietor(): JsonField<SoleProprietor> = soleProprietor
+
+        /**
+         * Returns the raw JSON value of [doingBusinessAsName].
+         *
+         * Unlike [doingBusinessAsName], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("doing_business_as_name")
+        @ExcludeMissing
+        fun _doingBusinessAsName(): JsonField<String> = doingBusinessAsName
+
+        /**
+         * Returns the raw JSON value of [email].
+         *
+         * Unlike [email], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("email") @ExcludeMissing fun _email(): JsonField<String> = email
+
+        /**
+         * Returns the raw JSON value of [industryCode].
+         *
+         * Unlike [industryCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("industry_code")
+        @ExcludeMissing
+        fun _industryCode(): JsonField<String> = industryCode
+
+        /**
+         * Returns the raw JSON value of [taxIdentifier].
+         *
+         * Unlike [taxIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("tax_identifier")
+        @ExcludeMissing
+        fun _taxIdentifier(): JsonField<String> = taxIdentifier
+
+        /**
+         * Returns the raw JSON value of [website].
+         *
+         * Unlike [website], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("website") @ExcludeMissing fun _website(): JsonField<String> = website
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [SoleProprietorship].
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .soleProprietor()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [SoleProprietorship]. */
+        class Builder internal constructor() {
+
+            private var address: JsonField<Address>? = null
+            private var soleProprietor: JsonField<SoleProprietor>? = null
+            private var doingBusinessAsName: JsonField<String> = JsonMissing.of()
+            private var email: JsonField<String> = JsonMissing.of()
+            private var industryCode: JsonField<String> = JsonMissing.of()
+            private var taxIdentifier: JsonField<String> = JsonMissing.of()
+            private var website: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(soleProprietorship: SoleProprietorship) = apply {
+                address = soleProprietorship.address
+                soleProprietor = soleProprietorship.soleProprietor
+                doingBusinessAsName = soleProprietorship.doingBusinessAsName
+                email = soleProprietorship.email
+                industryCode = soleProprietorship.industryCode
+                taxIdentifier = soleProprietorship.taxIdentifier
+                website = soleProprietorship.website
+                additionalProperties = soleProprietorship.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The sole proprietorship's business address. Mail receiving locations like PO Boxes
+             * and PMB's are disallowed.
+             */
+            fun address(address: Address) = address(JsonField.of(address))
+
+            /**
+             * Sets [Builder.address] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.address] with a well-typed [Address] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun address(address: JsonField<Address>) = apply { this.address = address }
+
+            /** The individual who operates the sole proprietorship. */
+            fun soleProprietor(soleProprietor: SoleProprietor) =
+                soleProprietor(JsonField.of(soleProprietor))
+
+            /**
+             * Sets [Builder.soleProprietor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.soleProprietor] with a well-typed [SoleProprietor]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun soleProprietor(soleProprietor: JsonField<SoleProprietor>) = apply {
+                this.soleProprietor = soleProprietor
+            }
+
+            /**
+             * The name under which the sole proprietorship does business, if it is different from
+             * the name of the sole proprietor.
+             */
+            fun doingBusinessAsName(doingBusinessAsName: String) =
+                doingBusinessAsName(JsonField.of(doingBusinessAsName))
+
+            /**
+             * Sets [Builder.doingBusinessAsName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.doingBusinessAsName] with a well-typed [String]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun doingBusinessAsName(doingBusinessAsName: JsonField<String>) = apply {
+                this.doingBusinessAsName = doingBusinessAsName
+            }
+
+            /**
+             * An email address for the sole proprietorship. Not every program requires an email for
+             * submitted Entities.
+             */
+            fun email(email: String) = email(JsonField.of(email))
+
+            /**
+             * Sets [Builder.email] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.email] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun email(email: JsonField<String>) = apply { this.email = email }
+
+            /**
+             * The North American Industry Classification System (NAICS) code for the sole
+             * proprietorship's primary line of business. This is a number, like `5132` for
+             * `Software Publishers`. A full list of classification codes is available
+             * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
+             */
+            fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
+
+            /**
+             * Sets [Builder.industryCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.industryCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun industryCode(industryCode: JsonField<String>) = apply {
+                this.industryCode = industryCode
+            }
+
+            /**
+             * The United States Employer Identification Number (EIN) for the sole proprietorship,
+             * if the sole proprietor has one. Submit nine digits with no dashes or other
+             * separators.
+             */
+            fun taxIdentifier(taxIdentifier: String) = taxIdentifier(JsonField.of(taxIdentifier))
+
+            /**
+             * Sets [Builder.taxIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.taxIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun taxIdentifier(taxIdentifier: JsonField<String>) = apply {
+                this.taxIdentifier = taxIdentifier
+            }
+
+            /**
+             * A website for the sole proprietorship. Not every program requires a website for
+             * submitted Entities.
+             */
+            fun website(website: String) = website(JsonField.of(website))
+
+            /**
+             * Sets [Builder.website] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.website] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun website(website: JsonField<String>) = apply { this.website = website }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [SoleProprietorship].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .address()
+             * .soleProprietor()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): SoleProprietorship =
+                SoleProprietorship(
+                    checkRequired("address", address),
+                    checkRequired("soleProprietor", soleProprietor),
+                    doingBusinessAsName,
+                    email,
+                    industryCode,
+                    taxIdentifier,
+                    website,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): SoleProprietorship = apply {
+            if (validated) {
+                return@apply
+            }
+
+            address().validate()
+            soleProprietor().validate()
+            doingBusinessAsName()
+            email()
+            industryCode()
+            taxIdentifier()
+            website()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (address.asKnown().getOrNull()?.validity() ?: 0) +
+                (soleProprietor.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (doingBusinessAsName.asKnown().isPresent) 1 else 0) +
+                (if (email.asKnown().isPresent) 1 else 0) +
+                (if (industryCode.asKnown().isPresent) 1 else 0) +
+                (if (taxIdentifier.asKnown().isPresent) 1 else 0) +
+                (if (website.asKnown().isPresent) 1 else 0)
+
+        /**
+         * The sole proprietorship's business address. Mail receiving locations like PO Boxes and
+         * PMB's are disallowed.
+         */
+        class Address
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val city: JsonField<String>,
+            private val line1: JsonField<String>,
+            private val state: JsonField<String>,
+            private val zip: JsonField<String>,
+            private val line2: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("zip") @ExcludeMissing zip: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            ) : this(city, line1, state, zip, line2, mutableMapOf())
+
+            /**
+             * The city of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun city(): String = city.getRequired("city")
+
+            /**
+             * The first line of the address. This is usually the street number and street.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun line1(): String = line1.getRequired("line1")
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
+             * address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun state(): String = state.getRequired("state")
+
+            /**
+             * The ZIP code of the address.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun zip(): String = zip.getRequired("zip")
+
+            /**
+             * The second line of the address. This might be the floor or room number.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun line2(): Optional<String> = line2.getOptional("line2")
+
+            /**
+             * Returns the raw JSON value of [city].
+             *
+             * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+            /**
+             * Returns the raw JSON value of [line1].
+             *
+             * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+            /**
+             * Returns the raw JSON value of [state].
+             *
+             * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+            /**
+             * Returns the raw JSON value of [zip].
+             *
+             * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
+
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [Address].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [Address]. */
+            class Builder internal constructor() {
+
+                private var city: JsonField<String>? = null
+                private var line1: JsonField<String>? = null
+                private var state: JsonField<String>? = null
+                private var zip: JsonField<String>? = null
+                private var line2: JsonField<String> = JsonMissing.of()
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(address: Address) = apply {
+                    city = address.city
+                    line1 = address.line1
+                    state = address.state
+                    zip = address.zip
+                    line2 = address.line2
+                    additionalProperties = address.additionalProperties.toMutableMap()
+                }
+
+                /** The city of the address. */
+                fun city(city: String) = city(JsonField.of(city))
+
+                /**
+                 * Sets [Builder.city] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.city] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun city(city: JsonField<String>) = apply { this.city = city }
+
+                /** The first line of the address. This is usually the street number and street. */
+                fun line1(line1: String) = line1(JsonField.of(line1))
+
+                /**
+                 * Sets [Builder.line1] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line1] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                /**
+                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
+                 * the address.
+                 */
+                fun state(state: String) = state(JsonField.of(state))
+
+                /**
+                 * Sets [Builder.state] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.state] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun state(state: JsonField<String>) = apply { this.state = state }
+
+                /** The ZIP code of the address. */
+                fun zip(zip: String) = zip(JsonField.of(zip))
+
+                /**
+                 * Sets [Builder.zip] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.zip] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+
+                /** The second line of the address. This might be the floor or room number. */
+                fun line2(line2: String) = line2(JsonField.of(line2))
+
+                /**
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [Address].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .city()
+                 * .line1()
+                 * .state()
+                 * .zip()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): Address =
+                    Address(
+                        checkRequired("city", city),
+                        checkRequired("line1", line1),
+                        checkRequired("state", state),
+                        checkRequired("zip", zip),
+                        line2,
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): Address = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                city()
+                line1()
+                state()
+                zip()
+                line2()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (city.asKnown().isPresent) 1 else 0) +
+                    (if (line1.asKnown().isPresent) 1 else 0) +
+                    (if (state.asKnown().isPresent) 1 else 0) +
+                    (if (zip.asKnown().isPresent) 1 else 0) +
+                    (if (line2.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Address &&
+                    city == other.city &&
+                    line1 == other.line1 &&
+                    state == other.state &&
+                    zip == other.zip &&
+                    line2 == other.line2 &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(city, line1, state, zip, line2, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "Address{city=$city, line1=$line1, state=$state, zip=$zip, line2=$line2, additionalProperties=$additionalProperties}"
+        }
+
+        /** The individual who operates the sole proprietorship. */
+        class SoleProprietor
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val address: JsonField<Address>,
+            private val dateOfBirth: JsonField<LocalDate>,
+            private val identification: JsonField<Identification>,
+            private val name: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("address")
+                @ExcludeMissing
+                address: JsonField<Address> = JsonMissing.of(),
+                @JsonProperty("date_of_birth")
+                @ExcludeMissing
+                dateOfBirth: JsonField<LocalDate> = JsonMissing.of(),
+                @JsonProperty("identification")
+                @ExcludeMissing
+                identification: JsonField<Identification> = JsonMissing.of(),
+                @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            ) : this(address, dateOfBirth, identification, name, mutableMapOf())
+
+            /**
+             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
+             * are disallowed.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun address(): Address = address.getRequired("address")
+
+            /**
+             * The person's date of birth in YYYY-MM-DD format.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun dateOfBirth(): LocalDate = dateOfBirth.getRequired("date_of_birth")
+
+            /**
+             * A means of verifying the person's identity. Sole proprietors must be identified with
+             * a `social_security_number` or an `individual_taxpayer_identification_number`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun identification(): Identification = identification.getRequired("identification")
+
+            /**
+             * The person's legal name.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun name(): String = name.getRequired("name")
+
+            /**
+             * Returns the raw JSON value of [address].
+             *
+             * Unlike [address], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("address") @ExcludeMissing fun _address(): JsonField<Address> = address
+
+            /**
+             * Returns the raw JSON value of [dateOfBirth].
+             *
+             * Unlike [dateOfBirth], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("date_of_birth")
+            @ExcludeMissing
+            fun _dateOfBirth(): JsonField<LocalDate> = dateOfBirth
+
+            /**
+             * Returns the raw JSON value of [identification].
+             *
+             * Unlike [identification], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("identification")
+            @ExcludeMissing
+            fun _identification(): JsonField<Identification> = identification
+
+            /**
+             * Returns the raw JSON value of [name].
+             *
+             * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of [SoleProprietor].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [SoleProprietor]. */
+            class Builder internal constructor() {
+
+                private var address: JsonField<Address>? = null
+                private var dateOfBirth: JsonField<LocalDate>? = null
+                private var identification: JsonField<Identification>? = null
+                private var name: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(soleProprietor: SoleProprietor) = apply {
+                    address = soleProprietor.address
+                    dateOfBirth = soleProprietor.dateOfBirth
+                    identification = soleProprietor.identification
+                    name = soleProprietor.name
+                    additionalProperties = soleProprietor.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The individual's physical address. Mail receiving locations like PO Boxes and
+                 * PMB's are disallowed.
+                 */
+                fun address(address: Address) = address(JsonField.of(address))
+
+                /**
+                 * Sets [Builder.address] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.address] with a well-typed [Address] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun address(address: JsonField<Address>) = apply { this.address = address }
+
+                /** The person's date of birth in YYYY-MM-DD format. */
+                fun dateOfBirth(dateOfBirth: LocalDate) = dateOfBirth(JsonField.of(dateOfBirth))
+
+                /**
+                 * Sets [Builder.dateOfBirth] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.dateOfBirth] with a well-typed [LocalDate] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun dateOfBirth(dateOfBirth: JsonField<LocalDate>) = apply {
+                    this.dateOfBirth = dateOfBirth
+                }
+
+                /**
+                 * A means of verifying the person's identity. Sole proprietors must be identified
+                 * with a `social_security_number` or an
+                 * `individual_taxpayer_identification_number`.
+                 */
+                fun identification(identification: Identification) =
+                    identification(JsonField.of(identification))
+
+                /**
+                 * Sets [Builder.identification] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identification] with a well-typed
+                 * [Identification] value instead. This method is primarily for setting the field to
+                 * an undocumented or not yet supported value.
+                 */
+                fun identification(identification: JsonField<Identification>) = apply {
+                    this.identification = identification
+                }
+
+                /** The person's legal name. */
+                fun name(name: String) = name(JsonField.of(name))
+
+                /**
+                 * Sets [Builder.name] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.name] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun name(name: JsonField<String>) = apply { this.name = name }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [SoleProprietor].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .address()
+                 * .dateOfBirth()
+                 * .identification()
+                 * .name()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): SoleProprietor =
+                    SoleProprietor(
+                        checkRequired("address", address),
+                        checkRequired("dateOfBirth", dateOfBirth),
+                        checkRequired("identification", identification),
+                        checkRequired("name", name),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): SoleProprietor = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                address().validate()
+                dateOfBirth()
+                identification().validate()
+                name()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (address.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (dateOfBirth.asKnown().isPresent) 1 else 0) +
+                    (identification.asKnown().getOrNull()?.validity() ?: 0) +
+                    (if (name.asKnown().isPresent) 1 else 0)
+
+            /**
+             * The individual's physical address. Mail receiving locations like PO Boxes and PMB's
+             * are disallowed.
+             */
+            class Address
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val city: JsonField<String>,
+                private val country: JsonField<String>,
+                private val line1: JsonField<String>,
+                private val line2: JsonField<String>,
+                private val state: JsonField<String>,
+                private val zip: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("city")
+                    @ExcludeMissing
+                    city: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("country")
+                    @ExcludeMissing
+                    country: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line1")
+                    @ExcludeMissing
+                    line1: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("line2")
+                    @ExcludeMissing
+                    line2: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("state")
+                    @ExcludeMissing
+                    state: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("zip") @ExcludeMissing zip: JsonField<String> = JsonMissing.of(),
+                ) : this(city, country, line1, line2, state, zip, mutableMapOf())
+
+                /**
+                 * The city, district, town, or village of the address.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun city(): String = city.getRequired("city")
+
+                /**
+                 * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                 *
+                 * Defaults to `US`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun country(): String = country.getRequired("country")
+
+                /**
+                 * The first line of the address. This is usually the street number and street.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun line1(): String = line1.getRequired("line1")
+
+                /**
+                 * The second line of the address. This might be the floor or room number.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun line2(): Optional<String> = line2.getOptional("line2")
+
+                /**
+                 * The two-letter United States Postal Service (USPS) abbreviation for the US state,
+                 * province, or region of the address. Required in certain countries.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun state(): Optional<String> = state.getOptional("state")
+
+                /**
+                 * The ZIP or postal code of the address. Required in certain countries.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun zip(): Optional<String> = zip.getOptional("zip")
+
+                /**
+                 * Returns the raw JSON value of [city].
+                 *
+                 * Unlike [city], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+                /**
+                 * Returns the raw JSON value of [country].
+                 *
+                 * Unlike [country], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+                /**
+                 * Returns the raw JSON value of [line1].
+                 *
+                 * Unlike [line1], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+                /**
+                 * Returns the raw JSON value of [line2].
+                 *
+                 * Unlike [line2], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+                /**
+                 * Returns the raw JSON value of [state].
+                 *
+                 * Unlike [state], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+                /**
+                 * Returns the raw JSON value of [zip].
+                 *
+                 * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
+                 */
+                @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Address].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .city()
+                     * .country()
+                     * .line1()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Address]. */
+                class Builder internal constructor() {
+
+                    private var city: JsonField<String>? = null
+                    private var country: JsonField<String>? = null
+                    private var line1: JsonField<String>? = null
+                    private var line2: JsonField<String> = JsonMissing.of()
+                    private var state: JsonField<String> = JsonMissing.of()
+                    private var zip: JsonField<String> = JsonMissing.of()
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(address: Address) = apply {
+                        city = address.city
+                        country = address.country
+                        line1 = address.line1
+                        line2 = address.line2
+                        state = address.state
+                        zip = address.zip
+                        additionalProperties = address.additionalProperties.toMutableMap()
+                    }
+
+                    /** The city, district, town, or village of the address. */
+                    fun city(city: String) = city(JsonField.of(city))
+
+                    /**
+                     * Sets [Builder.city] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.city] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun city(city: JsonField<String>) = apply { this.city = city }
+
+                    /**
+                     * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                     *
+                     * Defaults to `US`.
+                     */
+                    fun country(country: String) = country(JsonField.of(country))
+
+                    /**
+                     * Sets [Builder.country] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.country] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun country(country: JsonField<String>) = apply { this.country = country }
+
+                    /**
+                     * The first line of the address. This is usually the street number and street.
+                     */
+                    fun line1(line1: String) = line1(JsonField.of(line1))
+
+                    /**
+                     * Sets [Builder.line1] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line1] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+                    /** The second line of the address. This might be the floor or room number. */
+                    fun line2(line2: String) = line2(JsonField.of(line2))
+
+                    /**
+                     * Sets [Builder.line2] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.line2] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                    /**
+                     * The two-letter United States Postal Service (USPS) abbreviation for the US
+                     * state, province, or region of the address. Required in certain countries.
+                     */
+                    fun state(state: String) = state(JsonField.of(state))
+
+                    /**
+                     * Sets [Builder.state] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.state] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun state(state: JsonField<String>) = apply { this.state = state }
+
+                    /** The ZIP or postal code of the address. Required in certain countries. */
+                    fun zip(zip: String) = zip(JsonField.of(zip))
+
+                    /**
+                     * Sets [Builder.zip] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.zip] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun zip(zip: JsonField<String>) = apply { this.zip = zip }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Address].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .city()
+                     * .country()
+                     * .line1()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Address =
+                        Address(
+                            checkRequired("city", city),
+                            checkRequired("country", country),
+                            checkRequired("line1", line1),
+                            line2,
+                            state,
+                            zip,
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Address = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    city()
+                    country()
+                    line1()
+                    line2()
+                    state()
+                    zip()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (if (city.asKnown().isPresent) 1 else 0) +
+                        (if (country.asKnown().isPresent) 1 else 0) +
+                        (if (line1.asKnown().isPresent) 1 else 0) +
+                        (if (line2.asKnown().isPresent) 1 else 0) +
+                        (if (state.asKnown().isPresent) 1 else 0) +
+                        (if (zip.asKnown().isPresent) 1 else 0)
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Address &&
+                        city == other.city &&
+                        country == other.country &&
+                        line1 == other.line1 &&
+                        line2 == other.line2 &&
+                        state == other.state &&
+                        zip == other.zip &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(city, country, line1, line2, state, zip, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Address{city=$city, country=$country, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
+            }
+
+            /**
+             * A means of verifying the person's identity. Sole proprietors must be identified with
+             * a `social_security_number` or an `individual_taxpayer_identification_number`.
+             */
+            class Identification
+            @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+            private constructor(
+                private val method: JsonField<Method>,
+                private val number: JsonField<String>,
+                private val additionalProperties: MutableMap<String, JsonValue>,
+            ) {
+
+                @JsonCreator
+                private constructor(
+                    @JsonProperty("method")
+                    @ExcludeMissing
+                    method: JsonField<Method> = JsonMissing.of(),
+                    @JsonProperty("number")
+                    @ExcludeMissing
+                    number: JsonField<String> = JsonMissing.of(),
+                ) : this(method, number, mutableMapOf())
+
+                /**
+                 * A method that can be used to verify the individual's identity.
+                 *
+                 * Defaults to `social_security_number`.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun method(): Method = method.getRequired("method")
+
+                /**
+                 * An identification number that can be used to verify the individual's identity,
+                 * such as a social security number. Submit nine digits with no dashes or other
+                 * separators. When testing in sandbox, use one of our
+                 * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
+                 *   is unexpectedly missing or null (e.g. if the server responded with an
+                 *   unexpected value).
+                 */
+                fun number(): String = number.getRequired("number")
+
+                /**
+                 * Returns the raw JSON value of [method].
+                 *
+                 * Unlike [method], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("method") @ExcludeMissing fun _method(): JsonField<Method> = method
+
+                /**
+                 * Returns the raw JSON value of [number].
+                 *
+                 * Unlike [number], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("number") @ExcludeMissing fun _number(): JsonField<String> = number
+
+                @JsonAnySetter
+                private fun putAdditionalProperty(key: String, value: JsonValue) {
+                    additionalProperties.put(key, value)
+                }
+
+                @JsonAnyGetter
+                @ExcludeMissing
+                fun _additionalProperties(): Map<String, JsonValue> =
+                    Collections.unmodifiableMap(additionalProperties)
+
+                fun toBuilder() = Builder().from(this)
+
+                companion object {
+
+                    /**
+                     * Returns a mutable builder for constructing an instance of [Identification].
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .method()
+                     * .number()
+                     * ```
+                     */
+                    @JvmStatic fun builder() = Builder()
+                }
+
+                /** A builder for [Identification]. */
+                class Builder internal constructor() {
+
+                    private var method: JsonField<Method>? = null
+                    private var number: JsonField<String>? = null
+                    private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                    @JvmSynthetic
+                    internal fun from(identification: Identification) = apply {
+                        method = identification.method
+                        number = identification.number
+                        additionalProperties = identification.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * A method that can be used to verify the individual's identity.
+                     *
+                     * Defaults to `social_security_number`.
+                     */
+                    fun method(method: Method) = method(JsonField.of(method))
+
+                    /**
+                     * Sets [Builder.method] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.method] with a well-typed [Method] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun method(method: JsonField<Method>) = apply { this.method = method }
+
+                    /**
+                     * An identification number that can be used to verify the individual's
+                     * identity, such as a social security number. Submit nine digits with no dashes
+                     * or other separators. When testing in sandbox, use one of our
+                     * [sandbox test values](https://increase.com/documentation/sandbox-test-values).
+                     */
+                    fun number(number: String) = number(JsonField.of(number))
+
+                    /**
+                     * Sets [Builder.number] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.number] with a well-typed [String] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun number(number: JsonField<String>) = apply { this.number = number }
+
+                    fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                        this.additionalProperties.clear()
+                        putAllAdditionalProperties(additionalProperties)
+                    }
+
+                    fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                        additionalProperties.put(key, value)
+                    }
+
+                    fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                        apply {
+                            this.additionalProperties.putAll(additionalProperties)
+                        }
+
+                    fun removeAdditionalProperty(key: String) = apply {
+                        additionalProperties.remove(key)
+                    }
+
+                    fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                        keys.forEach(::removeAdditionalProperty)
+                    }
+
+                    /**
+                     * Returns an immutable instance of [Identification].
+                     *
+                     * Further updates to this [Builder] will not mutate the returned instance.
+                     *
+                     * The following fields are required:
+                     * ```java
+                     * .method()
+                     * .number()
+                     * ```
+                     *
+                     * @throws IllegalStateException if any required field is unset.
+                     */
+                    fun build(): Identification =
+                        Identification(
+                            checkRequired("method", method),
+                            checkRequired("number", number),
+                            additionalProperties.toMutableMap(),
+                        )
+                }
+
+                private var validated: Boolean = false
+
+                /**
+                 * Validates that the types of all values in this object match their expected types
+                 * recursively.
+                 *
+                 * This method is _not_ forwards compatible with new types from the API for existing
+                 * fields.
+                 *
+                 * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                 *   match its expected type.
+                 */
+                fun validate(): Identification = apply {
+                    if (validated) {
+                        return@apply
+                    }
+
+                    method().validate()
+                    number()
+                    validated = true
+                }
+
+                fun isValid(): Boolean =
+                    try {
+                        validate()
+                        true
+                    } catch (e: IncreaseInvalidDataException) {
+                        false
+                    }
+
+                /**
+                 * Returns a score indicating how many valid values are contained in this object
+                 * recursively.
+                 *
+                 * Used for best match union deserialization.
+                 */
+                @JvmSynthetic
+                internal fun validity(): Int =
+                    (method.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (number.asKnown().isPresent) 1 else 0)
+
+                /** A method that can be used to verify the individual's identity. */
+                class Method
+                @JsonCreator
+                private constructor(private val value: JsonField<String>) : Enum {
+
+                    /**
+                     * Returns this class instance's raw value.
+                     *
+                     * This is usually only useful if this instance was deserialized from data that
+                     * doesn't match any known member, and you want to know that value. For example,
+                     * if the SDK is on an older version than the API, then the API may respond with
+                     * new members that the SDK is unaware of.
+                     */
+                    @com.fasterxml.jackson.annotation.JsonValue
+                    fun _value(): JsonField<String> = value
+
+                    companion object {
+
+                        /** A social security number. */
+                        @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
+
+                        /** An individual taxpayer identification number (ITIN). */
+                        @JvmField
+                        val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
+                            of("individual_taxpayer_identification_number")
+
+                        @JvmStatic fun of(value: String) = Method(JsonField.of(value))
+                    }
+
+                    /** An enum containing [Method]'s known values. */
+                    enum class Known {
+                        /** A social security number. */
+                        SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
+                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                    }
+
+                    /**
+                     * An enum containing [Method]'s known values, as well as an [_UNKNOWN] member.
+                     *
+                     * An instance of [Method] can contain an unknown value in a couple of cases:
+                     * - It was deserialized from data that doesn't match any known member. For
+                     *   example, if the SDK is on an older version than the API, then the API may
+                     *   respond with new members that the SDK is unaware of.
+                     * - It was constructed with an arbitrary value using the [of] method.
+                     */
+                    enum class Value {
+                        /** A social security number. */
+                        SOCIAL_SECURITY_NUMBER,
+                        /** An individual taxpayer identification number (ITIN). */
+                        INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
+                        /**
+                         * An enum member indicating that [Method] was instantiated with an unknown
+                         * value.
+                         */
+                        _UNKNOWN,
+                    }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value, or
+                     * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                     *
+                     * Use the [known] method instead if you're certain the value is always known or
+                     * if you want to throw for the unknown case.
+                     */
+                    fun value(): Value =
+                        when (this) {
+                            SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
+                                Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                            else -> Value._UNKNOWN
+                        }
+
+                    /**
+                     * Returns an enum member corresponding to this class instance's value.
+                     *
+                     * Use the [value] method instead if you're uncertain the value is always known
+                     * and don't want to throw for the unknown case.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value is a not
+                     *   a known member.
+                     */
+                    fun known(): Known =
+                        when (this) {
+                            SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                            INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
+                                Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
+                            else -> throw IncreaseInvalidDataException("Unknown Method: $value")
+                        }
+
+                    /**
+                     * Returns this class instance's primitive wire representation.
+                     *
+                     * This differs from the [toString] method because that method is primarily for
+                     * debugging and generally doesn't throw.
+                     *
+                     * @throws IncreaseInvalidDataException if this class instance's value does not
+                     *   have the expected primitive type.
+                     */
+                    fun asString(): String =
+                        _value().asString().orElseThrow {
+                            IncreaseInvalidDataException("Value is not a String")
+                        }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Method = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        known()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Method && value == other.value
+                    }
+
+                    override fun hashCode() = value.hashCode()
+
+                    override fun toString() = value.toString()
+                }
+
+                override fun equals(other: Any?): Boolean {
+                    if (this === other) {
+                        return true
+                    }
+
+                    return other is Identification &&
+                        method == other.method &&
+                        number == other.number &&
+                        additionalProperties == other.additionalProperties
+                }
+
+                private val hashCode: Int by lazy {
+                    Objects.hash(method, number, additionalProperties)
+                }
+
+                override fun hashCode(): Int = hashCode
+
+                override fun toString() =
+                    "Identification{method=$method, number=$number, additionalProperties=$additionalProperties}"
+            }
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is SoleProprietor &&
+                    address == other.address &&
+                    dateOfBirth == other.dateOfBirth &&
+                    identification == other.identification &&
+                    name == other.name &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(address, dateOfBirth, identification, name, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "SoleProprietor{address=$address, dateOfBirth=$dateOfBirth, identification=$identification, name=$name, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is SoleProprietorship &&
+                address == other.address &&
+                soleProprietor == other.soleProprietor &&
+                doingBusinessAsName == other.doingBusinessAsName &&
+                email == other.email &&
+                industryCode == other.industryCode &&
+                taxIdentifier == other.taxIdentifier &&
+                website == other.website &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                address,
+                soleProprietor,
+                doingBusinessAsName,
+                email,
+                industryCode,
+                taxIdentifier,
+                website,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "SoleProprietorship{address=$address, soleProprietor=$soleProprietor, doingBusinessAsName=$doingBusinessAsName, email=$email, industryCode=$industryCode, taxIdentifier=$taxIdentifier, website=$website, additionalProperties=$additionalProperties}"
     }
 
     class SupplementalDocument

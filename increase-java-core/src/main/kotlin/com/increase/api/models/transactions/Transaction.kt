@@ -1350,7 +1350,7 @@ private constructor(
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
          * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
          * Adjustment is created when Increase receives an adjustment for a check or return
-         * deposited through Check21.
+         * deposited through Check 21.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2696,7 +2696,7 @@ private constructor(
              * An Inbound Check Adjustment object. This field will be present in the JSON response
              * if and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
              * Adjustment is created when Increase receives an adjustment for a check or return
-             * deposited through Check21.
+             * deposited through Check 21.
              */
             fun inboundCheckAdjustment(inboundCheckAdjustment: InboundCheckAdjustment?) =
                 inboundCheckAdjustment(JsonField.ofNullable(inboundCheckAdjustment))
@@ -46048,7 +46048,7 @@ private constructor(
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-             * depositing this check. In some rare cases, this is not transmitted via Check21 and
+             * depositing this check. In some rare cases, this is not transmitted via Check 21 and
              * the value will be null.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -46274,7 +46274,7 @@ private constructor(
 
                 /**
                  * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * depositing this check. In some rare cases, this is not transmitted via Check 21
                  * and the value will be null.
                  */
                 fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String?) =
@@ -49071,7 +49071,7 @@ private constructor(
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
          * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
          * Adjustment is created when Increase receives an adjustment for a check or return
-         * deposited through Check21.
+         * deposited through Check 21.
          */
         class InboundCheckAdjustment
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
