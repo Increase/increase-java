@@ -13,6 +13,7 @@ internal class ProgramCreateParamsTest {
             .name("For Benefit Of")
             .bank(ProgramCreateParams.Bank.CORE_BANK)
             .lendingMaximumExtendableCredit(0L)
+            .loanAccountsRequireLoanOffers(true)
             .reserveAccountId("reserve_account_id")
             .build()
     }
@@ -24,6 +25,7 @@ internal class ProgramCreateParamsTest {
                 .name("For Benefit Of")
                 .bank(ProgramCreateParams.Bank.CORE_BANK)
                 .lendingMaximumExtendableCredit(0L)
+                .loanAccountsRequireLoanOffers(true)
                 .reserveAccountId("reserve_account_id")
                 .build()
 
@@ -32,6 +34,7 @@ internal class ProgramCreateParamsTest {
         assertThat(body.name()).isEqualTo("For Benefit Of")
         assertThat(body.bank()).contains(ProgramCreateParams.Bank.CORE_BANK)
         assertThat(body.lendingMaximumExtendableCredit()).contains(0L)
+        assertThat(body.loanAccountsRequireLoanOffers()).contains(true)
         assertThat(body.reserveAccountId()).contains("reserve_account_id")
     }
 

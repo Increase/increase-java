@@ -29,6 +29,7 @@ class DigitalWalletToken
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
     private val cardId: JsonField<String>,
     private val cardholder: JsonField<Cardholder>,
     private val createdAt: JsonField<OffsetDateTime>,
@@ -45,6 +46,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("cardholder")
         @ExcludeMissing
@@ -65,6 +67,7 @@ private constructor(
         @JsonProperty("updates") @ExcludeMissing updates: JsonField<List<Update>> = JsonMissing.of(),
     ) : this(
         id,
+        accountId,
         cardId,
         cardholder,
         createdAt,
@@ -85,6 +88,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The identifier for the Account this Digital Wallet Token belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The identifier for the Card this Digital Wallet Token belongs to.
@@ -175,6 +186,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * Returns the raw JSON value of [cardId].
@@ -276,6 +294,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .cardId()
          * .cardholder()
          * .createdAt()
@@ -295,6 +314,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
         private var cardId: JsonField<String>? = null
         private var cardholder: JsonField<Cardholder>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
@@ -310,6 +330,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(digitalWalletToken: DigitalWalletToken) = apply {
             id = digitalWalletToken.id
+            accountId = digitalWalletToken.accountId
             cardId = digitalWalletToken.cardId
             cardholder = digitalWalletToken.cardholder
             createdAt = digitalWalletToken.createdAt
@@ -333,6 +354,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The identifier for the Account this Digital Wallet Token belongs to. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The identifier for the Card this Digital Wallet Token belongs to. */
         fun cardId(cardId: String) = cardId(JsonField.of(cardId))
@@ -515,6 +548,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .cardId()
          * .cardholder()
          * .createdAt()
@@ -532,6 +566,7 @@ private constructor(
         fun build(): DigitalWalletToken =
             DigitalWalletToken(
                 checkRequired("id", id),
+                checkRequired("accountId", accountId),
                 checkRequired("cardId", cardId),
                 checkRequired("cardholder", cardholder),
                 checkRequired("createdAt", createdAt),
@@ -562,6 +597,7 @@ private constructor(
         }
 
         id()
+        accountId()
         cardId()
         cardholder().validate()
         createdAt()
@@ -591,6 +627,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (cardId.asKnown().isPresent) 1 else 0) +
             (cardholder.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
@@ -2741,6 +2778,7 @@ private constructor(
 
         return other is DigitalWalletToken &&
             id == other.id &&
+            accountId == other.accountId &&
             cardId == other.cardId &&
             cardholder == other.cardholder &&
             createdAt == other.createdAt &&
@@ -2757,6 +2795,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountId,
             cardId,
             cardholder,
             createdAt,
@@ -2774,5 +2813,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalWalletToken{id=$id, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, decline=$decline, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, status=$status, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
+        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, decline=$decline, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, status=$status, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
 }
