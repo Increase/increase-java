@@ -29,6 +29,7 @@ class CardPurchaseSupplement
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
 private constructor(
     private val id: JsonField<String>,
+    private val accountId: JsonField<String>,
     private val cardPaymentId: JsonField<String>,
     private val invoice: JsonField<Invoice>,
     private val lineItems: JsonField<List<LineItem>>,
@@ -41,6 +42,7 @@ private constructor(
     @JsonCreator
     private constructor(
         @JsonProperty("id") @ExcludeMissing id: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("account_id") @ExcludeMissing accountId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("card_payment_id")
         @ExcludeMissing
         cardPaymentId: JsonField<String> = JsonMissing.of(),
@@ -53,7 +55,17 @@ private constructor(
         @ExcludeMissing
         transactionId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-    ) : this(id, cardPaymentId, invoice, lineItems, shipping, transactionId, type, mutableMapOf())
+    ) : this(
+        id,
+        accountId,
+        cardPaymentId,
+        invoice,
+        lineItems,
+        shipping,
+        transactionId,
+        type,
+        mutableMapOf(),
+    )
 
     /**
      * The Card Purchase Supplement identifier.
@@ -62,6 +74,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun id(): String = id.getRequired("id")
+
+    /**
+     * The identifier for the Account the Card Purchase Supplement belongs to.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun accountId(): String = accountId.getRequired("account_id")
 
     /**
      * The ID of the Card Payment this transaction belongs to.
@@ -118,6 +138,13 @@ private constructor(
      * Unlike [id], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("id") @ExcludeMissing fun _id(): JsonField<String> = id
+
+    /**
+     * Returns the raw JSON value of [accountId].
+     *
+     * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
     /**
      * Returns the raw JSON value of [cardPaymentId].
@@ -187,6 +214,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .cardPaymentId()
          * .invoice()
          * .lineItems()
@@ -202,6 +230,7 @@ private constructor(
     class Builder internal constructor() {
 
         private var id: JsonField<String>? = null
+        private var accountId: JsonField<String>? = null
         private var cardPaymentId: JsonField<String>? = null
         private var invoice: JsonField<Invoice>? = null
         private var lineItems: JsonField<MutableList<LineItem>>? = null
@@ -213,6 +242,7 @@ private constructor(
         @JvmSynthetic
         internal fun from(cardPurchaseSupplement: CardPurchaseSupplement) = apply {
             id = cardPurchaseSupplement.id
+            accountId = cardPurchaseSupplement.accountId
             cardPaymentId = cardPurchaseSupplement.cardPaymentId
             invoice = cardPurchaseSupplement.invoice
             lineItems = cardPurchaseSupplement.lineItems.map { it.toMutableList() }
@@ -232,6 +262,18 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun id(id: JsonField<String>) = apply { this.id = id }
+
+        /** The identifier for the Account the Card Purchase Supplement belongs to. */
+        fun accountId(accountId: String) = accountId(JsonField.of(accountId))
+
+        /**
+         * Sets [Builder.accountId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.accountId] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
         /** The ID of the Card Payment this transaction belongs to. */
         fun cardPaymentId(cardPaymentId: String?) =
@@ -365,6 +407,7 @@ private constructor(
          * The following fields are required:
          * ```java
          * .id()
+         * .accountId()
          * .cardPaymentId()
          * .invoice()
          * .lineItems()
@@ -378,6 +421,7 @@ private constructor(
         fun build(): CardPurchaseSupplement =
             CardPurchaseSupplement(
                 checkRequired("id", id),
+                checkRequired("accountId", accountId),
                 checkRequired("cardPaymentId", cardPaymentId),
                 checkRequired("invoice", invoice),
                 checkRequired("lineItems", lineItems).map { it.toImmutable() },
@@ -404,6 +448,7 @@ private constructor(
         }
 
         id()
+        accountId()
         cardPaymentId()
         invoice().ifPresent { it.validate() }
         lineItems().ifPresent { it.forEach { it.validate() } }
@@ -429,6 +474,7 @@ private constructor(
     @JvmSynthetic
     internal fun validity(): Int =
         (if (id.asKnown().isPresent) 1 else 0) +
+            (if (accountId.asKnown().isPresent) 1 else 0) +
             (if (cardPaymentId.asKnown().isPresent) 1 else 0) +
             (invoice.asKnown().getOrNull()?.validity() ?: 0) +
             (lineItems.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
@@ -4512,6 +4558,7 @@ private constructor(
 
         return other is CardPurchaseSupplement &&
             id == other.id &&
+            accountId == other.accountId &&
             cardPaymentId == other.cardPaymentId &&
             invoice == other.invoice &&
             lineItems == other.lineItems &&
@@ -4524,6 +4571,7 @@ private constructor(
     private val hashCode: Int by lazy {
         Objects.hash(
             id,
+            accountId,
             cardPaymentId,
             invoice,
             lineItems,
@@ -4537,5 +4585,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "CardPurchaseSupplement{id=$id, cardPaymentId=$cardPaymentId, invoice=$invoice, lineItems=$lineItems, shipping=$shipping, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "CardPurchaseSupplement{id=$id, accountId=$accountId, cardPaymentId=$cardPaymentId, invoice=$invoice, lineItems=$lineItems, shipping=$shipping, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }
