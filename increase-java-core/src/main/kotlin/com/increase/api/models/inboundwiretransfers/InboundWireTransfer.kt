@@ -287,7 +287,7 @@ private constructor(
     fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
 
     /**
-     * The American Banking Association (ABA) routing number of the sender.
+     * The American Bankers' Association (ABA) routing number of the sender.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -324,7 +324,7 @@ private constructor(
         inputMessageAccountabilityData.getOptional("input_message_accountability_data")
 
     /**
-     * The American Banking Association (ABA) routing number of the bank that sent the wire.
+     * The American Bankers' Association (ABA) routing number of the bank that sent the wire.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1034,7 +1034,7 @@ private constructor(
          */
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
 
-        /** The American Banking Association (ABA) routing number of the sender. */
+        /** The American Bankers' Association (ABA) routing number of the sender. */
         fun debtorRoutingNumber(debtorRoutingNumber: String?) =
             debtorRoutingNumber(JsonField.ofNullable(debtorRoutingNumber))
 
@@ -1116,7 +1116,9 @@ private constructor(
                 this.inputMessageAccountabilityData = inputMessageAccountabilityData
             }
 
-        /** The American Banking Association (ABA) routing number of the bank that sent the wire. */
+        /**
+         * The American Bankers' Association (ABA) routing number of the bank that sent the wire.
+         */
         fun instructingAgentRoutingNumber(instructingAgentRoutingNumber: String?) =
             instructingAgentRoutingNumber(JsonField.ofNullable(instructingAgentRoutingNumber))
 
