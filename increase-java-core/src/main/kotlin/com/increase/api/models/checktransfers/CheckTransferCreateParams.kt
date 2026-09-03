@@ -1625,7 +1625,9 @@ private constructor(
             checkVoucherImageFileId.getOptional("check_voucher_image_file_id")
 
         /**
-         * The descriptor that will be printed on the letter included with the check.
+         * A few paragraphs of text printed on the letter included with the check. It can contain at
+         * most 22 lines. Paragraphs will wrap at about 120 characters, but depending on your exact
+         * message, it might be slightly more or slightly less.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1964,7 +1966,11 @@ private constructor(
                 this.checkVoucherImageFileId = checkVoucherImageFileId
             }
 
-            /** The descriptor that will be printed on the letter included with the check. */
+            /**
+             * A few paragraphs of text printed on the letter included with the check. It can
+             * contain at most 22 lines. Paragraphs will wrap at about 120 characters, but depending
+             * on your exact message, it might be slightly more or slightly less.
+             */
             fun note(note: String) = note(JsonField.of(note))
 
             /**
