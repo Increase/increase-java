@@ -84,7 +84,7 @@ private constructor(
     fun merchantCountry(): Optional<String> = body.merchantCountry()
 
     /**
-     * The name of the merchant
+     * The name of the merchant.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -302,7 +302,7 @@ private constructor(
             body.merchantCountry(merchantCountry)
         }
 
-        /** The name of the merchant */
+        /** The name of the merchant. */
         fun merchantName(merchantName: String) = apply { body.merchantName(merchantName) }
 
         /**
@@ -576,7 +576,7 @@ private constructor(
         fun merchantCountry(): Optional<String> = merchantCountry.getOptional("merchant_country")
 
         /**
-         * The name of the merchant
+         * The name of the merchant.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -806,7 +806,7 @@ private constructor(
                 this.merchantCountry = merchantCountry
             }
 
-            /** The name of the merchant */
+            /** The name of the merchant. */
             fun merchantName(merchantName: String) = merchantName(JsonField.of(merchantName))
 
             /**
