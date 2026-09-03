@@ -614,7 +614,7 @@ private constructor(
 
         /**
          * Whether ACH debits are allowed against this Account Number. Note that they will still be
-         * declined if this is `allowed` if the Account Number is not active.
+         * declined if this is `allowed` but the Account Number is not active.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -669,7 +669,7 @@ private constructor(
 
             /**
              * Whether ACH debits are allowed against this Account Number. Note that they will still
-             * be declined if this is `allowed` if the Account Number is not active.
+             * be declined if this is `allowed` but the Account Number is not active.
              */
             fun debitStatus(debitStatus: DebitStatus) = debitStatus(JsonField.of(debitStatus))
 
@@ -761,7 +761,7 @@ private constructor(
 
         /**
          * Whether ACH debits are allowed against this Account Number. Note that they will still be
-         * declined if this is `allowed` if the Account Number is not active.
+         * declined if this is `allowed` but the Account Number is not active.
          */
         class DebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
             Enum {

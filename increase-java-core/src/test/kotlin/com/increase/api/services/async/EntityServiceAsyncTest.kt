@@ -293,6 +293,54 @@ internal class EntityServiceAsyncTest {
                             .rating(EntityCreateParams.RiskRating.Rating.LOW)
                             .build()
                     )
+                    .soleProprietorship(
+                        EntityCreateParams.SoleProprietorship.builder()
+                            .address(
+                                EntityCreateParams.SoleProprietorship.Address.builder()
+                                    .city("x")
+                                    .line1("x")
+                                    .state("xx")
+                                    .zip("x")
+                                    .line2("x")
+                                    .build()
+                            )
+                            .soleProprietor(
+                                EntityCreateParams.SoleProprietorship.SoleProprietor.builder()
+                                    .address(
+                                        EntityCreateParams.SoleProprietorship.SoleProprietor.Address
+                                            .builder()
+                                            .city("x")
+                                            .country("x")
+                                            .line1("x")
+                                            .line2("x")
+                                            .state("x")
+                                            .zip("x")
+                                            .build()
+                                    )
+                                    .dateOfBirth(LocalDate.parse("2019-12-27"))
+                                    .identification(
+                                        EntityCreateParams.SoleProprietorship.SoleProprietor
+                                            .Identification
+                                            .builder()
+                                            .method(
+                                                EntityCreateParams.SoleProprietorship.SoleProprietor
+                                                    .Identification
+                                                    .Method
+                                                    .SOCIAL_SECURITY_NUMBER
+                                            )
+                                            .number("xxxx")
+                                            .build()
+                                    )
+                                    .name("x")
+                                    .build()
+                            )
+                            .doingBusinessAsName("x")
+                            .email("dev@stainless.com")
+                            .industryCode("x")
+                            .taxIdentifier("x")
+                            .website("website")
+                            .build()
+                    )
                     .addSupplementalDocument(
                         EntityCreateParams.SupplementalDocument.builder().fileId("file_id").build()
                     )
@@ -596,6 +644,84 @@ internal class EntityServiceAsyncTest {
                         EntityUpdateParams.RiskRating.builder()
                             .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .rating(EntityUpdateParams.RiskRating.Rating.LOW)
+                            .build()
+                    )
+                    .soleProprietorship(
+                        EntityUpdateParams.SoleProprietorship.builder()
+                            .address(
+                                EntityUpdateParams.SoleProprietorship.Address.builder()
+                                    .city("x")
+                                    .line1("x")
+                                    .state("xx")
+                                    .zip("x")
+                                    .line2("x")
+                                    .build()
+                            )
+                            .email("dev@stainless.com")
+                            .soleProprietor(
+                                EntityUpdateParams.SoleProprietorship.SoleProprietor.builder()
+                                    .address(
+                                        EntityUpdateParams.SoleProprietorship.SoleProprietor.Address
+                                            .builder()
+                                            .city("x")
+                                            .country("x")
+                                            .line1("x")
+                                            .line2("x")
+                                            .state("x")
+                                            .zip("x")
+                                            .build()
+                                    )
+                                    .identification(
+                                        EntityUpdateParams.SoleProprietorship.SoleProprietor
+                                            .Identification
+                                            .builder()
+                                            .method(
+                                                EntityUpdateParams.SoleProprietorship.SoleProprietor
+                                                    .Identification
+                                                    .Method
+                                                    .SOCIAL_SECURITY_NUMBER
+                                            )
+                                            .number("xxxx")
+                                            .driversLicense(
+                                                EntityUpdateParams.SoleProprietorship.SoleProprietor
+                                                    .Identification
+                                                    .DriversLicense
+                                                    .builder()
+                                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                                    .fileId("file_id")
+                                                    .state("xx")
+                                                    .backFileId("back_file_id")
+                                                    .build()
+                                            )
+                                            .other(
+                                                EntityUpdateParams.SoleProprietorship.SoleProprietor
+                                                    .Identification
+                                                    .Other
+                                                    .builder()
+                                                    .country("x")
+                                                    .description("x")
+                                                    .fileId("file_id")
+                                                    .backFileId("back_file_id")
+                                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                                    .build()
+                                            )
+                                            .passport(
+                                                EntityUpdateParams.SoleProprietorship.SoleProprietor
+                                                    .Identification
+                                                    .Passport
+                                                    .builder()
+                                                    .country("x")
+                                                    .expirationDate(LocalDate.parse("2019-12-27"))
+                                                    .fileId("file_id")
+                                                    .build()
+                                            )
+                                            .build()
+                                    )
+                                    .name("x")
+                                    .build()
+                            )
+                            .taxIdentifier("x")
+                            .website("website")
                             .build()
                     )
                     .addTermsAgreement(
