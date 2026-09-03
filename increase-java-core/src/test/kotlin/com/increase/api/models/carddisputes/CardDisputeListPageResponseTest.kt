@@ -18,6 +18,7 @@ internal class CardDisputeListPageResponseTest {
                 .addData(
                     CardDispute.builder()
                         .id("card_dispute_h9sc95nbl1cgltpp7men")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .amount(1000L)
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -1416,6 +1417,7 @@ internal class CardDisputeListPageResponseTest {
             .containsExactly(
                 CardDispute.builder()
                     .id("card_dispute_h9sc95nbl1cgltpp7men")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .amount(1000L)
                     .cardId("card_oubs0hwk5rn6knuecxg2")
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -2723,6 +2725,7 @@ internal class CardDisputeListPageResponseTest {
                 .addData(
                     CardDispute.builder()
                         .id("card_dispute_h9sc95nbl1cgltpp7men")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .amount(1000L)
                         .cardId("card_oubs0hwk5rn6knuecxg2")
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
