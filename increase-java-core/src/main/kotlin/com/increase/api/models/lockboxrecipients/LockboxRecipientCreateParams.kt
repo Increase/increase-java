@@ -53,7 +53,7 @@ private constructor(
     fun description(): Optional<String> = body.description()
 
     /**
-     * The name of the Lockbox Recipient
+     * The name of the Lockbox Recipient.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -182,7 +182,7 @@ private constructor(
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
 
-        /** The name of the Lockbox Recipient */
+        /** The name of the Lockbox Recipient. */
         fun recipientName(recipientName: String) = apply { body.recipientName(recipientName) }
 
         /**
@@ -392,7 +392,7 @@ private constructor(
         fun description(): Optional<String> = description.getOptional("description")
 
         /**
-         * The name of the Lockbox Recipient
+         * The name of the Lockbox Recipient.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -523,7 +523,7 @@ private constructor(
                 this.description = description
             }
 
-            /** The name of the Lockbox Recipient */
+            /** The name of the Lockbox Recipient. */
             fun recipientName(recipientName: String) = recipientName(JsonField.of(recipientName))
 
             /**

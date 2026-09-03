@@ -200,7 +200,7 @@ private constructor(
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
-     * this check. In some rare cases, this is not transmitted via Check21 and the value will be
+     * this check. In some rare cases, this is not transmitted via Check 21 and the value will be
      * null.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -734,7 +734,7 @@ private constructor(
 
         /**
          * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-         * depositing this check. In some rare cases, this is not transmitted via Check21 and the
+         * depositing this check. In some rare cases, this is not transmitted via Check 21 and the
          * value will be null.
          */
         fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String?) =
