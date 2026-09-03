@@ -10647,7 +10647,7 @@ private constructor(
         fun agreedAt(): OffsetDateTime = agreedAt.getRequired("agreed_at")
 
         /**
-         * The IP address the Entity accessed reviewed the terms from.
+         * The IP address the Entity reviewed the terms from.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -10740,7 +10740,7 @@ private constructor(
              */
             fun agreedAt(agreedAt: JsonField<OffsetDateTime>) = apply { this.agreedAt = agreedAt }
 
-            /** The IP address the Entity accessed reviewed the terms from. */
+            /** The IP address the Entity reviewed the terms from. */
             fun ipAddress(ipAddress: String?) = ipAddress(JsonField.ofNullable(ipAddress))
 
             /** Alias for calling [Builder.ipAddress] with `ipAddress.orElse(null)`. */

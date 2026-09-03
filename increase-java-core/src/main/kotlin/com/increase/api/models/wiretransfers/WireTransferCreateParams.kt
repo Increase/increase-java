@@ -114,7 +114,7 @@ private constructor(
     fun routingNumber(): Optional<String> = body.routingNumber()
 
     /**
-     * The ID of an Account Number that will be passed to the wire's recipient
+     * The ID of an Account Number that will be passed to the wire's recipient.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -402,7 +402,7 @@ private constructor(
             body.routingNumber(routingNumber)
         }
 
-        /** The ID of an Account Number that will be passed to the wire's recipient */
+        /** The ID of an Account Number that will be passed to the wire's recipient. */
         fun sourceAccountNumberId(sourceAccountNumberId: String) = apply {
             body.sourceAccountNumberId(sourceAccountNumberId)
         }
@@ -715,7 +715,7 @@ private constructor(
         fun routingNumber(): Optional<String> = routingNumber.getOptional("routing_number")
 
         /**
-         * The ID of an Account Number that will be passed to the wire's recipient
+         * The ID of an Account Number that will be passed to the wire's recipient.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1029,7 +1029,7 @@ private constructor(
                 this.routingNumber = routingNumber
             }
 
-            /** The ID of an Account Number that will be passed to the wire's recipient */
+            /** The ID of an Account Number that will be passed to the wire's recipient. */
             fun sourceAccountNumberId(sourceAccountNumberId: String) =
                 sourceAccountNumberId(JsonField.of(sourceAccountNumberId))
 
