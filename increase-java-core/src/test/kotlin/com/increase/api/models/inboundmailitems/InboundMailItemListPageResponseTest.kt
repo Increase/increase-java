@@ -17,6 +17,7 @@ internal class InboundMailItemListPageResponseTest {
                 .addData(
                     InboundMailItem.builder()
                         .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .addCheck(
                             InboundMailItem.Check.builder()
                                 .amount(1750L)
@@ -52,6 +53,7 @@ internal class InboundMailItemListPageResponseTest {
             .containsExactly(
                 InboundMailItem.builder()
                     .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                    .accountId("account_in71c4amph0vgo2qllky")
                     .addCheck(
                         InboundMailItem.Check.builder()
                             .amount(1750L)
@@ -91,6 +93,7 @@ internal class InboundMailItemListPageResponseTest {
                 .addData(
                     InboundMailItem.builder()
                         .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                        .accountId("account_in71c4amph0vgo2qllky")
                         .addCheck(
                             InboundMailItem.Check.builder()
                                 .amount(1750L)

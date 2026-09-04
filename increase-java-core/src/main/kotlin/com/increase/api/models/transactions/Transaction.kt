@@ -1350,7 +1350,7 @@ private constructor(
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
          * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
          * Adjustment is created when Increase receives an adjustment for a check or return
-         * deposited through Check21.
+         * deposited through Check 21.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2696,7 +2696,7 @@ private constructor(
              * An Inbound Check Adjustment object. This field will be present in the JSON response
              * if and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
              * Adjustment is created when Increase receives an adjustment for a check or return
-             * deposited through Check21.
+             * deposited through Check 21.
              */
             fun inboundCheckAdjustment(inboundCheckAdjustment: InboundCheckAdjustment?) =
                 inboundCheckAdjustment(JsonField.ofNullable(inboundCheckAdjustment))
@@ -9392,7 +9392,7 @@ private constructor(
             fun actioner(): Actioner = actioner.getRequired("actioner")
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              *
@@ -10060,7 +10060,7 @@ private constructor(
                 fun actioner(actioner: JsonField<Actioner>) = apply { this.actioner = actioner }
 
                 /**
-                 * Additional amounts associated with the card authorization, such as ATM surcharges
+                 * Additional amounts associated with the card authorization, such as ATM surcharge
                  * fees. These are usually a subset of the `amount` field and are used to provide
                  * more detailed information about the transaction.
                  */
@@ -10900,7 +10900,7 @@ private constructor(
             }
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              */
@@ -46048,7 +46048,7 @@ private constructor(
 
             /**
              * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-             * depositing this check. In some rare cases, this is not transmitted via Check21 and
+             * depositing this check. In some rare cases, this is not transmitted via Check 21 and
              * the value will be null.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
@@ -46274,7 +46274,7 @@ private constructor(
 
                 /**
                  * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank
-                 * depositing this check. In some rare cases, this is not transmitted via Check21
+                 * depositing this check. In some rare cases, this is not transmitted via Check 21
                  * and the value will be null.
                  */
                 fun bankOfFirstDepositRoutingNumber(bankOfFirstDepositRoutingNumber: String?) =
@@ -49071,7 +49071,7 @@ private constructor(
          * An Inbound Check Adjustment object. This field will be present in the JSON response if
          * and only if `category` is equal to `inbound_check_adjustment`. An Inbound Check
          * Adjustment is created when Increase receives an adjustment for a check or return
-         * deposited through Check21.
+         * deposited through Check 21.
          */
         class InboundCheckAdjustment
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -51843,7 +51843,8 @@ private constructor(
                 inputMessageAccountabilityData.getOptional("input_message_accountability_data")
 
             /**
-             * The American Banking Association (ABA) routing number of the bank that sent the wire.
+             * The American Bankers' Association (ABA) routing number of the bank that sent the
+             * wire.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
@@ -52416,7 +52417,7 @@ private constructor(
                 ) = apply { this.inputMessageAccountabilityData = inputMessageAccountabilityData }
 
                 /**
-                 * The American Banking Association (ABA) routing number of the bank that sent the
+                 * The American Bankers' Association (ABA) routing number of the bank that sent the
                  * wire.
                  */
                 fun instructingAgentRoutingNumber(instructingAgentRoutingNumber: String?) =
