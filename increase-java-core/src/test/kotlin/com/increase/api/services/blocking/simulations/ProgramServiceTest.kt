@@ -26,6 +26,7 @@ internal class ProgramServiceTest {
                     .name("For Benefit Of")
                     .bank(ProgramCreateParams.Bank.CORE_BANK)
                     .lendingMaximumExtendableCredit(0L)
+                    .loanAccountsRequireLoanOffers(true)
                     .reserveAccountId("reserve_account_id")
                     .build()
             )

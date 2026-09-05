@@ -6574,7 +6574,7 @@ private constructor(
         fun accountId(): String = accountId.getRequired("account_id")
 
         /**
-         * Additional amounts associated with the card authorization, such as ATM surcharges fees.
+         * Additional amounts associated with the card authorization, such as ATM surcharge fees.
          * These are usually a subset of the `amount` field and are used to provide more detailed
          * information about the transaction.
          *
@@ -7278,7 +7278,7 @@ private constructor(
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              */
@@ -8029,7 +8029,7 @@ private constructor(
                 (verification.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
-         * Additional amounts associated with the card authorization, such as ATM surcharges fees.
+         * Additional amounts associated with the card authorization, such as ATM surcharge fees.
          * These are usually a subset of the `amount` field and are used to provide more detailed
          * information about the transaction.
          */
@@ -17752,7 +17752,7 @@ private constructor(
         fun accountId(): String = accountId.getRequired("account_id")
 
         /**
-         * Additional amounts associated with the card authorization, such as ATM surcharges fees.
+         * Additional amounts associated with the card authorization, such as ATM surcharge fees.
          * These are usually a subset of the `amount` field and are used to provide more detailed
          * information about the transaction.
          *
@@ -18215,7 +18215,7 @@ private constructor(
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
             /**
-             * Additional amounts associated with the card authorization, such as ATM surcharges
+             * Additional amounts associated with the card authorization, such as ATM surcharge
              * fees. These are usually a subset of the `amount` field and are used to provide more
              * detailed information about the transaction.
              */
@@ -18720,7 +18720,7 @@ private constructor(
                 (verification.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
-         * Additional amounts associated with the card authorization, such as ATM surcharges fees.
+         * Additional amounts associated with the card authorization, such as ATM surcharge fees.
          * These are usually a subset of the `amount` field and are used to provide more detailed
          * information about the transaction.
          */

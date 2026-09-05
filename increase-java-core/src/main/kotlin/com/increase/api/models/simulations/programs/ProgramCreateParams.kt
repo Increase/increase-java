@@ -58,7 +58,16 @@ private constructor(
     fun lendingMaximumExtendableCredit(): Optional<Long> = body.lendingMaximumExtendableCredit()
 
     /**
-     * The identifier of the Account the Program should be added to is for.
+     * Whether opening a loan Account under this Program requires an accepted Loan Offer. Requires
+     * `lending_maximum_extendable_credit`. Defaults to `false`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun loanAccountsRequireLoanOffers(): Optional<Boolean> = body.loanAccountsRequireLoanOffers()
+
+    /**
+     * The identifier of the Account the Program should be added to.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -86,6 +95,14 @@ private constructor(
      * unexpected type.
      */
     fun _lendingMaximumExtendableCredit(): JsonField<Long> = body._lendingMaximumExtendableCredit()
+
+    /**
+     * Returns the raw JSON value of [loanAccountsRequireLoanOffers].
+     *
+     * Unlike [loanAccountsRequireLoanOffers], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _loanAccountsRequireLoanOffers(): JsonField<Boolean> = body._loanAccountsRequireLoanOffers()
 
     /**
      * Returns the raw JSON value of [reserveAccountId].
@@ -140,7 +157,9 @@ private constructor(
          * - [name]
          * - [bank]
          * - [lendingMaximumExtendableCredit]
+         * - [loanAccountsRequireLoanOffers]
          * - [reserveAccountId]
+         * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -183,7 +202,27 @@ private constructor(
                 body.lendingMaximumExtendableCredit(lendingMaximumExtendableCredit)
             }
 
-        /** The identifier of the Account the Program should be added to is for. */
+        /**
+         * Whether opening a loan Account under this Program requires an accepted Loan Offer.
+         * Requires `lending_maximum_extendable_credit`. Defaults to `false`.
+         */
+        fun loanAccountsRequireLoanOffers(loanAccountsRequireLoanOffers: Boolean) = apply {
+            body.loanAccountsRequireLoanOffers(loanAccountsRequireLoanOffers)
+        }
+
+        /**
+         * Sets [Builder.loanAccountsRequireLoanOffers] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.loanAccountsRequireLoanOffers] with a well-typed
+         * [Boolean] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun loanAccountsRequireLoanOffers(loanAccountsRequireLoanOffers: JsonField<Boolean>) =
+            apply {
+                body.loanAccountsRequireLoanOffers(loanAccountsRequireLoanOffers)
+            }
+
+        /** The identifier of the Account the Program should be added to. */
         fun reserveAccountId(reserveAccountId: String) = apply {
             body.reserveAccountId(reserveAccountId)
         }
@@ -348,6 +387,7 @@ private constructor(
         private val name: JsonField<String>,
         private val bank: JsonField<Bank>,
         private val lendingMaximumExtendableCredit: JsonField<Long>,
+        private val loanAccountsRequireLoanOffers: JsonField<Boolean>,
         private val reserveAccountId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -359,10 +399,20 @@ private constructor(
             @JsonProperty("lending_maximum_extendable_credit")
             @ExcludeMissing
             lendingMaximumExtendableCredit: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("loan_accounts_require_loan_offers")
+            @ExcludeMissing
+            loanAccountsRequireLoanOffers: JsonField<Boolean> = JsonMissing.of(),
             @JsonProperty("reserve_account_id")
             @ExcludeMissing
             reserveAccountId: JsonField<String> = JsonMissing.of(),
-        ) : this(name, bank, lendingMaximumExtendableCredit, reserveAccountId, mutableMapOf())
+        ) : this(
+            name,
+            bank,
+            lendingMaximumExtendableCredit,
+            loanAccountsRequireLoanOffers,
+            reserveAccountId,
+            mutableMapOf(),
+        )
 
         /**
          * The name of the program being added.
@@ -390,7 +440,17 @@ private constructor(
             lendingMaximumExtendableCredit.getOptional("lending_maximum_extendable_credit")
 
         /**
-         * The identifier of the Account the Program should be added to is for.
+         * Whether opening a loan Account under this Program requires an accepted Loan Offer.
+         * Requires `lending_maximum_extendable_credit`. Defaults to `false`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun loanAccountsRequireLoanOffers(): Optional<Boolean> =
+            loanAccountsRequireLoanOffers.getOptional("loan_accounts_require_loan_offers")
+
+        /**
+         * The identifier of the Account the Program should be added to.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -421,6 +481,16 @@ private constructor(
         @JsonProperty("lending_maximum_extendable_credit")
         @ExcludeMissing
         fun _lendingMaximumExtendableCredit(): JsonField<Long> = lendingMaximumExtendableCredit
+
+        /**
+         * Returns the raw JSON value of [loanAccountsRequireLoanOffers].
+         *
+         * Unlike [loanAccountsRequireLoanOffers], this method doesn't throw if the JSON field has
+         * an unexpected type.
+         */
+        @JsonProperty("loan_accounts_require_loan_offers")
+        @ExcludeMissing
+        fun _loanAccountsRequireLoanOffers(): JsonField<Boolean> = loanAccountsRequireLoanOffers
 
         /**
          * Returns the raw JSON value of [reserveAccountId].
@@ -463,6 +533,7 @@ private constructor(
             private var name: JsonField<String>? = null
             private var bank: JsonField<Bank> = JsonMissing.of()
             private var lendingMaximumExtendableCredit: JsonField<Long> = JsonMissing.of()
+            private var loanAccountsRequireLoanOffers: JsonField<Boolean> = JsonMissing.of()
             private var reserveAccountId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -471,6 +542,7 @@ private constructor(
                 name = body.name
                 bank = body.bank
                 lendingMaximumExtendableCredit = body.lendingMaximumExtendableCredit
+                loanAccountsRequireLoanOffers = body.loanAccountsRequireLoanOffers
                 reserveAccountId = body.reserveAccountId
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
@@ -515,7 +587,26 @@ private constructor(
                     this.lendingMaximumExtendableCredit = lendingMaximumExtendableCredit
                 }
 
-            /** The identifier of the Account the Program should be added to is for. */
+            /**
+             * Whether opening a loan Account under this Program requires an accepted Loan Offer.
+             * Requires `lending_maximum_extendable_credit`. Defaults to `false`.
+             */
+            fun loanAccountsRequireLoanOffers(loanAccountsRequireLoanOffers: Boolean) =
+                loanAccountsRequireLoanOffers(JsonField.of(loanAccountsRequireLoanOffers))
+
+            /**
+             * Sets [Builder.loanAccountsRequireLoanOffers] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.loanAccountsRequireLoanOffers] with a well-typed
+             * [Boolean] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun loanAccountsRequireLoanOffers(loanAccountsRequireLoanOffers: JsonField<Boolean>) =
+                apply {
+                    this.loanAccountsRequireLoanOffers = loanAccountsRequireLoanOffers
+                }
+
+            /** The identifier of the Account the Program should be added to. */
             fun reserveAccountId(reserveAccountId: String) =
                 reserveAccountId(JsonField.of(reserveAccountId))
 
@@ -566,6 +657,7 @@ private constructor(
                     checkRequired("name", name),
                     bank,
                     lendingMaximumExtendableCredit,
+                    loanAccountsRequireLoanOffers,
                     reserveAccountId,
                     additionalProperties.toMutableMap(),
                 )
@@ -590,6 +682,7 @@ private constructor(
             name()
             bank().ifPresent { it.validate() }
             lendingMaximumExtendableCredit()
+            loanAccountsRequireLoanOffers()
             reserveAccountId()
             validated = true
         }
@@ -613,6 +706,7 @@ private constructor(
             (if (name.asKnown().isPresent) 1 else 0) +
                 (bank.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (lendingMaximumExtendableCredit.asKnown().isPresent) 1 else 0) +
+                (if (loanAccountsRequireLoanOffers.asKnown().isPresent) 1 else 0) +
                 (if (reserveAccountId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -624,6 +718,7 @@ private constructor(
                 name == other.name &&
                 bank == other.bank &&
                 lendingMaximumExtendableCredit == other.lendingMaximumExtendableCredit &&
+                loanAccountsRequireLoanOffers == other.loanAccountsRequireLoanOffers &&
                 reserveAccountId == other.reserveAccountId &&
                 additionalProperties == other.additionalProperties
         }
@@ -633,6 +728,7 @@ private constructor(
                 name,
                 bank,
                 lendingMaximumExtendableCredit,
+                loanAccountsRequireLoanOffers,
                 reserveAccountId,
                 additionalProperties,
             )
@@ -641,7 +737,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{name=$name, bank=$bank, lendingMaximumExtendableCredit=$lendingMaximumExtendableCredit, reserveAccountId=$reserveAccountId, additionalProperties=$additionalProperties}"
+            "Body{name=$name, bank=$bank, lendingMaximumExtendableCredit=$lendingMaximumExtendableCredit, loanAccountsRequireLoanOffers=$loanAccountsRequireLoanOffers, reserveAccountId=$reserveAccountId, additionalProperties=$additionalProperties}"
     }
 
     /** The bank for the program's accounts, defaults to First Internet Bank. */

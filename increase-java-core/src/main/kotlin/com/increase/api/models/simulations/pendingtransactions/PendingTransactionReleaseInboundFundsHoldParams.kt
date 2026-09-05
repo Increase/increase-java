@@ -24,7 +24,7 @@ private constructor(
 ) : Params {
 
     /**
-     * The pending transaction to release. The pending transaction must have a `inbound_funds_hold`
+     * The pending transaction to release. The pending transaction must have an `inbound_funds_hold`
      * source.
      */
     fun pendingTransactionId(): Optional<String> = Optional.ofNullable(pendingTransactionId)
@@ -76,7 +76,7 @@ private constructor(
         }
 
         /**
-         * The pending transaction to release. The pending transaction must have a
+         * The pending transaction to release. The pending transaction must have an
          * `inbound_funds_hold` source.
          */
         fun pendingTransactionId(pendingTransactionId: String?) = apply {

@@ -15,6 +15,7 @@ internal class InboundWireDrawdownRequestTest {
         val inboundWireDrawdownRequest =
             InboundWireDrawdownRequest.builder()
                 .id("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .amount(10000L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .creditorAccountNumber("987654321")
@@ -39,6 +40,7 @@ internal class InboundWireDrawdownRequestTest {
 
         assertThat(inboundWireDrawdownRequest.id())
             .isEqualTo("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
+        assertThat(inboundWireDrawdownRequest.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(inboundWireDrawdownRequest.amount()).isEqualTo(10000L)
         assertThat(inboundWireDrawdownRequest.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -75,6 +77,7 @@ internal class InboundWireDrawdownRequestTest {
         val inboundWireDrawdownRequest =
             InboundWireDrawdownRequest.builder()
                 .id("inbound_wire_drawdown_request_u5a92ikqhz1ytphn799e")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .amount(10000L)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .creditorAccountNumber("987654321")

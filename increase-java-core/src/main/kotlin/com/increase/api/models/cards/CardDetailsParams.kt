@@ -10,8 +10,8 @@ import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
 /**
- * Sensitive details for a Card include the primary account number, expiry, card verification code,
- * and PIN.
+ * Sensitive details for a Card include the primary account number, expiration, card verification
+ * code, and PIN.
  */
 class CardDetailsParams
 private constructor(

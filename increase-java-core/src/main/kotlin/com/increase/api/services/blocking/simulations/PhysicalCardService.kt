@@ -52,7 +52,7 @@ interface PhysicalCardService {
 
     /**
      * This endpoint allows you to simulate advancing the shipment status of a Physical Card, to
-     * simulate e.g., that a physical card was attempted shipped but then failed delivery.
+     * simulate e.g., that a physical card was attempted to be shipped but then failed delivery.
      */
     fun advanceShipment(
         physicalCardId: String,

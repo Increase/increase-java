@@ -29122,6 +29122,8 @@ private constructor(
                 ) : this(category, reason, mutableMapOf())
 
                 /**
+                 * The category the dispute is being changed to.
+                 *
                  * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or
                  *   is unexpectedly missing or null (e.g. if the server responded with an
                  *   unexpected value).
@@ -29195,6 +29197,7 @@ private constructor(
                         additionalProperties = categoryChange.additionalProperties.toMutableMap()
                     }
 
+                    /** The category the dispute is being changed to. */
                     fun category(category: Category) = category(JsonField.of(category))
 
                     /**
@@ -29302,6 +29305,7 @@ private constructor(
                     (category.asKnown().getOrNull()?.validity() ?: 0) +
                         (if (reason.asKnown().isPresent) 1 else 0)
 
+                /** The category the dispute is being changed to. */
                 class Category
                 @JsonCreator
                 private constructor(private val value: JsonField<String>) : Enum {

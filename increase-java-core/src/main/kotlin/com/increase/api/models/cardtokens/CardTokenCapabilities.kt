@@ -39,7 +39,7 @@ private constructor(
     ) : this(routes, type, mutableMapOf())
 
     /**
-     * Each route represent a path e.g., a push transfer can take.
+     * Each route represents a path e.g., a push transfer can take.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -109,7 +109,7 @@ private constructor(
             additionalProperties = cardTokenCapabilities.additionalProperties.toMutableMap()
         }
 
-        /** Each route represent a path e.g., a push transfer can take. */
+        /** Each route represents a path e.g., a push transfer can take. */
         fun routes(routes: List<Route>) = routes(JsonField.of(routes))
 
         /**

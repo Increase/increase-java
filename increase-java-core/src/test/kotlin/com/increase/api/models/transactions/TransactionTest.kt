@@ -903,6 +903,17 @@ internal class TransactionTest {
                                 .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                                 .build()
                         )
+                        .fednowTransferReturn(
+                            Transaction.Source.FednowTransferReturn.builder()
+                                .amount(100L)
+                                .returnReasonAdditionalInformation(null)
+                                .returnReasonCode(
+                                    Transaction.Source.FednowTransferReturn.ReturnReasonCode
+                                        .UNABLE_TO_APPLY
+                                )
+                                .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
+                                .build()
+                        )
                         .feePayment(
                             Transaction.Source.FeePayment.builder()
                                 .amount(100L)
@@ -1924,6 +1935,17 @@ internal class TransactionTest {
                     )
                     .fednowTransferAcknowledgement(
                         Transaction.Source.FednowTransferAcknowledgement.builder()
+                            .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
+                            .build()
+                    )
+                    .fednowTransferReturn(
+                        Transaction.Source.FednowTransferReturn.builder()
+                            .amount(100L)
+                            .returnReasonAdditionalInformation(null)
+                            .returnReasonCode(
+                                Transaction.Source.FednowTransferReturn.ReturnReasonCode
+                                    .UNABLE_TO_APPLY
+                            )
                             .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                             .build()
                     )
@@ -3000,6 +3022,17 @@ internal class TransactionTest {
                         )
                         .fednowTransferAcknowledgement(
                             Transaction.Source.FednowTransferAcknowledgement.builder()
+                                .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
+                                .build()
+                        )
+                        .fednowTransferReturn(
+                            Transaction.Source.FednowTransferReturn.builder()
+                                .amount(100L)
+                                .returnReasonAdditionalInformation(null)
+                                .returnReasonCode(
+                                    Transaction.Source.FednowTransferReturn.ReturnReasonCode
+                                        .UNABLE_TO_APPLY
+                                )
                                 .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                                 .build()
                         )

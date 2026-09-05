@@ -75,6 +75,16 @@ internal class FednowTransferListPageResponseTest {
                                 .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
+                        .addReturn(
+                            FednowTransfer.Return.builder()
+                                .amount(100L)
+                                .returnReasonAdditionalInformation(null)
+                                .returnReasonCode(
+                                    FednowTransfer.Return.ReturnReasonCode.UNABLE_TO_APPLY
+                                )
+                                .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
+                                .build()
+                        )
                         .routingNumber("101050001")
                         .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                         .status(FednowTransfer.Status.COMPLETE)
@@ -153,6 +163,16 @@ internal class FednowTransferListPageResponseTest {
                             .rejectReasonAdditionalInformation(null)
                             .rejectReasonCode(FednowTransfer.Rejection.RejectReasonCode.OTHER)
                             .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .build()
+                    )
+                    .addReturn(
+                        FednowTransfer.Return.builder()
+                            .amount(100L)
+                            .returnReasonAdditionalInformation(null)
+                            .returnReasonCode(
+                                FednowTransfer.Return.ReturnReasonCode.UNABLE_TO_APPLY
+                            )
+                            .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                             .build()
                     )
                     .routingNumber("101050001")
@@ -237,6 +257,16 @@ internal class FednowTransferListPageResponseTest {
                                 .rejectReasonAdditionalInformation(null)
                                 .rejectReasonCode(FednowTransfer.Rejection.RejectReasonCode.OTHER)
                                 .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .build()
+                        )
+                        .addReturn(
+                            FednowTransfer.Return.builder()
+                                .amount(100L)
+                                .returnReasonAdditionalInformation(null)
+                                .returnReasonCode(
+                                    FednowTransfer.Return.ReturnReasonCode.UNABLE_TO_APPLY
+                                )
+                                .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                                 .build()
                         )
                         .routingNumber("101050001")

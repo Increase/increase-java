@@ -84,7 +84,7 @@ interface EntityOnboardingSessionServiceAsync {
             requestOptions,
         )
 
-    /** List Entity Onboarding Session */
+    /** List Entity Onboarding Sessions */
     fun list(): CompletableFuture<EntityOnboardingSessionListPageAsync> =
         list(EntityOnboardingSessionListParams.none())
 

@@ -15,6 +15,7 @@ internal class InboundMailItemTest {
         val inboundMailItem =
             InboundMailItem.builder()
                 .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .addCheck(
                     InboundMailItem.Check.builder()
                         .amount(1750L)
@@ -44,6 +45,7 @@ internal class InboundMailItemTest {
                 .build()
 
         assertThat(inboundMailItem.id()).isEqualTo("inbound_mail_item_q6rrg7mmqpplx80zceev")
+        assertThat(inboundMailItem.accountId()).contains("account_in71c4amph0vgo2qllky")
         assertThat(inboundMailItem.checks())
             .containsExactly(
                 InboundMailItem.Check.builder()
@@ -79,6 +81,7 @@ internal class InboundMailItemTest {
         val inboundMailItem =
             InboundMailItem.builder()
                 .id("inbound_mail_item_q6rrg7mmqpplx80zceev")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .addCheck(
                     InboundMailItem.Check.builder()
                         .amount(1750L)
