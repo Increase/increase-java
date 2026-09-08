@@ -198,7 +198,7 @@ private constructor(
     fun depositReturn(): Optional<DepositReturn> = depositReturn.getOptional("deposit_return")
 
     /**
-     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * After the check is parsed, it is submitted to the Check 21 network for processing. This will
      * contain details of the submission.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -708,7 +708,7 @@ private constructor(
         }
 
         /**
-         * After the check is parsed, it is submitted to the Check21 network for processing. This
+         * After the check is parsed, it is submitted to the Check 21 network for processing. This
          * will contain details of the submission.
          */
         fun depositSubmission(depositSubmission: DepositSubmission?) =
@@ -3869,7 +3869,7 @@ private constructor(
     }
 
     /**
-     * After the check is parsed, it is submitted to the Check21 network for processing. This will
+     * After the check is parsed, it is submitted to the Check 21 network for processing. This will
      * contain details of the submission.
      */
     class DepositSubmission
@@ -3895,7 +3895,7 @@ private constructor(
         ) : this(backFileId, frontFileId, submittedAt, mutableMapOf())
 
         /**
-         * The ID for the File containing the check back image that was submitted to the Check21
+         * The ID for the File containing the check back image that was submitted to the Check 21
          * network.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -3904,7 +3904,7 @@ private constructor(
         fun backFileId(): String = backFileId.getRequired("back_file_id")
 
         /**
-         * The ID for the File containing the check front image that was submitted to the Check21
+         * The ID for the File containing the check front image that was submitted to the Check 21
          * network.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -3913,7 +3913,7 @@ private constructor(
         fun frontFileId(): String = frontFileId.getRequired("front_file_id")
 
         /**
-         * When the check deposit was submitted to the Check21 network for processing. During
+         * When the check deposit was submitted to the Check 21 network for processing. During
          * business days, this happens within a few hours of the check being accepted by Increase.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -3992,8 +3992,8 @@ private constructor(
             }
 
             /**
-             * The ID for the File containing the check back image that was submitted to the Check21
-             * network.
+             * The ID for the File containing the check back image that was submitted to the Check
+             * 21 network.
              */
             fun backFileId(backFileId: String) = backFileId(JsonField.of(backFileId))
 
@@ -4007,8 +4007,8 @@ private constructor(
             fun backFileId(backFileId: JsonField<String>) = apply { this.backFileId = backFileId }
 
             /**
-             * The ID for the File containing the check front image that was submitted to the
-             * Check21 network.
+             * The ID for the File containing the check front image that was submitted to the Check
+             * 21 network.
              */
             fun frontFileId(frontFileId: String) = frontFileId(JsonField.of(frontFileId))
 
@@ -4024,7 +4024,7 @@ private constructor(
             }
 
             /**
-             * When the check deposit was submitted to the Check21 network for processing. During
+             * When the check deposit was submitted to the Check 21 network for processing. During
              * business days, this happens within a few hours of the check being accepted by
              * Increase.
              */

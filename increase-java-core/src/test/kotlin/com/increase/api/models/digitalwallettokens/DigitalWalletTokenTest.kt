@@ -15,6 +15,7 @@ internal class DigitalWalletTokenTest {
         val digitalWalletToken =
             DigitalWalletToken.builder()
                 .id("digital_wallet_token_izi62go3h51p369jrie0")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .cardholder(DigitalWalletToken.Cardholder.builder().name("John Smith").build())
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
@@ -49,6 +50,7 @@ internal class DigitalWalletTokenTest {
                 .build()
 
         assertThat(digitalWalletToken.id()).isEqualTo("digital_wallet_token_izi62go3h51p369jrie0")
+        assertThat(digitalWalletToken.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(digitalWalletToken.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(digitalWalletToken.cardholder())
             .isEqualTo(DigitalWalletToken.Cardholder.builder().name("John Smith").build())
@@ -96,6 +98,7 @@ internal class DigitalWalletTokenTest {
         val digitalWalletToken =
             DigitalWalletToken.builder()
                 .id("digital_wallet_token_izi62go3h51p369jrie0")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .cardholder(DigitalWalletToken.Cardholder.builder().name("John Smith").build())
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))

@@ -47,7 +47,7 @@ private constructor(
     fun network(): Network = body.network()
 
     /**
-     * The Visa-specific parameters for the taking action on the dispute. Required if and only if
+     * The Visa-specific parameters for taking action on the dispute. Required if and only if
      * `network` is `visa`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -140,8 +140,8 @@ private constructor(
         fun network(network: JsonField<Network>) = apply { body.network(network) }
 
         /**
-         * The Visa-specific parameters for the taking action on the dispute. Required if and only
-         * if `network` is `visa`.
+         * The Visa-specific parameters for taking action on the dispute. Required if and only if
+         * `network` is `visa`.
          */
         fun visa(visa: Visa) = apply { body.visa(visa) }
 
@@ -327,8 +327,8 @@ private constructor(
         fun network(): Network = network.getRequired("network")
 
         /**
-         * The Visa-specific parameters for the taking action on the dispute. Required if and only
-         * if `network` is `visa`.
+         * The Visa-specific parameters for taking action on the dispute. Required if and only if
+         * `network` is `visa`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -404,8 +404,8 @@ private constructor(
             fun network(network: JsonField<Network>) = apply { this.network = network }
 
             /**
-             * The Visa-specific parameters for the taking action on the dispute. Required if and
-             * only if `network` is `visa`.
+             * The Visa-specific parameters for taking action on the dispute. Required if and only
+             * if `network` is `visa`.
              */
             fun visa(visa: Visa) = visa(JsonField.of(visa))
 
@@ -650,7 +650,7 @@ private constructor(
     }
 
     /**
-     * The Visa-specific parameters for the taking action on the dispute. Required if and only if
+     * The Visa-specific parameters for taking action on the dispute. Required if and only if
      * `network` is `visa`.
      */
     class Visa

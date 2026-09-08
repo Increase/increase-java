@@ -15,6 +15,7 @@ internal class PhysicalCardTest {
         val physicalCard =
             PhysicalCard.builder()
                 .id("physical_card_ode8duyq5v2ynhjoharl")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .cardholder(
                     PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()
@@ -67,6 +68,7 @@ internal class PhysicalCardTest {
                 .build()
 
         assertThat(physicalCard.id()).isEqualTo("physical_card_ode8duyq5v2ynhjoharl")
+        assertThat(physicalCard.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(physicalCard.cardId()).isEqualTo("card_oubs0hwk5rn6knuecxg2")
         assertThat(physicalCard.cardholder())
             .isEqualTo(
@@ -126,6 +128,7 @@ internal class PhysicalCardTest {
         val physicalCard =
             PhysicalCard.builder()
                 .id("physical_card_ode8duyq5v2ynhjoharl")
+                .accountId("account_in71c4amph0vgo2qllky")
                 .cardId("card_oubs0hwk5rn6knuecxg2")
                 .cardholder(
                     PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()

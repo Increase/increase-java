@@ -631,9 +631,6 @@ private constructor(
                 /** The transfer has been canceled. */
                 @JvmField val CANCELED = of("canceled")
 
-                /** The transfer has been rejected by Increase. */
-                @JvmField val REVIEWING_REJECTED = of("reviewing_rejected")
-
                 /** The transfer requires attention from an Increase operator. */
                 @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
@@ -649,6 +646,9 @@ private constructor(
                 /** The transfer was rejected by the network or the recipient's bank. */
                 @JvmField val REJECTED = of("rejected")
 
+                /** The transfer was returned by the recipient's bank. */
+                @JvmField val RETURNED = of("returned")
+
                 @JvmStatic fun of(value: String) = In(JsonField.of(value))
             }
 
@@ -660,8 +660,6 @@ private constructor(
                 PENDING_REVIEWING,
                 /** The transfer has been canceled. */
                 CANCELED,
-                /** The transfer has been rejected by Increase. */
-                REVIEWING_REJECTED,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
                 /** The transfer is pending approval. */
@@ -672,6 +670,8 @@ private constructor(
                 COMPLETE,
                 /** The transfer was rejected by the network or the recipient's bank. */
                 REJECTED,
+                /** The transfer was returned by the recipient's bank. */
+                RETURNED,
             }
 
             /**
@@ -690,8 +690,6 @@ private constructor(
                 PENDING_REVIEWING,
                 /** The transfer has been canceled. */
                 CANCELED,
-                /** The transfer has been rejected by Increase. */
-                REVIEWING_REJECTED,
                 /** The transfer requires attention from an Increase operator. */
                 REQUIRES_ATTENTION,
                 /** The transfer is pending approval. */
@@ -702,6 +700,8 @@ private constructor(
                 COMPLETE,
                 /** The transfer was rejected by the network or the recipient's bank. */
                 REJECTED,
+                /** The transfer was returned by the recipient's bank. */
+                RETURNED,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
                 _UNKNOWN,
             }
@@ -718,12 +718,12 @@ private constructor(
                     PENDING_SUBMITTING -> Value.PENDING_SUBMITTING
                     PENDING_REVIEWING -> Value.PENDING_REVIEWING
                     CANCELED -> Value.CANCELED
-                    REVIEWING_REJECTED -> Value.REVIEWING_REJECTED
                     REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                     PENDING_APPROVAL -> Value.PENDING_APPROVAL
                     PENDING_RESPONSE -> Value.PENDING_RESPONSE
                     COMPLETE -> Value.COMPLETE
                     REJECTED -> Value.REJECTED
+                    RETURNED -> Value.RETURNED
                     else -> Value._UNKNOWN
                 }
 
@@ -741,12 +741,12 @@ private constructor(
                     PENDING_SUBMITTING -> Known.PENDING_SUBMITTING
                     PENDING_REVIEWING -> Known.PENDING_REVIEWING
                     CANCELED -> Known.CANCELED
-                    REVIEWING_REJECTED -> Known.REVIEWING_REJECTED
                     REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                     PENDING_APPROVAL -> Known.PENDING_APPROVAL
                     PENDING_RESPONSE -> Known.PENDING_RESPONSE
                     COMPLETE -> Known.COMPLETE
                     REJECTED -> Known.REJECTED
+                    RETURNED -> Known.RETURNED
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }
 

@@ -10647,7 +10647,7 @@ private constructor(
         fun agreedAt(): OffsetDateTime = agreedAt.getRequired("agreed_at")
 
         /**
-         * The IP address the Entity accessed reviewed the terms from.
+         * The IP address the Entity reviewed the terms from.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -10740,7 +10740,7 @@ private constructor(
              */
             fun agreedAt(agreedAt: JsonField<OffsetDateTime>) = apply { this.agreedAt = agreedAt }
 
-            /** The IP address the Entity accessed reviewed the terms from. */
+            /** The IP address the Entity reviewed the terms from. */
             fun ipAddress(ipAddress: String?) = ipAddress(JsonField.ofNullable(ipAddress))
 
             /** Alias for calling [Builder.ipAddress] with `ipAddress.orElse(null)`. */
@@ -16316,20 +16316,19 @@ private constructor(
 
                     /**
                      * The entity's tax identifier could not be verified. Update the tax ID with the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
+                     * [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     @JvmField val ENTITY_TAX_IDENTIFIER = of("entity_tax_identifier")
 
                     /**
                      * The entity's address could not be validated. Update the address with the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
+                     * [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     @JvmField val ENTITY_ADDRESS = of("entity_address")
 
                     /**
                      * The entity's identity could not be verified. Update the identification with
-                     * the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                     * the [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     @JvmField val ENTITY_IDENTITY = of("entity_identity")
 
@@ -16354,18 +16353,17 @@ private constructor(
                 enum class Known {
                     /**
                      * The entity's tax identifier could not be verified. Update the tax ID with the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
+                     * [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     ENTITY_TAX_IDENTIFIER,
                     /**
                      * The entity's address could not be validated. Update the address with the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
+                     * [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     ENTITY_ADDRESS,
                     /**
                      * The entity's identity could not be verified. Update the identification with
-                     * the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                     * the [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     ENTITY_IDENTITY,
                     /**
@@ -16394,18 +16392,17 @@ private constructor(
                 enum class Value {
                     /**
                      * The entity's tax identifier could not be verified. Update the tax ID with the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.legal_identifier).
+                     * [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     ENTITY_TAX_IDENTIFIER,
                     /**
                      * The entity's address could not be validated. Update the address with the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.corporation.address).
+                     * [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     ENTITY_ADDRESS,
                     /**
                      * The entity's identity could not be verified. Update the identification with
-                     * the
-                     * [update an entity API](/documentation/api/entities#update-an-entity.natural_person.identification).
+                     * the [update an entity API](/documentation/api/entities#update-an-entity).
                      */
                     ENTITY_IDENTITY,
                     /**

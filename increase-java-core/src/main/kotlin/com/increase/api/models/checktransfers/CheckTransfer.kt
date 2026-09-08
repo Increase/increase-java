@@ -356,7 +356,7 @@ private constructor(
     /**
      * If set, the check will be valid on or before this date. After this date, the check transfer
      * will be automatically stopped and deposits will not be accepted. For checks printed by
-     * Increase, this date is included on the check as its expiry.
+     * Increase, this date is included on the check as its expiration.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1096,7 +1096,7 @@ private constructor(
         /**
          * If set, the check will be valid on or before this date. After this date, the check
          * transfer will be automatically stopped and deposits will not be accepted. For checks
-         * printed by Increase, this date is included on the check as its expiry.
+         * printed by Increase, this date is included on the check as its expiration.
          */
         fun validUntilDate(validUntilDate: LocalDate?) =
             validUntilDate(JsonField.ofNullable(validUntilDate))

@@ -110,7 +110,7 @@ private constructor(
     fun entityId(): String = entityId.getRequired("entity_id")
 
     /**
-     * When this was exclusion was confirmed by IntraFi.
+     * When this exclusion was confirmed by IntraFi.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -145,7 +145,7 @@ private constructor(
     fun status(): Status = status.getRequired("status")
 
     /**
-     * When this was exclusion was submitted to IntraFi by Increase.
+     * When this exclusion was submitted to IntraFi by Increase.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -357,7 +357,7 @@ private constructor(
          */
         fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
-        /** When this was exclusion was confirmed by IntraFi. */
+        /** When this exclusion was confirmed by IntraFi. */
         fun excludedAt(excludedAt: OffsetDateTime?) = excludedAt(JsonField.ofNullable(excludedAt))
 
         /** Alias for calling [Builder.excludedAt] with `excludedAt.orElse(null)`. */
@@ -430,7 +430,7 @@ private constructor(
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
 
-        /** When this was exclusion was submitted to IntraFi by Increase. */
+        /** When this exclusion was submitted to IntraFi by Increase. */
         fun submittedAt(submittedAt: OffsetDateTime?) =
             submittedAt(JsonField.ofNullable(submittedAt))
 

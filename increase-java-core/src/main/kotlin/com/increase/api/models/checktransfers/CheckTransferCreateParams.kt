@@ -114,7 +114,7 @@ private constructor(
     /**
      * If provided, the check will be valid on or before this date. After this date, the check
      * transfer will be automatically stopped and deposits will not be accepted. For checks printed
-     * by Increase, this date is included on the check as its expiry.
+     * by Increase, this date is included on the check as its expiration.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -393,7 +393,7 @@ private constructor(
         /**
          * If provided, the check will be valid on or before this date. After this date, the check
          * transfer will be automatically stopped and deposits will not be accepted. For checks
-         * printed by Increase, this date is included on the check as its expiry.
+         * printed by Increase, this date is included on the check as its expiration.
          */
         fun validUntilDate(validUntilDate: LocalDate) = apply {
             body.validUntilDate(validUntilDate)
@@ -701,7 +701,7 @@ private constructor(
         /**
          * If provided, the check will be valid on or before this date. After this date, the check
          * transfer will be automatically stopped and deposits will not be accepted. For checks
-         * printed by Increase, this date is included on the check as its expiry.
+         * printed by Increase, this date is included on the check as its expiration.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1005,7 +1005,7 @@ private constructor(
             /**
              * If provided, the check will be valid on or before this date. After this date, the
              * check transfer will be automatically stopped and deposits will not be accepted. For
-             * checks printed by Increase, this date is included on the check as its expiry.
+             * checks printed by Increase, this date is included on the check as its expiration.
              */
             fun validUntilDate(validUntilDate: LocalDate) =
                 validUntilDate(JsonField.of(validUntilDate))
@@ -1625,7 +1625,9 @@ private constructor(
             checkVoucherImageFileId.getOptional("check_voucher_image_file_id")
 
         /**
-         * The descriptor that will be printed on the letter included with the check.
+         * A few paragraphs of text printed on the letter included with the check. It can contain at
+         * most 22 lines. Paragraphs will wrap at about 120 characters, but depending on your exact
+         * message, it might be slightly more or slightly less.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1964,7 +1966,11 @@ private constructor(
                 this.checkVoucherImageFileId = checkVoucherImageFileId
             }
 
-            /** The descriptor that will be printed on the letter included with the check. */
+            /**
+             * A few paragraphs of text printed on the letter included with the check. It can
+             * contain at most 22 lines. Paragraphs will wrap at about 120 characters, but depending
+             * on your exact message, it might be slightly more or slightly less.
+             */
             fun note(note: String) = note(JsonField.of(note))
 
             /**
