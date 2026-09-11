@@ -42,7 +42,9 @@ internal class DigitalWalletTokenListPageResponseTest {
                                 .last4("last4")
                                 .build()
                         )
+                        .primaryAccountNumberReferenceIdentifier("V-0000000000000000000000")
                         .status(DigitalWalletToken.Status.ACTIVE)
+                        .tokenReferenceIdentifier("DNITHE000000000000000000000")
                         .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
                         .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                         .addUpdate(
@@ -83,7 +85,9 @@ internal class DigitalWalletTokenListPageResponseTest {
                             .last4("last4")
                             .build()
                     )
+                    .primaryAccountNumberReferenceIdentifier("V-0000000000000000000000")
                     .status(DigitalWalletToken.Status.ACTIVE)
+                    .tokenReferenceIdentifier("DNITHE000000000000000000000")
                     .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
                     .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                     .addUpdate(
@@ -130,7 +134,9 @@ internal class DigitalWalletTokenListPageResponseTest {
                                 .last4("last4")
                                 .build()
                         )
+                        .primaryAccountNumberReferenceIdentifier("V-0000000000000000000000")
                         .status(DigitalWalletToken.Status.ACTIVE)
+                        .tokenReferenceIdentifier("DNITHE000000000000000000000")
                         .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
                         .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                         .addUpdate(

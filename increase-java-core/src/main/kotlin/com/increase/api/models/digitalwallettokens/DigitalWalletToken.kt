@@ -36,7 +36,9 @@ private constructor(
     private val decline: JsonField<Decline>,
     private val device: JsonField<Device>,
     private val dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>,
+    private val primaryAccountNumberReferenceIdentifier: JsonField<String>,
     private val status: JsonField<Status>,
+    private val tokenReferenceIdentifier: JsonField<String>,
     private val tokenRequestor: JsonField<TokenRequestor>,
     private val type: JsonField<Type>,
     private val updates: JsonField<List<Update>>,
@@ -59,7 +61,13 @@ private constructor(
         @JsonProperty("dynamic_primary_account_number")
         @ExcludeMissing
         dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber> = JsonMissing.of(),
+        @JsonProperty("primary_account_number_reference_identifier")
+        @ExcludeMissing
+        primaryAccountNumberReferenceIdentifier: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
+        @JsonProperty("token_reference_identifier")
+        @ExcludeMissing
+        tokenReferenceIdentifier: JsonField<String> = JsonMissing.of(),
         @JsonProperty("token_requestor")
         @ExcludeMissing
         tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of(),
@@ -74,7 +82,9 @@ private constructor(
         decline,
         device,
         dynamicPrimaryAccountNumber,
+        primaryAccountNumberReferenceIdentifier,
         status,
+        tokenReferenceIdentifier,
         tokenRequestor,
         type,
         updates,
@@ -148,12 +158,32 @@ private constructor(
         dynamicPrimaryAccountNumber.getOptional("dynamic_primary_account_number")
 
     /**
+     * The reference identifier assigned by the card network to the underlying Card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun primaryAccountNumberReferenceIdentifier(): String =
+        primaryAccountNumberReferenceIdentifier.getRequired(
+            "primary_account_number_reference_identifier"
+        )
+
+    /**
      * This indicates if payments can be made with the Digital Wallet Token.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun status(): Status = status.getRequired("status")
+
+    /**
+     * The reference identifier assigned by the card network to the token.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun tokenReferenceIdentifier(): String =
+        tokenReferenceIdentifier.getRequired("token_reference_identifier")
 
     /**
      * The digital wallet app being used.
@@ -245,11 +275,32 @@ private constructor(
         dynamicPrimaryAccountNumber
 
     /**
+     * Returns the raw JSON value of [primaryAccountNumberReferenceIdentifier].
+     *
+     * Unlike [primaryAccountNumberReferenceIdentifier], this method doesn't throw if the JSON field
+     * has an unexpected type.
+     */
+    @JsonProperty("primary_account_number_reference_identifier")
+    @ExcludeMissing
+    fun _primaryAccountNumberReferenceIdentifier(): JsonField<String> =
+        primaryAccountNumberReferenceIdentifier
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+    /**
+     * Returns the raw JSON value of [tokenReferenceIdentifier].
+     *
+     * Unlike [tokenReferenceIdentifier], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("token_reference_identifier")
+    @ExcludeMissing
+    fun _tokenReferenceIdentifier(): JsonField<String> = tokenReferenceIdentifier
 
     /**
      * Returns the raw JSON value of [tokenRequestor].
@@ -301,7 +352,9 @@ private constructor(
          * .decline()
          * .device()
          * .dynamicPrimaryAccountNumber()
+         * .primaryAccountNumberReferenceIdentifier()
          * .status()
+         * .tokenReferenceIdentifier()
          * .tokenRequestor()
          * .type()
          * .updates()
@@ -321,7 +374,9 @@ private constructor(
         private var decline: JsonField<Decline>? = null
         private var device: JsonField<Device>? = null
         private var dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>? = null
+        private var primaryAccountNumberReferenceIdentifier: JsonField<String>? = null
         private var status: JsonField<Status>? = null
+        private var tokenReferenceIdentifier: JsonField<String>? = null
         private var tokenRequestor: JsonField<TokenRequestor>? = null
         private var type: JsonField<Type>? = null
         private var updates: JsonField<MutableList<Update>>? = null
@@ -337,7 +392,10 @@ private constructor(
             decline = digitalWalletToken.decline
             device = digitalWalletToken.device
             dynamicPrimaryAccountNumber = digitalWalletToken.dynamicPrimaryAccountNumber
+            primaryAccountNumberReferenceIdentifier =
+                digitalWalletToken.primaryAccountNumberReferenceIdentifier
             status = digitalWalletToken.status
+            tokenReferenceIdentifier = digitalWalletToken.tokenReferenceIdentifier
             tokenRequestor = digitalWalletToken.tokenRequestor
             type = digitalWalletToken.type
             updates = digitalWalletToken.updates.map { it.toMutableList() }
@@ -455,6 +513,27 @@ private constructor(
             dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>
         ) = apply { this.dynamicPrimaryAccountNumber = dynamicPrimaryAccountNumber }
 
+        /** The reference identifier assigned by the card network to the underlying Card. */
+        fun primaryAccountNumberReferenceIdentifier(
+            primaryAccountNumberReferenceIdentifier: String
+        ) =
+            primaryAccountNumberReferenceIdentifier(
+                JsonField.of(primaryAccountNumberReferenceIdentifier)
+            )
+
+        /**
+         * Sets [Builder.primaryAccountNumberReferenceIdentifier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.primaryAccountNumberReferenceIdentifier] with a
+         * well-typed [String] value instead. This method is primarily for setting the field to an
+         * undocumented or not yet supported value.
+         */
+        fun primaryAccountNumberReferenceIdentifier(
+            primaryAccountNumberReferenceIdentifier: JsonField<String>
+        ) = apply {
+            this.primaryAccountNumberReferenceIdentifier = primaryAccountNumberReferenceIdentifier
+        }
+
         /** This indicates if payments can be made with the Digital Wallet Token. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -465,6 +544,21 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { this.status = status }
+
+        /** The reference identifier assigned by the card network to the token. */
+        fun tokenReferenceIdentifier(tokenReferenceIdentifier: String) =
+            tokenReferenceIdentifier(JsonField.of(tokenReferenceIdentifier))
+
+        /**
+         * Sets [Builder.tokenReferenceIdentifier] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tokenReferenceIdentifier] with a well-typed [String]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
+         */
+        fun tokenReferenceIdentifier(tokenReferenceIdentifier: JsonField<String>) = apply {
+            this.tokenReferenceIdentifier = tokenReferenceIdentifier
+        }
 
         /** The digital wallet app being used. */
         fun tokenRequestor(tokenRequestor: TokenRequestor) =
@@ -555,7 +649,9 @@ private constructor(
          * .decline()
          * .device()
          * .dynamicPrimaryAccountNumber()
+         * .primaryAccountNumberReferenceIdentifier()
          * .status()
+         * .tokenReferenceIdentifier()
          * .tokenRequestor()
          * .type()
          * .updates()
@@ -573,7 +669,12 @@ private constructor(
                 checkRequired("decline", decline),
                 checkRequired("device", device),
                 checkRequired("dynamicPrimaryAccountNumber", dynamicPrimaryAccountNumber),
+                checkRequired(
+                    "primaryAccountNumberReferenceIdentifier",
+                    primaryAccountNumberReferenceIdentifier,
+                ),
                 checkRequired("status", status),
+                checkRequired("tokenReferenceIdentifier", tokenReferenceIdentifier),
                 checkRequired("tokenRequestor", tokenRequestor),
                 checkRequired("type", type),
                 checkRequired("updates", updates).map { it.toImmutable() },
@@ -604,7 +705,9 @@ private constructor(
         decline().ifPresent { it.validate() }
         device().validate()
         dynamicPrimaryAccountNumber().ifPresent { it.validate() }
+        primaryAccountNumberReferenceIdentifier()
         status().validate()
+        tokenReferenceIdentifier()
         tokenRequestor().validate()
         type().validate()
         updates().forEach { it.validate() }
@@ -634,7 +737,9 @@ private constructor(
             (decline.asKnown().getOrNull()?.validity() ?: 0) +
             (device.asKnown().getOrNull()?.validity() ?: 0) +
             (dynamicPrimaryAccountNumber.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (primaryAccountNumberReferenceIdentifier.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (tokenReferenceIdentifier.asKnown().isPresent) 1 else 0) +
             (tokenRequestor.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
             (updates.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
@@ -2785,7 +2890,10 @@ private constructor(
             decline == other.decline &&
             device == other.device &&
             dynamicPrimaryAccountNumber == other.dynamicPrimaryAccountNumber &&
+            primaryAccountNumberReferenceIdentifier ==
+                other.primaryAccountNumberReferenceIdentifier &&
             status == other.status &&
+            tokenReferenceIdentifier == other.tokenReferenceIdentifier &&
             tokenRequestor == other.tokenRequestor &&
             type == other.type &&
             updates == other.updates &&
@@ -2802,7 +2910,9 @@ private constructor(
             decline,
             device,
             dynamicPrimaryAccountNumber,
+            primaryAccountNumberReferenceIdentifier,
             status,
+            tokenReferenceIdentifier,
             tokenRequestor,
             type,
             updates,
@@ -2813,5 +2923,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, decline=$decline, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, status=$status, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
+        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, decline=$decline, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, primaryAccountNumberReferenceIdentifier=$primaryAccountNumberReferenceIdentifier, status=$status, tokenReferenceIdentifier=$tokenReferenceIdentifier, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
 }

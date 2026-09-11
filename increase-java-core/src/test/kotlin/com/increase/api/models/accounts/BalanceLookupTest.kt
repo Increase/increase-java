@@ -4,7 +4,6 @@ package com.increase.api.models.accounts
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
-import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
 
@@ -19,21 +18,12 @@ internal class BalanceLookupTest {
                 .currentBalance(100L)
                 .loan(
                     BalanceLookup.Loan.builder()
-                        .dueAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .dueBalance(0L)
                         .dueFees(0L)
                         .dueInterest(0L)
                         .duePrincipal(0L)
                         .notDueFees(0L)
                         .notDueInterest(0L)
                         .notDuePrincipal(0L)
-                        .pastDueBalance(0L)
-                        .receivables(
-                            BalanceLookup.Loan.Receivables.builder()
-                                .purchasableBalance(0L)
-                                .purchasedBalance(0L)
-                                .build()
-                        )
                         .build()
                 )
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
@@ -45,21 +35,12 @@ internal class BalanceLookupTest {
         assertThat(balanceLookup.loan())
             .contains(
                 BalanceLookup.Loan.builder()
-                    .dueAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .dueBalance(0L)
                     .dueFees(0L)
                     .dueInterest(0L)
                     .duePrincipal(0L)
                     .notDueFees(0L)
                     .notDueInterest(0L)
                     .notDuePrincipal(0L)
-                    .pastDueBalance(0L)
-                    .receivables(
-                        BalanceLookup.Loan.Receivables.builder()
-                            .purchasableBalance(0L)
-                            .purchasedBalance(0L)
-                            .build()
-                    )
                     .build()
             )
         assertThat(balanceLookup.type()).isEqualTo(BalanceLookup.Type.BALANCE_LOOKUP)
@@ -75,21 +56,12 @@ internal class BalanceLookupTest {
                 .currentBalance(100L)
                 .loan(
                     BalanceLookup.Loan.builder()
-                        .dueAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .dueBalance(0L)
                         .dueFees(0L)
                         .dueInterest(0L)
                         .duePrincipal(0L)
                         .notDueFees(0L)
                         .notDueInterest(0L)
                         .notDuePrincipal(0L)
-                        .pastDueBalance(0L)
-                        .receivables(
-                            BalanceLookup.Loan.Receivables.builder()
-                                .purchasableBalance(0L)
-                                .purchasedBalance(0L)
-                                .build()
-                        )
                         .build()
                 )
                 .type(BalanceLookup.Type.BALANCE_LOOKUP)
