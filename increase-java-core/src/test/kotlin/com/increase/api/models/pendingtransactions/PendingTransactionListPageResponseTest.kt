@@ -457,6 +457,19 @@ internal class PendingTransactionListPageResponseTest {
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
+                                .ukFasterPaymentSystemTransferInstruction(
+                                    PendingTransaction.Source
+                                        .UkFasterPaymentSystemTransferInstruction
+                                        .builder()
+                                        .amount(12500L)
+                                        .currency(
+                                            PendingTransaction.Source
+                                                .UkFasterPaymentSystemTransferInstruction
+                                                .Currency
+                                                .GBP
+                                        )
+                                        .build()
+                                )
                                 .userInitiatedHold(
                                     PendingTransaction.Source.UserInitiatedHold.builder()
                                         .putAdditionalProperty("foo", JsonValue.from("bar"))
@@ -899,6 +912,18 @@ internal class PendingTransactionListPageResponseTest {
                             .swiftTransferInstruction(
                                 PendingTransaction.Source.SwiftTransferInstruction.builder()
                                     .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                    .build()
+                            )
+                            .ukFasterPaymentSystemTransferInstruction(
+                                PendingTransaction.Source.UkFasterPaymentSystemTransferInstruction
+                                    .builder()
+                                    .amount(12500L)
+                                    .currency(
+                                        PendingTransaction.Source
+                                            .UkFasterPaymentSystemTransferInstruction
+                                            .Currency
+                                            .GBP
+                                    )
                                     .build()
                             )
                             .userInitiatedHold(
@@ -1369,6 +1394,19 @@ internal class PendingTransactionListPageResponseTest {
                                 .swiftTransferInstruction(
                                     PendingTransaction.Source.SwiftTransferInstruction.builder()
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                        .build()
+                                )
+                                .ukFasterPaymentSystemTransferInstruction(
+                                    PendingTransaction.Source
+                                        .UkFasterPaymentSystemTransferInstruction
+                                        .builder()
+                                        .amount(12500L)
+                                        .currency(
+                                            PendingTransaction.Source
+                                                .UkFasterPaymentSystemTransferInstruction
+                                                .Currency
+                                                .GBP
+                                        )
                                         .build()
                                 )
                                 .userInitiatedHold(

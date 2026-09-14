@@ -894,6 +894,8 @@ private constructor(
         private val sampleFunds: JsonField<SampleFunds>,
         private val swiftTransferIntention: JsonField<SwiftTransferIntention>,
         private val swiftTransferReturn: JsonField<SwiftTransferReturn>,
+        private val ukFasterPaymentSystemTransferAcceptance:
+            JsonField<UkFasterPaymentSystemTransferAcceptance>,
         private val wireTransferIntention: JsonField<WireTransferIntention>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1025,6 +1027,11 @@ private constructor(
             @JsonProperty("swift_transfer_return")
             @ExcludeMissing
             swiftTransferReturn: JsonField<SwiftTransferReturn> = JsonMissing.of(),
+            @JsonProperty("uk_faster_payment_system_transfer_acceptance")
+            @ExcludeMissing
+            ukFasterPaymentSystemTransferAcceptance:
+                JsonField<UkFasterPaymentSystemTransferAcceptance> =
+                JsonMissing.of(),
             @JsonProperty("wire_transfer_intention")
             @ExcludeMissing
             wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of(),
@@ -1068,6 +1075,7 @@ private constructor(
             sampleFunds,
             swiftTransferIntention,
             swiftTransferReturn,
+            ukFasterPaymentSystemTransferAcceptance,
             wireTransferIntention,
             mutableMapOf(),
         )
@@ -1530,6 +1538,22 @@ private constructor(
             swiftTransferReturn.getOptional("swift_transfer_return")
 
         /**
+         * An UK Faster Payment System Transfer Acceptance object. This field will be present in the
+         * JSON response if and only if `category` is equal to
+         * `uk_faster_payment_system_transfer_acceptance`. A UK Faster Payment System Transfer
+         * Acceptance is created when a UK Faster Payment System Transfer sent from Increase is
+         * accepted by the recipient's bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun ukFasterPaymentSystemTransferAcceptance():
+            Optional<UkFasterPaymentSystemTransferAcceptance> =
+            ukFasterPaymentSystemTransferAcceptance.getOptional(
+                "uk_faster_payment_system_transfer_acceptance"
+            )
+
+        /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
          * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
          * Increase and sent to a different bank.
@@ -1935,6 +1959,18 @@ private constructor(
         fun _swiftTransferReturn(): JsonField<SwiftTransferReturn> = swiftTransferReturn
 
         /**
+         * Returns the raw JSON value of [ukFasterPaymentSystemTransferAcceptance].
+         *
+         * Unlike [ukFasterPaymentSystemTransferAcceptance], this method doesn't throw if the JSON
+         * field has an unexpected type.
+         */
+        @JsonProperty("uk_faster_payment_system_transfer_acceptance")
+        @ExcludeMissing
+        fun _ukFasterPaymentSystemTransferAcceptance():
+            JsonField<UkFasterPaymentSystemTransferAcceptance> =
+            ukFasterPaymentSystemTransferAcceptance
+
+        /**
          * Returns the raw JSON value of [wireTransferIntention].
          *
          * Unlike [wireTransferIntention], this method doesn't throw if the JSON field has an
@@ -2029,6 +2065,9 @@ private constructor(
             private var sampleFunds: JsonField<SampleFunds> = JsonMissing.of()
             private var swiftTransferIntention: JsonField<SwiftTransferIntention> = JsonMissing.of()
             private var swiftTransferReturn: JsonField<SwiftTransferReturn> = JsonMissing.of()
+            private var ukFasterPaymentSystemTransferAcceptance:
+                JsonField<UkFasterPaymentSystemTransferAcceptance> =
+                JsonMissing.of()
             private var wireTransferIntention: JsonField<WireTransferIntention> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
@@ -2075,6 +2114,8 @@ private constructor(
                 sampleFunds = source.sampleFunds
                 swiftTransferIntention = source.swiftTransferIntention
                 swiftTransferReturn = source.swiftTransferReturn
+                ukFasterPaymentSystemTransferAcceptance =
+                    source.ukFasterPaymentSystemTransferAcceptance
                 wireTransferIntention = source.wireTransferIntention
                 additionalProperties = source.additionalProperties.toMutableMap()
             }
@@ -3151,6 +3192,47 @@ private constructor(
             }
 
             /**
+             * An UK Faster Payment System Transfer Acceptance object. This field will be present in
+             * the JSON response if and only if `category` is equal to
+             * `uk_faster_payment_system_transfer_acceptance`. A UK Faster Payment System Transfer
+             * Acceptance is created when a UK Faster Payment System Transfer sent from Increase is
+             * accepted by the recipient's bank.
+             */
+            fun ukFasterPaymentSystemTransferAcceptance(
+                ukFasterPaymentSystemTransferAcceptance: UkFasterPaymentSystemTransferAcceptance?
+            ) =
+                ukFasterPaymentSystemTransferAcceptance(
+                    JsonField.ofNullable(ukFasterPaymentSystemTransferAcceptance)
+                )
+
+            /**
+             * Alias for calling [Builder.ukFasterPaymentSystemTransferAcceptance] with
+             * `ukFasterPaymentSystemTransferAcceptance.orElse(null)`.
+             */
+            fun ukFasterPaymentSystemTransferAcceptance(
+                ukFasterPaymentSystemTransferAcceptance:
+                    Optional<UkFasterPaymentSystemTransferAcceptance>
+            ) =
+                ukFasterPaymentSystemTransferAcceptance(
+                    ukFasterPaymentSystemTransferAcceptance.getOrNull()
+                )
+
+            /**
+             * Sets [Builder.ukFasterPaymentSystemTransferAcceptance] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.ukFasterPaymentSystemTransferAcceptance] with a
+             * well-typed [UkFasterPaymentSystemTransferAcceptance] value instead. This method is
+             * primarily for setting the field to an undocumented or not yet supported value.
+             */
+            fun ukFasterPaymentSystemTransferAcceptance(
+                ukFasterPaymentSystemTransferAcceptance:
+                    JsonField<UkFasterPaymentSystemTransferAcceptance>
+            ) = apply {
+                this.ukFasterPaymentSystemTransferAcceptance =
+                    ukFasterPaymentSystemTransferAcceptance
+            }
+
+            /**
              * A Wire Transfer Intention object. This field will be present in the JSON response if
              * and only if `category` is equal to `wire_transfer_intention`. A Wire Transfer
              * initiated via Increase and sent to a different bank.
@@ -3249,6 +3331,7 @@ private constructor(
                     sampleFunds,
                     swiftTransferIntention,
                     swiftTransferReturn,
+                    ukFasterPaymentSystemTransferAcceptance,
                     wireTransferIntention,
                     additionalProperties.toMutableMap(),
                 )
@@ -3309,6 +3392,7 @@ private constructor(
             sampleFunds().ifPresent { it.validate() }
             swiftTransferIntention().ifPresent { it.validate() }
             swiftTransferReturn().ifPresent { it.validate() }
+            ukFasterPaymentSystemTransferAcceptance().ifPresent { it.validate() }
             wireTransferIntention().ifPresent { it.validate() }
             validated = true
         }
@@ -3369,6 +3453,7 @@ private constructor(
                 (sampleFunds.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferIntention.asKnown().getOrNull()?.validity() ?: 0) +
                 (swiftTransferReturn.asKnown().getOrNull()?.validity() ?: 0) +
+                (ukFasterPaymentSystemTransferAcceptance.asKnown().getOrNull()?.validity() ?: 0) +
                 (wireTransferIntention.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
@@ -3601,6 +3686,14 @@ private constructor(
                 val BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT =
                     of("blockchain_offramp_transfer_settlement")
 
+                /**
+                 * UK Faster Payment System Transfer Acceptance: details will be under the
+                 * `uk_faster_payment_system_transfer_acceptance` object.
+                 */
+                @JvmField
+                val UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE =
+                    of("uk_faster_payment_system_transfer_acceptance")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -3767,6 +3860,11 @@ private constructor(
                  * `blockchain_offramp_transfer_settlement` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
+                /**
+                 * UK Faster Payment System Transfer Acceptance: details will be under the
+                 * `uk_faster_payment_system_transfer_acceptance` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -3939,6 +4037,11 @@ private constructor(
                  * `blockchain_offramp_transfer_settlement` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
+                /**
+                 * UK Faster Payment System Transfer Acceptance: details will be under the
+                 * `uk_faster_payment_system_transfer_acceptance` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /**
@@ -4001,6 +4104,8 @@ private constructor(
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
                         Value.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE ->
+                        Value.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -4061,6 +4166,8 @@ private constructor(
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
                         Known.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE ->
+                        Known.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown Category: $value")
                 }
@@ -56124,6 +56231,251 @@ private constructor(
         }
 
         /**
+         * An UK Faster Payment System Transfer Acceptance object. This field will be present in the
+         * JSON response if and only if `category` is equal to
+         * `uk_faster_payment_system_transfer_acceptance`. A UK Faster Payment System Transfer
+         * Acceptance is created when a UK Faster Payment System Transfer sent from Increase is
+         * accepted by the recipient's bank.
+         */
+        class UkFasterPaymentSystemTransferAcceptance
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val acceptedAt: JsonField<OffsetDateTime>,
+            private val settlementAmount: JsonField<Long>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("accepted_at")
+                @ExcludeMissing
+                acceptedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                @JsonProperty("settlement_amount")
+                @ExcludeMissing
+                settlementAmount: JsonField<Long> = JsonMissing.of(),
+            ) : this(acceptedAt, settlementAmount, mutableMapOf())
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * recipient's bank accepted the transfer.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun acceptedAt(): OffsetDateTime = acceptedAt.getRequired("accepted_at")
+
+            /**
+             * The transfer amount in USD cents.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun settlementAmount(): Long = settlementAmount.getRequired("settlement_amount")
+
+            /**
+             * Returns the raw JSON value of [acceptedAt].
+             *
+             * Unlike [acceptedAt], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("accepted_at")
+            @ExcludeMissing
+            fun _acceptedAt(): JsonField<OffsetDateTime> = acceptedAt
+
+            /**
+             * Returns the raw JSON value of [settlementAmount].
+             *
+             * Unlike [settlementAmount], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("settlement_amount")
+            @ExcludeMissing
+            fun _settlementAmount(): JsonField<Long> = settlementAmount
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [UkFasterPaymentSystemTransferAcceptance].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .acceptedAt()
+                 * .settlementAmount()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [UkFasterPaymentSystemTransferAcceptance]. */
+            class Builder internal constructor() {
+
+                private var acceptedAt: JsonField<OffsetDateTime>? = null
+                private var settlementAmount: JsonField<Long>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    ukFasterPaymentSystemTransferAcceptance: UkFasterPaymentSystemTransferAcceptance
+                ) = apply {
+                    acceptedAt = ukFasterPaymentSystemTransferAcceptance.acceptedAt
+                    settlementAmount = ukFasterPaymentSystemTransferAcceptance.settlementAmount
+                    additionalProperties =
+                        ukFasterPaymentSystemTransferAcceptance.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+                 * recipient's bank accepted the transfer.
+                 */
+                fun acceptedAt(acceptedAt: OffsetDateTime) = acceptedAt(JsonField.of(acceptedAt))
+
+                /**
+                 * Sets [Builder.acceptedAt] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.acceptedAt] with a well-typed [OffsetDateTime]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun acceptedAt(acceptedAt: JsonField<OffsetDateTime>) = apply {
+                    this.acceptedAt = acceptedAt
+                }
+
+                /** The transfer amount in USD cents. */
+                fun settlementAmount(settlementAmount: Long) =
+                    settlementAmount(JsonField.of(settlementAmount))
+
+                /**
+                 * Sets [Builder.settlementAmount] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.settlementAmount] with a well-typed [Long] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun settlementAmount(settlementAmount: JsonField<Long>) = apply {
+                    this.settlementAmount = settlementAmount
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [UkFasterPaymentSystemTransferAcceptance].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .acceptedAt()
+                 * .settlementAmount()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): UkFasterPaymentSystemTransferAcceptance =
+                    UkFasterPaymentSystemTransferAcceptance(
+                        checkRequired("acceptedAt", acceptedAt),
+                        checkRequired("settlementAmount", settlementAmount),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): UkFasterPaymentSystemTransferAcceptance = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                acceptedAt()
+                settlementAmount()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int =
+                (if (acceptedAt.asKnown().isPresent) 1 else 0) +
+                    (if (settlementAmount.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is UkFasterPaymentSystemTransferAcceptance &&
+                    acceptedAt == other.acceptedAt &&
+                    settlementAmount == other.settlementAmount &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy {
+                Objects.hash(acceptedAt, settlementAmount, additionalProperties)
+            }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "UkFasterPaymentSystemTransferAcceptance{acceptedAt=$acceptedAt, settlementAmount=$settlementAmount, additionalProperties=$additionalProperties}"
+        }
+
+        /**
          * A Wire Transfer Intention object. This field will be present in the JSON response if and
          * only if `category` is equal to `wire_transfer_intention`. A Wire Transfer initiated via
          * Increase and sent to a different bank.
@@ -56551,6 +56903,8 @@ private constructor(
                 sampleFunds == other.sampleFunds &&
                 swiftTransferIntention == other.swiftTransferIntention &&
                 swiftTransferReturn == other.swiftTransferReturn &&
+                ukFasterPaymentSystemTransferAcceptance ==
+                    other.ukFasterPaymentSystemTransferAcceptance &&
                 wireTransferIntention == other.wireTransferIntention &&
                 additionalProperties == other.additionalProperties
         }
@@ -56596,6 +56950,7 @@ private constructor(
                 sampleFunds,
                 swiftTransferIntention,
                 swiftTransferReturn,
+                ukFasterPaymentSystemTransferAcceptance,
                 wireTransferIntention,
                 additionalProperties,
             )
@@ -56604,7 +56959,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Source{category=$category, accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, fednowTransferReturn=$fednowTransferReturn, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
+            "Source{category=$category, accountRevenuePayment=$accountRevenuePayment, accountTransferIntention=$accountTransferIntention, achTransferIntention=$achTransferIntention, achTransferRejection=$achTransferRejection, achTransferReturn=$achTransferReturn, blockchainOfframpTransferSettlement=$blockchainOfframpTransferSettlement, blockchainOnrampTransferIntention=$blockchainOnrampTransferIntention, cardDisputeAcceptance=$cardDisputeAcceptance, cardDisputeFinancial=$cardDisputeFinancial, cardDisputeLoss=$cardDisputeLoss, cardFinancial=$cardFinancial, cardPushTransferAcceptance=$cardPushTransferAcceptance, cardRefund=$cardRefund, cardRevenuePayment=$cardRevenuePayment, cardSettlement=$cardSettlement, cashbackPayment=$cashbackPayment, checkDepositAcceptance=$checkDepositAcceptance, checkDepositReturn=$checkDepositReturn, checkTransferDeposit=$checkTransferDeposit, fednowTransferAcknowledgement=$fednowTransferAcknowledgement, fednowTransferReturn=$fednowTransferReturn, feePayment=$feePayment, inboundAchTransfer=$inboundAchTransfer, inboundAchTransferReturnIntention=$inboundAchTransferReturnIntention, inboundCheckAdjustment=$inboundCheckAdjustment, inboundCheckDepositReturnIntention=$inboundCheckDepositReturnIntention, inboundFednowTransferConfirmation=$inboundFednowTransferConfirmation, inboundRealTimePaymentsTransferConfirmation=$inboundRealTimePaymentsTransferConfirmation, inboundWireReversal=$inboundWireReversal, inboundWireTransfer=$inboundWireTransfer, inboundWireTransferReversal=$inboundWireTransferReversal, interestPayment=$interestPayment, internalSource=$internalSource, other=$other, realTimePaymentsTransferAcknowledgement=$realTimePaymentsTransferAcknowledgement, sampleFunds=$sampleFunds, swiftTransferIntention=$swiftTransferIntention, swiftTransferReturn=$swiftTransferReturn, ukFasterPaymentSystemTransferAcceptance=$ukFasterPaymentSystemTransferAcceptance, wireTransferIntention=$wireTransferIntention, additionalProperties=$additionalProperties}"
     }
 
     /**

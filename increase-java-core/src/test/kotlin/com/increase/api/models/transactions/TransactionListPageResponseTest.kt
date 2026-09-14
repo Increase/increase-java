@@ -1224,6 +1224,13 @@ internal class TransactionListPageResponseTest {
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
                                         .build()
                                 )
+                                .ukFasterPaymentSystemTransferAcceptance(
+                                    Transaction.Source.UkFasterPaymentSystemTransferAcceptance
+                                        .builder()
+                                        .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .settlementAmount(16765L)
+                                        .build()
+                                )
                                 .wireTransferIntention(
                                     Transaction.Source.WireTransferIntention.builder()
                                         .accountNumber("987654321")
@@ -2365,6 +2372,12 @@ internal class TransactionListPageResponseTest {
                             .swiftTransferReturn(
                                 Transaction.Source.SwiftTransferReturn.builder()
                                     .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                    .build()
+                            )
+                            .ukFasterPaymentSystemTransferAcceptance(
+                                Transaction.Source.UkFasterPaymentSystemTransferAcceptance.builder()
+                                    .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                    .settlementAmount(16765L)
                                     .build()
                             )
                             .wireTransferIntention(
@@ -3596,6 +3609,13 @@ internal class TransactionListPageResponseTest {
                                 .swiftTransferReturn(
                                     Transaction.Source.SwiftTransferReturn.builder()
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                        .build()
+                                )
+                                .ukFasterPaymentSystemTransferAcceptance(
+                                    Transaction.Source.UkFasterPaymentSystemTransferAcceptance
+                                        .builder()
+                                        .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                        .settlementAmount(16765L)
                                         .build()
                                 )
                                 .wireTransferIntention(
