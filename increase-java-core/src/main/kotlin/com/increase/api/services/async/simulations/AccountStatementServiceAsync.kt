@@ -26,7 +26,8 @@ interface AccountStatementServiceAsync {
 
     /**
      * Simulates an [Account Statement](#account-statements) being created for an account. In
-     * production, Account Statements are generated once per month.
+     * production, Account Statements are generated once per month. As in production, the simulated
+     * statement covers the previous calendar month.
      */
     fun create(params: AccountStatementCreateParams): CompletableFuture<AccountStatement> =
         create(params, RequestOptions.none())
