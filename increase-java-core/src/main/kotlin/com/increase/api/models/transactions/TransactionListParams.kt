@@ -636,6 +636,21 @@ private constructor(
                 val BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT =
                     of("blockchain_offramp_transfer_settlement")
 
+                /**
+                 * UK Faster Payment System Transfer Acceptance: details will be under the
+                 * `uk_faster_payment_system_transfer_acceptance` object.
+                 */
+                @JvmField
+                val UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE =
+                    of("uk_faster_payment_system_transfer_acceptance")
+
+                /**
+                 * SEPA Instant Transfer Acceptance: details will be under the
+                 * `sepa_instant_transfer_acceptance` object.
+                 */
+                @JvmField
+                val SEPA_INSTANT_TRANSFER_ACCEPTANCE = of("sepa_instant_transfer_acceptance")
+
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 @JvmField val OTHER = of("other")
 
@@ -802,6 +817,16 @@ private constructor(
                  * `blockchain_offramp_transfer_settlement` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
+                /**
+                 * UK Faster Payment System Transfer Acceptance: details will be under the
+                 * `uk_faster_payment_system_transfer_acceptance` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE,
+                /**
+                 * SEPA Instant Transfer Acceptance: details will be under the
+                 * `sepa_instant_transfer_acceptance` object.
+                 */
+                SEPA_INSTANT_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
             }
@@ -974,6 +999,16 @@ private constructor(
                  * `blockchain_offramp_transfer_settlement` object.
                  */
                 BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT,
+                /**
+                 * UK Faster Payment System Transfer Acceptance: details will be under the
+                 * `uk_faster_payment_system_transfer_acceptance` object.
+                 */
+                UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE,
+                /**
+                 * SEPA Instant Transfer Acceptance: details will be under the
+                 * `sepa_instant_transfer_acceptance` object.
+                 */
+                SEPA_INSTANT_TRANSFER_ACCEPTANCE,
                 /** The Transaction was made for an undocumented or deprecated reason. */
                 OTHER,
                 /** An enum member indicating that [In] was instantiated with an unknown value. */
@@ -1034,6 +1069,9 @@ private constructor(
                         Value.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
                         Value.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE ->
+                        Value.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE
+                    SEPA_INSTANT_TRANSFER_ACCEPTANCE -> Value.SEPA_INSTANT_TRANSFER_ACCEPTANCE
                     OTHER -> Value.OTHER
                     else -> Value._UNKNOWN
                 }
@@ -1094,6 +1132,9 @@ private constructor(
                         Known.BLOCKCHAIN_ONRAMP_TRANSFER_INTENTION
                     BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT ->
                         Known.BLOCKCHAIN_OFFRAMP_TRANSFER_SETTLEMENT
+                    UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE ->
+                        Known.UK_FASTER_PAYMENT_SYSTEM_TRANSFER_ACCEPTANCE
+                    SEPA_INSTANT_TRANSFER_ACCEPTANCE -> Known.SEPA_INSTANT_TRANSFER_ACCEPTANCE
                     OTHER -> Known.OTHER
                     else -> throw IncreaseInvalidDataException("Unknown In: $value")
                 }

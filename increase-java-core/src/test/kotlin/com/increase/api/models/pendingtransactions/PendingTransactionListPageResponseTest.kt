@@ -452,9 +452,33 @@ internal class PendingTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
+                                .sepaInstantTransferInstruction(
+                                    PendingTransaction.Source.SepaInstantTransferInstruction
+                                        .builder()
+                                        .amount(4200L)
+                                        .currency(
+                                            PendingTransaction.Source.SepaInstantTransferInstruction
+                                                .Currency
+                                                .EUR
+                                        )
+                                        .build()
+                                )
                                 .swiftTransferInstruction(
                                     PendingTransaction.Source.SwiftTransferInstruction.builder()
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                        .build()
+                                )
+                                .ukFasterPaymentSystemTransferInstruction(
+                                    PendingTransaction.Source
+                                        .UkFasterPaymentSystemTransferInstruction
+                                        .builder()
+                                        .amount(12500L)
+                                        .currency(
+                                            PendingTransaction.Source
+                                                .UkFasterPaymentSystemTransferInstruction
+                                                .Currency
+                                                .GBP
+                                        )
                                         .build()
                                 )
                                 .userInitiatedHold(
@@ -896,9 +920,31 @@ internal class PendingTransactionListPageResponseTest {
                                     .transferId("real_time_payments_transfer_iyuhl5kdn7ssmup83mvq")
                                     .build()
                             )
+                            .sepaInstantTransferInstruction(
+                                PendingTransaction.Source.SepaInstantTransferInstruction.builder()
+                                    .amount(4200L)
+                                    .currency(
+                                        PendingTransaction.Source.SepaInstantTransferInstruction
+                                            .Currency
+                                            .EUR
+                                    )
+                                    .build()
+                            )
                             .swiftTransferInstruction(
                                 PendingTransaction.Source.SwiftTransferInstruction.builder()
                                     .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                    .build()
+                            )
+                            .ukFasterPaymentSystemTransferInstruction(
+                                PendingTransaction.Source.UkFasterPaymentSystemTransferInstruction
+                                    .builder()
+                                    .amount(12500L)
+                                    .currency(
+                                        PendingTransaction.Source
+                                            .UkFasterPaymentSystemTransferInstruction
+                                            .Currency
+                                            .GBP
+                                    )
                                     .build()
                             )
                             .userInitiatedHold(
@@ -1366,9 +1412,33 @@ internal class PendingTransactionListPageResponseTest {
                                         )
                                         .build()
                                 )
+                                .sepaInstantTransferInstruction(
+                                    PendingTransaction.Source.SepaInstantTransferInstruction
+                                        .builder()
+                                        .amount(4200L)
+                                        .currency(
+                                            PendingTransaction.Source.SepaInstantTransferInstruction
+                                                .Currency
+                                                .EUR
+                                        )
+                                        .build()
+                                )
                                 .swiftTransferInstruction(
                                     PendingTransaction.Source.SwiftTransferInstruction.builder()
                                         .transferId("swift_transfer_29h21xkng03788zwd3fh")
+                                        .build()
+                                )
+                                .ukFasterPaymentSystemTransferInstruction(
+                                    PendingTransaction.Source
+                                        .UkFasterPaymentSystemTransferInstruction
+                                        .builder()
+                                        .amount(12500L)
+                                        .currency(
+                                            PendingTransaction.Source
+                                                .UkFasterPaymentSystemTransferInstruction
+                                                .Currency
+                                                .GBP
+                                        )
                                         .build()
                                 )
                                 .userInitiatedHold(
