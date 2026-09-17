@@ -362,10 +362,11 @@ internal class EntityServiceTest {
                             .address(
                                 EntityCreateParams.Trust.Address.builder()
                                     .city("x")
+                                    .country("x")
                                     .line1("x")
-                                    .state("xx")
-                                    .zip("x")
                                     .line2("x")
+                                    .state("x")
+                                    .zip("x")
                                     .build()
                             )
                             .category(EntityCreateParams.Trust.Category.REVOCABLE)
@@ -741,10 +742,11 @@ internal class EntityServiceTest {
                             .address(
                                 EntityUpdateParams.Trust.Address.builder()
                                     .city("x")
+                                    .country("x")
                                     .line1("x")
-                                    .state("xx")
-                                    .zip("x")
                                     .line2("x")
+                                    .state("x")
+                                    .zip("x")
                                     .build()
                             )
                             .grantor(

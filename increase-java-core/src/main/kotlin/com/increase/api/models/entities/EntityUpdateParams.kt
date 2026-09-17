@@ -9270,30 +9270,45 @@ private constructor(
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
             private val city: JsonField<String>,
+            private val country: JsonField<String>,
             private val line1: JsonField<String>,
+            private val line2: JsonField<String>,
             private val state: JsonField<String>,
             private val zip: JsonField<String>,
-            private val line2: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
         ) {
 
             @JsonCreator
             private constructor(
                 @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("country")
+                @ExcludeMissing
+                country: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("zip") @ExcludeMissing zip: JsonField<String> = JsonMissing.of(),
-                @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
-            ) : this(city, line1, state, zip, line2, mutableMapOf())
+            ) : this(city, country, line1, line2, state, zip, mutableMapOf())
 
             /**
-             * The city of the address.
+             * The city, district, town, or village of the address.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
              *   unexpectedly missing or null (e.g. if the server responded with an unexpected
              *   value).
              */
             fun city(): String = city.getRequired("city")
+
+            /**
+             * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+             *
+             * Defaults to `US`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun country(): String = country.getRequired("country")
 
             /**
              * The first line of the address. This is usually the street number and street.
@@ -9305,31 +9320,29 @@ private constructor(
             fun line1(): String = line1.getRequired("line1")
 
             /**
-             * The two-letter United States Postal Service (USPS) abbreviation for the state of the
-             * address.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun state(): String = state.getRequired("state")
-
-            /**
-             * The ZIP code of the address.
-             *
-             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
-             *   value).
-             */
-            fun zip(): String = zip.getRequired("zip")
-
-            /**
              * The second line of the address. This might be the floor or room number.
              *
              * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
              *   if the server responded with an unexpected value).
              */
             fun line2(): Optional<String> = line2.getOptional("line2")
+
+            /**
+             * The two-letter United States Postal Service (USPS) abbreviation for the US state,
+             * province, or region of the address. Required in certain countries.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun state(): Optional<String> = state.getOptional("state")
+
+            /**
+             * The ZIP or postal code of the address. Required in certain countries.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun zip(): Optional<String> = zip.getOptional("zip")
 
             /**
              * Returns the raw JSON value of [city].
@@ -9339,11 +9352,25 @@ private constructor(
             @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
 
             /**
+             * Returns the raw JSON value of [country].
+             *
+             * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+            /**
              * Returns the raw JSON value of [line1].
              *
              * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+            /**
+             * Returns the raw JSON value of [line2].
+             *
+             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+             */
+            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             /**
              * Returns the raw JSON value of [state].
@@ -9358,13 +9385,6 @@ private constructor(
              * Unlike [zip], this method doesn't throw if the JSON field has an unexpected type.
              */
             @JsonProperty("zip") @ExcludeMissing fun _zip(): JsonField<String> = zip
-
-            /**
-             * Returns the raw JSON value of [line2].
-             *
-             * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
-             */
-            @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
 
             @JsonAnySetter
             private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -9386,9 +9406,8 @@ private constructor(
                  * The following fields are required:
                  * ```java
                  * .city()
+                 * .country()
                  * .line1()
-                 * .state()
-                 * .zip()
                  * ```
                  */
                 @JvmStatic fun builder() = Builder()
@@ -9398,23 +9417,25 @@ private constructor(
             class Builder internal constructor() {
 
                 private var city: JsonField<String>? = null
+                private var country: JsonField<String>? = null
                 private var line1: JsonField<String>? = null
-                private var state: JsonField<String>? = null
-                private var zip: JsonField<String>? = null
                 private var line2: JsonField<String> = JsonMissing.of()
+                private var state: JsonField<String> = JsonMissing.of()
+                private var zip: JsonField<String> = JsonMissing.of()
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
                 @JvmSynthetic
                 internal fun from(address: Address) = apply {
                     city = address.city
+                    country = address.country
                     line1 = address.line1
+                    line2 = address.line2
                     state = address.state
                     zip = address.zip
-                    line2 = address.line2
                     additionalProperties = address.additionalProperties.toMutableMap()
                 }
 
-                /** The city of the address. */
+                /** The city, district, town, or village of the address. */
                 fun city(city: String) = city(JsonField.of(city))
 
                 /**
@@ -9425,6 +9446,22 @@ private constructor(
                  * supported value.
                  */
                 fun city(city: JsonField<String>) = apply { this.city = city }
+
+                /**
+                 * The two-letter ISO 3166-1 alpha-2 code for the country of the address.
+                 *
+                 * Defaults to `US`.
+                 */
+                fun country(country: String) = country(JsonField.of(country))
+
+                /**
+                 * Sets [Builder.country] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.country] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun country(country: JsonField<String>) = apply { this.country = country }
 
                 /** The first line of the address. This is usually the street number and street. */
                 fun line1(line1: String) = line1(JsonField.of(line1))
@@ -9438,9 +9475,21 @@ private constructor(
                  */
                 fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
 
+                /** The second line of the address. This might be the floor or room number. */
+                fun line2(line2: String) = line2(JsonField.of(line2))
+
                 /**
-                 * The two-letter United States Postal Service (USPS) abbreviation for the state of
-                 * the address.
+                 * Sets [Builder.line2] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
+                 * This method is primarily for setting the field to an undocumented or not yet
+                 * supported value.
+                 */
+                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+                /**
+                 * The two-letter United States Postal Service (USPS) abbreviation for the US state,
+                 * province, or region of the address. Required in certain countries.
                  */
                 fun state(state: String) = state(JsonField.of(state))
 
@@ -9453,7 +9502,7 @@ private constructor(
                  */
                 fun state(state: JsonField<String>) = apply { this.state = state }
 
-                /** The ZIP code of the address. */
+                /** The ZIP or postal code of the address. Required in certain countries. */
                 fun zip(zip: String) = zip(JsonField.of(zip))
 
                 /**
@@ -9464,18 +9513,6 @@ private constructor(
                  * supported value.
                  */
                 fun zip(zip: JsonField<String>) = apply { this.zip = zip }
-
-                /** The second line of the address. This might be the floor or room number. */
-                fun line2(line2: String) = line2(JsonField.of(line2))
-
-                /**
-                 * Sets [Builder.line2] to an arbitrary JSON value.
-                 *
-                 * You should usually call [Builder.line2] with a well-typed [String] value instead.
-                 * This method is primarily for setting the field to an undocumented or not yet
-                 * supported value.
-                 */
-                fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
 
                 fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                     this.additionalProperties.clear()
@@ -9507,9 +9544,8 @@ private constructor(
                  * The following fields are required:
                  * ```java
                  * .city()
+                 * .country()
                  * .line1()
-                 * .state()
-                 * .zip()
                  * ```
                  *
                  * @throws IllegalStateException if any required field is unset.
@@ -9517,10 +9553,11 @@ private constructor(
                 fun build(): Address =
                     Address(
                         checkRequired("city", city),
+                        checkRequired("country", country),
                         checkRequired("line1", line1),
-                        checkRequired("state", state),
-                        checkRequired("zip", zip),
                         line2,
+                        state,
+                        zip,
                         additionalProperties.toMutableMap(),
                     )
             }
@@ -9543,10 +9580,11 @@ private constructor(
                 }
 
                 city()
+                country()
                 line1()
+                line2()
                 state()
                 zip()
-                line2()
                 validated = true
             }
 
@@ -9567,10 +9605,11 @@ private constructor(
             @JvmSynthetic
             internal fun validity(): Int =
                 (if (city.asKnown().isPresent) 1 else 0) +
+                    (if (country.asKnown().isPresent) 1 else 0) +
                     (if (line1.asKnown().isPresent) 1 else 0) +
+                    (if (line2.asKnown().isPresent) 1 else 0) +
                     (if (state.asKnown().isPresent) 1 else 0) +
-                    (if (zip.asKnown().isPresent) 1 else 0) +
-                    (if (line2.asKnown().isPresent) 1 else 0)
+                    (if (zip.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
                 if (this === other) {
@@ -9579,21 +9618,22 @@ private constructor(
 
                 return other is Address &&
                     city == other.city &&
+                    country == other.country &&
                     line1 == other.line1 &&
+                    line2 == other.line2 &&
                     state == other.state &&
                     zip == other.zip &&
-                    line2 == other.line2 &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(city, line1, state, zip, line2, additionalProperties)
+                Objects.hash(city, country, line1, line2, state, zip, additionalProperties)
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "Address{city=$city, line1=$line1, state=$state, zip=$zip, line2=$line2, additionalProperties=$additionalProperties}"
+                "Address{city=$city, country=$country, line1=$line1, line2=$line2, state=$state, zip=$zip, additionalProperties=$additionalProperties}"
         }
 
         /**

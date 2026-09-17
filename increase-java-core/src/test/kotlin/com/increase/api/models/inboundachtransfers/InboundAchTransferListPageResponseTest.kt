@@ -141,6 +141,7 @@ internal class InboundAchTransferListPageResponseTest {
                         .traceNumber("021000038461022")
                         .transferReturn(
                             InboundAchTransfer.TransferReturn.builder()
+                                .rawReasonCode("raw_reason_code")
                                 .reason(InboundAchTransfer.TransferReturn.Reason.INSUFFICIENT_FUNDS)
                                 .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .transactionId("transaction_id")
@@ -279,6 +280,7 @@ internal class InboundAchTransferListPageResponseTest {
                     .traceNumber("021000038461022")
                     .transferReturn(
                         InboundAchTransfer.TransferReturn.builder()
+                            .rawReasonCode("raw_reason_code")
                             .reason(InboundAchTransfer.TransferReturn.Reason.INSUFFICIENT_FUNDS)
                             .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .transactionId("transaction_id")
@@ -421,6 +423,7 @@ internal class InboundAchTransferListPageResponseTest {
                         .traceNumber("021000038461022")
                         .transferReturn(
                             InboundAchTransfer.TransferReturn.builder()
+                                .rawReasonCode("raw_reason_code")
                                 .reason(InboundAchTransfer.TransferReturn.Reason.INSUFFICIENT_FUNDS)
                                 .returnedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .transactionId("transaction_id")
