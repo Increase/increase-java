@@ -209,10 +209,11 @@ internal class EntityUpdateParamsTest {
                     .address(
                         EntityUpdateParams.Trust.Address.builder()
                             .city("x")
+                            .country("x")
                             .line1("x")
-                            .state("xx")
-                            .zip("x")
                             .line2("x")
+                            .state("x")
+                            .zip("x")
                             .build()
                     )
                     .grantor(
@@ -554,10 +555,11 @@ internal class EntityUpdateParamsTest {
                         .address(
                             EntityUpdateParams.Trust.Address.builder()
                                 .city("x")
+                                .country("x")
                                 .line1("x")
-                                .state("xx")
-                                .zip("x")
                                 .line2("x")
+                                .state("x")
+                                .zip("x")
                                 .build()
                         )
                         .grantor(
@@ -900,10 +902,11 @@ internal class EntityUpdateParamsTest {
                     .address(
                         EntityUpdateParams.Trust.Address.builder()
                             .city("x")
+                            .country("x")
                             .line1("x")
-                            .state("xx")
-                            .zip("x")
                             .line2("x")
+                            .state("x")
+                            .zip("x")
                             .build()
                     )
                     .grantor(

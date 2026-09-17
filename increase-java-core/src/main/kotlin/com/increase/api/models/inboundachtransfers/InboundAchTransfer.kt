@@ -7205,6 +7205,7 @@ private constructor(
     class TransferReturn
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val rawReasonCode: JsonField<String>,
         private val reason: JsonField<Reason>,
         private val returnedAt: JsonField<OffsetDateTime>,
         private val transactionId: JsonField<String>,
@@ -7213,6 +7214,9 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("raw_reason_code")
+            @ExcludeMissing
+            rawReasonCode: JsonField<String> = JsonMissing.of(),
             @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
             @JsonProperty("returned_at")
             @ExcludeMissing
@@ -7220,7 +7224,15 @@ private constructor(
             @JsonProperty("transaction_id")
             @ExcludeMissing
             transactionId: JsonField<String> = JsonMissing.of(),
-        ) : this(reason, returnedAt, transactionId, mutableMapOf())
+        ) : this(rawReasonCode, reason, returnedAt, transactionId, mutableMapOf())
+
+        /**
+         * The three character ACH return code, in the range R01 to R85.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun rawReasonCode(): String = rawReasonCode.getRequired("raw_reason_code")
 
         /**
          * The reason for the transfer return.
@@ -7245,6 +7257,16 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun transactionId(): String = transactionId.getRequired("transaction_id")
+
+        /**
+         * Returns the raw JSON value of [rawReasonCode].
+         *
+         * Unlike [rawReasonCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("raw_reason_code")
+        @ExcludeMissing
+        fun _rawReasonCode(): JsonField<String> = rawReasonCode
 
         /**
          * Returns the raw JSON value of [reason].
@@ -7291,6 +7313,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .rawReasonCode()
              * .reason()
              * .returnedAt()
              * .transactionId()
@@ -7302,6 +7325,7 @@ private constructor(
         /** A builder for [TransferReturn]. */
         class Builder internal constructor() {
 
+            private var rawReasonCode: JsonField<String>? = null
             private var reason: JsonField<Reason>? = null
             private var returnedAt: JsonField<OffsetDateTime>? = null
             private var transactionId: JsonField<String>? = null
@@ -7309,10 +7333,25 @@ private constructor(
 
             @JvmSynthetic
             internal fun from(transferReturn: TransferReturn) = apply {
+                rawReasonCode = transferReturn.rawReasonCode
                 reason = transferReturn.reason
                 returnedAt = transferReturn.returnedAt
                 transactionId = transferReturn.transactionId
                 additionalProperties = transferReturn.additionalProperties.toMutableMap()
+            }
+
+            /** The three character ACH return code, in the range R01 to R85. */
+            fun rawReasonCode(rawReasonCode: String) = rawReasonCode(JsonField.of(rawReasonCode))
+
+            /**
+             * Sets [Builder.rawReasonCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.rawReasonCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun rawReasonCode(rawReasonCode: JsonField<String>) = apply {
+                this.rawReasonCode = rawReasonCode
             }
 
             /** The reason for the transfer return. */
@@ -7381,6 +7420,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .rawReasonCode()
              * .reason()
              * .returnedAt()
              * .transactionId()
@@ -7390,6 +7430,7 @@ private constructor(
              */
             fun build(): TransferReturn =
                 TransferReturn(
+                    checkRequired("rawReasonCode", rawReasonCode),
                     checkRequired("reason", reason),
                     checkRequired("returnedAt", returnedAt),
                     checkRequired("transactionId", transactionId),
@@ -7413,6 +7454,7 @@ private constructor(
                 return@apply
             }
 
+            rawReasonCode()
             reason().validate()
             returnedAt()
             transactionId()
@@ -7435,7 +7477,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (reason.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (rawReasonCode.asKnown().isPresent) 1 else 0) +
+                (reason.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (returnedAt.asKnown().isPresent) 1 else 0) +
                 (if (transactionId.asKnown().isPresent) 1 else 0)
 
@@ -7750,6 +7793,7 @@ private constructor(
             }
 
             return other is TransferReturn &&
+                rawReasonCode == other.rawReasonCode &&
                 reason == other.reason &&
                 returnedAt == other.returnedAt &&
                 transactionId == other.transactionId &&
@@ -7757,13 +7801,13 @@ private constructor(
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(reason, returnedAt, transactionId, additionalProperties)
+            Objects.hash(rawReasonCode, reason, returnedAt, transactionId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "TransferReturn{reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
+            "TransferReturn{rawReasonCode=$rawReasonCode, reason=$reason, returnedAt=$returnedAt, transactionId=$transactionId, additionalProperties=$additionalProperties}"
     }
 
     /**
