@@ -265,7 +265,8 @@ private constructor(
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
 
     /**
-     * If the check has been mailed by Increase, this will contain details of the shipment.
+     * Once the check has been mailed, this will contain details about the shipment. Only available
+     * when `fulfillment_method` is equal to `physical_check`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -328,7 +329,8 @@ private constructor(
         stopPaymentRequest.getOptional("stop_payment_request")
 
     /**
-     * After the transfer is submitted, this will contain supplemental details.
+     * Once the check has been submitted to our printer, this will contain details about the
+     * submission. Only available when `fulfillment_method` is equal to `physical_check`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -910,7 +912,10 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
-        /** If the check has been mailed by Increase, this will contain details of the shipment. */
+        /**
+         * Once the check has been mailed, this will contain details about the shipment. Only
+         * available when `fulfillment_method` is equal to `physical_check`.
+         */
         fun mailing(mailing: Mailing?) = mailing(JsonField.ofNullable(mailing))
 
         /** Alias for calling [Builder.mailing] with `mailing.orElse(null)`. */
@@ -1046,7 +1051,10 @@ private constructor(
             this.stopPaymentRequest = stopPaymentRequest
         }
 
-        /** After the transfer is submitted, this will contain supplemental details. */
+        /**
+         * Once the check has been submitted to our printer, this will contain details about the
+         * submission. Only available when `fulfillment_method` is equal to `physical_check`.
+         */
         fun submission(submission: Submission?) = submission(JsonField.ofNullable(submission))
 
         /** Alias for calling [Builder.submission] with `submission.orElse(null)`. */
@@ -3209,7 +3217,10 @@ private constructor(
         override fun toString() = value.toString()
     }
 
-    /** If the check has been mailed by Increase, this will contain details of the shipment. */
+    /**
+     * Once the check has been mailed, this will contain details about the shipment. Only available
+     * when `fulfillment_method` is equal to `physical_check`.
+     */
     class Mailing
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
@@ -7063,7 +7074,10 @@ private constructor(
             "StopPaymentRequest{reason=$reason, requestedAt=$requestedAt, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
     }
 
-    /** After the transfer is submitted, this will contain supplemental details. */
+    /**
+     * Once the check has been submitted to our printer, this will contain details about the
+     * submission. Only available when `fulfillment_method` is equal to `physical_check`.
+     */
     class Submission
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
