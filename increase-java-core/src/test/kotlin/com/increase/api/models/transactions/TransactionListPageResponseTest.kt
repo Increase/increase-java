@@ -472,6 +472,64 @@ internal class TransactionListPageResponseTest {
                                                         .build()
                                                 )
                                                 .customerReferenceIdentifier("51201")
+                                                .fleet(
+                                                    Transaction.Source.CardRefund.PurchaseDetails
+                                                        .Fleet
+                                                        .builder()
+                                                        .employeeNumber("employee_number")
+                                                        .fuelQuantity("-16699")
+                                                        .fuelType(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelType
+                                                                .REGULAR
+                                                        )
+                                                        .fuelUnitCostAmount(0L)
+                                                        .fuelUnitCostCurrency(
+                                                            "fuel_unit_cost_currency"
+                                                        )
+                                                        .fuelUnitOfMeasure(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelUnitOfMeasure
+                                                                .LITER
+                                                        )
+                                                        .grossFuelPriceAmount(0L)
+                                                        .grossFuelPriceCurrency(
+                                                            "gross_fuel_price_currency"
+                                                        )
+                                                        .grossNonFuelPriceAmount(0L)
+                                                        .grossNonFuelPriceCurrency(
+                                                            "gross_non_fuel_price_currency"
+                                                        )
+                                                        .netFuelPriceAmount(0L)
+                                                        .netFuelPriceCurrency(
+                                                            "net_fuel_price_currency"
+                                                        )
+                                                        .netNonFuelPriceAmount(0L)
+                                                        .netNonFuelPriceCurrency(
+                                                            "net_non_fuel_price_currency"
+                                                        )
+                                                        .odometerReading(0L)
+                                                        .purchaseType(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .PurchaseType
+                                                                .FUEL_PURCHASE
+                                                        )
+                                                        .serviceType(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .ServiceType
+                                                                .FULL_SERVICE
+                                                        )
+                                                        .trailerNumber("trailer_number")
+                                                        .build()
+                                                )
                                                 .localTaxAmount(null)
                                                 .localTaxCurrency("usd")
                                                 .lodging(
@@ -760,6 +818,65 @@ internal class TransactionListPageResponseTest {
                                                         .build()
                                                 )
                                                 .customerReferenceIdentifier("51201")
+                                                .fleet(
+                                                    Transaction.Source.CardSettlement
+                                                        .PurchaseDetails
+                                                        .Fleet
+                                                        .builder()
+                                                        .employeeNumber("employee_number")
+                                                        .fuelQuantity("-16699")
+                                                        .fuelType(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelType
+                                                                .REGULAR
+                                                        )
+                                                        .fuelUnitCostAmount(0L)
+                                                        .fuelUnitCostCurrency(
+                                                            "fuel_unit_cost_currency"
+                                                        )
+                                                        .fuelUnitOfMeasure(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelUnitOfMeasure
+                                                                .LITER
+                                                        )
+                                                        .grossFuelPriceAmount(0L)
+                                                        .grossFuelPriceCurrency(
+                                                            "gross_fuel_price_currency"
+                                                        )
+                                                        .grossNonFuelPriceAmount(0L)
+                                                        .grossNonFuelPriceCurrency(
+                                                            "gross_non_fuel_price_currency"
+                                                        )
+                                                        .netFuelPriceAmount(0L)
+                                                        .netFuelPriceCurrency(
+                                                            "net_fuel_price_currency"
+                                                        )
+                                                        .netNonFuelPriceAmount(0L)
+                                                        .netNonFuelPriceCurrency(
+                                                            "net_non_fuel_price_currency"
+                                                        )
+                                                        .odometerReading(0L)
+                                                        .purchaseType(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .PurchaseType
+                                                                .FUEL_PURCHASE
+                                                        )
+                                                        .serviceType(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .ServiceType
+                                                                .FULL_SERVICE
+                                                        )
+                                                        .trailerNumber("trailer_number")
+                                                        .build()
+                                                )
                                                 .localTaxAmount(null)
                                                 .localTaxCurrency("usd")
                                                 .lodging(
@@ -1675,6 +1792,59 @@ internal class TransactionListPageResponseTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .fleet(
+                                                Transaction.Source.CardRefund.PurchaseDetails.Fleet
+                                                    .builder()
+                                                    .employeeNumber("employee_number")
+                                                    .fuelQuantity("-16699")
+                                                    .fuelType(
+                                                        Transaction.Source.CardRefund
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .FuelType
+                                                            .REGULAR
+                                                    )
+                                                    .fuelUnitCostAmount(0L)
+                                                    .fuelUnitCostCurrency("fuel_unit_cost_currency")
+                                                    .fuelUnitOfMeasure(
+                                                        Transaction.Source.CardRefund
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .FuelUnitOfMeasure
+                                                            .LITER
+                                                    )
+                                                    .grossFuelPriceAmount(0L)
+                                                    .grossFuelPriceCurrency(
+                                                        "gross_fuel_price_currency"
+                                                    )
+                                                    .grossNonFuelPriceAmount(0L)
+                                                    .grossNonFuelPriceCurrency(
+                                                        "gross_non_fuel_price_currency"
+                                                    )
+                                                    .netFuelPriceAmount(0L)
+                                                    .netFuelPriceCurrency("net_fuel_price_currency")
+                                                    .netNonFuelPriceAmount(0L)
+                                                    .netNonFuelPriceCurrency(
+                                                        "net_non_fuel_price_currency"
+                                                    )
+                                                    .odometerReading(0L)
+                                                    .purchaseType(
+                                                        Transaction.Source.CardRefund
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .PurchaseType
+                                                            .FUEL_PURCHASE
+                                                    )
+                                                    .serviceType(
+                                                        Transaction.Source.CardRefund
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .ServiceType
+                                                            .FULL_SERVICE
+                                                    )
+                                                    .trailerNumber("trailer_number")
+                                                    .build()
+                                            )
                                             .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
@@ -1946,6 +2116,60 @@ internal class TransactionListPageResponseTest {
                                                     .build()
                                             )
                                             .customerReferenceIdentifier("51201")
+                                            .fleet(
+                                                Transaction.Source.CardSettlement.PurchaseDetails
+                                                    .Fleet
+                                                    .builder()
+                                                    .employeeNumber("employee_number")
+                                                    .fuelQuantity("-16699")
+                                                    .fuelType(
+                                                        Transaction.Source.CardSettlement
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .FuelType
+                                                            .REGULAR
+                                                    )
+                                                    .fuelUnitCostAmount(0L)
+                                                    .fuelUnitCostCurrency("fuel_unit_cost_currency")
+                                                    .fuelUnitOfMeasure(
+                                                        Transaction.Source.CardSettlement
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .FuelUnitOfMeasure
+                                                            .LITER
+                                                    )
+                                                    .grossFuelPriceAmount(0L)
+                                                    .grossFuelPriceCurrency(
+                                                        "gross_fuel_price_currency"
+                                                    )
+                                                    .grossNonFuelPriceAmount(0L)
+                                                    .grossNonFuelPriceCurrency(
+                                                        "gross_non_fuel_price_currency"
+                                                    )
+                                                    .netFuelPriceAmount(0L)
+                                                    .netFuelPriceCurrency("net_fuel_price_currency")
+                                                    .netNonFuelPriceAmount(0L)
+                                                    .netNonFuelPriceCurrency(
+                                                        "net_non_fuel_price_currency"
+                                                    )
+                                                    .odometerReading(0L)
+                                                    .purchaseType(
+                                                        Transaction.Source.CardSettlement
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .PurchaseType
+                                                            .FUEL_PURCHASE
+                                                    )
+                                                    .serviceType(
+                                                        Transaction.Source.CardSettlement
+                                                            .PurchaseDetails
+                                                            .Fleet
+                                                            .ServiceType
+                                                            .FULL_SERVICE
+                                                    )
+                                                    .trailerNumber("trailer_number")
+                                                    .build()
+                                            )
                                             .localTaxAmount(null)
                                             .localTaxCurrency("usd")
                                             .lodging(
@@ -2871,6 +3095,64 @@ internal class TransactionListPageResponseTest {
                                                         .build()
                                                 )
                                                 .customerReferenceIdentifier("51201")
+                                                .fleet(
+                                                    Transaction.Source.CardRefund.PurchaseDetails
+                                                        .Fleet
+                                                        .builder()
+                                                        .employeeNumber("employee_number")
+                                                        .fuelQuantity("-16699")
+                                                        .fuelType(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelType
+                                                                .REGULAR
+                                                        )
+                                                        .fuelUnitCostAmount(0L)
+                                                        .fuelUnitCostCurrency(
+                                                            "fuel_unit_cost_currency"
+                                                        )
+                                                        .fuelUnitOfMeasure(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelUnitOfMeasure
+                                                                .LITER
+                                                        )
+                                                        .grossFuelPriceAmount(0L)
+                                                        .grossFuelPriceCurrency(
+                                                            "gross_fuel_price_currency"
+                                                        )
+                                                        .grossNonFuelPriceAmount(0L)
+                                                        .grossNonFuelPriceCurrency(
+                                                            "gross_non_fuel_price_currency"
+                                                        )
+                                                        .netFuelPriceAmount(0L)
+                                                        .netFuelPriceCurrency(
+                                                            "net_fuel_price_currency"
+                                                        )
+                                                        .netNonFuelPriceAmount(0L)
+                                                        .netNonFuelPriceCurrency(
+                                                            "net_non_fuel_price_currency"
+                                                        )
+                                                        .odometerReading(0L)
+                                                        .purchaseType(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .PurchaseType
+                                                                .FUEL_PURCHASE
+                                                        )
+                                                        .serviceType(
+                                                            Transaction.Source.CardRefund
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .ServiceType
+                                                                .FULL_SERVICE
+                                                        )
+                                                        .trailerNumber("trailer_number")
+                                                        .build()
+                                                )
                                                 .localTaxAmount(null)
                                                 .localTaxCurrency("usd")
                                                 .lodging(
@@ -3159,6 +3441,65 @@ internal class TransactionListPageResponseTest {
                                                         .build()
                                                 )
                                                 .customerReferenceIdentifier("51201")
+                                                .fleet(
+                                                    Transaction.Source.CardSettlement
+                                                        .PurchaseDetails
+                                                        .Fleet
+                                                        .builder()
+                                                        .employeeNumber("employee_number")
+                                                        .fuelQuantity("-16699")
+                                                        .fuelType(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelType
+                                                                .REGULAR
+                                                        )
+                                                        .fuelUnitCostAmount(0L)
+                                                        .fuelUnitCostCurrency(
+                                                            "fuel_unit_cost_currency"
+                                                        )
+                                                        .fuelUnitOfMeasure(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .FuelUnitOfMeasure
+                                                                .LITER
+                                                        )
+                                                        .grossFuelPriceAmount(0L)
+                                                        .grossFuelPriceCurrency(
+                                                            "gross_fuel_price_currency"
+                                                        )
+                                                        .grossNonFuelPriceAmount(0L)
+                                                        .grossNonFuelPriceCurrency(
+                                                            "gross_non_fuel_price_currency"
+                                                        )
+                                                        .netFuelPriceAmount(0L)
+                                                        .netFuelPriceCurrency(
+                                                            "net_fuel_price_currency"
+                                                        )
+                                                        .netNonFuelPriceAmount(0L)
+                                                        .netNonFuelPriceCurrency(
+                                                            "net_non_fuel_price_currency"
+                                                        )
+                                                        .odometerReading(0L)
+                                                        .purchaseType(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .PurchaseType
+                                                                .FUEL_PURCHASE
+                                                        )
+                                                        .serviceType(
+                                                            Transaction.Source.CardSettlement
+                                                                .PurchaseDetails
+                                                                .Fleet
+                                                                .ServiceType
+                                                                .FULL_SERVICE
+                                                        )
+                                                        .trailerNumber("trailer_number")
+                                                        .build()
+                                                )
                                                 .localTaxAmount(null)
                                                 .localTaxCurrency("usd")
                                                 .lodging(

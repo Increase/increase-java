@@ -3852,6 +3852,10 @@ private constructor(
                             /** A social security number. */
                             @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
+                            /** The last four digits of a social security number. */
+                            @JvmField
+                            val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
+
                             /** An individual taxpayer identification number (ITIN). */
                             @JvmField
                             val INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER =
@@ -3873,6 +3877,8 @@ private constructor(
                         enum class Known {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** The last four digits of a social security number. */
+                            SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
                             /** A passport number. */
@@ -3897,6 +3903,8 @@ private constructor(
                         enum class Value {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
+                            /** The last four digits of a social security number. */
+                            SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
                             /** A passport number. */
@@ -3922,6 +3930,7 @@ private constructor(
                         fun value(): Value =
                             when (this) {
                                 SOCIAL_SECURITY_NUMBER -> Value.SOCIAL_SECURITY_NUMBER
+                                SOCIAL_SECURITY_NUMBER_LAST4 -> Value.SOCIAL_SECURITY_NUMBER_LAST4
                                 INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
                                     Value.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
                                 PASSPORT -> Value.PASSPORT
@@ -3942,6 +3951,7 @@ private constructor(
                         fun known(): Known =
                             when (this) {
                                 SOCIAL_SECURITY_NUMBER -> Known.SOCIAL_SECURITY_NUMBER
+                                SOCIAL_SECURITY_NUMBER_LAST4 -> Known.SOCIAL_SECURITY_NUMBER_LAST4
                                 INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER ->
                                     Known.INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER
                                 PASSPORT -> Known.PASSPORT

@@ -23094,6 +23094,7 @@ private constructor(
             private constructor(
                 private val carRental: JsonField<CarRental>,
                 private val customerReferenceIdentifier: JsonField<String>,
+                private val fleet: JsonField<Fleet>,
                 private val localTaxAmount: JsonField<Long>,
                 private val localTaxCurrency: JsonField<String>,
                 private val lodging: JsonField<Lodging>,
@@ -23113,6 +23114,9 @@ private constructor(
                     @JsonProperty("customer_reference_identifier")
                     @ExcludeMissing
                     customerReferenceIdentifier: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("fleet")
+                    @ExcludeMissing
+                    fleet: JsonField<Fleet> = JsonMissing.of(),
                     @JsonProperty("local_tax_amount")
                     @ExcludeMissing
                     localTaxAmount: JsonField<Long> = JsonMissing.of(),
@@ -23141,6 +23145,7 @@ private constructor(
                 ) : this(
                     carRental,
                     customerReferenceIdentifier,
+                    fleet,
                     localTaxAmount,
                     localTaxCurrency,
                     lodging,
@@ -23168,6 +23173,14 @@ private constructor(
                  */
                 fun customerReferenceIdentifier(): Optional<String> =
                     customerReferenceIdentifier.getOptional("customer_reference_identifier")
+
+                /**
+                 * Fields specific to fleet purchases.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun fleet(): Optional<Fleet> = fleet.getOptional("fleet")
 
                 /**
                  * The state or provincial tax amount in minor units.
@@ -23260,6 +23273,14 @@ private constructor(
                 @JsonProperty("customer_reference_identifier")
                 @ExcludeMissing
                 fun _customerReferenceIdentifier(): JsonField<String> = customerReferenceIdentifier
+
+                /**
+                 * Returns the raw JSON value of [fleet].
+                 *
+                 * Unlike [fleet], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("fleet") @ExcludeMissing fun _fleet(): JsonField<Fleet> = fleet
 
                 /**
                  * Returns the raw JSON value of [localTaxAmount].
@@ -23361,6 +23382,7 @@ private constructor(
                      * ```java
                      * .carRental()
                      * .customerReferenceIdentifier()
+                     * .fleet()
                      * .localTaxAmount()
                      * .localTaxCurrency()
                      * .lodging()
@@ -23379,6 +23401,7 @@ private constructor(
 
                     private var carRental: JsonField<CarRental>? = null
                     private var customerReferenceIdentifier: JsonField<String>? = null
+                    private var fleet: JsonField<Fleet>? = null
                     private var localTaxAmount: JsonField<Long>? = null
                     private var localTaxCurrency: JsonField<String>? = null
                     private var lodging: JsonField<Lodging>? = null
@@ -23394,6 +23417,7 @@ private constructor(
                     internal fun from(purchaseDetails: PurchaseDetails) = apply {
                         carRental = purchaseDetails.carRental
                         customerReferenceIdentifier = purchaseDetails.customerReferenceIdentifier
+                        fleet = purchaseDetails.fleet
                         localTaxAmount = purchaseDetails.localTaxAmount
                         localTaxCurrency = purchaseDetails.localTaxCurrency
                         lodging = purchaseDetails.lodging
@@ -23446,6 +23470,21 @@ private constructor(
                     fun customerReferenceIdentifier(
                         customerReferenceIdentifier: JsonField<String>
                     ) = apply { this.customerReferenceIdentifier = customerReferenceIdentifier }
+
+                    /** Fields specific to fleet purchases. */
+                    fun fleet(fleet: Fleet?) = fleet(JsonField.ofNullable(fleet))
+
+                    /** Alias for calling [Builder.fleet] with `fleet.orElse(null)`. */
+                    fun fleet(fleet: Optional<Fleet>) = fleet(fleet.getOrNull())
+
+                    /**
+                     * Sets [Builder.fleet] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fleet] with a well-typed [Fleet] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun fleet(fleet: JsonField<Fleet>) = apply { this.fleet = fleet }
 
                     /** The state or provincial tax amount in minor units. */
                     fun localTaxAmount(localTaxAmount: Long?) =
@@ -23667,6 +23706,7 @@ private constructor(
                      * ```java
                      * .carRental()
                      * .customerReferenceIdentifier()
+                     * .fleet()
                      * .localTaxAmount()
                      * .localTaxCurrency()
                      * .lodging()
@@ -23686,6 +23726,7 @@ private constructor(
                                 "customerReferenceIdentifier",
                                 customerReferenceIdentifier,
                             ),
+                            checkRequired("fleet", fleet),
                             checkRequired("localTaxAmount", localTaxAmount),
                             checkRequired("localTaxCurrency", localTaxCurrency),
                             checkRequired("lodging", lodging),
@@ -23717,6 +23758,7 @@ private constructor(
 
                     carRental().ifPresent { it.validate() }
                     customerReferenceIdentifier()
+                    fleet().ifPresent { it.validate() }
                     localTaxAmount()
                     localTaxCurrency()
                     lodging().ifPresent { it.validate() }
@@ -23746,6 +23788,7 @@ private constructor(
                 internal fun validity(): Int =
                     (carRental.asKnown().getOrNull()?.validity() ?: 0) +
                         (if (customerReferenceIdentifier.asKnown().isPresent) 1 else 0) +
+                        (fleet.asKnown().getOrNull()?.validity() ?: 0) +
                         (if (localTaxAmount.asKnown().isPresent) 1 else 0) +
                         (if (localTaxCurrency.asKnown().isPresent) 1 else 0) +
                         (lodging.asKnown().getOrNull()?.validity() ?: 0) +
@@ -25229,6 +25272,2956 @@ private constructor(
 
                     override fun toString() =
                         "CarRental{carClassCode=$carClassCode, checkoutDate=$checkoutDate, dailyRentalRateAmount=$dailyRentalRateAmount, dailyRentalRateCurrency=$dailyRentalRateCurrency, daysRented=$daysRented, extraCharges=$extraCharges, fuelChargesAmount=$fuelChargesAmount, fuelChargesCurrency=$fuelChargesCurrency, insuranceChargesAmount=$insuranceChargesAmount, insuranceChargesCurrency=$insuranceChargesCurrency, noShowIndicator=$noShowIndicator, oneWayDropOffChargesAmount=$oneWayDropOffChargesAmount, oneWayDropOffChargesCurrency=$oneWayDropOffChargesCurrency, renterName=$renterName, weeklyRentalRateAmount=$weeklyRentalRateAmount, weeklyRentalRateCurrency=$weeklyRentalRateCurrency, additionalProperties=$additionalProperties}"
+                }
+
+                /** Fields specific to fleet purchases. */
+                class Fleet
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val employeeNumber: JsonField<String>,
+                    private val fuelQuantity: JsonField<String>,
+                    private val fuelType: JsonField<FuelType>,
+                    private val fuelUnitCostAmount: JsonField<Long>,
+                    private val fuelUnitCostCurrency: JsonField<String>,
+                    private val fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure>,
+                    private val grossFuelPriceAmount: JsonField<Long>,
+                    private val grossFuelPriceCurrency: JsonField<String>,
+                    private val grossNonFuelPriceAmount: JsonField<Long>,
+                    private val grossNonFuelPriceCurrency: JsonField<String>,
+                    private val netFuelPriceAmount: JsonField<Long>,
+                    private val netFuelPriceCurrency: JsonField<String>,
+                    private val netNonFuelPriceAmount: JsonField<Long>,
+                    private val netNonFuelPriceCurrency: JsonField<String>,
+                    private val odometerReading: JsonField<Long>,
+                    private val purchaseType: JsonField<PurchaseType>,
+                    private val serviceType: JsonField<ServiceType>,
+                    private val trailerNumber: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("employee_number")
+                        @ExcludeMissing
+                        employeeNumber: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("fuel_quantity")
+                        @ExcludeMissing
+                        fuelQuantity: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("fuel_type")
+                        @ExcludeMissing
+                        fuelType: JsonField<FuelType> = JsonMissing.of(),
+                        @JsonProperty("fuel_unit_cost_amount")
+                        @ExcludeMissing
+                        fuelUnitCostAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("fuel_unit_cost_currency")
+                        @ExcludeMissing
+                        fuelUnitCostCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("fuel_unit_of_measure")
+                        @ExcludeMissing
+                        fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure> = JsonMissing.of(),
+                        @JsonProperty("gross_fuel_price_amount")
+                        @ExcludeMissing
+                        grossFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("gross_fuel_price_currency")
+                        @ExcludeMissing
+                        grossFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("gross_non_fuel_price_amount")
+                        @ExcludeMissing
+                        grossNonFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("gross_non_fuel_price_currency")
+                        @ExcludeMissing
+                        grossNonFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("net_fuel_price_amount")
+                        @ExcludeMissing
+                        netFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("net_fuel_price_currency")
+                        @ExcludeMissing
+                        netFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("net_non_fuel_price_amount")
+                        @ExcludeMissing
+                        netNonFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("net_non_fuel_price_currency")
+                        @ExcludeMissing
+                        netNonFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("odometer_reading")
+                        @ExcludeMissing
+                        odometerReading: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("purchase_type")
+                        @ExcludeMissing
+                        purchaseType: JsonField<PurchaseType> = JsonMissing.of(),
+                        @JsonProperty("service_type")
+                        @ExcludeMissing
+                        serviceType: JsonField<ServiceType> = JsonMissing.of(),
+                        @JsonProperty("trailer_number")
+                        @ExcludeMissing
+                        trailerNumber: JsonField<String> = JsonMissing.of(),
+                    ) : this(
+                        employeeNumber,
+                        fuelQuantity,
+                        fuelType,
+                        fuelUnitCostAmount,
+                        fuelUnitCostCurrency,
+                        fuelUnitOfMeasure,
+                        grossFuelPriceAmount,
+                        grossFuelPriceCurrency,
+                        grossNonFuelPriceAmount,
+                        grossNonFuelPriceCurrency,
+                        netFuelPriceAmount,
+                        netFuelPriceCurrency,
+                        netNonFuelPriceAmount,
+                        netNonFuelPriceCurrency,
+                        odometerReading,
+                        purchaseType,
+                        serviceType,
+                        trailerNumber,
+                        mutableMapOf(),
+                    )
+
+                    /**
+                     * The fleet employee number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun employeeNumber(): Optional<String> =
+                        employeeNumber.getOptional("employee_number")
+
+                    /**
+                     * The quantity of fuel purchased, given as a string containing a decimal number
+                     * in the indicated unit of measure.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelQuantity(): Optional<String> = fuelQuantity.getOptional("fuel_quantity")
+
+                    /**
+                     * The type of fuel purchased.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelType(): Optional<FuelType> = fuelType.getOptional("fuel_type")
+
+                    /**
+                     * The cost per unit of fuel in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelUnitCostAmount(): Optional<Long> =
+                        fuelUnitCostAmount.getOptional("fuel_unit_cost_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel unit
+                     * cost.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelUnitCostCurrency(): Optional<String> =
+                        fuelUnitCostCurrency.getOptional("fuel_unit_cost_currency")
+
+                    /**
+                     * The unit of measure for the fuel quantity.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelUnitOfMeasure(): Optional<FuelUnitOfMeasure> =
+                        fuelUnitOfMeasure.getOptional("fuel_unit_of_measure")
+
+                    /**
+                     * The gross fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossFuelPriceAmount(): Optional<Long> =
+                        grossFuelPriceAmount.getOptional("gross_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                     * fuel price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossFuelPriceCurrency(): Optional<String> =
+                        grossFuelPriceCurrency.getOptional("gross_fuel_price_currency")
+
+                    /**
+                     * The gross non-fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossNonFuelPriceAmount(): Optional<Long> =
+                        grossNonFuelPriceAmount.getOptional("gross_non_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                     * non-fuel price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossNonFuelPriceCurrency(): Optional<String> =
+                        grossNonFuelPriceCurrency.getOptional("gross_non_fuel_price_currency")
+
+                    /**
+                     * The net fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netFuelPriceAmount(): Optional<Long> =
+                        netFuelPriceAmount.getOptional("net_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net fuel
+                     * price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netFuelPriceCurrency(): Optional<String> =
+                        netFuelPriceCurrency.getOptional("net_fuel_price_currency")
+
+                    /**
+                     * The net non-fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netNonFuelPriceAmount(): Optional<Long> =
+                        netNonFuelPriceAmount.getOptional("net_non_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net
+                     * non-fuel price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netNonFuelPriceCurrency(): Optional<String> =
+                        netNonFuelPriceCurrency.getOptional("net_non_fuel_price_currency")
+
+                    /**
+                     * The odometer reading reported by the merchant.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun odometerReading(): Optional<Long> =
+                        odometerReading.getOptional("odometer_reading")
+
+                    /**
+                     * The type of fleet purchase.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun purchaseType(): Optional<PurchaseType> =
+                        purchaseType.getOptional("purchase_type")
+
+                    /**
+                     * The type of service provided.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun serviceType(): Optional<ServiceType> =
+                        serviceType.getOptional("service_type")
+
+                    /**
+                     * The fleet trailer number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun trailerNumber(): Optional<String> =
+                        trailerNumber.getOptional("trailer_number")
+
+                    /**
+                     * Returns the raw JSON value of [employeeNumber].
+                     *
+                     * Unlike [employeeNumber], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("employee_number")
+                    @ExcludeMissing
+                    fun _employeeNumber(): JsonField<String> = employeeNumber
+
+                    /**
+                     * Returns the raw JSON value of [fuelQuantity].
+                     *
+                     * Unlike [fuelQuantity], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("fuel_quantity")
+                    @ExcludeMissing
+                    fun _fuelQuantity(): JsonField<String> = fuelQuantity
+
+                    /**
+                     * Returns the raw JSON value of [fuelType].
+                     *
+                     * Unlike [fuelType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("fuel_type")
+                    @ExcludeMissing
+                    fun _fuelType(): JsonField<FuelType> = fuelType
+
+                    /**
+                     * Returns the raw JSON value of [fuelUnitCostAmount].
+                     *
+                     * Unlike [fuelUnitCostAmount], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("fuel_unit_cost_amount")
+                    @ExcludeMissing
+                    fun _fuelUnitCostAmount(): JsonField<Long> = fuelUnitCostAmount
+
+                    /**
+                     * Returns the raw JSON value of [fuelUnitCostCurrency].
+                     *
+                     * Unlike [fuelUnitCostCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("fuel_unit_cost_currency")
+                    @ExcludeMissing
+                    fun _fuelUnitCostCurrency(): JsonField<String> = fuelUnitCostCurrency
+
+                    /**
+                     * Returns the raw JSON value of [fuelUnitOfMeasure].
+                     *
+                     * Unlike [fuelUnitOfMeasure], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("fuel_unit_of_measure")
+                    @ExcludeMissing
+                    fun _fuelUnitOfMeasure(): JsonField<FuelUnitOfMeasure> = fuelUnitOfMeasure
+
+                    /**
+                     * Returns the raw JSON value of [grossFuelPriceAmount].
+                     *
+                     * Unlike [grossFuelPriceAmount], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("gross_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _grossFuelPriceAmount(): JsonField<Long> = grossFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [grossFuelPriceCurrency].
+                     *
+                     * Unlike [grossFuelPriceCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("gross_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _grossFuelPriceCurrency(): JsonField<String> = grossFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [grossNonFuelPriceAmount].
+                     *
+                     * Unlike [grossNonFuelPriceAmount], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("gross_non_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _grossNonFuelPriceAmount(): JsonField<Long> = grossNonFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [grossNonFuelPriceCurrency].
+                     *
+                     * Unlike [grossNonFuelPriceCurrency], this method doesn't throw if the JSON
+                     * field has an unexpected type.
+                     */
+                    @JsonProperty("gross_non_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _grossNonFuelPriceCurrency(): JsonField<String> = grossNonFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [netFuelPriceAmount].
+                     *
+                     * Unlike [netFuelPriceAmount], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("net_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _netFuelPriceAmount(): JsonField<Long> = netFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [netFuelPriceCurrency].
+                     *
+                     * Unlike [netFuelPriceCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("net_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _netFuelPriceCurrency(): JsonField<String> = netFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [netNonFuelPriceAmount].
+                     *
+                     * Unlike [netNonFuelPriceAmount], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("net_non_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _netNonFuelPriceAmount(): JsonField<Long> = netNonFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [netNonFuelPriceCurrency].
+                     *
+                     * Unlike [netNonFuelPriceCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("net_non_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _netNonFuelPriceCurrency(): JsonField<String> = netNonFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [odometerReading].
+                     *
+                     * Unlike [odometerReading], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("odometer_reading")
+                    @ExcludeMissing
+                    fun _odometerReading(): JsonField<Long> = odometerReading
+
+                    /**
+                     * Returns the raw JSON value of [purchaseType].
+                     *
+                     * Unlike [purchaseType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("purchase_type")
+                    @ExcludeMissing
+                    fun _purchaseType(): JsonField<PurchaseType> = purchaseType
+
+                    /**
+                     * Returns the raw JSON value of [serviceType].
+                     *
+                     * Unlike [serviceType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("service_type")
+                    @ExcludeMissing
+                    fun _serviceType(): JsonField<ServiceType> = serviceType
+
+                    /**
+                     * Returns the raw JSON value of [trailerNumber].
+                     *
+                     * Unlike [trailerNumber], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("trailer_number")
+                    @ExcludeMissing
+                    fun _trailerNumber(): JsonField<String> = trailerNumber
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Fleet].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .employeeNumber()
+                         * .fuelQuantity()
+                         * .fuelType()
+                         * .fuelUnitCostAmount()
+                         * .fuelUnitCostCurrency()
+                         * .fuelUnitOfMeasure()
+                         * .grossFuelPriceAmount()
+                         * .grossFuelPriceCurrency()
+                         * .grossNonFuelPriceAmount()
+                         * .grossNonFuelPriceCurrency()
+                         * .netFuelPriceAmount()
+                         * .netFuelPriceCurrency()
+                         * .netNonFuelPriceAmount()
+                         * .netNonFuelPriceCurrency()
+                         * .odometerReading()
+                         * .purchaseType()
+                         * .serviceType()
+                         * .trailerNumber()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Fleet]. */
+                    class Builder internal constructor() {
+
+                        private var employeeNumber: JsonField<String>? = null
+                        private var fuelQuantity: JsonField<String>? = null
+                        private var fuelType: JsonField<FuelType>? = null
+                        private var fuelUnitCostAmount: JsonField<Long>? = null
+                        private var fuelUnitCostCurrency: JsonField<String>? = null
+                        private var fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure>? = null
+                        private var grossFuelPriceAmount: JsonField<Long>? = null
+                        private var grossFuelPriceCurrency: JsonField<String>? = null
+                        private var grossNonFuelPriceAmount: JsonField<Long>? = null
+                        private var grossNonFuelPriceCurrency: JsonField<String>? = null
+                        private var netFuelPriceAmount: JsonField<Long>? = null
+                        private var netFuelPriceCurrency: JsonField<String>? = null
+                        private var netNonFuelPriceAmount: JsonField<Long>? = null
+                        private var netNonFuelPriceCurrency: JsonField<String>? = null
+                        private var odometerReading: JsonField<Long>? = null
+                        private var purchaseType: JsonField<PurchaseType>? = null
+                        private var serviceType: JsonField<ServiceType>? = null
+                        private var trailerNumber: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(fleet: Fleet) = apply {
+                            employeeNumber = fleet.employeeNumber
+                            fuelQuantity = fleet.fuelQuantity
+                            fuelType = fleet.fuelType
+                            fuelUnitCostAmount = fleet.fuelUnitCostAmount
+                            fuelUnitCostCurrency = fleet.fuelUnitCostCurrency
+                            fuelUnitOfMeasure = fleet.fuelUnitOfMeasure
+                            grossFuelPriceAmount = fleet.grossFuelPriceAmount
+                            grossFuelPriceCurrency = fleet.grossFuelPriceCurrency
+                            grossNonFuelPriceAmount = fleet.grossNonFuelPriceAmount
+                            grossNonFuelPriceCurrency = fleet.grossNonFuelPriceCurrency
+                            netFuelPriceAmount = fleet.netFuelPriceAmount
+                            netFuelPriceCurrency = fleet.netFuelPriceCurrency
+                            netNonFuelPriceAmount = fleet.netNonFuelPriceAmount
+                            netNonFuelPriceCurrency = fleet.netNonFuelPriceCurrency
+                            odometerReading = fleet.odometerReading
+                            purchaseType = fleet.purchaseType
+                            serviceType = fleet.serviceType
+                            trailerNumber = fleet.trailerNumber
+                            additionalProperties = fleet.additionalProperties.toMutableMap()
+                        }
+
+                        /** The fleet employee number. */
+                        fun employeeNumber(employeeNumber: String?) =
+                            employeeNumber(JsonField.ofNullable(employeeNumber))
+
+                        /**
+                         * Alias for calling [Builder.employeeNumber] with
+                         * `employeeNumber.orElse(null)`.
+                         */
+                        fun employeeNumber(employeeNumber: Optional<String>) =
+                            employeeNumber(employeeNumber.getOrNull())
+
+                        /**
+                         * Sets [Builder.employeeNumber] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.employeeNumber] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun employeeNumber(employeeNumber: JsonField<String>) = apply {
+                            this.employeeNumber = employeeNumber
+                        }
+
+                        /**
+                         * The quantity of fuel purchased, given as a string containing a decimal
+                         * number in the indicated unit of measure.
+                         */
+                        fun fuelQuantity(fuelQuantity: String?) =
+                            fuelQuantity(JsonField.ofNullable(fuelQuantity))
+
+                        /**
+                         * Alias for calling [Builder.fuelQuantity] with
+                         * `fuelQuantity.orElse(null)`.
+                         */
+                        fun fuelQuantity(fuelQuantity: Optional<String>) =
+                            fuelQuantity(fuelQuantity.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelQuantity] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelQuantity] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun fuelQuantity(fuelQuantity: JsonField<String>) = apply {
+                            this.fuelQuantity = fuelQuantity
+                        }
+
+                        /** The type of fuel purchased. */
+                        fun fuelType(fuelType: FuelType?) = fuelType(JsonField.ofNullable(fuelType))
+
+                        /** Alias for calling [Builder.fuelType] with `fuelType.orElse(null)`. */
+                        fun fuelType(fuelType: Optional<FuelType>) = fuelType(fuelType.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelType] with a well-typed [FuelType]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun fuelType(fuelType: JsonField<FuelType>) = apply {
+                            this.fuelType = fuelType
+                        }
+
+                        /** The cost per unit of fuel in minor units. */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: Long?) =
+                            fuelUnitCostAmount(JsonField.ofNullable(fuelUnitCostAmount))
+
+                        /**
+                         * Alias for [Builder.fuelUnitCostAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: Long) =
+                            fuelUnitCostAmount(fuelUnitCostAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.fuelUnitCostAmount] with
+                         * `fuelUnitCostAmount.orElse(null)`.
+                         */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: Optional<Long>) =
+                            fuelUnitCostAmount(fuelUnitCostAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelUnitCostAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelUnitCostAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: JsonField<Long>) = apply {
+                            this.fuelUnitCostAmount = fuelUnitCostAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
+                         * unit cost.
+                         */
+                        fun fuelUnitCostCurrency(fuelUnitCostCurrency: String?) =
+                            fuelUnitCostCurrency(JsonField.ofNullable(fuelUnitCostCurrency))
+
+                        /**
+                         * Alias for calling [Builder.fuelUnitCostCurrency] with
+                         * `fuelUnitCostCurrency.orElse(null)`.
+                         */
+                        fun fuelUnitCostCurrency(fuelUnitCostCurrency: Optional<String>) =
+                            fuelUnitCostCurrency(fuelUnitCostCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelUnitCostCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelUnitCostCurrency] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun fuelUnitCostCurrency(fuelUnitCostCurrency: JsonField<String>) = apply {
+                            this.fuelUnitCostCurrency = fuelUnitCostCurrency
+                        }
+
+                        /** The unit of measure for the fuel quantity. */
+                        fun fuelUnitOfMeasure(fuelUnitOfMeasure: FuelUnitOfMeasure?) =
+                            fuelUnitOfMeasure(JsonField.ofNullable(fuelUnitOfMeasure))
+
+                        /**
+                         * Alias for calling [Builder.fuelUnitOfMeasure] with
+                         * `fuelUnitOfMeasure.orElse(null)`.
+                         */
+                        fun fuelUnitOfMeasure(fuelUnitOfMeasure: Optional<FuelUnitOfMeasure>) =
+                            fuelUnitOfMeasure(fuelUnitOfMeasure.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelUnitOfMeasure] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelUnitOfMeasure] with a well-typed
+                         * [FuelUnitOfMeasure] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun fuelUnitOfMeasure(fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure>) =
+                            apply {
+                                this.fuelUnitOfMeasure = fuelUnitOfMeasure
+                            }
+
+                        /** The gross fuel price in minor units. */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: Long?) =
+                            grossFuelPriceAmount(JsonField.ofNullable(grossFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.grossFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: Long) =
+                            grossFuelPriceAmount(grossFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.grossFuelPriceAmount] with
+                         * `grossFuelPriceAmount.orElse(null)`.
+                         */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: Optional<Long>) =
+                            grossFuelPriceAmount(grossFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossFuelPriceAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: JsonField<Long>) = apply {
+                            this.grossFuelPriceAmount = grossFuelPriceAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                         * fuel price.
+                         */
+                        fun grossFuelPriceCurrency(grossFuelPriceCurrency: String?) =
+                            grossFuelPriceCurrency(JsonField.ofNullable(grossFuelPriceCurrency))
+
+                        /**
+                         * Alias for calling [Builder.grossFuelPriceCurrency] with
+                         * `grossFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun grossFuelPriceCurrency(grossFuelPriceCurrency: Optional<String>) =
+                            grossFuelPriceCurrency(grossFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossFuelPriceCurrency] with a
+                         * well-typed [String] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun grossFuelPriceCurrency(grossFuelPriceCurrency: JsonField<String>) =
+                            apply {
+                                this.grossFuelPriceCurrency = grossFuelPriceCurrency
+                            }
+
+                        /** The gross non-fuel price in minor units. */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: Long?) =
+                            grossNonFuelPriceAmount(JsonField.ofNullable(grossNonFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.grossNonFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: Long) =
+                            grossNonFuelPriceAmount(grossNonFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.grossNonFuelPriceAmount] with
+                         * `grossNonFuelPriceAmount.orElse(null)`.
+                         */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: Optional<Long>) =
+                            grossNonFuelPriceAmount(grossNonFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossNonFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossNonFuelPriceAmount] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: JsonField<Long>) =
+                            apply {
+                                this.grossNonFuelPriceAmount = grossNonFuelPriceAmount
+                            }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                         * non-fuel price.
+                         */
+                        fun grossNonFuelPriceCurrency(grossNonFuelPriceCurrency: String?) =
+                            grossNonFuelPriceCurrency(
+                                JsonField.ofNullable(grossNonFuelPriceCurrency)
+                            )
+
+                        /**
+                         * Alias for calling [Builder.grossNonFuelPriceCurrency] with
+                         * `grossNonFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun grossNonFuelPriceCurrency(grossNonFuelPriceCurrency: Optional<String>) =
+                            grossNonFuelPriceCurrency(grossNonFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossNonFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossNonFuelPriceCurrency] with a
+                         * well-typed [String] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun grossNonFuelPriceCurrency(
+                            grossNonFuelPriceCurrency: JsonField<String>
+                        ) = apply { this.grossNonFuelPriceCurrency = grossNonFuelPriceCurrency }
+
+                        /** The net fuel price in minor units. */
+                        fun netFuelPriceAmount(netFuelPriceAmount: Long?) =
+                            netFuelPriceAmount(JsonField.ofNullable(netFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.netFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun netFuelPriceAmount(netFuelPriceAmount: Long) =
+                            netFuelPriceAmount(netFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.netFuelPriceAmount] with
+                         * `netFuelPriceAmount.orElse(null)`.
+                         */
+                        fun netFuelPriceAmount(netFuelPriceAmount: Optional<Long>) =
+                            netFuelPriceAmount(netFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.netFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netFuelPriceAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun netFuelPriceAmount(netFuelPriceAmount: JsonField<Long>) = apply {
+                            this.netFuelPriceAmount = netFuelPriceAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net
+                         * fuel price.
+                         */
+                        fun netFuelPriceCurrency(netFuelPriceCurrency: String?) =
+                            netFuelPriceCurrency(JsonField.ofNullable(netFuelPriceCurrency))
+
+                        /**
+                         * Alias for calling [Builder.netFuelPriceCurrency] with
+                         * `netFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun netFuelPriceCurrency(netFuelPriceCurrency: Optional<String>) =
+                            netFuelPriceCurrency(netFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.netFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netFuelPriceCurrency] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun netFuelPriceCurrency(netFuelPriceCurrency: JsonField<String>) = apply {
+                            this.netFuelPriceCurrency = netFuelPriceCurrency
+                        }
+
+                        /** The net non-fuel price in minor units. */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: Long?) =
+                            netNonFuelPriceAmount(JsonField.ofNullable(netNonFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.netNonFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: Long) =
+                            netNonFuelPriceAmount(netNonFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.netNonFuelPriceAmount] with
+                         * `netNonFuelPriceAmount.orElse(null)`.
+                         */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: Optional<Long>) =
+                            netNonFuelPriceAmount(netNonFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.netNonFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netNonFuelPriceAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: JsonField<Long>) = apply {
+                            this.netNonFuelPriceAmount = netNonFuelPriceAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net
+                         * non-fuel price.
+                         */
+                        fun netNonFuelPriceCurrency(netNonFuelPriceCurrency: String?) =
+                            netNonFuelPriceCurrency(JsonField.ofNullable(netNonFuelPriceCurrency))
+
+                        /**
+                         * Alias for calling [Builder.netNonFuelPriceCurrency] with
+                         * `netNonFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun netNonFuelPriceCurrency(netNonFuelPriceCurrency: Optional<String>) =
+                            netNonFuelPriceCurrency(netNonFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.netNonFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netNonFuelPriceCurrency] with a
+                         * well-typed [String] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun netNonFuelPriceCurrency(netNonFuelPriceCurrency: JsonField<String>) =
+                            apply {
+                                this.netNonFuelPriceCurrency = netNonFuelPriceCurrency
+                            }
+
+                        /** The odometer reading reported by the merchant. */
+                        fun odometerReading(odometerReading: Long?) =
+                            odometerReading(JsonField.ofNullable(odometerReading))
+
+                        /**
+                         * Alias for [Builder.odometerReading].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun odometerReading(odometerReading: Long) =
+                            odometerReading(odometerReading as Long?)
+
+                        /**
+                         * Alias for calling [Builder.odometerReading] with
+                         * `odometerReading.orElse(null)`.
+                         */
+                        fun odometerReading(odometerReading: Optional<Long>) =
+                            odometerReading(odometerReading.getOrNull())
+
+                        /**
+                         * Sets [Builder.odometerReading] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.odometerReading] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun odometerReading(odometerReading: JsonField<Long>) = apply {
+                            this.odometerReading = odometerReading
+                        }
+
+                        /** The type of fleet purchase. */
+                        fun purchaseType(purchaseType: PurchaseType?) =
+                            purchaseType(JsonField.ofNullable(purchaseType))
+
+                        /**
+                         * Alias for calling [Builder.purchaseType] with
+                         * `purchaseType.orElse(null)`.
+                         */
+                        fun purchaseType(purchaseType: Optional<PurchaseType>) =
+                            purchaseType(purchaseType.getOrNull())
+
+                        /**
+                         * Sets [Builder.purchaseType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.purchaseType] with a well-typed
+                         * [PurchaseType] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun purchaseType(purchaseType: JsonField<PurchaseType>) = apply {
+                            this.purchaseType = purchaseType
+                        }
+
+                        /** The type of service provided. */
+                        fun serviceType(serviceType: ServiceType?) =
+                            serviceType(JsonField.ofNullable(serviceType))
+
+                        /**
+                         * Alias for calling [Builder.serviceType] with `serviceType.orElse(null)`.
+                         */
+                        fun serviceType(serviceType: Optional<ServiceType>) =
+                            serviceType(serviceType.getOrNull())
+
+                        /**
+                         * Sets [Builder.serviceType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.serviceType] with a well-typed
+                         * [ServiceType] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun serviceType(serviceType: JsonField<ServiceType>) = apply {
+                            this.serviceType = serviceType
+                        }
+
+                        /** The fleet trailer number. */
+                        fun trailerNumber(trailerNumber: String?) =
+                            trailerNumber(JsonField.ofNullable(trailerNumber))
+
+                        /**
+                         * Alias for calling [Builder.trailerNumber] with
+                         * `trailerNumber.orElse(null)`.
+                         */
+                        fun trailerNumber(trailerNumber: Optional<String>) =
+                            trailerNumber(trailerNumber.getOrNull())
+
+                        /**
+                         * Sets [Builder.trailerNumber] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.trailerNumber] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun trailerNumber(trailerNumber: JsonField<String>) = apply {
+                            this.trailerNumber = trailerNumber
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Fleet].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .employeeNumber()
+                         * .fuelQuantity()
+                         * .fuelType()
+                         * .fuelUnitCostAmount()
+                         * .fuelUnitCostCurrency()
+                         * .fuelUnitOfMeasure()
+                         * .grossFuelPriceAmount()
+                         * .grossFuelPriceCurrency()
+                         * .grossNonFuelPriceAmount()
+                         * .grossNonFuelPriceCurrency()
+                         * .netFuelPriceAmount()
+                         * .netFuelPriceCurrency()
+                         * .netNonFuelPriceAmount()
+                         * .netNonFuelPriceCurrency()
+                         * .odometerReading()
+                         * .purchaseType()
+                         * .serviceType()
+                         * .trailerNumber()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Fleet =
+                            Fleet(
+                                checkRequired("employeeNumber", employeeNumber),
+                                checkRequired("fuelQuantity", fuelQuantity),
+                                checkRequired("fuelType", fuelType),
+                                checkRequired("fuelUnitCostAmount", fuelUnitCostAmount),
+                                checkRequired("fuelUnitCostCurrency", fuelUnitCostCurrency),
+                                checkRequired("fuelUnitOfMeasure", fuelUnitOfMeasure),
+                                checkRequired("grossFuelPriceAmount", grossFuelPriceAmount),
+                                checkRequired("grossFuelPriceCurrency", grossFuelPriceCurrency),
+                                checkRequired("grossNonFuelPriceAmount", grossNonFuelPriceAmount),
+                                checkRequired(
+                                    "grossNonFuelPriceCurrency",
+                                    grossNonFuelPriceCurrency,
+                                ),
+                                checkRequired("netFuelPriceAmount", netFuelPriceAmount),
+                                checkRequired("netFuelPriceCurrency", netFuelPriceCurrency),
+                                checkRequired("netNonFuelPriceAmount", netNonFuelPriceAmount),
+                                checkRequired("netNonFuelPriceCurrency", netNonFuelPriceCurrency),
+                                checkRequired("odometerReading", odometerReading),
+                                checkRequired("purchaseType", purchaseType),
+                                checkRequired("serviceType", serviceType),
+                                checkRequired("trailerNumber", trailerNumber),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Fleet = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        employeeNumber()
+                        fuelQuantity()
+                        fuelType().ifPresent { it.validate() }
+                        fuelUnitCostAmount()
+                        fuelUnitCostCurrency()
+                        fuelUnitOfMeasure().ifPresent { it.validate() }
+                        grossFuelPriceAmount()
+                        grossFuelPriceCurrency()
+                        grossNonFuelPriceAmount()
+                        grossNonFuelPriceCurrency()
+                        netFuelPriceAmount()
+                        netFuelPriceCurrency()
+                        netNonFuelPriceAmount()
+                        netNonFuelPriceCurrency()
+                        odometerReading()
+                        purchaseType().ifPresent { it.validate() }
+                        serviceType().ifPresent { it.validate() }
+                        trailerNumber()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (employeeNumber.asKnown().isPresent) 1 else 0) +
+                            (if (fuelQuantity.asKnown().isPresent) 1 else 0) +
+                            (fuelType.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (fuelUnitCostAmount.asKnown().isPresent) 1 else 0) +
+                            (if (fuelUnitCostCurrency.asKnown().isPresent) 1 else 0) +
+                            (fuelUnitOfMeasure.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (grossFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (grossFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (grossNonFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (grossNonFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (netFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (netFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (netNonFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (netNonFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (odometerReading.asKnown().isPresent) 1 else 0) +
+                            (purchaseType.asKnown().getOrNull()?.validity() ?: 0) +
+                            (serviceType.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (trailerNumber.asKnown().isPresent) 1 else 0)
+
+                    /** The type of fuel purchased. */
+                    class FuelType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Regular */
+                            @JvmField val REGULAR = of("regular")
+
+                            /** Mid or plus */
+                            @JvmField val MID_OR_PLUS = of("mid_or_plus")
+
+                            /** Premium or super */
+                            @JvmField val PREMIUM_OR_SUPER = of("premium_or_super")
+
+                            /** Mid or plus 2 */
+                            @JvmField val MID_OR_PLUS_2 = of("mid_or_plus_2")
+
+                            /** Premium or super 2 */
+                            @JvmField val PREMIUM_OR_SUPER_2 = of("premium_or_super_2")
+
+                            /** Regular ethanol 5% blend outside the United States */
+                            @JvmField
+                            val REGULAR_ETHANOL_5_BLEND_NON_US =
+                                of("regular_ethanol_5_blend_non_us")
+
+                            /** Mid or plus ethanol 5% blend outside the United States */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_5_BLEND_NON_US =
+                                of("mid_or_plus_ethanol_5_blend_non_us")
+
+                            /** Premium or super ethanol 5% blend outside the United States */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US =
+                                of("premium_or_super_ethanol_5_blend_non_us")
+
+                            /** Mid or plus 2 ethanol 5% blend outside the United States */
+                            @JvmField
+                            val MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US =
+                                of("mid_or_plus_2_ethanol_5_blend_non_us")
+
+                            /** Green gasoline regular */
+                            @JvmField val GREEN_GASOLINE_REGULAR = of("green_gasoline_regular")
+
+                            /** Green gasoline mid or plus */
+                            @JvmField
+                            val GREEN_GASOLINE_MID_OR_PLUS = of("green_gasoline_mid_or_plus")
+
+                            /** Green gasoline premium or super */
+                            @JvmField
+                            val GREEN_GASOLINE_PREMIUM_OR_SUPER =
+                                of("green_gasoline_premium_or_super")
+
+                            /** Regular diesel 2 */
+                            @JvmField val REGULAR_DIESEL_2 = of("regular_diesel_2")
+
+                            /** Premium diesel 2 */
+                            @JvmField val PREMIUM_DIESEL_2 = of("premium_diesel_2")
+
+                            /** Regular diesel 1 */
+                            @JvmField val REGULAR_DIESEL_1 = of("regular_diesel_1")
+
+                            /** Compressed natural gas */
+                            @JvmField val COMPRESSED_NATURAL_GAS = of("compressed_natural_gas")
+
+                            /** Liquid propane gas */
+                            @JvmField val LIQUID_PROPANE_GAS = of("liquid_propane_gas")
+
+                            /** Liquid natural gas */
+                            @JvmField val LIQUID_NATURAL_GAS = of("liquid_natural_gas")
+
+                            /** E85 */
+                            @JvmField val E85 = of("e85")
+
+                            /** Regular reformulated */
+                            @JvmField val REGULAR_REFORMULATED = of("regular_reformulated")
+
+                            /** Mid or plus reformulated */
+                            @JvmField val MID_OR_PLUS_REFORMULATED = of("mid_or_plus_reformulated")
+
+                            /** Premium or super reformulated */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_REFORMULATED = of("premium_or_super_reformulated")
+
+                            /** Mid or plus 2 reformulated */
+                            @JvmField
+                            val MID_OR_PLUS_2_REFORMULATED = of("mid_or_plus_2_reformulated")
+
+                            /** Premium or super 2 reformulated */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_2_REFORMULATED =
+                                of("premium_or_super_2_reformulated")
+
+                            /** Diesel off-road 1/2 non-taxable */
+                            @JvmField
+                            val DIESEL_OFF_ROAD_1_2_NON_TAXABLE =
+                                of("diesel_off_road_1_2_non_taxable")
+
+                            /** Diesel off-road non-taxable */
+                            @JvmField
+                            val DIESEL_OFF_ROAD_NON_TAXABLE = of("diesel_off_road_non_taxable")
+
+                            /** Biodiesel blend off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_off_road_non_taxable")
+
+                            /** Racing fuel */
+                            @JvmField val RACING_FUEL = of("racing_fuel")
+
+                            /** Mid or plus 2 ethanol 10% blend */
+                            @JvmField
+                            val MID_OR_PLUS_2_ETHANOL_10_BLEND =
+                                of("mid_or_plus_2_ethanol_10_blend")
+
+                            /** Premium or super 2 ethanol 10% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND =
+                                of("premium_or_super_2_ethanol_10_blend")
+
+                            /** Mid or plus ethanol 2–15% blend */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_2_15_BLEND =
+                                of("mid_or_plus_ethanol_2_15_blend")
+
+                            /** Premium or super ethanol 2–15% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND =
+                                of("premium_or_super_ethanol_2_15_blend")
+
+                            /** Premium or super 2 ethanol 5% blend outside the United States */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US =
+                                of("premium_or_super_2_ethanol_5_blend_non_us")
+
+                            /** Regular ethanol 10% blend */
+                            @JvmField val REGULAR_ETHANOL_10_BLEND = of("regular_ethanol_10_blend")
+
+                            /** Mid or plus ethanol 10% blend */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_10_BLEND = of("mid_or_plus_ethanol_10_blend")
+
+                            /** Premium or super ethanol 10% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_10_BLEND =
+                                of("premium_or_super_ethanol_10_blend")
+
+                            /** B2 diesel blend 2% biodiesel */
+                            @JvmField
+                            val B2_DIESEL_BLEND_2_BIODIESEL = of("b2_diesel_blend_2_biodiesel")
+
+                            /** B5 diesel blend 5% biodiesel */
+                            @JvmField
+                            val B5_DIESEL_BLEND_5_BIODIESEL = of("b5_diesel_blend_5_biodiesel")
+
+                            /** B10 diesel blend 10% biodiesel */
+                            @JvmField
+                            val B10_DIESEL_BLEND_10_BIODIESEL = of("b10_diesel_blend_10_biodiesel")
+
+                            /** B11 diesel blend 11% biodiesel */
+                            @JvmField
+                            val B11_DIESEL_BLEND_11_BIODIESEL = of("b11_diesel_blend_11_biodiesel")
+
+                            /** B15 diesel blend 15% biodiesel */
+                            @JvmField
+                            val B15_DIESEL_BLEND_15_BIODIESEL = of("b15_diesel_blend_15_biodiesel")
+
+                            /** B20 diesel blend 20% biodiesel */
+                            @JvmField
+                            val B20_DIESEL_BLEND_20_BIODIESEL = of("b20_diesel_blend_20_biodiesel")
+
+                            /** B100 diesel blend 100% biodiesel */
+                            @JvmField
+                            val B100_DIESEL_BLEND_100_BIODIESEL =
+                                of("b100_diesel_blend_100_biodiesel")
+
+                            /** B1 diesel blend 1% biodiesel */
+                            @JvmField
+                            val B1_DIESEL_BLEND_1_BIODIESEL = of("b1_diesel_blend_1_biodiesel")
+
+                            /** Additized diesel 2 */
+                            @JvmField val ADDITIZED_DIESEL_2 = of("additized_diesel_2")
+
+                            /** Additized diesel 3 */
+                            @JvmField val ADDITIZED_DIESEL_3 = of("additized_diesel_3")
+
+                            /** B7 diesel blend 7% biodiesel outside the United States */
+                            @JvmField
+                            val B7_DIESEL_BLEND_7_BIODIESEL_NON_US =
+                                of("b7_diesel_blend_7_biodiesel_non_us")
+
+                            /** B7 premium diesel blend 7% biodiesel outside the United States */
+                            @JvmField
+                            val B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US =
+                                of("b7_premium_diesel_blend_7_biodiesel_non_us")
+
+                            /** Renewable diesel R95 or greater */
+                            @JvmField
+                            val RENEWABLE_DIESEL_R95_OR_GREATER =
+                                of("renewable_diesel_r95_or_greater")
+
+                            /** Renewable diesel biodiesel 6% to 20% */
+                            @JvmField
+                            val RENEWABLE_DIESEL_BIODIESEL_6_TO_20 =
+                                of("renewable_diesel_biodiesel_6_to_20")
+
+                            /** Diesel exhaust fluid pump */
+                            @JvmField
+                            val DIESEL_EXHAUST_FLUID_PUMP = of("diesel_exhaust_fluid_pump")
+
+                            /** Premium diesel 1 */
+                            @JvmField val PREMIUM_DIESEL_1 = of("premium_diesel_1")
+
+                            /** Regular ethanol 15% blend */
+                            @JvmField val REGULAR_ETHANOL_15_BLEND = of("regular_ethanol_15_blend")
+
+                            /** Mid or plus ethanol 15% blend */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_15_BLEND = of("mid_or_plus_ethanol_15_blend")
+
+                            /** Premium or super ethanol 15% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_15_BLEND =
+                                of("premium_or_super_ethanol_15_blend")
+
+                            /** Premium diesel blend less than 20% biodiesel */
+                            @JvmField
+                            val PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL =
+                                of("premium_diesel_blend_less_than_20_biodiesel")
+
+                            /** Premium diesel blend 20% or more biodiesel */
+                            @JvmField
+                            val PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL =
+                                of("premium_diesel_blend_20_or_more_biodiesel")
+
+                            /** B75 diesel blend 75% biodiesel */
+                            @JvmField
+                            val B75_DIESEL_BLEND_75_BIODIESEL = of("b75_diesel_blend_75_biodiesel")
+
+                            /** B99 diesel blend 99% biodiesel */
+                            @JvmField
+                            val B99_DIESEL_BLEND_99_BIODIESEL = of("b99_diesel_blend_99_biodiesel")
+
+                            /** Reserved for preauthorization use only */
+                            @JvmField
+                            val RESERVED_FOR_PREAUTHORIZATION_USE_ONLY =
+                                of("reserved_for_preauthorization_use_only")
+
+                            /** Undefined fuel reserved for proprietary use */
+                            @JvmField
+                            val UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE =
+                                of("undefined_fuel_reserved_for_proprietary_use")
+
+                            /** Miscellaneous fuel */
+                            @JvmField val MISCELLANEOUS_FUEL = of("miscellaneous_fuel")
+
+                            /** Jet fuel */
+                            @JvmField val JET_FUEL = of("jet_fuel")
+
+                            /** Aviation fuel regular */
+                            @JvmField val AVIATION_FUEL_REGULAR = of("aviation_fuel_regular")
+
+                            /** Aviation fuel premium */
+                            @JvmField val AVIATION_FUEL_PREMIUM = of("aviation_fuel_premium")
+
+                            /** Aviation fuel JP8 */
+                            @JvmField val AVIATION_FUEL_JP8 = of("aviation_fuel_jp8")
+
+                            /** Aviation fuel 4 */
+                            @JvmField val AVIATION_FUEL_4 = of("aviation_fuel_4")
+
+                            /** Aviation fuel 5 */
+                            @JvmField val AVIATION_FUEL_5 = of("aviation_fuel_5")
+
+                            /** Biojet diesel */
+                            @JvmField val BIOJET_DIESEL = of("biojet_diesel")
+
+                            /** Aviation biofuel gasoline */
+                            @JvmField
+                            val AVIATION_BIOFUEL_GASOLINE = of("aviation_biofuel_gasoline")
+
+                            /** Undefined aviation fuel reserved for proprietary use */
+                            @JvmField
+                            val UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE =
+                                of("undefined_aviation_fuel_reserved_for_proprietary_use")
+
+                            /** Miscellaneous aviation fuel */
+                            @JvmField
+                            val MISCELLANEOUS_AVIATION_FUEL = of("miscellaneous_aviation_fuel")
+
+                            /** Marine fuel 1 */
+                            @JvmField val MARINE_FUEL_1 = of("marine_fuel_1")
+
+                            /** Marine fuel 2 */
+                            @JvmField val MARINE_FUEL_2 = of("marine_fuel_2")
+
+                            /** Marine fuel 3 */
+                            @JvmField val MARINE_FUEL_3 = of("marine_fuel_3")
+
+                            /** Marine fuel 4 */
+                            @JvmField val MARINE_FUEL_4 = of("marine_fuel_4")
+
+                            /** Marine fuel 5 */
+                            @JvmField val MARINE_FUEL_5 = of("marine_fuel_5")
+
+                            /** Marine other */
+                            @JvmField val MARINE_OTHER = of("marine_other")
+
+                            /** Marine diesel */
+                            @JvmField val MARINE_DIESEL = of("marine_diesel")
+
+                            /** Miscellaneous marine fuel */
+                            @JvmField
+                            val MISCELLANEOUS_MARINE_FUEL = of("miscellaneous_marine_fuel")
+
+                            /** Kerosene low sulfur */
+                            @JvmField val KEROSENE_LOW_SULFUR = of("kerosene_low_sulfur")
+
+                            /** White gas */
+                            @JvmField val WHITE_GAS = of("white_gas")
+
+                            /** Heating oil */
+                            @JvmField val HEATING_OIL = of("heating_oil")
+
+                            /** Other fuel non-taxable */
+                            @JvmField val OTHER_FUEL_NON_TAXABLE = of("other_fuel_non_taxable")
+
+                            /** Kerosene ultra low sulfur */
+                            @JvmField
+                            val KEROSENE_ULTRA_LOW_SULFUR = of("kerosene_ultra_low_sulfur")
+
+                            /** Electric vehicle charging level 1 110 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT =
+                                of("electric_vehicle_charging_level_1_110_volt")
+
+                            /** Electric vehicle charging level 2 240 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT =
+                                of("electric_vehicle_charging_level_2_240_volt")
+
+                            /** Electric vehicle charging level 3 480 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
+                                of("electric_vehicle_charging_level_3_480_volt")
+
+                            /** Renewable diesel R95 or greater off-road non-taxable */
+                            @JvmField
+                            val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
+                                of("renewable_diesel_r95_or_greater_off_road_non_taxable")
+
+                            /** Biodiesel blend 1% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_1_off_road_non_taxable")
+
+                            /** Biodiesel blend 75% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_75_off_road_non_taxable")
+
+                            /** Biodiesel blend 99% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_99_off_road_non_taxable")
+
+                            /** Biodiesel blend 100% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_100_off_road_non_taxable")
+
+                            /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
+                            @JvmField
+                            val RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE =
+                                of("renewable_diesel_biodiesel_6_to_20_off_road_non_taxable")
+
+                            /** Electric vehicle charging level 4 800 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT =
+                                of("electric_vehicle_charging_level_4_800_volt")
+
+                            /** Electric vehicle charging level 5 megawatt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT =
+                                of("electric_vehicle_charging_level_5_megawatt")
+
+                            /** Hydrotreated vegetable oil 100 */
+                            @JvmField
+                            val HYDROTREATED_VEGETABLE_OIL_100 =
+                                of("hydrotreated_vegetable_oil_100")
+
+                            /** Bio compressed natural gas */
+                            @JvmField
+                            val BIO_COMPRESSED_NATURAL_GAS = of("bio_compressed_natural_gas")
+
+                            /** Miscellaneous other fuel */
+                            @JvmField val MISCELLANEOUS_OTHER_FUEL = of("miscellaneous_other_fuel")
+
+                            @JvmStatic fun of(value: String) = FuelType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [FuelType]'s known values. */
+                        enum class Known {
+                            /** Regular */
+                            REGULAR,
+                            /** Mid or plus */
+                            MID_OR_PLUS,
+                            /** Premium or super */
+                            PREMIUM_OR_SUPER,
+                            /** Mid or plus 2 */
+                            MID_OR_PLUS_2,
+                            /** Premium or super 2 */
+                            PREMIUM_OR_SUPER_2,
+                            /** Regular ethanol 5% blend outside the United States */
+                            REGULAR_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_ETHANOL_5_BLEND_NON_US,
+                            /** Premium or super ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus 2 ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US,
+                            /** Green gasoline regular */
+                            GREEN_GASOLINE_REGULAR,
+                            /** Green gasoline mid or plus */
+                            GREEN_GASOLINE_MID_OR_PLUS,
+                            /** Green gasoline premium or super */
+                            GREEN_GASOLINE_PREMIUM_OR_SUPER,
+                            /** Regular diesel 2 */
+                            REGULAR_DIESEL_2,
+                            /** Premium diesel 2 */
+                            PREMIUM_DIESEL_2,
+                            /** Regular diesel 1 */
+                            REGULAR_DIESEL_1,
+                            /** Compressed natural gas */
+                            COMPRESSED_NATURAL_GAS,
+                            /** Liquid propane gas */
+                            LIQUID_PROPANE_GAS,
+                            /** Liquid natural gas */
+                            LIQUID_NATURAL_GAS,
+                            /** E85 */
+                            E85,
+                            /** Regular reformulated */
+                            REGULAR_REFORMULATED,
+                            /** Mid or plus reformulated */
+                            MID_OR_PLUS_REFORMULATED,
+                            /** Premium or super reformulated */
+                            PREMIUM_OR_SUPER_REFORMULATED,
+                            /** Mid or plus 2 reformulated */
+                            MID_OR_PLUS_2_REFORMULATED,
+                            /** Premium or super 2 reformulated */
+                            PREMIUM_OR_SUPER_2_REFORMULATED,
+                            /** Diesel off-road 1/2 non-taxable */
+                            DIESEL_OFF_ROAD_1_2_NON_TAXABLE,
+                            /** Diesel off-road non-taxable */
+                            DIESEL_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend off-road non-taxable */
+                            BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE,
+                            /** Racing fuel */
+                            RACING_FUEL,
+                            /** Mid or plus 2 ethanol 10% blend */
+                            MID_OR_PLUS_2_ETHANOL_10_BLEND,
+                            /** Premium or super 2 ethanol 10% blend */
+                            PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 2–15% blend */
+                            MID_OR_PLUS_ETHANOL_2_15_BLEND,
+                            /** Premium or super ethanol 2–15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND,
+                            /** Premium or super 2 ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US,
+                            /** Regular ethanol 10% blend */
+                            REGULAR_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 10% blend */
+                            MID_OR_PLUS_ETHANOL_10_BLEND,
+                            /** Premium or super ethanol 10% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_10_BLEND,
+                            /** B2 diesel blend 2% biodiesel */
+                            B2_DIESEL_BLEND_2_BIODIESEL,
+                            /** B5 diesel blend 5% biodiesel */
+                            B5_DIESEL_BLEND_5_BIODIESEL,
+                            /** B10 diesel blend 10% biodiesel */
+                            B10_DIESEL_BLEND_10_BIODIESEL,
+                            /** B11 diesel blend 11% biodiesel */
+                            B11_DIESEL_BLEND_11_BIODIESEL,
+                            /** B15 diesel blend 15% biodiesel */
+                            B15_DIESEL_BLEND_15_BIODIESEL,
+                            /** B20 diesel blend 20% biodiesel */
+                            B20_DIESEL_BLEND_20_BIODIESEL,
+                            /** B100 diesel blend 100% biodiesel */
+                            B100_DIESEL_BLEND_100_BIODIESEL,
+                            /** B1 diesel blend 1% biodiesel */
+                            B1_DIESEL_BLEND_1_BIODIESEL,
+                            /** Additized diesel 2 */
+                            ADDITIZED_DIESEL_2,
+                            /** Additized diesel 3 */
+                            ADDITIZED_DIESEL_3,
+                            /** B7 diesel blend 7% biodiesel outside the United States */
+                            B7_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** B7 premium diesel blend 7% biodiesel outside the United States */
+                            B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** Renewable diesel R95 or greater */
+                            RENEWABLE_DIESEL_R95_OR_GREATER,
+                            /** Renewable diesel biodiesel 6% to 20% */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20,
+                            /** Diesel exhaust fluid pump */
+                            DIESEL_EXHAUST_FLUID_PUMP,
+                            /** Premium diesel 1 */
+                            PREMIUM_DIESEL_1,
+                            /** Regular ethanol 15% blend */
+                            REGULAR_ETHANOL_15_BLEND,
+                            /** Mid or plus ethanol 15% blend */
+                            MID_OR_PLUS_ETHANOL_15_BLEND,
+                            /** Premium or super ethanol 15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_15_BLEND,
+                            /** Premium diesel blend less than 20% biodiesel */
+                            PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL,
+                            /** Premium diesel blend 20% or more biodiesel */
+                            PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL,
+                            /** B75 diesel blend 75% biodiesel */
+                            B75_DIESEL_BLEND_75_BIODIESEL,
+                            /** B99 diesel blend 99% biodiesel */
+                            B99_DIESEL_BLEND_99_BIODIESEL,
+                            /** Reserved for preauthorization use only */
+                            RESERVED_FOR_PREAUTHORIZATION_USE_ONLY,
+                            /** Undefined fuel reserved for proprietary use */
+                            UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous fuel */
+                            MISCELLANEOUS_FUEL,
+                            /** Jet fuel */
+                            JET_FUEL,
+                            /** Aviation fuel regular */
+                            AVIATION_FUEL_REGULAR,
+                            /** Aviation fuel premium */
+                            AVIATION_FUEL_PREMIUM,
+                            /** Aviation fuel JP8 */
+                            AVIATION_FUEL_JP8,
+                            /** Aviation fuel 4 */
+                            AVIATION_FUEL_4,
+                            /** Aviation fuel 5 */
+                            AVIATION_FUEL_5,
+                            /** Biojet diesel */
+                            BIOJET_DIESEL,
+                            /** Aviation biofuel gasoline */
+                            AVIATION_BIOFUEL_GASOLINE,
+                            /** Undefined aviation fuel reserved for proprietary use */
+                            UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous aviation fuel */
+                            MISCELLANEOUS_AVIATION_FUEL,
+                            /** Marine fuel 1 */
+                            MARINE_FUEL_1,
+                            /** Marine fuel 2 */
+                            MARINE_FUEL_2,
+                            /** Marine fuel 3 */
+                            MARINE_FUEL_3,
+                            /** Marine fuel 4 */
+                            MARINE_FUEL_4,
+                            /** Marine fuel 5 */
+                            MARINE_FUEL_5,
+                            /** Marine other */
+                            MARINE_OTHER,
+                            /** Marine diesel */
+                            MARINE_DIESEL,
+                            /** Miscellaneous marine fuel */
+                            MISCELLANEOUS_MARINE_FUEL,
+                            /** Kerosene low sulfur */
+                            KEROSENE_LOW_SULFUR,
+                            /** White gas */
+                            WHITE_GAS,
+                            /** Heating oil */
+                            HEATING_OIL,
+                            /** Other fuel non-taxable */
+                            OTHER_FUEL_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur */
+                            KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Electric vehicle charging level 1 110 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
+                            /** Electric vehicle charging level 2 240 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
+                            /** Electric vehicle charging level 3 480 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Renewable diesel R95 or greater off-road non-taxable */
+                            RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 1% off-road non-taxable */
+                            BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 75% off-road non-taxable */
+                            BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 99% off-road non-taxable */
+                            BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 100% off-road non-taxable */
+                            BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Electric vehicle charging level 4 800 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
+                            /** Electric vehicle charging level 5 megawatt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT,
+                            /** Hydrotreated vegetable oil 100 */
+                            HYDROTREATED_VEGETABLE_OIL_100,
+                            /** Bio compressed natural gas */
+                            BIO_COMPRESSED_NATURAL_GAS,
+                            /** Miscellaneous other fuel */
+                            MISCELLANEOUS_OTHER_FUEL,
+                        }
+
+                        /**
+                         * An enum containing [FuelType]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [FuelType] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Regular */
+                            REGULAR,
+                            /** Mid or plus */
+                            MID_OR_PLUS,
+                            /** Premium or super */
+                            PREMIUM_OR_SUPER,
+                            /** Mid or plus 2 */
+                            MID_OR_PLUS_2,
+                            /** Premium or super 2 */
+                            PREMIUM_OR_SUPER_2,
+                            /** Regular ethanol 5% blend outside the United States */
+                            REGULAR_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_ETHANOL_5_BLEND_NON_US,
+                            /** Premium or super ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus 2 ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US,
+                            /** Green gasoline regular */
+                            GREEN_GASOLINE_REGULAR,
+                            /** Green gasoline mid or plus */
+                            GREEN_GASOLINE_MID_OR_PLUS,
+                            /** Green gasoline premium or super */
+                            GREEN_GASOLINE_PREMIUM_OR_SUPER,
+                            /** Regular diesel 2 */
+                            REGULAR_DIESEL_2,
+                            /** Premium diesel 2 */
+                            PREMIUM_DIESEL_2,
+                            /** Regular diesel 1 */
+                            REGULAR_DIESEL_1,
+                            /** Compressed natural gas */
+                            COMPRESSED_NATURAL_GAS,
+                            /** Liquid propane gas */
+                            LIQUID_PROPANE_GAS,
+                            /** Liquid natural gas */
+                            LIQUID_NATURAL_GAS,
+                            /** E85 */
+                            E85,
+                            /** Regular reformulated */
+                            REGULAR_REFORMULATED,
+                            /** Mid or plus reformulated */
+                            MID_OR_PLUS_REFORMULATED,
+                            /** Premium or super reformulated */
+                            PREMIUM_OR_SUPER_REFORMULATED,
+                            /** Mid or plus 2 reformulated */
+                            MID_OR_PLUS_2_REFORMULATED,
+                            /** Premium or super 2 reformulated */
+                            PREMIUM_OR_SUPER_2_REFORMULATED,
+                            /** Diesel off-road 1/2 non-taxable */
+                            DIESEL_OFF_ROAD_1_2_NON_TAXABLE,
+                            /** Diesel off-road non-taxable */
+                            DIESEL_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend off-road non-taxable */
+                            BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE,
+                            /** Racing fuel */
+                            RACING_FUEL,
+                            /** Mid or plus 2 ethanol 10% blend */
+                            MID_OR_PLUS_2_ETHANOL_10_BLEND,
+                            /** Premium or super 2 ethanol 10% blend */
+                            PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 2–15% blend */
+                            MID_OR_PLUS_ETHANOL_2_15_BLEND,
+                            /** Premium or super ethanol 2–15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND,
+                            /** Premium or super 2 ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US,
+                            /** Regular ethanol 10% blend */
+                            REGULAR_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 10% blend */
+                            MID_OR_PLUS_ETHANOL_10_BLEND,
+                            /** Premium or super ethanol 10% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_10_BLEND,
+                            /** B2 diesel blend 2% biodiesel */
+                            B2_DIESEL_BLEND_2_BIODIESEL,
+                            /** B5 diesel blend 5% biodiesel */
+                            B5_DIESEL_BLEND_5_BIODIESEL,
+                            /** B10 diesel blend 10% biodiesel */
+                            B10_DIESEL_BLEND_10_BIODIESEL,
+                            /** B11 diesel blend 11% biodiesel */
+                            B11_DIESEL_BLEND_11_BIODIESEL,
+                            /** B15 diesel blend 15% biodiesel */
+                            B15_DIESEL_BLEND_15_BIODIESEL,
+                            /** B20 diesel blend 20% biodiesel */
+                            B20_DIESEL_BLEND_20_BIODIESEL,
+                            /** B100 diesel blend 100% biodiesel */
+                            B100_DIESEL_BLEND_100_BIODIESEL,
+                            /** B1 diesel blend 1% biodiesel */
+                            B1_DIESEL_BLEND_1_BIODIESEL,
+                            /** Additized diesel 2 */
+                            ADDITIZED_DIESEL_2,
+                            /** Additized diesel 3 */
+                            ADDITIZED_DIESEL_3,
+                            /** B7 diesel blend 7% biodiesel outside the United States */
+                            B7_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** B7 premium diesel blend 7% biodiesel outside the United States */
+                            B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** Renewable diesel R95 or greater */
+                            RENEWABLE_DIESEL_R95_OR_GREATER,
+                            /** Renewable diesel biodiesel 6% to 20% */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20,
+                            /** Diesel exhaust fluid pump */
+                            DIESEL_EXHAUST_FLUID_PUMP,
+                            /** Premium diesel 1 */
+                            PREMIUM_DIESEL_1,
+                            /** Regular ethanol 15% blend */
+                            REGULAR_ETHANOL_15_BLEND,
+                            /** Mid or plus ethanol 15% blend */
+                            MID_OR_PLUS_ETHANOL_15_BLEND,
+                            /** Premium or super ethanol 15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_15_BLEND,
+                            /** Premium diesel blend less than 20% biodiesel */
+                            PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL,
+                            /** Premium diesel blend 20% or more biodiesel */
+                            PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL,
+                            /** B75 diesel blend 75% biodiesel */
+                            B75_DIESEL_BLEND_75_BIODIESEL,
+                            /** B99 diesel blend 99% biodiesel */
+                            B99_DIESEL_BLEND_99_BIODIESEL,
+                            /** Reserved for preauthorization use only */
+                            RESERVED_FOR_PREAUTHORIZATION_USE_ONLY,
+                            /** Undefined fuel reserved for proprietary use */
+                            UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous fuel */
+                            MISCELLANEOUS_FUEL,
+                            /** Jet fuel */
+                            JET_FUEL,
+                            /** Aviation fuel regular */
+                            AVIATION_FUEL_REGULAR,
+                            /** Aviation fuel premium */
+                            AVIATION_FUEL_PREMIUM,
+                            /** Aviation fuel JP8 */
+                            AVIATION_FUEL_JP8,
+                            /** Aviation fuel 4 */
+                            AVIATION_FUEL_4,
+                            /** Aviation fuel 5 */
+                            AVIATION_FUEL_5,
+                            /** Biojet diesel */
+                            BIOJET_DIESEL,
+                            /** Aviation biofuel gasoline */
+                            AVIATION_BIOFUEL_GASOLINE,
+                            /** Undefined aviation fuel reserved for proprietary use */
+                            UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous aviation fuel */
+                            MISCELLANEOUS_AVIATION_FUEL,
+                            /** Marine fuel 1 */
+                            MARINE_FUEL_1,
+                            /** Marine fuel 2 */
+                            MARINE_FUEL_2,
+                            /** Marine fuel 3 */
+                            MARINE_FUEL_3,
+                            /** Marine fuel 4 */
+                            MARINE_FUEL_4,
+                            /** Marine fuel 5 */
+                            MARINE_FUEL_5,
+                            /** Marine other */
+                            MARINE_OTHER,
+                            /** Marine diesel */
+                            MARINE_DIESEL,
+                            /** Miscellaneous marine fuel */
+                            MISCELLANEOUS_MARINE_FUEL,
+                            /** Kerosene low sulfur */
+                            KEROSENE_LOW_SULFUR,
+                            /** White gas */
+                            WHITE_GAS,
+                            /** Heating oil */
+                            HEATING_OIL,
+                            /** Other fuel non-taxable */
+                            OTHER_FUEL_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur */
+                            KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Electric vehicle charging level 1 110 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
+                            /** Electric vehicle charging level 2 240 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
+                            /** Electric vehicle charging level 3 480 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Renewable diesel R95 or greater off-road non-taxable */
+                            RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 1% off-road non-taxable */
+                            BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 75% off-road non-taxable */
+                            BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 99% off-road non-taxable */
+                            BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 100% off-road non-taxable */
+                            BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Electric vehicle charging level 4 800 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
+                            /** Electric vehicle charging level 5 megawatt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT,
+                            /** Hydrotreated vegetable oil 100 */
+                            HYDROTREATED_VEGETABLE_OIL_100,
+                            /** Bio compressed natural gas */
+                            BIO_COMPRESSED_NATURAL_GAS,
+                            /** Miscellaneous other fuel */
+                            MISCELLANEOUS_OTHER_FUEL,
+                            /**
+                             * An enum member indicating that [FuelType] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                REGULAR -> Value.REGULAR
+                                MID_OR_PLUS -> Value.MID_OR_PLUS
+                                PREMIUM_OR_SUPER -> Value.PREMIUM_OR_SUPER
+                                MID_OR_PLUS_2 -> Value.MID_OR_PLUS_2
+                                PREMIUM_OR_SUPER_2 -> Value.PREMIUM_OR_SUPER_2
+                                REGULAR_ETHANOL_5_BLEND_NON_US ->
+                                    Value.REGULAR_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_ETHANOL_5_BLEND_NON_US ->
+                                    Value.MID_OR_PLUS_ETHANOL_5_BLEND_NON_US
+                                PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US ->
+                                    Value.MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US
+                                GREEN_GASOLINE_REGULAR -> Value.GREEN_GASOLINE_REGULAR
+                                GREEN_GASOLINE_MID_OR_PLUS -> Value.GREEN_GASOLINE_MID_OR_PLUS
+                                GREEN_GASOLINE_PREMIUM_OR_SUPER ->
+                                    Value.GREEN_GASOLINE_PREMIUM_OR_SUPER
+                                REGULAR_DIESEL_2 -> Value.REGULAR_DIESEL_2
+                                PREMIUM_DIESEL_2 -> Value.PREMIUM_DIESEL_2
+                                REGULAR_DIESEL_1 -> Value.REGULAR_DIESEL_1
+                                COMPRESSED_NATURAL_GAS -> Value.COMPRESSED_NATURAL_GAS
+                                LIQUID_PROPANE_GAS -> Value.LIQUID_PROPANE_GAS
+                                LIQUID_NATURAL_GAS -> Value.LIQUID_NATURAL_GAS
+                                E85 -> Value.E85
+                                REGULAR_REFORMULATED -> Value.REGULAR_REFORMULATED
+                                MID_OR_PLUS_REFORMULATED -> Value.MID_OR_PLUS_REFORMULATED
+                                PREMIUM_OR_SUPER_REFORMULATED -> Value.PREMIUM_OR_SUPER_REFORMULATED
+                                MID_OR_PLUS_2_REFORMULATED -> Value.MID_OR_PLUS_2_REFORMULATED
+                                PREMIUM_OR_SUPER_2_REFORMULATED ->
+                                    Value.PREMIUM_OR_SUPER_2_REFORMULATED
+                                DIESEL_OFF_ROAD_1_2_NON_TAXABLE ->
+                                    Value.DIESEL_OFF_ROAD_1_2_NON_TAXABLE
+                                DIESEL_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE
+                                RACING_FUEL -> Value.RACING_FUEL
+                                MID_OR_PLUS_2_ETHANOL_10_BLEND ->
+                                    Value.MID_OR_PLUS_2_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_2_15_BLEND ->
+                                    Value.MID_OR_PLUS_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US ->
+                                    Value.PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US
+                                REGULAR_ETHANOL_10_BLEND -> Value.REGULAR_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_10_BLEND -> Value.MID_OR_PLUS_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_10_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_10_BLEND
+                                B2_DIESEL_BLEND_2_BIODIESEL -> Value.B2_DIESEL_BLEND_2_BIODIESEL
+                                B5_DIESEL_BLEND_5_BIODIESEL -> Value.B5_DIESEL_BLEND_5_BIODIESEL
+                                B10_DIESEL_BLEND_10_BIODIESEL -> Value.B10_DIESEL_BLEND_10_BIODIESEL
+                                B11_DIESEL_BLEND_11_BIODIESEL -> Value.B11_DIESEL_BLEND_11_BIODIESEL
+                                B15_DIESEL_BLEND_15_BIODIESEL -> Value.B15_DIESEL_BLEND_15_BIODIESEL
+                                B20_DIESEL_BLEND_20_BIODIESEL -> Value.B20_DIESEL_BLEND_20_BIODIESEL
+                                B100_DIESEL_BLEND_100_BIODIESEL ->
+                                    Value.B100_DIESEL_BLEND_100_BIODIESEL
+                                B1_DIESEL_BLEND_1_BIODIESEL -> Value.B1_DIESEL_BLEND_1_BIODIESEL
+                                ADDITIZED_DIESEL_2 -> Value.ADDITIZED_DIESEL_2
+                                ADDITIZED_DIESEL_3 -> Value.ADDITIZED_DIESEL_3
+                                B7_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Value.B7_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Value.B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                RENEWABLE_DIESEL_R95_OR_GREATER ->
+                                    Value.RENEWABLE_DIESEL_R95_OR_GREATER
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20 ->
+                                    Value.RENEWABLE_DIESEL_BIODIESEL_6_TO_20
+                                DIESEL_EXHAUST_FLUID_PUMP -> Value.DIESEL_EXHAUST_FLUID_PUMP
+                                PREMIUM_DIESEL_1 -> Value.PREMIUM_DIESEL_1
+                                REGULAR_ETHANOL_15_BLEND -> Value.REGULAR_ETHANOL_15_BLEND
+                                MID_OR_PLUS_ETHANOL_15_BLEND -> Value.MID_OR_PLUS_ETHANOL_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_15_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_15_BLEND
+                                PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL ->
+                                    Value.PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL
+                                PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL ->
+                                    Value.PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL
+                                B75_DIESEL_BLEND_75_BIODIESEL -> Value.B75_DIESEL_BLEND_75_BIODIESEL
+                                B99_DIESEL_BLEND_99_BIODIESEL -> Value.B99_DIESEL_BLEND_99_BIODIESEL
+                                RESERVED_FOR_PREAUTHORIZATION_USE_ONLY ->
+                                    Value.RESERVED_FOR_PREAUTHORIZATION_USE_ONLY
+                                UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Value.UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_FUEL -> Value.MISCELLANEOUS_FUEL
+                                JET_FUEL -> Value.JET_FUEL
+                                AVIATION_FUEL_REGULAR -> Value.AVIATION_FUEL_REGULAR
+                                AVIATION_FUEL_PREMIUM -> Value.AVIATION_FUEL_PREMIUM
+                                AVIATION_FUEL_JP8 -> Value.AVIATION_FUEL_JP8
+                                AVIATION_FUEL_4 -> Value.AVIATION_FUEL_4
+                                AVIATION_FUEL_5 -> Value.AVIATION_FUEL_5
+                                BIOJET_DIESEL -> Value.BIOJET_DIESEL
+                                AVIATION_BIOFUEL_GASOLINE -> Value.AVIATION_BIOFUEL_GASOLINE
+                                UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Value.UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_AVIATION_FUEL -> Value.MISCELLANEOUS_AVIATION_FUEL
+                                MARINE_FUEL_1 -> Value.MARINE_FUEL_1
+                                MARINE_FUEL_2 -> Value.MARINE_FUEL_2
+                                MARINE_FUEL_3 -> Value.MARINE_FUEL_3
+                                MARINE_FUEL_4 -> Value.MARINE_FUEL_4
+                                MARINE_FUEL_5 -> Value.MARINE_FUEL_5
+                                MARINE_OTHER -> Value.MARINE_OTHER
+                                MARINE_DIESEL -> Value.MARINE_DIESEL
+                                MISCELLANEOUS_MARINE_FUEL -> Value.MISCELLANEOUS_MARINE_FUEL
+                                KEROSENE_LOW_SULFUR -> Value.KEROSENE_LOW_SULFUR
+                                WHITE_GAS -> Value.WHITE_GAS
+                                HEATING_OIL -> Value.HEATING_OIL
+                                OTHER_FUEL_NON_TAXABLE -> Value.OTHER_FUEL_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR -> Value.KEROSENE_ULTRA_LOW_SULFUR
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
+                                    Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
+                                    Value.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT
+                                HYDROTREATED_VEGETABLE_OIL_100 ->
+                                    Value.HYDROTREATED_VEGETABLE_OIL_100
+                                BIO_COMPRESSED_NATURAL_GAS -> Value.BIO_COMPRESSED_NATURAL_GAS
+                                MISCELLANEOUS_OTHER_FUEL -> Value.MISCELLANEOUS_OTHER_FUEL
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                REGULAR -> Known.REGULAR
+                                MID_OR_PLUS -> Known.MID_OR_PLUS
+                                PREMIUM_OR_SUPER -> Known.PREMIUM_OR_SUPER
+                                MID_OR_PLUS_2 -> Known.MID_OR_PLUS_2
+                                PREMIUM_OR_SUPER_2 -> Known.PREMIUM_OR_SUPER_2
+                                REGULAR_ETHANOL_5_BLEND_NON_US ->
+                                    Known.REGULAR_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_ETHANOL_5_BLEND_NON_US ->
+                                    Known.MID_OR_PLUS_ETHANOL_5_BLEND_NON_US
+                                PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US ->
+                                    Known.MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US
+                                GREEN_GASOLINE_REGULAR -> Known.GREEN_GASOLINE_REGULAR
+                                GREEN_GASOLINE_MID_OR_PLUS -> Known.GREEN_GASOLINE_MID_OR_PLUS
+                                GREEN_GASOLINE_PREMIUM_OR_SUPER ->
+                                    Known.GREEN_GASOLINE_PREMIUM_OR_SUPER
+                                REGULAR_DIESEL_2 -> Known.REGULAR_DIESEL_2
+                                PREMIUM_DIESEL_2 -> Known.PREMIUM_DIESEL_2
+                                REGULAR_DIESEL_1 -> Known.REGULAR_DIESEL_1
+                                COMPRESSED_NATURAL_GAS -> Known.COMPRESSED_NATURAL_GAS
+                                LIQUID_PROPANE_GAS -> Known.LIQUID_PROPANE_GAS
+                                LIQUID_NATURAL_GAS -> Known.LIQUID_NATURAL_GAS
+                                E85 -> Known.E85
+                                REGULAR_REFORMULATED -> Known.REGULAR_REFORMULATED
+                                MID_OR_PLUS_REFORMULATED -> Known.MID_OR_PLUS_REFORMULATED
+                                PREMIUM_OR_SUPER_REFORMULATED -> Known.PREMIUM_OR_SUPER_REFORMULATED
+                                MID_OR_PLUS_2_REFORMULATED -> Known.MID_OR_PLUS_2_REFORMULATED
+                                PREMIUM_OR_SUPER_2_REFORMULATED ->
+                                    Known.PREMIUM_OR_SUPER_2_REFORMULATED
+                                DIESEL_OFF_ROAD_1_2_NON_TAXABLE ->
+                                    Known.DIESEL_OFF_ROAD_1_2_NON_TAXABLE
+                                DIESEL_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE
+                                RACING_FUEL -> Known.RACING_FUEL
+                                MID_OR_PLUS_2_ETHANOL_10_BLEND ->
+                                    Known.MID_OR_PLUS_2_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_2_15_BLEND ->
+                                    Known.MID_OR_PLUS_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US ->
+                                    Known.PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US
+                                REGULAR_ETHANOL_10_BLEND -> Known.REGULAR_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_10_BLEND -> Known.MID_OR_PLUS_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_10_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_10_BLEND
+                                B2_DIESEL_BLEND_2_BIODIESEL -> Known.B2_DIESEL_BLEND_2_BIODIESEL
+                                B5_DIESEL_BLEND_5_BIODIESEL -> Known.B5_DIESEL_BLEND_5_BIODIESEL
+                                B10_DIESEL_BLEND_10_BIODIESEL -> Known.B10_DIESEL_BLEND_10_BIODIESEL
+                                B11_DIESEL_BLEND_11_BIODIESEL -> Known.B11_DIESEL_BLEND_11_BIODIESEL
+                                B15_DIESEL_BLEND_15_BIODIESEL -> Known.B15_DIESEL_BLEND_15_BIODIESEL
+                                B20_DIESEL_BLEND_20_BIODIESEL -> Known.B20_DIESEL_BLEND_20_BIODIESEL
+                                B100_DIESEL_BLEND_100_BIODIESEL ->
+                                    Known.B100_DIESEL_BLEND_100_BIODIESEL
+                                B1_DIESEL_BLEND_1_BIODIESEL -> Known.B1_DIESEL_BLEND_1_BIODIESEL
+                                ADDITIZED_DIESEL_2 -> Known.ADDITIZED_DIESEL_2
+                                ADDITIZED_DIESEL_3 -> Known.ADDITIZED_DIESEL_3
+                                B7_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Known.B7_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Known.B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                RENEWABLE_DIESEL_R95_OR_GREATER ->
+                                    Known.RENEWABLE_DIESEL_R95_OR_GREATER
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20 ->
+                                    Known.RENEWABLE_DIESEL_BIODIESEL_6_TO_20
+                                DIESEL_EXHAUST_FLUID_PUMP -> Known.DIESEL_EXHAUST_FLUID_PUMP
+                                PREMIUM_DIESEL_1 -> Known.PREMIUM_DIESEL_1
+                                REGULAR_ETHANOL_15_BLEND -> Known.REGULAR_ETHANOL_15_BLEND
+                                MID_OR_PLUS_ETHANOL_15_BLEND -> Known.MID_OR_PLUS_ETHANOL_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_15_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_15_BLEND
+                                PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL ->
+                                    Known.PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL
+                                PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL ->
+                                    Known.PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL
+                                B75_DIESEL_BLEND_75_BIODIESEL -> Known.B75_DIESEL_BLEND_75_BIODIESEL
+                                B99_DIESEL_BLEND_99_BIODIESEL -> Known.B99_DIESEL_BLEND_99_BIODIESEL
+                                RESERVED_FOR_PREAUTHORIZATION_USE_ONLY ->
+                                    Known.RESERVED_FOR_PREAUTHORIZATION_USE_ONLY
+                                UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Known.UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_FUEL -> Known.MISCELLANEOUS_FUEL
+                                JET_FUEL -> Known.JET_FUEL
+                                AVIATION_FUEL_REGULAR -> Known.AVIATION_FUEL_REGULAR
+                                AVIATION_FUEL_PREMIUM -> Known.AVIATION_FUEL_PREMIUM
+                                AVIATION_FUEL_JP8 -> Known.AVIATION_FUEL_JP8
+                                AVIATION_FUEL_4 -> Known.AVIATION_FUEL_4
+                                AVIATION_FUEL_5 -> Known.AVIATION_FUEL_5
+                                BIOJET_DIESEL -> Known.BIOJET_DIESEL
+                                AVIATION_BIOFUEL_GASOLINE -> Known.AVIATION_BIOFUEL_GASOLINE
+                                UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Known.UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_AVIATION_FUEL -> Known.MISCELLANEOUS_AVIATION_FUEL
+                                MARINE_FUEL_1 -> Known.MARINE_FUEL_1
+                                MARINE_FUEL_2 -> Known.MARINE_FUEL_2
+                                MARINE_FUEL_3 -> Known.MARINE_FUEL_3
+                                MARINE_FUEL_4 -> Known.MARINE_FUEL_4
+                                MARINE_FUEL_5 -> Known.MARINE_FUEL_5
+                                MARINE_OTHER -> Known.MARINE_OTHER
+                                MARINE_DIESEL -> Known.MARINE_DIESEL
+                                MISCELLANEOUS_MARINE_FUEL -> Known.MISCELLANEOUS_MARINE_FUEL
+                                KEROSENE_LOW_SULFUR -> Known.KEROSENE_LOW_SULFUR
+                                WHITE_GAS -> Known.WHITE_GAS
+                                HEATING_OIL -> Known.HEATING_OIL
+                                OTHER_FUEL_NON_TAXABLE -> Known.OTHER_FUEL_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR -> Known.KEROSENE_ULTRA_LOW_SULFUR
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
+                                    Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
+                                    Known.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT
+                                HYDROTREATED_VEGETABLE_OIL_100 ->
+                                    Known.HYDROTREATED_VEGETABLE_OIL_100
+                                BIO_COMPRESSED_NATURAL_GAS -> Known.BIO_COMPRESSED_NATURAL_GAS
+                                MISCELLANEOUS_OTHER_FUEL -> Known.MISCELLANEOUS_OTHER_FUEL
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown FuelType: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): FuelType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is FuelType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /** The unit of measure for the fuel quantity. */
+                    class FuelUnitOfMeasure
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Liter */
+                            @JvmField val LITER = of("liter")
+
+                            /** US gallon */
+                            @JvmField val US_GALLON = of("us_gallon")
+
+                            /** Imperial gallon */
+                            @JvmField val IMPERIAL_GALLON = of("imperial_gallon")
+
+                            /** Kilogram */
+                            @JvmField val KILOGRAM = of("kilogram")
+
+                            /** Pound */
+                            @JvmField val POUND = of("pound")
+
+                            /** Charging minutes */
+                            @JvmField val CHARGING_MINUTES = of("charging_minutes")
+
+                            /** Kilowatt hour */
+                            @JvmField val KILOWATT_HOUR = of("kilowatt_hour")
+
+                            @JvmStatic
+                            fun of(value: String) = FuelUnitOfMeasure(JsonField.of(value))
+                        }
+
+                        /** An enum containing [FuelUnitOfMeasure]'s known values. */
+                        enum class Known {
+                            /** Liter */
+                            LITER,
+                            /** US gallon */
+                            US_GALLON,
+                            /** Imperial gallon */
+                            IMPERIAL_GALLON,
+                            /** Kilogram */
+                            KILOGRAM,
+                            /** Pound */
+                            POUND,
+                            /** Charging minutes */
+                            CHARGING_MINUTES,
+                            /** Kilowatt hour */
+                            KILOWATT_HOUR,
+                        }
+
+                        /**
+                         * An enum containing [FuelUnitOfMeasure]'s known values, as well as an
+                         * [_UNKNOWN] member.
+                         *
+                         * An instance of [FuelUnitOfMeasure] can contain an unknown value in a
+                         * couple of cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Liter */
+                            LITER,
+                            /** US gallon */
+                            US_GALLON,
+                            /** Imperial gallon */
+                            IMPERIAL_GALLON,
+                            /** Kilogram */
+                            KILOGRAM,
+                            /** Pound */
+                            POUND,
+                            /** Charging minutes */
+                            CHARGING_MINUTES,
+                            /** Kilowatt hour */
+                            KILOWATT_HOUR,
+                            /**
+                             * An enum member indicating that [FuelUnitOfMeasure] was instantiated
+                             * with an unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                LITER -> Value.LITER
+                                US_GALLON -> Value.US_GALLON
+                                IMPERIAL_GALLON -> Value.IMPERIAL_GALLON
+                                KILOGRAM -> Value.KILOGRAM
+                                POUND -> Value.POUND
+                                CHARGING_MINUTES -> Value.CHARGING_MINUTES
+                                KILOWATT_HOUR -> Value.KILOWATT_HOUR
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                LITER -> Known.LITER
+                                US_GALLON -> Known.US_GALLON
+                                IMPERIAL_GALLON -> Known.IMPERIAL_GALLON
+                                KILOGRAM -> Known.KILOGRAM
+                                POUND -> Known.POUND
+                                CHARGING_MINUTES -> Known.CHARGING_MINUTES
+                                KILOWATT_HOUR -> Known.KILOWATT_HOUR
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown FuelUnitOfMeasure: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): FuelUnitOfMeasure = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is FuelUnitOfMeasure && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /** The type of fleet purchase. */
+                    class PurchaseType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Fuel purchase */
+                            @JvmField val FUEL_PURCHASE = of("fuel_purchase")
+
+                            /** Non-fuel purchase */
+                            @JvmField val NON_FUEL_PURCHASE = of("non_fuel_purchase")
+
+                            /** Fuel and non-fuel purchase */
+                            @JvmField
+                            val FUEL_AND_NON_FUEL_PURCHASE = of("fuel_and_non_fuel_purchase")
+
+                            /** Fuel purchase with multiple fuel types */
+                            @JvmField
+                            val FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES =
+                                of("fuel_purchase_with_multiple_fuel_types")
+
+                            @JvmStatic fun of(value: String) = PurchaseType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [PurchaseType]'s known values. */
+                        enum class Known {
+                            /** Fuel purchase */
+                            FUEL_PURCHASE,
+                            /** Non-fuel purchase */
+                            NON_FUEL_PURCHASE,
+                            /** Fuel and non-fuel purchase */
+                            FUEL_AND_NON_FUEL_PURCHASE,
+                            /** Fuel purchase with multiple fuel types */
+                            FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES,
+                        }
+
+                        /**
+                         * An enum containing [PurchaseType]'s known values, as well as an
+                         * [_UNKNOWN] member.
+                         *
+                         * An instance of [PurchaseType] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Fuel purchase */
+                            FUEL_PURCHASE,
+                            /** Non-fuel purchase */
+                            NON_FUEL_PURCHASE,
+                            /** Fuel and non-fuel purchase */
+                            FUEL_AND_NON_FUEL_PURCHASE,
+                            /** Fuel purchase with multiple fuel types */
+                            FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES,
+                            /**
+                             * An enum member indicating that [PurchaseType] was instantiated with
+                             * an unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                FUEL_PURCHASE -> Value.FUEL_PURCHASE
+                                NON_FUEL_PURCHASE -> Value.NON_FUEL_PURCHASE
+                                FUEL_AND_NON_FUEL_PURCHASE -> Value.FUEL_AND_NON_FUEL_PURCHASE
+                                FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES ->
+                                    Value.FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                FUEL_PURCHASE -> Known.FUEL_PURCHASE
+                                NON_FUEL_PURCHASE -> Known.NON_FUEL_PURCHASE
+                                FUEL_AND_NON_FUEL_PURCHASE -> Known.FUEL_AND_NON_FUEL_PURCHASE
+                                FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES ->
+                                    Known.FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown PurchaseType: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): PurchaseType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is PurchaseType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /** The type of service provided. */
+                    class ServiceType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Full service */
+                            @JvmField val FULL_SERVICE = of("full_service")
+
+                            /** Self service */
+                            @JvmField val SELF_SERVICE = of("self_service")
+
+                            /** High speed dispense */
+                            @JvmField val HIGH_SPEED_DISPENSE = of("high_speed_dispense")
+
+                            @JvmStatic fun of(value: String) = ServiceType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [ServiceType]'s known values. */
+                        enum class Known {
+                            /** Full service */
+                            FULL_SERVICE,
+                            /** Self service */
+                            SELF_SERVICE,
+                            /** High speed dispense */
+                            HIGH_SPEED_DISPENSE,
+                        }
+
+                        /**
+                         * An enum containing [ServiceType]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [ServiceType] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Full service */
+                            FULL_SERVICE,
+                            /** Self service */
+                            SELF_SERVICE,
+                            /** High speed dispense */
+                            HIGH_SPEED_DISPENSE,
+                            /**
+                             * An enum member indicating that [ServiceType] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                FULL_SERVICE -> Value.FULL_SERVICE
+                                SELF_SERVICE -> Value.SELF_SERVICE
+                                HIGH_SPEED_DISPENSE -> Value.HIGH_SPEED_DISPENSE
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                FULL_SERVICE -> Known.FULL_SERVICE
+                                SELF_SERVICE -> Known.SELF_SERVICE
+                                HIGH_SPEED_DISPENSE -> Known.HIGH_SPEED_DISPENSE
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown ServiceType: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): ServiceType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is ServiceType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Fleet &&
+                            employeeNumber == other.employeeNumber &&
+                            fuelQuantity == other.fuelQuantity &&
+                            fuelType == other.fuelType &&
+                            fuelUnitCostAmount == other.fuelUnitCostAmount &&
+                            fuelUnitCostCurrency == other.fuelUnitCostCurrency &&
+                            fuelUnitOfMeasure == other.fuelUnitOfMeasure &&
+                            grossFuelPriceAmount == other.grossFuelPriceAmount &&
+                            grossFuelPriceCurrency == other.grossFuelPriceCurrency &&
+                            grossNonFuelPriceAmount == other.grossNonFuelPriceAmount &&
+                            grossNonFuelPriceCurrency == other.grossNonFuelPriceCurrency &&
+                            netFuelPriceAmount == other.netFuelPriceAmount &&
+                            netFuelPriceCurrency == other.netFuelPriceCurrency &&
+                            netNonFuelPriceAmount == other.netNonFuelPriceAmount &&
+                            netNonFuelPriceCurrency == other.netNonFuelPriceCurrency &&
+                            odometerReading == other.odometerReading &&
+                            purchaseType == other.purchaseType &&
+                            serviceType == other.serviceType &&
+                            trailerNumber == other.trailerNumber &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            employeeNumber,
+                            fuelQuantity,
+                            fuelType,
+                            fuelUnitCostAmount,
+                            fuelUnitCostCurrency,
+                            fuelUnitOfMeasure,
+                            grossFuelPriceAmount,
+                            grossFuelPriceCurrency,
+                            grossNonFuelPriceAmount,
+                            grossNonFuelPriceCurrency,
+                            netFuelPriceAmount,
+                            netFuelPriceCurrency,
+                            netNonFuelPriceAmount,
+                            netNonFuelPriceCurrency,
+                            odometerReading,
+                            purchaseType,
+                            serviceType,
+                            trailerNumber,
+                            additionalProperties,
+                        )
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Fleet{employeeNumber=$employeeNumber, fuelQuantity=$fuelQuantity, fuelType=$fuelType, fuelUnitCostAmount=$fuelUnitCostAmount, fuelUnitCostCurrency=$fuelUnitCostCurrency, fuelUnitOfMeasure=$fuelUnitOfMeasure, grossFuelPriceAmount=$grossFuelPriceAmount, grossFuelPriceCurrency=$grossFuelPriceCurrency, grossNonFuelPriceAmount=$grossNonFuelPriceAmount, grossNonFuelPriceCurrency=$grossNonFuelPriceCurrency, netFuelPriceAmount=$netFuelPriceAmount, netFuelPriceCurrency=$netFuelPriceCurrency, netNonFuelPriceAmount=$netNonFuelPriceAmount, netNonFuelPriceCurrency=$netNonFuelPriceCurrency, odometerReading=$odometerReading, purchaseType=$purchaseType, serviceType=$serviceType, trailerNumber=$trailerNumber, additionalProperties=$additionalProperties}"
                 }
 
                 /** Fields specific to lodging. */
@@ -30233,6 +33226,7 @@ private constructor(
                     return other is PurchaseDetails &&
                         carRental == other.carRental &&
                         customerReferenceIdentifier == other.customerReferenceIdentifier &&
+                        fleet == other.fleet &&
                         localTaxAmount == other.localTaxAmount &&
                         localTaxCurrency == other.localTaxCurrency &&
                         lodging == other.lodging &&
@@ -30248,6 +33242,7 @@ private constructor(
                     Objects.hash(
                         carRental,
                         customerReferenceIdentifier,
+                        fleet,
                         localTaxAmount,
                         localTaxCurrency,
                         lodging,
@@ -30263,7 +33258,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
+                    "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, fleet=$fleet, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
             }
 
             class SchemeFee
@@ -35112,6 +38107,7 @@ private constructor(
             private constructor(
                 private val carRental: JsonField<CarRental>,
                 private val customerReferenceIdentifier: JsonField<String>,
+                private val fleet: JsonField<Fleet>,
                 private val localTaxAmount: JsonField<Long>,
                 private val localTaxCurrency: JsonField<String>,
                 private val lodging: JsonField<Lodging>,
@@ -35131,6 +38127,9 @@ private constructor(
                     @JsonProperty("customer_reference_identifier")
                     @ExcludeMissing
                     customerReferenceIdentifier: JsonField<String> = JsonMissing.of(),
+                    @JsonProperty("fleet")
+                    @ExcludeMissing
+                    fleet: JsonField<Fleet> = JsonMissing.of(),
                     @JsonProperty("local_tax_amount")
                     @ExcludeMissing
                     localTaxAmount: JsonField<Long> = JsonMissing.of(),
@@ -35159,6 +38158,7 @@ private constructor(
                 ) : this(
                     carRental,
                     customerReferenceIdentifier,
+                    fleet,
                     localTaxAmount,
                     localTaxCurrency,
                     lodging,
@@ -35186,6 +38186,14 @@ private constructor(
                  */
                 fun customerReferenceIdentifier(): Optional<String> =
                     customerReferenceIdentifier.getOptional("customer_reference_identifier")
+
+                /**
+                 * Fields specific to fleet purchases.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun fleet(): Optional<Fleet> = fleet.getOptional("fleet")
 
                 /**
                  * The state or provincial tax amount in minor units.
@@ -35278,6 +38286,14 @@ private constructor(
                 @JsonProperty("customer_reference_identifier")
                 @ExcludeMissing
                 fun _customerReferenceIdentifier(): JsonField<String> = customerReferenceIdentifier
+
+                /**
+                 * Returns the raw JSON value of [fleet].
+                 *
+                 * Unlike [fleet], this method doesn't throw if the JSON field has an unexpected
+                 * type.
+                 */
+                @JsonProperty("fleet") @ExcludeMissing fun _fleet(): JsonField<Fleet> = fleet
 
                 /**
                  * Returns the raw JSON value of [localTaxAmount].
@@ -35379,6 +38395,7 @@ private constructor(
                      * ```java
                      * .carRental()
                      * .customerReferenceIdentifier()
+                     * .fleet()
                      * .localTaxAmount()
                      * .localTaxCurrency()
                      * .lodging()
@@ -35397,6 +38414,7 @@ private constructor(
 
                     private var carRental: JsonField<CarRental>? = null
                     private var customerReferenceIdentifier: JsonField<String>? = null
+                    private var fleet: JsonField<Fleet>? = null
                     private var localTaxAmount: JsonField<Long>? = null
                     private var localTaxCurrency: JsonField<String>? = null
                     private var lodging: JsonField<Lodging>? = null
@@ -35412,6 +38430,7 @@ private constructor(
                     internal fun from(purchaseDetails: PurchaseDetails) = apply {
                         carRental = purchaseDetails.carRental
                         customerReferenceIdentifier = purchaseDetails.customerReferenceIdentifier
+                        fleet = purchaseDetails.fleet
                         localTaxAmount = purchaseDetails.localTaxAmount
                         localTaxCurrency = purchaseDetails.localTaxCurrency
                         lodging = purchaseDetails.lodging
@@ -35464,6 +38483,21 @@ private constructor(
                     fun customerReferenceIdentifier(
                         customerReferenceIdentifier: JsonField<String>
                     ) = apply { this.customerReferenceIdentifier = customerReferenceIdentifier }
+
+                    /** Fields specific to fleet purchases. */
+                    fun fleet(fleet: Fleet?) = fleet(JsonField.ofNullable(fleet))
+
+                    /** Alias for calling [Builder.fleet] with `fleet.orElse(null)`. */
+                    fun fleet(fleet: Optional<Fleet>) = fleet(fleet.getOrNull())
+
+                    /**
+                     * Sets [Builder.fleet] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.fleet] with a well-typed [Fleet] value
+                     * instead. This method is primarily for setting the field to an undocumented or
+                     * not yet supported value.
+                     */
+                    fun fleet(fleet: JsonField<Fleet>) = apply { this.fleet = fleet }
 
                     /** The state or provincial tax amount in minor units. */
                     fun localTaxAmount(localTaxAmount: Long?) =
@@ -35685,6 +38719,7 @@ private constructor(
                      * ```java
                      * .carRental()
                      * .customerReferenceIdentifier()
+                     * .fleet()
                      * .localTaxAmount()
                      * .localTaxCurrency()
                      * .lodging()
@@ -35704,6 +38739,7 @@ private constructor(
                                 "customerReferenceIdentifier",
                                 customerReferenceIdentifier,
                             ),
+                            checkRequired("fleet", fleet),
                             checkRequired("localTaxAmount", localTaxAmount),
                             checkRequired("localTaxCurrency", localTaxCurrency),
                             checkRequired("lodging", lodging),
@@ -35735,6 +38771,7 @@ private constructor(
 
                     carRental().ifPresent { it.validate() }
                     customerReferenceIdentifier()
+                    fleet().ifPresent { it.validate() }
                     localTaxAmount()
                     localTaxCurrency()
                     lodging().ifPresent { it.validate() }
@@ -35764,6 +38801,7 @@ private constructor(
                 internal fun validity(): Int =
                     (carRental.asKnown().getOrNull()?.validity() ?: 0) +
                         (if (customerReferenceIdentifier.asKnown().isPresent) 1 else 0) +
+                        (fleet.asKnown().getOrNull()?.validity() ?: 0) +
                         (if (localTaxAmount.asKnown().isPresent) 1 else 0) +
                         (if (localTaxCurrency.asKnown().isPresent) 1 else 0) +
                         (lodging.asKnown().getOrNull()?.validity() ?: 0) +
@@ -37247,6 +40285,2956 @@ private constructor(
 
                     override fun toString() =
                         "CarRental{carClassCode=$carClassCode, checkoutDate=$checkoutDate, dailyRentalRateAmount=$dailyRentalRateAmount, dailyRentalRateCurrency=$dailyRentalRateCurrency, daysRented=$daysRented, extraCharges=$extraCharges, fuelChargesAmount=$fuelChargesAmount, fuelChargesCurrency=$fuelChargesCurrency, insuranceChargesAmount=$insuranceChargesAmount, insuranceChargesCurrency=$insuranceChargesCurrency, noShowIndicator=$noShowIndicator, oneWayDropOffChargesAmount=$oneWayDropOffChargesAmount, oneWayDropOffChargesCurrency=$oneWayDropOffChargesCurrency, renterName=$renterName, weeklyRentalRateAmount=$weeklyRentalRateAmount, weeklyRentalRateCurrency=$weeklyRentalRateCurrency, additionalProperties=$additionalProperties}"
+                }
+
+                /** Fields specific to fleet purchases. */
+                class Fleet
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val employeeNumber: JsonField<String>,
+                    private val fuelQuantity: JsonField<String>,
+                    private val fuelType: JsonField<FuelType>,
+                    private val fuelUnitCostAmount: JsonField<Long>,
+                    private val fuelUnitCostCurrency: JsonField<String>,
+                    private val fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure>,
+                    private val grossFuelPriceAmount: JsonField<Long>,
+                    private val grossFuelPriceCurrency: JsonField<String>,
+                    private val grossNonFuelPriceAmount: JsonField<Long>,
+                    private val grossNonFuelPriceCurrency: JsonField<String>,
+                    private val netFuelPriceAmount: JsonField<Long>,
+                    private val netFuelPriceCurrency: JsonField<String>,
+                    private val netNonFuelPriceAmount: JsonField<Long>,
+                    private val netNonFuelPriceCurrency: JsonField<String>,
+                    private val odometerReading: JsonField<Long>,
+                    private val purchaseType: JsonField<PurchaseType>,
+                    private val serviceType: JsonField<ServiceType>,
+                    private val trailerNumber: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("employee_number")
+                        @ExcludeMissing
+                        employeeNumber: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("fuel_quantity")
+                        @ExcludeMissing
+                        fuelQuantity: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("fuel_type")
+                        @ExcludeMissing
+                        fuelType: JsonField<FuelType> = JsonMissing.of(),
+                        @JsonProperty("fuel_unit_cost_amount")
+                        @ExcludeMissing
+                        fuelUnitCostAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("fuel_unit_cost_currency")
+                        @ExcludeMissing
+                        fuelUnitCostCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("fuel_unit_of_measure")
+                        @ExcludeMissing
+                        fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure> = JsonMissing.of(),
+                        @JsonProperty("gross_fuel_price_amount")
+                        @ExcludeMissing
+                        grossFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("gross_fuel_price_currency")
+                        @ExcludeMissing
+                        grossFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("gross_non_fuel_price_amount")
+                        @ExcludeMissing
+                        grossNonFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("gross_non_fuel_price_currency")
+                        @ExcludeMissing
+                        grossNonFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("net_fuel_price_amount")
+                        @ExcludeMissing
+                        netFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("net_fuel_price_currency")
+                        @ExcludeMissing
+                        netFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("net_non_fuel_price_amount")
+                        @ExcludeMissing
+                        netNonFuelPriceAmount: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("net_non_fuel_price_currency")
+                        @ExcludeMissing
+                        netNonFuelPriceCurrency: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("odometer_reading")
+                        @ExcludeMissing
+                        odometerReading: JsonField<Long> = JsonMissing.of(),
+                        @JsonProperty("purchase_type")
+                        @ExcludeMissing
+                        purchaseType: JsonField<PurchaseType> = JsonMissing.of(),
+                        @JsonProperty("service_type")
+                        @ExcludeMissing
+                        serviceType: JsonField<ServiceType> = JsonMissing.of(),
+                        @JsonProperty("trailer_number")
+                        @ExcludeMissing
+                        trailerNumber: JsonField<String> = JsonMissing.of(),
+                    ) : this(
+                        employeeNumber,
+                        fuelQuantity,
+                        fuelType,
+                        fuelUnitCostAmount,
+                        fuelUnitCostCurrency,
+                        fuelUnitOfMeasure,
+                        grossFuelPriceAmount,
+                        grossFuelPriceCurrency,
+                        grossNonFuelPriceAmount,
+                        grossNonFuelPriceCurrency,
+                        netFuelPriceAmount,
+                        netFuelPriceCurrency,
+                        netNonFuelPriceAmount,
+                        netNonFuelPriceCurrency,
+                        odometerReading,
+                        purchaseType,
+                        serviceType,
+                        trailerNumber,
+                        mutableMapOf(),
+                    )
+
+                    /**
+                     * The fleet employee number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun employeeNumber(): Optional<String> =
+                        employeeNumber.getOptional("employee_number")
+
+                    /**
+                     * The quantity of fuel purchased, given as a string containing a decimal number
+                     * in the indicated unit of measure.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelQuantity(): Optional<String> = fuelQuantity.getOptional("fuel_quantity")
+
+                    /**
+                     * The type of fuel purchased.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelType(): Optional<FuelType> = fuelType.getOptional("fuel_type")
+
+                    /**
+                     * The cost per unit of fuel in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelUnitCostAmount(): Optional<Long> =
+                        fuelUnitCostAmount.getOptional("fuel_unit_cost_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel unit
+                     * cost.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelUnitCostCurrency(): Optional<String> =
+                        fuelUnitCostCurrency.getOptional("fuel_unit_cost_currency")
+
+                    /**
+                     * The unit of measure for the fuel quantity.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun fuelUnitOfMeasure(): Optional<FuelUnitOfMeasure> =
+                        fuelUnitOfMeasure.getOptional("fuel_unit_of_measure")
+
+                    /**
+                     * The gross fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossFuelPriceAmount(): Optional<Long> =
+                        grossFuelPriceAmount.getOptional("gross_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                     * fuel price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossFuelPriceCurrency(): Optional<String> =
+                        grossFuelPriceCurrency.getOptional("gross_fuel_price_currency")
+
+                    /**
+                     * The gross non-fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossNonFuelPriceAmount(): Optional<Long> =
+                        grossNonFuelPriceAmount.getOptional("gross_non_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                     * non-fuel price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun grossNonFuelPriceCurrency(): Optional<String> =
+                        grossNonFuelPriceCurrency.getOptional("gross_non_fuel_price_currency")
+
+                    /**
+                     * The net fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netFuelPriceAmount(): Optional<Long> =
+                        netFuelPriceAmount.getOptional("net_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net fuel
+                     * price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netFuelPriceCurrency(): Optional<String> =
+                        netFuelPriceCurrency.getOptional("net_fuel_price_currency")
+
+                    /**
+                     * The net non-fuel price in minor units.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netNonFuelPriceAmount(): Optional<Long> =
+                        netNonFuelPriceAmount.getOptional("net_non_fuel_price_amount")
+
+                    /**
+                     * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net
+                     * non-fuel price.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun netNonFuelPriceCurrency(): Optional<String> =
+                        netNonFuelPriceCurrency.getOptional("net_non_fuel_price_currency")
+
+                    /**
+                     * The odometer reading reported by the merchant.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun odometerReading(): Optional<Long> =
+                        odometerReading.getOptional("odometer_reading")
+
+                    /**
+                     * The type of fleet purchase.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun purchaseType(): Optional<PurchaseType> =
+                        purchaseType.getOptional("purchase_type")
+
+                    /**
+                     * The type of service provided.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun serviceType(): Optional<ServiceType> =
+                        serviceType.getOptional("service_type")
+
+                    /**
+                     * The fleet trailer number.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   (e.g. if the server responded with an unexpected value).
+                     */
+                    fun trailerNumber(): Optional<String> =
+                        trailerNumber.getOptional("trailer_number")
+
+                    /**
+                     * Returns the raw JSON value of [employeeNumber].
+                     *
+                     * Unlike [employeeNumber], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("employee_number")
+                    @ExcludeMissing
+                    fun _employeeNumber(): JsonField<String> = employeeNumber
+
+                    /**
+                     * Returns the raw JSON value of [fuelQuantity].
+                     *
+                     * Unlike [fuelQuantity], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("fuel_quantity")
+                    @ExcludeMissing
+                    fun _fuelQuantity(): JsonField<String> = fuelQuantity
+
+                    /**
+                     * Returns the raw JSON value of [fuelType].
+                     *
+                     * Unlike [fuelType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("fuel_type")
+                    @ExcludeMissing
+                    fun _fuelType(): JsonField<FuelType> = fuelType
+
+                    /**
+                     * Returns the raw JSON value of [fuelUnitCostAmount].
+                     *
+                     * Unlike [fuelUnitCostAmount], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("fuel_unit_cost_amount")
+                    @ExcludeMissing
+                    fun _fuelUnitCostAmount(): JsonField<Long> = fuelUnitCostAmount
+
+                    /**
+                     * Returns the raw JSON value of [fuelUnitCostCurrency].
+                     *
+                     * Unlike [fuelUnitCostCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("fuel_unit_cost_currency")
+                    @ExcludeMissing
+                    fun _fuelUnitCostCurrency(): JsonField<String> = fuelUnitCostCurrency
+
+                    /**
+                     * Returns the raw JSON value of [fuelUnitOfMeasure].
+                     *
+                     * Unlike [fuelUnitOfMeasure], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("fuel_unit_of_measure")
+                    @ExcludeMissing
+                    fun _fuelUnitOfMeasure(): JsonField<FuelUnitOfMeasure> = fuelUnitOfMeasure
+
+                    /**
+                     * Returns the raw JSON value of [grossFuelPriceAmount].
+                     *
+                     * Unlike [grossFuelPriceAmount], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("gross_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _grossFuelPriceAmount(): JsonField<Long> = grossFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [grossFuelPriceCurrency].
+                     *
+                     * Unlike [grossFuelPriceCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("gross_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _grossFuelPriceCurrency(): JsonField<String> = grossFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [grossNonFuelPriceAmount].
+                     *
+                     * Unlike [grossNonFuelPriceAmount], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("gross_non_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _grossNonFuelPriceAmount(): JsonField<Long> = grossNonFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [grossNonFuelPriceCurrency].
+                     *
+                     * Unlike [grossNonFuelPriceCurrency], this method doesn't throw if the JSON
+                     * field has an unexpected type.
+                     */
+                    @JsonProperty("gross_non_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _grossNonFuelPriceCurrency(): JsonField<String> = grossNonFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [netFuelPriceAmount].
+                     *
+                     * Unlike [netFuelPriceAmount], this method doesn't throw if the JSON field has
+                     * an unexpected type.
+                     */
+                    @JsonProperty("net_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _netFuelPriceAmount(): JsonField<Long> = netFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [netFuelPriceCurrency].
+                     *
+                     * Unlike [netFuelPriceCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("net_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _netFuelPriceCurrency(): JsonField<String> = netFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [netNonFuelPriceAmount].
+                     *
+                     * Unlike [netNonFuelPriceAmount], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("net_non_fuel_price_amount")
+                    @ExcludeMissing
+                    fun _netNonFuelPriceAmount(): JsonField<Long> = netNonFuelPriceAmount
+
+                    /**
+                     * Returns the raw JSON value of [netNonFuelPriceCurrency].
+                     *
+                     * Unlike [netNonFuelPriceCurrency], this method doesn't throw if the JSON field
+                     * has an unexpected type.
+                     */
+                    @JsonProperty("net_non_fuel_price_currency")
+                    @ExcludeMissing
+                    fun _netNonFuelPriceCurrency(): JsonField<String> = netNonFuelPriceCurrency
+
+                    /**
+                     * Returns the raw JSON value of [odometerReading].
+                     *
+                     * Unlike [odometerReading], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("odometer_reading")
+                    @ExcludeMissing
+                    fun _odometerReading(): JsonField<Long> = odometerReading
+
+                    /**
+                     * Returns the raw JSON value of [purchaseType].
+                     *
+                     * Unlike [purchaseType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("purchase_type")
+                    @ExcludeMissing
+                    fun _purchaseType(): JsonField<PurchaseType> = purchaseType
+
+                    /**
+                     * Returns the raw JSON value of [serviceType].
+                     *
+                     * Unlike [serviceType], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("service_type")
+                    @ExcludeMissing
+                    fun _serviceType(): JsonField<ServiceType> = serviceType
+
+                    /**
+                     * Returns the raw JSON value of [trailerNumber].
+                     *
+                     * Unlike [trailerNumber], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("trailer_number")
+                    @ExcludeMissing
+                    fun _trailerNumber(): JsonField<String> = trailerNumber
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Fleet].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .employeeNumber()
+                         * .fuelQuantity()
+                         * .fuelType()
+                         * .fuelUnitCostAmount()
+                         * .fuelUnitCostCurrency()
+                         * .fuelUnitOfMeasure()
+                         * .grossFuelPriceAmount()
+                         * .grossFuelPriceCurrency()
+                         * .grossNonFuelPriceAmount()
+                         * .grossNonFuelPriceCurrency()
+                         * .netFuelPriceAmount()
+                         * .netFuelPriceCurrency()
+                         * .netNonFuelPriceAmount()
+                         * .netNonFuelPriceCurrency()
+                         * .odometerReading()
+                         * .purchaseType()
+                         * .serviceType()
+                         * .trailerNumber()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Fleet]. */
+                    class Builder internal constructor() {
+
+                        private var employeeNumber: JsonField<String>? = null
+                        private var fuelQuantity: JsonField<String>? = null
+                        private var fuelType: JsonField<FuelType>? = null
+                        private var fuelUnitCostAmount: JsonField<Long>? = null
+                        private var fuelUnitCostCurrency: JsonField<String>? = null
+                        private var fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure>? = null
+                        private var grossFuelPriceAmount: JsonField<Long>? = null
+                        private var grossFuelPriceCurrency: JsonField<String>? = null
+                        private var grossNonFuelPriceAmount: JsonField<Long>? = null
+                        private var grossNonFuelPriceCurrency: JsonField<String>? = null
+                        private var netFuelPriceAmount: JsonField<Long>? = null
+                        private var netFuelPriceCurrency: JsonField<String>? = null
+                        private var netNonFuelPriceAmount: JsonField<Long>? = null
+                        private var netNonFuelPriceCurrency: JsonField<String>? = null
+                        private var odometerReading: JsonField<Long>? = null
+                        private var purchaseType: JsonField<PurchaseType>? = null
+                        private var serviceType: JsonField<ServiceType>? = null
+                        private var trailerNumber: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(fleet: Fleet) = apply {
+                            employeeNumber = fleet.employeeNumber
+                            fuelQuantity = fleet.fuelQuantity
+                            fuelType = fleet.fuelType
+                            fuelUnitCostAmount = fleet.fuelUnitCostAmount
+                            fuelUnitCostCurrency = fleet.fuelUnitCostCurrency
+                            fuelUnitOfMeasure = fleet.fuelUnitOfMeasure
+                            grossFuelPriceAmount = fleet.grossFuelPriceAmount
+                            grossFuelPriceCurrency = fleet.grossFuelPriceCurrency
+                            grossNonFuelPriceAmount = fleet.grossNonFuelPriceAmount
+                            grossNonFuelPriceCurrency = fleet.grossNonFuelPriceCurrency
+                            netFuelPriceAmount = fleet.netFuelPriceAmount
+                            netFuelPriceCurrency = fleet.netFuelPriceCurrency
+                            netNonFuelPriceAmount = fleet.netNonFuelPriceAmount
+                            netNonFuelPriceCurrency = fleet.netNonFuelPriceCurrency
+                            odometerReading = fleet.odometerReading
+                            purchaseType = fleet.purchaseType
+                            serviceType = fleet.serviceType
+                            trailerNumber = fleet.trailerNumber
+                            additionalProperties = fleet.additionalProperties.toMutableMap()
+                        }
+
+                        /** The fleet employee number. */
+                        fun employeeNumber(employeeNumber: String?) =
+                            employeeNumber(JsonField.ofNullable(employeeNumber))
+
+                        /**
+                         * Alias for calling [Builder.employeeNumber] with
+                         * `employeeNumber.orElse(null)`.
+                         */
+                        fun employeeNumber(employeeNumber: Optional<String>) =
+                            employeeNumber(employeeNumber.getOrNull())
+
+                        /**
+                         * Sets [Builder.employeeNumber] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.employeeNumber] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun employeeNumber(employeeNumber: JsonField<String>) = apply {
+                            this.employeeNumber = employeeNumber
+                        }
+
+                        /**
+                         * The quantity of fuel purchased, given as a string containing a decimal
+                         * number in the indicated unit of measure.
+                         */
+                        fun fuelQuantity(fuelQuantity: String?) =
+                            fuelQuantity(JsonField.ofNullable(fuelQuantity))
+
+                        /**
+                         * Alias for calling [Builder.fuelQuantity] with
+                         * `fuelQuantity.orElse(null)`.
+                         */
+                        fun fuelQuantity(fuelQuantity: Optional<String>) =
+                            fuelQuantity(fuelQuantity.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelQuantity] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelQuantity] with a well-typed [String]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun fuelQuantity(fuelQuantity: JsonField<String>) = apply {
+                            this.fuelQuantity = fuelQuantity
+                        }
+
+                        /** The type of fuel purchased. */
+                        fun fuelType(fuelType: FuelType?) = fuelType(JsonField.ofNullable(fuelType))
+
+                        /** Alias for calling [Builder.fuelType] with `fuelType.orElse(null)`. */
+                        fun fuelType(fuelType: Optional<FuelType>) = fuelType(fuelType.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelType] with a well-typed [FuelType]
+                         * value instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun fuelType(fuelType: JsonField<FuelType>) = apply {
+                            this.fuelType = fuelType
+                        }
+
+                        /** The cost per unit of fuel in minor units. */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: Long?) =
+                            fuelUnitCostAmount(JsonField.ofNullable(fuelUnitCostAmount))
+
+                        /**
+                         * Alias for [Builder.fuelUnitCostAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: Long) =
+                            fuelUnitCostAmount(fuelUnitCostAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.fuelUnitCostAmount] with
+                         * `fuelUnitCostAmount.orElse(null)`.
+                         */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: Optional<Long>) =
+                            fuelUnitCostAmount(fuelUnitCostAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelUnitCostAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelUnitCostAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun fuelUnitCostAmount(fuelUnitCostAmount: JsonField<Long>) = apply {
+                            this.fuelUnitCostAmount = fuelUnitCostAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the fuel
+                         * unit cost.
+                         */
+                        fun fuelUnitCostCurrency(fuelUnitCostCurrency: String?) =
+                            fuelUnitCostCurrency(JsonField.ofNullable(fuelUnitCostCurrency))
+
+                        /**
+                         * Alias for calling [Builder.fuelUnitCostCurrency] with
+                         * `fuelUnitCostCurrency.orElse(null)`.
+                         */
+                        fun fuelUnitCostCurrency(fuelUnitCostCurrency: Optional<String>) =
+                            fuelUnitCostCurrency(fuelUnitCostCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelUnitCostCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelUnitCostCurrency] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun fuelUnitCostCurrency(fuelUnitCostCurrency: JsonField<String>) = apply {
+                            this.fuelUnitCostCurrency = fuelUnitCostCurrency
+                        }
+
+                        /** The unit of measure for the fuel quantity. */
+                        fun fuelUnitOfMeasure(fuelUnitOfMeasure: FuelUnitOfMeasure?) =
+                            fuelUnitOfMeasure(JsonField.ofNullable(fuelUnitOfMeasure))
+
+                        /**
+                         * Alias for calling [Builder.fuelUnitOfMeasure] with
+                         * `fuelUnitOfMeasure.orElse(null)`.
+                         */
+                        fun fuelUnitOfMeasure(fuelUnitOfMeasure: Optional<FuelUnitOfMeasure>) =
+                            fuelUnitOfMeasure(fuelUnitOfMeasure.getOrNull())
+
+                        /**
+                         * Sets [Builder.fuelUnitOfMeasure] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.fuelUnitOfMeasure] with a well-typed
+                         * [FuelUnitOfMeasure] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun fuelUnitOfMeasure(fuelUnitOfMeasure: JsonField<FuelUnitOfMeasure>) =
+                            apply {
+                                this.fuelUnitOfMeasure = fuelUnitOfMeasure
+                            }
+
+                        /** The gross fuel price in minor units. */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: Long?) =
+                            grossFuelPriceAmount(JsonField.ofNullable(grossFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.grossFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: Long) =
+                            grossFuelPriceAmount(grossFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.grossFuelPriceAmount] with
+                         * `grossFuelPriceAmount.orElse(null)`.
+                         */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: Optional<Long>) =
+                            grossFuelPriceAmount(grossFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossFuelPriceAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun grossFuelPriceAmount(grossFuelPriceAmount: JsonField<Long>) = apply {
+                            this.grossFuelPriceAmount = grossFuelPriceAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                         * fuel price.
+                         */
+                        fun grossFuelPriceCurrency(grossFuelPriceCurrency: String?) =
+                            grossFuelPriceCurrency(JsonField.ofNullable(grossFuelPriceCurrency))
+
+                        /**
+                         * Alias for calling [Builder.grossFuelPriceCurrency] with
+                         * `grossFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun grossFuelPriceCurrency(grossFuelPriceCurrency: Optional<String>) =
+                            grossFuelPriceCurrency(grossFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossFuelPriceCurrency] with a
+                         * well-typed [String] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun grossFuelPriceCurrency(grossFuelPriceCurrency: JsonField<String>) =
+                            apply {
+                                this.grossFuelPriceCurrency = grossFuelPriceCurrency
+                            }
+
+                        /** The gross non-fuel price in minor units. */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: Long?) =
+                            grossNonFuelPriceAmount(JsonField.ofNullable(grossNonFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.grossNonFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: Long) =
+                            grossNonFuelPriceAmount(grossNonFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.grossNonFuelPriceAmount] with
+                         * `grossNonFuelPriceAmount.orElse(null)`.
+                         */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: Optional<Long>) =
+                            grossNonFuelPriceAmount(grossNonFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossNonFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossNonFuelPriceAmount] with a
+                         * well-typed [Long] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun grossNonFuelPriceAmount(grossNonFuelPriceAmount: JsonField<Long>) =
+                            apply {
+                                this.grossNonFuelPriceAmount = grossNonFuelPriceAmount
+                            }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the gross
+                         * non-fuel price.
+                         */
+                        fun grossNonFuelPriceCurrency(grossNonFuelPriceCurrency: String?) =
+                            grossNonFuelPriceCurrency(
+                                JsonField.ofNullable(grossNonFuelPriceCurrency)
+                            )
+
+                        /**
+                         * Alias for calling [Builder.grossNonFuelPriceCurrency] with
+                         * `grossNonFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun grossNonFuelPriceCurrency(grossNonFuelPriceCurrency: Optional<String>) =
+                            grossNonFuelPriceCurrency(grossNonFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.grossNonFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.grossNonFuelPriceCurrency] with a
+                         * well-typed [String] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun grossNonFuelPriceCurrency(
+                            grossNonFuelPriceCurrency: JsonField<String>
+                        ) = apply { this.grossNonFuelPriceCurrency = grossNonFuelPriceCurrency }
+
+                        /** The net fuel price in minor units. */
+                        fun netFuelPriceAmount(netFuelPriceAmount: Long?) =
+                            netFuelPriceAmount(JsonField.ofNullable(netFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.netFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun netFuelPriceAmount(netFuelPriceAmount: Long) =
+                            netFuelPriceAmount(netFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.netFuelPriceAmount] with
+                         * `netFuelPriceAmount.orElse(null)`.
+                         */
+                        fun netFuelPriceAmount(netFuelPriceAmount: Optional<Long>) =
+                            netFuelPriceAmount(netFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.netFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netFuelPriceAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun netFuelPriceAmount(netFuelPriceAmount: JsonField<Long>) = apply {
+                            this.netFuelPriceAmount = netFuelPriceAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net
+                         * fuel price.
+                         */
+                        fun netFuelPriceCurrency(netFuelPriceCurrency: String?) =
+                            netFuelPriceCurrency(JsonField.ofNullable(netFuelPriceCurrency))
+
+                        /**
+                         * Alias for calling [Builder.netFuelPriceCurrency] with
+                         * `netFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun netFuelPriceCurrency(netFuelPriceCurrency: Optional<String>) =
+                            netFuelPriceCurrency(netFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.netFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netFuelPriceCurrency] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun netFuelPriceCurrency(netFuelPriceCurrency: JsonField<String>) = apply {
+                            this.netFuelPriceCurrency = netFuelPriceCurrency
+                        }
+
+                        /** The net non-fuel price in minor units. */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: Long?) =
+                            netNonFuelPriceAmount(JsonField.ofNullable(netNonFuelPriceAmount))
+
+                        /**
+                         * Alias for [Builder.netNonFuelPriceAmount].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: Long) =
+                            netNonFuelPriceAmount(netNonFuelPriceAmount as Long?)
+
+                        /**
+                         * Alias for calling [Builder.netNonFuelPriceAmount] with
+                         * `netNonFuelPriceAmount.orElse(null)`.
+                         */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: Optional<Long>) =
+                            netNonFuelPriceAmount(netNonFuelPriceAmount.getOrNull())
+
+                        /**
+                         * Sets [Builder.netNonFuelPriceAmount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netNonFuelPriceAmount] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun netNonFuelPriceAmount(netNonFuelPriceAmount: JsonField<Long>) = apply {
+                            this.netNonFuelPriceAmount = netNonFuelPriceAmount
+                        }
+
+                        /**
+                         * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the net
+                         * non-fuel price.
+                         */
+                        fun netNonFuelPriceCurrency(netNonFuelPriceCurrency: String?) =
+                            netNonFuelPriceCurrency(JsonField.ofNullable(netNonFuelPriceCurrency))
+
+                        /**
+                         * Alias for calling [Builder.netNonFuelPriceCurrency] with
+                         * `netNonFuelPriceCurrency.orElse(null)`.
+                         */
+                        fun netNonFuelPriceCurrency(netNonFuelPriceCurrency: Optional<String>) =
+                            netNonFuelPriceCurrency(netNonFuelPriceCurrency.getOrNull())
+
+                        /**
+                         * Sets [Builder.netNonFuelPriceCurrency] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.netNonFuelPriceCurrency] with a
+                         * well-typed [String] value instead. This method is primarily for setting
+                         * the field to an undocumented or not yet supported value.
+                         */
+                        fun netNonFuelPriceCurrency(netNonFuelPriceCurrency: JsonField<String>) =
+                            apply {
+                                this.netNonFuelPriceCurrency = netNonFuelPriceCurrency
+                            }
+
+                        /** The odometer reading reported by the merchant. */
+                        fun odometerReading(odometerReading: Long?) =
+                            odometerReading(JsonField.ofNullable(odometerReading))
+
+                        /**
+                         * Alias for [Builder.odometerReading].
+                         *
+                         * This unboxed primitive overload exists for backwards compatibility.
+                         */
+                        fun odometerReading(odometerReading: Long) =
+                            odometerReading(odometerReading as Long?)
+
+                        /**
+                         * Alias for calling [Builder.odometerReading] with
+                         * `odometerReading.orElse(null)`.
+                         */
+                        fun odometerReading(odometerReading: Optional<Long>) =
+                            odometerReading(odometerReading.getOrNull())
+
+                        /**
+                         * Sets [Builder.odometerReading] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.odometerReading] with a well-typed
+                         * [Long] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun odometerReading(odometerReading: JsonField<Long>) = apply {
+                            this.odometerReading = odometerReading
+                        }
+
+                        /** The type of fleet purchase. */
+                        fun purchaseType(purchaseType: PurchaseType?) =
+                            purchaseType(JsonField.ofNullable(purchaseType))
+
+                        /**
+                         * Alias for calling [Builder.purchaseType] with
+                         * `purchaseType.orElse(null)`.
+                         */
+                        fun purchaseType(purchaseType: Optional<PurchaseType>) =
+                            purchaseType(purchaseType.getOrNull())
+
+                        /**
+                         * Sets [Builder.purchaseType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.purchaseType] with a well-typed
+                         * [PurchaseType] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun purchaseType(purchaseType: JsonField<PurchaseType>) = apply {
+                            this.purchaseType = purchaseType
+                        }
+
+                        /** The type of service provided. */
+                        fun serviceType(serviceType: ServiceType?) =
+                            serviceType(JsonField.ofNullable(serviceType))
+
+                        /**
+                         * Alias for calling [Builder.serviceType] with `serviceType.orElse(null)`.
+                         */
+                        fun serviceType(serviceType: Optional<ServiceType>) =
+                            serviceType(serviceType.getOrNull())
+
+                        /**
+                         * Sets [Builder.serviceType] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.serviceType] with a well-typed
+                         * [ServiceType] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun serviceType(serviceType: JsonField<ServiceType>) = apply {
+                            this.serviceType = serviceType
+                        }
+
+                        /** The fleet trailer number. */
+                        fun trailerNumber(trailerNumber: String?) =
+                            trailerNumber(JsonField.ofNullable(trailerNumber))
+
+                        /**
+                         * Alias for calling [Builder.trailerNumber] with
+                         * `trailerNumber.orElse(null)`.
+                         */
+                        fun trailerNumber(trailerNumber: Optional<String>) =
+                            trailerNumber(trailerNumber.getOrNull())
+
+                        /**
+                         * Sets [Builder.trailerNumber] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.trailerNumber] with a well-typed
+                         * [String] value instead. This method is primarily for setting the field to
+                         * an undocumented or not yet supported value.
+                         */
+                        fun trailerNumber(trailerNumber: JsonField<String>) = apply {
+                            this.trailerNumber = trailerNumber
+                        }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Fleet].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .employeeNumber()
+                         * .fuelQuantity()
+                         * .fuelType()
+                         * .fuelUnitCostAmount()
+                         * .fuelUnitCostCurrency()
+                         * .fuelUnitOfMeasure()
+                         * .grossFuelPriceAmount()
+                         * .grossFuelPriceCurrency()
+                         * .grossNonFuelPriceAmount()
+                         * .grossNonFuelPriceCurrency()
+                         * .netFuelPriceAmount()
+                         * .netFuelPriceCurrency()
+                         * .netNonFuelPriceAmount()
+                         * .netNonFuelPriceCurrency()
+                         * .odometerReading()
+                         * .purchaseType()
+                         * .serviceType()
+                         * .trailerNumber()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Fleet =
+                            Fleet(
+                                checkRequired("employeeNumber", employeeNumber),
+                                checkRequired("fuelQuantity", fuelQuantity),
+                                checkRequired("fuelType", fuelType),
+                                checkRequired("fuelUnitCostAmount", fuelUnitCostAmount),
+                                checkRequired("fuelUnitCostCurrency", fuelUnitCostCurrency),
+                                checkRequired("fuelUnitOfMeasure", fuelUnitOfMeasure),
+                                checkRequired("grossFuelPriceAmount", grossFuelPriceAmount),
+                                checkRequired("grossFuelPriceCurrency", grossFuelPriceCurrency),
+                                checkRequired("grossNonFuelPriceAmount", grossNonFuelPriceAmount),
+                                checkRequired(
+                                    "grossNonFuelPriceCurrency",
+                                    grossNonFuelPriceCurrency,
+                                ),
+                                checkRequired("netFuelPriceAmount", netFuelPriceAmount),
+                                checkRequired("netFuelPriceCurrency", netFuelPriceCurrency),
+                                checkRequired("netNonFuelPriceAmount", netNonFuelPriceAmount),
+                                checkRequired("netNonFuelPriceCurrency", netNonFuelPriceCurrency),
+                                checkRequired("odometerReading", odometerReading),
+                                checkRequired("purchaseType", purchaseType),
+                                checkRequired("serviceType", serviceType),
+                                checkRequired("trailerNumber", trailerNumber),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Fleet = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        employeeNumber()
+                        fuelQuantity()
+                        fuelType().ifPresent { it.validate() }
+                        fuelUnitCostAmount()
+                        fuelUnitCostCurrency()
+                        fuelUnitOfMeasure().ifPresent { it.validate() }
+                        grossFuelPriceAmount()
+                        grossFuelPriceCurrency()
+                        grossNonFuelPriceAmount()
+                        grossNonFuelPriceCurrency()
+                        netFuelPriceAmount()
+                        netFuelPriceCurrency()
+                        netNonFuelPriceAmount()
+                        netNonFuelPriceCurrency()
+                        odometerReading()
+                        purchaseType().ifPresent { it.validate() }
+                        serviceType().ifPresent { it.validate() }
+                        trailerNumber()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (employeeNumber.asKnown().isPresent) 1 else 0) +
+                            (if (fuelQuantity.asKnown().isPresent) 1 else 0) +
+                            (fuelType.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (fuelUnitCostAmount.asKnown().isPresent) 1 else 0) +
+                            (if (fuelUnitCostCurrency.asKnown().isPresent) 1 else 0) +
+                            (fuelUnitOfMeasure.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (grossFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (grossFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (grossNonFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (grossNonFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (netFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (netFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (netNonFuelPriceAmount.asKnown().isPresent) 1 else 0) +
+                            (if (netNonFuelPriceCurrency.asKnown().isPresent) 1 else 0) +
+                            (if (odometerReading.asKnown().isPresent) 1 else 0) +
+                            (purchaseType.asKnown().getOrNull()?.validity() ?: 0) +
+                            (serviceType.asKnown().getOrNull()?.validity() ?: 0) +
+                            (if (trailerNumber.asKnown().isPresent) 1 else 0)
+
+                    /** The type of fuel purchased. */
+                    class FuelType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Regular */
+                            @JvmField val REGULAR = of("regular")
+
+                            /** Mid or plus */
+                            @JvmField val MID_OR_PLUS = of("mid_or_plus")
+
+                            /** Premium or super */
+                            @JvmField val PREMIUM_OR_SUPER = of("premium_or_super")
+
+                            /** Mid or plus 2 */
+                            @JvmField val MID_OR_PLUS_2 = of("mid_or_plus_2")
+
+                            /** Premium or super 2 */
+                            @JvmField val PREMIUM_OR_SUPER_2 = of("premium_or_super_2")
+
+                            /** Regular ethanol 5% blend outside the United States */
+                            @JvmField
+                            val REGULAR_ETHANOL_5_BLEND_NON_US =
+                                of("regular_ethanol_5_blend_non_us")
+
+                            /** Mid or plus ethanol 5% blend outside the United States */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_5_BLEND_NON_US =
+                                of("mid_or_plus_ethanol_5_blend_non_us")
+
+                            /** Premium or super ethanol 5% blend outside the United States */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US =
+                                of("premium_or_super_ethanol_5_blend_non_us")
+
+                            /** Mid or plus 2 ethanol 5% blend outside the United States */
+                            @JvmField
+                            val MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US =
+                                of("mid_or_plus_2_ethanol_5_blend_non_us")
+
+                            /** Green gasoline regular */
+                            @JvmField val GREEN_GASOLINE_REGULAR = of("green_gasoline_regular")
+
+                            /** Green gasoline mid or plus */
+                            @JvmField
+                            val GREEN_GASOLINE_MID_OR_PLUS = of("green_gasoline_mid_or_plus")
+
+                            /** Green gasoline premium or super */
+                            @JvmField
+                            val GREEN_GASOLINE_PREMIUM_OR_SUPER =
+                                of("green_gasoline_premium_or_super")
+
+                            /** Regular diesel 2 */
+                            @JvmField val REGULAR_DIESEL_2 = of("regular_diesel_2")
+
+                            /** Premium diesel 2 */
+                            @JvmField val PREMIUM_DIESEL_2 = of("premium_diesel_2")
+
+                            /** Regular diesel 1 */
+                            @JvmField val REGULAR_DIESEL_1 = of("regular_diesel_1")
+
+                            /** Compressed natural gas */
+                            @JvmField val COMPRESSED_NATURAL_GAS = of("compressed_natural_gas")
+
+                            /** Liquid propane gas */
+                            @JvmField val LIQUID_PROPANE_GAS = of("liquid_propane_gas")
+
+                            /** Liquid natural gas */
+                            @JvmField val LIQUID_NATURAL_GAS = of("liquid_natural_gas")
+
+                            /** E85 */
+                            @JvmField val E85 = of("e85")
+
+                            /** Regular reformulated */
+                            @JvmField val REGULAR_REFORMULATED = of("regular_reformulated")
+
+                            /** Mid or plus reformulated */
+                            @JvmField val MID_OR_PLUS_REFORMULATED = of("mid_or_plus_reformulated")
+
+                            /** Premium or super reformulated */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_REFORMULATED = of("premium_or_super_reformulated")
+
+                            /** Mid or plus 2 reformulated */
+                            @JvmField
+                            val MID_OR_PLUS_2_REFORMULATED = of("mid_or_plus_2_reformulated")
+
+                            /** Premium or super 2 reformulated */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_2_REFORMULATED =
+                                of("premium_or_super_2_reformulated")
+
+                            /** Diesel off-road 1/2 non-taxable */
+                            @JvmField
+                            val DIESEL_OFF_ROAD_1_2_NON_TAXABLE =
+                                of("diesel_off_road_1_2_non_taxable")
+
+                            /** Diesel off-road non-taxable */
+                            @JvmField
+                            val DIESEL_OFF_ROAD_NON_TAXABLE = of("diesel_off_road_non_taxable")
+
+                            /** Biodiesel blend off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_off_road_non_taxable")
+
+                            /** Racing fuel */
+                            @JvmField val RACING_FUEL = of("racing_fuel")
+
+                            /** Mid or plus 2 ethanol 10% blend */
+                            @JvmField
+                            val MID_OR_PLUS_2_ETHANOL_10_BLEND =
+                                of("mid_or_plus_2_ethanol_10_blend")
+
+                            /** Premium or super 2 ethanol 10% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND =
+                                of("premium_or_super_2_ethanol_10_blend")
+
+                            /** Mid or plus ethanol 2–15% blend */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_2_15_BLEND =
+                                of("mid_or_plus_ethanol_2_15_blend")
+
+                            /** Premium or super ethanol 2–15% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND =
+                                of("premium_or_super_ethanol_2_15_blend")
+
+                            /** Premium or super 2 ethanol 5% blend outside the United States */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US =
+                                of("premium_or_super_2_ethanol_5_blend_non_us")
+
+                            /** Regular ethanol 10% blend */
+                            @JvmField val REGULAR_ETHANOL_10_BLEND = of("regular_ethanol_10_blend")
+
+                            /** Mid or plus ethanol 10% blend */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_10_BLEND = of("mid_or_plus_ethanol_10_blend")
+
+                            /** Premium or super ethanol 10% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_10_BLEND =
+                                of("premium_or_super_ethanol_10_blend")
+
+                            /** B2 diesel blend 2% biodiesel */
+                            @JvmField
+                            val B2_DIESEL_BLEND_2_BIODIESEL = of("b2_diesel_blend_2_biodiesel")
+
+                            /** B5 diesel blend 5% biodiesel */
+                            @JvmField
+                            val B5_DIESEL_BLEND_5_BIODIESEL = of("b5_diesel_blend_5_biodiesel")
+
+                            /** B10 diesel blend 10% biodiesel */
+                            @JvmField
+                            val B10_DIESEL_BLEND_10_BIODIESEL = of("b10_diesel_blend_10_biodiesel")
+
+                            /** B11 diesel blend 11% biodiesel */
+                            @JvmField
+                            val B11_DIESEL_BLEND_11_BIODIESEL = of("b11_diesel_blend_11_biodiesel")
+
+                            /** B15 diesel blend 15% biodiesel */
+                            @JvmField
+                            val B15_DIESEL_BLEND_15_BIODIESEL = of("b15_diesel_blend_15_biodiesel")
+
+                            /** B20 diesel blend 20% biodiesel */
+                            @JvmField
+                            val B20_DIESEL_BLEND_20_BIODIESEL = of("b20_diesel_blend_20_biodiesel")
+
+                            /** B100 diesel blend 100% biodiesel */
+                            @JvmField
+                            val B100_DIESEL_BLEND_100_BIODIESEL =
+                                of("b100_diesel_blend_100_biodiesel")
+
+                            /** B1 diesel blend 1% biodiesel */
+                            @JvmField
+                            val B1_DIESEL_BLEND_1_BIODIESEL = of("b1_diesel_blend_1_biodiesel")
+
+                            /** Additized diesel 2 */
+                            @JvmField val ADDITIZED_DIESEL_2 = of("additized_diesel_2")
+
+                            /** Additized diesel 3 */
+                            @JvmField val ADDITIZED_DIESEL_3 = of("additized_diesel_3")
+
+                            /** B7 diesel blend 7% biodiesel outside the United States */
+                            @JvmField
+                            val B7_DIESEL_BLEND_7_BIODIESEL_NON_US =
+                                of("b7_diesel_blend_7_biodiesel_non_us")
+
+                            /** B7 premium diesel blend 7% biodiesel outside the United States */
+                            @JvmField
+                            val B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US =
+                                of("b7_premium_diesel_blend_7_biodiesel_non_us")
+
+                            /** Renewable diesel R95 or greater */
+                            @JvmField
+                            val RENEWABLE_DIESEL_R95_OR_GREATER =
+                                of("renewable_diesel_r95_or_greater")
+
+                            /** Renewable diesel biodiesel 6% to 20% */
+                            @JvmField
+                            val RENEWABLE_DIESEL_BIODIESEL_6_TO_20 =
+                                of("renewable_diesel_biodiesel_6_to_20")
+
+                            /** Diesel exhaust fluid pump */
+                            @JvmField
+                            val DIESEL_EXHAUST_FLUID_PUMP = of("diesel_exhaust_fluid_pump")
+
+                            /** Premium diesel 1 */
+                            @JvmField val PREMIUM_DIESEL_1 = of("premium_diesel_1")
+
+                            /** Regular ethanol 15% blend */
+                            @JvmField val REGULAR_ETHANOL_15_BLEND = of("regular_ethanol_15_blend")
+
+                            /** Mid or plus ethanol 15% blend */
+                            @JvmField
+                            val MID_OR_PLUS_ETHANOL_15_BLEND = of("mid_or_plus_ethanol_15_blend")
+
+                            /** Premium or super ethanol 15% blend */
+                            @JvmField
+                            val PREMIUM_OR_SUPER_ETHANOL_15_BLEND =
+                                of("premium_or_super_ethanol_15_blend")
+
+                            /** Premium diesel blend less than 20% biodiesel */
+                            @JvmField
+                            val PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL =
+                                of("premium_diesel_blend_less_than_20_biodiesel")
+
+                            /** Premium diesel blend 20% or more biodiesel */
+                            @JvmField
+                            val PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL =
+                                of("premium_diesel_blend_20_or_more_biodiesel")
+
+                            /** B75 diesel blend 75% biodiesel */
+                            @JvmField
+                            val B75_DIESEL_BLEND_75_BIODIESEL = of("b75_diesel_blend_75_biodiesel")
+
+                            /** B99 diesel blend 99% biodiesel */
+                            @JvmField
+                            val B99_DIESEL_BLEND_99_BIODIESEL = of("b99_diesel_blend_99_biodiesel")
+
+                            /** Reserved for preauthorization use only */
+                            @JvmField
+                            val RESERVED_FOR_PREAUTHORIZATION_USE_ONLY =
+                                of("reserved_for_preauthorization_use_only")
+
+                            /** Undefined fuel reserved for proprietary use */
+                            @JvmField
+                            val UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE =
+                                of("undefined_fuel_reserved_for_proprietary_use")
+
+                            /** Miscellaneous fuel */
+                            @JvmField val MISCELLANEOUS_FUEL = of("miscellaneous_fuel")
+
+                            /** Jet fuel */
+                            @JvmField val JET_FUEL = of("jet_fuel")
+
+                            /** Aviation fuel regular */
+                            @JvmField val AVIATION_FUEL_REGULAR = of("aviation_fuel_regular")
+
+                            /** Aviation fuel premium */
+                            @JvmField val AVIATION_FUEL_PREMIUM = of("aviation_fuel_premium")
+
+                            /** Aviation fuel JP8 */
+                            @JvmField val AVIATION_FUEL_JP8 = of("aviation_fuel_jp8")
+
+                            /** Aviation fuel 4 */
+                            @JvmField val AVIATION_FUEL_4 = of("aviation_fuel_4")
+
+                            /** Aviation fuel 5 */
+                            @JvmField val AVIATION_FUEL_5 = of("aviation_fuel_5")
+
+                            /** Biojet diesel */
+                            @JvmField val BIOJET_DIESEL = of("biojet_diesel")
+
+                            /** Aviation biofuel gasoline */
+                            @JvmField
+                            val AVIATION_BIOFUEL_GASOLINE = of("aviation_biofuel_gasoline")
+
+                            /** Undefined aviation fuel reserved for proprietary use */
+                            @JvmField
+                            val UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE =
+                                of("undefined_aviation_fuel_reserved_for_proprietary_use")
+
+                            /** Miscellaneous aviation fuel */
+                            @JvmField
+                            val MISCELLANEOUS_AVIATION_FUEL = of("miscellaneous_aviation_fuel")
+
+                            /** Marine fuel 1 */
+                            @JvmField val MARINE_FUEL_1 = of("marine_fuel_1")
+
+                            /** Marine fuel 2 */
+                            @JvmField val MARINE_FUEL_2 = of("marine_fuel_2")
+
+                            /** Marine fuel 3 */
+                            @JvmField val MARINE_FUEL_3 = of("marine_fuel_3")
+
+                            /** Marine fuel 4 */
+                            @JvmField val MARINE_FUEL_4 = of("marine_fuel_4")
+
+                            /** Marine fuel 5 */
+                            @JvmField val MARINE_FUEL_5 = of("marine_fuel_5")
+
+                            /** Marine other */
+                            @JvmField val MARINE_OTHER = of("marine_other")
+
+                            /** Marine diesel */
+                            @JvmField val MARINE_DIESEL = of("marine_diesel")
+
+                            /** Miscellaneous marine fuel */
+                            @JvmField
+                            val MISCELLANEOUS_MARINE_FUEL = of("miscellaneous_marine_fuel")
+
+                            /** Kerosene low sulfur */
+                            @JvmField val KEROSENE_LOW_SULFUR = of("kerosene_low_sulfur")
+
+                            /** White gas */
+                            @JvmField val WHITE_GAS = of("white_gas")
+
+                            /** Heating oil */
+                            @JvmField val HEATING_OIL = of("heating_oil")
+
+                            /** Other fuel non-taxable */
+                            @JvmField val OTHER_FUEL_NON_TAXABLE = of("other_fuel_non_taxable")
+
+                            /** Kerosene ultra low sulfur */
+                            @JvmField
+                            val KEROSENE_ULTRA_LOW_SULFUR = of("kerosene_ultra_low_sulfur")
+
+                            /** Electric vehicle charging level 1 110 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT =
+                                of("electric_vehicle_charging_level_1_110_volt")
+
+                            /** Electric vehicle charging level 2 240 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT =
+                                of("electric_vehicle_charging_level_2_240_volt")
+
+                            /** Electric vehicle charging level 3 480 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
+                                of("electric_vehicle_charging_level_3_480_volt")
+
+                            /** Renewable diesel R95 or greater off-road non-taxable */
+                            @JvmField
+                            val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
+                                of("renewable_diesel_r95_or_greater_off_road_non_taxable")
+
+                            /** Biodiesel blend 1% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_1_off_road_non_taxable")
+
+                            /** Biodiesel blend 75% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_75_off_road_non_taxable")
+
+                            /** Biodiesel blend 99% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_99_off_road_non_taxable")
+
+                            /** Biodiesel blend 100% off-road non-taxable */
+                            @JvmField
+                            val BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE =
+                                of("biodiesel_blend_100_off_road_non_taxable")
+
+                            /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
+                            @JvmField
+                            val RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE =
+                                of("renewable_diesel_biodiesel_6_to_20_off_road_non_taxable")
+
+                            /** Electric vehicle charging level 4 800 volt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT =
+                                of("electric_vehicle_charging_level_4_800_volt")
+
+                            /** Electric vehicle charging level 5 megawatt */
+                            @JvmField
+                            val ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT =
+                                of("electric_vehicle_charging_level_5_megawatt")
+
+                            /** Hydrotreated vegetable oil 100 */
+                            @JvmField
+                            val HYDROTREATED_VEGETABLE_OIL_100 =
+                                of("hydrotreated_vegetable_oil_100")
+
+                            /** Bio compressed natural gas */
+                            @JvmField
+                            val BIO_COMPRESSED_NATURAL_GAS = of("bio_compressed_natural_gas")
+
+                            /** Miscellaneous other fuel */
+                            @JvmField val MISCELLANEOUS_OTHER_FUEL = of("miscellaneous_other_fuel")
+
+                            @JvmStatic fun of(value: String) = FuelType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [FuelType]'s known values. */
+                        enum class Known {
+                            /** Regular */
+                            REGULAR,
+                            /** Mid or plus */
+                            MID_OR_PLUS,
+                            /** Premium or super */
+                            PREMIUM_OR_SUPER,
+                            /** Mid or plus 2 */
+                            MID_OR_PLUS_2,
+                            /** Premium or super 2 */
+                            PREMIUM_OR_SUPER_2,
+                            /** Regular ethanol 5% blend outside the United States */
+                            REGULAR_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_ETHANOL_5_BLEND_NON_US,
+                            /** Premium or super ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus 2 ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US,
+                            /** Green gasoline regular */
+                            GREEN_GASOLINE_REGULAR,
+                            /** Green gasoline mid or plus */
+                            GREEN_GASOLINE_MID_OR_PLUS,
+                            /** Green gasoline premium or super */
+                            GREEN_GASOLINE_PREMIUM_OR_SUPER,
+                            /** Regular diesel 2 */
+                            REGULAR_DIESEL_2,
+                            /** Premium diesel 2 */
+                            PREMIUM_DIESEL_2,
+                            /** Regular diesel 1 */
+                            REGULAR_DIESEL_1,
+                            /** Compressed natural gas */
+                            COMPRESSED_NATURAL_GAS,
+                            /** Liquid propane gas */
+                            LIQUID_PROPANE_GAS,
+                            /** Liquid natural gas */
+                            LIQUID_NATURAL_GAS,
+                            /** E85 */
+                            E85,
+                            /** Regular reformulated */
+                            REGULAR_REFORMULATED,
+                            /** Mid or plus reformulated */
+                            MID_OR_PLUS_REFORMULATED,
+                            /** Premium or super reformulated */
+                            PREMIUM_OR_SUPER_REFORMULATED,
+                            /** Mid or plus 2 reformulated */
+                            MID_OR_PLUS_2_REFORMULATED,
+                            /** Premium or super 2 reformulated */
+                            PREMIUM_OR_SUPER_2_REFORMULATED,
+                            /** Diesel off-road 1/2 non-taxable */
+                            DIESEL_OFF_ROAD_1_2_NON_TAXABLE,
+                            /** Diesel off-road non-taxable */
+                            DIESEL_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend off-road non-taxable */
+                            BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE,
+                            /** Racing fuel */
+                            RACING_FUEL,
+                            /** Mid or plus 2 ethanol 10% blend */
+                            MID_OR_PLUS_2_ETHANOL_10_BLEND,
+                            /** Premium or super 2 ethanol 10% blend */
+                            PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 2–15% blend */
+                            MID_OR_PLUS_ETHANOL_2_15_BLEND,
+                            /** Premium or super ethanol 2–15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND,
+                            /** Premium or super 2 ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US,
+                            /** Regular ethanol 10% blend */
+                            REGULAR_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 10% blend */
+                            MID_OR_PLUS_ETHANOL_10_BLEND,
+                            /** Premium or super ethanol 10% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_10_BLEND,
+                            /** B2 diesel blend 2% biodiesel */
+                            B2_DIESEL_BLEND_2_BIODIESEL,
+                            /** B5 diesel blend 5% biodiesel */
+                            B5_DIESEL_BLEND_5_BIODIESEL,
+                            /** B10 diesel blend 10% biodiesel */
+                            B10_DIESEL_BLEND_10_BIODIESEL,
+                            /** B11 diesel blend 11% biodiesel */
+                            B11_DIESEL_BLEND_11_BIODIESEL,
+                            /** B15 diesel blend 15% biodiesel */
+                            B15_DIESEL_BLEND_15_BIODIESEL,
+                            /** B20 diesel blend 20% biodiesel */
+                            B20_DIESEL_BLEND_20_BIODIESEL,
+                            /** B100 diesel blend 100% biodiesel */
+                            B100_DIESEL_BLEND_100_BIODIESEL,
+                            /** B1 diesel blend 1% biodiesel */
+                            B1_DIESEL_BLEND_1_BIODIESEL,
+                            /** Additized diesel 2 */
+                            ADDITIZED_DIESEL_2,
+                            /** Additized diesel 3 */
+                            ADDITIZED_DIESEL_3,
+                            /** B7 diesel blend 7% biodiesel outside the United States */
+                            B7_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** B7 premium diesel blend 7% biodiesel outside the United States */
+                            B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** Renewable diesel R95 or greater */
+                            RENEWABLE_DIESEL_R95_OR_GREATER,
+                            /** Renewable diesel biodiesel 6% to 20% */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20,
+                            /** Diesel exhaust fluid pump */
+                            DIESEL_EXHAUST_FLUID_PUMP,
+                            /** Premium diesel 1 */
+                            PREMIUM_DIESEL_1,
+                            /** Regular ethanol 15% blend */
+                            REGULAR_ETHANOL_15_BLEND,
+                            /** Mid or plus ethanol 15% blend */
+                            MID_OR_PLUS_ETHANOL_15_BLEND,
+                            /** Premium or super ethanol 15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_15_BLEND,
+                            /** Premium diesel blend less than 20% biodiesel */
+                            PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL,
+                            /** Premium diesel blend 20% or more biodiesel */
+                            PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL,
+                            /** B75 diesel blend 75% biodiesel */
+                            B75_DIESEL_BLEND_75_BIODIESEL,
+                            /** B99 diesel blend 99% biodiesel */
+                            B99_DIESEL_BLEND_99_BIODIESEL,
+                            /** Reserved for preauthorization use only */
+                            RESERVED_FOR_PREAUTHORIZATION_USE_ONLY,
+                            /** Undefined fuel reserved for proprietary use */
+                            UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous fuel */
+                            MISCELLANEOUS_FUEL,
+                            /** Jet fuel */
+                            JET_FUEL,
+                            /** Aviation fuel regular */
+                            AVIATION_FUEL_REGULAR,
+                            /** Aviation fuel premium */
+                            AVIATION_FUEL_PREMIUM,
+                            /** Aviation fuel JP8 */
+                            AVIATION_FUEL_JP8,
+                            /** Aviation fuel 4 */
+                            AVIATION_FUEL_4,
+                            /** Aviation fuel 5 */
+                            AVIATION_FUEL_5,
+                            /** Biojet diesel */
+                            BIOJET_DIESEL,
+                            /** Aviation biofuel gasoline */
+                            AVIATION_BIOFUEL_GASOLINE,
+                            /** Undefined aviation fuel reserved for proprietary use */
+                            UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous aviation fuel */
+                            MISCELLANEOUS_AVIATION_FUEL,
+                            /** Marine fuel 1 */
+                            MARINE_FUEL_1,
+                            /** Marine fuel 2 */
+                            MARINE_FUEL_2,
+                            /** Marine fuel 3 */
+                            MARINE_FUEL_3,
+                            /** Marine fuel 4 */
+                            MARINE_FUEL_4,
+                            /** Marine fuel 5 */
+                            MARINE_FUEL_5,
+                            /** Marine other */
+                            MARINE_OTHER,
+                            /** Marine diesel */
+                            MARINE_DIESEL,
+                            /** Miscellaneous marine fuel */
+                            MISCELLANEOUS_MARINE_FUEL,
+                            /** Kerosene low sulfur */
+                            KEROSENE_LOW_SULFUR,
+                            /** White gas */
+                            WHITE_GAS,
+                            /** Heating oil */
+                            HEATING_OIL,
+                            /** Other fuel non-taxable */
+                            OTHER_FUEL_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur */
+                            KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Electric vehicle charging level 1 110 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
+                            /** Electric vehicle charging level 2 240 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
+                            /** Electric vehicle charging level 3 480 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Renewable diesel R95 or greater off-road non-taxable */
+                            RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 1% off-road non-taxable */
+                            BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 75% off-road non-taxable */
+                            BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 99% off-road non-taxable */
+                            BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 100% off-road non-taxable */
+                            BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Electric vehicle charging level 4 800 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
+                            /** Electric vehicle charging level 5 megawatt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT,
+                            /** Hydrotreated vegetable oil 100 */
+                            HYDROTREATED_VEGETABLE_OIL_100,
+                            /** Bio compressed natural gas */
+                            BIO_COMPRESSED_NATURAL_GAS,
+                            /** Miscellaneous other fuel */
+                            MISCELLANEOUS_OTHER_FUEL,
+                        }
+
+                        /**
+                         * An enum containing [FuelType]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [FuelType] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Regular */
+                            REGULAR,
+                            /** Mid or plus */
+                            MID_OR_PLUS,
+                            /** Premium or super */
+                            PREMIUM_OR_SUPER,
+                            /** Mid or plus 2 */
+                            MID_OR_PLUS_2,
+                            /** Premium or super 2 */
+                            PREMIUM_OR_SUPER_2,
+                            /** Regular ethanol 5% blend outside the United States */
+                            REGULAR_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_ETHANOL_5_BLEND_NON_US,
+                            /** Premium or super ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US,
+                            /** Mid or plus 2 ethanol 5% blend outside the United States */
+                            MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US,
+                            /** Green gasoline regular */
+                            GREEN_GASOLINE_REGULAR,
+                            /** Green gasoline mid or plus */
+                            GREEN_GASOLINE_MID_OR_PLUS,
+                            /** Green gasoline premium or super */
+                            GREEN_GASOLINE_PREMIUM_OR_SUPER,
+                            /** Regular diesel 2 */
+                            REGULAR_DIESEL_2,
+                            /** Premium diesel 2 */
+                            PREMIUM_DIESEL_2,
+                            /** Regular diesel 1 */
+                            REGULAR_DIESEL_1,
+                            /** Compressed natural gas */
+                            COMPRESSED_NATURAL_GAS,
+                            /** Liquid propane gas */
+                            LIQUID_PROPANE_GAS,
+                            /** Liquid natural gas */
+                            LIQUID_NATURAL_GAS,
+                            /** E85 */
+                            E85,
+                            /** Regular reformulated */
+                            REGULAR_REFORMULATED,
+                            /** Mid or plus reformulated */
+                            MID_OR_PLUS_REFORMULATED,
+                            /** Premium or super reformulated */
+                            PREMIUM_OR_SUPER_REFORMULATED,
+                            /** Mid or plus 2 reformulated */
+                            MID_OR_PLUS_2_REFORMULATED,
+                            /** Premium or super 2 reformulated */
+                            PREMIUM_OR_SUPER_2_REFORMULATED,
+                            /** Diesel off-road 1/2 non-taxable */
+                            DIESEL_OFF_ROAD_1_2_NON_TAXABLE,
+                            /** Diesel off-road non-taxable */
+                            DIESEL_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend off-road non-taxable */
+                            BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE,
+                            /** Racing fuel */
+                            RACING_FUEL,
+                            /** Mid or plus 2 ethanol 10% blend */
+                            MID_OR_PLUS_2_ETHANOL_10_BLEND,
+                            /** Premium or super 2 ethanol 10% blend */
+                            PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 2–15% blend */
+                            MID_OR_PLUS_ETHANOL_2_15_BLEND,
+                            /** Premium or super ethanol 2–15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND,
+                            /** Premium or super 2 ethanol 5% blend outside the United States */
+                            PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US,
+                            /** Regular ethanol 10% blend */
+                            REGULAR_ETHANOL_10_BLEND,
+                            /** Mid or plus ethanol 10% blend */
+                            MID_OR_PLUS_ETHANOL_10_BLEND,
+                            /** Premium or super ethanol 10% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_10_BLEND,
+                            /** B2 diesel blend 2% biodiesel */
+                            B2_DIESEL_BLEND_2_BIODIESEL,
+                            /** B5 diesel blend 5% biodiesel */
+                            B5_DIESEL_BLEND_5_BIODIESEL,
+                            /** B10 diesel blend 10% biodiesel */
+                            B10_DIESEL_BLEND_10_BIODIESEL,
+                            /** B11 diesel blend 11% biodiesel */
+                            B11_DIESEL_BLEND_11_BIODIESEL,
+                            /** B15 diesel blend 15% biodiesel */
+                            B15_DIESEL_BLEND_15_BIODIESEL,
+                            /** B20 diesel blend 20% biodiesel */
+                            B20_DIESEL_BLEND_20_BIODIESEL,
+                            /** B100 diesel blend 100% biodiesel */
+                            B100_DIESEL_BLEND_100_BIODIESEL,
+                            /** B1 diesel blend 1% biodiesel */
+                            B1_DIESEL_BLEND_1_BIODIESEL,
+                            /** Additized diesel 2 */
+                            ADDITIZED_DIESEL_2,
+                            /** Additized diesel 3 */
+                            ADDITIZED_DIESEL_3,
+                            /** B7 diesel blend 7% biodiesel outside the United States */
+                            B7_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** B7 premium diesel blend 7% biodiesel outside the United States */
+                            B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US,
+                            /** Renewable diesel R95 or greater */
+                            RENEWABLE_DIESEL_R95_OR_GREATER,
+                            /** Renewable diesel biodiesel 6% to 20% */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20,
+                            /** Diesel exhaust fluid pump */
+                            DIESEL_EXHAUST_FLUID_PUMP,
+                            /** Premium diesel 1 */
+                            PREMIUM_DIESEL_1,
+                            /** Regular ethanol 15% blend */
+                            REGULAR_ETHANOL_15_BLEND,
+                            /** Mid or plus ethanol 15% blend */
+                            MID_OR_PLUS_ETHANOL_15_BLEND,
+                            /** Premium or super ethanol 15% blend */
+                            PREMIUM_OR_SUPER_ETHANOL_15_BLEND,
+                            /** Premium diesel blend less than 20% biodiesel */
+                            PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL,
+                            /** Premium diesel blend 20% or more biodiesel */
+                            PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL,
+                            /** B75 diesel blend 75% biodiesel */
+                            B75_DIESEL_BLEND_75_BIODIESEL,
+                            /** B99 diesel blend 99% biodiesel */
+                            B99_DIESEL_BLEND_99_BIODIESEL,
+                            /** Reserved for preauthorization use only */
+                            RESERVED_FOR_PREAUTHORIZATION_USE_ONLY,
+                            /** Undefined fuel reserved for proprietary use */
+                            UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous fuel */
+                            MISCELLANEOUS_FUEL,
+                            /** Jet fuel */
+                            JET_FUEL,
+                            /** Aviation fuel regular */
+                            AVIATION_FUEL_REGULAR,
+                            /** Aviation fuel premium */
+                            AVIATION_FUEL_PREMIUM,
+                            /** Aviation fuel JP8 */
+                            AVIATION_FUEL_JP8,
+                            /** Aviation fuel 4 */
+                            AVIATION_FUEL_4,
+                            /** Aviation fuel 5 */
+                            AVIATION_FUEL_5,
+                            /** Biojet diesel */
+                            BIOJET_DIESEL,
+                            /** Aviation biofuel gasoline */
+                            AVIATION_BIOFUEL_GASOLINE,
+                            /** Undefined aviation fuel reserved for proprietary use */
+                            UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE,
+                            /** Miscellaneous aviation fuel */
+                            MISCELLANEOUS_AVIATION_FUEL,
+                            /** Marine fuel 1 */
+                            MARINE_FUEL_1,
+                            /** Marine fuel 2 */
+                            MARINE_FUEL_2,
+                            /** Marine fuel 3 */
+                            MARINE_FUEL_3,
+                            /** Marine fuel 4 */
+                            MARINE_FUEL_4,
+                            /** Marine fuel 5 */
+                            MARINE_FUEL_5,
+                            /** Marine other */
+                            MARINE_OTHER,
+                            /** Marine diesel */
+                            MARINE_DIESEL,
+                            /** Miscellaneous marine fuel */
+                            MISCELLANEOUS_MARINE_FUEL,
+                            /** Kerosene low sulfur */
+                            KEROSENE_LOW_SULFUR,
+                            /** White gas */
+                            WHITE_GAS,
+                            /** Heating oil */
+                            HEATING_OIL,
+                            /** Other fuel non-taxable */
+                            OTHER_FUEL_NON_TAXABLE,
+                            /** Kerosene ultra low sulfur */
+                            KEROSENE_ULTRA_LOW_SULFUR,
+                            /** Electric vehicle charging level 1 110 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT,
+                            /** Electric vehicle charging level 2 240 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
+                            /** Electric vehicle charging level 3 480 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Renewable diesel R95 or greater off-road non-taxable */
+                            RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 1% off-road non-taxable */
+                            BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 75% off-road non-taxable */
+                            BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 99% off-road non-taxable */
+                            BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE,
+                            /** Biodiesel blend 100% off-road non-taxable */
+                            BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE,
+                            /** Renewable diesel biodiesel 6% to 20% off-road non-taxable */
+                            RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE,
+                            /** Electric vehicle charging level 4 800 volt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT,
+                            /** Electric vehicle charging level 5 megawatt */
+                            ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT,
+                            /** Hydrotreated vegetable oil 100 */
+                            HYDROTREATED_VEGETABLE_OIL_100,
+                            /** Bio compressed natural gas */
+                            BIO_COMPRESSED_NATURAL_GAS,
+                            /** Miscellaneous other fuel */
+                            MISCELLANEOUS_OTHER_FUEL,
+                            /**
+                             * An enum member indicating that [FuelType] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                REGULAR -> Value.REGULAR
+                                MID_OR_PLUS -> Value.MID_OR_PLUS
+                                PREMIUM_OR_SUPER -> Value.PREMIUM_OR_SUPER
+                                MID_OR_PLUS_2 -> Value.MID_OR_PLUS_2
+                                PREMIUM_OR_SUPER_2 -> Value.PREMIUM_OR_SUPER_2
+                                REGULAR_ETHANOL_5_BLEND_NON_US ->
+                                    Value.REGULAR_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_ETHANOL_5_BLEND_NON_US ->
+                                    Value.MID_OR_PLUS_ETHANOL_5_BLEND_NON_US
+                                PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US ->
+                                    Value.MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US
+                                GREEN_GASOLINE_REGULAR -> Value.GREEN_GASOLINE_REGULAR
+                                GREEN_GASOLINE_MID_OR_PLUS -> Value.GREEN_GASOLINE_MID_OR_PLUS
+                                GREEN_GASOLINE_PREMIUM_OR_SUPER ->
+                                    Value.GREEN_GASOLINE_PREMIUM_OR_SUPER
+                                REGULAR_DIESEL_2 -> Value.REGULAR_DIESEL_2
+                                PREMIUM_DIESEL_2 -> Value.PREMIUM_DIESEL_2
+                                REGULAR_DIESEL_1 -> Value.REGULAR_DIESEL_1
+                                COMPRESSED_NATURAL_GAS -> Value.COMPRESSED_NATURAL_GAS
+                                LIQUID_PROPANE_GAS -> Value.LIQUID_PROPANE_GAS
+                                LIQUID_NATURAL_GAS -> Value.LIQUID_NATURAL_GAS
+                                E85 -> Value.E85
+                                REGULAR_REFORMULATED -> Value.REGULAR_REFORMULATED
+                                MID_OR_PLUS_REFORMULATED -> Value.MID_OR_PLUS_REFORMULATED
+                                PREMIUM_OR_SUPER_REFORMULATED -> Value.PREMIUM_OR_SUPER_REFORMULATED
+                                MID_OR_PLUS_2_REFORMULATED -> Value.MID_OR_PLUS_2_REFORMULATED
+                                PREMIUM_OR_SUPER_2_REFORMULATED ->
+                                    Value.PREMIUM_OR_SUPER_2_REFORMULATED
+                                DIESEL_OFF_ROAD_1_2_NON_TAXABLE ->
+                                    Value.DIESEL_OFF_ROAD_1_2_NON_TAXABLE
+                                DIESEL_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE
+                                RACING_FUEL -> Value.RACING_FUEL
+                                MID_OR_PLUS_2_ETHANOL_10_BLEND ->
+                                    Value.MID_OR_PLUS_2_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_2_15_BLEND ->
+                                    Value.MID_OR_PLUS_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US ->
+                                    Value.PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US
+                                REGULAR_ETHANOL_10_BLEND -> Value.REGULAR_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_10_BLEND -> Value.MID_OR_PLUS_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_10_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_10_BLEND
+                                B2_DIESEL_BLEND_2_BIODIESEL -> Value.B2_DIESEL_BLEND_2_BIODIESEL
+                                B5_DIESEL_BLEND_5_BIODIESEL -> Value.B5_DIESEL_BLEND_5_BIODIESEL
+                                B10_DIESEL_BLEND_10_BIODIESEL -> Value.B10_DIESEL_BLEND_10_BIODIESEL
+                                B11_DIESEL_BLEND_11_BIODIESEL -> Value.B11_DIESEL_BLEND_11_BIODIESEL
+                                B15_DIESEL_BLEND_15_BIODIESEL -> Value.B15_DIESEL_BLEND_15_BIODIESEL
+                                B20_DIESEL_BLEND_20_BIODIESEL -> Value.B20_DIESEL_BLEND_20_BIODIESEL
+                                B100_DIESEL_BLEND_100_BIODIESEL ->
+                                    Value.B100_DIESEL_BLEND_100_BIODIESEL
+                                B1_DIESEL_BLEND_1_BIODIESEL -> Value.B1_DIESEL_BLEND_1_BIODIESEL
+                                ADDITIZED_DIESEL_2 -> Value.ADDITIZED_DIESEL_2
+                                ADDITIZED_DIESEL_3 -> Value.ADDITIZED_DIESEL_3
+                                B7_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Value.B7_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Value.B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                RENEWABLE_DIESEL_R95_OR_GREATER ->
+                                    Value.RENEWABLE_DIESEL_R95_OR_GREATER
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20 ->
+                                    Value.RENEWABLE_DIESEL_BIODIESEL_6_TO_20
+                                DIESEL_EXHAUST_FLUID_PUMP -> Value.DIESEL_EXHAUST_FLUID_PUMP
+                                PREMIUM_DIESEL_1 -> Value.PREMIUM_DIESEL_1
+                                REGULAR_ETHANOL_15_BLEND -> Value.REGULAR_ETHANOL_15_BLEND
+                                MID_OR_PLUS_ETHANOL_15_BLEND -> Value.MID_OR_PLUS_ETHANOL_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_15_BLEND ->
+                                    Value.PREMIUM_OR_SUPER_ETHANOL_15_BLEND
+                                PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL ->
+                                    Value.PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL
+                                PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL ->
+                                    Value.PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL
+                                B75_DIESEL_BLEND_75_BIODIESEL -> Value.B75_DIESEL_BLEND_75_BIODIESEL
+                                B99_DIESEL_BLEND_99_BIODIESEL -> Value.B99_DIESEL_BLEND_99_BIODIESEL
+                                RESERVED_FOR_PREAUTHORIZATION_USE_ONLY ->
+                                    Value.RESERVED_FOR_PREAUTHORIZATION_USE_ONLY
+                                UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Value.UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_FUEL -> Value.MISCELLANEOUS_FUEL
+                                JET_FUEL -> Value.JET_FUEL
+                                AVIATION_FUEL_REGULAR -> Value.AVIATION_FUEL_REGULAR
+                                AVIATION_FUEL_PREMIUM -> Value.AVIATION_FUEL_PREMIUM
+                                AVIATION_FUEL_JP8 -> Value.AVIATION_FUEL_JP8
+                                AVIATION_FUEL_4 -> Value.AVIATION_FUEL_4
+                                AVIATION_FUEL_5 -> Value.AVIATION_FUEL_5
+                                BIOJET_DIESEL -> Value.BIOJET_DIESEL
+                                AVIATION_BIOFUEL_GASOLINE -> Value.AVIATION_BIOFUEL_GASOLINE
+                                UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Value.UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_AVIATION_FUEL -> Value.MISCELLANEOUS_AVIATION_FUEL
+                                MARINE_FUEL_1 -> Value.MARINE_FUEL_1
+                                MARINE_FUEL_2 -> Value.MARINE_FUEL_2
+                                MARINE_FUEL_3 -> Value.MARINE_FUEL_3
+                                MARINE_FUEL_4 -> Value.MARINE_FUEL_4
+                                MARINE_FUEL_5 -> Value.MARINE_FUEL_5
+                                MARINE_OTHER -> Value.MARINE_OTHER
+                                MARINE_DIESEL -> Value.MARINE_DIESEL
+                                MISCELLANEOUS_MARINE_FUEL -> Value.MISCELLANEOUS_MARINE_FUEL
+                                KEROSENE_LOW_SULFUR -> Value.KEROSENE_LOW_SULFUR
+                                WHITE_GAS -> Value.WHITE_GAS
+                                HEATING_OIL -> Value.HEATING_OIL
+                                OTHER_FUEL_NON_TAXABLE -> Value.OTHER_FUEL_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR -> Value.KEROSENE_ULTRA_LOW_SULFUR
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
+                                    Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE ->
+                                    Value.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
+                                    Value.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
+                                    Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT
+                                HYDROTREATED_VEGETABLE_OIL_100 ->
+                                    Value.HYDROTREATED_VEGETABLE_OIL_100
+                                BIO_COMPRESSED_NATURAL_GAS -> Value.BIO_COMPRESSED_NATURAL_GAS
+                                MISCELLANEOUS_OTHER_FUEL -> Value.MISCELLANEOUS_OTHER_FUEL
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                REGULAR -> Known.REGULAR
+                                MID_OR_PLUS -> Known.MID_OR_PLUS
+                                PREMIUM_OR_SUPER -> Known.PREMIUM_OR_SUPER
+                                MID_OR_PLUS_2 -> Known.MID_OR_PLUS_2
+                                PREMIUM_OR_SUPER_2 -> Known.PREMIUM_OR_SUPER_2
+                                REGULAR_ETHANOL_5_BLEND_NON_US ->
+                                    Known.REGULAR_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_ETHANOL_5_BLEND_NON_US ->
+                                    Known.MID_OR_PLUS_ETHANOL_5_BLEND_NON_US
+                                PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_5_BLEND_NON_US
+                                MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US ->
+                                    Known.MID_OR_PLUS_2_ETHANOL_5_BLEND_NON_US
+                                GREEN_GASOLINE_REGULAR -> Known.GREEN_GASOLINE_REGULAR
+                                GREEN_GASOLINE_MID_OR_PLUS -> Known.GREEN_GASOLINE_MID_OR_PLUS
+                                GREEN_GASOLINE_PREMIUM_OR_SUPER ->
+                                    Known.GREEN_GASOLINE_PREMIUM_OR_SUPER
+                                REGULAR_DIESEL_2 -> Known.REGULAR_DIESEL_2
+                                PREMIUM_DIESEL_2 -> Known.PREMIUM_DIESEL_2
+                                REGULAR_DIESEL_1 -> Known.REGULAR_DIESEL_1
+                                COMPRESSED_NATURAL_GAS -> Known.COMPRESSED_NATURAL_GAS
+                                LIQUID_PROPANE_GAS -> Known.LIQUID_PROPANE_GAS
+                                LIQUID_NATURAL_GAS -> Known.LIQUID_NATURAL_GAS
+                                E85 -> Known.E85
+                                REGULAR_REFORMULATED -> Known.REGULAR_REFORMULATED
+                                MID_OR_PLUS_REFORMULATED -> Known.MID_OR_PLUS_REFORMULATED
+                                PREMIUM_OR_SUPER_REFORMULATED -> Known.PREMIUM_OR_SUPER_REFORMULATED
+                                MID_OR_PLUS_2_REFORMULATED -> Known.MID_OR_PLUS_2_REFORMULATED
+                                PREMIUM_OR_SUPER_2_REFORMULATED ->
+                                    Known.PREMIUM_OR_SUPER_2_REFORMULATED
+                                DIESEL_OFF_ROAD_1_2_NON_TAXABLE ->
+                                    Known.DIESEL_OFF_ROAD_1_2_NON_TAXABLE
+                                DIESEL_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_OFF_ROAD_NON_TAXABLE
+                                RACING_FUEL -> Known.RACING_FUEL
+                                MID_OR_PLUS_2_ETHANOL_10_BLEND ->
+                                    Known.MID_OR_PLUS_2_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_2_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_2_15_BLEND ->
+                                    Known.MID_OR_PLUS_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_2_15_BLEND
+                                PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US ->
+                                    Known.PREMIUM_OR_SUPER_2_ETHANOL_5_BLEND_NON_US
+                                REGULAR_ETHANOL_10_BLEND -> Known.REGULAR_ETHANOL_10_BLEND
+                                MID_OR_PLUS_ETHANOL_10_BLEND -> Known.MID_OR_PLUS_ETHANOL_10_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_10_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_10_BLEND
+                                B2_DIESEL_BLEND_2_BIODIESEL -> Known.B2_DIESEL_BLEND_2_BIODIESEL
+                                B5_DIESEL_BLEND_5_BIODIESEL -> Known.B5_DIESEL_BLEND_5_BIODIESEL
+                                B10_DIESEL_BLEND_10_BIODIESEL -> Known.B10_DIESEL_BLEND_10_BIODIESEL
+                                B11_DIESEL_BLEND_11_BIODIESEL -> Known.B11_DIESEL_BLEND_11_BIODIESEL
+                                B15_DIESEL_BLEND_15_BIODIESEL -> Known.B15_DIESEL_BLEND_15_BIODIESEL
+                                B20_DIESEL_BLEND_20_BIODIESEL -> Known.B20_DIESEL_BLEND_20_BIODIESEL
+                                B100_DIESEL_BLEND_100_BIODIESEL ->
+                                    Known.B100_DIESEL_BLEND_100_BIODIESEL
+                                B1_DIESEL_BLEND_1_BIODIESEL -> Known.B1_DIESEL_BLEND_1_BIODIESEL
+                                ADDITIZED_DIESEL_2 -> Known.ADDITIZED_DIESEL_2
+                                ADDITIZED_DIESEL_3 -> Known.ADDITIZED_DIESEL_3
+                                B7_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Known.B7_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US ->
+                                    Known.B7_PREMIUM_DIESEL_BLEND_7_BIODIESEL_NON_US
+                                RENEWABLE_DIESEL_R95_OR_GREATER ->
+                                    Known.RENEWABLE_DIESEL_R95_OR_GREATER
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20 ->
+                                    Known.RENEWABLE_DIESEL_BIODIESEL_6_TO_20
+                                DIESEL_EXHAUST_FLUID_PUMP -> Known.DIESEL_EXHAUST_FLUID_PUMP
+                                PREMIUM_DIESEL_1 -> Known.PREMIUM_DIESEL_1
+                                REGULAR_ETHANOL_15_BLEND -> Known.REGULAR_ETHANOL_15_BLEND
+                                MID_OR_PLUS_ETHANOL_15_BLEND -> Known.MID_OR_PLUS_ETHANOL_15_BLEND
+                                PREMIUM_OR_SUPER_ETHANOL_15_BLEND ->
+                                    Known.PREMIUM_OR_SUPER_ETHANOL_15_BLEND
+                                PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL ->
+                                    Known.PREMIUM_DIESEL_BLEND_LESS_THAN_20_BIODIESEL
+                                PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL ->
+                                    Known.PREMIUM_DIESEL_BLEND_20_OR_MORE_BIODIESEL
+                                B75_DIESEL_BLEND_75_BIODIESEL -> Known.B75_DIESEL_BLEND_75_BIODIESEL
+                                B99_DIESEL_BLEND_99_BIODIESEL -> Known.B99_DIESEL_BLEND_99_BIODIESEL
+                                RESERVED_FOR_PREAUTHORIZATION_USE_ONLY ->
+                                    Known.RESERVED_FOR_PREAUTHORIZATION_USE_ONLY
+                                UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Known.UNDEFINED_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_FUEL -> Known.MISCELLANEOUS_FUEL
+                                JET_FUEL -> Known.JET_FUEL
+                                AVIATION_FUEL_REGULAR -> Known.AVIATION_FUEL_REGULAR
+                                AVIATION_FUEL_PREMIUM -> Known.AVIATION_FUEL_PREMIUM
+                                AVIATION_FUEL_JP8 -> Known.AVIATION_FUEL_JP8
+                                AVIATION_FUEL_4 -> Known.AVIATION_FUEL_4
+                                AVIATION_FUEL_5 -> Known.AVIATION_FUEL_5
+                                BIOJET_DIESEL -> Known.BIOJET_DIESEL
+                                AVIATION_BIOFUEL_GASOLINE -> Known.AVIATION_BIOFUEL_GASOLINE
+                                UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE ->
+                                    Known.UNDEFINED_AVIATION_FUEL_RESERVED_FOR_PROPRIETARY_USE
+                                MISCELLANEOUS_AVIATION_FUEL -> Known.MISCELLANEOUS_AVIATION_FUEL
+                                MARINE_FUEL_1 -> Known.MARINE_FUEL_1
+                                MARINE_FUEL_2 -> Known.MARINE_FUEL_2
+                                MARINE_FUEL_3 -> Known.MARINE_FUEL_3
+                                MARINE_FUEL_4 -> Known.MARINE_FUEL_4
+                                MARINE_FUEL_5 -> Known.MARINE_FUEL_5
+                                MARINE_OTHER -> Known.MARINE_OTHER
+                                MARINE_DIESEL -> Known.MARINE_DIESEL
+                                MISCELLANEOUS_MARINE_FUEL -> Known.MISCELLANEOUS_MARINE_FUEL
+                                KEROSENE_LOW_SULFUR -> Known.KEROSENE_LOW_SULFUR
+                                WHITE_GAS -> Known.WHITE_GAS
+                                HEATING_OIL -> Known.HEATING_OIL
+                                OTHER_FUEL_NON_TAXABLE -> Known.OTHER_FUEL_NON_TAXABLE
+                                KEROSENE_ULTRA_LOW_SULFUR -> Known.KEROSENE_ULTRA_LOW_SULFUR
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_1_110_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
+                                    Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_75_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_99_OFF_ROAD_NON_TAXABLE
+                                BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE ->
+                                    Known.BIODIESEL_BLEND_100_OFF_ROAD_NON_TAXABLE
+                                RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE ->
+                                    Known.RENEWABLE_DIESEL_BIODIESEL_6_TO_20_OFF_ROAD_NON_TAXABLE
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_4_800_VOLT
+                                ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT ->
+                                    Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_5_MEGAWATT
+                                HYDROTREATED_VEGETABLE_OIL_100 ->
+                                    Known.HYDROTREATED_VEGETABLE_OIL_100
+                                BIO_COMPRESSED_NATURAL_GAS -> Known.BIO_COMPRESSED_NATURAL_GAS
+                                MISCELLANEOUS_OTHER_FUEL -> Known.MISCELLANEOUS_OTHER_FUEL
+                                else ->
+                                    throw IncreaseInvalidDataException("Unknown FuelType: $value")
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): FuelType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is FuelType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /** The unit of measure for the fuel quantity. */
+                    class FuelUnitOfMeasure
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Liter */
+                            @JvmField val LITER = of("liter")
+
+                            /** US gallon */
+                            @JvmField val US_GALLON = of("us_gallon")
+
+                            /** Imperial gallon */
+                            @JvmField val IMPERIAL_GALLON = of("imperial_gallon")
+
+                            /** Kilogram */
+                            @JvmField val KILOGRAM = of("kilogram")
+
+                            /** Pound */
+                            @JvmField val POUND = of("pound")
+
+                            /** Charging minutes */
+                            @JvmField val CHARGING_MINUTES = of("charging_minutes")
+
+                            /** Kilowatt hour */
+                            @JvmField val KILOWATT_HOUR = of("kilowatt_hour")
+
+                            @JvmStatic
+                            fun of(value: String) = FuelUnitOfMeasure(JsonField.of(value))
+                        }
+
+                        /** An enum containing [FuelUnitOfMeasure]'s known values. */
+                        enum class Known {
+                            /** Liter */
+                            LITER,
+                            /** US gallon */
+                            US_GALLON,
+                            /** Imperial gallon */
+                            IMPERIAL_GALLON,
+                            /** Kilogram */
+                            KILOGRAM,
+                            /** Pound */
+                            POUND,
+                            /** Charging minutes */
+                            CHARGING_MINUTES,
+                            /** Kilowatt hour */
+                            KILOWATT_HOUR,
+                        }
+
+                        /**
+                         * An enum containing [FuelUnitOfMeasure]'s known values, as well as an
+                         * [_UNKNOWN] member.
+                         *
+                         * An instance of [FuelUnitOfMeasure] can contain an unknown value in a
+                         * couple of cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Liter */
+                            LITER,
+                            /** US gallon */
+                            US_GALLON,
+                            /** Imperial gallon */
+                            IMPERIAL_GALLON,
+                            /** Kilogram */
+                            KILOGRAM,
+                            /** Pound */
+                            POUND,
+                            /** Charging minutes */
+                            CHARGING_MINUTES,
+                            /** Kilowatt hour */
+                            KILOWATT_HOUR,
+                            /**
+                             * An enum member indicating that [FuelUnitOfMeasure] was instantiated
+                             * with an unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                LITER -> Value.LITER
+                                US_GALLON -> Value.US_GALLON
+                                IMPERIAL_GALLON -> Value.IMPERIAL_GALLON
+                                KILOGRAM -> Value.KILOGRAM
+                                POUND -> Value.POUND
+                                CHARGING_MINUTES -> Value.CHARGING_MINUTES
+                                KILOWATT_HOUR -> Value.KILOWATT_HOUR
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                LITER -> Known.LITER
+                                US_GALLON -> Known.US_GALLON
+                                IMPERIAL_GALLON -> Known.IMPERIAL_GALLON
+                                KILOGRAM -> Known.KILOGRAM
+                                POUND -> Known.POUND
+                                CHARGING_MINUTES -> Known.CHARGING_MINUTES
+                                KILOWATT_HOUR -> Known.KILOWATT_HOUR
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown FuelUnitOfMeasure: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): FuelUnitOfMeasure = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is FuelUnitOfMeasure && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /** The type of fleet purchase. */
+                    class PurchaseType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Fuel purchase */
+                            @JvmField val FUEL_PURCHASE = of("fuel_purchase")
+
+                            /** Non-fuel purchase */
+                            @JvmField val NON_FUEL_PURCHASE = of("non_fuel_purchase")
+
+                            /** Fuel and non-fuel purchase */
+                            @JvmField
+                            val FUEL_AND_NON_FUEL_PURCHASE = of("fuel_and_non_fuel_purchase")
+
+                            /** Fuel purchase with multiple fuel types */
+                            @JvmField
+                            val FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES =
+                                of("fuel_purchase_with_multiple_fuel_types")
+
+                            @JvmStatic fun of(value: String) = PurchaseType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [PurchaseType]'s known values. */
+                        enum class Known {
+                            /** Fuel purchase */
+                            FUEL_PURCHASE,
+                            /** Non-fuel purchase */
+                            NON_FUEL_PURCHASE,
+                            /** Fuel and non-fuel purchase */
+                            FUEL_AND_NON_FUEL_PURCHASE,
+                            /** Fuel purchase with multiple fuel types */
+                            FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES,
+                        }
+
+                        /**
+                         * An enum containing [PurchaseType]'s known values, as well as an
+                         * [_UNKNOWN] member.
+                         *
+                         * An instance of [PurchaseType] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Fuel purchase */
+                            FUEL_PURCHASE,
+                            /** Non-fuel purchase */
+                            NON_FUEL_PURCHASE,
+                            /** Fuel and non-fuel purchase */
+                            FUEL_AND_NON_FUEL_PURCHASE,
+                            /** Fuel purchase with multiple fuel types */
+                            FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES,
+                            /**
+                             * An enum member indicating that [PurchaseType] was instantiated with
+                             * an unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                FUEL_PURCHASE -> Value.FUEL_PURCHASE
+                                NON_FUEL_PURCHASE -> Value.NON_FUEL_PURCHASE
+                                FUEL_AND_NON_FUEL_PURCHASE -> Value.FUEL_AND_NON_FUEL_PURCHASE
+                                FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES ->
+                                    Value.FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                FUEL_PURCHASE -> Known.FUEL_PURCHASE
+                                NON_FUEL_PURCHASE -> Known.NON_FUEL_PURCHASE
+                                FUEL_AND_NON_FUEL_PURCHASE -> Known.FUEL_AND_NON_FUEL_PURCHASE
+                                FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES ->
+                                    Known.FUEL_PURCHASE_WITH_MULTIPLE_FUEL_TYPES
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown PurchaseType: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): PurchaseType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is PurchaseType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    /** The type of service provided. */
+                    class ServiceType
+                    @JsonCreator
+                    private constructor(private val value: JsonField<String>) : Enum {
+
+                        /**
+                         * Returns this class instance's raw value.
+                         *
+                         * This is usually only useful if this instance was deserialized from data
+                         * that doesn't match any known member, and you want to know that value. For
+                         * example, if the SDK is on an older version than the API, then the API may
+                         * respond with new members that the SDK is unaware of.
+                         */
+                        @com.fasterxml.jackson.annotation.JsonValue
+                        fun _value(): JsonField<String> = value
+
+                        companion object {
+
+                            /** Full service */
+                            @JvmField val FULL_SERVICE = of("full_service")
+
+                            /** Self service */
+                            @JvmField val SELF_SERVICE = of("self_service")
+
+                            /** High speed dispense */
+                            @JvmField val HIGH_SPEED_DISPENSE = of("high_speed_dispense")
+
+                            @JvmStatic fun of(value: String) = ServiceType(JsonField.of(value))
+                        }
+
+                        /** An enum containing [ServiceType]'s known values. */
+                        enum class Known {
+                            /** Full service */
+                            FULL_SERVICE,
+                            /** Self service */
+                            SELF_SERVICE,
+                            /** High speed dispense */
+                            HIGH_SPEED_DISPENSE,
+                        }
+
+                        /**
+                         * An enum containing [ServiceType]'s known values, as well as an [_UNKNOWN]
+                         * member.
+                         *
+                         * An instance of [ServiceType] can contain an unknown value in a couple of
+                         * cases:
+                         * - It was deserialized from data that doesn't match any known member. For
+                         *   example, if the SDK is on an older version than the API, then the API
+                         *   may respond with new members that the SDK is unaware of.
+                         * - It was constructed with an arbitrary value using the [of] method.
+                         */
+                        enum class Value {
+                            /** Full service */
+                            FULL_SERVICE,
+                            /** Self service */
+                            SELF_SERVICE,
+                            /** High speed dispense */
+                            HIGH_SPEED_DISPENSE,
+                            /**
+                             * An enum member indicating that [ServiceType] was instantiated with an
+                             * unknown value.
+                             */
+                            _UNKNOWN,
+                        }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value, or
+                         * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+                         *
+                         * Use the [known] method instead if you're certain the value is always
+                         * known or if you want to throw for the unknown case.
+                         */
+                        fun value(): Value =
+                            when (this) {
+                                FULL_SERVICE -> Value.FULL_SERVICE
+                                SELF_SERVICE -> Value.SELF_SERVICE
+                                HIGH_SPEED_DISPENSE -> Value.HIGH_SPEED_DISPENSE
+                                else -> Value._UNKNOWN
+                            }
+
+                        /**
+                         * Returns an enum member corresponding to this class instance's value.
+                         *
+                         * Use the [value] method instead if you're uncertain the value is always
+                         * known and don't want to throw for the unknown case.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value is a
+                         *   not a known member.
+                         */
+                        fun known(): Known =
+                            when (this) {
+                                FULL_SERVICE -> Known.FULL_SERVICE
+                                SELF_SERVICE -> Known.SELF_SERVICE
+                                HIGH_SPEED_DISPENSE -> Known.HIGH_SPEED_DISPENSE
+                                else ->
+                                    throw IncreaseInvalidDataException(
+                                        "Unknown ServiceType: $value"
+                                    )
+                            }
+
+                        /**
+                         * Returns this class instance's primitive wire representation.
+                         *
+                         * This differs from the [toString] method because that method is primarily
+                         * for debugging and generally doesn't throw.
+                         *
+                         * @throws IncreaseInvalidDataException if this class instance's value does
+                         *   not have the expected primitive type.
+                         */
+                        fun asString(): String =
+                            _value().asString().orElseThrow {
+                                IncreaseInvalidDataException("Value is not a String")
+                            }
+
+                        private var validated: Boolean = false
+
+                        /**
+                         * Validates that the types of all values in this object match their
+                         * expected types recursively.
+                         *
+                         * This method is _not_ forwards compatible with new types from the API for
+                         * existing fields.
+                         *
+                         * @throws IncreaseInvalidDataException if any value type in this object
+                         *   doesn't match its expected type.
+                         */
+                        fun validate(): ServiceType = apply {
+                            if (validated) {
+                                return@apply
+                            }
+
+                            known()
+                            validated = true
+                        }
+
+                        fun isValid(): Boolean =
+                            try {
+                                validate()
+                                true
+                            } catch (e: IncreaseInvalidDataException) {
+                                false
+                            }
+
+                        /**
+                         * Returns a score indicating how many valid values are contained in this
+                         * object recursively.
+                         *
+                         * Used for best match union deserialization.
+                         */
+                        @JvmSynthetic
+                        internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+                        override fun equals(other: Any?): Boolean {
+                            if (this === other) {
+                                return true
+                            }
+
+                            return other is ServiceType && value == other.value
+                        }
+
+                        override fun hashCode() = value.hashCode()
+
+                        override fun toString() = value.toString()
+                    }
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Fleet &&
+                            employeeNumber == other.employeeNumber &&
+                            fuelQuantity == other.fuelQuantity &&
+                            fuelType == other.fuelType &&
+                            fuelUnitCostAmount == other.fuelUnitCostAmount &&
+                            fuelUnitCostCurrency == other.fuelUnitCostCurrency &&
+                            fuelUnitOfMeasure == other.fuelUnitOfMeasure &&
+                            grossFuelPriceAmount == other.grossFuelPriceAmount &&
+                            grossFuelPriceCurrency == other.grossFuelPriceCurrency &&
+                            grossNonFuelPriceAmount == other.grossNonFuelPriceAmount &&
+                            grossNonFuelPriceCurrency == other.grossNonFuelPriceCurrency &&
+                            netFuelPriceAmount == other.netFuelPriceAmount &&
+                            netFuelPriceCurrency == other.netFuelPriceCurrency &&
+                            netNonFuelPriceAmount == other.netNonFuelPriceAmount &&
+                            netNonFuelPriceCurrency == other.netNonFuelPriceCurrency &&
+                            odometerReading == other.odometerReading &&
+                            purchaseType == other.purchaseType &&
+                            serviceType == other.serviceType &&
+                            trailerNumber == other.trailerNumber &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(
+                            employeeNumber,
+                            fuelQuantity,
+                            fuelType,
+                            fuelUnitCostAmount,
+                            fuelUnitCostCurrency,
+                            fuelUnitOfMeasure,
+                            grossFuelPriceAmount,
+                            grossFuelPriceCurrency,
+                            grossNonFuelPriceAmount,
+                            grossNonFuelPriceCurrency,
+                            netFuelPriceAmount,
+                            netFuelPriceCurrency,
+                            netNonFuelPriceAmount,
+                            netNonFuelPriceCurrency,
+                            odometerReading,
+                            purchaseType,
+                            serviceType,
+                            trailerNumber,
+                            additionalProperties,
+                        )
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Fleet{employeeNumber=$employeeNumber, fuelQuantity=$fuelQuantity, fuelType=$fuelType, fuelUnitCostAmount=$fuelUnitCostAmount, fuelUnitCostCurrency=$fuelUnitCostCurrency, fuelUnitOfMeasure=$fuelUnitOfMeasure, grossFuelPriceAmount=$grossFuelPriceAmount, grossFuelPriceCurrency=$grossFuelPriceCurrency, grossNonFuelPriceAmount=$grossNonFuelPriceAmount, grossNonFuelPriceCurrency=$grossNonFuelPriceCurrency, netFuelPriceAmount=$netFuelPriceAmount, netFuelPriceCurrency=$netFuelPriceCurrency, netNonFuelPriceAmount=$netNonFuelPriceAmount, netNonFuelPriceCurrency=$netNonFuelPriceCurrency, odometerReading=$odometerReading, purchaseType=$purchaseType, serviceType=$serviceType, trailerNumber=$trailerNumber, additionalProperties=$additionalProperties}"
                 }
 
                 /** Fields specific to lodging. */
@@ -42251,6 +48239,7 @@ private constructor(
                     return other is PurchaseDetails &&
                         carRental == other.carRental &&
                         customerReferenceIdentifier == other.customerReferenceIdentifier &&
+                        fleet == other.fleet &&
                         localTaxAmount == other.localTaxAmount &&
                         localTaxCurrency == other.localTaxCurrency &&
                         lodging == other.lodging &&
@@ -42266,6 +48255,7 @@ private constructor(
                     Objects.hash(
                         carRental,
                         customerReferenceIdentifier,
+                        fleet,
                         localTaxAmount,
                         localTaxCurrency,
                         lodging,
@@ -42281,7 +48271,7 @@ private constructor(
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
+                    "PurchaseDetails{carRental=$carRental, customerReferenceIdentifier=$customerReferenceIdentifier, fleet=$fleet, localTaxAmount=$localTaxAmount, localTaxCurrency=$localTaxCurrency, lodging=$lodging, nationalTaxAmount=$nationalTaxAmount, nationalTaxCurrency=$nationalTaxCurrency, purchaseIdentifier=$purchaseIdentifier, purchaseIdentifierFormat=$purchaseIdentifierFormat, travel=$travel, additionalProperties=$additionalProperties}"
             }
 
             class SchemeFee
