@@ -39,6 +39,7 @@ internal class InboundWireTransferTest {
                 .endToEndIdentification("Invoice 29582")
                 .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                 .instructingAgentRoutingNumber("101050001")
+                .instructionForCreditorAgent(null)
                 .instructionIdentification("202201180000001")
                 .purpose("CASH")
                 .reversal(
@@ -83,6 +84,7 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.inputMessageAccountabilityData())
             .contains("20220118MMQFMP0P000001")
         assertThat(inboundWireTransfer.instructingAgentRoutingNumber()).contains("101050001")
+        assertThat(inboundWireTransfer.instructionForCreditorAgent()).isEmpty
         assertThat(inboundWireTransfer.instructionIdentification()).contains("202201180000001")
         assertThat(inboundWireTransfer.purpose()).contains("CASH")
         assertThat(inboundWireTransfer.reversal())
@@ -131,6 +133,7 @@ internal class InboundWireTransferTest {
                 .endToEndIdentification("Invoice 29582")
                 .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                 .instructingAgentRoutingNumber("101050001")
+                .instructionForCreditorAgent(null)
                 .instructionIdentification("202201180000001")
                 .purpose("CASH")
                 .reversal(
