@@ -41,6 +41,7 @@ internal class InboundWireTransferListPageResponseTest {
                         .endToEndIdentification("Invoice 29582")
                         .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                         .instructingAgentRoutingNumber("101050001")
+                        .instructionForCreditorAgent(null)
                         .instructionIdentification("202201180000001")
                         .purpose("CASH")
                         .reversal(
@@ -87,6 +88,7 @@ internal class InboundWireTransferListPageResponseTest {
                     .endToEndIdentification("Invoice 29582")
                     .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                     .instructingAgentRoutingNumber("101050001")
+                    .instructionForCreditorAgent(null)
                     .instructionIdentification("202201180000001")
                     .purpose("CASH")
                     .reversal(
@@ -137,6 +139,7 @@ internal class InboundWireTransferListPageResponseTest {
                         .endToEndIdentification("Invoice 29582")
                         .inputMessageAccountabilityData("20220118MMQFMP0P000001")
                         .instructingAgentRoutingNumber("101050001")
+                        .instructionForCreditorAgent(null)
                         .instructionIdentification("202201180000001")
                         .purpose("CASH")
                         .reversal(
