@@ -1825,7 +1825,7 @@ private constructor(
     class Acknowledgement
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val acknowledgedAt: JsonField<String>,
+        private val acknowledgedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -1833,7 +1833,7 @@ private constructor(
         private constructor(
             @JsonProperty("acknowledged_at")
             @ExcludeMissing
-            acknowledgedAt: JsonField<String> = JsonMissing.of()
+            acknowledgedAt: JsonField<OffsetDateTime> = JsonMissing.of()
         ) : this(acknowledgedAt, mutableMapOf())
 
         /**
@@ -1842,7 +1842,7 @@ private constructor(
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
-        fun acknowledgedAt(): String = acknowledgedAt.getRequired("acknowledged_at")
+        fun acknowledgedAt(): OffsetDateTime = acknowledgedAt.getRequired("acknowledged_at")
 
         /**
          * Returns the raw JSON value of [acknowledgedAt].
@@ -1852,7 +1852,7 @@ private constructor(
          */
         @JsonProperty("acknowledged_at")
         @ExcludeMissing
-        fun _acknowledgedAt(): JsonField<String> = acknowledgedAt
+        fun _acknowledgedAt(): JsonField<OffsetDateTime> = acknowledgedAt
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -1882,7 +1882,7 @@ private constructor(
         /** A builder for [Acknowledgement]. */
         class Builder internal constructor() {
 
-            private var acknowledgedAt: JsonField<String>? = null
+            private var acknowledgedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -1894,17 +1894,17 @@ private constructor(
             /**
              * When the Federal Reserve acknowledged the submitted file containing this transfer.
              */
-            fun acknowledgedAt(acknowledgedAt: String) =
+            fun acknowledgedAt(acknowledgedAt: OffsetDateTime) =
                 acknowledgedAt(JsonField.of(acknowledgedAt))
 
             /**
              * Sets [Builder.acknowledgedAt] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.acknowledgedAt] with a well-typed [String] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.acknowledgedAt] with a well-typed [OffsetDateTime]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
              */
-            fun acknowledgedAt(acknowledgedAt: JsonField<String>) = apply {
+            fun acknowledgedAt(acknowledgedAt: JsonField<OffsetDateTime>) = apply {
                 this.acknowledgedAt = acknowledgedAt
             }
 
