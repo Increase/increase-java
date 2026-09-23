@@ -20,7 +20,7 @@ internal class InboundAchTransferListPageResponseTest {
                         .id("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                         .acceptance(
                             InboundAchTransfer.Acceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .acceptedAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
@@ -43,8 +43,8 @@ internal class InboundAchTransferListPageResponseTest {
                                 .build()
                         )
                         .amount(100L)
-                        .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-30T22:30:00Z"))
                         .decline(
                             InboundAchTransfer.Decline.builder()
                                 .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -53,7 +53,7 @@ internal class InboundAchTransferListPageResponseTest {
                                 .build()
                         )
                         .direction(InboundAchTransfer.Direction.CREDIT)
-                        .effectiveDate(LocalDate.parse("2023-04-02"))
+                        .effectiveDate(LocalDate.parse("2020-01-31"))
                         .internationalAddenda(
                             InboundAchTransfer.InternationalAddenda.builder()
                                 .destinationCountryCode("US")
@@ -118,7 +118,7 @@ internal class InboundAchTransferListPageResponseTest {
                                 .updatedRoutingNumber("updated_routing_number")
                                 .build()
                         )
-                        .originatorCompanyDescriptiveDate("230401")
+                        .originatorCompanyDescriptiveDate("200131")
                         .originatorCompanyDiscretionaryData("WEB AUTOPAY")
                         .originatorCompanyEntryDescription("INVOICE 2468")
                         .originatorCompanyId("0987654321")
@@ -128,9 +128,9 @@ internal class InboundAchTransferListPageResponseTest {
                         .receiverName("Ian Crease")
                         .settlement(
                             InboundAchTransfer.Settlement.builder()
-                                .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .settledAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
                                 .settlementSchedule(
-                                    InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                                    InboundAchTransfer.Settlement.SettlementSchedule.FUTURE_DATED
                                 )
                                 .build()
                         )
@@ -159,7 +159,7 @@ internal class InboundAchTransferListPageResponseTest {
                     .id("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                     .acceptance(
                         InboundAchTransfer.Acceptance.builder()
-                            .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .acceptedAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
@@ -182,8 +182,8 @@ internal class InboundAchTransferListPageResponseTest {
                             .build()
                     )
                     .amount(100L)
-                    .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
+                    .createdAt(OffsetDateTime.parse("2020-01-30T22:30:00Z"))
                     .decline(
                         InboundAchTransfer.Decline.builder()
                             .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -192,7 +192,7 @@ internal class InboundAchTransferListPageResponseTest {
                             .build()
                     )
                     .direction(InboundAchTransfer.Direction.CREDIT)
-                    .effectiveDate(LocalDate.parse("2023-04-02"))
+                    .effectiveDate(LocalDate.parse("2020-01-31"))
                     .internationalAddenda(
                         InboundAchTransfer.InternationalAddenda.builder()
                             .destinationCountryCode("US")
@@ -257,7 +257,7 @@ internal class InboundAchTransferListPageResponseTest {
                             .updatedRoutingNumber("updated_routing_number")
                             .build()
                     )
-                    .originatorCompanyDescriptiveDate("230401")
+                    .originatorCompanyDescriptiveDate("200131")
                     .originatorCompanyDiscretionaryData("WEB AUTOPAY")
                     .originatorCompanyEntryDescription("INVOICE 2468")
                     .originatorCompanyId("0987654321")
@@ -267,9 +267,9 @@ internal class InboundAchTransferListPageResponseTest {
                     .receiverName("Ian Crease")
                     .settlement(
                         InboundAchTransfer.Settlement.builder()
-                            .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .settledAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
                             .settlementSchedule(
-                                InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                                InboundAchTransfer.Settlement.SettlementSchedule.FUTURE_DATED
                             )
                             .build()
                     )
@@ -302,7 +302,7 @@ internal class InboundAchTransferListPageResponseTest {
                         .id("inbound_ach_transfer_tdrwqr3fq9gnnq49odev")
                         .acceptance(
                             InboundAchTransfer.Acceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .acceptedAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
@@ -325,8 +325,8 @@ internal class InboundAchTransferListPageResponseTest {
                                 .build()
                         )
                         .amount(100L)
-                        .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .automaticallyResolvesAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-30T22:30:00Z"))
                         .decline(
                             InboundAchTransfer.Decline.builder()
                                 .declinedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -335,7 +335,7 @@ internal class InboundAchTransferListPageResponseTest {
                                 .build()
                         )
                         .direction(InboundAchTransfer.Direction.CREDIT)
-                        .effectiveDate(LocalDate.parse("2023-04-02"))
+                        .effectiveDate(LocalDate.parse("2020-01-31"))
                         .internationalAddenda(
                             InboundAchTransfer.InternationalAddenda.builder()
                                 .destinationCountryCode("US")
@@ -400,7 +400,7 @@ internal class InboundAchTransferListPageResponseTest {
                                 .updatedRoutingNumber("updated_routing_number")
                                 .build()
                         )
-                        .originatorCompanyDescriptiveDate("230401")
+                        .originatorCompanyDescriptiveDate("200131")
                         .originatorCompanyDiscretionaryData("WEB AUTOPAY")
                         .originatorCompanyEntryDescription("INVOICE 2468")
                         .originatorCompanyId("0987654321")
@@ -410,9 +410,9 @@ internal class InboundAchTransferListPageResponseTest {
                         .receiverName("Ian Crease")
                         .settlement(
                             InboundAchTransfer.Settlement.builder()
-                                .settledAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .settledAt(OffsetDateTime.parse("2020-01-31T13:30:00Z"))
                                 .settlementSchedule(
-                                    InboundAchTransfer.Settlement.SettlementSchedule.SAME_DAY
+                                    InboundAchTransfer.Settlement.SettlementSchedule.FUTURE_DATED
                                 )
                                 .build()
                         )
