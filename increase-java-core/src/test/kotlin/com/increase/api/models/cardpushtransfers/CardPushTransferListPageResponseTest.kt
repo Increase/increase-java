@@ -29,8 +29,8 @@ internal class CardPushTransferListPageResponseTest {
                         .accountId("account_in71c4amph0vgo2qllky")
                         .approval(
                             CardPushTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .approvedBy(null)
+                                .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .approvedBy("approved_by")
                                 .build()
                         )
                         .businessApplicationIdentifier(
@@ -132,8 +132,8 @@ internal class CardPushTransferListPageResponseTest {
                     .accountId("account_in71c4amph0vgo2qllky")
                     .approval(
                         CardPushTransfer.Approval.builder()
-                            .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .approvedBy(null)
+                            .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .approvedBy("approved_by")
                             .build()
                     )
                     .businessApplicationIdentifier(
@@ -239,8 +239,8 @@ internal class CardPushTransferListPageResponseTest {
                         .accountId("account_in71c4amph0vgo2qllky")
                         .approval(
                             CardPushTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .approvedBy(null)
+                                .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .approvedBy("approved_by")
                                 .build()
                         )
                         .businessApplicationIdentifier(

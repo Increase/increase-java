@@ -21,14 +21,14 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .accountNumber("987654321")
                         .acknowledgement(
                             RealTimePaymentsTransfer.Acknowledgement.builder()
-                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:10:02Z"))
                                 .build()
                         )
                         .amount(100L)
                         .approval(
                             RealTimePaymentsTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .approvedBy(null)
+                                .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .approvedBy("approved_by")
                                 .build()
                         )
                         .cancellation(
@@ -37,7 +37,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                                 .canceledBy(null)
                                 .build()
                         )
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             RealTimePaymentsTransfer.CreatedBy.builder()
                                 .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
@@ -80,7 +80,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .status(RealTimePaymentsTransfer.Status.COMPLETE)
                         .submission(
                             RealTimePaymentsTransfer.Submission.builder()
-                                .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                                 .build()
                         )
@@ -102,14 +102,14 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                     .accountNumber("987654321")
                     .acknowledgement(
                         RealTimePaymentsTransfer.Acknowledgement.builder()
-                            .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:10:02Z"))
                             .build()
                     )
                     .amount(100L)
                     .approval(
                         RealTimePaymentsTransfer.Approval.builder()
-                            .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .approvedBy(null)
+                            .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .approvedBy("approved_by")
                             .build()
                     )
                     .cancellation(
@@ -118,7 +118,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                             .canceledBy(null)
                             .build()
                     )
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                     .createdBy(
                         RealTimePaymentsTransfer.CreatedBy.builder()
                             .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
@@ -160,7 +160,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                     .status(RealTimePaymentsTransfer.Status.COMPLETE)
                     .submission(
                         RealTimePaymentsTransfer.Submission.builder()
-                            .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                             .transactionIdentification("20220501234567891T1BSLZO01745013025")
                             .build()
                     )
@@ -186,14 +186,14 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .accountNumber("987654321")
                         .acknowledgement(
                             RealTimePaymentsTransfer.Acknowledgement.builder()
-                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:10:02Z"))
                                 .build()
                         )
                         .amount(100L)
                         .approval(
                             RealTimePaymentsTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .approvedBy(null)
+                                .approvedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .approvedBy("approved_by")
                                 .build()
                         )
                         .cancellation(
@@ -202,7 +202,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                                 .canceledBy(null)
                                 .build()
                         )
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             RealTimePaymentsTransfer.CreatedBy.builder()
                                 .category(RealTimePaymentsTransfer.CreatedBy.Category.USER)
@@ -245,7 +245,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                         .status(RealTimePaymentsTransfer.Status.COMPLETE)
                         .submission(
                             RealTimePaymentsTransfer.Submission.builder()
-                                .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                                 .build()
                         )

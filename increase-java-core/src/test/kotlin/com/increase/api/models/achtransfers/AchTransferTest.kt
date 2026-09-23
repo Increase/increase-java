@@ -20,7 +20,7 @@ internal class AchTransferTest {
                 .accountNumber("987654321")
                 .acknowledgement(
                     AchTransfer.Acknowledgement.builder()
-                        .acknowledgedAt("2020-01-31T23:59:59Z")
+                        .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:15:00Z"))
                         .build()
                 )
                 .addenda(
@@ -51,7 +51,7 @@ internal class AchTransferTest {
                 .amount(100L)
                 .approval(
                     AchTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                         .approvedBy(null)
                         .build()
                 )
@@ -66,7 +66,7 @@ internal class AchTransferTest {
                 .companyEntryDescription(null)
                 .companyId("1234987601")
                 .companyName("National Phonograph Company")
-                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                 .createdBy(
                     AchTransfer.CreatedBy.builder()
                         .category(AchTransfer.CreatedBy.Category.USER)
@@ -131,18 +131,18 @@ internal class AchTransferTest {
                 .return_(
                     AchTransfer.Return.builder()
                         .addendaInformation(null)
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-02-03T11:00:00Z"))
                         .rawReturnReasonCode("R01")
                         .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                         .traceNumber("111122223292834")
-                        .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                        .transactionId("transaction_a4fhzo4hjxckcn1b49px")
                         .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                         .build()
                 )
                 .routingNumber("101050001")
                 .settlement(
                     AchTransfer.Settlement.builder()
-                        .settledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .settledAt(OffsetDateTime.parse("2020-01-31T18:00:00Z"))
                         .build()
                 )
                 .standardEntryClassCode(
@@ -153,14 +153,14 @@ internal class AchTransferTest {
                 .submission(
                     AchTransfer.Submission.builder()
                         .administrativeReturnsExpectedBy(
-                            OffsetDateTime.parse("2020-02-05T11:00:00Z")
+                            OffsetDateTime.parse("2020-02-04T11:00:00Z")
                         )
                         .effectiveDate(LocalDate.parse("2020-01-31"))
-                        .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
+                        .expectedFundsSettlementAt(OffsetDateTime.parse("2020-01-31T18:00:00Z"))
                         .expectedSettlementSchedule(
-                            AchTransfer.Submission.ExpectedSettlementSchedule.FUTURE_DATED
+                            AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
                         )
-                        .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                         .traceNumber("058349238292834")
                         .build()
                 )
@@ -173,7 +173,9 @@ internal class AchTransferTest {
         assertThat(achTransfer.accountNumber()).isEqualTo("987654321")
         assertThat(achTransfer.acknowledgement())
             .contains(
-                AchTransfer.Acknowledgement.builder().acknowledgedAt("2020-01-31T23:59:59Z").build()
+                AchTransfer.Acknowledgement.builder()
+                    .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:15:00Z"))
+                    .build()
             )
         assertThat(achTransfer.addenda())
             .contains(
@@ -204,7 +206,7 @@ internal class AchTransferTest {
         assertThat(achTransfer.approval())
             .contains(
                 AchTransfer.Approval.builder()
-                    .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                     .approvedBy(null)
                     .build()
             )
@@ -220,7 +222,7 @@ internal class AchTransferTest {
         assertThat(achTransfer.companyEntryDescription()).isEmpty
         assertThat(achTransfer.companyId()).isEqualTo("1234987601")
         assertThat(achTransfer.companyName()).contains("National Phonograph Company")
-        assertThat(achTransfer.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(achTransfer.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
         assertThat(achTransfer.createdBy())
             .contains(
                 AchTransfer.CreatedBy.builder()
@@ -288,11 +290,11 @@ internal class AchTransferTest {
             .contains(
                 AchTransfer.Return.builder()
                     .addendaInformation(null)
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .createdAt(OffsetDateTime.parse("2020-02-03T11:00:00Z"))
                     .rawReturnReasonCode("R01")
                     .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                     .traceNumber("111122223292834")
-                    .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                    .transactionId("transaction_a4fhzo4hjxckcn1b49px")
                     .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                     .build()
             )
@@ -300,7 +302,7 @@ internal class AchTransferTest {
         assertThat(achTransfer.settlement())
             .contains(
                 AchTransfer.Settlement.builder()
-                    .settledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                    .settledAt(OffsetDateTime.parse("2020-01-31T18:00:00Z"))
                     .build()
             )
         assertThat(achTransfer.standardEntryClassCode())
@@ -310,13 +312,13 @@ internal class AchTransferTest {
         assertThat(achTransfer.submission())
             .contains(
                 AchTransfer.Submission.builder()
-                    .administrativeReturnsExpectedBy(OffsetDateTime.parse("2020-02-05T11:00:00Z"))
+                    .administrativeReturnsExpectedBy(OffsetDateTime.parse("2020-02-04T11:00:00Z"))
                     .effectiveDate(LocalDate.parse("2020-01-31"))
-                    .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
+                    .expectedFundsSettlementAt(OffsetDateTime.parse("2020-01-31T18:00:00Z"))
                     .expectedSettlementSchedule(
-                        AchTransfer.Submission.ExpectedSettlementSchedule.FUTURE_DATED
+                        AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
                     )
-                    .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                     .traceNumber("058349238292834")
                     .build()
             )
@@ -334,7 +336,7 @@ internal class AchTransferTest {
                 .accountNumber("987654321")
                 .acknowledgement(
                     AchTransfer.Acknowledgement.builder()
-                        .acknowledgedAt("2020-01-31T23:59:59Z")
+                        .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:15:00Z"))
                         .build()
                 )
                 .addenda(
@@ -365,7 +367,7 @@ internal class AchTransferTest {
                 .amount(100L)
                 .approval(
                     AchTransfer.Approval.builder()
-                        .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                         .approvedBy(null)
                         .build()
                 )
@@ -380,7 +382,7 @@ internal class AchTransferTest {
                 .companyEntryDescription(null)
                 .companyId("1234987601")
                 .companyName("National Phonograph Company")
-                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                 .createdBy(
                     AchTransfer.CreatedBy.builder()
                         .category(AchTransfer.CreatedBy.Category.USER)
@@ -445,18 +447,18 @@ internal class AchTransferTest {
                 .return_(
                     AchTransfer.Return.builder()
                         .addendaInformation(null)
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-02-03T11:00:00Z"))
                         .rawReturnReasonCode("R01")
                         .returnReasonCode(AchTransfer.Return.ReturnReasonCode.INSUFFICIENT_FUND)
                         .traceNumber("111122223292834")
-                        .transactionId("transaction_uyrp7fld2ium70oa7oi")
+                        .transactionId("transaction_a4fhzo4hjxckcn1b49px")
                         .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
                         .build()
                 )
                 .routingNumber("101050001")
                 .settlement(
                     AchTransfer.Settlement.builder()
-                        .settledAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                        .settledAt(OffsetDateTime.parse("2020-01-31T18:00:00Z"))
                         .build()
                 )
                 .standardEntryClassCode(
@@ -467,14 +469,14 @@ internal class AchTransferTest {
                 .submission(
                     AchTransfer.Submission.builder()
                         .administrativeReturnsExpectedBy(
-                            OffsetDateTime.parse("2020-02-05T11:00:00Z")
+                            OffsetDateTime.parse("2020-02-04T11:00:00Z")
                         )
                         .effectiveDate(LocalDate.parse("2020-01-31"))
-                        .expectedFundsSettlementAt(OffsetDateTime.parse("2020-02-03T13:30:00Z"))
+                        .expectedFundsSettlementAt(OffsetDateTime.parse("2020-01-31T18:00:00Z"))
                         .expectedSettlementSchedule(
-                            AchTransfer.Submission.ExpectedSettlementSchedule.FUTURE_DATED
+                            AchTransfer.Submission.ExpectedSettlementSchedule.SAME_DAY
                         )
-                        .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                         .traceNumber("058349238292834")
                         .build()
                 )

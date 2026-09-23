@@ -59,16 +59,16 @@ internal class TransactionTest {
                         )
                         .achTransferReturn(
                             Transaction.Source.AchTransferReturn.builder()
-                                .addendaInformation(null)
-                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .rawReturnReasonCode("R01")
+                                .addendaInformation("addenda_information")
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .rawReturnReasonCode("raw_return_reason_code")
                                 .returnReasonCode(
                                     Transaction.Source.AchTransferReturn.ReturnReasonCode
                                         .INSUFFICIENT_FUND
                                 )
-                                .traceNumber("111122223292834")
-                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                                .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                                .traceNumber("trace_number")
+                                .transactionId("transaction_id")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .blockchainOfframpTransferSettlement(
@@ -1134,6 +1134,7 @@ internal class TransactionTest {
                                 .endToEndIdentification(null)
                                 .inputMessageAccountabilityData(null)
                                 .instructingAgentRoutingNumber(null)
+                                .instructionForCreditorAgent(null)
                                 .instructionIdentification(null)
                                 .purpose(null)
                                 .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -1177,8 +1178,8 @@ internal class TransactionTest {
                         )
                         .sepaInstantTransferAcceptance(
                             Transaction.Source.SepaInstantTransferAcceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .settlementAmount(4935L)
+                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .settlementAmount(0L)
                                 .build()
                         )
                         .swiftTransferIntention(
@@ -1193,8 +1194,8 @@ internal class TransactionTest {
                         )
                         .ukFasterPaymentSystemTransferAcceptance(
                             Transaction.Source.UkFasterPaymentSystemTransferAcceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .settlementAmount(16765L)
+                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .settlementAmount(0L)
                                 .build()
                         )
                         .wireTransferIntention(
@@ -1256,16 +1257,16 @@ internal class TransactionTest {
                     )
                     .achTransferReturn(
                         Transaction.Source.AchTransferReturn.builder()
-                            .addendaInformation(null)
-                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .rawReturnReasonCode("R01")
+                            .addendaInformation("addenda_information")
+                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .rawReturnReasonCode("raw_return_reason_code")
                             .returnReasonCode(
                                 Transaction.Source.AchTransferReturn.ReturnReasonCode
                                     .INSUFFICIENT_FUND
                             )
-                            .traceNumber("111122223292834")
-                            .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                            .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                            .traceNumber("trace_number")
+                            .transactionId("transaction_id")
+                            .transferId("transfer_id")
                             .build()
                     )
                     .blockchainOfframpTransferSettlement(
@@ -2263,6 +2264,7 @@ internal class TransactionTest {
                             .endToEndIdentification(null)
                             .inputMessageAccountabilityData(null)
                             .instructingAgentRoutingNumber(null)
+                            .instructionForCreditorAgent(null)
                             .instructionIdentification(null)
                             .purpose(null)
                             .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -2306,8 +2308,8 @@ internal class TransactionTest {
                     )
                     .sepaInstantTransferAcceptance(
                         Transaction.Source.SepaInstantTransferAcceptance.builder()
-                            .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .settlementAmount(4935L)
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .settlementAmount(0L)
                             .build()
                     )
                     .swiftTransferIntention(
@@ -2322,8 +2324,8 @@ internal class TransactionTest {
                     )
                     .ukFasterPaymentSystemTransferAcceptance(
                         Transaction.Source.UkFasterPaymentSystemTransferAcceptance.builder()
-                            .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .settlementAmount(16765L)
+                            .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                            .settlementAmount(0L)
                             .build()
                     )
                     .wireTransferIntention(
@@ -2389,16 +2391,16 @@ internal class TransactionTest {
                         )
                         .achTransferReturn(
                             Transaction.Source.AchTransferReturn.builder()
-                                .addendaInformation(null)
-                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .rawReturnReasonCode("R01")
+                                .addendaInformation("addenda_information")
+                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .rawReturnReasonCode("raw_return_reason_code")
                                 .returnReasonCode(
                                     Transaction.Source.AchTransferReturn.ReturnReasonCode
                                         .INSUFFICIENT_FUND
                                 )
-                                .traceNumber("111122223292834")
-                                .transactionId("transaction_uyrp7fld2ium70oa7oi")
-                                .transferId("ach_transfer_uoxatyh3lt5evrsdvo7q")
+                                .traceNumber("trace_number")
+                                .transactionId("transaction_id")
+                                .transferId("transfer_id")
                                 .build()
                         )
                         .blockchainOfframpTransferSettlement(
@@ -3464,6 +3466,7 @@ internal class TransactionTest {
                                 .endToEndIdentification(null)
                                 .inputMessageAccountabilityData(null)
                                 .instructingAgentRoutingNumber(null)
+                                .instructionForCreditorAgent(null)
                                 .instructionIdentification(null)
                                 .purpose(null)
                                 .transferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
@@ -3507,8 +3510,8 @@ internal class TransactionTest {
                         )
                         .sepaInstantTransferAcceptance(
                             Transaction.Source.SepaInstantTransferAcceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .settlementAmount(4935L)
+                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .settlementAmount(0L)
                                 .build()
                         )
                         .swiftTransferIntention(
@@ -3523,8 +3526,8 @@ internal class TransactionTest {
                         )
                         .ukFasterPaymentSystemTransferAcceptance(
                             Transaction.Source.UkFasterPaymentSystemTransferAcceptance.builder()
-                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                                .settlementAmount(16765L)
+                                .acceptedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
+                                .settlementAmount(0L)
                                 .build()
                         )
                         .wireTransferIntention(
