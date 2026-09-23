@@ -21,11 +21,11 @@ internal class FednowTransferListPageResponseTest {
                         .accountNumber("987654321")
                         .acknowledgement(
                             FednowTransfer.Acknowledgement.builder()
-                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:10:02Z"))
                                 .build()
                         )
                         .amount(100L)
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             FednowTransfer.CreatedBy.builder()
                                 .category(FednowTransfer.CreatedBy.Category.USER)
@@ -91,7 +91,7 @@ internal class FednowTransferListPageResponseTest {
                         .submission(
                             FednowTransfer.Submission.builder()
                                 .messageIdentification("20250308723260130GT4LAKENDXBHQCZDWS")
-                                .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                                 .build()
                         )
                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -111,11 +111,11 @@ internal class FednowTransferListPageResponseTest {
                     .accountNumber("987654321")
                     .acknowledgement(
                         FednowTransfer.Acknowledgement.builder()
-                            .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:10:02Z"))
                             .build()
                     )
                     .amount(100L)
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                     .createdBy(
                         FednowTransfer.CreatedBy.builder()
                             .category(FednowTransfer.CreatedBy.Category.USER)
@@ -181,7 +181,7 @@ internal class FednowTransferListPageResponseTest {
                     .submission(
                         FednowTransfer.Submission.builder()
                             .messageIdentification("20250308723260130GT4LAKENDXBHQCZDWS")
-                            .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                             .build()
                     )
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -205,11 +205,11 @@ internal class FednowTransferListPageResponseTest {
                         .accountNumber("987654321")
                         .acknowledgement(
                             FednowTransfer.Acknowledgement.builder()
-                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .acknowledgedAt(OffsetDateTime.parse("2020-01-31T14:10:02Z"))
                                 .build()
                         )
                         .amount(100L)
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             FednowTransfer.CreatedBy.builder()
                                 .category(FednowTransfer.CreatedBy.Category.USER)
@@ -275,7 +275,7 @@ internal class FednowTransferListPageResponseTest {
                         .submission(
                             FednowTransfer.Submission.builder()
                                 .messageIdentification("20250308723260130GT4LAKENDXBHQCZDWS")
-                                .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                                 .build()
                         )
                         .transactionId("transaction_uyrp7fld2ium70oa7oi")

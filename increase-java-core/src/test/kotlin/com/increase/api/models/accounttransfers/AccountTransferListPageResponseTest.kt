@@ -21,7 +21,7 @@ internal class AccountTransferListPageResponseTest {
                         .amount(100L)
                         .approval(
                             AccountTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                                 .approvedBy(null)
                                 .build()
                         )
@@ -31,7 +31,7 @@ internal class AccountTransferListPageResponseTest {
                                 .canceledBy(null)
                                 .build()
                         )
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             AccountTransfer.CreatedBy.builder()
                                 .category(AccountTransfer.CreatedBy.Category.USER)
@@ -74,7 +74,7 @@ internal class AccountTransferListPageResponseTest {
                     .amount(100L)
                     .approval(
                         AccountTransfer.Approval.builder()
-                            .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                             .approvedBy(null)
                             .build()
                     )
@@ -84,7 +84,7 @@ internal class AccountTransferListPageResponseTest {
                             .canceledBy(null)
                             .build()
                     )
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                     .createdBy(
                         AccountTransfer.CreatedBy.builder()
                             .category(AccountTransfer.CreatedBy.Category.USER)
@@ -131,7 +131,7 @@ internal class AccountTransferListPageResponseTest {
                         .amount(100L)
                         .approval(
                             AccountTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                                 .approvedBy(null)
                                 .build()
                         )
@@ -141,7 +141,7 @@ internal class AccountTransferListPageResponseTest {
                                 .canceledBy(null)
                                 .build()
                         )
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             AccountTransfer.CreatedBy.builder()
                                 .category(AccountTransfer.CreatedBy.Category.USER)
