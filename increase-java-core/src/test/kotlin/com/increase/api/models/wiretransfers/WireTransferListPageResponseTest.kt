@@ -23,7 +23,7 @@ internal class WireTransferListPageResponseTest {
                         .amount(100L)
                         .approval(
                             WireTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                                 .approvedBy(null)
                                 .build()
                         )
@@ -33,7 +33,7 @@ internal class WireTransferListPageResponseTest {
                                 .canceledBy(null)
                                 .build()
                         )
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             WireTransfer.CreatedBy.builder()
                                 .category(WireTransfer.CreatedBy.Category.USER)
@@ -133,7 +133,7 @@ internal class WireTransferListPageResponseTest {
                         .submission(
                             WireTransfer.Submission.builder()
                                 .inputMessageAccountabilityData("20220118MMQFMP0P000002")
-                                .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                                 .build()
                         )
                         .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -153,7 +153,7 @@ internal class WireTransferListPageResponseTest {
                     .amount(100L)
                     .approval(
                         WireTransfer.Approval.builder()
-                            .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                             .approvedBy(null)
                             .build()
                     )
@@ -163,7 +163,7 @@ internal class WireTransferListPageResponseTest {
                             .canceledBy(null)
                             .build()
                     )
-                    .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                     .createdBy(
                         WireTransfer.CreatedBy.builder()
                             .category(WireTransfer.CreatedBy.Category.USER)
@@ -263,7 +263,7 @@ internal class WireTransferListPageResponseTest {
                     .submission(
                         WireTransfer.Submission.builder()
                             .inputMessageAccountabilityData("20220118MMQFMP0P000002")
-                            .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                             .build()
                     )
                     .transactionId("transaction_uyrp7fld2ium70oa7oi")
@@ -287,7 +287,7 @@ internal class WireTransferListPageResponseTest {
                         .amount(100L)
                         .approval(
                             WireTransfer.Approval.builder()
-                                .approvedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .approvedAt(OffsetDateTime.parse("2020-01-31T14:05:00Z"))
                                 .approvedBy(null)
                                 .build()
                         )
@@ -297,7 +297,7 @@ internal class WireTransferListPageResponseTest {
                                 .canceledBy(null)
                                 .build()
                         )
-                        .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .createdAt(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
                         .createdBy(
                             WireTransfer.CreatedBy.builder()
                                 .category(WireTransfer.CreatedBy.Category.USER)
@@ -397,7 +397,7 @@ internal class WireTransferListPageResponseTest {
                         .submission(
                             WireTransfer.Submission.builder()
                                 .inputMessageAccountabilityData("20220118MMQFMP0P000002")
-                                .submittedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .submittedAt(OffsetDateTime.parse("2020-01-31T14:10:00Z"))
                                 .build()
                         )
                         .transactionId("transaction_uyrp7fld2ium70oa7oi")

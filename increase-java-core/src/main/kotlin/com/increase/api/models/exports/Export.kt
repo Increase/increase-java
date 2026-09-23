@@ -2939,19 +2939,19 @@ private constructor(
         companion object {
 
             /**
-             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
-             * time range and Account.
-             */
-            @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
-
-            /**
              * Export a BAI2 file of transactions and balances for a given date and optional
              * Account.
              */
             @JvmField val ACCOUNT_STATEMENT_BAI2 = of("account_statement_bai2")
 
-            /** Export a CSV of all transactions for a given time range. */
-            @JvmField val TRANSACTION_CSV = of("transaction_csv")
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
+            @JvmField val ACCOUNT_STATEMENT_OFX = of("account_statement_ofx")
+
+            /** A PDF of an account verification letter. */
+            @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
 
             /**
              * Export a CSV of account balances for the dates in a given range. (deprecated, use
@@ -2962,11 +2962,11 @@ private constructor(
             /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             @JvmField val BOOKKEEPING_ACCOUNT_BALANCE_CSV = of("bookkeeping_account_balance_csv")
 
-            /** Export a CSV of entities with a given status. */
-            @JvmField val ENTITY_CSV = of("entity_csv")
-
-            /** Export a CSV of vendors added to the third-party risk management dashboard. */
-            @JvmField val VENDOR_CSV = of("vendor_csv")
+            /**
+             * Export a CSV of daily account balances with starting and ending balances for a given
+             * date range.
+             */
+            @JvmField val DAILY_ACCOUNT_BALANCE_CSV = of("daily_account_balance_csv")
 
             /**
              * Certain dashboard tables are available as CSV exports. This export cannot be created
@@ -2974,17 +2974,8 @@ private constructor(
              */
             @JvmField val DASHBOARD_TABLE_CSV = of("dashboard_table_csv")
 
-            /** A PDF of an account verification letter. */
-            @JvmField val ACCOUNT_VERIFICATION_LETTER = of("account_verification_letter")
-
-            /** A PDF of funding instructions. */
-            @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
-
-            /** A PDF of an Internal Revenue Service Form 1099-INT. */
-            @JvmField val FORM_1099_INT = of("form_1099_int")
-
-            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
-            @JvmField val FORM_1099_MISC = of("form_1099_misc")
+            /** Export a CSV of entities with a given status. */
+            @JvmField val ENTITY_CSV = of("entity_csv")
 
             /**
              * Export a CSV of fees. The time range must not include any fees that are part of an
@@ -2992,14 +2983,23 @@ private constructor(
              */
             @JvmField val FEE_CSV = of("fee_csv")
 
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            @JvmField val FORM_1099_INT = of("form_1099_int")
+
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            @JvmField val FORM_1099_MISC = of("form_1099_misc")
+
+            /** A PDF of funding instructions. */
+            @JvmField val FUNDING_INSTRUCTIONS = of("funding_instructions")
+
+            /** Export a CSV of all transactions for a given time range. */
+            @JvmField val TRANSACTION_CSV = of("transaction_csv")
+
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
+            @JvmField val VENDOR_CSV = of("vendor_csv")
+
             /** A PDF of a voided check. */
             @JvmField val VOIDED_CHECK = of("voided_check")
-
-            /**
-             * Export a CSV of daily account balances with starting and ending balances for a given
-             * date range.
-             */
-            @JvmField val DAILY_ACCOUNT_BALANCE_CSV = of("daily_account_balance_csv")
 
             @JvmStatic fun of(value: String) = Category(JsonField.of(value))
         }
@@ -3007,17 +3007,17 @@ private constructor(
         /** An enum containing [Category]'s known values. */
         enum class Known {
             /**
-             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
-             * time range and Account.
-             */
-            ACCOUNT_STATEMENT_OFX,
-            /**
              * Export a BAI2 file of transactions and balances for a given date and optional
              * Account.
              */
             ACCOUNT_STATEMENT_BAI2,
-            /** Export a CSV of all transactions for a given time range. */
-            TRANSACTION_CSV,
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
+            ACCOUNT_STATEMENT_OFX,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
             /**
              * Export a CSV of account balances for the dates in a given range. (deprecated, use
              * `daily_account_balance_csv` instead)
@@ -3025,35 +3025,35 @@ private constructor(
             BALANCE_CSV,
             /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
-            /** Export a CSV of entities with a given status. */
-            ENTITY_CSV,
-            /** Export a CSV of vendors added to the third-party risk management dashboard. */
-            VENDOR_CSV,
-            /**
-             * Certain dashboard tables are available as CSV exports. This export cannot be created
-             * via the API.
-             */
-            DASHBOARD_TABLE_CSV,
-            /** A PDF of an account verification letter. */
-            ACCOUNT_VERIFICATION_LETTER,
-            /** A PDF of funding instructions. */
-            FUNDING_INSTRUCTIONS,
-            /** A PDF of an Internal Revenue Service Form 1099-INT. */
-            FORM_1099_INT,
-            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
-            FORM_1099_MISC,
-            /**
-             * Export a CSV of fees. The time range must not include any fees that are part of an
-             * open fee statement.
-             */
-            FEE_CSV,
-            /** A PDF of a voided check. */
-            VOIDED_CHECK,
             /**
              * Export a CSV of daily account balances with starting and ending balances for a given
              * date range.
              */
             DAILY_ACCOUNT_BALANCE_CSV,
+            /**
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
+             */
+            DASHBOARD_TABLE_CSV,
+            /** Export a CSV of entities with a given status. */
+            ENTITY_CSV,
+            /**
+             * Export a CSV of fees. The time range must not include any fees that are part of an
+             * open fee statement.
+             */
+            FEE_CSV,
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            FORM_1099_INT,
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
+            /** Export a CSV of all transactions for a given time range. */
+            TRANSACTION_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
+            VENDOR_CSV,
+            /** A PDF of a voided check. */
+            VOIDED_CHECK,
         }
 
         /**
@@ -3067,17 +3067,17 @@ private constructor(
          */
         enum class Value {
             /**
-             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
-             * time range and Account.
-             */
-            ACCOUNT_STATEMENT_OFX,
-            /**
              * Export a BAI2 file of transactions and balances for a given date and optional
              * Account.
              */
             ACCOUNT_STATEMENT_BAI2,
-            /** Export a CSV of all transactions for a given time range. */
-            TRANSACTION_CSV,
+            /**
+             * Export an Open Financial Exchange (OFX) file of transactions and balances for a given
+             * time range and Account.
+             */
+            ACCOUNT_STATEMENT_OFX,
+            /** A PDF of an account verification letter. */
+            ACCOUNT_VERIFICATION_LETTER,
             /**
              * Export a CSV of account balances for the dates in a given range. (deprecated, use
              * `daily_account_balance_csv` instead)
@@ -3085,35 +3085,35 @@ private constructor(
             BALANCE_CSV,
             /** Export a CSV of bookkeeping account balances for the dates in a given range. */
             BOOKKEEPING_ACCOUNT_BALANCE_CSV,
-            /** Export a CSV of entities with a given status. */
-            ENTITY_CSV,
-            /** Export a CSV of vendors added to the third-party risk management dashboard. */
-            VENDOR_CSV,
-            /**
-             * Certain dashboard tables are available as CSV exports. This export cannot be created
-             * via the API.
-             */
-            DASHBOARD_TABLE_CSV,
-            /** A PDF of an account verification letter. */
-            ACCOUNT_VERIFICATION_LETTER,
-            /** A PDF of funding instructions. */
-            FUNDING_INSTRUCTIONS,
-            /** A PDF of an Internal Revenue Service Form 1099-INT. */
-            FORM_1099_INT,
-            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
-            FORM_1099_MISC,
-            /**
-             * Export a CSV of fees. The time range must not include any fees that are part of an
-             * open fee statement.
-             */
-            FEE_CSV,
-            /** A PDF of a voided check. */
-            VOIDED_CHECK,
             /**
              * Export a CSV of daily account balances with starting and ending balances for a given
              * date range.
              */
             DAILY_ACCOUNT_BALANCE_CSV,
+            /**
+             * Certain dashboard tables are available as CSV exports. This export cannot be created
+             * via the API.
+             */
+            DASHBOARD_TABLE_CSV,
+            /** Export a CSV of entities with a given status. */
+            ENTITY_CSV,
+            /**
+             * Export a CSV of fees. The time range must not include any fees that are part of an
+             * open fee statement.
+             */
+            FEE_CSV,
+            /** A PDF of an Internal Revenue Service Form 1099-INT. */
+            FORM_1099_INT,
+            /** A PDF of an Internal Revenue Service Form 1099-MISC. */
+            FORM_1099_MISC,
+            /** A PDF of funding instructions. */
+            FUNDING_INSTRUCTIONS,
+            /** Export a CSV of all transactions for a given time range. */
+            TRANSACTION_CSV,
+            /** Export a CSV of vendors added to the third-party risk management dashboard. */
+            VENDOR_CSV,
+            /** A PDF of a voided check. */
+            VOIDED_CHECK,
             /** An enum member indicating that [Category] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -3127,21 +3127,21 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
-                ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
                 ACCOUNT_STATEMENT_BAI2 -> Value.ACCOUNT_STATEMENT_BAI2
-                TRANSACTION_CSV -> Value.TRANSACTION_CSV
+                ACCOUNT_STATEMENT_OFX -> Value.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
                 BALANCE_CSV -> Value.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Value.BOOKKEEPING_ACCOUNT_BALANCE_CSV
-                ENTITY_CSV -> Value.ENTITY_CSV
-                VENDOR_CSV -> Value.VENDOR_CSV
+                DAILY_ACCOUNT_BALANCE_CSV -> Value.DAILY_ACCOUNT_BALANCE_CSV
                 DASHBOARD_TABLE_CSV -> Value.DASHBOARD_TABLE_CSV
-                ACCOUNT_VERIFICATION_LETTER -> Value.ACCOUNT_VERIFICATION_LETTER
-                FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
+                ENTITY_CSV -> Value.ENTITY_CSV
+                FEE_CSV -> Value.FEE_CSV
                 FORM_1099_INT -> Value.FORM_1099_INT
                 FORM_1099_MISC -> Value.FORM_1099_MISC
-                FEE_CSV -> Value.FEE_CSV
+                FUNDING_INSTRUCTIONS -> Value.FUNDING_INSTRUCTIONS
+                TRANSACTION_CSV -> Value.TRANSACTION_CSV
+                VENDOR_CSV -> Value.VENDOR_CSV
                 VOIDED_CHECK -> Value.VOIDED_CHECK
-                DAILY_ACCOUNT_BALANCE_CSV -> Value.DAILY_ACCOUNT_BALANCE_CSV
                 else -> Value._UNKNOWN
             }
 
@@ -3156,21 +3156,21 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
-                ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
                 ACCOUNT_STATEMENT_BAI2 -> Known.ACCOUNT_STATEMENT_BAI2
-                TRANSACTION_CSV -> Known.TRANSACTION_CSV
+                ACCOUNT_STATEMENT_OFX -> Known.ACCOUNT_STATEMENT_OFX
+                ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
                 BALANCE_CSV -> Known.BALANCE_CSV
                 BOOKKEEPING_ACCOUNT_BALANCE_CSV -> Known.BOOKKEEPING_ACCOUNT_BALANCE_CSV
-                ENTITY_CSV -> Known.ENTITY_CSV
-                VENDOR_CSV -> Known.VENDOR_CSV
+                DAILY_ACCOUNT_BALANCE_CSV -> Known.DAILY_ACCOUNT_BALANCE_CSV
                 DASHBOARD_TABLE_CSV -> Known.DASHBOARD_TABLE_CSV
-                ACCOUNT_VERIFICATION_LETTER -> Known.ACCOUNT_VERIFICATION_LETTER
-                FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
+                ENTITY_CSV -> Known.ENTITY_CSV
+                FEE_CSV -> Known.FEE_CSV
                 FORM_1099_INT -> Known.FORM_1099_INT
                 FORM_1099_MISC -> Known.FORM_1099_MISC
-                FEE_CSV -> Known.FEE_CSV
+                FUNDING_INSTRUCTIONS -> Known.FUNDING_INSTRUCTIONS
+                TRANSACTION_CSV -> Known.TRANSACTION_CSV
+                VENDOR_CSV -> Known.VENDOR_CSV
                 VOIDED_CHECK -> Known.VOIDED_CHECK
-                DAILY_ACCOUNT_BALANCE_CSV -> Known.DAILY_ACCOUNT_BALANCE_CSV
                 else -> throw IncreaseInvalidDataException("Unknown Category: $value")
             }
 
