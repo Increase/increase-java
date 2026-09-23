@@ -3312,7 +3312,10 @@ private constructor(
                             /** A social security number. */
                             @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             @JvmField
                             val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
@@ -3337,7 +3340,10 @@ private constructor(
                         enum class Known {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -3363,7 +3369,10 @@ private constructor(
                         enum class Value {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -6621,7 +6630,10 @@ private constructor(
                         /** A social security number. */
                         @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         @JvmField
                         val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
@@ -6646,7 +6658,10 @@ private constructor(
                     enum class Known {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -6670,7 +6685,10 @@ private constructor(
                     enum class Value {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -7747,7 +7765,10 @@ private constructor(
                     /** A social security number. */
                     @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                    /** The last four digits of a social security number. */
+                    /**
+                     * The last four digits of a social security number. Not all programs can use
+                     * this method.
+                     */
                     @JvmField val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
                     /** An individual taxpayer identification number (ITIN). */
@@ -7771,7 +7792,10 @@ private constructor(
                 enum class Known {
                     /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
-                    /** The last four digits of a social security number. */
+                    /**
+                     * The last four digits of a social security number. Not all programs can use
+                     * this method.
+                     */
                     SOCIAL_SECURITY_NUMBER_LAST4,
                     /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -7795,7 +7819,10 @@ private constructor(
                 enum class Value {
                     /** A social security number. */
                     SOCIAL_SECURITY_NUMBER,
-                    /** The last four digits of a social security number. */
+                    /**
+                     * The last four digits of a social security number. Not all programs can use
+                     * this method.
+                     */
                     SOCIAL_SECURITY_NUMBER_LAST4,
                     /** An individual taxpayer identification number (ITIN). */
                     INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -10072,7 +10099,10 @@ private constructor(
                         /** A social security number. */
                         @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         @JvmField
                         val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
@@ -10097,7 +10127,10 @@ private constructor(
                     enum class Known {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -10121,7 +10154,10 @@ private constructor(
                     enum class Value {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -13232,7 +13268,10 @@ private constructor(
                         /** A social security number. */
                         @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         @JvmField
                         val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
@@ -13257,7 +13296,10 @@ private constructor(
                     enum class Known {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -13281,7 +13323,10 @@ private constructor(
                     enum class Value {
                         /** A social security number. */
                         SOCIAL_SECURITY_NUMBER,
-                        /** The last four digits of a social security number. */
+                        /**
+                         * The last four digits of a social security number. Not all programs can
+                         * use this method.
+                         */
                         SOCIAL_SECURITY_NUMBER_LAST4,
                         /** An individual taxpayer identification number (ITIN). */
                         INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -14602,7 +14647,10 @@ private constructor(
                             /** A social security number. */
                             @JvmField val SOCIAL_SECURITY_NUMBER = of("social_security_number")
 
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             @JvmField
                             val SOCIAL_SECURITY_NUMBER_LAST4 = of("social_security_number_last4")
 
@@ -14627,7 +14675,10 @@ private constructor(
                         enum class Known {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,
@@ -14653,7 +14704,10 @@ private constructor(
                         enum class Value {
                             /** A social security number. */
                             SOCIAL_SECURITY_NUMBER,
-                            /** The last four digits of a social security number. */
+                            /**
+                             * The last four digits of a social security number. Not all programs
+                             * can use this method.
+                             */
                             SOCIAL_SECURITY_NUMBER_LAST4,
                             /** An individual taxpayer identification number (ITIN). */
                             INDIVIDUAL_TAXPAYER_IDENTIFICATION_NUMBER,

@@ -12,7 +12,7 @@ internal class ExportListParamsTest {
     @Test
     fun create() {
         ExportListParams.builder()
-            .category(ExportListParams.Category.ACCOUNT_STATEMENT_OFX)
+            .category(ExportListParams.Category.ACCOUNT_STATEMENT_BAI2)
             .createdAt(
                 ExportListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -36,7 +36,7 @@ internal class ExportListParamsTest {
     fun queryParams() {
         val params =
             ExportListParams.builder()
-                .category(ExportListParams.Category.ACCOUNT_STATEMENT_OFX)
+                .category(ExportListParams.Category.ACCOUNT_STATEMENT_BAI2)
                 .createdAt(
                     ExportListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -64,7 +64,7 @@ internal class ExportListParamsTest {
         assertThat(queryParams)
             .isEqualTo(
                 QueryParams.builder()
-                    .put("category", "account_statement_ofx")
+                    .put("category", "account_statement_bai2")
                     .put("created_at.after", "2019-12-27T18:11:19.117Z")
                     .put("created_at.before", "2019-12-27T18:11:19.117Z")
                     .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
