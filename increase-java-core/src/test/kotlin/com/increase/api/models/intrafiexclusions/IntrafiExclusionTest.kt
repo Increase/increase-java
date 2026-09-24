@@ -18,11 +18,11 @@ internal class IntrafiExclusionTest {
                 .bankName("Example Bank")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
-                .excludedAt(OffsetDateTime.parse("2020-02-01T23:59:59+00:00"))
+                .excludedAt(OffsetDateTime.parse("2020-02-01T23:59:59Z"))
                 .fdicCertificateNumber("314159")
                 .idempotencyKey(null)
                 .status(IntrafiExclusion.Status.COMPLETED)
-                .submittedAt(OffsetDateTime.parse("2020-02-01T00:59:59+00:00"))
+                .submittedAt(OffsetDateTime.parse("2020-02-01T00:59:59Z"))
                 .type(IntrafiExclusion.Type.INTRAFI_EXCLUSION)
                 .build()
 
@@ -32,12 +32,12 @@ internal class IntrafiExclusionTest {
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(intrafiExclusion.entityId()).isEqualTo("entity_n8y8tnk2p9339ti393yi")
         assertThat(intrafiExclusion.excludedAt())
-            .contains(OffsetDateTime.parse("2020-02-01T23:59:59+00:00"))
+            .contains(OffsetDateTime.parse("2020-02-01T23:59:59Z"))
         assertThat(intrafiExclusion.fdicCertificateNumber()).contains("314159")
         assertThat(intrafiExclusion.idempotencyKey()).isEmpty
         assertThat(intrafiExclusion.status()).isEqualTo(IntrafiExclusion.Status.COMPLETED)
         assertThat(intrafiExclusion.submittedAt())
-            .contains(OffsetDateTime.parse("2020-02-01T00:59:59+00:00"))
+            .contains(OffsetDateTime.parse("2020-02-01T00:59:59Z"))
         assertThat(intrafiExclusion.type()).isEqualTo(IntrafiExclusion.Type.INTRAFI_EXCLUSION)
     }
 
@@ -50,11 +50,11 @@ internal class IntrafiExclusionTest {
                 .bankName("Example Bank")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .entityId("entity_n8y8tnk2p9339ti393yi")
-                .excludedAt(OffsetDateTime.parse("2020-02-01T23:59:59+00:00"))
+                .excludedAt(OffsetDateTime.parse("2020-02-01T23:59:59Z"))
                 .fdicCertificateNumber("314159")
                 .idempotencyKey(null)
                 .status(IntrafiExclusion.Status.COMPLETED)
-                .submittedAt(OffsetDateTime.parse("2020-02-01T00:59:59+00:00"))
+                .submittedAt(OffsetDateTime.parse("2020-02-01T00:59:59Z"))
                 .type(IntrafiExclusion.Type.INTRAFI_EXCLUSION)
                 .build()
 
