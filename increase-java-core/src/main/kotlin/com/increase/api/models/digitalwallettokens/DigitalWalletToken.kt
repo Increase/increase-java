@@ -1098,6 +1098,15 @@ private constructor(
                 /** The tokenization attempt was declined by the token requestor. */
                 @JvmField val DECLINED_BY_TOKEN_REQUESTOR = of("declined_by_token_requestor")
 
+                /** The group was locked. */
+                @JvmField val GROUP_LOCKED = of("group_locked")
+
+                /** The account has been closed. */
+                @JvmField val ACCOUNT_CLOSED = of("account_closed")
+
+                /** The account's entity was not active. */
+                @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -1118,6 +1127,12 @@ private constructor(
                 INCORRECT_CARD_VERIFICATION_CODE,
                 /** The tokenization attempt was declined by the token requestor. */
                 DECLINED_BY_TOKEN_REQUESTOR,
+                /** The group was locked. */
+                GROUP_LOCKED,
+                /** The account has been closed. */
+                ACCOUNT_CLOSED,
+                /** The account's entity was not active. */
+                ENTITY_NOT_ACTIVE,
             }
 
             /**
@@ -1145,6 +1160,12 @@ private constructor(
                 INCORRECT_CARD_VERIFICATION_CODE,
                 /** The tokenization attempt was declined by the token requestor. */
                 DECLINED_BY_TOKEN_REQUESTOR,
+                /** The group was locked. */
+                GROUP_LOCKED,
+                /** The account has been closed. */
+                ACCOUNT_CLOSED,
+                /** The account's entity was not active. */
+                ENTITY_NOT_ACTIVE,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -1166,6 +1187,9 @@ private constructor(
                     WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
                     INCORRECT_CARD_VERIFICATION_CODE -> Value.INCORRECT_CARD_VERIFICATION_CODE
                     DECLINED_BY_TOKEN_REQUESTOR -> Value.DECLINED_BY_TOKEN_REQUESTOR
+                    GROUP_LOCKED -> Value.GROUP_LOCKED
+                    ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
+                    ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
                     else -> Value._UNKNOWN
                 }
 
@@ -1186,6 +1210,9 @@ private constructor(
                     WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
                     INCORRECT_CARD_VERIFICATION_CODE -> Known.INCORRECT_CARD_VERIFICATION_CODE
                     DECLINED_BY_TOKEN_REQUESTOR -> Known.DECLINED_BY_TOKEN_REQUESTOR
+                    GROUP_LOCKED -> Known.GROUP_LOCKED
+                    ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
+                    ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
@@ -2032,6 +2059,12 @@ private constructor(
             /** The digital wallet token was declined during provisioning. */
             @JvmField val DECLINED = of("declined")
 
+            /**
+             * The digital wallet token is transitioning to a new status and is awaiting
+             * confirmation from the card network.
+             */
+            @JvmField val PENDING_TRANSITIONING = of("pending_transitioning")
+
             @JvmStatic fun of(value: String) = Status(JsonField.of(value))
         }
 
@@ -2050,6 +2083,11 @@ private constructor(
             DEACTIVATED,
             /** The digital wallet token was declined during provisioning. */
             DECLINED,
+            /**
+             * The digital wallet token is transitioning to a new status and is awaiting
+             * confirmation from the card network.
+             */
+            PENDING_TRANSITIONING,
         }
 
         /**
@@ -2075,6 +2113,11 @@ private constructor(
             DEACTIVATED,
             /** The digital wallet token was declined during provisioning. */
             DECLINED,
+            /**
+             * The digital wallet token is transitioning to a new status and is awaiting
+             * confirmation from the card network.
+             */
+            PENDING_TRANSITIONING,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
             _UNKNOWN,
         }
@@ -2093,6 +2136,7 @@ private constructor(
                 SUSPENDED -> Value.SUSPENDED
                 DEACTIVATED -> Value.DEACTIVATED
                 DECLINED -> Value.DECLINED
+                PENDING_TRANSITIONING -> Value.PENDING_TRANSITIONING
                 else -> Value._UNKNOWN
             }
 
@@ -2112,6 +2156,7 @@ private constructor(
                 SUSPENDED -> Known.SUSPENDED
                 DEACTIVATED -> Known.DEACTIVATED
                 DECLINED -> Known.DECLINED
+                PENDING_TRANSITIONING -> Known.PENDING_TRANSITIONING
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
 
@@ -2708,6 +2753,12 @@ private constructor(
                 /** The digital wallet token was declined during provisioning. */
                 @JvmField val DECLINED = of("declined")
 
+                /**
+                 * The digital wallet token is transitioning to a new status and is awaiting
+                 * confirmation from the card network.
+                 */
+                @JvmField val PENDING_TRANSITIONING = of("pending_transitioning")
+
                 @JvmStatic fun of(value: String) = Status(JsonField.of(value))
             }
 
@@ -2726,6 +2777,11 @@ private constructor(
                 DEACTIVATED,
                 /** The digital wallet token was declined during provisioning. */
                 DECLINED,
+                /**
+                 * The digital wallet token is transitioning to a new status and is awaiting
+                 * confirmation from the card network.
+                 */
+                PENDING_TRANSITIONING,
             }
 
             /**
@@ -2752,6 +2808,11 @@ private constructor(
                 /** The digital wallet token was declined during provisioning. */
                 DECLINED,
                 /**
+                 * The digital wallet token is transitioning to a new status and is awaiting
+                 * confirmation from the card network.
+                 */
+                PENDING_TRANSITIONING,
+                /**
                  * An enum member indicating that [Status] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
@@ -2771,6 +2832,7 @@ private constructor(
                     SUSPENDED -> Value.SUSPENDED
                     DEACTIVATED -> Value.DEACTIVATED
                     DECLINED -> Value.DECLINED
+                    PENDING_TRANSITIONING -> Value.PENDING_TRANSITIONING
                     else -> Value._UNKNOWN
                 }
 
@@ -2790,6 +2852,7 @@ private constructor(
                     SUSPENDED -> Known.SUSPENDED
                     DEACTIVATED -> Known.DEACTIVATED
                     DECLINED -> Known.DECLINED
+                    PENDING_TRANSITIONING -> Known.PENDING_TRANSITIONING
                     else -> throw IncreaseInvalidDataException("Unknown Status: $value")
                 }
 

@@ -351,6 +351,12 @@ internal class EntityListPageResponseTest {
                                                 .beneficialOwnerId("beneficial_owner_id")
                                                 .build()
                                         )
+                                        .beneficialOwnerTaxIdentifier(
+                                            Entity.Validation.Issue.BeneficialOwnerTaxIdentifier
+                                                .builder()
+                                                .beneficialOwnerId("beneficial_owner_id")
+                                                .build()
+                                        )
                                         .category(
                                             Entity.Validation.Issue.Category.ENTITY_TAX_IDENTIFIER
                                         )
@@ -707,6 +713,12 @@ internal class EntityListPageResponseTest {
                                     )
                                     .beneficialOwnerIdentity(
                                         Entity.Validation.Issue.BeneficialOwnerIdentity.builder()
+                                            .beneficialOwnerId("beneficial_owner_id")
+                                            .build()
+                                    )
+                                    .beneficialOwnerTaxIdentifier(
+                                        Entity.Validation.Issue.BeneficialOwnerTaxIdentifier
+                                            .builder()
                                             .beneficialOwnerId("beneficial_owner_id")
                                             .build()
                                     )
@@ -1074,6 +1086,12 @@ internal class EntityListPageResponseTest {
                                         )
                                         .beneficialOwnerIdentity(
                                             Entity.Validation.Issue.BeneficialOwnerIdentity
+                                                .builder()
+                                                .beneficialOwnerId("beneficial_owner_id")
+                                                .build()
+                                        )
+                                        .beneficialOwnerTaxIdentifier(
+                                            Entity.Validation.Issue.BeneficialOwnerTaxIdentifier
                                                 .builder()
                                                 .beneficialOwnerId("beneficial_owner_id")
                                                 .build()

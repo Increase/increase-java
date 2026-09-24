@@ -338,6 +338,11 @@ internal class EntityTest {
                                         .beneficialOwnerId("beneficial_owner_id")
                                         .build()
                                 )
+                                .beneficialOwnerTaxIdentifier(
+                                    Entity.Validation.Issue.BeneficialOwnerTaxIdentifier.builder()
+                                        .beneficialOwnerId("beneficial_owner_id")
+                                        .build()
+                                )
                                 .category(Entity.Validation.Issue.Category.ENTITY_TAX_IDENTIFIER)
                                 .entityAddress(
                                     Entity.Validation.Issue.EntityAddress.builder()
@@ -690,6 +695,11 @@ internal class EntityTest {
                                     .beneficialOwnerId("beneficial_owner_id")
                                     .build()
                             )
+                            .beneficialOwnerTaxIdentifier(
+                                Entity.Validation.Issue.BeneficialOwnerTaxIdentifier.builder()
+                                    .beneficialOwnerId("beneficial_owner_id")
+                                    .build()
+                            )
                             .category(Entity.Validation.Issue.Category.ENTITY_TAX_IDENTIFIER)
                             .entityAddress(
                                 Entity.Validation.Issue.EntityAddress.builder()
@@ -1035,6 +1045,11 @@ internal class EntityTest {
                                 )
                                 .beneficialOwnerIdentity(
                                     Entity.Validation.Issue.BeneficialOwnerIdentity.builder()
+                                        .beneficialOwnerId("beneficial_owner_id")
+                                        .build()
+                                )
+                                .beneficialOwnerTaxIdentifier(
+                                    Entity.Validation.Issue.BeneficialOwnerTaxIdentifier.builder()
                                         .beneficialOwnerId("beneficial_owner_id")
                                         .build()
                                 )
