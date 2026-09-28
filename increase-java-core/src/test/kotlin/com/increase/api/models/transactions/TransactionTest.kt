@@ -363,6 +363,7 @@ internal class TransactionTest {
                                 .merchantName("AMAZON.COM")
                                 .merchantPostalCode("10045")
                                 .merchantState("NY")
+                                .network(Transaction.Source.CardRefund.Network.VISA)
                                 .networkIdentifiers(
                                     Transaction.Source.CardRefund.NetworkIdentifiers.builder()
                                         .acquirerBusinessId("69650702")
@@ -1546,6 +1547,7 @@ internal class TransactionTest {
                             .merchantName("AMAZON.COM")
                             .merchantPostalCode("10045")
                             .merchantState("NY")
+                            .network(Transaction.Source.CardRefund.Network.VISA)
                             .networkIdentifiers(
                                 Transaction.Source.CardRefund.NetworkIdentifiers.builder()
                                     .acquirerBusinessId("69650702")
@@ -2695,6 +2697,7 @@ internal class TransactionTest {
                                 .merchantName("AMAZON.COM")
                                 .merchantPostalCode("10045")
                                 .merchantState("NY")
+                                .network(Transaction.Source.CardRefund.Network.VISA)
                                 .networkIdentifiers(
                                     Transaction.Source.CardRefund.NetworkIdentifiers.builder()
                                         .acquirerBusinessId("69650702")
