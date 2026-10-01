@@ -383,6 +383,20 @@ internal class CardServiceTest {
     }
 
     @Test
+    fun createDetailsToken() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardService = client.cards()
+
+        val cardDetailsToken = cardService.createDetailsToken("card_oubs0hwk5rn6knuecxg2")
+
+        cardDetailsToken.validate()
+    }
+
+    @Test
     fun details() {
         val client =
             IncreaseOkHttpClient.builder()

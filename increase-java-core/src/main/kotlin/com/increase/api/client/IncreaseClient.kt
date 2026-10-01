@@ -21,6 +21,7 @@ import com.increase.api.services.blocking.CheckDepositService
 import com.increase.api.services.blocking.CheckTransferService
 import com.increase.api.services.blocking.DeclinedTransactionService
 import com.increase.api.services.blocking.DigitalCardProfileService
+import com.increase.api.services.blocking.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.DigitalWalletTokenService
 import com.increase.api.services.blocking.EntityOnboardingSessionService
 import com.increase.api.services.blocking.EntityService
@@ -36,6 +37,7 @@ import com.increase.api.services.blocking.InboundAchTransferService
 import com.increase.api.services.blocking.InboundCheckDepositService
 import com.increase.api.services.blocking.InboundFednowTransferService
 import com.increase.api.services.blocking.InboundMailItemService
+import com.increase.api.services.blocking.InboundRealTimePaymentsRequestsForPaymentService
 import com.increase.api.services.blocking.InboundRealTimePaymentsTransferService
 import com.increase.api.services.blocking.InboundWireDrawdownRequestService
 import com.increase.api.services.blocking.InboundWireTransferService
@@ -50,8 +52,10 @@ import com.increase.api.services.blocking.OAuthTokenService
 import com.increase.api.services.blocking.PendingTransactionService
 import com.increase.api.services.blocking.PhysicalCardProfileService
 import com.increase.api.services.blocking.PhysicalCardService
+import com.increase.api.services.blocking.PhysicalCheckBatchService
 import com.increase.api.services.blocking.ProgramService
 import com.increase.api.services.blocking.RealTimeDecisionService
+import com.increase.api.services.blocking.RealTimePaymentsRequestsForPaymentService
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import com.increase.api.services.blocking.RoutingNumberService
 import com.increase.api.services.blocking.SimulationService
@@ -120,6 +124,8 @@ interface IncreaseClient {
 
     fun digitalWalletTokens(): DigitalWalletTokenService
 
+    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService
+
     fun transactions(): TransactionService
 
     fun pendingTransactions(): PendingTransactionService
@@ -147,6 +153,11 @@ interface IncreaseClient {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferService
 
     fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferService
+
+    fun realTimePaymentsRequestsForPayment(): RealTimePaymentsRequestsForPaymentService
+
+    fun inboundRealTimePaymentsRequestsForPayment():
+        InboundRealTimePaymentsRequestsForPaymentService
 
     fun fednowTransfers(): FednowTransferService
 
@@ -210,6 +221,8 @@ interface IncreaseClient {
 
     fun cardValidations(): CardValidationService
 
+    fun physicalCheckBatches(): PhysicalCheckBatchService
+
     fun simulations(): SimulationService
 
     /**
@@ -257,6 +270,8 @@ interface IncreaseClient {
 
         fun digitalWalletTokens(): DigitalWalletTokenService.WithRawResponse
 
+        fun digitalWalletTokenRequests(): DigitalWalletTokenRequestService.WithRawResponse
+
         fun transactions(): TransactionService.WithRawResponse
 
         fun pendingTransactions(): PendingTransactionService.WithRawResponse
@@ -285,6 +300,12 @@ interface IncreaseClient {
 
         fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferService.WithRawResponse
+
+        fun realTimePaymentsRequestsForPayment():
+            RealTimePaymentsRequestsForPaymentService.WithRawResponse
+
+        fun inboundRealTimePaymentsRequestsForPayment():
+            InboundRealTimePaymentsRequestsForPaymentService.WithRawResponse
 
         fun fednowTransfers(): FednowTransferService.WithRawResponse
 
@@ -347,6 +368,8 @@ interface IncreaseClient {
         fun cardPushTransfers(): CardPushTransferService.WithRawResponse
 
         fun cardValidations(): CardValidationService.WithRawResponse
+
+        fun physicalCheckBatches(): PhysicalCheckBatchService.WithRawResponse
 
         fun simulations(): SimulationService.WithRawResponse
     }

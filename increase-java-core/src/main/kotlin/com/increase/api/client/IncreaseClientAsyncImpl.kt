@@ -40,6 +40,8 @@ import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import com.increase.api.services.async.DeclinedTransactionServiceAsyncImpl
 import com.increase.api.services.async.DigitalCardProfileServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsyncImpl
+import com.increase.api.services.async.DigitalWalletTokenRequestServiceAsync
+import com.increase.api.services.async.DigitalWalletTokenRequestServiceAsyncImpl
 import com.increase.api.services.async.DigitalWalletTokenServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenServiceAsyncImpl
 import com.increase.api.services.async.EntityOnboardingSessionServiceAsync
@@ -70,6 +72,8 @@ import com.increase.api.services.async.InboundFednowTransferServiceAsync
 import com.increase.api.services.async.InboundFednowTransferServiceAsyncImpl
 import com.increase.api.services.async.InboundMailItemServiceAsync
 import com.increase.api.services.async.InboundMailItemServiceAsyncImpl
+import com.increase.api.services.async.InboundRealTimePaymentsRequestsForPaymentServiceAsync
+import com.increase.api.services.async.InboundRealTimePaymentsRequestsForPaymentServiceAsyncImpl
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
@@ -98,10 +102,14 @@ import com.increase.api.services.async.PhysicalCardProfileServiceAsync
 import com.increase.api.services.async.PhysicalCardProfileServiceAsyncImpl
 import com.increase.api.services.async.PhysicalCardServiceAsync
 import com.increase.api.services.async.PhysicalCardServiceAsyncImpl
+import com.increase.api.services.async.PhysicalCheckBatchServiceAsync
+import com.increase.api.services.async.PhysicalCheckBatchServiceAsyncImpl
 import com.increase.api.services.async.ProgramServiceAsync
 import com.increase.api.services.async.ProgramServiceAsyncImpl
 import com.increase.api.services.async.RealTimeDecisionServiceAsync
 import com.increase.api.services.async.RealTimeDecisionServiceAsyncImpl
+import com.increase.api.services.async.RealTimePaymentsRequestsForPaymentServiceAsync
+import com.increase.api.services.async.RealTimePaymentsRequestsForPaymentServiceAsyncImpl
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsyncImpl
 import com.increase.api.services.async.RoutingNumberServiceAsync
@@ -179,6 +187,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         DigitalWalletTokenServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val digitalWalletTokenRequests: DigitalWalletTokenRequestServiceAsync by lazy {
+        DigitalWalletTokenRequestServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val transactions: TransactionServiceAsync by lazy {
         TransactionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -234,6 +246,16 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     private val inboundRealTimePaymentsTransfers:
         InboundRealTimePaymentsTransferServiceAsync by lazy {
         InboundRealTimePaymentsTransferServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val realTimePaymentsRequestsForPayment:
+        RealTimePaymentsRequestsForPaymentServiceAsync by lazy {
+        RealTimePaymentsRequestsForPaymentServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
+    private val inboundRealTimePaymentsRequestsForPayment:
+        InboundRealTimePaymentsRequestsForPaymentServiceAsync by lazy {
+        InboundRealTimePaymentsRequestsForPaymentServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
     private val fednowTransfers: FednowTransferServiceAsync by lazy {
@@ -358,6 +380,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         CardValidationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
+    private val physicalCheckBatches: PhysicalCheckBatchServiceAsync by lazy {
+        PhysicalCheckBatchServiceAsyncImpl(clientOptionsWithUserAgent)
+    }
+
     private val simulations: SimulationServiceAsync by lazy {
         SimulationServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -392,6 +418,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun digitalWalletTokens(): DigitalWalletTokenServiceAsync = digitalWalletTokens
 
+    override fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync =
+        digitalWalletTokenRequests
+
     override fun transactions(): TransactionServiceAsync = transactions
 
     override fun pendingTransactions(): PendingTransactionServiceAsync = pendingTransactions
@@ -422,6 +451,13 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync =
         inboundRealTimePaymentsTransfers
+
+    override fun realTimePaymentsRequestsForPayment():
+        RealTimePaymentsRequestsForPaymentServiceAsync = realTimePaymentsRequestsForPayment
+
+    override fun inboundRealTimePaymentsRequestsForPayment():
+        InboundRealTimePaymentsRequestsForPaymentServiceAsync =
+        inboundRealTimePaymentsRequestsForPayment
 
     override fun fednowTransfers(): FednowTransferServiceAsync = fednowTransfers
 
@@ -488,6 +524,8 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
     override fun cardValidations(): CardValidationServiceAsync = cardValidations
 
+    override fun physicalCheckBatches(): PhysicalCheckBatchServiceAsync = physicalCheckBatches
+
     override fun simulations(): SimulationServiceAsync = simulations
 
     override fun close() = clientOptions.close()
@@ -538,6 +576,11 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         private val digitalWalletTokens: DigitalWalletTokenServiceAsync.WithRawResponse by lazy {
             DigitalWalletTokenServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val digitalWalletTokenRequests:
+            DigitalWalletTokenRequestServiceAsync.WithRawResponse by lazy {
+            DigitalWalletTokenRequestServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val transactions: TransactionServiceAsync.WithRawResponse by lazy {
@@ -597,6 +640,18 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         private val inboundRealTimePaymentsTransfers:
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse by lazy {
             InboundRealTimePaymentsTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val realTimePaymentsRequestsForPayment:
+            RealTimePaymentsRequestsForPaymentServiceAsync.WithRawResponse by lazy {
+            RealTimePaymentsRequestsForPaymentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val inboundRealTimePaymentsRequestsForPayment:
+            InboundRealTimePaymentsRequestsForPaymentServiceAsync.WithRawResponse by lazy {
+            InboundRealTimePaymentsRequestsForPaymentServiceAsyncImpl.WithRawResponseImpl(
+                clientOptions
+            )
         }
 
         private val fednowTransfers: FednowTransferServiceAsync.WithRawResponse by lazy {
@@ -727,6 +782,10 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             CardValidationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val physicalCheckBatches: PhysicalCheckBatchServiceAsync.WithRawResponse by lazy {
+            PhysicalCheckBatchServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val simulations: SimulationServiceAsync.WithRawResponse by lazy {
             SimulationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -764,6 +823,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun digitalWalletTokens(): DigitalWalletTokenServiceAsync.WithRawResponse =
             digitalWalletTokens
+
+        override fun digitalWalletTokenRequests():
+            DigitalWalletTokenRequestServiceAsync.WithRawResponse = digitalWalletTokenRequests
 
         override fun transactions(): TransactionServiceAsync.WithRawResponse = transactions
 
@@ -803,6 +865,14 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         override fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse =
             inboundRealTimePaymentsTransfers
+
+        override fun realTimePaymentsRequestsForPayment():
+            RealTimePaymentsRequestsForPaymentServiceAsync.WithRawResponse =
+            realTimePaymentsRequestsForPayment
+
+        override fun inboundRealTimePaymentsRequestsForPayment():
+            InboundRealTimePaymentsRequestsForPaymentServiceAsync.WithRawResponse =
+            inboundRealTimePaymentsRequestsForPayment
 
         override fun fednowTransfers(): FednowTransferServiceAsync.WithRawResponse = fednowTransfers
 
@@ -881,6 +951,9 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             cardPushTransfers
 
         override fun cardValidations(): CardValidationServiceAsync.WithRawResponse = cardValidations
+
+        override fun physicalCheckBatches(): PhysicalCheckBatchServiceAsync.WithRawResponse =
+            physicalCheckBatches
 
         override fun simulations(): SimulationServiceAsync.WithRawResponse = simulations
     }

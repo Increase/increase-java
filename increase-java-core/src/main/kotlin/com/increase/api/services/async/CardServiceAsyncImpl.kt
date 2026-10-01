@@ -18,9 +18,11 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.cards.Card
 import com.increase.api.models.cards.CardCreateDetailsIframeParams
+import com.increase.api.models.cards.CardCreateDetailsTokenParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardDetailsToken
 import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListPageResponse
@@ -78,6 +80,13 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
     ): CompletableFuture<CardIframeUrl> =
         // post /cards/{card_id}/create_details_iframe
         withRawResponse().createDetailsIframe(params, requestOptions).thenApply { it.parse() }
+
+    override fun createDetailsToken(
+        params: CardCreateDetailsTokenParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDetailsToken> =
+        // post /cards/{card_id}/create_details_token
+        withRawResponse().createDetailsToken(params, requestOptions).thenApply { it.parse() }
 
     override fun details(
         params: CardDetailsParams,
@@ -264,6 +273,40 @@ class CardServiceAsyncImpl internal constructor(private val clientOptions: Clien
                     errorHandler.handle(response).parseable {
                         response
                             .use { createDetailsIframeHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val createDetailsTokenHandler: Handler<CardDetailsToken> =
+            jsonHandler<CardDetailsToken>(clientOptions.jsonMapper)
+
+        override fun createDetailsToken(
+            params: CardCreateDetailsTokenParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDetailsToken>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cards", params._pathParam(0), "create_details_token")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { createDetailsTokenHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

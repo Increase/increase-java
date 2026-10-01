@@ -388,6 +388,22 @@ internal class CardServiceAsyncTest {
     }
 
     @Test
+    fun createDetailsToken() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardServiceAsync = client.cards()
+
+        val cardDetailsTokenFuture =
+            cardServiceAsync.createDetailsToken("card_oubs0hwk5rn6knuecxg2")
+
+        val cardDetailsToken = cardDetailsTokenFuture.get()
+        cardDetailsToken.validate()
+    }
+
+    @Test
     fun details() {
         val client =
             IncreaseOkHttpClientAsync.builder()

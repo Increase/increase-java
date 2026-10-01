@@ -18,9 +18,11 @@ import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.cards.Card
 import com.increase.api.models.cards.CardCreateDetailsIframeParams
+import com.increase.api.models.cards.CardCreateDetailsTokenParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardDetailsToken
 import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListPageResponse
@@ -64,6 +66,13 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
     ): CardIframeUrl =
         // post /cards/{card_id}/create_details_iframe
         withRawResponse().createDetailsIframe(params, requestOptions).parse()
+
+    override fun createDetailsToken(
+        params: CardCreateDetailsTokenParams,
+        requestOptions: RequestOptions,
+    ): CardDetailsToken =
+        // post /cards/{card_id}/create_details_token
+        withRawResponse().createDetailsToken(params, requestOptions).parse()
 
     override fun details(params: CardDetailsParams, requestOptions: RequestOptions): CardDetails =
         // get /cards/{card_id}/details
@@ -232,6 +241,37 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             return errorHandler.handle(response).parseable {
                 response
                     .use { createDetailsIframeHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val createDetailsTokenHandler: Handler<CardDetailsToken> =
+            jsonHandler<CardDetailsToken>(clientOptions.jsonMapper)
+
+        override fun createDetailsToken(
+            params: CardCreateDetailsTokenParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDetailsToken> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cards", params._pathParam(0), "create_details_token")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { createDetailsTokenHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

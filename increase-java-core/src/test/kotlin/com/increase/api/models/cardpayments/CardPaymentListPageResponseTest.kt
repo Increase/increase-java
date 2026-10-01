@@ -1548,6 +1548,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -4070,6 +4071,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -6592,6 +6594,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -9114,6 +9117,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -11586,6 +11590,7 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantName("AMAZON.COM")
                                         .merchantPostalCode("10045")
                                         .merchantState("NY")
+                                        .network(CardPayment.Element.CardRefund.Network.VISA)
                                         .networkIdentifiers(
                                             CardPayment.Element.CardRefund.NetworkIdentifiers
                                                 .builder()
@@ -13974,6 +13979,7 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantName("AMAZON.COM")
                                         .merchantPostalCode("10045")
                                         .merchantState("NY")
+                                        .network(CardPayment.Element.CardRefund.Network.VISA)
                                         .networkIdentifiers(
                                             CardPayment.Element.CardRefund.NetworkIdentifiers
                                                 .builder()
@@ -16362,6 +16368,7 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantName("AMAZON.COM")
                                         .merchantPostalCode("10045")
                                         .merchantState("NY")
+                                        .network(CardPayment.Element.CardRefund.Network.VISA)
                                         .networkIdentifiers(
                                             CardPayment.Element.CardRefund.NetworkIdentifiers
                                                 .builder()
@@ -18750,6 +18757,7 @@ internal class CardPaymentListPageResponseTest {
                                         .merchantName("AMAZON.COM")
                                         .merchantPostalCode("10045")
                                         .merchantState("NY")
+                                        .network(CardPayment.Element.CardRefund.Network.VISA)
                                         .networkIdentifiers(
                                             CardPayment.Element.CardRefund.NetworkIdentifiers
                                                 .builder()
@@ -21252,6 +21260,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -23774,6 +23783,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -26296,6 +26306,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
@@ -28818,6 +28829,7 @@ internal class CardPaymentListPageResponseTest {
                                             .merchantName("AMAZON.COM")
                                             .merchantPostalCode("10045")
                                             .merchantState("NY")
+                                            .network(CardPayment.Element.CardRefund.Network.VISA)
                                             .networkIdentifiers(
                                                 CardPayment.Element.CardRefund.NetworkIdentifiers
                                                     .builder()
