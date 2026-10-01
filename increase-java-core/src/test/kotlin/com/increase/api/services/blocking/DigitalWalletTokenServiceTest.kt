@@ -4,6 +4,7 @@ package com.increase.api.services.blocking
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClient
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenTransitionParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -37,5 +38,25 @@ internal class DigitalWalletTokenServiceTest {
         val page = digitalWalletTokenService.list()
 
         page.response().validate()
+    }
+
+    @Test
+    fun transition() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val digitalWalletTokenService = client.digitalWalletTokens()
+
+        val digitalWalletToken =
+            digitalWalletTokenService.transition(
+                DigitalWalletTokenTransitionParams.builder()
+                    .digitalWalletTokenId("digital_wallet_token_izi62go3h51p369jrie0")
+                    .status(DigitalWalletTokenTransitionParams.Status.SUSPENDED)
+                    .build()
+            )
+
+        digitalWalletToken.validate()
     }
 }

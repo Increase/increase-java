@@ -6,6 +6,7 @@ import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAcceptParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAdjustmentParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import java.util.concurrent.CompletableFuture
@@ -41,6 +42,48 @@ interface InboundCheckDepositServiceAsync {
         params: InboundCheckDepositCreateParams,
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<InboundCheckDeposit>
+
+    /**
+     * Simulates the acceptance of an [Inbound Check Deposit](#inbound-check-deposits), creating a
+     * Transaction as a result. The Inbound Check Deposit must first have a `status` of `pending`.
+     */
+    fun accept(inboundCheckDepositId: String): CompletableFuture<InboundCheckDeposit> =
+        accept(inboundCheckDepositId, InboundCheckDepositAcceptParams.none())
+
+    /** @see accept */
+    fun accept(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositAcceptParams = InboundCheckDepositAcceptParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        accept(
+            params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+            requestOptions,
+        )
+
+    /** @see accept */
+    fun accept(
+        inboundCheckDepositId: String,
+        params: InboundCheckDepositAcceptParams = InboundCheckDepositAcceptParams.none(),
+    ): CompletableFuture<InboundCheckDeposit> =
+        accept(inboundCheckDepositId, params, RequestOptions.none())
+
+    /** @see accept */
+    fun accept(
+        params: InboundCheckDepositAcceptParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<InboundCheckDeposit>
+
+    /** @see accept */
+    fun accept(params: InboundCheckDepositAcceptParams): CompletableFuture<InboundCheckDeposit> =
+        accept(params, RequestOptions.none())
+
+    /** @see accept */
+    fun accept(
+        inboundCheckDepositId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundCheckDeposit> =
+        accept(inboundCheckDepositId, InboundCheckDepositAcceptParams.none(), requestOptions)
 
     /**
      * Simulates an adjustment on an Inbound Check Deposit. The Inbound Check Deposit must have a
@@ -118,6 +161,53 @@ interface InboundCheckDepositServiceAsync {
             params: InboundCheckDepositCreateParams,
             requestOptions: RequestOptions = RequestOptions.none(),
         ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /simulations/inbound_check_deposits/{inbound_check_deposit_id}/accept`, but is otherwise
+         * the same as [InboundCheckDepositServiceAsync.accept].
+         */
+        fun accept(
+            inboundCheckDepositId: String
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            accept(inboundCheckDepositId, InboundCheckDepositAcceptParams.none())
+
+        /** @see accept */
+        fun accept(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositAcceptParams = InboundCheckDepositAcceptParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            accept(
+                params.toBuilder().inboundCheckDepositId(inboundCheckDepositId).build(),
+                requestOptions,
+            )
+
+        /** @see accept */
+        fun accept(
+            inboundCheckDepositId: String,
+            params: InboundCheckDepositAcceptParams = InboundCheckDepositAcceptParams.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            accept(inboundCheckDepositId, params, RequestOptions.none())
+
+        /** @see accept */
+        fun accept(
+            params: InboundCheckDepositAcceptParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>>
+
+        /** @see accept */
+        fun accept(
+            params: InboundCheckDepositAcceptParams
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            accept(params, RequestOptions.none())
+
+        /** @see accept */
+        fun accept(
+            inboundCheckDepositId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> =
+            accept(inboundCheckDepositId, InboundCheckDepositAcceptParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post

@@ -10,6 +10,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletToken
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPage
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenTransitionParams
 import java.util.function.Consumer
 
 interface DigitalWalletTokenService {
@@ -78,6 +79,37 @@ interface DigitalWalletTokenService {
     /** @see list */
     fun list(requestOptions: RequestOptions): DigitalWalletTokenListPage =
         list(DigitalWalletTokenListParams.none(), requestOptions)
+
+    /**
+     * Submit a Digital Wallet Token status transition to the card network. The Digital Wallet Token
+     * will move to `pending_transitioning` until the card network confirms the transition, and a
+     * `digital_wallet_token.updated` webhook will be sent once the transition has been confirmed.
+     */
+    fun transition(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenTransitionParams,
+    ): DigitalWalletToken = transition(digitalWalletTokenId, params, RequestOptions.none())
+
+    /** @see transition */
+    fun transition(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken =
+        transition(
+            params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+            requestOptions,
+        )
+
+    /** @see transition */
+    fun transition(params: DigitalWalletTokenTransitionParams): DigitalWalletToken =
+        transition(params, RequestOptions.none())
+
+    /** @see transition */
+    fun transition(
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): DigitalWalletToken
 
     /**
      * A view of [DigitalWalletTokenService] that provides access to raw HTTP responses for each
@@ -168,5 +200,42 @@ interface DigitalWalletTokenService {
         @MustBeClosed
         fun list(requestOptions: RequestOptions): HttpResponseFor<DigitalWalletTokenListPage> =
             list(DigitalWalletTokenListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /digital_wallet_tokens/{digital_wallet_token_id}/transition`, but is otherwise the same
+         * as [DigitalWalletTokenService.transition].
+         */
+        @MustBeClosed
+        fun transition(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenTransitionParams,
+        ): HttpResponseFor<DigitalWalletToken> =
+            transition(digitalWalletTokenId, params, RequestOptions.none())
+
+        /** @see transition */
+        @MustBeClosed
+        fun transition(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken> =
+            transition(
+                params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+                requestOptions,
+            )
+
+        /** @see transition */
+        @MustBeClosed
+        fun transition(
+            params: DigitalWalletTokenTransitionParams
+        ): HttpResponseFor<DigitalWalletToken> = transition(params, RequestOptions.none())
+
+        /** @see transition */
+        @MustBeClosed
+        fun transition(
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<DigitalWalletToken>
     }
 }

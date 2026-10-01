@@ -21,6 +21,7 @@ import com.increase.api.services.async.CheckDepositServiceAsync
 import com.increase.api.services.async.CheckTransferServiceAsync
 import com.increase.api.services.async.DeclinedTransactionServiceAsync
 import com.increase.api.services.async.DigitalCardProfileServiceAsync
+import com.increase.api.services.async.DigitalWalletTokenRequestServiceAsync
 import com.increase.api.services.async.DigitalWalletTokenServiceAsync
 import com.increase.api.services.async.EntityOnboardingSessionServiceAsync
 import com.increase.api.services.async.EntityServiceAsync
@@ -36,6 +37,7 @@ import com.increase.api.services.async.InboundAchTransferServiceAsync
 import com.increase.api.services.async.InboundCheckDepositServiceAsync
 import com.increase.api.services.async.InboundFednowTransferServiceAsync
 import com.increase.api.services.async.InboundMailItemServiceAsync
+import com.increase.api.services.async.InboundRealTimePaymentsRequestsForPaymentServiceAsync
 import com.increase.api.services.async.InboundRealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.InboundWireDrawdownRequestServiceAsync
 import com.increase.api.services.async.InboundWireTransferServiceAsync
@@ -50,8 +52,10 @@ import com.increase.api.services.async.OAuthTokenServiceAsync
 import com.increase.api.services.async.PendingTransactionServiceAsync
 import com.increase.api.services.async.PhysicalCardProfileServiceAsync
 import com.increase.api.services.async.PhysicalCardServiceAsync
+import com.increase.api.services.async.PhysicalCheckBatchServiceAsync
 import com.increase.api.services.async.ProgramServiceAsync
 import com.increase.api.services.async.RealTimeDecisionServiceAsync
+import com.increase.api.services.async.RealTimePaymentsRequestsForPaymentServiceAsync
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import com.increase.api.services.async.RoutingNumberServiceAsync
 import com.increase.api.services.async.SimulationServiceAsync
@@ -120,6 +124,8 @@ interface IncreaseClientAsync {
 
     fun digitalWalletTokens(): DigitalWalletTokenServiceAsync
 
+    fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync
+
     fun transactions(): TransactionServiceAsync
 
     fun pendingTransactions(): PendingTransactionServiceAsync
@@ -147,6 +153,11 @@ interface IncreaseClientAsync {
     fun realTimePaymentsTransfers(): RealTimePaymentsTransferServiceAsync
 
     fun inboundRealTimePaymentsTransfers(): InboundRealTimePaymentsTransferServiceAsync
+
+    fun realTimePaymentsRequestsForPayment(): RealTimePaymentsRequestsForPaymentServiceAsync
+
+    fun inboundRealTimePaymentsRequestsForPayment():
+        InboundRealTimePaymentsRequestsForPaymentServiceAsync
 
     fun fednowTransfers(): FednowTransferServiceAsync
 
@@ -210,6 +221,8 @@ interface IncreaseClientAsync {
 
     fun cardValidations(): CardValidationServiceAsync
 
+    fun physicalCheckBatches(): PhysicalCheckBatchServiceAsync
+
     fun simulations(): SimulationServiceAsync
 
     /**
@@ -261,6 +274,8 @@ interface IncreaseClientAsync {
 
         fun digitalWalletTokens(): DigitalWalletTokenServiceAsync.WithRawResponse
 
+        fun digitalWalletTokenRequests(): DigitalWalletTokenRequestServiceAsync.WithRawResponse
+
         fun transactions(): TransactionServiceAsync.WithRawResponse
 
         fun pendingTransactions(): PendingTransactionServiceAsync.WithRawResponse
@@ -289,6 +304,12 @@ interface IncreaseClientAsync {
 
         fun inboundRealTimePaymentsTransfers():
             InboundRealTimePaymentsTransferServiceAsync.WithRawResponse
+
+        fun realTimePaymentsRequestsForPayment():
+            RealTimePaymentsRequestsForPaymentServiceAsync.WithRawResponse
+
+        fun inboundRealTimePaymentsRequestsForPayment():
+            InboundRealTimePaymentsRequestsForPaymentServiceAsync.WithRawResponse
 
         fun fednowTransfers(): FednowTransferServiceAsync.WithRawResponse
 
@@ -351,6 +372,8 @@ interface IncreaseClientAsync {
         fun cardPushTransfers(): CardPushTransferServiceAsync.WithRawResponse
 
         fun cardValidations(): CardValidationServiceAsync.WithRawResponse
+
+        fun physicalCheckBatches(): PhysicalCheckBatchServiceAsync.WithRawResponse
 
         fun simulations(): SimulationServiceAsync.WithRawResponse
     }

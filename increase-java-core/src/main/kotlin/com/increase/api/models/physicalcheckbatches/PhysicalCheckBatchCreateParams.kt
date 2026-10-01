@@ -1,0 +1,1560 @@
+// File generated from our OpenAPI spec by Stainless.
+
+package com.increase.api.models.physicalcheckbatches
+
+import com.fasterxml.jackson.annotation.JsonAnyGetter
+import com.fasterxml.jackson.annotation.JsonAnySetter
+import com.fasterxml.jackson.annotation.JsonCreator
+import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
+import com.increase.api.core.ExcludeMissing
+import com.increase.api.core.JsonField
+import com.increase.api.core.JsonMissing
+import com.increase.api.core.JsonValue
+import com.increase.api.core.Params
+import com.increase.api.core.checkRequired
+import com.increase.api.core.http.Headers
+import com.increase.api.core.http.QueryParams
+import com.increase.api.errors.IncreaseInvalidDataException
+import java.util.Collections
+import java.util.Objects
+import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
+
+/** Create a Physical Check Batch */
+class PhysicalCheckBatchCreateParams
+private constructor(
+    private val body: Body,
+    private val additionalHeaders: Headers,
+    private val additionalQueryParams: QueryParams,
+) : Params {
+
+    /**
+     * Details for where the parcel will be mailed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun mailingAddress(): MailingAddress = body.mailingAddress()
+
+    /**
+     * Details for where the parcel should return if it is unable to be delivered.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun returnAddress(): ReturnAddress = body.returnAddress()
+
+    /**
+     * How to ship the batch.
+     *
+     * Defaults to `usps_first_class`.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun shippingMethod(): Optional<ShippingMethod> = body.shippingMethod()
+
+    /**
+     * Returns the raw JSON value of [mailingAddress].
+     *
+     * Unlike [mailingAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _mailingAddress(): JsonField<MailingAddress> = body._mailingAddress()
+
+    /**
+     * Returns the raw JSON value of [returnAddress].
+     *
+     * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _returnAddress(): JsonField<ReturnAddress> = body._returnAddress()
+
+    /**
+     * Returns the raw JSON value of [shippingMethod].
+     *
+     * Unlike [shippingMethod], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _shippingMethod(): JsonField<ShippingMethod> = body._shippingMethod()
+
+    fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
+
+    /** Additional headers to send with the request. */
+    fun _additionalHeaders(): Headers = additionalHeaders
+
+    /** Additional query param to send with the request. */
+    fun _additionalQueryParams(): QueryParams = additionalQueryParams
+
+    fun toBuilder() = Builder().from(this)
+
+    companion object {
+
+        /**
+         * Returns a mutable builder for constructing an instance of
+         * [PhysicalCheckBatchCreateParams].
+         *
+         * The following fields are required:
+         * ```java
+         * .mailingAddress()
+         * .returnAddress()
+         * ```
+         */
+        @JvmStatic fun builder() = Builder()
+    }
+
+    /** A builder for [PhysicalCheckBatchCreateParams]. */
+    class Builder internal constructor() {
+
+        private var body: Body.Builder = Body.builder()
+        private var additionalHeaders: Headers.Builder = Headers.builder()
+        private var additionalQueryParams: QueryParams.Builder = QueryParams.builder()
+
+        @JvmSynthetic
+        internal fun from(physicalCheckBatchCreateParams: PhysicalCheckBatchCreateParams) = apply {
+            body = physicalCheckBatchCreateParams.body.toBuilder()
+            additionalHeaders = physicalCheckBatchCreateParams.additionalHeaders.toBuilder()
+            additionalQueryParams = physicalCheckBatchCreateParams.additionalQueryParams.toBuilder()
+        }
+
+        /**
+         * Sets the entire request body.
+         *
+         * This is generally only useful if you are already constructing the body separately.
+         * Otherwise, it's more convenient to use the top-level setters instead:
+         * - [mailingAddress]
+         * - [returnAddress]
+         * - [shippingMethod]
+         */
+        fun body(body: Body) = apply { this.body = body.toBuilder() }
+
+        /** Details for where the parcel will be mailed. */
+        fun mailingAddress(mailingAddress: MailingAddress) = apply {
+            body.mailingAddress(mailingAddress)
+        }
+
+        /**
+         * Sets [Builder.mailingAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.mailingAddress] with a well-typed [MailingAddress] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
+            body.mailingAddress(mailingAddress)
+        }
+
+        /** Details for where the parcel should return if it is unable to be delivered. */
+        fun returnAddress(returnAddress: ReturnAddress) = apply {
+            body.returnAddress(returnAddress)
+        }
+
+        /**
+         * Sets [Builder.returnAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnAddress] with a well-typed [ReturnAddress] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
+            body.returnAddress(returnAddress)
+        }
+
+        /**
+         * How to ship the batch.
+         *
+         * Defaults to `usps_first_class`.
+         */
+        fun shippingMethod(shippingMethod: ShippingMethod) = apply {
+            body.shippingMethod(shippingMethod)
+        }
+
+        /**
+         * Sets [Builder.shippingMethod] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.shippingMethod] with a well-typed [ShippingMethod] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun shippingMethod(shippingMethod: JsonField<ShippingMethod>) = apply {
+            body.shippingMethod(shippingMethod)
+        }
+
+        fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
+            body.additionalProperties(additionalBodyProperties)
+        }
+
+        fun putAdditionalBodyProperty(key: String, value: JsonValue) = apply {
+            body.putAdditionalProperty(key, value)
+        }
+
+        fun putAllAdditionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) =
+            apply {
+                body.putAllAdditionalProperties(additionalBodyProperties)
+            }
+
+        fun removeAdditionalBodyProperty(key: String) = apply { body.removeAdditionalProperty(key) }
+
+        fun removeAllAdditionalBodyProperties(keys: Set<String>) = apply {
+            body.removeAllAdditionalProperties(keys)
+        }
+
+        fun additionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun additionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.clear()
+            putAllAdditionalHeaders(additionalHeaders)
+        }
+
+        fun putAdditionalHeader(name: String, value: String) = apply {
+            additionalHeaders.put(name, value)
+        }
+
+        fun putAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.put(name, values)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun putAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.putAll(additionalHeaders)
+        }
+
+        fun replaceAdditionalHeaders(name: String, value: String) = apply {
+            additionalHeaders.replace(name, value)
+        }
+
+        fun replaceAdditionalHeaders(name: String, values: Iterable<String>) = apply {
+            additionalHeaders.replace(name, values)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Headers) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun replaceAllAdditionalHeaders(additionalHeaders: Map<String, Iterable<String>>) = apply {
+            this.additionalHeaders.replaceAll(additionalHeaders)
+        }
+
+        fun removeAdditionalHeaders(name: String) = apply { additionalHeaders.remove(name) }
+
+        fun removeAllAdditionalHeaders(names: Set<String>) = apply {
+            additionalHeaders.removeAll(names)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun additionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) = apply {
+            this.additionalQueryParams.clear()
+            putAllAdditionalQueryParams(additionalQueryParams)
+        }
+
+        fun putAdditionalQueryParam(key: String, value: String) = apply {
+            additionalQueryParams.put(key, value)
+        }
+
+        fun putAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.put(key, values)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.putAll(additionalQueryParams)
+        }
+
+        fun putAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.putAll(additionalQueryParams)
+            }
+
+        fun replaceAdditionalQueryParams(key: String, value: String) = apply {
+            additionalQueryParams.replace(key, value)
+        }
+
+        fun replaceAdditionalQueryParams(key: String, values: Iterable<String>) = apply {
+            additionalQueryParams.replace(key, values)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: QueryParams) = apply {
+            this.additionalQueryParams.replaceAll(additionalQueryParams)
+        }
+
+        fun replaceAllAdditionalQueryParams(additionalQueryParams: Map<String, Iterable<String>>) =
+            apply {
+                this.additionalQueryParams.replaceAll(additionalQueryParams)
+            }
+
+        fun removeAdditionalQueryParams(key: String) = apply { additionalQueryParams.remove(key) }
+
+        fun removeAllAdditionalQueryParams(keys: Set<String>) = apply {
+            additionalQueryParams.removeAll(keys)
+        }
+
+        /**
+         * Returns an immutable instance of [PhysicalCheckBatchCreateParams].
+         *
+         * Further updates to this [Builder] will not mutate the returned instance.
+         *
+         * The following fields are required:
+         * ```java
+         * .mailingAddress()
+         * .returnAddress()
+         * ```
+         *
+         * @throws IllegalStateException if any required field is unset.
+         */
+        fun build(): PhysicalCheckBatchCreateParams =
+            PhysicalCheckBatchCreateParams(
+                body.build(),
+                additionalHeaders.build(),
+                additionalQueryParams.build(),
+            )
+    }
+
+    fun _body(): Body = body
+
+    override fun _headers(): Headers = additionalHeaders
+
+    override fun _queryParams(): QueryParams = additionalQueryParams
+
+    class Body
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val mailingAddress: JsonField<MailingAddress>,
+        private val returnAddress: JsonField<ReturnAddress>,
+        private val shippingMethod: JsonField<ShippingMethod>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("mailing_address")
+            @ExcludeMissing
+            mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
+            @JsonProperty("return_address")
+            @ExcludeMissing
+            returnAddress: JsonField<ReturnAddress> = JsonMissing.of(),
+            @JsonProperty("shipping_method")
+            @ExcludeMissing
+            shippingMethod: JsonField<ShippingMethod> = JsonMissing.of(),
+        ) : this(mailingAddress, returnAddress, shippingMethod, mutableMapOf())
+
+        /**
+         * Details for where the parcel will be mailed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun mailingAddress(): MailingAddress = mailingAddress.getRequired("mailing_address")
+
+        /**
+         * Details for where the parcel should return if it is unable to be delivered.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun returnAddress(): ReturnAddress = returnAddress.getRequired("return_address")
+
+        /**
+         * How to ship the batch.
+         *
+         * Defaults to `usps_first_class`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun shippingMethod(): Optional<ShippingMethod> =
+            shippingMethod.getOptional("shipping_method")
+
+        /**
+         * Returns the raw JSON value of [mailingAddress].
+         *
+         * Unlike [mailingAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("mailing_address")
+        @ExcludeMissing
+        fun _mailingAddress(): JsonField<MailingAddress> = mailingAddress
+
+        /**
+         * Returns the raw JSON value of [returnAddress].
+         *
+         * Unlike [returnAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("return_address")
+        @ExcludeMissing
+        fun _returnAddress(): JsonField<ReturnAddress> = returnAddress
+
+        /**
+         * Returns the raw JSON value of [shippingMethod].
+         *
+         * Unlike [shippingMethod], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("shipping_method")
+        @ExcludeMissing
+        fun _shippingMethod(): JsonField<ShippingMethod> = shippingMethod
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Body].
+             *
+             * The following fields are required:
+             * ```java
+             * .mailingAddress()
+             * .returnAddress()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Body]. */
+        class Builder internal constructor() {
+
+            private var mailingAddress: JsonField<MailingAddress>? = null
+            private var returnAddress: JsonField<ReturnAddress>? = null
+            private var shippingMethod: JsonField<ShippingMethod> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(body: Body) = apply {
+                mailingAddress = body.mailingAddress
+                returnAddress = body.returnAddress
+                shippingMethod = body.shippingMethod
+                additionalProperties = body.additionalProperties.toMutableMap()
+            }
+
+            /** Details for where the parcel will be mailed. */
+            fun mailingAddress(mailingAddress: MailingAddress) =
+                mailingAddress(JsonField.of(mailingAddress))
+
+            /**
+             * Sets [Builder.mailingAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.mailingAddress] with a well-typed [MailingAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun mailingAddress(mailingAddress: JsonField<MailingAddress>) = apply {
+                this.mailingAddress = mailingAddress
+            }
+
+            /** Details for where the parcel should return if it is unable to be delivered. */
+            fun returnAddress(returnAddress: ReturnAddress) =
+                returnAddress(JsonField.of(returnAddress))
+
+            /**
+             * Sets [Builder.returnAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.returnAddress] with a well-typed [ReturnAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun returnAddress(returnAddress: JsonField<ReturnAddress>) = apply {
+                this.returnAddress = returnAddress
+            }
+
+            /**
+             * How to ship the batch.
+             *
+             * Defaults to `usps_first_class`.
+             */
+            fun shippingMethod(shippingMethod: ShippingMethod) =
+                shippingMethod(JsonField.of(shippingMethod))
+
+            /**
+             * Sets [Builder.shippingMethod] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.shippingMethod] with a well-typed [ShippingMethod]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun shippingMethod(shippingMethod: JsonField<ShippingMethod>) = apply {
+                this.shippingMethod = shippingMethod
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Body].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .mailingAddress()
+             * .returnAddress()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Body =
+                Body(
+                    checkRequired("mailingAddress", mailingAddress),
+                    checkRequired("returnAddress", returnAddress),
+                    shippingMethod,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Body = apply {
+            if (validated) {
+                return@apply
+            }
+
+            mailingAddress().validate()
+            returnAddress().validate()
+            shippingMethod().ifPresent { it.validate() }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (mailingAddress.asKnown().getOrNull()?.validity() ?: 0) +
+                (returnAddress.asKnown().getOrNull()?.validity() ?: 0) +
+                (shippingMethod.asKnown().getOrNull()?.validity() ?: 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Body &&
+                mailingAddress == other.mailingAddress &&
+                returnAddress == other.returnAddress &&
+                shippingMethod == other.shippingMethod &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(mailingAddress, returnAddress, shippingMethod, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Body{mailingAddress=$mailingAddress, returnAddress=$returnAddress, shippingMethod=$shippingMethod, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details for where the parcel will be mailed. */
+    class MailingAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val city: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val name: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val state: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val phone: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
+        ) : this(city, line1, name, postalCode, state, line2, phone, mutableMapOf())
+
+        /**
+         * The city of the destination address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun city(): String = city.getRequired("city")
+
+        /**
+         * The first line of the destination address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun line1(): String = line1.getRequired("line1")
+
+        /**
+         * The recipient at the destination address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * The postal code of the destination address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun postalCode(): String = postalCode.getRequired("postal_code")
+
+        /**
+         * The US state of the destination address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun state(): String = state.getRequired("state")
+
+        /**
+         * The second line of the destination address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun line2(): Optional<String> = line2.getOptional("line2")
+
+        /**
+         * The phone number used for delivery issues at the destination address. Only used when
+         * `shipping_method` is `fedex_overnight`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun phone(): Optional<String> = phone.getOptional("phone")
+
+        /**
+         * Returns the raw JSON value of [city].
+         *
+         * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
+
+        /**
+         * Returns the raw JSON value of [state].
+         *
+         * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        /**
+         * Returns the raw JSON value of [phone].
+         *
+         * Unlike [phone], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [MailingAddress].
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .name()
+             * .postalCode()
+             * .state()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [MailingAddress]. */
+        class Builder internal constructor() {
+
+            private var city: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var state: JsonField<String>? = null
+            private var line2: JsonField<String> = JsonMissing.of()
+            private var phone: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(mailingAddress: MailingAddress) = apply {
+                city = mailingAddress.city
+                line1 = mailingAddress.line1
+                name = mailingAddress.name
+                postalCode = mailingAddress.postalCode
+                state = mailingAddress.state
+                line2 = mailingAddress.line2
+                phone = mailingAddress.phone
+                additionalProperties = mailingAddress.additionalProperties.toMutableMap()
+            }
+
+            /** The city of the destination address. */
+            fun city(city: String) = city(JsonField.of(city))
+
+            /**
+             * Sets [Builder.city] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.city] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun city(city: JsonField<String>) = apply { this.city = city }
+
+            /** The first line of the destination address. */
+            fun line1(line1: String) = line1(JsonField.of(line1))
+
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+            /** The recipient at the destination address. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The postal code of the destination address. */
+            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
+
+            /** The US state of the destination address. */
+            fun state(state: String) = state(JsonField.of(state))
+
+            /**
+             * Sets [Builder.state] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.state] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun state(state: JsonField<String>) = apply { this.state = state }
+
+            /** The second line of the destination address. */
+            fun line2(line2: String) = line2(JsonField.of(line2))
+
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+            /**
+             * The phone number used for delivery issues at the destination address. Only used when
+             * `shipping_method` is `fedex_overnight`.
+             */
+            fun phone(phone: String) = phone(JsonField.of(phone))
+
+            /**
+             * Sets [Builder.phone] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.phone] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun phone(phone: JsonField<String>) = apply { this.phone = phone }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [MailingAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .name()
+             * .postalCode()
+             * .state()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): MailingAddress =
+                MailingAddress(
+                    checkRequired("city", city),
+                    checkRequired("line1", line1),
+                    checkRequired("name", name),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("state", state),
+                    line2,
+                    phone,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): MailingAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            city()
+            line1()
+            name()
+            postalCode()
+            state()
+            line2()
+            phone()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (city.asKnown().isPresent) 1 else 0) +
+                (if (line1.asKnown().isPresent) 1 else 0) +
+                (if (name.asKnown().isPresent) 1 else 0) +
+                (if (postalCode.asKnown().isPresent) 1 else 0) +
+                (if (state.asKnown().isPresent) 1 else 0) +
+                (if (line2.asKnown().isPresent) 1 else 0) +
+                (if (phone.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is MailingAddress &&
+                city == other.city &&
+                line1 == other.line1 &&
+                name == other.name &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                line2 == other.line2 &&
+                phone == other.phone &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(city, line1, name, postalCode, state, line2, phone, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "MailingAddress{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, phone=$phone, additionalProperties=$additionalProperties}"
+    }
+
+    /** Details for where the parcel should return if it is unable to be delivered. */
+    class ReturnAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val city: JsonField<String>,
+        private val line1: JsonField<String>,
+        private val name: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val state: JsonField<String>,
+        private val line2: JsonField<String>,
+        private val phone: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line1") @ExcludeMissing line1: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("line2") @ExcludeMissing line2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("phone") @ExcludeMissing phone: JsonField<String> = JsonMissing.of(),
+        ) : this(city, line1, name, postalCode, state, line2, phone, mutableMapOf())
+
+        /**
+         * The city of the return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun city(): String = city.getRequired("city")
+
+        /**
+         * The first line of the return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun line1(): String = line1.getRequired("line1")
+
+        /**
+         * The recipient at the return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun name(): String = name.getRequired("name")
+
+        /**
+         * The postal code of the return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun postalCode(): String = postalCode.getRequired("postal_code")
+
+        /**
+         * The US state of the return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun state(): String = state.getRequired("state")
+
+        /**
+         * The second line of the return address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun line2(): Optional<String> = line2.getOptional("line2")
+
+        /**
+         * The phone number used for delivery issues at the return address. Only used when
+         * `shipping_method` is `fedex_overnight`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun phone(): Optional<String> = phone.getOptional("phone")
+
+        /**
+         * Returns the raw JSON value of [city].
+         *
+         * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+        /**
+         * Returns the raw JSON value of [line1].
+         *
+         * Unlike [line1], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line1") @ExcludeMissing fun _line1(): JsonField<String> = line1
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
+
+        /**
+         * Returns the raw JSON value of [state].
+         *
+         * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+        /**
+         * Returns the raw JSON value of [line2].
+         *
+         * Unlike [line2], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("line2") @ExcludeMissing fun _line2(): JsonField<String> = line2
+
+        /**
+         * Returns the raw JSON value of [phone].
+         *
+         * Unlike [phone], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("phone") @ExcludeMissing fun _phone(): JsonField<String> = phone
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ReturnAddress].
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .name()
+             * .postalCode()
+             * .state()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ReturnAddress]. */
+        class Builder internal constructor() {
+
+            private var city: JsonField<String>? = null
+            private var line1: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var state: JsonField<String>? = null
+            private var line2: JsonField<String> = JsonMissing.of()
+            private var phone: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(returnAddress: ReturnAddress) = apply {
+                city = returnAddress.city
+                line1 = returnAddress.line1
+                name = returnAddress.name
+                postalCode = returnAddress.postalCode
+                state = returnAddress.state
+                line2 = returnAddress.line2
+                phone = returnAddress.phone
+                additionalProperties = returnAddress.additionalProperties.toMutableMap()
+            }
+
+            /** The city of the return address. */
+            fun city(city: String) = city(JsonField.of(city))
+
+            /**
+             * Sets [Builder.city] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.city] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun city(city: JsonField<String>) = apply { this.city = city }
+
+            /** The first line of the return address. */
+            fun line1(line1: String) = line1(JsonField.of(line1))
+
+            /**
+             * Sets [Builder.line1] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line1] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line1(line1: JsonField<String>) = apply { this.line1 = line1 }
+
+            /** The recipient at the return address. */
+            fun name(name: String) = name(JsonField.of(name))
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            /** The postal code of the return address. */
+            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
+
+            /** The US state of the return address. */
+            fun state(state: String) = state(JsonField.of(state))
+
+            /**
+             * Sets [Builder.state] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.state] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun state(state: JsonField<String>) = apply { this.state = state }
+
+            /** The second line of the return address. */
+            fun line2(line2: String) = line2(JsonField.of(line2))
+
+            /**
+             * Sets [Builder.line2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.line2] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun line2(line2: JsonField<String>) = apply { this.line2 = line2 }
+
+            /**
+             * The phone number used for delivery issues at the return address. Only used when
+             * `shipping_method` is `fedex_overnight`.
+             */
+            fun phone(phone: String) = phone(JsonField.of(phone))
+
+            /**
+             * Sets [Builder.phone] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.phone] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun phone(phone: JsonField<String>) = apply { this.phone = phone }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ReturnAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .line1()
+             * .name()
+             * .postalCode()
+             * .state()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ReturnAddress =
+                ReturnAddress(
+                    checkRequired("city", city),
+                    checkRequired("line1", line1),
+                    checkRequired("name", name),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("state", state),
+                    line2,
+                    phone,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ReturnAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            city()
+            line1()
+            name()
+            postalCode()
+            state()
+            line2()
+            phone()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (city.asKnown().isPresent) 1 else 0) +
+                (if (line1.asKnown().isPresent) 1 else 0) +
+                (if (name.asKnown().isPresent) 1 else 0) +
+                (if (postalCode.asKnown().isPresent) 1 else 0) +
+                (if (state.asKnown().isPresent) 1 else 0) +
+                (if (line2.asKnown().isPresent) 1 else 0) +
+                (if (phone.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReturnAddress &&
+                city == other.city &&
+                line1 == other.line1 &&
+                name == other.name &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                line2 == other.line2 &&
+                phone == other.phone &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(city, line1, name, postalCode, state, line2, phone, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ReturnAddress{city=$city, line1=$line1, name=$name, postalCode=$postalCode, state=$state, line2=$line2, phone=$phone, additionalProperties=$additionalProperties}"
+    }
+
+    /** How to ship the batch. */
+    class ShippingMethod @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** USPS First Class */
+            @JvmField val USPS_FIRST_CLASS = of("usps_first_class")
+
+            /** FedEx Overnight */
+            @JvmField val FEDEX_OVERNIGHT = of("fedex_overnight")
+
+            @JvmStatic fun of(value: String) = ShippingMethod(JsonField.of(value))
+        }
+
+        /** An enum containing [ShippingMethod]'s known values. */
+        enum class Known {
+            /** USPS First Class */
+            USPS_FIRST_CLASS,
+            /** FedEx Overnight */
+            FEDEX_OVERNIGHT,
+        }
+
+        /**
+         * An enum containing [ShippingMethod]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [ShippingMethod] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** USPS First Class */
+            USPS_FIRST_CLASS,
+            /** FedEx Overnight */
+            FEDEX_OVERNIGHT,
+            /**
+             * An enum member indicating that [ShippingMethod] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                USPS_FIRST_CLASS -> Value.USPS_FIRST_CLASS
+                FEDEX_OVERNIGHT -> Value.FEDEX_OVERNIGHT
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                USPS_FIRST_CLASS -> Known.USPS_FIRST_CLASS
+                FEDEX_OVERNIGHT -> Known.FEDEX_OVERNIGHT
+                else -> throw IncreaseInvalidDataException("Unknown ShippingMethod: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ShippingMethod = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ShippingMethod && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    override fun equals(other: Any?): Boolean {
+        if (this === other) {
+            return true
+        }
+
+        return other is PhysicalCheckBatchCreateParams &&
+            body == other.body &&
+            additionalHeaders == other.additionalHeaders &&
+            additionalQueryParams == other.additionalQueryParams
+    }
+
+    override fun hashCode(): Int = Objects.hash(body, additionalHeaders, additionalQueryParams)
+
+    override fun toString() =
+        "PhysicalCheckBatchCreateParams{body=$body, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+}

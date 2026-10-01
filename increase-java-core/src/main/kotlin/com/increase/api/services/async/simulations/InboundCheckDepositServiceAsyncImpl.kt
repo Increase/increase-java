@@ -17,6 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAcceptParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAdjustmentParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import java.util.concurrent.CompletableFuture
@@ -46,6 +47,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     ): CompletableFuture<InboundCheckDeposit> =
         // post /simulations/inbound_check_deposits
         withRawResponse().create(params, requestOptions).thenApply { it.parse() }
+
+    override fun accept(
+        params: InboundCheckDepositAcceptParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<InboundCheckDeposit> =
+        // post /simulations/inbound_check_deposits/{inbound_check_deposit_id}/accept
+        withRawResponse().accept(params, requestOptions).thenApply { it.parse() }
 
     override fun adjustment(
         params: InboundCheckDepositAdjustmentParams,
@@ -89,6 +97,45 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
                     errorHandler.handle(response).parseable {
                         response
                             .use { createHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val acceptHandler: Handler<InboundCheckDeposit> =
+            jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)
+
+        override fun accept(
+            params: InboundCheckDepositAcceptParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<InboundCheckDeposit>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundCheckDepositId", params.inboundCheckDepositId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "simulations",
+                        "inbound_check_deposits",
+                        params._pathParam(0),
+                        "accept",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { acceptHandler.handle(it) }
                             .also {
                                 if (requestOptions.responseValidation!!) {
                                     it.validate()

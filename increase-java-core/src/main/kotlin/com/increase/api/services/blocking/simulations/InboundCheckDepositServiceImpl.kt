@@ -17,6 +17,7 @@ import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundcheckdeposits.InboundCheckDeposit
+import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAcceptParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositAdjustmentParams
 import com.increase.api.models.simulations.inboundcheckdeposits.InboundCheckDepositCreateParams
 import java.util.function.Consumer
@@ -42,6 +43,13 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
     ): InboundCheckDeposit =
         // post /simulations/inbound_check_deposits
         withRawResponse().create(params, requestOptions).parse()
+
+    override fun accept(
+        params: InboundCheckDepositAcceptParams,
+        requestOptions: RequestOptions,
+    ): InboundCheckDeposit =
+        // post /simulations/inbound_check_deposits/{inbound_check_deposit_id}/accept
+        withRawResponse().accept(params, requestOptions).parse()
 
     override fun adjustment(
         params: InboundCheckDepositAdjustmentParams,
@@ -83,6 +91,42 @@ internal constructor(private val clientOptions: ClientOptions) : InboundCheckDep
             return errorHandler.handle(response).parseable {
                 response
                     .use { createHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val acceptHandler: Handler<InboundCheckDeposit> =
+            jsonHandler<InboundCheckDeposit>(clientOptions.jsonMapper)
+
+        override fun accept(
+            params: InboundCheckDepositAcceptParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<InboundCheckDeposit> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("inboundCheckDepositId", params.inboundCheckDepositId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "simulations",
+                        "inbound_check_deposits",
+                        params._pathParam(0),
+                        "accept",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { acceptHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()

@@ -60,6 +60,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.digitalCardProfiles()).isNotNull()
         assertThat(client.physicalCardProfiles()).isNotNull()
         assertThat(client.digitalWalletTokens()).isNotNull()
+        assertThat(client.digitalWalletTokenRequests()).isNotNull()
         assertThat(client.transactions()).isNotNull()
         assertThat(client.pendingTransactions()).isNotNull()
         assertThat(client.declinedTransactions()).isNotNull()
@@ -74,6 +75,8 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.inboundCheckDeposits()).isNotNull()
         assertThat(client.realTimePaymentsTransfers()).isNotNull()
         assertThat(client.inboundRealTimePaymentsTransfers()).isNotNull()
+        assertThat(client.realTimePaymentsRequestsForPayment()).isNotNull()
+        assertThat(client.inboundRealTimePaymentsRequestsForPayment()).isNotNull()
         assertThat(client.fednowTransfers()).isNotNull()
         assertThat(client.inboundFednowTransfers()).isNotNull()
         assertThat(client.swiftTransfers()).isNotNull()
@@ -105,6 +108,7 @@ internal class ProGuardCompatibilityTest {
         assertThat(client.cardTokens()).isNotNull()
         assertThat(client.cardPushTransfers()).isNotNull()
         assertThat(client.cardValidations()).isNotNull()
+        assertThat(client.physicalCheckBatches()).isNotNull()
         assertThat(client.simulations()).isNotNull()
     }
 

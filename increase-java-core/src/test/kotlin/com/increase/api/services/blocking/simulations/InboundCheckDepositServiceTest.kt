@@ -37,6 +37,21 @@ internal class InboundCheckDepositServiceTest {
     }
 
     @Test
+    fun accept() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundCheckDepositService = client.simulations().inboundCheckDeposits()
+
+        val inboundCheckDeposit =
+            inboundCheckDepositService.accept("inbound_check_deposit_zoshvqybq0cjjm31mra")
+
+        inboundCheckDeposit.validate()
+    }
+
+    @Test
     fun adjustment() {
         val client =
             IncreaseOkHttpClient.builder()

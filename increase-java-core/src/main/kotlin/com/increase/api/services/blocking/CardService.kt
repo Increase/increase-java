@@ -8,9 +8,11 @@ import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.models.cards.Card
 import com.increase.api.models.cards.CardCreateDetailsIframeParams
+import com.increase.api.models.cards.CardCreateDetailsTokenParams
 import com.increase.api.models.cards.CardCreateParams
 import com.increase.api.models.cards.CardDetails
 import com.increase.api.models.cards.CardDetailsParams
+import com.increase.api.models.cards.CardDetailsToken
 import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListParams
@@ -147,6 +149,42 @@ interface CardService {
     /** @see createDetailsIframe */
     fun createDetailsIframe(cardId: String, requestOptions: RequestOptions): CardIframeUrl =
         createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
+
+    /**
+     * Create a short-lived token that authorizes [Card Elements](/documentation/card-elements) to
+     * render the details of a Card in your frontend. Mint the token on your server and pass it to
+     * the browser; the token is valid for one hour and is scoped to a single Card.
+     */
+    fun createDetailsToken(cardId: String): CardDetailsToken =
+        createDetailsToken(cardId, CardCreateDetailsTokenParams.none())
+
+    /** @see createDetailsToken */
+    fun createDetailsToken(
+        cardId: String,
+        params: CardCreateDetailsTokenParams = CardCreateDetailsTokenParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetailsToken =
+        createDetailsToken(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see createDetailsToken */
+    fun createDetailsToken(
+        cardId: String,
+        params: CardCreateDetailsTokenParams = CardCreateDetailsTokenParams.none(),
+    ): CardDetailsToken = createDetailsToken(cardId, params, RequestOptions.none())
+
+    /** @see createDetailsToken */
+    fun createDetailsToken(
+        params: CardCreateDetailsTokenParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CardDetailsToken
+
+    /** @see createDetailsToken */
+    fun createDetailsToken(params: CardCreateDetailsTokenParams): CardDetailsToken =
+        createDetailsToken(params, RequestOptions.none())
+
+    /** @see createDetailsToken */
+    fun createDetailsToken(cardId: String, requestOptions: RequestOptions): CardDetailsToken =
+        createDetailsToken(cardId, CardCreateDetailsTokenParams.none(), requestOptions)
 
     /**
      * Sensitive details for a Card include the primary account number, expiration, card
@@ -372,6 +410,52 @@ interface CardService {
             requestOptions: RequestOptions,
         ): HttpResponseFor<CardIframeUrl> =
             createDetailsIframe(cardId, CardCreateDetailsIframeParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/create_details_token`, but is
+         * otherwise the same as [CardService.createDetailsToken].
+         */
+        @MustBeClosed
+        fun createDetailsToken(cardId: String): HttpResponseFor<CardDetailsToken> =
+            createDetailsToken(cardId, CardCreateDetailsTokenParams.none())
+
+        /** @see createDetailsToken */
+        @MustBeClosed
+        fun createDetailsToken(
+            cardId: String,
+            params: CardCreateDetailsTokenParams = CardCreateDetailsTokenParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetailsToken> =
+            createDetailsToken(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see createDetailsToken */
+        @MustBeClosed
+        fun createDetailsToken(
+            cardId: String,
+            params: CardCreateDetailsTokenParams = CardCreateDetailsTokenParams.none(),
+        ): HttpResponseFor<CardDetailsToken> =
+            createDetailsToken(cardId, params, RequestOptions.none())
+
+        /** @see createDetailsToken */
+        @MustBeClosed
+        fun createDetailsToken(
+            params: CardCreateDetailsTokenParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<CardDetailsToken>
+
+        /** @see createDetailsToken */
+        @MustBeClosed
+        fun createDetailsToken(
+            params: CardCreateDetailsTokenParams
+        ): HttpResponseFor<CardDetailsToken> = createDetailsToken(params, RequestOptions.none())
+
+        /** @see createDetailsToken */
+        @MustBeClosed
+        fun createDetailsToken(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<CardDetailsToken> =
+            createDetailsToken(cardId, CardCreateDetailsTokenParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `get /cards/{card_id}/details`, but is otherwise the same

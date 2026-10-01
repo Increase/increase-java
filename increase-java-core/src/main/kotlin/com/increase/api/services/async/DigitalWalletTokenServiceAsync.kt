@@ -9,6 +9,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletToken
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsync
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenTransitionParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -83,6 +84,39 @@ interface DigitalWalletTokenServiceAsync {
     /** @see list */
     fun list(requestOptions: RequestOptions): CompletableFuture<DigitalWalletTokenListPageAsync> =
         list(DigitalWalletTokenListParams.none(), requestOptions)
+
+    /**
+     * Submit a Digital Wallet Token status transition to the card network. The Digital Wallet Token
+     * will move to `pending_transitioning` until the card network confirms the transition, and a
+     * `digital_wallet_token.updated` webhook will be sent once the transition has been confirmed.
+     */
+    fun transition(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenTransitionParams,
+    ): CompletableFuture<DigitalWalletToken> =
+        transition(digitalWalletTokenId, params, RequestOptions.none())
+
+    /** @see transition */
+    fun transition(
+        digitalWalletTokenId: String,
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DigitalWalletToken> =
+        transition(
+            params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+            requestOptions,
+        )
+
+    /** @see transition */
+    fun transition(
+        params: DigitalWalletTokenTransitionParams
+    ): CompletableFuture<DigitalWalletToken> = transition(params, RequestOptions.none())
+
+    /** @see transition */
+    fun transition(
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<DigitalWalletToken>
 
     /**
      * A view of [DigitalWalletTokenServiceAsync] that provides access to raw HTTP responses for
@@ -169,5 +203,39 @@ interface DigitalWalletTokenServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<DigitalWalletTokenListPageAsync>> =
             list(DigitalWalletTokenListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /digital_wallet_tokens/{digital_wallet_token_id}/transition`, but is otherwise the same
+         * as [DigitalWalletTokenServiceAsync.transition].
+         */
+        fun transition(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenTransitionParams,
+        ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
+            transition(digitalWalletTokenId, params, RequestOptions.none())
+
+        /** @see transition */
+        fun transition(
+            digitalWalletTokenId: String,
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
+            transition(
+                params.toBuilder().digitalWalletTokenId(digitalWalletTokenId).build(),
+                requestOptions,
+            )
+
+        /** @see transition */
+        fun transition(
+            params: DigitalWalletTokenTransitionParams
+        ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> =
+            transition(params, RequestOptions.none())
+
+        /** @see transition */
+        fun transition(
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<DigitalWalletToken>>
     }
 }

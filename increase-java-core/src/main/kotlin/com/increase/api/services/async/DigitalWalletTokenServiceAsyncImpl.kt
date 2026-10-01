@@ -13,6 +13,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
 import com.increase.api.models.digitalwallettokens.DigitalWalletToken
@@ -20,6 +21,7 @@ import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageAsy
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListPageResponse
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenListParams
 import com.increase.api.models.digitalwallettokens.DigitalWalletTokenRetrieveParams
+import com.increase.api.models.digitalwallettokens.DigitalWalletTokenTransitionParams
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
@@ -53,6 +55,13 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
     ): CompletableFuture<DigitalWalletTokenListPageAsync> =
         // get /digital_wallet_tokens
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun transition(
+        params: DigitalWalletTokenTransitionParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<DigitalWalletToken> =
+        // post /digital_wallet_tokens/{digital_wallet_token_id}/transition
+        withRawResponse().transition(params, requestOptions).thenApply { it.parse() }
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         DigitalWalletTokenServiceAsync.WithRawResponse {
@@ -133,6 +142,40 @@ internal constructor(private val clientOptions: ClientOptions) : DigitalWalletTo
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val transitionHandler: Handler<DigitalWalletToken> =
+            jsonHandler<DigitalWalletToken>(clientOptions.jsonMapper)
+
+        override fun transition(
+            params: DigitalWalletTokenTransitionParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<DigitalWalletToken>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("digitalWalletTokenId", params.digitalWalletTokenId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("digital_wallet_tokens", params._pathParam(0), "transition")
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { transitionHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }
