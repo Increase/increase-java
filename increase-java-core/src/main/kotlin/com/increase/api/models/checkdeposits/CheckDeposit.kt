@@ -1958,6 +1958,12 @@ private constructor(
             companion object {
 
                 /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
+                @JvmField val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
+
+                /**
                  * The check was deposited with a different amount than what was written on the
                  * check.
                  */
@@ -1977,6 +1983,11 @@ private constructor(
 
             /** An enum containing [Reason]'s known values. */
             enum class Known {
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
+                WRONG_PAYEE_CREDIT,
                 /**
                  * The check was deposited with a different amount than what was written on the
                  * check.
@@ -2001,6 +2012,11 @@ private constructor(
              * - It was constructed with an arbitrary value using the [of] method.
              */
             enum class Value {
+                /**
+                 * The check was deposited to the wrong payee and the depositing institution has
+                 * reimbursed the funds with a Wrong Payee Credit.
+                 */
+                WRONG_PAYEE_CREDIT,
                 /**
                  * The check was deposited with a different amount than what was written on the
                  * check.
@@ -2028,6 +2044,7 @@ private constructor(
              */
             fun value(): Value =
                 when (this) {
+                    WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
                     ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
                     NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
                     PAID -> Value.PAID
@@ -2045,6 +2062,7 @@ private constructor(
              */
             fun known(): Known =
                 when (this) {
+                    WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
                     ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
                     NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
                     PAID -> Known.PAID
