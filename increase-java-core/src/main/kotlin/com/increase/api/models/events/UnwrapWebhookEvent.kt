@@ -521,6 +521,10 @@ private constructor(
             /** Occurs whenever a Digital Wallet Token is updated. */
             @JvmField val DIGITAL_WALLET_TOKEN_UPDATED = of("digital_wallet_token.updated")
 
+            /** Occurs whenever a Digital Wallet Token Request is created. */
+            @JvmField
+            val DIGITAL_WALLET_TOKEN_REQUEST_CREATED = of("digital_wallet_token_request.created")
+
             /** Occurs whenever an Entity is created. */
             @JvmField val ENTITY_CREATED = of("entity.created")
 
@@ -927,6 +931,8 @@ private constructor(
             DIGITAL_WALLET_TOKEN_CREATED,
             /** Occurs whenever a Digital Wallet Token is updated. */
             DIGITAL_WALLET_TOKEN_UPDATED,
+            /** Occurs whenever a Digital Wallet Token Request is created. */
+            DIGITAL_WALLET_TOKEN_REQUEST_CREATED,
             /** Occurs whenever an Entity is created. */
             ENTITY_CREATED,
             /** Occurs whenever an Entity is updated. */
@@ -1212,6 +1218,8 @@ private constructor(
             DIGITAL_WALLET_TOKEN_CREATED,
             /** Occurs whenever a Digital Wallet Token is updated. */
             DIGITAL_WALLET_TOKEN_UPDATED,
+            /** Occurs whenever a Digital Wallet Token Request is created. */
+            DIGITAL_WALLET_TOKEN_REQUEST_CREATED,
             /** Occurs whenever an Entity is created. */
             ENTITY_CREATED,
             /** Occurs whenever an Entity is updated. */
@@ -1460,6 +1468,7 @@ private constructor(
                 DIGITAL_CARD_PROFILE_UPDATED -> Value.DIGITAL_CARD_PROFILE_UPDATED
                 DIGITAL_WALLET_TOKEN_CREATED -> Value.DIGITAL_WALLET_TOKEN_CREATED
                 DIGITAL_WALLET_TOKEN_UPDATED -> Value.DIGITAL_WALLET_TOKEN_UPDATED
+                DIGITAL_WALLET_TOKEN_REQUEST_CREATED -> Value.DIGITAL_WALLET_TOKEN_REQUEST_CREATED
                 ENTITY_CREATED -> Value.ENTITY_CREATED
                 ENTITY_UPDATED -> Value.ENTITY_UPDATED
                 EVENT_SUBSCRIPTION_CREATED -> Value.EVENT_SUBSCRIPTION_CREATED
@@ -1617,6 +1626,7 @@ private constructor(
                 DIGITAL_CARD_PROFILE_UPDATED -> Known.DIGITAL_CARD_PROFILE_UPDATED
                 DIGITAL_WALLET_TOKEN_CREATED -> Known.DIGITAL_WALLET_TOKEN_CREATED
                 DIGITAL_WALLET_TOKEN_UPDATED -> Known.DIGITAL_WALLET_TOKEN_UPDATED
+                DIGITAL_WALLET_TOKEN_REQUEST_CREATED -> Known.DIGITAL_WALLET_TOKEN_REQUEST_CREATED
                 ENTITY_CREATED -> Known.ENTITY_CREATED
                 ENTITY_UPDATED -> Known.ENTITY_UPDATED
                 EVENT_SUBSCRIPTION_CREATED -> Known.EVENT_SUBSCRIPTION_CREATED
