@@ -154,8 +154,6 @@ private constructor(
 
             // Retry on request timeouts
             statusCode == 408 -> true
-            // Retry on lock timeouts
-            statusCode == 409 -> true
             // Retry on rate limits
             statusCode == 429 -> true
             // Retry internal errors
