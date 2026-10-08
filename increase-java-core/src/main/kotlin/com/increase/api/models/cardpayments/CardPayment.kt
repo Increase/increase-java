@@ -4760,7 +4760,10 @@ private constructor(
                         /** The one-time code was sent via email. */
                         @JvmField val EMAIL = of("email")
 
-                        /** The one-time code was not successfully delivered. */
+                        /**
+                         * The one-time code could not be delivered because the card has no phone
+                         * number or email on file.
+                         */
                         @JvmField val NONE_AVAILABLE = of("none_available")
 
                         @JvmStatic fun of(value: String) = VerificationMethod(JsonField.of(value))
@@ -4772,7 +4775,10 @@ private constructor(
                         TEXT_MESSAGE,
                         /** The one-time code was sent via email. */
                         EMAIL,
-                        /** The one-time code was not successfully delivered. */
+                        /**
+                         * The one-time code could not be delivered because the card has no phone
+                         * number or email on file.
+                         */
                         NONE_AVAILABLE,
                     }
 
@@ -4792,7 +4798,10 @@ private constructor(
                         TEXT_MESSAGE,
                         /** The one-time code was sent via email. */
                         EMAIL,
-                        /** The one-time code was not successfully delivered. */
+                        /**
+                         * The one-time code could not be delivered because the card has no phone
+                         * number or email on file.
+                         */
                         NONE_AVAILABLE,
                         /**
                          * An enum member indicating that [VerificationMethod] was instantiated with
