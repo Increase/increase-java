@@ -32,12 +32,12 @@ private constructor(
     private val backgroundImageFileId: JsonField<String>,
     private val cardDescription: JsonField<String>,
     private val contactEmail: JsonField<String>,
+    private val contactName: JsonField<String>,
     private val contactPhone: JsonField<String>,
     private val contactWebsite: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val description: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
-    private val issuerName: JsonField<String>,
     private val status: JsonField<Status>,
     private val textColor: JsonField<TextColor>,
     private val type: JsonField<Type>,
@@ -59,6 +59,9 @@ private constructor(
         @JsonProperty("contact_email")
         @ExcludeMissing
         contactEmail: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("contact_name")
+        @ExcludeMissing
+        contactName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("contact_phone")
         @ExcludeMissing
         contactPhone: JsonField<String> = JsonMissing.of(),
@@ -74,9 +77,6 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
-        @JsonProperty("issuer_name")
-        @ExcludeMissing
-        issuerName: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("text_color")
         @ExcludeMissing
@@ -88,12 +88,12 @@ private constructor(
         backgroundImageFileId,
         cardDescription,
         contactEmail,
+        contactName,
         contactPhone,
         contactWebsite,
         createdAt,
         description,
         idempotencyKey,
-        issuerName,
         status,
         textColor,
         type,
@@ -142,6 +142,15 @@ private constructor(
     fun contactEmail(): Optional<String> = contactEmail.getOptional("contact_email")
 
     /**
+     * The name of your company or card program, shown to the user as who to contact for support
+     * with their card.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun contactName(): String = contactName.getRequired("contact_name")
+
+    /**
      * A phone number the user can contact to receive support for their card.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
@@ -183,14 +192,6 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
-
-    /**
-     * A user-facing description for whoever is issuing the card.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-     */
-    fun issuerName(): String = issuerName.getRequired("issuer_name")
 
     /**
      * The status of the Card Profile.
@@ -262,6 +263,15 @@ private constructor(
     fun _contactEmail(): JsonField<String> = contactEmail
 
     /**
+     * Returns the raw JSON value of [contactName].
+     *
+     * Unlike [contactName], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("contact_name")
+    @ExcludeMissing
+    fun _contactName(): JsonField<String> = contactName
+
+    /**
      * Returns the raw JSON value of [contactPhone].
      *
      * Unlike [contactPhone], this method doesn't throw if the JSON field has an unexpected type.
@@ -303,13 +313,6 @@ private constructor(
     @JsonProperty("idempotency_key")
     @ExcludeMissing
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
-
-    /**
-     * Returns the raw JSON value of [issuerName].
-     *
-     * Unlike [issuerName], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("issuer_name") @ExcludeMissing fun _issuerName(): JsonField<String> = issuerName
 
     /**
      * Returns the raw JSON value of [status].
@@ -356,12 +359,12 @@ private constructor(
          * .backgroundImageFileId()
          * .cardDescription()
          * .contactEmail()
+         * .contactName()
          * .contactPhone()
          * .contactWebsite()
          * .createdAt()
          * .description()
          * .idempotencyKey()
-         * .issuerName()
          * .status()
          * .textColor()
          * .type()
@@ -378,12 +381,12 @@ private constructor(
         private var backgroundImageFileId: JsonField<String>? = null
         private var cardDescription: JsonField<String>? = null
         private var contactEmail: JsonField<String>? = null
+        private var contactName: JsonField<String>? = null
         private var contactPhone: JsonField<String>? = null
         private var contactWebsite: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var description: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
-        private var issuerName: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var textColor: JsonField<TextColor>? = null
         private var type: JsonField<Type>? = null
@@ -396,12 +399,12 @@ private constructor(
             backgroundImageFileId = digitalCardProfile.backgroundImageFileId
             cardDescription = digitalCardProfile.cardDescription
             contactEmail = digitalCardProfile.contactEmail
+            contactName = digitalCardProfile.contactName
             contactPhone = digitalCardProfile.contactPhone
             contactWebsite = digitalCardProfile.contactWebsite
             createdAt = digitalCardProfile.createdAt
             description = digitalCardProfile.description
             idempotencyKey = digitalCardProfile.idempotencyKey
-            issuerName = digitalCardProfile.issuerName
             status = digitalCardProfile.status
             textColor = digitalCardProfile.textColor
             type = digitalCardProfile.type
@@ -479,6 +482,21 @@ private constructor(
         fun contactEmail(contactEmail: JsonField<String>) = apply {
             this.contactEmail = contactEmail
         }
+
+        /**
+         * The name of your company or card program, shown to the user as who to contact for support
+         * with their card.
+         */
+        fun contactName(contactName: String) = contactName(JsonField.of(contactName))
+
+        /**
+         * Sets [Builder.contactName] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.contactName] with a well-typed [String] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun contactName(contactName: JsonField<String>) = apply { this.contactName = contactName }
 
         /** A phone number the user can contact to receive support for their card. */
         fun contactPhone(contactPhone: String?) = contactPhone(JsonField.ofNullable(contactPhone))
@@ -566,18 +584,6 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
-        /** A user-facing description for whoever is issuing the card. */
-        fun issuerName(issuerName: String) = issuerName(JsonField.of(issuerName))
-
-        /**
-         * Sets [Builder.issuerName] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.issuerName] with a well-typed [String] value instead.
-         * This method is primarily for setting the field to an undocumented or not yet supported
-         * value.
-         */
-        fun issuerName(issuerName: JsonField<String>) = apply { this.issuerName = issuerName }
-
         /** The status of the Card Profile. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -646,12 +652,12 @@ private constructor(
          * .backgroundImageFileId()
          * .cardDescription()
          * .contactEmail()
+         * .contactName()
          * .contactPhone()
          * .contactWebsite()
          * .createdAt()
          * .description()
          * .idempotencyKey()
-         * .issuerName()
          * .status()
          * .textColor()
          * .type()
@@ -666,12 +672,12 @@ private constructor(
                 checkRequired("backgroundImageFileId", backgroundImageFileId),
                 checkRequired("cardDescription", cardDescription),
                 checkRequired("contactEmail", contactEmail),
+                checkRequired("contactName", contactName),
                 checkRequired("contactPhone", contactPhone),
                 checkRequired("contactWebsite", contactWebsite),
                 checkRequired("createdAt", createdAt),
                 checkRequired("description", description),
                 checkRequired("idempotencyKey", idempotencyKey),
-                checkRequired("issuerName", issuerName),
                 checkRequired("status", status),
                 checkRequired("textColor", textColor),
                 checkRequired("type", type),
@@ -699,12 +705,12 @@ private constructor(
         backgroundImageFileId()
         cardDescription()
         contactEmail()
+        contactName()
         contactPhone()
         contactWebsite()
         createdAt()
         description()
         idempotencyKey()
-        issuerName()
         status().validate()
         textColor().validate()
         type().validate()
@@ -731,12 +737,12 @@ private constructor(
             (if (backgroundImageFileId.asKnown().isPresent) 1 else 0) +
             (if (cardDescription.asKnown().isPresent) 1 else 0) +
             (if (contactEmail.asKnown().isPresent) 1 else 0) +
+            (if (contactName.asKnown().isPresent) 1 else 0) +
             (if (contactPhone.asKnown().isPresent) 1 else 0) +
             (if (contactWebsite.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (if (description.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
-            (if (issuerName.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (textColor.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
@@ -1298,12 +1304,12 @@ private constructor(
             backgroundImageFileId == other.backgroundImageFileId &&
             cardDescription == other.cardDescription &&
             contactEmail == other.contactEmail &&
+            contactName == other.contactName &&
             contactPhone == other.contactPhone &&
             contactWebsite == other.contactWebsite &&
             createdAt == other.createdAt &&
             description == other.description &&
             idempotencyKey == other.idempotencyKey &&
-            issuerName == other.issuerName &&
             status == other.status &&
             textColor == other.textColor &&
             type == other.type &&
@@ -1317,12 +1323,12 @@ private constructor(
             backgroundImageFileId,
             cardDescription,
             contactEmail,
+            contactName,
             contactPhone,
             contactWebsite,
             createdAt,
             description,
             idempotencyKey,
-            issuerName,
             status,
             textColor,
             type,
@@ -1333,5 +1339,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalCardProfile{id=$id, appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, idempotencyKey=$idempotencyKey, issuerName=$issuerName, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
+        "DigitalCardProfile{id=$id, appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, contactEmail=$contactEmail, contactName=$contactName, contactPhone=$contactPhone, contactWebsite=$contactWebsite, createdAt=$createdAt, description=$description, idempotencyKey=$idempotencyKey, status=$status, textColor=$textColor, type=$type, additionalProperties=$additionalProperties}"
 }
