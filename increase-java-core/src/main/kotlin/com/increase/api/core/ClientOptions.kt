@@ -102,7 +102,6 @@ private constructor(
      * Only the following error types are retried:
      * - Connection errors (for example, due to a network connectivity problem)
      * - 408 Request Timeout
-     * - 409 Conflict
      * - 429 Rate Limit
      * - 5xx Internal
      *
@@ -323,7 +322,6 @@ private constructor(
          * Only the following error types are retried:
          * - Connection errors (for example, due to a network connectivity problem)
          * - 408 Request Timeout
-         * - 409 Conflict
          * - 429 Rate Limit
          * - 5xx Internal
          *
