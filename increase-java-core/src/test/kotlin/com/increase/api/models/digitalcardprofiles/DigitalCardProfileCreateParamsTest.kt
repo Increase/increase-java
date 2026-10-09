@@ -12,10 +12,10 @@ internal class DigitalCardProfileCreateParamsTest {
         DigitalCardProfileCreateParams.builder()
             .appIconFileId("file_8zxqkwlh43wo144u8yec")
             .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
-            .cardDescription("MyBank Signature Card")
+            .cardDescription("National Phonograph Card")
             .description("My Card Profile")
-            .issuerName("MyBank")
             .contactEmail("user@example.com")
+            .contactName("National Phonograph Company")
             .contactPhone("+18885551212")
             .contactWebsite("https://example.com")
             .textColor(
@@ -34,10 +34,10 @@ internal class DigitalCardProfileCreateParamsTest {
             DigitalCardProfileCreateParams.builder()
                 .appIconFileId("file_8zxqkwlh43wo144u8yec")
                 .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
-                .cardDescription("MyBank Signature Card")
+                .cardDescription("National Phonograph Card")
                 .description("My Card Profile")
-                .issuerName("MyBank")
                 .contactEmail("user@example.com")
+                .contactName("National Phonograph Company")
                 .contactPhone("+18885551212")
                 .contactWebsite("https://example.com")
                 .textColor(
@@ -53,10 +53,10 @@ internal class DigitalCardProfileCreateParamsTest {
 
         assertThat(body.appIconFileId()).isEqualTo("file_8zxqkwlh43wo144u8yec")
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
-        assertThat(body.cardDescription()).isEqualTo("MyBank Signature Card")
+        assertThat(body.cardDescription()).isEqualTo("National Phonograph Card")
         assertThat(body.description()).isEqualTo("My Card Profile")
-        assertThat(body.issuerName()).isEqualTo("MyBank")
         assertThat(body.contactEmail()).contains("user@example.com")
+        assertThat(body.contactName()).contains("National Phonograph Company")
         assertThat(body.contactPhone()).contains("+18885551212")
         assertThat(body.contactWebsite()).contains("https://example.com")
         assertThat(body.textColor())
@@ -75,17 +75,15 @@ internal class DigitalCardProfileCreateParamsTest {
             DigitalCardProfileCreateParams.builder()
                 .appIconFileId("file_8zxqkwlh43wo144u8yec")
                 .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
-                .cardDescription("MyBank Signature Card")
+                .cardDescription("National Phonograph Card")
                 .description("My Card Profile")
-                .issuerName("MyBank")
                 .build()
 
         val body = params._body()
 
         assertThat(body.appIconFileId()).isEqualTo("file_8zxqkwlh43wo144u8yec")
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
-        assertThat(body.cardDescription()).isEqualTo("MyBank Signature Card")
+        assertThat(body.cardDescription()).isEqualTo("National Phonograph Card")
         assertThat(body.description()).isEqualTo("My Card Profile")
-        assertThat(body.issuerName()).isEqualTo("MyBank")
     }
 }
