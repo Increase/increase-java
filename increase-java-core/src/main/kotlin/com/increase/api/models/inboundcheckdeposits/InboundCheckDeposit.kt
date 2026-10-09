@@ -193,10 +193,10 @@ private constructor(
     /**
      * The ID for the File containing the image of the back of the check.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun backImageFileId(): Optional<String> = backImageFileId.getOptional("back_image_file_id")
+    fun backImageFileId(): String = backImageFileId.getRequired("back_image_file_id")
 
     /**
      * The American Bankers' Association (ABA) Routing Transit Number (RTN) for the bank depositing
@@ -272,10 +272,10 @@ private constructor(
     /**
      * The ID for the File containing the image of the front of the check.
      *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
-    fun frontImageFileId(): Optional<String> = frontImageFileId.getOptional("front_image_file_id")
+    fun frontImageFileId(): String = frontImageFileId.getRequired("front_image_file_id")
 
     /**
      * Whether the details on the check match the recipient name of the check transfer. This is an
@@ -714,12 +714,8 @@ private constructor(
         }
 
         /** The ID for the File containing the image of the back of the check. */
-        fun backImageFileId(backImageFileId: String?) =
-            backImageFileId(JsonField.ofNullable(backImageFileId))
-
-        /** Alias for calling [Builder.backImageFileId] with `backImageFileId.orElse(null)`. */
-        fun backImageFileId(backImageFileId: Optional<String>) =
-            backImageFileId(backImageFileId.getOrNull())
+        fun backImageFileId(backImageFileId: String) =
+            backImageFileId(JsonField.of(backImageFileId))
 
         /**
          * Sets [Builder.backImageFileId] to an arbitrary JSON value.
@@ -888,12 +884,8 @@ private constructor(
         }
 
         /** The ID for the File containing the image of the front of the check. */
-        fun frontImageFileId(frontImageFileId: String?) =
-            frontImageFileId(JsonField.ofNullable(frontImageFileId))
-
-        /** Alias for calling [Builder.frontImageFileId] with `frontImageFileId.orElse(null)`. */
-        fun frontImageFileId(frontImageFileId: Optional<String>) =
-            frontImageFileId(frontImageFileId.getOrNull())
+        fun frontImageFileId(frontImageFileId: String) =
+            frontImageFileId(JsonField.of(frontImageFileId))
 
         /**
          * Sets [Builder.frontImageFileId] to an arbitrary JSON value.
@@ -1429,6 +1421,12 @@ private constructor(
                  */
                 @JvmField val WRONG_PAYEE_CREDIT = of("wrong_payee_credit")
 
+                /**
+                 * A previous adjustment for the check was applied twice and the duplicate has been
+                 * reversed.
+                 */
+                @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -1444,6 +1442,11 @@ private constructor(
                  * reimbursed the funds with a Wrong Payee Credit.
                  */
                 WRONG_PAYEE_CREDIT,
+                /**
+                 * A previous adjustment for the check was applied twice and the duplicate has been
+                 * reversed.
+                 */
+                DUPLICATE_ENTRY,
             }
 
             /**
@@ -1467,6 +1470,11 @@ private constructor(
                  */
                 WRONG_PAYEE_CREDIT,
                 /**
+                 * A previous adjustment for the check was applied twice and the duplicate has been
+                 * reversed.
+                 */
+                DUPLICATE_ENTRY,
+                /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
                 _UNKNOWN,
@@ -1483,6 +1491,7 @@ private constructor(
                 when (this) {
                     LATE_RETURN -> Value.LATE_RETURN
                     WRONG_PAYEE_CREDIT -> Value.WRONG_PAYEE_CREDIT
+                    DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                     else -> Value._UNKNOWN
                 }
 
@@ -1499,6 +1508,7 @@ private constructor(
                 when (this) {
                     LATE_RETURN -> Known.LATE_RETURN
                     WRONG_PAYEE_CREDIT -> Known.WRONG_PAYEE_CREDIT
+                    DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 

@@ -26,10 +26,10 @@ internal class DigitalCardProfileServiceTest {
                 DigitalCardProfileCreateParams.builder()
                     .appIconFileId("file_8zxqkwlh43wo144u8yec")
                     .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
-                    .cardDescription("MyBank Signature Card")
+                    .cardDescription("National Phonograph Card")
                     .description("My Card Profile")
-                    .issuerName("MyBank")
                     .contactEmail("user@example.com")
+                    .contactName("National Phonograph Company")
                     .contactPhone("+18885551212")
                     .contactWebsite("https://example.com")
                     .textColor(
