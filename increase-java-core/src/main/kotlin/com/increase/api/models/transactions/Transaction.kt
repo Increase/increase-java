@@ -18059,6 +18059,12 @@ private constructor(
                          */
                         @JvmField val PULSE_SWITCH_FEE = of("pulse_switch_fee")
 
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        @JvmField val PULSE_TOKENIZATION_FEE = of("pulse_tokenization_fee")
+
                         @JvmStatic fun of(value: String) = FeeType(JsonField.of(value))
                     }
 
@@ -18217,6 +18223,11 @@ private constructor(
                          * transactions on its network.
                          */
                         PULSE_SWITCH_FEE,
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
                     }
 
                     /**
@@ -18383,6 +18394,11 @@ private constructor(
                          */
                         PULSE_SWITCH_FEE,
                         /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
+                        /**
                          * An enum member indicating that [FeeType] was instantiated with an unknown
                          * value.
                          */
@@ -18444,6 +18460,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
                         }
 
@@ -18504,6 +18521,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
                         }
 
@@ -29940,6 +29958,11 @@ private constructor(
                         /** Invoice number */
                         @JvmField val INVOICE_NUMBER = of("invoice_number")
 
+                        /** Visa Recurrent reference identifier */
+                        @JvmField
+                        val VISA_RECURRENT_REFERENCE_IDENTIFIER =
+                            of("visa_recurrent_reference_identifier")
+
                         @JvmStatic
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
                     }
@@ -29956,6 +29979,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                     }
 
                     /**
@@ -29980,6 +30005,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                         /**
                          * An enum member indicating that [PurchaseIdentifierFormat] was
                          * instantiated with an unknown value.
@@ -30001,6 +30028,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Value.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else -> Value._UNKNOWN
                         }
 
@@ -30020,6 +30049,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Known.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else ->
                                 throw IncreaseInvalidDataException(
                                     "Unknown PurchaseIdentifierFormat: $value"
@@ -34257,6 +34288,12 @@ private constructor(
                          */
                         @JvmField val PULSE_SWITCH_FEE = of("pulse_switch_fee")
 
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        @JvmField val PULSE_TOKENIZATION_FEE = of("pulse_tokenization_fee")
+
                         @JvmStatic fun of(value: String) = FeeType(JsonField.of(value))
                     }
 
@@ -34415,6 +34452,11 @@ private constructor(
                          * transactions on its network.
                          */
                         PULSE_SWITCH_FEE,
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
                     }
 
                     /**
@@ -34581,6 +34623,11 @@ private constructor(
                          */
                         PULSE_SWITCH_FEE,
                         /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
+                        /**
                          * An enum member indicating that [FeeType] was instantiated with an unknown
                          * value.
                          */
@@ -34642,6 +34689,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
                         }
 
@@ -34702,6 +34750,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
                         }
 
@@ -44964,6 +45013,11 @@ private constructor(
                         /** Invoice number */
                         @JvmField val INVOICE_NUMBER = of("invoice_number")
 
+                        /** Visa Recurrent reference identifier */
+                        @JvmField
+                        val VISA_RECURRENT_REFERENCE_IDENTIFIER =
+                            of("visa_recurrent_reference_identifier")
+
                         @JvmStatic
                         fun of(value: String) = PurchaseIdentifierFormat(JsonField.of(value))
                     }
@@ -44980,6 +45034,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                     }
 
                     /**
@@ -45004,6 +45060,8 @@ private constructor(
                         HOTEL_FOLIO_NUMBER,
                         /** Invoice number */
                         INVOICE_NUMBER,
+                        /** Visa Recurrent reference identifier */
+                        VISA_RECURRENT_REFERENCE_IDENTIFIER,
                         /**
                          * An enum member indicating that [PurchaseIdentifierFormat] was
                          * instantiated with an unknown value.
@@ -45025,6 +45083,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Value.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Value.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Value.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Value.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else -> Value._UNKNOWN
                         }
 
@@ -45044,6 +45104,8 @@ private constructor(
                             RENTAL_AGREEMENT_NUMBER -> Known.RENTAL_AGREEMENT_NUMBER
                             HOTEL_FOLIO_NUMBER -> Known.HOTEL_FOLIO_NUMBER
                             INVOICE_NUMBER -> Known.INVOICE_NUMBER
+                            VISA_RECURRENT_REFERENCE_IDENTIFIER ->
+                                Known.VISA_RECURRENT_REFERENCE_IDENTIFIER
                             else ->
                                 throw IncreaseInvalidDataException(
                                     "Unknown PurchaseIdentifierFormat: $value"
@@ -49281,6 +49343,12 @@ private constructor(
                          */
                         @JvmField val PULSE_SWITCH_FEE = of("pulse_switch_fee")
 
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        @JvmField val PULSE_TOKENIZATION_FEE = of("pulse_tokenization_fee")
+
                         @JvmStatic fun of(value: String) = FeeType(JsonField.of(value))
                     }
 
@@ -49439,6 +49507,11 @@ private constructor(
                          * transactions on its network.
                          */
                         PULSE_SWITCH_FEE,
+                        /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
                     }
 
                     /**
@@ -49605,6 +49678,11 @@ private constructor(
                          */
                         PULSE_SWITCH_FEE,
                         /**
+                         * Pulse Tokenization Fee is a fee charged by the Pulse network for
+                         * processing tokenized transactions on its network.
+                         */
+                        PULSE_TOKENIZATION_FEE,
+                        /**
                          * An enum member indicating that [FeeType] was instantiated with an unknown
                          * value.
                          */
@@ -49666,6 +49744,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
                         }
 
@@ -49726,6 +49805,7 @@ private constructor(
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
+                            PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
                         }
 
@@ -56594,6 +56674,12 @@ private constructor(
                      */
                     @JvmField val PAID = of("paid")
 
+                    /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    @JvmField val DUPLICATE_ENTRY = of("duplicate_entry")
+
                     @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
                 }
 
@@ -56623,6 +56709,11 @@ private constructor(
                      * The check has already been deposited elsewhere and so this is a duplicate.
                      */
                     PAID,
+                    /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    DUPLICATE_ENTRY,
                 }
 
                 /**
@@ -56660,6 +56751,11 @@ private constructor(
                      */
                     PAID,
                     /**
+                     * A previous adjustment for the check was applied twice and the duplicate has
+                     * been reversed.
+                     */
+                    DUPLICATE_ENTRY,
+                    /**
                      * An enum member indicating that [Reason] was instantiated with an unknown
                      * value.
                      */
@@ -56680,6 +56776,7 @@ private constructor(
                         ADJUSTED_AMOUNT -> Value.ADJUSTED_AMOUNT
                         NON_CONFORMING_ITEM -> Value.NON_CONFORMING_ITEM
                         PAID -> Value.PAID
+                        DUPLICATE_ENTRY -> Value.DUPLICATE_ENTRY
                         else -> Value._UNKNOWN
                     }
 
@@ -56699,6 +56796,7 @@ private constructor(
                         ADJUSTED_AMOUNT -> Known.ADJUSTED_AMOUNT
                         NON_CONFORMING_ITEM -> Known.NON_CONFORMING_ITEM
                         PAID -> Known.PAID
+                        DUPLICATE_ENTRY -> Known.DUPLICATE_ENTRY
                         else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                     }
 
