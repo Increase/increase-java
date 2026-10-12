@@ -664,7 +664,8 @@ private constructor(
 
                 /**
                  * A card image to be rendered inside digital wallet apps. This must be a 1536x969
-                 * pixel PNG.
+                 * pixel PNG with the Visa Brand Mark sized and placed as in the digital card
+                 * template.
                  */
                 @JvmField val DIGITAL_WALLET_ARTWORK = of("digital_wallet_artwork")
 
@@ -786,7 +787,8 @@ private constructor(
                 TRUST_FORMATION_DOCUMENT,
                 /**
                  * A card image to be rendered inside digital wallet apps. This must be a 1536x969
-                 * pixel PNG.
+                 * pixel PNG with the Visa Brand Mark sized and placed as in the digital card
+                 * template.
                  */
                 DIGITAL_WALLET_ARTWORK,
                 /**
@@ -896,7 +898,8 @@ private constructor(
                 TRUST_FORMATION_DOCUMENT,
                 /**
                  * A card image to be rendered inside digital wallet apps. This must be a 1536x969
-                 * pixel PNG.
+                 * pixel PNG with the Visa Brand Mark sized and placed as in the digital card
+                 * template.
                  */
                 DIGITAL_WALLET_ARTWORK,
                 /**
