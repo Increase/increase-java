@@ -18,7 +18,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Enroll an account in the IntraFi deposit sweep network */
+/** Enroll an Account in the IntraFi deposit sweep network */
 class IntrafiAccountEnrollmentCreateParams
 private constructor(
     private val body: Body,

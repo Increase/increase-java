@@ -15,6 +15,7 @@ import com.increase.api.models.cards.CardDetailsToken
 import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPageAsync
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardRenewParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -237,6 +238,41 @@ interface CardServiceAsync {
     /** @see details */
     fun details(cardId: String, requestOptions: RequestOptions): CompletableFuture<CardDetails> =
         details(cardId, CardDetailsParams.none(), requestOptions)
+
+    /**
+     * Renew a Card in place. The Card keeps its identifier, card number, PIN, and Physical Cards,
+     * and receives a new expiration date in the current month four years from now along with a new
+     * verification code, which the Card's details will return afterwards. Physical Cards that have
+     * already shipped keep working until they are canceled.
+     */
+    fun renew(cardId: String): CompletableFuture<Card> = renew(cardId, CardRenewParams.none())
+
+    /** @see renew */
+    fun renew(
+        cardId: String,
+        params: CardRenewParams = CardRenewParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Card> = renew(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see renew */
+    fun renew(
+        cardId: String,
+        params: CardRenewParams = CardRenewParams.none(),
+    ): CompletableFuture<Card> = renew(cardId, params, RequestOptions.none())
+
+    /** @see renew */
+    fun renew(
+        params: CardRenewParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<Card>
+
+    /** @see renew */
+    fun renew(params: CardRenewParams): CompletableFuture<Card> =
+        renew(params, RequestOptions.none())
+
+    /** @see renew */
+    fun renew(cardId: String, requestOptions: RequestOptions): CompletableFuture<Card> =
+        renew(cardId, CardRenewParams.none(), requestOptions)
 
     /** Update a Card's PIN */
     fun updatePin(cardId: String, params: CardUpdatePinParams): CompletableFuture<CardDetails> =
@@ -507,6 +543,44 @@ interface CardServiceAsync {
             requestOptions: RequestOptions,
         ): CompletableFuture<HttpResponseFor<CardDetails>> =
             details(cardId, CardDetailsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/renew`, but is otherwise the same
+         * as [CardServiceAsync.renew].
+         */
+        fun renew(cardId: String): CompletableFuture<HttpResponseFor<Card>> =
+            renew(cardId, CardRenewParams.none())
+
+        /** @see renew */
+        fun renew(
+            cardId: String,
+            params: CardRenewParams = CardRenewParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            renew(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see renew */
+        fun renew(
+            cardId: String,
+            params: CardRenewParams = CardRenewParams.none(),
+        ): CompletableFuture<HttpResponseFor<Card>> = renew(cardId, params, RequestOptions.none())
+
+        /** @see renew */
+        fun renew(
+            params: CardRenewParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<Card>>
+
+        /** @see renew */
+        fun renew(params: CardRenewParams): CompletableFuture<HttpResponseFor<Card>> =
+            renew(params, RequestOptions.none())
+
+        /** @see renew */
+        fun renew(
+            cardId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<Card>> =
+            renew(cardId, CardRenewParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /cards/{card_id}/update_pin`, but is otherwise the
