@@ -44,6 +44,7 @@ private constructor(
     private val expirationYear: JsonField<Long>,
     private val idempotencyKey: JsonField<String>,
     private val last4: JsonField<String>,
+    private val renewals: JsonField<List<Renewal>>,
     private val status: JsonField<Status>,
     private val type: JsonField<Type>,
     private val additionalProperties: MutableMap<String, JsonValue>,
@@ -83,6 +84,9 @@ private constructor(
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
         @JsonProperty("last4") @ExcludeMissing last4: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("renewals")
+        @ExcludeMissing
+        renewals: JsonField<List<Renewal>> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
     ) : this(
@@ -100,6 +104,7 @@ private constructor(
         expirationYear,
         idempotencyKey,
         last4,
+        renewals,
         status,
         type,
         mutableMapOf(),
@@ -222,6 +227,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun last4(): String = last4.getRequired("last4")
+
+    /**
+     * Completed renewals of this Card, sorted by `renewed_at` in ascending order. Each renewal
+     * records the expiration date the Card had before it was renewed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun renewals(): List<Renewal> = renewals.getRequired("renewals")
 
     /**
      * This indicates if payments can be made with the card.
@@ -355,6 +369,13 @@ private constructor(
     @JsonProperty("last4") @ExcludeMissing fun _last4(): JsonField<String> = last4
 
     /**
+     * Returns the raw JSON value of [renewals].
+     *
+     * Unlike [renewals], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("renewals") @ExcludeMissing fun _renewals(): JsonField<List<Renewal>> = renewals
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -401,6 +422,7 @@ private constructor(
          * .expirationYear()
          * .idempotencyKey()
          * .last4()
+         * .renewals()
          * .status()
          * .type()
          * ```
@@ -425,6 +447,7 @@ private constructor(
         private var expirationYear: JsonField<Long>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var last4: JsonField<String>? = null
+        private var renewals: JsonField<MutableList<Renewal>>? = null
         private var status: JsonField<Status>? = null
         private var type: JsonField<Type>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -445,6 +468,7 @@ private constructor(
             expirationYear = card.expirationYear
             idempotencyKey = card.idempotencyKey
             last4 = card.last4
+            renewals = card.renewals.map { it.toMutableList() }
             status = card.status
             type = card.type
             additionalProperties = card.additionalProperties.toMutableMap()
@@ -671,6 +695,35 @@ private constructor(
          */
         fun last4(last4: JsonField<String>) = apply { this.last4 = last4 }
 
+        /**
+         * Completed renewals of this Card, sorted by `renewed_at` in ascending order. Each renewal
+         * records the expiration date the Card had before it was renewed.
+         */
+        fun renewals(renewals: List<Renewal>) = renewals(JsonField.of(renewals))
+
+        /**
+         * Sets [Builder.renewals] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.renewals] with a well-typed `List<Renewal>` value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun renewals(renewals: JsonField<List<Renewal>>) = apply {
+            this.renewals = renewals.map { it.toMutableList() }
+        }
+
+        /**
+         * Adds a single [Renewal] to [renewals].
+         *
+         * @throws IllegalStateException if the field was previously set to a non-list.
+         */
+        fun addRenewal(renewal: Renewal) = apply {
+            renewals =
+                (renewals ?: JsonField.of(mutableListOf())).also {
+                    checkKnown("renewals", it).add(renewal)
+                }
+        }
+
         /** This indicates if payments can be made with the card. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -735,6 +788,7 @@ private constructor(
          * .expirationYear()
          * .idempotencyKey()
          * .last4()
+         * .renewals()
          * .status()
          * .type()
          * ```
@@ -757,6 +811,7 @@ private constructor(
                 checkRequired("expirationYear", expirationYear),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("last4", last4),
+                checkRequired("renewals", renewals).map { it.toImmutable() },
                 checkRequired("status", status),
                 checkRequired("type", type),
                 additionalProperties.toMutableMap(),
@@ -792,6 +847,7 @@ private constructor(
         expirationYear()
         idempotencyKey()
         last4()
+        renewals().forEach { it.validate() }
         status().validate()
         type().validate()
         validated = true
@@ -826,6 +882,7 @@ private constructor(
             (if (expirationYear.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (last4.asKnown().isPresent) 1 else 0) +
+            (renewals.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0)
 
@@ -5836,6 +5893,279 @@ private constructor(
             "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
     }
 
+    class Renewal
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val expirationMonth: JsonField<Long>,
+        private val expirationYear: JsonField<Long>,
+        private val renewedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("expiration_month")
+            @ExcludeMissing
+            expirationMonth: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("expiration_year")
+            @ExcludeMissing
+            expirationYear: JsonField<Long> = JsonMissing.of(),
+            @JsonProperty("renewed_at")
+            @ExcludeMissing
+            renewedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(expirationMonth, expirationYear, renewedAt, mutableMapOf())
+
+        /**
+         * The month the Card expired in before this renewal, in M format (e.g., August is 8).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun expirationMonth(): Long = expirationMonth.getRequired("expiration_month")
+
+        /**
+         * The year the Card expired in before this renewal, in YYYY format (e.g., 2025).
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun expirationYear(): Long = expirationYear.getRequired("expiration_year")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the Card
+         * was renewed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun renewedAt(): OffsetDateTime = renewedAt.getRequired("renewed_at")
+
+        /**
+         * Returns the raw JSON value of [expirationMonth].
+         *
+         * Unlike [expirationMonth], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("expiration_month")
+        @ExcludeMissing
+        fun _expirationMonth(): JsonField<Long> = expirationMonth
+
+        /**
+         * Returns the raw JSON value of [expirationYear].
+         *
+         * Unlike [expirationYear], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("expiration_year")
+        @ExcludeMissing
+        fun _expirationYear(): JsonField<Long> = expirationYear
+
+        /**
+         * Returns the raw JSON value of [renewedAt].
+         *
+         * Unlike [renewedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("renewed_at")
+        @ExcludeMissing
+        fun _renewedAt(): JsonField<OffsetDateTime> = renewedAt
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Renewal].
+             *
+             * The following fields are required:
+             * ```java
+             * .expirationMonth()
+             * .expirationYear()
+             * .renewedAt()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Renewal]. */
+        class Builder internal constructor() {
+
+            private var expirationMonth: JsonField<Long>? = null
+            private var expirationYear: JsonField<Long>? = null
+            private var renewedAt: JsonField<OffsetDateTime>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(renewal: Renewal) = apply {
+                expirationMonth = renewal.expirationMonth
+                expirationYear = renewal.expirationYear
+                renewedAt = renewal.renewedAt
+                additionalProperties = renewal.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * The month the Card expired in before this renewal, in M format (e.g., August is 8).
+             */
+            fun expirationMonth(expirationMonth: Long) =
+                expirationMonth(JsonField.of(expirationMonth))
+
+            /**
+             * Sets [Builder.expirationMonth] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.expirationMonth] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun expirationMonth(expirationMonth: JsonField<Long>) = apply {
+                this.expirationMonth = expirationMonth
+            }
+
+            /** The year the Card expired in before this renewal, in YYYY format (e.g., 2025). */
+            fun expirationYear(expirationYear: Long) = expirationYear(JsonField.of(expirationYear))
+
+            /**
+             * Sets [Builder.expirationYear] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.expirationYear] with a well-typed [Long] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun expirationYear(expirationYear: JsonField<Long>) = apply {
+                this.expirationYear = expirationYear
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * Card was renewed.
+             */
+            fun renewedAt(renewedAt: OffsetDateTime) = renewedAt(JsonField.of(renewedAt))
+
+            /**
+             * Sets [Builder.renewedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.renewedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun renewedAt(renewedAt: JsonField<OffsetDateTime>) = apply {
+                this.renewedAt = renewedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Renewal].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .expirationMonth()
+             * .expirationYear()
+             * .renewedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Renewal =
+                Renewal(
+                    checkRequired("expirationMonth", expirationMonth),
+                    checkRequired("expirationYear", expirationYear),
+                    checkRequired("renewedAt", renewedAt),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Renewal = apply {
+            if (validated) {
+                return@apply
+            }
+
+            expirationMonth()
+            expirationYear()
+            renewedAt()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (expirationMonth.asKnown().isPresent) 1 else 0) +
+                (if (expirationYear.asKnown().isPresent) 1 else 0) +
+                (if (renewedAt.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Renewal &&
+                expirationMonth == other.expirationMonth &&
+                expirationYear == other.expirationYear &&
+                renewedAt == other.renewedAt &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(expirationMonth, expirationYear, renewedAt, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Renewal{expirationMonth=$expirationMonth, expirationYear=$expirationYear, renewedAt=$renewedAt, additionalProperties=$additionalProperties}"
+    }
+
     /** This indicates if payments can be made with the card. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -6139,6 +6469,7 @@ private constructor(
             expirationYear == other.expirationYear &&
             idempotencyKey == other.idempotencyKey &&
             last4 == other.last4 &&
+            renewals == other.renewals &&
             status == other.status &&
             type == other.type &&
             additionalProperties == other.additionalProperties
@@ -6160,6 +6491,7 @@ private constructor(
             expirationYear,
             idempotencyKey,
             last4,
+            renewals,
             status,
             type,
             additionalProperties,
@@ -6169,5 +6501,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "Card{id=$id, accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, bin=$bin, cardholderName=$cardholderName, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, idempotencyKey=$idempotencyKey, last4=$last4, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "Card{id=$id, accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, bin=$bin, cardholderName=$cardholderName, createdAt=$createdAt, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, expirationMonth=$expirationMonth, expirationYear=$expirationYear, idempotencyKey=$idempotencyKey, last4=$last4, renewals=$renewals, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

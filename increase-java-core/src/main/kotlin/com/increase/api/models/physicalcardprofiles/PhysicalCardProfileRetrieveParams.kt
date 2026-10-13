@@ -9,7 +9,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Retrieve a Card Profile */
+/** Retrieve a Physical Card Profile */
 class PhysicalCardProfileRetrieveParams
 private constructor(
     private val physicalCardProfileId: String?,

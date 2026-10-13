@@ -16,6 +16,7 @@ import com.increase.api.models.cards.CardDetailsToken
 import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardRenewParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -215,6 +216,35 @@ interface CardService {
     /** @see details */
     fun details(cardId: String, requestOptions: RequestOptions): CardDetails =
         details(cardId, CardDetailsParams.none(), requestOptions)
+
+    /**
+     * Renew a Card in place. The Card keeps its identifier, card number, PIN, and Physical Cards,
+     * and receives a new expiration date in the current month four years from now along with a new
+     * verification code, which the Card's details will return afterwards. Physical Cards that have
+     * already shipped keep working until they are canceled.
+     */
+    fun renew(cardId: String): Card = renew(cardId, CardRenewParams.none())
+
+    /** @see renew */
+    fun renew(
+        cardId: String,
+        params: CardRenewParams = CardRenewParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): Card = renew(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+    /** @see renew */
+    fun renew(cardId: String, params: CardRenewParams = CardRenewParams.none()): Card =
+        renew(cardId, params, RequestOptions.none())
+
+    /** @see renew */
+    fun renew(params: CardRenewParams, requestOptions: RequestOptions = RequestOptions.none()): Card
+
+    /** @see renew */
+    fun renew(params: CardRenewParams): Card = renew(params, RequestOptions.none())
+
+    /** @see renew */
+    fun renew(cardId: String, requestOptions: RequestOptions): Card =
+        renew(cardId, CardRenewParams.none(), requestOptions)
 
     /** Update a Card's PIN */
     fun updatePin(cardId: String, params: CardUpdatePinParams): CardDetails =
@@ -497,6 +527,45 @@ interface CardService {
         @MustBeClosed
         fun details(cardId: String, requestOptions: RequestOptions): HttpResponseFor<CardDetails> =
             details(cardId, CardDetailsParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post /cards/{card_id}/renew`, but is otherwise the same
+         * as [CardService.renew].
+         */
+        @MustBeClosed
+        fun renew(cardId: String): HttpResponseFor<Card> = renew(cardId, CardRenewParams.none())
+
+        /** @see renew */
+        @MustBeClosed
+        fun renew(
+            cardId: String,
+            params: CardRenewParams = CardRenewParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card> = renew(params.toBuilder().cardId(cardId).build(), requestOptions)
+
+        /** @see renew */
+        @MustBeClosed
+        fun renew(
+            cardId: String,
+            params: CardRenewParams = CardRenewParams.none(),
+        ): HttpResponseFor<Card> = renew(cardId, params, RequestOptions.none())
+
+        /** @see renew */
+        @MustBeClosed
+        fun renew(
+            params: CardRenewParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): HttpResponseFor<Card>
+
+        /** @see renew */
+        @MustBeClosed
+        fun renew(params: CardRenewParams): HttpResponseFor<Card> =
+            renew(params, RequestOptions.none())
+
+        /** @see renew */
+        @MustBeClosed
+        fun renew(cardId: String, requestOptions: RequestOptions): HttpResponseFor<Card> =
+            renew(cardId, CardRenewParams.none(), requestOptions)
 
         /**
          * Returns a raw HTTP response for `post /cards/{card_id}/update_pin`, but is otherwise the

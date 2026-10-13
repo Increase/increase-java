@@ -18,7 +18,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 
-/** Create a supplemental document for an Entity */
+/** Create a Supplemental Document */
 class SupplementalDocumentCreateParams
 private constructor(
     private val body: Body,

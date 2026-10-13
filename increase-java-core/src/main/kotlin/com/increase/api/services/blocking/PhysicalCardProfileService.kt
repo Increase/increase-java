@@ -39,7 +39,7 @@ interface PhysicalCardProfileService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): PhysicalCardProfile
 
-    /** Retrieve a Card Profile */
+    /** Retrieve a Physical Card Profile */
     fun retrieve(physicalCardProfileId: String): PhysicalCardProfile =
         retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
 

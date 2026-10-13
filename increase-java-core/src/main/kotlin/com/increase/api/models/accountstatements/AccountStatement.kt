@@ -135,7 +135,8 @@ private constructor(
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
      * period the Account Statement covers. The statement covers all transactions up to, but not
-     * including this timestamp. Usually, this is the beginning of the following month.
+     * including this timestamp. Statement periods are measured in UTC days, so this is usually
+     * midnight UTC on the first day of the following month.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -146,7 +147,8 @@ private constructor(
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
      * period the Account Statement covers. This is the first moment of the statement period and is
-     * inclusive. Usually, this is the beginning of the month this statement covers.
+     * inclusive. Statement periods are measured in UTC days, so this is usually midnight UTC on the
+     * first day of the month this statement covers.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -403,7 +405,8 @@ private constructor(
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the end of the
          * period the Account Statement covers. The statement covers all transactions up to, but not
-         * including this timestamp. Usually, this is the beginning of the following month.
+         * including this timestamp. Statement periods are measured in UTC days, so this is usually
+         * midnight UTC on the first day of the following month.
          */
         fun statementPeriodEnd(statementPeriodEnd: OffsetDateTime) =
             statementPeriodEnd(JsonField.of(statementPeriodEnd))
@@ -422,7 +425,8 @@ private constructor(
         /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) time representing the start of the
          * period the Account Statement covers. This is the first moment of the statement period and
-         * is inclusive. Usually, this is the beginning of the month this statement covers.
+         * is inclusive. Statement periods are measured in UTC days, so this is usually midnight UTC
+         * on the first day of the month this statement covers.
          */
         fun statementPeriodStart(statementPeriodStart: OffsetDateTime) =
             statementPeriodStart(JsonField.of(statementPeriodStart))
