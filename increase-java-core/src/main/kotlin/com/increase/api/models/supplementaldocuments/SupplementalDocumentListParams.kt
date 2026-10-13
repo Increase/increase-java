@@ -10,7 +10,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Entity Supplemental Document Submissions */
+/** List Supplemental Documents */
 class SupplementalDocumentListParams
 private constructor(
     private val entityId: String,
