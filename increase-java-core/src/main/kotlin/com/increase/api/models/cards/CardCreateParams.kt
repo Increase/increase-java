@@ -93,6 +93,15 @@ private constructor(
     fun entityId(): Optional<String> = body.entityId()
 
     /**
+     * Details about the Card this Card replaces. Supply this when issuing a new Card to take over
+     * from an existing one. The replaced Card is not affected.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun replacementFor(): Optional<ReplacementFor> = body.replacementFor()
+
+    /**
      * Returns the raw JSON value of [accountId].
      *
      * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -141,6 +150,13 @@ private constructor(
      * Unlike [entityId], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _entityId(): JsonField<String> = body._entityId()
+
+    /**
+     * Returns the raw JSON value of [replacementFor].
+     *
+     * Unlike [replacementFor], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _replacementFor(): JsonField<ReplacementFor> = body._replacementFor()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -303,6 +319,25 @@ private constructor(
          */
         fun entityId(entityId: JsonField<String>) = apply { body.entityId(entityId) }
 
+        /**
+         * Details about the Card this Card replaces. Supply this when issuing a new Card to take
+         * over from an existing one. The replaced Card is not affected.
+         */
+        fun replacementFor(replacementFor: ReplacementFor) = apply {
+            body.replacementFor(replacementFor)
+        }
+
+        /**
+         * Sets [Builder.replacementFor] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.replacementFor] with a well-typed [ReplacementFor] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun replacementFor(replacementFor: JsonField<ReplacementFor>) = apply {
+            body.replacementFor(replacementFor)
+        }
+
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
         }
@@ -452,6 +487,7 @@ private constructor(
         private val description: JsonField<String>,
         private val digitalWallet: JsonField<DigitalWallet>,
         private val entityId: JsonField<String>,
+        private val replacementFor: JsonField<ReplacementFor>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -478,6 +514,9 @@ private constructor(
             @JsonProperty("entity_id")
             @ExcludeMissing
             entityId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("replacement_for")
+            @ExcludeMissing
+            replacementFor: JsonField<ReplacementFor> = JsonMissing.of(),
         ) : this(
             accountId,
             authorizationControls,
@@ -486,6 +525,7 @@ private constructor(
             description,
             digitalWallet,
             entityId,
+            replacementFor,
             mutableMapOf(),
         )
 
@@ -554,6 +594,16 @@ private constructor(
         fun entityId(): Optional<String> = entityId.getOptional("entity_id")
 
         /**
+         * Details about the Card this Card replaces. Supply this when issuing a new Card to take
+         * over from an existing one. The replaced Card is not affected.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun replacementFor(): Optional<ReplacementFor> =
+            replacementFor.getOptional("replacement_for")
+
+        /**
          * Returns the raw JSON value of [accountId].
          *
          * Unlike [accountId], this method doesn't throw if the JSON field has an unexpected type.
@@ -616,6 +666,16 @@ private constructor(
          */
         @JsonProperty("entity_id") @ExcludeMissing fun _entityId(): JsonField<String> = entityId
 
+        /**
+         * Returns the raw JSON value of [replacementFor].
+         *
+         * Unlike [replacementFor], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("replacement_for")
+        @ExcludeMissing
+        fun _replacementFor(): JsonField<ReplacementFor> = replacementFor
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -651,6 +711,7 @@ private constructor(
             private var description: JsonField<String> = JsonMissing.of()
             private var digitalWallet: JsonField<DigitalWallet> = JsonMissing.of()
             private var entityId: JsonField<String> = JsonMissing.of()
+            private var replacementFor: JsonField<ReplacementFor> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -662,6 +723,7 @@ private constructor(
                 description = body.description
                 digitalWallet = body.digitalWallet
                 entityId = body.entityId
+                replacementFor = body.replacementFor
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -776,6 +838,24 @@ private constructor(
              */
             fun entityId(entityId: JsonField<String>) = apply { this.entityId = entityId }
 
+            /**
+             * Details about the Card this Card replaces. Supply this when issuing a new Card to
+             * take over from an existing one. The replaced Card is not affected.
+             */
+            fun replacementFor(replacementFor: ReplacementFor) =
+                replacementFor(JsonField.of(replacementFor))
+
+            /**
+             * Sets [Builder.replacementFor] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.replacementFor] with a well-typed [ReplacementFor]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun replacementFor(replacementFor: JsonField<ReplacementFor>) = apply {
+                this.replacementFor = replacementFor
+            }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -816,6 +896,7 @@ private constructor(
                     description,
                     digitalWallet,
                     entityId,
+                    replacementFor,
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -843,6 +924,7 @@ private constructor(
             description()
             digitalWallet().ifPresent { it.validate() }
             entityId()
+            replacementFor().ifPresent { it.validate() }
             validated = true
         }
 
@@ -868,7 +950,8 @@ private constructor(
                 (cardholderName.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
                 (digitalWallet.asKnown().getOrNull()?.validity() ?: 0) +
-                (if (entityId.asKnown().isPresent) 1 else 0)
+                (if (entityId.asKnown().isPresent) 1 else 0) +
+                (replacementFor.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -883,6 +966,7 @@ private constructor(
                 description == other.description &&
                 digitalWallet == other.digitalWallet &&
                 entityId == other.entityId &&
+                replacementFor == other.replacementFor &&
                 additionalProperties == other.additionalProperties
         }
 
@@ -895,6 +979,7 @@ private constructor(
                 description,
                 digitalWallet,
                 entityId,
+                replacementFor,
                 additionalProperties,
             )
         }
@@ -902,7 +987,7 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, cardholderName=$cardholderName, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, additionalProperties=$additionalProperties}"
+            "Body{accountId=$accountId, authorizationControls=$authorizationControls, billingAddress=$billingAddress, cardholderName=$cardholderName, description=$description, digitalWallet=$digitalWallet, entityId=$entityId, replacementFor=$replacementFor, additionalProperties=$additionalProperties}"
     }
 
     /** Controls that restrict how this card can be used. */
@@ -5735,6 +5820,406 @@ private constructor(
 
         override fun toString() =
             "DigitalWallet{digitalCardProfileId=$digitalCardProfileId, email=$email, phone=$phone, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * Details about the Card this Card replaces. Supply this when issuing a new Card to take over
+     * from an existing one. The replaced Card is not affected.
+     */
+    class ReplacementFor
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val cardId: JsonField<String>,
+        private val reason: JsonField<Reason>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("card_id") @ExcludeMissing cardId: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
+        ) : this(cardId, reason, mutableMapOf())
+
+        /**
+         * The identifier of the Card being replaced.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun cardId(): String = cardId.getRequired("card_id")
+
+        /**
+         * Why the Card is being replaced. Only `expiring` notifies merchants that have the replaced
+         * Card on file of the new Card.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun reason(): Reason = reason.getRequired("reason")
+
+        /**
+         * Returns the raw JSON value of [cardId].
+         *
+         * Unlike [cardId], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("card_id") @ExcludeMissing fun _cardId(): JsonField<String> = cardId
+
+        /**
+         * Returns the raw JSON value of [reason].
+         *
+         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [ReplacementFor].
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * .reason()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ReplacementFor]. */
+        class Builder internal constructor() {
+
+            private var cardId: JsonField<String>? = null
+            private var reason: JsonField<Reason>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(replacementFor: ReplacementFor) = apply {
+                cardId = replacementFor.cardId
+                reason = replacementFor.reason
+                additionalProperties = replacementFor.additionalProperties.toMutableMap()
+            }
+
+            /** The identifier of the Card being replaced. */
+            fun cardId(cardId: String) = cardId(JsonField.of(cardId))
+
+            /**
+             * Sets [Builder.cardId] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.cardId] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun cardId(cardId: JsonField<String>) = apply { this.cardId = cardId }
+
+            /**
+             * Why the Card is being replaced. Only `expiring` notifies merchants that have the
+             * replaced Card on file of the new Card.
+             */
+            fun reason(reason: Reason) = reason(JsonField.of(reason))
+
+            /**
+             * Sets [Builder.reason] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ReplacementFor].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .cardId()
+             * .reason()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): ReplacementFor =
+                ReplacementFor(
+                    checkRequired("cardId", cardId),
+                    checkRequired("reason", reason),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ReplacementFor = apply {
+            if (validated) {
+                return@apply
+            }
+
+            cardId()
+            reason().validate()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (cardId.asKnown().isPresent) 1 else 0) +
+                (reason.asKnown().getOrNull()?.validity() ?: 0)
+
+        /**
+         * Why the Card is being replaced. Only `expiring` notifies merchants that have the replaced
+         * Card on file of the new Card.
+         */
+        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * The replaced card is expiring. Merchants with the replaced card on file will be
+                 * notified of the new card.
+                 */
+                @JvmField val EXPIRING = of("expiring")
+
+                /** The replaced card was lost. Merchants will not be notified of the new card. */
+                @JvmField val LOST = of("lost")
+
+                /** The replaced card was stolen. Merchants will not be notified of the new card. */
+                @JvmField val STOLEN = of("stolen")
+
+                /**
+                 * The replaced card was used fraudulently. Merchants will not be notified of the
+                 * new card.
+                 */
+                @JvmField val FRAUD = of("fraud")
+
+                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
+            }
+
+            /** An enum containing [Reason]'s known values. */
+            enum class Known {
+                /**
+                 * The replaced card is expiring. Merchants with the replaced card on file will be
+                 * notified of the new card.
+                 */
+                EXPIRING,
+                /** The replaced card was lost. Merchants will not be notified of the new card. */
+                LOST,
+                /** The replaced card was stolen. Merchants will not be notified of the new card. */
+                STOLEN,
+                /**
+                 * The replaced card was used fraudulently. Merchants will not be notified of the
+                 * new card.
+                 */
+                FRAUD,
+            }
+
+            /**
+             * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [Reason] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * The replaced card is expiring. Merchants with the replaced card on file will be
+                 * notified of the new card.
+                 */
+                EXPIRING,
+                /** The replaced card was lost. Merchants will not be notified of the new card. */
+                LOST,
+                /** The replaced card was stolen. Merchants will not be notified of the new card. */
+                STOLEN,
+                /**
+                 * The replaced card was used fraudulently. Merchants will not be notified of the
+                 * new card.
+                 */
+                FRAUD,
+                /**
+                 * An enum member indicating that [Reason] was instantiated with an unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    EXPIRING -> Value.EXPIRING
+                    LOST -> Value.LOST
+                    STOLEN -> Value.STOLEN
+                    FRAUD -> Value.FRAUD
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    EXPIRING -> Known.EXPIRING
+                    LOST -> Known.LOST
+                    STOLEN -> Known.STOLEN
+                    FRAUD -> Known.FRAUD
+                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): Reason = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is Reason && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ReplacementFor &&
+                cardId == other.cardId &&
+                reason == other.reason &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(cardId, reason, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ReplacementFor{cardId=$cardId, reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

@@ -26,7 +26,7 @@ interface SupplementalDocumentService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SupplementalDocumentService
 
-    /** Create a supplemental document for an Entity */
+    /** Create a Supplemental Document */
     fun create(params: SupplementalDocumentCreateParams): EntitySupplementalDocument =
         create(params, RequestOptions.none())
 
@@ -36,7 +36,7 @@ interface SupplementalDocumentService {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): EntitySupplementalDocument
 
-    /** List Entity Supplemental Document Submissions */
+    /** List Supplemental Documents */
     fun list(params: SupplementalDocumentListParams): SupplementalDocumentListPage =
         list(params, RequestOptions.none())
 

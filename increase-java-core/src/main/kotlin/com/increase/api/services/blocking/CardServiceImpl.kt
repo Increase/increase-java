@@ -27,6 +27,7 @@ import com.increase.api.models.cards.CardIframeUrl
 import com.increase.api.models.cards.CardListPage
 import com.increase.api.models.cards.CardListPageResponse
 import com.increase.api.models.cards.CardListParams
+import com.increase.api.models.cards.CardRenewParams
 import com.increase.api.models.cards.CardRetrieveParams
 import com.increase.api.models.cards.CardUpdateParams
 import com.increase.api.models.cards.CardUpdatePinParams
@@ -77,6 +78,10 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
     override fun details(params: CardDetailsParams, requestOptions: RequestOptions): CardDetails =
         // get /cards/{card_id}/details
         withRawResponse().details(params, requestOptions).parse()
+
+    override fun renew(params: CardRenewParams, requestOptions: RequestOptions): Card =
+        // post /cards/{card_id}/renew
+        withRawResponse().renew(params, requestOptions).parse()
 
     override fun updatePin(
         params: CardUpdatePinParams,
@@ -302,6 +307,36 @@ class CardServiceImpl internal constructor(private val clientOptions: ClientOpti
             return errorHandler.handle(response).parseable {
                 response
                     .use { detailsHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
+                    }
+            }
+        }
+
+        private val renewHandler: Handler<Card> = jsonHandler<Card>(clientOptions.jsonMapper)
+
+        override fun renew(
+            params: CardRenewParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<Card> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardId", params.cardId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments("cards", params._pathParam(0), "renew")
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { renewHandler.handle(it) }
                     .also {
                         if (requestOptions.responseValidation!!) {
                             it.validate()
