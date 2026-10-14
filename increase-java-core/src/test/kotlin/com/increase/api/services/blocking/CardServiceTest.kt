@@ -411,6 +411,20 @@ internal class CardServiceTest {
     }
 
     @Test
+    fun renew() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardService = client.cards()
+
+        val card = cardService.renew("card_oubs0hwk5rn6knuecxg2")
+
+        card.validate()
+    }
+
+    @Test
     fun updatePin() {
         val client =
             IncreaseOkHttpClient.builder()

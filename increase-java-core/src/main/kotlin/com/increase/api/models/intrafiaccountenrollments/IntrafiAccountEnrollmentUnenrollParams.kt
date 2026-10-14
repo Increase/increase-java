@@ -11,7 +11,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Unenroll an account from IntraFi */
+/** Unenroll an Account from IntraFi */
 class IntrafiAccountEnrollmentUnenrollParams
 private constructor(
     private val intrafiAccountEnrollmentId: String?,

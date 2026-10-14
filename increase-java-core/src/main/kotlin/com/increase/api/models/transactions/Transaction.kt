@@ -8972,6 +8972,14 @@ private constructor(
                         /** The user's chargeback was submitted. */
                         @JvmField val CHARGEBACK_SUBMITTED = of("chargeback_submitted")
 
+                        /**
+                         * The merchant's pre-arbitration submission was accepted by the user or not
+                         * responded to in time.
+                         */
+                        @JvmField
+                        val MERCHANT_PREARBITRATION_ACCEPTED =
+                            of("merchant_prearbitration_accepted")
+
                         /** The user declined the merchant's pre-arbitration submission. */
                         @JvmField
                         val MERCHANT_PREARBITRATION_DECLINE_SUBMITTED =
@@ -9004,6 +9012,11 @@ private constructor(
                     enum class Known {
                         /** The user's chargeback was submitted. */
                         CHARGEBACK_SUBMITTED,
+                        /**
+                         * The merchant's pre-arbitration submission was accepted by the user or not
+                         * responded to in time.
+                         */
+                        MERCHANT_PREARBITRATION_ACCEPTED,
                         /** The user declined the merchant's pre-arbitration submission. */
                         MERCHANT_PREARBITRATION_DECLINE_SUBMITTED,
                         /** The merchant's pre-arbitration submission was received. */
@@ -9031,6 +9044,11 @@ private constructor(
                     enum class Value {
                         /** The user's chargeback was submitted. */
                         CHARGEBACK_SUBMITTED,
+                        /**
+                         * The merchant's pre-arbitration submission was accepted by the user or not
+                         * responded to in time.
+                         */
+                        MERCHANT_PREARBITRATION_ACCEPTED,
                         /** The user declined the merchant's pre-arbitration submission. */
                         MERCHANT_PREARBITRATION_DECLINE_SUBMITTED,
                         /** The merchant's pre-arbitration submission was received. */
@@ -9060,6 +9078,8 @@ private constructor(
                     fun value(): Value =
                         when (this) {
                             CHARGEBACK_SUBMITTED -> Value.CHARGEBACK_SUBMITTED
+                            MERCHANT_PREARBITRATION_ACCEPTED ->
+                                Value.MERCHANT_PREARBITRATION_ACCEPTED
                             MERCHANT_PREARBITRATION_DECLINE_SUBMITTED ->
                                 Value.MERCHANT_PREARBITRATION_DECLINE_SUBMITTED
                             MERCHANT_PREARBITRATION_RECEIVED ->
@@ -9084,6 +9104,8 @@ private constructor(
                     fun known(): Known =
                         when (this) {
                             CHARGEBACK_SUBMITTED -> Known.CHARGEBACK_SUBMITTED
+                            MERCHANT_PREARBITRATION_ACCEPTED ->
+                                Known.MERCHANT_PREARBITRATION_ACCEPTED
                             MERCHANT_PREARBITRATION_DECLINE_SUBMITTED ->
                                 Known.MERCHANT_PREARBITRATION_DECLINE_SUBMITTED
                             MERCHANT_PREARBITRATION_RECEIVED ->

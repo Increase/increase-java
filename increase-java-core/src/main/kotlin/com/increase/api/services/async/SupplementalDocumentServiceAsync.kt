@@ -26,7 +26,7 @@ interface SupplementalDocumentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): SupplementalDocumentServiceAsync
 
-    /** Create a supplemental document for an Entity */
+    /** Create a Supplemental Document */
     fun create(
         params: SupplementalDocumentCreateParams
     ): CompletableFuture<EntitySupplementalDocument> = create(params, RequestOptions.none())
@@ -37,7 +37,7 @@ interface SupplementalDocumentServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<EntitySupplementalDocument>
 
-    /** List Entity Supplemental Document Submissions */
+    /** List Supplemental Documents */
     fun list(
         params: SupplementalDocumentListParams
     ): CompletableFuture<SupplementalDocumentListPageAsync> = list(params, RequestOptions.none())
