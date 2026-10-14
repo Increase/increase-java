@@ -39,7 +39,7 @@ interface PhysicalCardProfileServiceAsync {
         requestOptions: RequestOptions = RequestOptions.none(),
     ): CompletableFuture<PhysicalCardProfile>
 
-    /** Retrieve a Card Profile */
+    /** Retrieve a Physical Card Profile */
     fun retrieve(physicalCardProfileId: String): CompletableFuture<PhysicalCardProfile> =
         retrieve(physicalCardProfileId, PhysicalCardProfileRetrieveParams.none())
 

@@ -21,6 +21,8 @@ internal class PhysicalCardTest {
                     PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .expirationMonth(11L)
+                .expirationYear(2028L)
                 .idempotencyKey(null)
                 .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                 .shipment(
@@ -76,6 +78,8 @@ internal class PhysicalCardTest {
                 PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()
             )
         assertThat(physicalCard.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+        assertThat(physicalCard.expirationMonth()).isEqualTo(11L)
+        assertThat(physicalCard.expirationYear()).isEqualTo(2028L)
         assertThat(physicalCard.idempotencyKey()).isEmpty
         assertThat(physicalCard.physicalCardProfileId())
             .contains("physical_card_profile_m534d5rn9qyy9ufqxoec")
@@ -136,6 +140,8 @@ internal class PhysicalCardTest {
                     PhysicalCard.Cardholder.builder().firstName("Ian").lastName("Crease").build()
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                .expirationMonth(11L)
+                .expirationYear(2028L)
                 .idempotencyKey(null)
                 .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                 .shipment(

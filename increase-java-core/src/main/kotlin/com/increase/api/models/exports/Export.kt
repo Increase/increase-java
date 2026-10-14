@@ -1255,7 +1255,7 @@ private constructor(
         fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
         /**
-         * The date for which to retrieve the balance.
+         * The UTC date for which to retrieve the balance.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1352,7 +1352,7 @@ private constructor(
              */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-            /** The date for which to retrieve the balance. */
+            /** The UTC date for which to retrieve the balance. */
             fun effectiveDate(effectiveDate: LocalDate?) =
                 effectiveDate(JsonField.ofNullable(effectiveDate))
 
@@ -1978,7 +1978,7 @@ private constructor(
         fun accountNumberId(): String = accountNumberId.getRequired("account_number_id")
 
         /**
-         * The date of the balance to include in the letter.
+         * The UTC date of the balance to include in the letter.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2060,7 +2060,7 @@ private constructor(
                 this.accountNumberId = accountNumberId
             }
 
-            /** The date of the balance to include in the letter. */
+            /** The UTC date of the balance to include in the letter. */
             fun balanceDate(balanceDate: LocalDate?) =
                 balanceDate(JsonField.ofNullable(balanceDate))
 
@@ -2664,7 +2664,7 @@ private constructor(
             bookkeepingAccountId.getOptional("bookkeeping_account_id")
 
         /**
-         * Filter balances to those on or after this date.
+         * Filter balances to those on or after this UTC date.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2672,7 +2672,7 @@ private constructor(
         fun onOrAfterDate(): Optional<LocalDate> = onOrAfterDate.getOptional("on_or_after_date")
 
         /**
-         * Filter balances to those on or before this date.
+         * Filter balances to those on or before this UTC date.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -2776,7 +2776,7 @@ private constructor(
                 this.bookkeepingAccountId = bookkeepingAccountId
             }
 
-            /** Filter balances to those on or after this date. */
+            /** Filter balances to those on or after this UTC date. */
             fun onOrAfterDate(onOrAfterDate: LocalDate?) =
                 onOrAfterDate(JsonField.ofNullable(onOrAfterDate))
 
@@ -2795,7 +2795,7 @@ private constructor(
                 this.onOrAfterDate = onOrAfterDate
             }
 
-            /** Filter balances to those on or before this date. */
+            /** Filter balances to those on or before this UTC date. */
             fun onOrBeforeDate(onOrBeforeDate: LocalDate?) =
                 onOrBeforeDate(JsonField.ofNullable(onOrBeforeDate))
 
@@ -3272,7 +3272,7 @@ private constructor(
         fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
         /**
-         * Filter balances on or after this date.
+         * Filter balances on or after this UTC date.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -3280,7 +3280,7 @@ private constructor(
         fun onOrAfterDate(): Optional<LocalDate> = onOrAfterDate.getOptional("on_or_after_date")
 
         /**
-         * Filter balances on or before this date.
+         * Filter balances on or before this UTC date.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -3372,7 +3372,7 @@ private constructor(
              */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-            /** Filter balances on or after this date. */
+            /** Filter balances on or after this UTC date. */
             fun onOrAfterDate(onOrAfterDate: LocalDate?) =
                 onOrAfterDate(JsonField.ofNullable(onOrAfterDate))
 
@@ -3391,7 +3391,7 @@ private constructor(
                 this.onOrAfterDate = onOrAfterDate
             }
 
-            /** Filter balances on or before this date. */
+            /** Filter balances on or before this UTC date. */
             fun onOrBeforeDate(onOrBeforeDate: LocalDate?) =
                 onOrBeforeDate(JsonField.ofNullable(onOrBeforeDate))
 

@@ -35,6 +35,8 @@ private constructor(
     private val cardId: JsonField<String>,
     private val cardholder: JsonField<Cardholder>,
     private val createdAt: JsonField<OffsetDateTime>,
+    private val expirationMonth: JsonField<Long>,
+    private val expirationYear: JsonField<Long>,
     private val idempotencyKey: JsonField<String>,
     private val physicalCardProfileId: JsonField<String>,
     private val shipment: JsonField<Shipment>,
@@ -54,6 +56,12 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        @JsonProperty("expiration_month")
+        @ExcludeMissing
+        expirationMonth: JsonField<Long> = JsonMissing.of(),
+        @JsonProperty("expiration_year")
+        @ExcludeMissing
+        expirationYear: JsonField<Long> = JsonMissing.of(),
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
@@ -69,6 +77,8 @@ private constructor(
         cardId,
         cardholder,
         createdAt,
+        expirationMonth,
+        expirationYear,
         idempotencyKey,
         physicalCardProfileId,
         shipment,
@@ -117,6 +127,24 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
+
+    /**
+     * The month printed on the Physical Card as its expiration, in M format (e.g., August is 8).
+     * This stays the same when the Card is renewed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun expirationMonth(): Long = expirationMonth.getRequired("expiration_month")
+
+    /**
+     * The year printed on the Physical Card as its expiration, in YYYY format (e.g., 2025). This
+     * stays the same when the Card is renewed.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun expirationYear(): Long = expirationYear.getRequired("expiration_year")
 
     /**
      * The idempotency key you chose for this object. This value is unique across Increase and is
@@ -202,6 +230,24 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
+     * Returns the raw JSON value of [expirationMonth].
+     *
+     * Unlike [expirationMonth], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("expiration_month")
+    @ExcludeMissing
+    fun _expirationMonth(): JsonField<Long> = expirationMonth
+
+    /**
+     * Returns the raw JSON value of [expirationYear].
+     *
+     * Unlike [expirationYear], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("expiration_year")
+    @ExcludeMissing
+    fun _expirationYear(): JsonField<Long> = expirationYear
+
+    /**
      * Returns the raw JSON value of [idempotencyKey].
      *
      * Unlike [idempotencyKey], this method doesn't throw if the JSON field has an unexpected type.
@@ -265,6 +311,8 @@ private constructor(
          * .cardId()
          * .cardholder()
          * .createdAt()
+         * .expirationMonth()
+         * .expirationYear()
          * .idempotencyKey()
          * .physicalCardProfileId()
          * .shipment()
@@ -283,6 +331,8 @@ private constructor(
         private var cardId: JsonField<String>? = null
         private var cardholder: JsonField<Cardholder>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
+        private var expirationMonth: JsonField<Long>? = null
+        private var expirationYear: JsonField<Long>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var physicalCardProfileId: JsonField<String>? = null
         private var shipment: JsonField<Shipment>? = null
@@ -297,6 +347,8 @@ private constructor(
             cardId = physicalCard.cardId
             cardholder = physicalCard.cardholder
             createdAt = physicalCard.createdAt
+            expirationMonth = physicalCard.expirationMonth
+            expirationYear = physicalCard.expirationYear
             idempotencyKey = physicalCard.idempotencyKey
             physicalCardProfileId = physicalCard.physicalCardProfileId
             shipment = physicalCard.shipment
@@ -365,6 +417,40 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
+
+        /**
+         * The month printed on the Physical Card as its expiration, in M format (e.g., August is
+         * 8). This stays the same when the Card is renewed.
+         */
+        fun expirationMonth(expirationMonth: Long) = expirationMonth(JsonField.of(expirationMonth))
+
+        /**
+         * Sets [Builder.expirationMonth] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expirationMonth] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun expirationMonth(expirationMonth: JsonField<Long>) = apply {
+            this.expirationMonth = expirationMonth
+        }
+
+        /**
+         * The year printed on the Physical Card as its expiration, in YYYY format (e.g., 2025).
+         * This stays the same when the Card is renewed.
+         */
+        fun expirationYear(expirationYear: Long) = expirationYear(JsonField.of(expirationYear))
+
+        /**
+         * Sets [Builder.expirationYear] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.expirationYear] with a well-typed [Long] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun expirationYear(expirationYear: JsonField<Long>) = apply {
+            this.expirationYear = expirationYear
+        }
 
         /**
          * The idempotency key you chose for this object. This value is unique across Increase and
@@ -479,6 +565,8 @@ private constructor(
          * .cardId()
          * .cardholder()
          * .createdAt()
+         * .expirationMonth()
+         * .expirationYear()
          * .idempotencyKey()
          * .physicalCardProfileId()
          * .shipment()
@@ -495,6 +583,8 @@ private constructor(
                 checkRequired("cardId", cardId),
                 checkRequired("cardholder", cardholder),
                 checkRequired("createdAt", createdAt),
+                checkRequired("expirationMonth", expirationMonth),
+                checkRequired("expirationYear", expirationYear),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("physicalCardProfileId", physicalCardProfileId),
                 checkRequired("shipment", shipment),
@@ -524,6 +614,8 @@ private constructor(
         cardId()
         cardholder().validate()
         createdAt()
+        expirationMonth()
+        expirationYear()
         idempotencyKey()
         physicalCardProfileId()
         shipment().validate()
@@ -552,6 +644,8 @@ private constructor(
             (if (cardId.asKnown().isPresent) 1 else 0) +
             (cardholder.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
+            (if (expirationMonth.asKnown().isPresent) 1 else 0) +
+            (if (expirationYear.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (physicalCardProfileId.asKnown().isPresent) 1 else 0) +
             (shipment.asKnown().getOrNull()?.validity() ?: 0) +
@@ -3553,6 +3647,8 @@ private constructor(
             cardId == other.cardId &&
             cardholder == other.cardholder &&
             createdAt == other.createdAt &&
+            expirationMonth == other.expirationMonth &&
+            expirationYear == other.expirationYear &&
             idempotencyKey == other.idempotencyKey &&
             physicalCardProfileId == other.physicalCardProfileId &&
             shipment == other.shipment &&
@@ -3568,6 +3664,8 @@ private constructor(
             cardId,
             cardholder,
             createdAt,
+            expirationMonth,
+            expirationYear,
             idempotencyKey,
             physicalCardProfileId,
             shipment,
@@ -3580,5 +3678,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "PhysicalCard{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, idempotencyKey=$idempotencyKey, physicalCardProfileId=$physicalCardProfileId, shipment=$shipment, status=$status, type=$type, additionalProperties=$additionalProperties}"
+        "PhysicalCard{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, expirationMonth=$expirationMonth, expirationYear=$expirationYear, idempotencyKey=$idempotencyKey, physicalCardProfileId=$physicalCardProfileId, shipment=$shipment, status=$status, type=$type, additionalProperties=$additionalProperties}"
 }

@@ -171,6 +171,12 @@ internal class CardServiceTest {
                             .build()
                     )
                     .entityId("entity_id")
+                    .replacementFor(
+                        CardCreateParams.ReplacementFor.builder()
+                            .cardId("card_id")
+                            .reason(CardCreateParams.ReplacementFor.Reason.EXPIRING)
+                            .build()
+                    )
                     .build()
             )
 
@@ -408,6 +414,20 @@ internal class CardServiceTest {
         val cardDetails = cardService.details("card_oubs0hwk5rn6knuecxg2")
 
         cardDetails.validate()
+    }
+
+    @Test
+    fun renew() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardService = client.cards()
+
+        val card = cardService.renew("card_oubs0hwk5rn6knuecxg2")
+
+        card.validate()
     }
 
     @Test
