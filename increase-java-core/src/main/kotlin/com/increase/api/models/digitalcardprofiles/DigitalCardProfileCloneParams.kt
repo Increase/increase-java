@@ -20,7 +20,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Clones a Digital Card Profile */
+/** Clone a Digital Card Profile */
 class DigitalCardProfileCloneParams
 private constructor(
     private val digitalCardProfileId: String?,

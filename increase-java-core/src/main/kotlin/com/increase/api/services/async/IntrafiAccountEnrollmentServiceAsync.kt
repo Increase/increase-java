@@ -28,7 +28,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): IntrafiAccountEnrollmentServiceAsync
 
-    /** Enroll an account in the IntraFi deposit sweep network */
+    /** Enroll an Account in the IntraFi deposit sweep network */
     fun create(
         params: IntrafiAccountEnrollmentCreateParams
     ): CompletableFuture<IntrafiAccountEnrollment> = create(params, RequestOptions.none())
@@ -107,7 +107,7 @@ interface IntrafiAccountEnrollmentServiceAsync {
     ): CompletableFuture<IntrafiAccountEnrollmentListPageAsync> =
         list(IntrafiAccountEnrollmentListParams.none(), requestOptions)
 
-    /** Unenroll an account from IntraFi */
+    /** Unenroll an Account from IntraFi */
     fun unenroll(intrafiAccountEnrollmentId: String): CompletableFuture<IntrafiAccountEnrollment> =
         unenroll(intrafiAccountEnrollmentId, IntrafiAccountEnrollmentUnenrollParams.none())
 

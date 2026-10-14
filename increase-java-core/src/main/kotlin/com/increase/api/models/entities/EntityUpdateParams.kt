@@ -1201,8 +1201,8 @@ private constructor(
 
         /**
          * The North American Industry Classification System (NAICS) code for the corporation's
-         * primary line of business. This is a number, like `5132` for `Software Publishers`. A full
-         * list of classification codes is available
+         * primary line of business. This is a number, like `5132` for `Software Publishers`.
+         * Increase uses the 2022 version of NAICS. A full list of classification codes is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -1386,8 +1386,9 @@ private constructor(
 
             /**
              * The North American Industry Classification System (NAICS) code for the corporation's
-             * primary line of business. This is a number, like `5132` for `Software Publishers`. A
-             * full list of classification codes is available
+             * primary line of business. This is a number, like `5132` for `Software Publishers`.
+             * Increase uses the 2022 version of NAICS. A full list of classification codes is
+             * available
              * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
             fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))
@@ -5480,7 +5481,8 @@ private constructor(
         /**
          * The North American Industry Classification System (NAICS) code for the sole
          * proprietorship's primary line of business. This is a number, like `5132` for `Software
-         * Publishers`. A full list of classification codes is available
+         * Publishers`. Increase uses the 2022 version of NAICS. A full list of classification codes
+         * is available
          * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
@@ -5639,7 +5641,8 @@ private constructor(
             /**
              * The North American Industry Classification System (NAICS) code for the sole
              * proprietorship's primary line of business. This is a number, like `5132` for
-             * `Software Publishers`. A full list of classification codes is available
+             * `Software Publishers`. Increase uses the 2022 version of NAICS. A full list of
+             * classification codes is available
              * [here](https://increase.com/documentation/data-dictionary#north-american-industry-classification-system-codes).
              */
             fun industryCode(industryCode: String) = industryCode(JsonField.of(industryCode))

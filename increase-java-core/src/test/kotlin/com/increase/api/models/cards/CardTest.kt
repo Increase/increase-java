@@ -139,6 +139,13 @@ internal class CardTest {
                 .expirationYear(2028L)
                 .idempotencyKey(null)
                 .last4("4242")
+                .addRenewal(
+                    Card.Renewal.builder()
+                        .previousExpirationMonth(11L)
+                        .previousExpirationYear(2024L)
+                        .renewedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .status(Card.Status.ACTIVE)
                 .type(Card.Type.CARD)
                 .build()
@@ -269,6 +276,14 @@ internal class CardTest {
         assertThat(card.expirationYear()).isEqualTo(2028L)
         assertThat(card.idempotencyKey()).isEmpty
         assertThat(card.last4()).isEqualTo("4242")
+        assertThat(card.renewals())
+            .containsExactly(
+                Card.Renewal.builder()
+                    .previousExpirationMonth(11L)
+                    .previousExpirationYear(2024L)
+                    .renewedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .build()
+            )
         assertThat(card.status()).isEqualTo(Card.Status.ACTIVE)
         assertThat(card.type()).isEqualTo(Card.Type.CARD)
     }
@@ -403,6 +418,13 @@ internal class CardTest {
                 .expirationYear(2028L)
                 .idempotencyKey(null)
                 .last4("4242")
+                .addRenewal(
+                    Card.Renewal.builder()
+                        .previousExpirationMonth(11L)
+                        .previousExpirationYear(2024L)
+                        .renewedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
                 .status(Card.Status.ACTIVE)
                 .type(Card.Type.CARD)
                 .build()
