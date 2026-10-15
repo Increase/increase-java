@@ -14,7 +14,7 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** List Card Profiles */
+/** List Digital Card Profiles */
 class DigitalCardProfileListParams
 private constructor(
     private val cursor: String?,

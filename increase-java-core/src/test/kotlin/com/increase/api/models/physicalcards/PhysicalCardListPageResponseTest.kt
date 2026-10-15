@@ -26,6 +26,8 @@ internal class PhysicalCardListPageResponseTest {
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .expirationMonth(11L)
+                        .expirationYear(2028L)
                         .idempotencyKey(null)
                         .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                         .shipment(
@@ -91,6 +93,8 @@ internal class PhysicalCardListPageResponseTest {
                             .build()
                     )
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .expirationMonth(11L)
+                    .expirationYear(2028L)
                     .idempotencyKey(null)
                     .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                     .shipment(
@@ -158,6 +162,8 @@ internal class PhysicalCardListPageResponseTest {
                                 .build()
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .expirationMonth(11L)
+                        .expirationYear(2028L)
                         .idempotencyKey(null)
                         .physicalCardProfileId("physical_card_profile_m534d5rn9qyy9ufqxoec")
                         .shipment(

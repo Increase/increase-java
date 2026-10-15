@@ -78,7 +78,7 @@ interface DigitalCardProfileServiceAsync {
     ): CompletableFuture<DigitalCardProfile> =
         retrieve(digitalCardProfileId, DigitalCardProfileRetrieveParams.none(), requestOptions)
 
-    /** List Card Profiles */
+    /** List Digital Card Profiles */
     fun list(): CompletableFuture<DigitalCardProfileListPageAsync> =
         list(DigitalCardProfileListParams.none())
 
@@ -136,7 +136,7 @@ interface DigitalCardProfileServiceAsync {
     ): CompletableFuture<DigitalCardProfile> =
         archive(digitalCardProfileId, DigitalCardProfileArchiveParams.none(), requestOptions)
 
-    /** Clones a Digital Card Profile */
+    /** Clone a Digital Card Profile */
     fun clone(digitalCardProfileId: String): CompletableFuture<DigitalCardProfile> =
         clone(digitalCardProfileId, DigitalCardProfileCloneParams.none())
 
