@@ -138,6 +138,12 @@ internal class CardCreateParamsTest {
                     .build()
             )
             .entityId("entity_id")
+            .replacementFor(
+                CardCreateParams.ReplacementFor.builder()
+                    .cardId("card_id")
+                    .reason(CardCreateParams.ReplacementFor.Reason.EXPIRING)
+                    .build()
+            )
             .build()
     }
 
@@ -282,6 +288,12 @@ internal class CardCreateParamsTest {
                         .build()
                 )
                 .entityId("entity_id")
+                .replacementFor(
+                    CardCreateParams.ReplacementFor.builder()
+                        .cardId("card_id")
+                        .reason(CardCreateParams.ReplacementFor.Reason.EXPIRING)
+                        .build()
+                )
                 .build()
 
         val body = params._body()
@@ -418,6 +430,13 @@ internal class CardCreateParamsTest {
                     .build()
             )
         assertThat(body.entityId()).contains("entity_id")
+        assertThat(body.replacementFor())
+            .contains(
+                CardCreateParams.ReplacementFor.builder()
+                    .cardId("card_id")
+                    .reason(CardCreateParams.ReplacementFor.Reason.EXPIRING)
+                    .build()
+            )
     }
 
     @Test
