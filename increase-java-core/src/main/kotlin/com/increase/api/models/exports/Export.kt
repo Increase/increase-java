@@ -3765,8 +3765,8 @@ private constructor(
         ) : this(createdAt, mutableMapOf())
 
         /**
-         * Filter fees by their created date. The time range must not include any fees that are part
-         * of an open fee statement.
+         * Filter fees by their created date. The time range must not include any fees on an open
+         * fee statement.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -3820,8 +3820,8 @@ private constructor(
             }
 
             /**
-             * Filter fees by their created date. The time range must not include any fees that are
-             * part of an open fee statement.
+             * Filter fees by their created date. The time range must not include any fees on an
+             * open fee statement.
              */
             fun createdAt(createdAt: CreatedAt?) = createdAt(JsonField.ofNullable(createdAt))
 
@@ -3910,8 +3910,8 @@ private constructor(
         internal fun validity(): Int = (createdAt.asKnown().getOrNull()?.validity() ?: 0)
 
         /**
-         * Filter fees by their created date. The time range must not include any fees that are part
-         * of an open fee statement.
+         * Filter fees by their created date. The time range must not include any fees on an open
+         * fee statement.
          */
         class CreatedAt
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
