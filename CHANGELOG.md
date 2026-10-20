@@ -1,5 +1,12 @@
 # Changelog
 
+## [0.582.0](https://github.com/Increase/increase-java/compare/v0.581.0...v0.582.0) (2026-10-20)
+
+
+### Features
+
+* **api:** api update ([#1544](https://github.com/Increase/increase-java/issues/1544)) ([1cb21fa](https://github.com/Increase/increase-java/commit/1cb21fad8bb564340dfa2989609391daceaaf4dc))
+
 ## [0.581.0](https://github.com/Increase/increase-java/compare/v0.580.0...v0.581.0) (2026-10-15)
 
 
