@@ -48,10 +48,10 @@ internal class CardDisputeTest {
                                         .build()
                                 )
                                 .category(
-                                    CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_ACCEPTED
+                                    CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_SUBMITTED
                                 )
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .disputeFinancialTransactionId("dispute_financial_transaction_id")
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .disputeFinancialTransactionId("transaction_wgk1uqg4mjsn5nurkscv")
                                 .chargebackAccepted(
                                     CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder()
                                         .build()
@@ -293,7 +293,7 @@ internal class CardDisputeTest {
                         .requiredUserSubmissionCategory(null)
                         .addUserSubmission(
                             CardDispute.Visa.UserSubmission.builder()
-                                .acceptedAt(null)
+                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .amount(1000L)
                                 .addAttachmentFile(
                                     CardDispute.Visa.UserSubmission.AttachmentFile.builder()
@@ -305,7 +305,7 @@ internal class CardDisputeTest {
                                 .explanation(null)
                                 .furtherInformationRequestedAt(null)
                                 .furtherInformationRequestedReason(null)
-                                .status(CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING)
+                                .status(CardDispute.Visa.UserSubmission.Status.ACCEPTED)
                                 .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .chargeback(
                                     CardDispute.Visa.UserSubmission.Chargeback.builder()
@@ -1263,9 +1263,9 @@ internal class CardDisputeTest {
                                     .fileId("file_id")
                                     .build()
                             )
-                            .category(CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_ACCEPTED)
-                            .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .disputeFinancialTransactionId("dispute_financial_transaction_id")
+                            .category(CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_SUBMITTED)
+                            .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .disputeFinancialTransactionId("transaction_wgk1uqg4mjsn5nurkscv")
                             .chargebackAccepted(
                                 CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder().build()
                             )
@@ -1490,7 +1490,7 @@ internal class CardDisputeTest {
                     .requiredUserSubmissionCategory(null)
                     .addUserSubmission(
                         CardDispute.Visa.UserSubmission.builder()
-                            .acceptedAt(null)
+                            .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .amount(1000L)
                             .addAttachmentFile(
                                 CardDispute.Visa.UserSubmission.AttachmentFile.builder()
@@ -1502,7 +1502,7 @@ internal class CardDisputeTest {
                             .explanation(null)
                             .furtherInformationRequestedAt(null)
                             .furtherInformationRequestedReason(null)
-                            .status(CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING)
+                            .status(CardDispute.Visa.UserSubmission.Status.ACCEPTED)
                             .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .chargeback(
                                 CardDispute.Visa.UserSubmission.Chargeback.builder()
@@ -2433,10 +2433,10 @@ internal class CardDisputeTest {
                                         .build()
                                 )
                                 .category(
-                                    CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_ACCEPTED
+                                    CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_SUBMITTED
                                 )
-                                .createdAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .disputeFinancialTransactionId("dispute_financial_transaction_id")
+                                .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .disputeFinancialTransactionId("transaction_wgk1uqg4mjsn5nurkscv")
                                 .chargebackAccepted(
                                     CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder()
                                         .build()
@@ -2678,7 +2678,7 @@ internal class CardDisputeTest {
                         .requiredUserSubmissionCategory(null)
                         .addUserSubmission(
                             CardDispute.Visa.UserSubmission.builder()
-                                .acceptedAt(null)
+                                .acceptedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .amount(1000L)
                                 .addAttachmentFile(
                                     CardDispute.Visa.UserSubmission.AttachmentFile.builder()
@@ -2690,7 +2690,7 @@ internal class CardDisputeTest {
                                 .explanation(null)
                                 .furtherInformationRequestedAt(null)
                                 .furtherInformationRequestedReason(null)
-                                .status(CardDispute.Visa.UserSubmission.Status.PENDING_REVIEWING)
+                                .status(CardDispute.Visa.UserSubmission.Status.ACCEPTED)
                                 .updatedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .chargeback(
                                     CardDispute.Visa.UserSubmission.Chargeback.builder()

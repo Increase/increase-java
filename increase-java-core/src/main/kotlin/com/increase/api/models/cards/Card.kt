@@ -25,7 +25,8 @@ import kotlin.jvm.optionals.getOrNull
  * Cards may operate on credit, debit, or prepaid BINs. They’ll immediately work for online
  * purchases after you create them. All cards work on a good funds model, and maintain a maximum
  * limit of 100% of the Account’s available balance at the time of transaction. Funds are deducted
- * from the Account upon transaction settlement.
+ * from the Account upon transaction settlement. For more information, see our guide on
+ * [managing cards](https://increase.com/documentation/managing-cards).
  */
 class Card
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)
@@ -5701,6 +5702,8 @@ private constructor(
 
         /**
          * A phone number that can be used to verify the cardholder via one-time passcode over SMS.
+         * Returned in [E.164](https://en.wikipedia.org/wiki/E.164) format, for example
+         * `+14155550123`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5819,7 +5822,8 @@ private constructor(
 
             /**
              * A phone number that can be used to verify the cardholder via one-time passcode over
-             * SMS.
+             * SMS. Returned in [E.164](https://en.wikipedia.org/wiki/E.164) format, for example
+             * `+14155550123`.
              */
             fun phone(phone: String?) = phone(JsonField.ofNullable(phone))
 

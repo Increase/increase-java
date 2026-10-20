@@ -5411,6 +5411,9 @@ private constructor(
                 /** AOA */
                 @JvmField val AOA = of("AOA")
 
+                /** XCD */
+                @JvmField val XCD = of("XCD")
+
                 /** ARS */
                 @JvmField val ARS = of("ARS")
 
@@ -5444,6 +5447,9 @@ private constructor(
                 /** BZD */
                 @JvmField val BZD = of("BZD")
 
+                /** XOF */
+                @JvmField val XOF = of("XOF")
+
                 /** BMD */
                 @JvmField val BMD = of("BMD")
 
@@ -5474,9 +5480,6 @@ private constructor(
                 /** BND */
                 @JvmField val BND = of("BND")
 
-                /** BGN */
-                @JvmField val BGN = of("BGN")
-
                 /** BIF */
                 @JvmField val BIF = of("BIF")
 
@@ -5485,6 +5488,9 @@ private constructor(
 
                 /** KHR */
                 @JvmField val KHR = of("KHR")
+
+                /** XAF */
+                @JvmField val XAF = of("XAF")
 
                 /** CAD */
                 @JvmField val CAD = of("CAD")
@@ -5522,6 +5528,9 @@ private constructor(
                 /** CUP */
                 @JvmField val CUP = of("CUP")
 
+                /** XCG */
+                @JvmField val XCG = of("XCG")
+
                 /** CZK */
                 @JvmField val CZK = of("CZK")
 
@@ -5554,6 +5563,9 @@ private constructor(
 
                 /** FJD */
                 @JvmField val FJD = of("FJD")
+
+                /** XPF */
+                @JvmField val XPF = of("XPF")
 
                 /** GMD */
                 @JvmField val GMD = of("GMD")
@@ -5873,6 +5885,9 @@ private constructor(
                 /** ZWG */
                 @JvmField val ZWG = of("ZWG")
 
+                /** BGN */
+                @JvmField val BGN = of("BGN")
+
                 @JvmStatic fun of(value: String) = Currency(JsonField.of(value))
             }
 
@@ -5890,6 +5905,8 @@ private constructor(
                 USD,
                 /** AOA */
                 AOA,
+                /** XCD */
+                XCD,
                 /** ARS */
                 ARS,
                 /** AMD */
@@ -5912,6 +5929,8 @@ private constructor(
                 BYN,
                 /** BZD */
                 BZD,
+                /** XOF */
+                XOF,
                 /** BMD */
                 BMD,
                 /** INR */
@@ -5932,14 +5951,14 @@ private constructor(
                 BRL,
                 /** BND */
                 BND,
-                /** BGN */
-                BGN,
                 /** BIF */
                 BIF,
                 /** CVE */
                 CVE,
                 /** KHR */
                 KHR,
+                /** XAF */
+                XAF,
                 /** CAD */
                 CAD,
                 /** KYD */
@@ -5964,6 +5983,8 @@ private constructor(
                 CRC,
                 /** CUP */
                 CUP,
+                /** XCG */
+                XCG,
                 /** CZK */
                 CZK,
                 /** DKK */
@@ -5986,6 +6007,8 @@ private constructor(
                 FKP,
                 /** FJD */
                 FJD,
+                /** XPF */
+                XPF,
                 /** GMD */
                 GMD,
                 /** GEL */
@@ -6198,6 +6221,8 @@ private constructor(
                 ZMW,
                 /** ZWG */
                 ZWG,
+                /** BGN */
+                BGN,
             }
 
             /**
@@ -6222,6 +6247,8 @@ private constructor(
                 USD,
                 /** AOA */
                 AOA,
+                /** XCD */
+                XCD,
                 /** ARS */
                 ARS,
                 /** AMD */
@@ -6244,6 +6271,8 @@ private constructor(
                 BYN,
                 /** BZD */
                 BZD,
+                /** XOF */
+                XOF,
                 /** BMD */
                 BMD,
                 /** INR */
@@ -6264,14 +6293,14 @@ private constructor(
                 BRL,
                 /** BND */
                 BND,
-                /** BGN */
-                BGN,
                 /** BIF */
                 BIF,
                 /** CVE */
                 CVE,
                 /** KHR */
                 KHR,
+                /** XAF */
+                XAF,
                 /** CAD */
                 CAD,
                 /** KYD */
@@ -6296,6 +6325,8 @@ private constructor(
                 CRC,
                 /** CUP */
                 CUP,
+                /** XCG */
+                XCG,
                 /** CZK */
                 CZK,
                 /** DKK */
@@ -6318,6 +6349,8 @@ private constructor(
                 FKP,
                 /** FJD */
                 FJD,
+                /** XPF */
+                XPF,
                 /** GMD */
                 GMD,
                 /** GEL */
@@ -6530,6 +6563,8 @@ private constructor(
                 ZMW,
                 /** ZWG */
                 ZWG,
+                /** BGN */
+                BGN,
                 /**
                  * An enum member indicating that [Currency] was instantiated with an unknown value.
                  */
@@ -6551,6 +6586,7 @@ private constructor(
                     DZD -> Value.DZD
                     USD -> Value.USD
                     AOA -> Value.AOA
+                    XCD -> Value.XCD
                     ARS -> Value.ARS
                     AMD -> Value.AMD
                     AWG -> Value.AWG
@@ -6562,6 +6598,7 @@ private constructor(
                     BBD -> Value.BBD
                     BYN -> Value.BYN
                     BZD -> Value.BZD
+                    XOF -> Value.XOF
                     BMD -> Value.BMD
                     INR -> Value.INR
                     BTN -> Value.BTN
@@ -6572,10 +6609,10 @@ private constructor(
                     NOK -> Value.NOK
                     BRL -> Value.BRL
                     BND -> Value.BND
-                    BGN -> Value.BGN
                     BIF -> Value.BIF
                     CVE -> Value.CVE
                     KHR -> Value.KHR
+                    XAF -> Value.XAF
                     CAD -> Value.CAD
                     KYD -> Value.KYD
                     CLP -> Value.CLP
@@ -6588,6 +6625,7 @@ private constructor(
                     NZD -> Value.NZD
                     CRC -> Value.CRC
                     CUP -> Value.CUP
+                    XCG -> Value.XCG
                     CZK -> Value.CZK
                     DKK -> Value.DKK
                     DJF -> Value.DJF
@@ -6599,6 +6637,7 @@ private constructor(
                     ETB -> Value.ETB
                     FKP -> Value.FKP
                     FJD -> Value.FJD
+                    XPF -> Value.XPF
                     GMD -> Value.GMD
                     GEL -> Value.GEL
                     GHS -> Value.GHS
@@ -6705,6 +6744,7 @@ private constructor(
                     YER -> Value.YER
                     ZMW -> Value.ZMW
                     ZWG -> Value.ZWG
+                    BGN -> Value.BGN
                     else -> Value._UNKNOWN
                 }
 
@@ -6725,6 +6765,7 @@ private constructor(
                     DZD -> Known.DZD
                     USD -> Known.USD
                     AOA -> Known.AOA
+                    XCD -> Known.XCD
                     ARS -> Known.ARS
                     AMD -> Known.AMD
                     AWG -> Known.AWG
@@ -6736,6 +6777,7 @@ private constructor(
                     BBD -> Known.BBD
                     BYN -> Known.BYN
                     BZD -> Known.BZD
+                    XOF -> Known.XOF
                     BMD -> Known.BMD
                     INR -> Known.INR
                     BTN -> Known.BTN
@@ -6746,10 +6788,10 @@ private constructor(
                     NOK -> Known.NOK
                     BRL -> Known.BRL
                     BND -> Known.BND
-                    BGN -> Known.BGN
                     BIF -> Known.BIF
                     CVE -> Known.CVE
                     KHR -> Known.KHR
+                    XAF -> Known.XAF
                     CAD -> Known.CAD
                     KYD -> Known.KYD
                     CLP -> Known.CLP
@@ -6762,6 +6804,7 @@ private constructor(
                     NZD -> Known.NZD
                     CRC -> Known.CRC
                     CUP -> Known.CUP
+                    XCG -> Known.XCG
                     CZK -> Known.CZK
                     DKK -> Known.DKK
                     DJF -> Known.DJF
@@ -6773,6 +6816,7 @@ private constructor(
                     ETB -> Known.ETB
                     FKP -> Known.FKP
                     FJD -> Known.FJD
+                    XPF -> Known.XPF
                     GMD -> Known.GMD
                     GEL -> Known.GEL
                     GHS -> Known.GHS
@@ -6879,6 +6923,7 @@ private constructor(
                     YER -> Known.YER
                     ZMW -> Known.ZMW
                     ZWG -> Known.ZWG
+                    BGN -> Known.BGN
                     else -> throw IncreaseInvalidDataException("Unknown Currency: $value")
                 }
 
