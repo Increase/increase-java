@@ -24,7 +24,8 @@ import kotlin.jvm.optionals.getOrNull
 
 /**
  * Card Payments group together interactions related to a single card payment, such as an
- * authorization and its corresponding settlement.
+ * authorization and its corresponding settlement. For more information, see our guide on the
+ * [Card Payment lifecycle](https://increase.com/documentation/card-payment-lifecycle).
  */
 class CardPayment
 @JsonCreator(mode = JsonCreator.Mode.DISABLED)

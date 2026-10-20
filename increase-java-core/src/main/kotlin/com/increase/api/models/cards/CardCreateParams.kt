@@ -5615,7 +5615,8 @@ private constructor(
 
         /**
          * A phone number that can be used to contact and verify the cardholder via one-time
-         * passcode over SMS.
+         * passcode over SMS. Accepts formats like `+14155550123`, `4155550123`, `415-555-0123`, or
+         * `(415) 555-0123`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -5712,7 +5713,8 @@ private constructor(
 
             /**
              * A phone number that can be used to contact and verify the cardholder via one-time
-             * passcode over SMS.
+             * passcode over SMS. Accepts formats like `+14155550123`, `4155550123`, `415-555-0123`,
+             * or `(415) 555-0123`.
              */
             fun phone(phone: String) = phone(JsonField.of(phone))
 
