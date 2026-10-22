@@ -464,13 +464,13 @@ internal class TransactionTest {
                                                 .build()
                                         )
                                         .localTaxAmount(null)
-                                        .localTaxCurrency("usd")
+                                        .localTaxCurrency("USD")
                                         .lodging(
                                             Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2023-07-20"))
                                                 .dailyRoomRateAmount(1000L)
-                                                .dailyRoomRateCurrency("usd")
+                                                .dailyRoomRateCurrency("USD")
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -478,9 +478,9 @@ internal class TransactionTest {
                                                         .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
-                                                .folioCashAdvancesCurrency("usd")
+                                                .folioCashAdvancesCurrency("USD")
                                                 .foodBeverageChargesAmount(0L)
-                                                .foodBeverageChargesCurrency("usd")
+                                                .foodBeverageChargesCurrency("USD")
                                                 .noShowIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -488,16 +488,16 @@ internal class TransactionTest {
                                                         .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
-                                                .prepaidExpensesCurrency("usd")
+                                                .prepaidExpensesCurrency("USD")
                                                 .roomNights(1L)
                                                 .totalRoomTaxAmount(100L)
-                                                .totalRoomTaxCurrency("usd")
+                                                .totalRoomTaxCurrency("USD")
                                                 .totalTaxAmount(100L)
-                                                .totalTaxCurrency("usd")
+                                                .totalTaxCurrency("USD")
                                                 .build()
                                         )
                                         .nationalTaxAmount(null)
-                                        .nationalTaxCurrency("usd")
+                                        .nationalTaxCurrency("USD")
                                         .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardRefund.PurchaseDetails
@@ -774,14 +774,14 @@ internal class TransactionTest {
                                                 .build()
                                         )
                                         .localTaxAmount(null)
-                                        .localTaxCurrency("usd")
+                                        .localTaxCurrency("USD")
                                         .lodging(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2023-07-20"))
                                                 .dailyRoomRateAmount(1000L)
-                                                .dailyRoomRateCurrency("usd")
+                                                .dailyRoomRateCurrency("USD")
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -790,9 +790,9 @@ internal class TransactionTest {
                                                         .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
-                                                .folioCashAdvancesCurrency("usd")
+                                                .folioCashAdvancesCurrency("USD")
                                                 .foodBeverageChargesAmount(0L)
-                                                .foodBeverageChargesCurrency("usd")
+                                                .foodBeverageChargesCurrency("USD")
                                                 .noShowIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -801,16 +801,16 @@ internal class TransactionTest {
                                                         .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
-                                                .prepaidExpensesCurrency("usd")
+                                                .prepaidExpensesCurrency("USD")
                                                 .roomNights(1L)
                                                 .totalRoomTaxAmount(100L)
-                                                .totalRoomTaxCurrency("usd")
+                                                .totalRoomTaxCurrency("USD")
                                                 .totalTaxAmount(100L)
-                                                .totalTaxCurrency("usd")
+                                                .totalTaxCurrency("USD")
                                                 .build()
                                         )
                                         .nationalTaxAmount(null)
-                                        .nationalTaxCurrency("usd")
+                                        .nationalTaxCurrency("USD")
                                         .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardSettlement.PurchaseDetails
@@ -1636,13 +1636,13 @@ internal class TransactionTest {
                                             .build()
                                     )
                                     .localTaxAmount(null)
-                                    .localTaxCurrency("usd")
+                                    .localTaxCurrency("USD")
                                     .lodging(
                                         Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2023-07-20"))
                                             .dailyRoomRateAmount(1000L)
-                                            .dailyRoomRateCurrency("usd")
+                                            .dailyRoomRateCurrency("USD")
                                             .extraCharges(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -1650,9 +1650,9 @@ internal class TransactionTest {
                                                     .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
-                                            .folioCashAdvancesCurrency("usd")
+                                            .folioCashAdvancesCurrency("USD")
                                             .foodBeverageChargesAmount(0L)
-                                            .foodBeverageChargesCurrency("usd")
+                                            .foodBeverageChargesCurrency("USD")
                                             .noShowIndicator(
                                                 Transaction.Source.CardRefund.PurchaseDetails
                                                     .Lodging
@@ -1660,16 +1660,16 @@ internal class TransactionTest {
                                                     .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
-                                            .prepaidExpensesCurrency("usd")
+                                            .prepaidExpensesCurrency("USD")
                                             .roomNights(1L)
                                             .totalRoomTaxAmount(100L)
-                                            .totalRoomTaxCurrency("usd")
+                                            .totalRoomTaxCurrency("USD")
                                             .totalTaxAmount(100L)
-                                            .totalTaxCurrency("usd")
+                                            .totalTaxCurrency("USD")
                                             .build()
                                     )
                                     .nationalTaxAmount(null)
-                                    .nationalTaxCurrency("usd")
+                                    .nationalTaxCurrency("USD")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardRefund.PurchaseDetails
@@ -1921,13 +1921,13 @@ internal class TransactionTest {
                                             .build()
                                     )
                                     .localTaxAmount(null)
-                                    .localTaxCurrency("usd")
+                                    .localTaxCurrency("USD")
                                     .lodging(
                                         Transaction.Source.CardSettlement.PurchaseDetails.Lodging
                                             .builder()
                                             .checkInDate(LocalDate.parse("2023-07-20"))
                                             .dailyRoomRateAmount(1000L)
-                                            .dailyRoomRateCurrency("usd")
+                                            .dailyRoomRateCurrency("USD")
                                             .extraCharges(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1935,9 +1935,9 @@ internal class TransactionTest {
                                                     .RESTAURANT
                                             )
                                             .folioCashAdvancesAmount(0L)
-                                            .folioCashAdvancesCurrency("usd")
+                                            .folioCashAdvancesCurrency("USD")
                                             .foodBeverageChargesAmount(0L)
-                                            .foodBeverageChargesCurrency("usd")
+                                            .foodBeverageChargesCurrency("USD")
                                             .noShowIndicator(
                                                 Transaction.Source.CardSettlement.PurchaseDetails
                                                     .Lodging
@@ -1945,16 +1945,16 @@ internal class TransactionTest {
                                                     .NO_SHOW
                                             )
                                             .prepaidExpensesAmount(0L)
-                                            .prepaidExpensesCurrency("usd")
+                                            .prepaidExpensesCurrency("USD")
                                             .roomNights(1L)
                                             .totalRoomTaxAmount(100L)
-                                            .totalRoomTaxCurrency("usd")
+                                            .totalRoomTaxCurrency("USD")
                                             .totalTaxAmount(100L)
-                                            .totalTaxCurrency("usd")
+                                            .totalTaxCurrency("USD")
                                             .build()
                                     )
                                     .nationalTaxAmount(null)
-                                    .nationalTaxCurrency("usd")
+                                    .nationalTaxCurrency("USD")
                                     .purchaseIdentifier("10203")
                                     .purchaseIdentifierFormat(
                                         Transaction.Source.CardSettlement.PurchaseDetails
@@ -2798,13 +2798,13 @@ internal class TransactionTest {
                                                 .build()
                                         )
                                         .localTaxAmount(null)
-                                        .localTaxCurrency("usd")
+                                        .localTaxCurrency("USD")
                                         .lodging(
                                             Transaction.Source.CardRefund.PurchaseDetails.Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2023-07-20"))
                                                 .dailyRoomRateAmount(1000L)
-                                                .dailyRoomRateCurrency("usd")
+                                                .dailyRoomRateCurrency("USD")
                                                 .extraCharges(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -2812,9 +2812,9 @@ internal class TransactionTest {
                                                         .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
-                                                .folioCashAdvancesCurrency("usd")
+                                                .folioCashAdvancesCurrency("USD")
                                                 .foodBeverageChargesAmount(0L)
-                                                .foodBeverageChargesCurrency("usd")
+                                                .foodBeverageChargesCurrency("USD")
                                                 .noShowIndicator(
                                                     Transaction.Source.CardRefund.PurchaseDetails
                                                         .Lodging
@@ -2822,16 +2822,16 @@ internal class TransactionTest {
                                                         .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
-                                                .prepaidExpensesCurrency("usd")
+                                                .prepaidExpensesCurrency("USD")
                                                 .roomNights(1L)
                                                 .totalRoomTaxAmount(100L)
-                                                .totalRoomTaxCurrency("usd")
+                                                .totalRoomTaxCurrency("USD")
                                                 .totalTaxAmount(100L)
-                                                .totalTaxCurrency("usd")
+                                                .totalTaxCurrency("USD")
                                                 .build()
                                         )
                                         .nationalTaxAmount(null)
-                                        .nationalTaxCurrency("usd")
+                                        .nationalTaxCurrency("USD")
                                         .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardRefund.PurchaseDetails
@@ -3108,14 +3108,14 @@ internal class TransactionTest {
                                                 .build()
                                         )
                                         .localTaxAmount(null)
-                                        .localTaxCurrency("usd")
+                                        .localTaxCurrency("USD")
                                         .lodging(
                                             Transaction.Source.CardSettlement.PurchaseDetails
                                                 .Lodging
                                                 .builder()
                                                 .checkInDate(LocalDate.parse("2023-07-20"))
                                                 .dailyRoomRateAmount(1000L)
-                                                .dailyRoomRateCurrency("usd")
+                                                .dailyRoomRateCurrency("USD")
                                                 .extraCharges(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -3124,9 +3124,9 @@ internal class TransactionTest {
                                                         .RESTAURANT
                                                 )
                                                 .folioCashAdvancesAmount(0L)
-                                                .folioCashAdvancesCurrency("usd")
+                                                .folioCashAdvancesCurrency("USD")
                                                 .foodBeverageChargesAmount(0L)
-                                                .foodBeverageChargesCurrency("usd")
+                                                .foodBeverageChargesCurrency("USD")
                                                 .noShowIndicator(
                                                     Transaction.Source.CardSettlement
                                                         .PurchaseDetails
@@ -3135,16 +3135,16 @@ internal class TransactionTest {
                                                         .NO_SHOW
                                                 )
                                                 .prepaidExpensesAmount(0L)
-                                                .prepaidExpensesCurrency("usd")
+                                                .prepaidExpensesCurrency("USD")
                                                 .roomNights(1L)
                                                 .totalRoomTaxAmount(100L)
-                                                .totalRoomTaxCurrency("usd")
+                                                .totalRoomTaxCurrency("USD")
                                                 .totalTaxAmount(100L)
-                                                .totalTaxCurrency("usd")
+                                                .totalTaxCurrency("USD")
                                                 .build()
                                         )
                                         .nationalTaxAmount(null)
-                                        .nationalTaxCurrency("usd")
+                                        .nationalTaxCurrency("USD")
                                         .purchaseIdentifier("10203")
                                         .purchaseIdentifierFormat(
                                             Transaction.Source.CardSettlement.PurchaseDetails
