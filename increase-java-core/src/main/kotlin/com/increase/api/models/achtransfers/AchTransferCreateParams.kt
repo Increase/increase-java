@@ -116,8 +116,7 @@ private constructor(
 
     /**
      * The name by which the recipient knows you, sent in the company batch header. We recommend
-     * setting this on every transfer; if you do not, we fall back to the ACH company name
-     * configured on your account.
+     * setting this on every transfer; if you do not, we fall back to the `statement_descriptor`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -542,8 +541,8 @@ private constructor(
 
         /**
          * The name by which the recipient knows you, sent in the company batch header. We recommend
-         * setting this on every transfer; if you do not, we fall back to the ACH company name
-         * configured on your account.
+         * setting this on every transfer; if you do not, we fall back to the
+         * `statement_descriptor`.
          */
         fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
@@ -1044,8 +1043,8 @@ private constructor(
 
         /**
          * The name by which the recipient knows you, sent in the company batch header. We recommend
-         * setting this on every transfer; if you do not, we fall back to the ACH company name
-         * configured on your account.
+         * setting this on every transfer; if you do not, we fall back to the
+         * `statement_descriptor`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1526,8 +1525,8 @@ private constructor(
 
             /**
              * The name by which the recipient knows you, sent in the company batch header. We
-             * recommend setting this on every transfer; if you do not, we fall back to the ACH
-             * company name configured on your account.
+             * recommend setting this on every transfer; if you do not, we fall back to the
+             * `statement_descriptor`.
              */
             fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
