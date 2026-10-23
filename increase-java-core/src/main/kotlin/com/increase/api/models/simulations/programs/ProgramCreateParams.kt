@@ -42,7 +42,7 @@ private constructor(
     fun name(): String = body.name()
 
     /**
-     * The bank for the program's accounts, defaults to First Internet Bank.
+     * The bank for the program's accounts, defaults to Increase Bank.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -174,7 +174,7 @@ private constructor(
          */
         fun name(name: JsonField<String>) = apply { body.name(name) }
 
-        /** The bank for the program's accounts, defaults to First Internet Bank. */
+        /** The bank for the program's accounts, defaults to Increase Bank. */
         fun bank(bank: Bank) = apply { body.bank(bank) }
 
         /**
@@ -423,7 +423,7 @@ private constructor(
         fun name(): String = name.getRequired("name")
 
         /**
-         * The bank for the program's accounts, defaults to First Internet Bank.
+         * The bank for the program's accounts, defaults to Increase Bank.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -559,7 +559,7 @@ private constructor(
              */
             fun name(name: JsonField<String>) = apply { this.name = name }
 
-            /** The bank for the program's accounts, defaults to First Internet Bank. */
+            /** The bank for the program's accounts, defaults to Increase Bank. */
             fun bank(bank: Bank) = bank(JsonField.of(bank))
 
             /**
@@ -740,7 +740,7 @@ private constructor(
             "Body{name=$name, bank=$bank, lendingMaximumExtendableCredit=$lendingMaximumExtendableCredit, loanAccountsRequireLoanOffers=$loanAccountsRequireLoanOffers, reserveAccountId=$reserveAccountId, additionalProperties=$additionalProperties}"
     }
 
-    /** The bank for the program's accounts, defaults to First Internet Bank. */
+    /** The bank for the program's accounts, defaults to Increase Bank. */
     class Bank @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**
