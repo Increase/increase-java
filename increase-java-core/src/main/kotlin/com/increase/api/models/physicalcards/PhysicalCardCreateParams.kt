@@ -21,7 +21,10 @@ import java.util.Objects
 import java.util.Optional
 import kotlin.jvm.optionals.getOrNull
 
-/** Create a Physical Card */
+/**
+ * Physical Cards start in the status `disabled`. Activate the card once it arrives at the
+ * destination and the recipient confirms receipt.
+ */
 class PhysicalCardCreateParams
 private constructor(
     private val body: Body,
