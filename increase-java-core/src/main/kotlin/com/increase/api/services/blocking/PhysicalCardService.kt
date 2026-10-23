@@ -28,7 +28,10 @@ interface PhysicalCardService {
      */
     fun withOptions(modifier: Consumer<ClientOptions.Builder>): PhysicalCardService
 
-    /** Create a Physical Card */
+    /**
+     * Physical Cards start in the status `disabled`. Activate the card once it arrives at the
+     * destination and the recipient confirms receipt.
+     */
     fun create(params: PhysicalCardCreateParams): PhysicalCard =
         create(params, RequestOptions.none())
 

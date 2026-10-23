@@ -176,7 +176,7 @@ private constructor(
     fun shipment(): Shipment = shipment.getRequired("shipment")
 
     /**
-     * The status of the Physical Card.
+     * The status of the Physical Card. The initial status is `disabled`.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -511,7 +511,7 @@ private constructor(
          */
         fun shipment(shipment: JsonField<Shipment>) = apply { this.shipment = shipment }
 
-        /** The status of the Physical Card. */
+        /** The status of the Physical Card. The initial status is `disabled`. */
         fun status(status: Status) = status(JsonField.of(status))
 
         /**
@@ -3352,7 +3352,7 @@ private constructor(
             "Shipment{address=$address, method=$method, schedule=$schedule, status=$status, tracking=$tracking, additionalProperties=$additionalProperties}"
     }
 
-    /** The status of the Physical Card. */
+    /** The status of the Physical Card. The initial status is `disabled`. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
         /**

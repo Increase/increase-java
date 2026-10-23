@@ -33,7 +33,6 @@ private constructor(
     private val cardId: JsonField<String>,
     private val cardholder: JsonField<Cardholder>,
     private val createdAt: JsonField<OffsetDateTime>,
-    private val decline: JsonField<Decline>,
     private val device: JsonField<Device>,
     private val dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>,
     private val primaryAccountNumberReferenceIdentifier: JsonField<String>,
@@ -56,7 +55,6 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        @JsonProperty("decline") @ExcludeMissing decline: JsonField<Decline> = JsonMissing.of(),
         @JsonProperty("device") @ExcludeMissing device: JsonField<Device> = JsonMissing.of(),
         @JsonProperty("dynamic_primary_account_number")
         @ExcludeMissing
@@ -79,7 +77,6 @@ private constructor(
         cardId,
         cardholder,
         createdAt,
-        decline,
         device,
         dynamicPrimaryAccountNumber,
         primaryAccountNumberReferenceIdentifier,
@@ -131,14 +128,6 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun createdAt(): OffsetDateTime = createdAt.getRequired("created_at")
-
-    /**
-     * If the Digital Wallet Token was declined during provisioning, details about the decline.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun decline(): Optional<Decline> = decline.getOptional("decline")
 
     /**
      * The device that was used to create the Digital Wallet Token.
@@ -250,13 +239,6 @@ private constructor(
     fun _createdAt(): JsonField<OffsetDateTime> = createdAt
 
     /**
-     * Returns the raw JSON value of [decline].
-     *
-     * Unlike [decline], this method doesn't throw if the JSON field has an unexpected type.
-     */
-    @JsonProperty("decline") @ExcludeMissing fun _decline(): JsonField<Decline> = decline
-
-    /**
      * Returns the raw JSON value of [device].
      *
      * Unlike [device], this method doesn't throw if the JSON field has an unexpected type.
@@ -349,7 +331,6 @@ private constructor(
          * .cardId()
          * .cardholder()
          * .createdAt()
-         * .decline()
          * .device()
          * .dynamicPrimaryAccountNumber()
          * .primaryAccountNumberReferenceIdentifier()
@@ -371,7 +352,6 @@ private constructor(
         private var cardId: JsonField<String>? = null
         private var cardholder: JsonField<Cardholder>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
-        private var decline: JsonField<Decline>? = null
         private var device: JsonField<Device>? = null
         private var dynamicPrimaryAccountNumber: JsonField<DynamicPrimaryAccountNumber>? = null
         private var primaryAccountNumberReferenceIdentifier: JsonField<String>? = null
@@ -389,7 +369,6 @@ private constructor(
             cardId = digitalWalletToken.cardId
             cardholder = digitalWalletToken.cardholder
             createdAt = digitalWalletToken.createdAt
-            decline = digitalWalletToken.decline
             device = digitalWalletToken.device
             dynamicPrimaryAccountNumber = digitalWalletToken.dynamicPrimaryAccountNumber
             primaryAccountNumberReferenceIdentifier =
@@ -462,22 +441,6 @@ private constructor(
          * supported value.
          */
         fun createdAt(createdAt: JsonField<OffsetDateTime>) = apply { this.createdAt = createdAt }
-
-        /**
-         * If the Digital Wallet Token was declined during provisioning, details about the decline.
-         */
-        fun decline(decline: Decline?) = decline(JsonField.ofNullable(decline))
-
-        /** Alias for calling [Builder.decline] with `decline.orElse(null)`. */
-        fun decline(decline: Optional<Decline>) = decline(decline.getOrNull())
-
-        /**
-         * Sets [Builder.decline] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.decline] with a well-typed [Decline] value instead. This
-         * method is primarily for setting the field to an undocumented or not yet supported value.
-         */
-        fun decline(decline: JsonField<Decline>) = apply { this.decline = decline }
 
         /** The device that was used to create the Digital Wallet Token. */
         fun device(device: Device) = device(JsonField.of(device))
@@ -646,7 +609,6 @@ private constructor(
          * .cardId()
          * .cardholder()
          * .createdAt()
-         * .decline()
          * .device()
          * .dynamicPrimaryAccountNumber()
          * .primaryAccountNumberReferenceIdentifier()
@@ -666,7 +628,6 @@ private constructor(
                 checkRequired("cardId", cardId),
                 checkRequired("cardholder", cardholder),
                 checkRequired("createdAt", createdAt),
-                checkRequired("decline", decline),
                 checkRequired("device", device),
                 checkRequired("dynamicPrimaryAccountNumber", dynamicPrimaryAccountNumber),
                 checkRequired(
@@ -702,7 +663,6 @@ private constructor(
         cardId()
         cardholder().validate()
         createdAt()
-        decline().ifPresent { it.validate() }
         device().validate()
         dynamicPrimaryAccountNumber().ifPresent { it.validate() }
         primaryAccountNumberReferenceIdentifier()
@@ -734,7 +694,6 @@ private constructor(
             (if (cardId.asKnown().isPresent) 1 else 0) +
             (cardholder.asKnown().getOrNull()?.validity() ?: 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
-            (decline.asKnown().getOrNull()?.validity() ?: 0) +
             (device.asKnown().getOrNull()?.validity() ?: 0) +
             (dynamicPrimaryAccountNumber.asKnown().getOrNull()?.validity() ?: 0) +
             (if (primaryAccountNumberReferenceIdentifier.asKnown().isPresent) 1 else 0) +
@@ -911,391 +870,6 @@ private constructor(
 
         override fun toString() =
             "Cardholder{name=$name, additionalProperties=$additionalProperties}"
-    }
-
-    /** If the Digital Wallet Token was declined during provisioning, details about the decline. */
-    class Decline
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val reason: JsonField<Reason>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of()
-        ) : this(reason, mutableMapOf())
-
-        /**
-         * The reason the token provisioning was declined.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun reason(): Reason = reason.getRequired("reason")
-
-        /**
-         * Returns the raw JSON value of [reason].
-         *
-         * Unlike [reason], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("reason") @ExcludeMissing fun _reason(): JsonField<Reason> = reason
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [Decline].
-             *
-             * The following fields are required:
-             * ```java
-             * .reason()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [Decline]. */
-        class Builder internal constructor() {
-
-            private var reason: JsonField<Reason>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(decline: Decline) = apply {
-                reason = decline.reason
-                additionalProperties = decline.additionalProperties.toMutableMap()
-            }
-
-            /** The reason the token provisioning was declined. */
-            fun reason(reason: Reason) = reason(JsonField.of(reason))
-
-            /**
-             * Sets [Builder.reason] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.reason] with a well-typed [Reason] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun reason(reason: JsonField<Reason>) = apply { this.reason = reason }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [Decline].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .reason()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): Decline =
-                Decline(checkRequired("reason", reason), additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): Decline = apply {
-            if (validated) {
-                return@apply
-            }
-
-            reason().validate()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = (reason.asKnown().getOrNull()?.validity() ?: 0)
-
-        /** The reason the token provisioning was declined. */
-        class Reason @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** The card is not active. */
-                @JvmField val CARD_NOT_ACTIVE = of("card_not_active")
-
-                /** The card does not have a two-factor authentication method. */
-                @JvmField val NO_VERIFICATION_METHOD = of("no_verification_method")
-
-                /** Your webhook timed out when evaluating the token provisioning attempt. */
-                @JvmField val WEBHOOK_TIMED_OUT = of("webhook_timed_out")
-
-                /** Your webhook declined the token provisioning attempt. */
-                @JvmField val WEBHOOK_DECLINED = of("webhook_declined")
-
-                /**
-                 * The tokenization attempt failed because the Card Verification Code (CVC) was
-                 * incorrect.
-                 */
-                @JvmField
-                val INCORRECT_CARD_VERIFICATION_CODE = of("incorrect_card_verification_code")
-
-                /** The tokenization attempt was declined by the token requestor. */
-                @JvmField val DECLINED_BY_TOKEN_REQUESTOR = of("declined_by_token_requestor")
-
-                /** The group was locked. */
-                @JvmField val GROUP_LOCKED = of("group_locked")
-
-                /** The account has been closed. */
-                @JvmField val ACCOUNT_CLOSED = of("account_closed")
-
-                /** The account's entity was not active. */
-                @JvmField val ENTITY_NOT_ACTIVE = of("entity_not_active")
-
-                @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
-            }
-
-            /** An enum containing [Reason]'s known values. */
-            enum class Known {
-                /** The card is not active. */
-                CARD_NOT_ACTIVE,
-                /** The card does not have a two-factor authentication method. */
-                NO_VERIFICATION_METHOD,
-                /** Your webhook timed out when evaluating the token provisioning attempt. */
-                WEBHOOK_TIMED_OUT,
-                /** Your webhook declined the token provisioning attempt. */
-                WEBHOOK_DECLINED,
-                /**
-                 * The tokenization attempt failed because the Card Verification Code (CVC) was
-                 * incorrect.
-                 */
-                INCORRECT_CARD_VERIFICATION_CODE,
-                /** The tokenization attempt was declined by the token requestor. */
-                DECLINED_BY_TOKEN_REQUESTOR,
-                /** The group was locked. */
-                GROUP_LOCKED,
-                /** The account has been closed. */
-                ACCOUNT_CLOSED,
-                /** The account's entity was not active. */
-                ENTITY_NOT_ACTIVE,
-            }
-
-            /**
-             * An enum containing [Reason]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Reason] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** The card is not active. */
-                CARD_NOT_ACTIVE,
-                /** The card does not have a two-factor authentication method. */
-                NO_VERIFICATION_METHOD,
-                /** Your webhook timed out when evaluating the token provisioning attempt. */
-                WEBHOOK_TIMED_OUT,
-                /** Your webhook declined the token provisioning attempt. */
-                WEBHOOK_DECLINED,
-                /**
-                 * The tokenization attempt failed because the Card Verification Code (CVC) was
-                 * incorrect.
-                 */
-                INCORRECT_CARD_VERIFICATION_CODE,
-                /** The tokenization attempt was declined by the token requestor. */
-                DECLINED_BY_TOKEN_REQUESTOR,
-                /** The group was locked. */
-                GROUP_LOCKED,
-                /** The account has been closed. */
-                ACCOUNT_CLOSED,
-                /** The account's entity was not active. */
-                ENTITY_NOT_ACTIVE,
-                /**
-                 * An enum member indicating that [Reason] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    CARD_NOT_ACTIVE -> Value.CARD_NOT_ACTIVE
-                    NO_VERIFICATION_METHOD -> Value.NO_VERIFICATION_METHOD
-                    WEBHOOK_TIMED_OUT -> Value.WEBHOOK_TIMED_OUT
-                    WEBHOOK_DECLINED -> Value.WEBHOOK_DECLINED
-                    INCORRECT_CARD_VERIFICATION_CODE -> Value.INCORRECT_CARD_VERIFICATION_CODE
-                    DECLINED_BY_TOKEN_REQUESTOR -> Value.DECLINED_BY_TOKEN_REQUESTOR
-                    GROUP_LOCKED -> Value.GROUP_LOCKED
-                    ACCOUNT_CLOSED -> Value.ACCOUNT_CLOSED
-                    ENTITY_NOT_ACTIVE -> Value.ENTITY_NOT_ACTIVE
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    CARD_NOT_ACTIVE -> Known.CARD_NOT_ACTIVE
-                    NO_VERIFICATION_METHOD -> Known.NO_VERIFICATION_METHOD
-                    WEBHOOK_TIMED_OUT -> Known.WEBHOOK_TIMED_OUT
-                    WEBHOOK_DECLINED -> Known.WEBHOOK_DECLINED
-                    INCORRECT_CARD_VERIFICATION_CODE -> Known.INCORRECT_CARD_VERIFICATION_CODE
-                    DECLINED_BY_TOKEN_REQUESTOR -> Known.DECLINED_BY_TOKEN_REQUESTOR
-                    GROUP_LOCKED -> Known.GROUP_LOCKED
-                    ACCOUNT_CLOSED -> Known.ACCOUNT_CLOSED
-                    ENTITY_NOT_ACTIVE -> Known.ENTITY_NOT_ACTIVE
-                    else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
-             *   its expected type.
-             */
-            fun validate(): Reason = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Reason && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is Decline &&
-                reason == other.reason &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(reason, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "Decline{reason=$reason, additionalProperties=$additionalProperties}"
     }
 
     /** The device that was used to create the Digital Wallet Token. */
@@ -2056,9 +1630,6 @@ private constructor(
             /** The digital wallet token has been permanently canceled. */
             @JvmField val DEACTIVATED = of("deactivated")
 
-            /** The digital wallet token was declined during provisioning. */
-            @JvmField val DECLINED = of("declined")
-
             /**
              * The digital wallet token is transitioning to a new status and is awaiting
              * confirmation from the card network.
@@ -2081,8 +1652,6 @@ private constructor(
             SUSPENDED,
             /** The digital wallet token has been permanently canceled. */
             DEACTIVATED,
-            /** The digital wallet token was declined during provisioning. */
-            DECLINED,
             /**
              * The digital wallet token is transitioning to a new status and is awaiting
              * confirmation from the card network.
@@ -2111,8 +1680,6 @@ private constructor(
             SUSPENDED,
             /** The digital wallet token has been permanently canceled. */
             DEACTIVATED,
-            /** The digital wallet token was declined during provisioning. */
-            DECLINED,
             /**
              * The digital wallet token is transitioning to a new status and is awaiting
              * confirmation from the card network.
@@ -2135,7 +1702,6 @@ private constructor(
                 INACTIVE -> Value.INACTIVE
                 SUSPENDED -> Value.SUSPENDED
                 DEACTIVATED -> Value.DEACTIVATED
-                DECLINED -> Value.DECLINED
                 PENDING_TRANSITIONING -> Value.PENDING_TRANSITIONING
                 else -> Value._UNKNOWN
             }
@@ -2155,7 +1721,6 @@ private constructor(
                 INACTIVE -> Known.INACTIVE
                 SUSPENDED -> Known.SUSPENDED
                 DEACTIVATED -> Known.DEACTIVATED
-                DECLINED -> Known.DECLINED
                 PENDING_TRANSITIONING -> Known.PENDING_TRANSITIONING
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
@@ -2759,9 +2324,6 @@ private constructor(
                 /** The digital wallet token has been permanently canceled. */
                 @JvmField val DEACTIVATED = of("deactivated")
 
-                /** The digital wallet token was declined during provisioning. */
-                @JvmField val DECLINED = of("declined")
-
                 /**
                  * The digital wallet token is transitioning to a new status and is awaiting
                  * confirmation from the card network.
@@ -2784,8 +2346,6 @@ private constructor(
                 SUSPENDED,
                 /** The digital wallet token has been permanently canceled. */
                 DEACTIVATED,
-                /** The digital wallet token was declined during provisioning. */
-                DECLINED,
                 /**
                  * The digital wallet token is transitioning to a new status and is awaiting
                  * confirmation from the card network.
@@ -2814,8 +2374,6 @@ private constructor(
                 SUSPENDED,
                 /** The digital wallet token has been permanently canceled. */
                 DEACTIVATED,
-                /** The digital wallet token was declined during provisioning. */
-                DECLINED,
                 /**
                  * The digital wallet token is transitioning to a new status and is awaiting
                  * confirmation from the card network.
@@ -2840,7 +2398,6 @@ private constructor(
                     INACTIVE -> Value.INACTIVE
                     SUSPENDED -> Value.SUSPENDED
                     DEACTIVATED -> Value.DEACTIVATED
-                    DECLINED -> Value.DECLINED
                     PENDING_TRANSITIONING -> Value.PENDING_TRANSITIONING
                     else -> Value._UNKNOWN
                 }
@@ -2860,7 +2417,6 @@ private constructor(
                     INACTIVE -> Known.INACTIVE
                     SUSPENDED -> Known.SUSPENDED
                     DEACTIVATED -> Known.DEACTIVATED
-                    DECLINED -> Known.DECLINED
                     PENDING_TRANSITIONING -> Known.PENDING_TRANSITIONING
                     else -> throw IncreaseInvalidDataException("Unknown Status: $value")
                 }
@@ -2959,7 +2515,6 @@ private constructor(
             cardId == other.cardId &&
             cardholder == other.cardholder &&
             createdAt == other.createdAt &&
-            decline == other.decline &&
             device == other.device &&
             dynamicPrimaryAccountNumber == other.dynamicPrimaryAccountNumber &&
             primaryAccountNumberReferenceIdentifier ==
@@ -2979,7 +2534,6 @@ private constructor(
             cardId,
             cardholder,
             createdAt,
-            decline,
             device,
             dynamicPrimaryAccountNumber,
             primaryAccountNumberReferenceIdentifier,
@@ -2995,5 +2549,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, decline=$decline, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, primaryAccountNumberReferenceIdentifier=$primaryAccountNumberReferenceIdentifier, status=$status, tokenReferenceIdentifier=$tokenReferenceIdentifier, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
+        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, primaryAccountNumberReferenceIdentifier=$primaryAccountNumberReferenceIdentifier, status=$status, tokenReferenceIdentifier=$tokenReferenceIdentifier, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
 }
