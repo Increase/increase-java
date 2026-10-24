@@ -14,6 +14,23 @@ internal class DigitalCardProfileCreateParamsTest {
             .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
             .cardDescription("National Phonograph Card")
             .description("My Card Profile")
+            .applePay(
+                DigitalCardProfileCreateParams.ApplePay.builder()
+                    .addAssociatedApplicationIdentifier(
+                        DigitalCardProfileCreateParams.ApplePay.AssociatedApplicationIdentifier
+                            .builder()
+                            .identifier(
+                                "210B9798AD.---aH0O-6L.8tjDQ-3.-K-h.8asJ.WN--u-kX-Q.l3VU-F.-i-5p54n-N"
+                            )
+                            .build()
+                    )
+                    .addAssociatedStoreIdentifier(
+                        DigitalCardProfileCreateParams.ApplePay.AssociatedStoreIdentifier.builder()
+                            .identifier("26")
+                            .build()
+                    )
+                    .build()
+            )
             .contactEmail("user@example.com")
             .contactName("National Phonograph Company")
             .contactPhone("+18885551212")
@@ -36,6 +53,24 @@ internal class DigitalCardProfileCreateParamsTest {
                 .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
                 .cardDescription("National Phonograph Card")
                 .description("My Card Profile")
+                .applePay(
+                    DigitalCardProfileCreateParams.ApplePay.builder()
+                        .addAssociatedApplicationIdentifier(
+                            DigitalCardProfileCreateParams.ApplePay.AssociatedApplicationIdentifier
+                                .builder()
+                                .identifier(
+                                    "210B9798AD.---aH0O-6L.8tjDQ-3.-K-h.8asJ.WN--u-kX-Q.l3VU-F.-i-5p54n-N"
+                                )
+                                .build()
+                        )
+                        .addAssociatedStoreIdentifier(
+                            DigitalCardProfileCreateParams.ApplePay.AssociatedStoreIdentifier
+                                .builder()
+                                .identifier("26")
+                                .build()
+                        )
+                        .build()
+                )
                 .contactEmail("user@example.com")
                 .contactName("National Phonograph Company")
                 .contactPhone("+18885551212")
@@ -55,6 +90,24 @@ internal class DigitalCardProfileCreateParamsTest {
         assertThat(body.backgroundImageFileId()).isEqualTo("file_1ai913suu1zfn1pdetru")
         assertThat(body.cardDescription()).isEqualTo("National Phonograph Card")
         assertThat(body.description()).isEqualTo("My Card Profile")
+        assertThat(body.applePay())
+            .contains(
+                DigitalCardProfileCreateParams.ApplePay.builder()
+                    .addAssociatedApplicationIdentifier(
+                        DigitalCardProfileCreateParams.ApplePay.AssociatedApplicationIdentifier
+                            .builder()
+                            .identifier(
+                                "210B9798AD.---aH0O-6L.8tjDQ-3.-K-h.8asJ.WN--u-kX-Q.l3VU-F.-i-5p54n-N"
+                            )
+                            .build()
+                    )
+                    .addAssociatedStoreIdentifier(
+                        DigitalCardProfileCreateParams.ApplePay.AssociatedStoreIdentifier.builder()
+                            .identifier("26")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.contactEmail()).contains("user@example.com")
         assertThat(body.contactName()).contains("National Phonograph Company")
         assertThat(body.contactPhone()).contains("+18885551212")
