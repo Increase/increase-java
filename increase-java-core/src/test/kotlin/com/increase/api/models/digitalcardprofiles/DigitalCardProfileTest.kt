@@ -16,6 +16,20 @@ internal class DigitalCardProfileTest {
             DigitalCardProfile.builder()
                 .id("digital_card_profile_s3puplu90f04xhcwkiga")
                 .appIconFileId("file_makxrc67oh9l6sg7w9yc")
+                .applePay(
+                    DigitalCardProfile.ApplePay.builder()
+                        .addAssociatedApplicationIdentifier(
+                            DigitalCardProfile.ApplePay.AssociatedApplicationIdentifier.builder()
+                                .identifier("ABCDE12345.com.example.app")
+                                .build()
+                        )
+                        .addAssociatedStoreIdentifier(
+                            DigitalCardProfile.ApplePay.AssociatedStoreIdentifier.builder()
+                                .identifier("1234567890")
+                                .build()
+                        )
+                        .build()
+                )
                 .backgroundImageFileId("file_makxrc67oh9l6sg7w9yc")
                 .cardDescription("Black Card")
                 .contactEmail("user@example.com")
@@ -34,6 +48,21 @@ internal class DigitalCardProfileTest {
 
         assertThat(digitalCardProfile.id()).isEqualTo("digital_card_profile_s3puplu90f04xhcwkiga")
         assertThat(digitalCardProfile.appIconFileId()).isEqualTo("file_makxrc67oh9l6sg7w9yc")
+        assertThat(digitalCardProfile.applePay())
+            .contains(
+                DigitalCardProfile.ApplePay.builder()
+                    .addAssociatedApplicationIdentifier(
+                        DigitalCardProfile.ApplePay.AssociatedApplicationIdentifier.builder()
+                            .identifier("ABCDE12345.com.example.app")
+                            .build()
+                    )
+                    .addAssociatedStoreIdentifier(
+                        DigitalCardProfile.ApplePay.AssociatedStoreIdentifier.builder()
+                            .identifier("1234567890")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(digitalCardProfile.backgroundImageFileId())
             .isEqualTo("file_makxrc67oh9l6sg7w9yc")
         assertThat(digitalCardProfile.cardDescription()).isEqualTo("Black Card")
@@ -61,6 +90,20 @@ internal class DigitalCardProfileTest {
             DigitalCardProfile.builder()
                 .id("digital_card_profile_s3puplu90f04xhcwkiga")
                 .appIconFileId("file_makxrc67oh9l6sg7w9yc")
+                .applePay(
+                    DigitalCardProfile.ApplePay.builder()
+                        .addAssociatedApplicationIdentifier(
+                            DigitalCardProfile.ApplePay.AssociatedApplicationIdentifier.builder()
+                                .identifier("ABCDE12345.com.example.app")
+                                .build()
+                        )
+                        .addAssociatedStoreIdentifier(
+                            DigitalCardProfile.ApplePay.AssociatedStoreIdentifier.builder()
+                                .identifier("1234567890")
+                                .build()
+                        )
+                        .build()
+                )
                 .backgroundImageFileId("file_makxrc67oh9l6sg7w9yc")
                 .cardDescription("Black Card")
                 .contactEmail("user@example.com")

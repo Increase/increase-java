@@ -965,6 +965,12 @@ private constructor(
                 /** Occurs whenever a Loan Purchase is created. */
                 @JvmField val LOAN_PURCHASE_CREATED = of("loan_purchase.created")
 
+                /** Occurs whenever a Loan Purchase Offer is created. */
+                @JvmField val LOAN_PURCHASE_OFFER_CREATED = of("loan_purchase_offer.created")
+
+                /** Occurs whenever a Loan Purchase Offer is updated. */
+                @JvmField val LOAN_PURCHASE_OFFER_UPDATED = of("loan_purchase_offer.updated")
+
                 /** Occurs whenever a Lockbox is created. */
                 @JvmField val LOCKBOX_CREATED = of("lockbox.created")
 
@@ -1319,6 +1325,10 @@ private constructor(
                 LOAN_OFFER_UPDATED,
                 /** Occurs whenever a Loan Purchase is created. */
                 LOAN_PURCHASE_CREATED,
+                /** Occurs whenever a Loan Purchase Offer is created. */
+                LOAN_PURCHASE_OFFER_CREATED,
+                /** Occurs whenever a Loan Purchase Offer is updated. */
+                LOAN_PURCHASE_OFFER_UPDATED,
                 /** Occurs whenever a Lockbox is created. */
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
@@ -1608,6 +1618,10 @@ private constructor(
                 LOAN_OFFER_UPDATED,
                 /** Occurs whenever a Loan Purchase is created. */
                 LOAN_PURCHASE_CREATED,
+                /** Occurs whenever a Loan Purchase Offer is created. */
+                LOAN_PURCHASE_OFFER_CREATED,
+                /** Occurs whenever a Loan Purchase Offer is updated. */
+                LOAN_PURCHASE_OFFER_UPDATED,
                 /** Occurs whenever a Lockbox is created. */
                 LOCKBOX_CREATED,
                 /** Occurs whenever a Lockbox is updated. */
@@ -1822,6 +1836,8 @@ private constructor(
                     LOAN_OFFER_CREATED -> Value.LOAN_OFFER_CREATED
                     LOAN_OFFER_UPDATED -> Value.LOAN_OFFER_UPDATED
                     LOAN_PURCHASE_CREATED -> Value.LOAN_PURCHASE_CREATED
+                    LOAN_PURCHASE_OFFER_CREATED -> Value.LOAN_PURCHASE_OFFER_CREATED
+                    LOAN_PURCHASE_OFFER_UPDATED -> Value.LOAN_PURCHASE_OFFER_UPDATED
                     LOCKBOX_CREATED -> Value.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Value.LOCKBOX_UPDATED
                     LOCKBOX_ADDRESS_CREATED -> Value.LOCKBOX_ADDRESS_CREATED
@@ -1982,6 +1998,8 @@ private constructor(
                     LOAN_OFFER_CREATED -> Known.LOAN_OFFER_CREATED
                     LOAN_OFFER_UPDATED -> Known.LOAN_OFFER_UPDATED
                     LOAN_PURCHASE_CREATED -> Known.LOAN_PURCHASE_CREATED
+                    LOAN_PURCHASE_OFFER_CREATED -> Known.LOAN_PURCHASE_OFFER_CREATED
+                    LOAN_PURCHASE_OFFER_UPDATED -> Known.LOAN_PURCHASE_OFFER_UPDATED
                     LOCKBOX_CREATED -> Known.LOCKBOX_CREATED
                     LOCKBOX_UPDATED -> Known.LOCKBOX_UPDATED
                     LOCKBOX_ADDRESS_CREATED -> Known.LOCKBOX_ADDRESS_CREATED

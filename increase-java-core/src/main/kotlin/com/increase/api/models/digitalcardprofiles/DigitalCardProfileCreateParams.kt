@@ -11,9 +11,11 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
+import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
+import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
@@ -59,6 +61,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun description(): String = body.description()
+
+    /**
+     * Apple Pay specific settings for the Card Profile.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun applePay(): Optional<ApplePay> = body.applePay()
 
     /**
      * An email address the user can contact to receive support for their card.
@@ -129,6 +139,13 @@ private constructor(
      * Unlike [description], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _description(): JsonField<String> = body._description()
+
+    /**
+     * Returns the raw JSON value of [applePay].
+     *
+     * Unlike [applePay], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _applePay(): JsonField<ApplePay> = body._applePay()
 
     /**
      * Returns the raw JSON value of [contactEmail].
@@ -215,7 +232,7 @@ private constructor(
          * - [backgroundImageFileId]
          * - [cardDescription]
          * - [description]
-         * - [contactEmail]
+         * - [applePay]
          * - etc.
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
@@ -277,6 +294,18 @@ private constructor(
          * value.
          */
         fun description(description: JsonField<String>) = apply { body.description(description) }
+
+        /** Apple Pay specific settings for the Card Profile. */
+        fun applePay(applePay: ApplePay) = apply { body.applePay(applePay) }
+
+        /**
+         * Sets [Builder.applePay] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.applePay] with a well-typed [ApplePay] value instead.
+         * This method is primarily for setting the field to an undocumented or not yet supported
+         * value.
+         */
+        fun applePay(applePay: JsonField<ApplePay>) = apply { body.applePay(applePay) }
 
         /** An email address the user can contact to receive support for their card. */
         fun contactEmail(contactEmail: String) = apply { body.contactEmail(contactEmail) }
@@ -500,6 +529,7 @@ private constructor(
         private val backgroundImageFileId: JsonField<String>,
         private val cardDescription: JsonField<String>,
         private val description: JsonField<String>,
+        private val applePay: JsonField<ApplePay>,
         private val contactEmail: JsonField<String>,
         private val contactName: JsonField<String>,
         private val contactPhone: JsonField<String>,
@@ -522,6 +552,9 @@ private constructor(
             @JsonProperty("description")
             @ExcludeMissing
             description: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("apple_pay")
+            @ExcludeMissing
+            applePay: JsonField<ApplePay> = JsonMissing.of(),
             @JsonProperty("contact_email")
             @ExcludeMissing
             contactEmail: JsonField<String> = JsonMissing.of(),
@@ -542,6 +575,7 @@ private constructor(
             backgroundImageFileId,
             cardDescription,
             description,
+            applePay,
             contactEmail,
             contactName,
             contactPhone,
@@ -582,6 +616,14 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun description(): String = description.getRequired("description")
+
+        /**
+         * Apple Pay specific settings for the Card Profile.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun applePay(): Optional<ApplePay> = applePay.getOptional("apple_pay")
 
         /**
          * An email address the user can contact to receive support for their card.
@@ -662,6 +704,13 @@ private constructor(
         @JsonProperty("description")
         @ExcludeMissing
         fun _description(): JsonField<String> = description
+
+        /**
+         * Returns the raw JSON value of [applePay].
+         *
+         * Unlike [applePay], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("apple_pay") @ExcludeMissing fun _applePay(): JsonField<ApplePay> = applePay
 
         /**
          * Returns the raw JSON value of [contactEmail].
@@ -746,6 +795,7 @@ private constructor(
             private var backgroundImageFileId: JsonField<String>? = null
             private var cardDescription: JsonField<String>? = null
             private var description: JsonField<String>? = null
+            private var applePay: JsonField<ApplePay> = JsonMissing.of()
             private var contactEmail: JsonField<String> = JsonMissing.of()
             private var contactName: JsonField<String> = JsonMissing.of()
             private var contactPhone: JsonField<String> = JsonMissing.of()
@@ -759,6 +809,7 @@ private constructor(
                 backgroundImageFileId = body.backgroundImageFileId
                 cardDescription = body.cardDescription
                 description = body.description
+                applePay = body.applePay
                 contactEmail = body.contactEmail
                 contactName = body.contactName
                 contactPhone = body.contactPhone
@@ -824,6 +875,18 @@ private constructor(
             fun description(description: JsonField<String>) = apply {
                 this.description = description
             }
+
+            /** Apple Pay specific settings for the Card Profile. */
+            fun applePay(applePay: ApplePay) = applePay(JsonField.of(applePay))
+
+            /**
+             * Sets [Builder.applePay] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.applePay] with a well-typed [ApplePay] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun applePay(applePay: JsonField<ApplePay>) = apply { this.applePay = applePay }
 
             /** An email address the user can contact to receive support for their card. */
             fun contactEmail(contactEmail: String) = contactEmail(JsonField.of(contactEmail))
@@ -937,6 +1000,7 @@ private constructor(
                     checkRequired("backgroundImageFileId", backgroundImageFileId),
                     checkRequired("cardDescription", cardDescription),
                     checkRequired("description", description),
+                    applePay,
                     contactEmail,
                     contactName,
                     contactPhone,
@@ -966,6 +1030,7 @@ private constructor(
             backgroundImageFileId()
             cardDescription()
             description()
+            applePay().ifPresent { it.validate() }
             contactEmail()
             contactName()
             contactPhone()
@@ -994,6 +1059,7 @@ private constructor(
                 (if (backgroundImageFileId.asKnown().isPresent) 1 else 0) +
                 (if (cardDescription.asKnown().isPresent) 1 else 0) +
                 (if (description.asKnown().isPresent) 1 else 0) +
+                (applePay.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (contactEmail.asKnown().isPresent) 1 else 0) +
                 (if (contactName.asKnown().isPresent) 1 else 0) +
                 (if (contactPhone.asKnown().isPresent) 1 else 0) +
@@ -1010,6 +1076,7 @@ private constructor(
                 backgroundImageFileId == other.backgroundImageFileId &&
                 cardDescription == other.cardDescription &&
                 description == other.description &&
+                applePay == other.applePay &&
                 contactEmail == other.contactEmail &&
                 contactName == other.contactName &&
                 contactPhone == other.contactPhone &&
@@ -1024,6 +1091,7 @@ private constructor(
                 backgroundImageFileId,
                 cardDescription,
                 description,
+                applePay,
                 contactEmail,
                 contactName,
                 contactPhone,
@@ -1036,7 +1104,650 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, contactEmail=$contactEmail, contactName=$contactName, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
+            "Body{appIconFileId=$appIconFileId, backgroundImageFileId=$backgroundImageFileId, cardDescription=$cardDescription, description=$description, applePay=$applePay, contactEmail=$contactEmail, contactName=$contactName, contactPhone=$contactPhone, contactWebsite=$contactWebsite, textColor=$textColor, additionalProperties=$additionalProperties}"
+    }
+
+    /** Apple Pay specific settings for the Card Profile. */
+    class ApplePay
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val associatedApplicationIdentifiers:
+            JsonField<List<AssociatedApplicationIdentifier>>,
+        private val associatedStoreIdentifiers: JsonField<List<AssociatedStoreIdentifier>>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("associated_application_identifiers")
+            @ExcludeMissing
+            associatedApplicationIdentifiers: JsonField<List<AssociatedApplicationIdentifier>> =
+                JsonMissing.of(),
+            @JsonProperty("associated_store_identifiers")
+            @ExcludeMissing
+            associatedStoreIdentifiers: JsonField<List<AssociatedStoreIdentifier>> =
+                JsonMissing.of(),
+        ) : this(associatedApplicationIdentifiers, associatedStoreIdentifiers, mutableMapOf())
+
+        /**
+         * The applications to associate with cards using this Card Profile.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun associatedApplicationIdentifiers(): Optional<List<AssociatedApplicationIdentifier>> =
+            associatedApplicationIdentifiers.getOptional("associated_application_identifiers")
+
+        /**
+         * The App Store listings of the applications to associate with cards using this Card
+         * Profile.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun associatedStoreIdentifiers(): Optional<List<AssociatedStoreIdentifier>> =
+            associatedStoreIdentifiers.getOptional("associated_store_identifiers")
+
+        /**
+         * Returns the raw JSON value of [associatedApplicationIdentifiers].
+         *
+         * Unlike [associatedApplicationIdentifiers], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("associated_application_identifiers")
+        @ExcludeMissing
+        fun _associatedApplicationIdentifiers(): JsonField<List<AssociatedApplicationIdentifier>> =
+            associatedApplicationIdentifiers
+
+        /**
+         * Returns the raw JSON value of [associatedStoreIdentifiers].
+         *
+         * Unlike [associatedStoreIdentifiers], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("associated_store_identifiers")
+        @ExcludeMissing
+        fun _associatedStoreIdentifiers(): JsonField<List<AssociatedStoreIdentifier>> =
+            associatedStoreIdentifiers
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [ApplePay]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [ApplePay]. */
+        class Builder internal constructor() {
+
+            private var associatedApplicationIdentifiers:
+                JsonField<MutableList<AssociatedApplicationIdentifier>>? =
+                null
+            private var associatedStoreIdentifiers:
+                JsonField<MutableList<AssociatedStoreIdentifier>>? =
+                null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(applePay: ApplePay) = apply {
+                associatedApplicationIdentifiers =
+                    applePay.associatedApplicationIdentifiers.map { it.toMutableList() }
+                associatedStoreIdentifiers =
+                    applePay.associatedStoreIdentifiers.map { it.toMutableList() }
+                additionalProperties = applePay.additionalProperties.toMutableMap()
+            }
+
+            /** The applications to associate with cards using this Card Profile. */
+            fun associatedApplicationIdentifiers(
+                associatedApplicationIdentifiers: List<AssociatedApplicationIdentifier>
+            ) = associatedApplicationIdentifiers(JsonField.of(associatedApplicationIdentifiers))
+
+            /**
+             * Sets [Builder.associatedApplicationIdentifiers] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.associatedApplicationIdentifiers] with a well-typed
+             * `List<AssociatedApplicationIdentifier>` value instead. This method is primarily for
+             * setting the field to an undocumented or not yet supported value.
+             */
+            fun associatedApplicationIdentifiers(
+                associatedApplicationIdentifiers: JsonField<List<AssociatedApplicationIdentifier>>
+            ) = apply {
+                this.associatedApplicationIdentifiers =
+                    associatedApplicationIdentifiers.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [AssociatedApplicationIdentifier] to
+             * [associatedApplicationIdentifiers].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAssociatedApplicationIdentifier(
+                associatedApplicationIdentifier: AssociatedApplicationIdentifier
+            ) = apply {
+                associatedApplicationIdentifiers =
+                    (associatedApplicationIdentifiers ?: JsonField.of(mutableListOf())).also {
+                        checkKnown("associatedApplicationIdentifiers", it)
+                            .add(associatedApplicationIdentifier)
+                    }
+            }
+
+            /**
+             * The App Store listings of the applications to associate with cards using this Card
+             * Profile.
+             */
+            fun associatedStoreIdentifiers(
+                associatedStoreIdentifiers: List<AssociatedStoreIdentifier>
+            ) = associatedStoreIdentifiers(JsonField.of(associatedStoreIdentifiers))
+
+            /**
+             * Sets [Builder.associatedStoreIdentifiers] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.associatedStoreIdentifiers] with a well-typed
+             * `List<AssociatedStoreIdentifier>` value instead. This method is primarily for setting
+             * the field to an undocumented or not yet supported value.
+             */
+            fun associatedStoreIdentifiers(
+                associatedStoreIdentifiers: JsonField<List<AssociatedStoreIdentifier>>
+            ) = apply {
+                this.associatedStoreIdentifiers =
+                    associatedStoreIdentifiers.map { it.toMutableList() }
+            }
+
+            /**
+             * Adds a single [AssociatedStoreIdentifier] to [associatedStoreIdentifiers].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addAssociatedStoreIdentifier(associatedStoreIdentifier: AssociatedStoreIdentifier) =
+                apply {
+                    associatedStoreIdentifiers =
+                        (associatedStoreIdentifiers ?: JsonField.of(mutableListOf())).also {
+                            checkKnown("associatedStoreIdentifiers", it)
+                                .add(associatedStoreIdentifier)
+                        }
+                }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [ApplePay].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): ApplePay =
+                ApplePay(
+                    (associatedApplicationIdentifiers ?: JsonMissing.of()).map { it.toImmutable() },
+                    (associatedStoreIdentifiers ?: JsonMissing.of()).map { it.toImmutable() },
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): ApplePay = apply {
+            if (validated) {
+                return@apply
+            }
+
+            associatedApplicationIdentifiers().ifPresent { it.forEach { it.validate() } }
+            associatedStoreIdentifiers().ifPresent { it.forEach { it.validate() } }
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (associatedApplicationIdentifiers.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
+                ?: 0) +
+                (associatedStoreIdentifiers.asKnown().getOrNull()?.sumOf { it.validity().toInt() }
+                    ?: 0)
+
+        class AssociatedApplicationIdentifier
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val identifier: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("identifier")
+                @ExcludeMissing
+                identifier: JsonField<String> = JsonMissing.of()
+            ) : this(identifier, mutableMapOf())
+
+            /**
+             * The application identifier, composed of your Apple Developer Team ID and the
+             * application's bundle identifier, like `ABCDE12345.com.example.app`.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun identifier(): String = identifier.getRequired("identifier")
+
+            /**
+             * Returns the raw JSON value of [identifier].
+             *
+             * Unlike [identifier], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("identifier")
+            @ExcludeMissing
+            fun _identifier(): JsonField<String> = identifier
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [AssociatedApplicationIdentifier].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .identifier()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [AssociatedApplicationIdentifier]. */
+            class Builder internal constructor() {
+
+                private var identifier: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(
+                    associatedApplicationIdentifier: AssociatedApplicationIdentifier
+                ) = apply {
+                    identifier = associatedApplicationIdentifier.identifier
+                    additionalProperties =
+                        associatedApplicationIdentifier.additionalProperties.toMutableMap()
+                }
+
+                /**
+                 * The application identifier, composed of your Apple Developer Team ID and the
+                 * application's bundle identifier, like `ABCDE12345.com.example.app`.
+                 */
+                fun identifier(identifier: String) = identifier(JsonField.of(identifier))
+
+                /**
+                 * Sets [Builder.identifier] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identifier] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun identifier(identifier: JsonField<String>) = apply {
+                    this.identifier = identifier
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AssociatedApplicationIdentifier].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .identifier()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): AssociatedApplicationIdentifier =
+                    AssociatedApplicationIdentifier(
+                        checkRequired("identifier", identifier),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): AssociatedApplicationIdentifier = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                identifier()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (identifier.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AssociatedApplicationIdentifier &&
+                    identifier == other.identifier &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(identifier, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "AssociatedApplicationIdentifier{identifier=$identifier, additionalProperties=$additionalProperties}"
+        }
+
+        class AssociatedStoreIdentifier
+        @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+        private constructor(
+            private val identifier: JsonField<String>,
+            private val additionalProperties: MutableMap<String, JsonValue>,
+        ) {
+
+            @JsonCreator
+            private constructor(
+                @JsonProperty("identifier")
+                @ExcludeMissing
+                identifier: JsonField<String> = JsonMissing.of()
+            ) : this(identifier, mutableMapOf())
+
+            /**
+             * The numeric App Store identifier.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+             *   unexpectedly missing or null (e.g. if the server responded with an unexpected
+             *   value).
+             */
+            fun identifier(): String = identifier.getRequired("identifier")
+
+            /**
+             * Returns the raw JSON value of [identifier].
+             *
+             * Unlike [identifier], this method doesn't throw if the JSON field has an unexpected
+             * type.
+             */
+            @JsonProperty("identifier")
+            @ExcludeMissing
+            fun _identifier(): JsonField<String> = identifier
+
+            @JsonAnySetter
+            private fun putAdditionalProperty(key: String, value: JsonValue) {
+                additionalProperties.put(key, value)
+            }
+
+            @JsonAnyGetter
+            @ExcludeMissing
+            fun _additionalProperties(): Map<String, JsonValue> =
+                Collections.unmodifiableMap(additionalProperties)
+
+            fun toBuilder() = Builder().from(this)
+
+            companion object {
+
+                /**
+                 * Returns a mutable builder for constructing an instance of
+                 * [AssociatedStoreIdentifier].
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .identifier()
+                 * ```
+                 */
+                @JvmStatic fun builder() = Builder()
+            }
+
+            /** A builder for [AssociatedStoreIdentifier]. */
+            class Builder internal constructor() {
+
+                private var identifier: JsonField<String>? = null
+                private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+                @JvmSynthetic
+                internal fun from(associatedStoreIdentifier: AssociatedStoreIdentifier) = apply {
+                    identifier = associatedStoreIdentifier.identifier
+                    additionalProperties =
+                        associatedStoreIdentifier.additionalProperties.toMutableMap()
+                }
+
+                /** The numeric App Store identifier. */
+                fun identifier(identifier: String) = identifier(JsonField.of(identifier))
+
+                /**
+                 * Sets [Builder.identifier] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.identifier] with a well-typed [String] value
+                 * instead. This method is primarily for setting the field to an undocumented or not
+                 * yet supported value.
+                 */
+                fun identifier(identifier: JsonField<String>) = apply {
+                    this.identifier = identifier
+                }
+
+                fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                    this.additionalProperties.clear()
+                    putAllAdditionalProperties(additionalProperties)
+                }
+
+                fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                    additionalProperties.put(key, value)
+                }
+
+                fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) =
+                    apply {
+                        this.additionalProperties.putAll(additionalProperties)
+                    }
+
+                fun removeAdditionalProperty(key: String) = apply {
+                    additionalProperties.remove(key)
+                }
+
+                fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                    keys.forEach(::removeAdditionalProperty)
+                }
+
+                /**
+                 * Returns an immutable instance of [AssociatedStoreIdentifier].
+                 *
+                 * Further updates to this [Builder] will not mutate the returned instance.
+                 *
+                 * The following fields are required:
+                 * ```java
+                 * .identifier()
+                 * ```
+                 *
+                 * @throws IllegalStateException if any required field is unset.
+                 */
+                fun build(): AssociatedStoreIdentifier =
+                    AssociatedStoreIdentifier(
+                        checkRequired("identifier", identifier),
+                        additionalProperties.toMutableMap(),
+                    )
+            }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): AssociatedStoreIdentifier = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                identifier()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic
+            internal fun validity(): Int = (if (identifier.asKnown().isPresent) 1 else 0)
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is AssociatedStoreIdentifier &&
+                    identifier == other.identifier &&
+                    additionalProperties == other.additionalProperties
+            }
+
+            private val hashCode: Int by lazy { Objects.hash(identifier, additionalProperties) }
+
+            override fun hashCode(): Int = hashCode
+
+            override fun toString() =
+                "AssociatedStoreIdentifier{identifier=$identifier, additionalProperties=$additionalProperties}"
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is ApplePay &&
+                associatedApplicationIdentifiers == other.associatedApplicationIdentifiers &&
+                associatedStoreIdentifiers == other.associatedStoreIdentifiers &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                associatedApplicationIdentifiers,
+                associatedStoreIdentifiers,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "ApplePay{associatedApplicationIdentifiers=$associatedApplicationIdentifiers, associatedStoreIdentifiers=$associatedStoreIdentifiers, additionalProperties=$additionalProperties}"
     }
 
     /** The Card's text color, specified as an RGB triple. The default is white. */
