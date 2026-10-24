@@ -12,6 +12,23 @@ internal class DigitalCardProfileCloneParamsTest {
         DigitalCardProfileCloneParams.builder()
             .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
             .appIconFileId("app_icon_file_id")
+            .applePay(
+                DigitalCardProfileCloneParams.ApplePay.builder()
+                    .addAssociatedApplicationIdentifier(
+                        DigitalCardProfileCloneParams.ApplePay.AssociatedApplicationIdentifier
+                            .builder()
+                            .identifier(
+                                "210B9798AD.---aH0O-6L.8tjDQ-3.-K-h.8asJ.WN--u-kX-Q.l3VU-F.-i-5p54n-N"
+                            )
+                            .build()
+                    )
+                    .addAssociatedStoreIdentifier(
+                        DigitalCardProfileCloneParams.ApplePay.AssociatedStoreIdentifier.builder()
+                            .identifier("26")
+                            .build()
+                    )
+                    .build()
+            )
             .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
             .cardDescription("x")
             .contactEmail("dev@stainless.com")
@@ -43,6 +60,24 @@ internal class DigitalCardProfileCloneParamsTest {
             DigitalCardProfileCloneParams.builder()
                 .digitalCardProfileId("digital_card_profile_s3puplu90f04xhcwkiga")
                 .appIconFileId("app_icon_file_id")
+                .applePay(
+                    DigitalCardProfileCloneParams.ApplePay.builder()
+                        .addAssociatedApplicationIdentifier(
+                            DigitalCardProfileCloneParams.ApplePay.AssociatedApplicationIdentifier
+                                .builder()
+                                .identifier(
+                                    "210B9798AD.---aH0O-6L.8tjDQ-3.-K-h.8asJ.WN--u-kX-Q.l3VU-F.-i-5p54n-N"
+                                )
+                                .build()
+                        )
+                        .addAssociatedStoreIdentifier(
+                            DigitalCardProfileCloneParams.ApplePay.AssociatedStoreIdentifier
+                                .builder()
+                                .identifier("26")
+                                .build()
+                        )
+                        .build()
+                )
                 .backgroundImageFileId("file_1ai913suu1zfn1pdetru")
                 .cardDescription("x")
                 .contactEmail("dev@stainless.com")
@@ -62,6 +97,24 @@ internal class DigitalCardProfileCloneParamsTest {
         val body = params._body()
 
         assertThat(body.appIconFileId()).contains("app_icon_file_id")
+        assertThat(body.applePay())
+            .contains(
+                DigitalCardProfileCloneParams.ApplePay.builder()
+                    .addAssociatedApplicationIdentifier(
+                        DigitalCardProfileCloneParams.ApplePay.AssociatedApplicationIdentifier
+                            .builder()
+                            .identifier(
+                                "210B9798AD.---aH0O-6L.8tjDQ-3.-K-h.8asJ.WN--u-kX-Q.l3VU-F.-i-5p54n-N"
+                            )
+                            .build()
+                    )
+                    .addAssociatedStoreIdentifier(
+                        DigitalCardProfileCloneParams.ApplePay.AssociatedStoreIdentifier.builder()
+                            .identifier("26")
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(body.backgroundImageFileId()).contains("file_1ai913suu1zfn1pdetru")
         assertThat(body.cardDescription()).contains("x")
         assertThat(body.contactEmail()).contains("dev@stainless.com")
