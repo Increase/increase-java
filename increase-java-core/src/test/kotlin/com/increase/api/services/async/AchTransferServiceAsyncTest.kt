@@ -26,7 +26,7 @@ internal class AchTransferServiceAsyncTest {
                 AchTransferCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .amount(100L)
-                    .statementDescriptor("New ACH transfer")
+                    .statementDescriptor("INVOICE 2468")
                     .accountNumber("987654321")
                     .addenda(
                         AchTransferCreateParams.Addenda.builder()
@@ -60,14 +60,14 @@ internal class AchTransferServiceAsyncTest {
                     .companyDescriptiveDate("J!")
                     .companyDiscretionaryData("J!")
                     .companyEntryDescription("J!")
-                    .companyName("company_name")
+                    .companyName("Phonographs Inc")
                     .destinationAccountHolder(
                         AchTransferCreateParams.DestinationAccountHolder.BUSINESS
                     )
                     .externalAccountId("external_account_id")
                     .funding(AchTransferCreateParams.Funding.CHECKING)
                     .individualId("individual_id")
-                    .individualName("individual_name")
+                    .individualName("Ian Crease")
                     .preferredEffectiveDate(
                         AchTransferCreateParams.PreferredEffectiveDate.builder()
                             .date(LocalDate.parse("2019-12-27"))
