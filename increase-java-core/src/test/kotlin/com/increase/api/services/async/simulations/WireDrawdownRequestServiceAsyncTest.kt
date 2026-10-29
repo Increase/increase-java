@@ -4,6 +4,7 @@ package com.increase.api.services.async.simulations
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.simulations.wiredrawdownrequests.WireDrawdownRequestRefuseParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -20,7 +21,16 @@ internal class WireDrawdownRequestServiceAsyncTest {
         val wireDrawdownRequestServiceAsync = client.simulations().wireDrawdownRequests()
 
         val wireDrawdownRequestFuture =
-            wireDrawdownRequestServiceAsync.refuse("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
+            wireDrawdownRequestServiceAsync.refuse(
+                WireDrawdownRequestRefuseParams.builder()
+                    .wireDrawdownRequestId("wire_drawdown_request_q6lmocus3glo0lr2bfv3")
+                    .refusalReasonAdditionalInformation("x")
+                    .refusalReasonCode(
+                        WireDrawdownRequestRefuseParams.RefusalReasonCode
+                            .INVALID_DEBTOR_ACCOUNT_NUMBER
+                    )
+                    .build()
+            )
 
         val wireDrawdownRequest = wireDrawdownRequestFuture.get()
         wireDrawdownRequest.validate()
