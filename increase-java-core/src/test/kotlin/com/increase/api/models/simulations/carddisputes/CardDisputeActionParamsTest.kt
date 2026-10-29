@@ -18,6 +18,9 @@ internal class CardDisputeActionParamsTest {
                     .acceptChargeback(
                         CardDisputeActionParams.Visa.AcceptChargeback.builder().build()
                     )
+                    .acceptUserPrearbitration(
+                        CardDisputeActionParams.Visa.AcceptUserPrearbitration.builder().build()
+                    )
                     .acceptUserSubmission(
                         CardDisputeActionParams.Visa.AcceptUserSubmission.builder().build()
                     )
@@ -76,6 +79,9 @@ internal class CardDisputeActionParamsTest {
                         .acceptChargeback(
                             CardDisputeActionParams.Visa.AcceptChargeback.builder().build()
                         )
+                        .acceptUserPrearbitration(
+                            CardDisputeActionParams.Visa.AcceptUserPrearbitration.builder().build()
+                        )
                         .acceptUserSubmission(
                             CardDisputeActionParams.Visa.AcceptUserSubmission.builder().build()
                         )
@@ -121,6 +127,9 @@ internal class CardDisputeActionParamsTest {
                     .action(CardDisputeActionParams.Visa.Action.ACCEPT_USER_SUBMISSION)
                     .acceptChargeback(
                         CardDisputeActionParams.Visa.AcceptChargeback.builder().build()
+                    )
+                    .acceptUserPrearbitration(
+                        CardDisputeActionParams.Visa.AcceptUserPrearbitration.builder().build()
                     )
                     .acceptUserSubmission(
                         CardDisputeActionParams.Visa.AcceptUserSubmission.builder().build()

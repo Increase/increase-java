@@ -31,6 +31,10 @@ internal class CardDisputeServiceTest {
                             .acceptChargeback(
                                 CardDisputeActionParams.Visa.AcceptChargeback.builder().build()
                             )
+                            .acceptUserPrearbitration(
+                                CardDisputeActionParams.Visa.AcceptUserPrearbitration.builder()
+                                    .build()
+                            )
                             .acceptUserSubmission(
                                 CardDisputeActionParams.Visa.AcceptUserSubmission.builder().build()
                             )
