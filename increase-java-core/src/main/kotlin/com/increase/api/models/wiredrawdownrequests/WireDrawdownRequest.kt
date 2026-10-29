@@ -45,6 +45,7 @@ private constructor(
     private val endToEndIdentification: JsonField<String>,
     private val fulfillmentInboundWireTransferId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
+    private val refusal: JsonField<Refusal>,
     private val status: JsonField<Status>,
     private val submission: JsonField<Submission>,
     private val type: JsonField<Type>,
@@ -95,6 +96,7 @@ private constructor(
         @JsonProperty("idempotency_key")
         @ExcludeMissing
         idempotencyKey: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("refusal") @ExcludeMissing refusal: JsonField<Refusal> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("submission")
         @ExcludeMissing
@@ -123,6 +125,7 @@ private constructor(
         endToEndIdentification,
         fulfillmentInboundWireTransferId,
         idempotencyKey,
+        refusal,
         status,
         submission,
         type,
@@ -269,6 +272,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun idempotencyKey(): Optional<String> = idempotencyKey.getOptional("idempotency_key")
+
+    /**
+     * If the debtor refuses the drawdown request, this will contain supplemental details.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun refusal(): Optional<Refusal> = refusal.getOptional("refusal")
 
     /**
      * The lifecycle status of the drawdown request.
@@ -455,6 +466,13 @@ private constructor(
     fun _idempotencyKey(): JsonField<String> = idempotencyKey
 
     /**
+     * Returns the raw JSON value of [refusal].
+     *
+     * Unlike [refusal], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("refusal") @ExcludeMissing fun _refusal(): JsonField<Refusal> = refusal
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -533,6 +551,7 @@ private constructor(
          * .endToEndIdentification()
          * .fulfillmentInboundWireTransferId()
          * .idempotencyKey()
+         * .refusal()
          * .status()
          * .submission()
          * .type()
@@ -562,6 +581,7 @@ private constructor(
         private var endToEndIdentification: JsonField<String>? = null
         private var fulfillmentInboundWireTransferId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
+        private var refusal: JsonField<Refusal>? = null
         private var status: JsonField<Status>? = null
         private var submission: JsonField<Submission>? = null
         private var type: JsonField<Type>? = null
@@ -587,6 +607,7 @@ private constructor(
             endToEndIdentification = wireDrawdownRequest.endToEndIdentification
             fulfillmentInboundWireTransferId = wireDrawdownRequest.fulfillmentInboundWireTransferId
             idempotencyKey = wireDrawdownRequest.idempotencyKey
+            refusal = wireDrawdownRequest.refusal
             status = wireDrawdownRequest.status
             submission = wireDrawdownRequest.submission
             type = wireDrawdownRequest.type
@@ -862,6 +883,20 @@ private constructor(
             this.idempotencyKey = idempotencyKey
         }
 
+        /** If the debtor refuses the drawdown request, this will contain supplemental details. */
+        fun refusal(refusal: Refusal?) = refusal(JsonField.ofNullable(refusal))
+
+        /** Alias for calling [Builder.refusal] with `refusal.orElse(null)`. */
+        fun refusal(refusal: Optional<Refusal>) = refusal(refusal.getOrNull())
+
+        /**
+         * Sets [Builder.refusal] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.refusal] with a well-typed [Refusal] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun refusal(refusal: JsonField<Refusal>) = apply { this.refusal = refusal }
+
         /** The lifecycle status of the drawdown request. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -991,6 +1026,7 @@ private constructor(
          * .endToEndIdentification()
          * .fulfillmentInboundWireTransferId()
          * .idempotencyKey()
+         * .refusal()
          * .status()
          * .submission()
          * .type()
@@ -1018,6 +1054,7 @@ private constructor(
                 checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("fulfillmentInboundWireTransferId", fulfillmentInboundWireTransferId),
                 checkRequired("idempotencyKey", idempotencyKey),
+                checkRequired("refusal", refusal),
                 checkRequired("status", status),
                 checkRequired("submission", submission),
                 checkRequired("type", type),
@@ -1064,6 +1101,7 @@ private constructor(
         endToEndIdentification()
         fulfillmentInboundWireTransferId()
         idempotencyKey()
+        refusal().ifPresent { it.validate() }
         status().validate()
         submission().ifPresent { it.validate() }
         type().validate()
@@ -1103,6 +1141,7 @@ private constructor(
             (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
             (if (fulfillmentInboundWireTransferId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
+            (refusal.asKnown().getOrNull()?.validity() ?: 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (submission.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -1859,6 +1898,537 @@ private constructor(
             "DebtorAddress{city=$city, country=$country, line1=$line1, line2=$line2, postalCode=$postalCode, state=$state, additionalProperties=$additionalProperties}"
     }
 
+    /** If the debtor refuses the drawdown request, this will contain supplemental details. */
+    class Refusal
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val refusalReasonAdditionalInformation: JsonField<String>,
+        private val refusalReasonCode: JsonField<RefusalReasonCode>,
+        private val refusedAt: JsonField<OffsetDateTime>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("refusal_reason_additional_information")
+            @ExcludeMissing
+            refusalReasonAdditionalInformation: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("refusal_reason_code")
+            @ExcludeMissing
+            refusalReasonCode: JsonField<RefusalReasonCode> = JsonMissing.of(),
+            @JsonProperty("refused_at")
+            @ExcludeMissing
+            refusedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+        ) : this(refusalReasonAdditionalInformation, refusalReasonCode, refusedAt, mutableMapOf())
+
+        /**
+         * Additional information about the refusal provided by the debtor bank. This is typically
+         * present when the `refusal_reason_code` is `narrative`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun refusalReasonAdditionalInformation(): Optional<String> =
+            refusalReasonAdditionalInformation.getOptional("refusal_reason_additional_information")
+
+        /**
+         * The reason the wire drawdown request was refused as provided by the debtor bank.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun refusalReasonCode(): RefusalReasonCode =
+            refusalReasonCode.getRequired("refusal_reason_code")
+
+        /**
+         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the wire
+         * drawdown request was refused.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun refusedAt(): OffsetDateTime = refusedAt.getRequired("refused_at")
+
+        /**
+         * Returns the raw JSON value of [refusalReasonAdditionalInformation].
+         *
+         * Unlike [refusalReasonAdditionalInformation], this method doesn't throw if the JSON field
+         * has an unexpected type.
+         */
+        @JsonProperty("refusal_reason_additional_information")
+        @ExcludeMissing
+        fun _refusalReasonAdditionalInformation(): JsonField<String> =
+            refusalReasonAdditionalInformation
+
+        /**
+         * Returns the raw JSON value of [refusalReasonCode].
+         *
+         * Unlike [refusalReasonCode], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("refusal_reason_code")
+        @ExcludeMissing
+        fun _refusalReasonCode(): JsonField<RefusalReasonCode> = refusalReasonCode
+
+        /**
+         * Returns the raw JSON value of [refusedAt].
+         *
+         * Unlike [refusedAt], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("refused_at")
+        @ExcludeMissing
+        fun _refusedAt(): JsonField<OffsetDateTime> = refusedAt
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Refusal].
+             *
+             * The following fields are required:
+             * ```java
+             * .refusalReasonAdditionalInformation()
+             * .refusalReasonCode()
+             * .refusedAt()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Refusal]. */
+        class Builder internal constructor() {
+
+            private var refusalReasonAdditionalInformation: JsonField<String>? = null
+            private var refusalReasonCode: JsonField<RefusalReasonCode>? = null
+            private var refusedAt: JsonField<OffsetDateTime>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(refusal: Refusal) = apply {
+                refusalReasonAdditionalInformation = refusal.refusalReasonAdditionalInformation
+                refusalReasonCode = refusal.refusalReasonCode
+                refusedAt = refusal.refusedAt
+                additionalProperties = refusal.additionalProperties.toMutableMap()
+            }
+
+            /**
+             * Additional information about the refusal provided by the debtor bank. This is
+             * typically present when the `refusal_reason_code` is `narrative`.
+             */
+            fun refusalReasonAdditionalInformation(refusalReasonAdditionalInformation: String?) =
+                refusalReasonAdditionalInformation(
+                    JsonField.ofNullable(refusalReasonAdditionalInformation)
+                )
+
+            /**
+             * Alias for calling [Builder.refusalReasonAdditionalInformation] with
+             * `refusalReasonAdditionalInformation.orElse(null)`.
+             */
+            fun refusalReasonAdditionalInformation(
+                refusalReasonAdditionalInformation: Optional<String>
+            ) = refusalReasonAdditionalInformation(refusalReasonAdditionalInformation.getOrNull())
+
+            /**
+             * Sets [Builder.refusalReasonAdditionalInformation] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.refusalReasonAdditionalInformation] with a
+             * well-typed [String] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun refusalReasonAdditionalInformation(
+                refusalReasonAdditionalInformation: JsonField<String>
+            ) = apply {
+                this.refusalReasonAdditionalInformation = refusalReasonAdditionalInformation
+            }
+
+            /** The reason the wire drawdown request was refused as provided by the debtor bank. */
+            fun refusalReasonCode(refusalReasonCode: RefusalReasonCode) =
+                refusalReasonCode(JsonField.of(refusalReasonCode))
+
+            /**
+             * Sets [Builder.refusalReasonCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.refusalReasonCode] with a well-typed
+             * [RefusalReasonCode] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
+             */
+            fun refusalReasonCode(refusalReasonCode: JsonField<RefusalReasonCode>) = apply {
+                this.refusalReasonCode = refusalReasonCode
+            }
+
+            /**
+             * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the
+             * wire drawdown request was refused.
+             */
+            fun refusedAt(refusedAt: OffsetDateTime) = refusedAt(JsonField.of(refusedAt))
+
+            /**
+             * Sets [Builder.refusedAt] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.refusedAt] with a well-typed [OffsetDateTime] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun refusedAt(refusedAt: JsonField<OffsetDateTime>) = apply {
+                this.refusedAt = refusedAt
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Refusal].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .refusalReasonAdditionalInformation()
+             * .refusalReasonCode()
+             * .refusedAt()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Refusal =
+                Refusal(
+                    checkRequired(
+                        "refusalReasonAdditionalInformation",
+                        refusalReasonAdditionalInformation,
+                    ),
+                    checkRequired("refusalReasonCode", refusalReasonCode),
+                    checkRequired("refusedAt", refusedAt),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Refusal = apply {
+            if (validated) {
+                return@apply
+            }
+
+            refusalReasonAdditionalInformation()
+            refusalReasonCode().validate()
+            refusedAt()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (refusalReasonAdditionalInformation.asKnown().isPresent) 1 else 0) +
+                (refusalReasonCode.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (refusedAt.asKnown().isPresent) 1 else 0)
+
+        /** The reason the wire drawdown request was refused as provided by the debtor bank. */
+        class RefusalReasonCode
+        @JsonCreator
+        private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /**
+                 * The debtor's account number is invalid or missing. Corresponds to the Fedwire
+                 * reason code `AC02`.
+                 */
+                @JvmField val INVALID_DEBTOR_ACCOUNT_NUMBER = of("invalid_debtor_account_number")
+
+                /**
+                 * The debtor account does not allow drawdown requests. Corresponds to the Fedwire
+                 * reason code `AG01`.
+                 */
+                @JvmField val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
+
+                /**
+                 * The debtor account cannot be debited for a generic reason. Corresponds to the
+                 * Fedwire reason code `AG07`.
+                 */
+                @JvmField val UNSUCCESSFUL_DIRECT_DEBIT = of("unsuccessful_direct_debit")
+
+                /**
+                 * The debtor's identification is inconsistent with the debtor account number.
+                 * Corresponds to the Fedwire reason code `BE01`.
+                 */
+                @JvmField val INCONSISTENT_WITH_END_CUSTOMER = of("inconsistent_with_end_customer")
+
+                /**
+                 * The reason is provided as narrative information in the additional information
+                 * field. Corresponds to the Fedwire reason code `NARR`.
+                 */
+                @JvmField val NARRATIVE = of("narrative")
+
+                /** Some other error or issue has occurred. */
+                @JvmField val OTHER = of("other")
+
+                @JvmStatic fun of(value: String) = RefusalReasonCode(JsonField.of(value))
+            }
+
+            /** An enum containing [RefusalReasonCode]'s known values. */
+            enum class Known {
+                /**
+                 * The debtor's account number is invalid or missing. Corresponds to the Fedwire
+                 * reason code `AC02`.
+                 */
+                INVALID_DEBTOR_ACCOUNT_NUMBER,
+                /**
+                 * The debtor account does not allow drawdown requests. Corresponds to the Fedwire
+                 * reason code `AG01`.
+                 */
+                TRANSACTION_FORBIDDEN,
+                /**
+                 * The debtor account cannot be debited for a generic reason. Corresponds to the
+                 * Fedwire reason code `AG07`.
+                 */
+                UNSUCCESSFUL_DIRECT_DEBIT,
+                /**
+                 * The debtor's identification is inconsistent with the debtor account number.
+                 * Corresponds to the Fedwire reason code `BE01`.
+                 */
+                INCONSISTENT_WITH_END_CUSTOMER,
+                /**
+                 * The reason is provided as narrative information in the additional information
+                 * field. Corresponds to the Fedwire reason code `NARR`.
+                 */
+                NARRATIVE,
+                /** Some other error or issue has occurred. */
+                OTHER,
+            }
+
+            /**
+             * An enum containing [RefusalReasonCode]'s known values, as well as an [_UNKNOWN]
+             * member.
+             *
+             * An instance of [RefusalReasonCode] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /**
+                 * The debtor's account number is invalid or missing. Corresponds to the Fedwire
+                 * reason code `AC02`.
+                 */
+                INVALID_DEBTOR_ACCOUNT_NUMBER,
+                /**
+                 * The debtor account does not allow drawdown requests. Corresponds to the Fedwire
+                 * reason code `AG01`.
+                 */
+                TRANSACTION_FORBIDDEN,
+                /**
+                 * The debtor account cannot be debited for a generic reason. Corresponds to the
+                 * Fedwire reason code `AG07`.
+                 */
+                UNSUCCESSFUL_DIRECT_DEBIT,
+                /**
+                 * The debtor's identification is inconsistent with the debtor account number.
+                 * Corresponds to the Fedwire reason code `BE01`.
+                 */
+                INCONSISTENT_WITH_END_CUSTOMER,
+                /**
+                 * The reason is provided as narrative information in the additional information
+                 * field. Corresponds to the Fedwire reason code `NARR`.
+                 */
+                NARRATIVE,
+                /** Some other error or issue has occurred. */
+                OTHER,
+                /**
+                 * An enum member indicating that [RefusalReasonCode] was instantiated with an
+                 * unknown value.
+                 */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    INVALID_DEBTOR_ACCOUNT_NUMBER -> Value.INVALID_DEBTOR_ACCOUNT_NUMBER
+                    TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
+                    UNSUCCESSFUL_DIRECT_DEBIT -> Value.UNSUCCESSFUL_DIRECT_DEBIT
+                    INCONSISTENT_WITH_END_CUSTOMER -> Value.INCONSISTENT_WITH_END_CUSTOMER
+                    NARRATIVE -> Value.NARRATIVE
+                    OTHER -> Value.OTHER
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    INVALID_DEBTOR_ACCOUNT_NUMBER -> Known.INVALID_DEBTOR_ACCOUNT_NUMBER
+                    TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
+                    UNSUCCESSFUL_DIRECT_DEBIT -> Known.UNSUCCESSFUL_DIRECT_DEBIT
+                    INCONSISTENT_WITH_END_CUSTOMER -> Known.INCONSISTENT_WITH_END_CUSTOMER
+                    NARRATIVE -> Known.NARRATIVE
+                    OTHER -> Known.OTHER
+                    else -> throw IncreaseInvalidDataException("Unknown RefusalReasonCode: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): RefusalReasonCode = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is RefusalReasonCode && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Refusal &&
+                refusalReasonAdditionalInformation == other.refusalReasonAdditionalInformation &&
+                refusalReasonCode == other.refusalReasonCode &&
+                refusedAt == other.refusedAt &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                refusalReasonAdditionalInformation,
+                refusalReasonCode,
+                refusedAt,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Refusal{refusalReasonAdditionalInformation=$refusalReasonAdditionalInformation, refusalReasonCode=$refusalReasonCode, refusedAt=$refusedAt, additionalProperties=$additionalProperties}"
+    }
+
     /** The lifecycle status of the drawdown request. */
     class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -2365,6 +2935,7 @@ private constructor(
             endToEndIdentification == other.endToEndIdentification &&
             fulfillmentInboundWireTransferId == other.fulfillmentInboundWireTransferId &&
             idempotencyKey == other.idempotencyKey &&
+            refusal == other.refusal &&
             status == other.status &&
             submission == other.submission &&
             type == other.type &&
@@ -2391,6 +2962,7 @@ private constructor(
             endToEndIdentification,
             fulfillmentInboundWireTransferId,
             idempotencyKey,
+            refusal,
             status,
             submission,
             type,
@@ -2403,5 +2975,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "WireDrawdownRequest{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, status=$status, submission=$submission, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "WireDrawdownRequest{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, createdAt=$createdAt, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorAddress=$debtorAddress, debtorExternalAccountId=$debtorExternalAccountId, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, endToEndIdentification=$endToEndIdentification, fulfillmentInboundWireTransferId=$fulfillmentInboundWireTransferId, idempotencyKey=$idempotencyKey, refusal=$refusal, status=$status, submission=$submission, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

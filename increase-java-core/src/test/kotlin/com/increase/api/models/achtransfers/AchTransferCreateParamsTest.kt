@@ -13,7 +13,7 @@ internal class AchTransferCreateParamsTest {
         AchTransferCreateParams.builder()
             .accountId("account_in71c4amph0vgo2qllky")
             .amount(100L)
-            .statementDescriptor("New ACH transfer")
+            .statementDescriptor("INVOICE 2468")
             .accountNumber("987654321")
             .addenda(
                 AchTransferCreateParams.Addenda.builder()
@@ -43,12 +43,12 @@ internal class AchTransferCreateParamsTest {
             .companyDescriptiveDate("J!")
             .companyDiscretionaryData("J!")
             .companyEntryDescription("J!")
-            .companyName("company_name")
+            .companyName("Phonographs Inc")
             .destinationAccountHolder(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
             .externalAccountId("external_account_id")
             .funding(AchTransferCreateParams.Funding.CHECKING)
             .individualId("individual_id")
-            .individualName("individual_name")
+            .individualName("Ian Crease")
             .preferredEffectiveDate(
                 AchTransferCreateParams.PreferredEffectiveDate.builder()
                     .date(LocalDate.parse("2019-12-27"))
@@ -71,7 +71,7 @@ internal class AchTransferCreateParamsTest {
             AchTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
-                .statementDescriptor("New ACH transfer")
+                .statementDescriptor("INVOICE 2468")
                 .accountNumber("987654321")
                 .addenda(
                     AchTransferCreateParams.Addenda.builder()
@@ -102,12 +102,12 @@ internal class AchTransferCreateParamsTest {
                 .companyDescriptiveDate("J!")
                 .companyDiscretionaryData("J!")
                 .companyEntryDescription("J!")
-                .companyName("company_name")
+                .companyName("Phonographs Inc")
                 .destinationAccountHolder(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
                 .externalAccountId("external_account_id")
                 .funding(AchTransferCreateParams.Funding.CHECKING)
                 .individualId("individual_id")
-                .individualName("individual_name")
+                .individualName("Ian Crease")
                 .preferredEffectiveDate(
                     AchTransferCreateParams.PreferredEffectiveDate.builder()
                         .date(LocalDate.parse("2019-12-27"))
@@ -128,7 +128,7 @@ internal class AchTransferCreateParamsTest {
 
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
-        assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")
+        assertThat(body.statementDescriptor()).isEqualTo("INVOICE 2468")
         assertThat(body.accountNumber()).contains("987654321")
         assertThat(body.addenda())
             .contains(
@@ -159,13 +159,13 @@ internal class AchTransferCreateParamsTest {
         assertThat(body.companyDescriptiveDate()).contains("J!")
         assertThat(body.companyDiscretionaryData()).contains("J!")
         assertThat(body.companyEntryDescription()).contains("J!")
-        assertThat(body.companyName()).contains("company_name")
+        assertThat(body.companyName()).contains("Phonographs Inc")
         assertThat(body.destinationAccountHolder())
             .contains(AchTransferCreateParams.DestinationAccountHolder.BUSINESS)
         assertThat(body.externalAccountId()).contains("external_account_id")
         assertThat(body.funding()).contains(AchTransferCreateParams.Funding.CHECKING)
         assertThat(body.individualId()).contains("individual_id")
-        assertThat(body.individualName()).contains("individual_name")
+        assertThat(body.individualName()).contains("Ian Crease")
         assertThat(body.preferredEffectiveDate())
             .contains(
                 AchTransferCreateParams.PreferredEffectiveDate.builder()
@@ -187,13 +187,13 @@ internal class AchTransferCreateParamsTest {
             AchTransferCreateParams.builder()
                 .accountId("account_in71c4amph0vgo2qllky")
                 .amount(100L)
-                .statementDescriptor("New ACH transfer")
+                .statementDescriptor("INVOICE 2468")
                 .build()
 
         val body = params._body()
 
         assertThat(body.accountId()).isEqualTo("account_in71c4amph0vgo2qllky")
         assertThat(body.amount()).isEqualTo(100L)
-        assertThat(body.statementDescriptor()).isEqualTo("New ACH transfer")
+        assertThat(body.statementDescriptor()).isEqualTo("INVOICE 2468")
     }
 }
