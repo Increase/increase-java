@@ -9,6 +9,8 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageAsync
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferReturnParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 
@@ -105,6 +107,60 @@ interface InboundRealTimePaymentsTransferServiceAsync {
         requestOptions: RequestOptions
     ): CompletableFuture<InboundRealTimePaymentsTransferListPageAsync> =
         list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
+
+    /** Return an Inbound Real-Time Payments Transfer */
+    fun return_(
+        inboundRealTimePaymentsTransferId: String
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        return_(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferReturnParams.none(),
+        )
+
+    /** @see return_ */
+    fun return_(
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferReturnParams =
+            InboundRealTimePaymentsTransferReturnParams.none(),
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        return_(
+            params
+                .toBuilder()
+                .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                .build(),
+            requestOptions,
+        )
+
+    /** @see return_ */
+    fun return_(
+        inboundRealTimePaymentsTransferId: String,
+        params: InboundRealTimePaymentsTransferReturnParams =
+            InboundRealTimePaymentsTransferReturnParams.none(),
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        return_(inboundRealTimePaymentsTransferId, params, RequestOptions.none())
+
+    /** @see return_ */
+    fun return_(
+        params: InboundRealTimePaymentsTransferReturnParams,
+        requestOptions: RequestOptions = RequestOptions.none(),
+    ): CompletableFuture<RealTimePaymentsTransfer>
+
+    /** @see return_ */
+    fun return_(
+        params: InboundRealTimePaymentsTransferReturnParams
+    ): CompletableFuture<RealTimePaymentsTransfer> = return_(params, RequestOptions.none())
+
+    /** @see return_ */
+    fun return_(
+        inboundRealTimePaymentsTransferId: String,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<RealTimePaymentsTransfer> =
+        return_(
+            inboundRealTimePaymentsTransferId,
+            InboundRealTimePaymentsTransferReturnParams.none(),
+            requestOptions,
+        )
 
     /**
      * A view of [InboundRealTimePaymentsTransferServiceAsync] that provides access to raw HTTP
@@ -207,5 +263,64 @@ interface InboundRealTimePaymentsTransferServiceAsync {
             requestOptions: RequestOptions
         ): CompletableFuture<HttpResponseFor<InboundRealTimePaymentsTransferListPageAsync>> =
             list(InboundRealTimePaymentsTransferListParams.none(), requestOptions)
+
+        /**
+         * Returns a raw HTTP response for `post
+         * /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}/return`,
+         * but is otherwise the same as [InboundRealTimePaymentsTransferServiceAsync.return_].
+         */
+        fun return_(
+            inboundRealTimePaymentsTransferId: String
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            return_(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferReturnParams.none(),
+            )
+
+        /** @see return_ */
+        fun return_(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferReturnParams =
+                InboundRealTimePaymentsTransferReturnParams.none(),
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            return_(
+                params
+                    .toBuilder()
+                    .inboundRealTimePaymentsTransferId(inboundRealTimePaymentsTransferId)
+                    .build(),
+                requestOptions,
+            )
+
+        /** @see return_ */
+        fun return_(
+            inboundRealTimePaymentsTransferId: String,
+            params: InboundRealTimePaymentsTransferReturnParams =
+                InboundRealTimePaymentsTransferReturnParams.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            return_(inboundRealTimePaymentsTransferId, params, RequestOptions.none())
+
+        /** @see return_ */
+        fun return_(
+            params: InboundRealTimePaymentsTransferReturnParams,
+            requestOptions: RequestOptions = RequestOptions.none(),
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>>
+
+        /** @see return_ */
+        fun return_(
+            params: InboundRealTimePaymentsTransferReturnParams
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            return_(params, RequestOptions.none())
+
+        /** @see return_ */
+        fun return_(
+            inboundRealTimePaymentsTransferId: String,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<RealTimePaymentsTransfer>> =
+            return_(
+                inboundRealTimePaymentsTransferId,
+                InboundRealTimePaymentsTransferReturnParams.none(),
+                requestOptions,
+            )
     }
 }

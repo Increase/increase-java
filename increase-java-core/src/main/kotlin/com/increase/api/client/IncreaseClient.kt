@@ -32,7 +32,6 @@ import com.increase.api.services.blocking.ExternalAccountService
 import com.increase.api.services.blocking.FednowTransferService
 import com.increase.api.services.blocking.FileLinkService
 import com.increase.api.services.blocking.FileService
-import com.increase.api.services.blocking.GroupService
 import com.increase.api.services.blocking.InboundAchTransferService
 import com.increase.api.services.blocking.InboundCheckDepositService
 import com.increase.api.services.blocking.InboundFednowTransferService
@@ -46,9 +45,6 @@ import com.increase.api.services.blocking.IntrafiBalanceService
 import com.increase.api.services.blocking.IntrafiExclusionService
 import com.increase.api.services.blocking.LockboxAddressService
 import com.increase.api.services.blocking.LockboxRecipientService
-import com.increase.api.services.blocking.OAuthApplicationService
-import com.increase.api.services.blocking.OAuthConnectionService
-import com.increase.api.services.blocking.OAuthTokenService
 import com.increase.api.services.blocking.PendingTransactionService
 import com.increase.api.services.blocking.PhysicalCardProfileService
 import com.increase.api.services.blocking.PhysicalCardService
@@ -201,14 +197,6 @@ interface IncreaseClient {
 
     fun realTimeDecisions(): RealTimeDecisionService
 
-    fun groups(): GroupService
-
-    fun oauthApplications(): OAuthApplicationService
-
-    fun oauthConnections(): OAuthConnectionService
-
-    fun oauthTokens(): OAuthTokenService
-
     fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentService
 
     fun intrafiBalances(): IntrafiBalanceService
@@ -348,14 +336,6 @@ interface IncreaseClient {
         fun eventSubscriptions(): EventSubscriptionService.WithRawResponse
 
         fun realTimeDecisions(): RealTimeDecisionService.WithRawResponse
-
-        fun groups(): GroupService.WithRawResponse
-
-        fun oauthApplications(): OAuthApplicationService.WithRawResponse
-
-        fun oauthConnections(): OAuthConnectionService.WithRawResponse
-
-        fun oauthTokens(): OAuthTokenService.WithRawResponse
 
         fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentService.WithRawResponse
 
