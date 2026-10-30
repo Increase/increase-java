@@ -16,7 +16,7 @@ import com.increase.api.core.http.HttpResponseFor
 import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepareAsync
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams

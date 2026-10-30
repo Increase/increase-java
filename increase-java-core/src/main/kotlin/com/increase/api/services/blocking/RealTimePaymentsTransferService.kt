@@ -6,7 +6,7 @@ import com.google.errorprone.annotations.MustBeClosed
 import com.increase.api.core.ClientOptions
 import com.increase.api.core.RequestOptions
 import com.increase.api.core.http.HttpResponseFor
-import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferApproveParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCancelParams
 import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransferCreateParams

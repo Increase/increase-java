@@ -62,8 +62,6 @@ import com.increase.api.services.blocking.FileLinkService
 import com.increase.api.services.blocking.FileLinkServiceImpl
 import com.increase.api.services.blocking.FileService
 import com.increase.api.services.blocking.FileServiceImpl
-import com.increase.api.services.blocking.GroupService
-import com.increase.api.services.blocking.GroupServiceImpl
 import com.increase.api.services.blocking.InboundAchTransferService
 import com.increase.api.services.blocking.InboundAchTransferServiceImpl
 import com.increase.api.services.blocking.InboundCheckDepositService
@@ -90,12 +88,6 @@ import com.increase.api.services.blocking.LockboxAddressService
 import com.increase.api.services.blocking.LockboxAddressServiceImpl
 import com.increase.api.services.blocking.LockboxRecipientService
 import com.increase.api.services.blocking.LockboxRecipientServiceImpl
-import com.increase.api.services.blocking.OAuthApplicationService
-import com.increase.api.services.blocking.OAuthApplicationServiceImpl
-import com.increase.api.services.blocking.OAuthConnectionService
-import com.increase.api.services.blocking.OAuthConnectionServiceImpl
-import com.increase.api.services.blocking.OAuthTokenService
-import com.increase.api.services.blocking.OAuthTokenServiceImpl
 import com.increase.api.services.blocking.PendingTransactionService
 import com.increase.api.services.blocking.PendingTransactionServiceImpl
 import com.increase.api.services.blocking.PhysicalCardProfileService
@@ -329,20 +321,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         RealTimeDecisionServiceImpl(clientOptionsWithUserAgent)
     }
 
-    private val groups: GroupService by lazy { GroupServiceImpl(clientOptionsWithUserAgent) }
-
-    private val oauthApplications: OAuthApplicationService by lazy {
-        OAuthApplicationServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val oauthConnections: OAuthConnectionService by lazy {
-        OAuthConnectionServiceImpl(clientOptionsWithUserAgent)
-    }
-
-    private val oauthTokens: OAuthTokenService by lazy {
-        OAuthTokenServiceImpl(clientOptionsWithUserAgent)
-    }
-
     private val intrafiAccountEnrollments: IntrafiAccountEnrollmentService by lazy {
         IntrafiAccountEnrollmentServiceImpl(clientOptionsWithUserAgent)
     }
@@ -486,14 +464,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
     override fun eventSubscriptions(): EventSubscriptionService = eventSubscriptions
 
     override fun realTimeDecisions(): RealTimeDecisionService = realTimeDecisions
-
-    override fun groups(): GroupService = groups
-
-    override fun oauthApplications(): OAuthApplicationService = oauthApplications
-
-    override fun oauthConnections(): OAuthConnectionService = oauthConnections
-
-    override fun oauthTokens(): OAuthTokenService = oauthTokens
 
     override fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentService =
         intrafiAccountEnrollments
@@ -720,22 +690,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             RealTimeDecisionServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val groups: GroupService.WithRawResponse by lazy {
-            GroupServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val oauthApplications: OAuthApplicationService.WithRawResponse by lazy {
-            OAuthApplicationServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val oauthConnections: OAuthConnectionService.WithRawResponse by lazy {
-            OAuthConnectionServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val oauthTokens: OAuthTokenService.WithRawResponse by lazy {
-            OAuthTokenServiceImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val intrafiAccountEnrollments:
             IntrafiAccountEnrollmentService.WithRawResponse by lazy {
             IntrafiAccountEnrollmentServiceImpl.WithRawResponseImpl(clientOptions)
@@ -900,15 +854,6 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         override fun realTimeDecisions(): RealTimeDecisionService.WithRawResponse =
             realTimeDecisions
-
-        override fun groups(): GroupService.WithRawResponse = groups
-
-        override fun oauthApplications(): OAuthApplicationService.WithRawResponse =
-            oauthApplications
-
-        override fun oauthConnections(): OAuthConnectionService.WithRawResponse = oauthConnections
-
-        override fun oauthTokens(): OAuthTokenService.WithRawResponse = oauthTokens
 
         override fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentService.WithRawResponse =
             intrafiAccountEnrollments

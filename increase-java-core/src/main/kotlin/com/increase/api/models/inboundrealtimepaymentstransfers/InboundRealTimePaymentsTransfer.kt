@@ -39,6 +39,7 @@ private constructor(
     private val debtorRoutingNumber: JsonField<String>,
     private val decline: JsonField<Decline>,
     private val endToEndIdentification: JsonField<String>,
+    private val returnOfRealTimePaymentsTransferId: JsonField<String>,
     private val status: JsonField<Status>,
     private val transactionIdentification: JsonField<String>,
     private val type: JsonField<Type>,
@@ -77,6 +78,9 @@ private constructor(
         @JsonProperty("end_to_end_identification")
         @ExcludeMissing
         endToEndIdentification: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("return_of_real_time_payments_transfer_id")
+        @ExcludeMissing
+        returnOfRealTimePaymentsTransferId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
         @JsonProperty("transaction_identification")
         @ExcludeMissing
@@ -99,6 +103,7 @@ private constructor(
         debtorRoutingNumber,
         decline,
         endToEndIdentification,
+        returnOfRealTimePaymentsTransferId,
         status,
         transactionIdentification,
         type,
@@ -212,6 +217,15 @@ private constructor(
      */
     fun endToEndIdentification(): Optional<String> =
         endToEndIdentification.getOptional("end_to_end_identification")
+
+    /**
+     * The identifier of the Real-Time Payments Transfer this transfer returns, if any.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun returnOfRealTimePaymentsTransferId(): Optional<String> =
+        returnOfRealTimePaymentsTransferId.getOptional("return_of_real_time_payments_transfer_id")
 
     /**
      * The lifecycle status of the transfer.
@@ -357,6 +371,17 @@ private constructor(
     fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
 
     /**
+     * Returns the raw JSON value of [returnOfRealTimePaymentsTransferId].
+     *
+     * Unlike [returnOfRealTimePaymentsTransferId], this method doesn't throw if the JSON field has
+     * an unexpected type.
+     */
+    @JsonProperty("return_of_real_time_payments_transfer_id")
+    @ExcludeMissing
+    fun _returnOfRealTimePaymentsTransferId(): JsonField<String> =
+        returnOfRealTimePaymentsTransferId
+
+    /**
      * Returns the raw JSON value of [status].
      *
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
@@ -423,6 +448,7 @@ private constructor(
          * .debtorRoutingNumber()
          * .decline()
          * .endToEndIdentification()
+         * .returnOfRealTimePaymentsTransferId()
          * .status()
          * .transactionIdentification()
          * .type()
@@ -448,6 +474,7 @@ private constructor(
         private var debtorRoutingNumber: JsonField<String>? = null
         private var decline: JsonField<Decline>? = null
         private var endToEndIdentification: JsonField<String>? = null
+        private var returnOfRealTimePaymentsTransferId: JsonField<String>? = null
         private var status: JsonField<Status>? = null
         private var transactionIdentification: JsonField<String>? = null
         private var type: JsonField<Type>? = null
@@ -470,6 +497,8 @@ private constructor(
                 debtorRoutingNumber = inboundRealTimePaymentsTransfer.debtorRoutingNumber
                 decline = inboundRealTimePaymentsTransfer.decline
                 endToEndIdentification = inboundRealTimePaymentsTransfer.endToEndIdentification
+                returnOfRealTimePaymentsTransferId =
+                    inboundRealTimePaymentsTransfer.returnOfRealTimePaymentsTransferId
                 status = inboundRealTimePaymentsTransfer.status
                 transactionIdentification =
                     inboundRealTimePaymentsTransfer.transactionIdentification
@@ -670,6 +699,31 @@ private constructor(
             this.endToEndIdentification = endToEndIdentification
         }
 
+        /** The identifier of the Real-Time Payments Transfer this transfer returns, if any. */
+        fun returnOfRealTimePaymentsTransferId(returnOfRealTimePaymentsTransferId: String?) =
+            returnOfRealTimePaymentsTransferId(
+                JsonField.ofNullable(returnOfRealTimePaymentsTransferId)
+            )
+
+        /**
+         * Alias for calling [Builder.returnOfRealTimePaymentsTransferId] with
+         * `returnOfRealTimePaymentsTransferId.orElse(null)`.
+         */
+        fun returnOfRealTimePaymentsTransferId(
+            returnOfRealTimePaymentsTransferId: Optional<String>
+        ) = returnOfRealTimePaymentsTransferId(returnOfRealTimePaymentsTransferId.getOrNull())
+
+        /**
+         * Sets [Builder.returnOfRealTimePaymentsTransferId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.returnOfRealTimePaymentsTransferId] with a well-typed
+         * [String] value instead. This method is primarily for setting the field to an undocumented
+         * or not yet supported value.
+         */
+        fun returnOfRealTimePaymentsTransferId(
+            returnOfRealTimePaymentsTransferId: JsonField<String>
+        ) = apply { this.returnOfRealTimePaymentsTransferId = returnOfRealTimePaymentsTransferId }
+
         /** The lifecycle status of the transfer. */
         fun status(status: Status) = status(JsonField.of(status))
 
@@ -773,6 +827,7 @@ private constructor(
          * .debtorRoutingNumber()
          * .decline()
          * .endToEndIdentification()
+         * .returnOfRealTimePaymentsTransferId()
          * .status()
          * .transactionIdentification()
          * .type()
@@ -796,6 +851,10 @@ private constructor(
                 checkRequired("debtorRoutingNumber", debtorRoutingNumber),
                 checkRequired("decline", decline),
                 checkRequired("endToEndIdentification", endToEndIdentification),
+                checkRequired(
+                    "returnOfRealTimePaymentsTransferId",
+                    returnOfRealTimePaymentsTransferId,
+                ),
                 checkRequired("status", status),
                 checkRequired("transactionIdentification", transactionIdentification),
                 checkRequired("type", type),
@@ -835,6 +894,7 @@ private constructor(
         debtorRoutingNumber()
         decline().ifPresent { it.validate() }
         endToEndIdentification()
+        returnOfRealTimePaymentsTransferId()
         status().validate()
         transactionIdentification()
         type().validate()
@@ -870,6 +930,7 @@ private constructor(
             (if (debtorRoutingNumber.asKnown().isPresent) 1 else 0) +
             (decline.asKnown().getOrNull()?.validity() ?: 0) +
             (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
+            (if (returnOfRealTimePaymentsTransferId.asKnown().isPresent) 1 else 0) +
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (transactionIdentification.asKnown().isPresent) 1 else 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
@@ -2012,6 +2073,7 @@ private constructor(
             debtorRoutingNumber == other.debtorRoutingNumber &&
             decline == other.decline &&
             endToEndIdentification == other.endToEndIdentification &&
+            returnOfRealTimePaymentsTransferId == other.returnOfRealTimePaymentsTransferId &&
             status == other.status &&
             transactionIdentification == other.transactionIdentification &&
             type == other.type &&
@@ -2034,6 +2096,7 @@ private constructor(
             debtorRoutingNumber,
             decline,
             endToEndIdentification,
+            returnOfRealTimePaymentsTransferId,
             status,
             transactionIdentification,
             type,
@@ -2045,5 +2108,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundRealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, endToEndIdentification=$endToEndIdentification, status=$status, transactionIdentification=$transactionIdentification, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "InboundRealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumberId=$accountNumberId, amount=$amount, confirmation=$confirmation, createdAt=$createdAt, creditorName=$creditorName, currency=$currency, debtorAccountNumber=$debtorAccountNumber, debtorName=$debtorName, debtorRoutingNumber=$debtorRoutingNumber, decline=$decline, endToEndIdentification=$endToEndIdentification, returnOfRealTimePaymentsTransferId=$returnOfRealTimePaymentsTransferId, status=$status, transactionIdentification=$transactionIdentification, type=$type, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
