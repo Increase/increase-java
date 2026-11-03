@@ -14,6 +14,7 @@ import com.increase.api.core.checkKnown
 import com.increase.api.core.checkRequired
 import com.increase.api.core.toImmutable
 import com.increase.api.errors.IncreaseInvalidDataException
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional

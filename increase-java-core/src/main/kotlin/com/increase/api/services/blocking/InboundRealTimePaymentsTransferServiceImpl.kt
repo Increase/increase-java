@@ -13,6 +13,7 @@ import com.increase.api.core.http.HttpRequest
 import com.increase.api.core.http.HttpResponse
 import com.increase.api.core.http.HttpResponse.Handler
 import com.increase.api.core.http.HttpResponseFor
+import com.increase.api.core.http.json
 import com.increase.api.core.http.parseable
 import com.increase.api.core.prepare
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransfer
@@ -20,6 +21,8 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListPageResponse
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferReturnParams
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull
 
@@ -54,6 +57,14 @@ internal constructor(private val clientOptions: ClientOptions) :
     ): InboundRealTimePaymentsTransferListPage =
         // get /inbound_real_time_payments_transfers
         withRawResponse().list(params, requestOptions).parse()
+
+    override fun return_(
+        params: InboundRealTimePaymentsTransferReturnParams,
+        requestOptions: RequestOptions,
+    ): RealTimePaymentsTransfer =
+        // post
+        // /inbound_real_time_payments_transfers/{inbound_real_time_payments_transfer_id}/return
+        withRawResponse().return_(params, requestOptions).parse()
 
     class WithRawResponseImpl internal constructor(private val clientOptions: ClientOptions) :
         InboundRealTimePaymentsTransferService.WithRawResponse {
@@ -131,6 +142,44 @@ internal constructor(private val clientOptions: ClientOptions) :
                             .params(params)
                             .response(it)
                             .build()
+                    }
+            }
+        }
+
+        private val returnHandler: Handler<RealTimePaymentsTransfer> =
+            jsonHandler<RealTimePaymentsTransfer>(clientOptions.jsonMapper)
+
+        override fun return_(
+            params: InboundRealTimePaymentsTransferReturnParams,
+            requestOptions: RequestOptions,
+        ): HttpResponseFor<RealTimePaymentsTransfer> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired(
+                "inboundRealTimePaymentsTransferId",
+                params.inboundRealTimePaymentsTransferId().getOrNull(),
+            )
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "inbound_real_time_payments_transfers",
+                        params._pathParam(0),
+                        "return",
+                    )
+                    .body(json(clientOptions.jsonMapper, params._body()))
+                    .build()
+                    .prepare(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            val response = clientOptions.httpClient.execute(request, requestOptions)
+            return errorHandler.handle(response).parseable {
+                response
+                    .use { returnHandler.handle(it) }
+                    .also {
+                        if (requestOptions.responseValidation!!) {
+                            it.validate()
+                        }
                     }
             }
         }
