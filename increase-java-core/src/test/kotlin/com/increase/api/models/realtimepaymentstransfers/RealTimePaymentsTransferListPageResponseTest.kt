@@ -4,6 +4,7 @@ package com.increase.api.models.realtimepaymentstransfers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
@@ -75,6 +76,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                                 .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
+                        .returnOfInboundRealTimePaymentsTransferId(null)
                         .routingNumber("101050001")
                         .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                         .status(RealTimePaymentsTransfer.Status.COMPLETE)
@@ -155,6 +157,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                             .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .build()
                     )
+                    .returnOfInboundRealTimePaymentsTransferId(null)
                     .routingNumber("101050001")
                     .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .status(RealTimePaymentsTransfer.Status.COMPLETE)
@@ -240,6 +243,7 @@ internal class RealTimePaymentsTransferListPageResponseTest {
                                 .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .build()
                         )
+                        .returnOfInboundRealTimePaymentsTransferId(null)
                         .routingNumber("101050001")
                         .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                         .status(RealTimePaymentsTransfer.Status.COMPLETE)

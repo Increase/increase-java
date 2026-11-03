@@ -3127,6 +3127,7 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val createdAt: JsonField<CreatedAt>,
+        private val feeStatementPeriodStart: JsonField<LocalDate>,
         private val programId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -3136,18 +3137,35 @@ private constructor(
             @JsonProperty("created_at")
             @ExcludeMissing
             createdAt: JsonField<CreatedAt> = JsonMissing.of(),
+            @JsonProperty("fee_statement_period_start")
+            @ExcludeMissing
+            feeStatementPeriodStart: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("program_id")
             @ExcludeMissing
             programId: JsonField<String> = JsonMissing.of(),
-        ) : this(createdAt, programId, mutableMapOf())
+        ) : this(createdAt, feeStatementPeriodStart, programId, mutableMapOf())
 
         /**
-         * Filter results by time range on the `created_at` attribute.
+         * Filter exported Fees by the time they were created. This suits historical exports across
+         * many fee statements. To get all of the Fees for a given fee statement period, we
+         * recommend using `fee_statement_period_start` instead. The time range must not include any
+         * Fees on an open fee statement.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
         fun createdAt(): Optional<CreatedAt> = createdAt.getOptional("created_at")
+
+        /**
+         * Filter exported Fees to the fee statements whose period starts on this UTC date, such as
+         * `2026-08-01`. Use this filter to export all of the Fees on a fee statement. The matching
+         * fee statements must be closed.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun feeStatementPeriodStart(): Optional<LocalDate> =
+            feeStatementPeriodStart.getOptional("fee_statement_period_start")
 
         /**
          * Filter exported Fees to the specified Program.
@@ -3165,6 +3183,16 @@ private constructor(
         @JsonProperty("created_at")
         @ExcludeMissing
         fun _createdAt(): JsonField<CreatedAt> = createdAt
+
+        /**
+         * Returns the raw JSON value of [feeStatementPeriodStart].
+         *
+         * Unlike [feeStatementPeriodStart], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("fee_statement_period_start")
+        @ExcludeMissing
+        fun _feeStatementPeriodStart(): JsonField<LocalDate> = feeStatementPeriodStart
 
         /**
          * Returns the raw JSON value of [programId].
@@ -3195,17 +3223,24 @@ private constructor(
         class Builder internal constructor() {
 
             private var createdAt: JsonField<CreatedAt> = JsonMissing.of()
+            private var feeStatementPeriodStart: JsonField<LocalDate> = JsonMissing.of()
             private var programId: JsonField<String> = JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(feeCsv: FeeCsv) = apply {
                 createdAt = feeCsv.createdAt
+                feeStatementPeriodStart = feeCsv.feeStatementPeriodStart
                 programId = feeCsv.programId
                 additionalProperties = feeCsv.additionalProperties.toMutableMap()
             }
 
-            /** Filter results by time range on the `created_at` attribute. */
+            /**
+             * Filter exported Fees by the time they were created. This suits historical exports
+             * across many fee statements. To get all of the Fees for a given fee statement period,
+             * we recommend using `fee_statement_period_start` instead. The time range must not
+             * include any Fees on an open fee statement.
+             */
             fun createdAt(createdAt: CreatedAt) = createdAt(JsonField.of(createdAt))
 
             /**
@@ -3216,6 +3251,25 @@ private constructor(
              * supported value.
              */
             fun createdAt(createdAt: JsonField<CreatedAt>) = apply { this.createdAt = createdAt }
+
+            /**
+             * Filter exported Fees to the fee statements whose period starts on this UTC date, such
+             * as `2026-08-01`. Use this filter to export all of the Fees on a fee statement. The
+             * matching fee statements must be closed.
+             */
+            fun feeStatementPeriodStart(feeStatementPeriodStart: LocalDate) =
+                feeStatementPeriodStart(JsonField.of(feeStatementPeriodStart))
+
+            /**
+             * Sets [Builder.feeStatementPeriodStart] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.feeStatementPeriodStart] with a well-typed
+             * [LocalDate] value instead. This method is primarily for setting the field to an
+             * undocumented or not yet supported value.
+             */
+            fun feeStatementPeriodStart(feeStatementPeriodStart: JsonField<LocalDate>) = apply {
+                this.feeStatementPeriodStart = feeStatementPeriodStart
+            }
 
             /** Filter exported Fees to the specified Program. */
             fun programId(programId: String) = programId(JsonField.of(programId))
@@ -3253,7 +3307,13 @@ private constructor(
              *
              * Further updates to this [Builder] will not mutate the returned instance.
              */
-            fun build(): FeeCsv = FeeCsv(createdAt, programId, additionalProperties.toMutableMap())
+            fun build(): FeeCsv =
+                FeeCsv(
+                    createdAt,
+                    feeStatementPeriodStart,
+                    programId,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -3273,6 +3333,7 @@ private constructor(
             }
 
             createdAt().ifPresent { it.validate() }
+            feeStatementPeriodStart()
             programId()
             validated = true
         }
@@ -3294,9 +3355,15 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (createdAt.asKnown().getOrNull()?.validity() ?: 0) +
+                (if (feeStatementPeriodStart.asKnown().isPresent) 1 else 0) +
                 (if (programId.asKnown().isPresent) 1 else 0)
 
-        /** Filter results by time range on the `created_at` attribute. */
+        /**
+         * Filter exported Fees by the time they were created. This suits historical exports across
+         * many fee statements. To get all of the Fees for a given fee statement period, we
+         * recommend using `fee_statement_period_start` instead. The time range must not include any
+         * Fees on an open fee statement.
+         */
         class CreatedAt
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
@@ -3607,18 +3674,19 @@ private constructor(
 
             return other is FeeCsv &&
                 createdAt == other.createdAt &&
+                feeStatementPeriodStart == other.feeStatementPeriodStart &&
                 programId == other.programId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(createdAt, programId, additionalProperties)
+            Objects.hash(createdAt, feeStatementPeriodStart, programId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "FeeCsv{createdAt=$createdAt, programId=$programId, additionalProperties=$additionalProperties}"
+            "FeeCsv{createdAt=$createdAt, feeStatementPeriodStart=$feeStatementPeriodStart, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
     /**

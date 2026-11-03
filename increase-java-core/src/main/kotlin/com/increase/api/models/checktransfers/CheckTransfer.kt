@@ -3512,8 +3512,7 @@ private constructor(
         fun note(): Optional<String> = note.getOptional("note")
 
         /**
-         * The payer of the check. This will be printed on the top-left portion of the check and
-         * defaults to the return address if unspecified.
+         * The payer of the check. This will be printed on the top-left portion of the check.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -3862,8 +3861,7 @@ private constructor(
             fun note(note: JsonField<String>) = apply { this.note = note }
 
             /**
-             * The payer of the check. This will be printed on the top-left portion of the check and
-             * defaults to the return address if unspecified.
+             * The payer of the check. This will be printed on the top-left portion of the check.
              */
             fun payer(payer: List<Payer>) = payer(JsonField.of(payer))
 
