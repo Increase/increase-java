@@ -72,6 +72,7 @@ internal class RealTimePaymentsTransferTest {
                         .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
+                .returnOfInboundRealTimePaymentsTransferId(null)
                 .routingNumber("101050001")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .status(RealTimePaymentsTransfer.Status.COMPLETE)
@@ -154,6 +155,7 @@ internal class RealTimePaymentsTransferTest {
                     .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .build()
             )
+        assertThat(realTimePaymentsTransfer.returnOfInboundRealTimePaymentsTransferId()).isEmpty
         assertThat(realTimePaymentsTransfer.routingNumber()).isEqualTo("101050001")
         assertThat(realTimePaymentsTransfer.sourceAccountNumberId())
             .isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
@@ -239,6 +241,7 @@ internal class RealTimePaymentsTransferTest {
                         .rejectedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .build()
                 )
+                .returnOfInboundRealTimePaymentsTransferId(null)
                 .routingNumber("101050001")
                 .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                 .status(RealTimePaymentsTransfer.Status.COMPLETE)

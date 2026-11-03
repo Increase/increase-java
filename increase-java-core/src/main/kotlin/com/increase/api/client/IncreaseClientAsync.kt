@@ -32,7 +32,6 @@ import com.increase.api.services.async.ExternalAccountServiceAsync
 import com.increase.api.services.async.FednowTransferServiceAsync
 import com.increase.api.services.async.FileLinkServiceAsync
 import com.increase.api.services.async.FileServiceAsync
-import com.increase.api.services.async.GroupServiceAsync
 import com.increase.api.services.async.InboundAchTransferServiceAsync
 import com.increase.api.services.async.InboundCheckDepositServiceAsync
 import com.increase.api.services.async.InboundFednowTransferServiceAsync
@@ -46,9 +45,6 @@ import com.increase.api.services.async.IntrafiBalanceServiceAsync
 import com.increase.api.services.async.IntrafiExclusionServiceAsync
 import com.increase.api.services.async.LockboxAddressServiceAsync
 import com.increase.api.services.async.LockboxRecipientServiceAsync
-import com.increase.api.services.async.OAuthApplicationServiceAsync
-import com.increase.api.services.async.OAuthConnectionServiceAsync
-import com.increase.api.services.async.OAuthTokenServiceAsync
 import com.increase.api.services.async.PendingTransactionServiceAsync
 import com.increase.api.services.async.PhysicalCardProfileServiceAsync
 import com.increase.api.services.async.PhysicalCardServiceAsync
@@ -201,14 +197,6 @@ interface IncreaseClientAsync {
 
     fun realTimeDecisions(): RealTimeDecisionServiceAsync
 
-    fun groups(): GroupServiceAsync
-
-    fun oauthApplications(): OAuthApplicationServiceAsync
-
-    fun oauthConnections(): OAuthConnectionServiceAsync
-
-    fun oauthTokens(): OAuthTokenServiceAsync
-
     fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentServiceAsync
 
     fun intrafiBalances(): IntrafiBalanceServiceAsync
@@ -352,14 +340,6 @@ interface IncreaseClientAsync {
         fun eventSubscriptions(): EventSubscriptionServiceAsync.WithRawResponse
 
         fun realTimeDecisions(): RealTimeDecisionServiceAsync.WithRawResponse
-
-        fun groups(): GroupServiceAsync.WithRawResponse
-
-        fun oauthApplications(): OAuthApplicationServiceAsync.WithRawResponse
-
-        fun oauthConnections(): OAuthConnectionServiceAsync.WithRawResponse
-
-        fun oauthTokens(): OAuthTokenServiceAsync.WithRawResponse
 
         fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentServiceAsync.WithRawResponse
 

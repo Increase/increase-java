@@ -40,6 +40,7 @@ internal class InboundRealTimePaymentsTransferTest {
                         .build()
                 )
                 .endToEndIdentification("Invoice 29582")
+                .returnOfRealTimePaymentsTransferId(null)
                 .status(InboundRealTimePaymentsTransfer.Status.CONFIRMED)
                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                 .type(InboundRealTimePaymentsTransfer.Type.INBOUND_REAL_TIME_PAYMENTS_TRANSFER)
@@ -79,6 +80,7 @@ internal class InboundRealTimePaymentsTransferTest {
             )
         assertThat(inboundRealTimePaymentsTransfer.endToEndIdentification())
             .contains("Invoice 29582")
+        assertThat(inboundRealTimePaymentsTransfer.returnOfRealTimePaymentsTransferId()).isEmpty
         assertThat(inboundRealTimePaymentsTransfer.status())
             .isEqualTo(InboundRealTimePaymentsTransfer.Status.CONFIRMED)
         assertThat(inboundRealTimePaymentsTransfer.transactionIdentification())
@@ -120,6 +122,7 @@ internal class InboundRealTimePaymentsTransferTest {
                         .build()
                 )
                 .endToEndIdentification("Invoice 29582")
+                .returnOfRealTimePaymentsTransferId(null)
                 .status(InboundRealTimePaymentsTransfer.Status.CONFIRMED)
                 .transactionIdentification("20220501234567891T1BSLZO01745013025")
                 .type(InboundRealTimePaymentsTransfer.Type.INBOUND_REAL_TIME_PAYMENTS_TRANSFER)

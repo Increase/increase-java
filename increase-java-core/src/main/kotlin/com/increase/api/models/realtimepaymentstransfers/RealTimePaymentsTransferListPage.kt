@@ -5,6 +5,7 @@ package com.increase.api.models.realtimepaymentstransfers
 import com.increase.api.core.AutoPager
 import com.increase.api.core.Page
 import com.increase.api.core.checkRequired
+import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.services.blocking.RealTimePaymentsTransferService
 import java.util.Objects
 import java.util.Optional

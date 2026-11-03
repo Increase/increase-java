@@ -307,7 +307,7 @@ internal class AchTransferTest {
             )
         assertThat(achTransfer.standardEntryClassCode())
             .isEqualTo(AchTransfer.StandardEntryClassCode.CORPORATE_CREDIT_OR_DEBIT)
-        assertThat(achTransfer.statementDescriptor()).isEqualTo("Statement descriptor")
+        assertThat(achTransfer.statementDescriptor()).contains("Statement descriptor")
         assertThat(achTransfer.status()).isEqualTo(AchTransfer.Status.RETURNED)
         assertThat(achTransfer.submission())
             .contains(

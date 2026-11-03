@@ -62,8 +62,6 @@ import com.increase.api.services.async.FileLinkServiceAsync
 import com.increase.api.services.async.FileLinkServiceAsyncImpl
 import com.increase.api.services.async.FileServiceAsync
 import com.increase.api.services.async.FileServiceAsyncImpl
-import com.increase.api.services.async.GroupServiceAsync
-import com.increase.api.services.async.GroupServiceAsyncImpl
 import com.increase.api.services.async.InboundAchTransferServiceAsync
 import com.increase.api.services.async.InboundAchTransferServiceAsyncImpl
 import com.increase.api.services.async.InboundCheckDepositServiceAsync
@@ -90,12 +88,6 @@ import com.increase.api.services.async.LockboxAddressServiceAsync
 import com.increase.api.services.async.LockboxAddressServiceAsyncImpl
 import com.increase.api.services.async.LockboxRecipientServiceAsync
 import com.increase.api.services.async.LockboxRecipientServiceAsyncImpl
-import com.increase.api.services.async.OAuthApplicationServiceAsync
-import com.increase.api.services.async.OAuthApplicationServiceAsyncImpl
-import com.increase.api.services.async.OAuthConnectionServiceAsync
-import com.increase.api.services.async.OAuthConnectionServiceAsyncImpl
-import com.increase.api.services.async.OAuthTokenServiceAsync
-import com.increase.api.services.async.OAuthTokenServiceAsyncImpl
 import com.increase.api.services.async.PendingTransactionServiceAsync
 import com.increase.api.services.async.PendingTransactionServiceAsyncImpl
 import com.increase.api.services.async.PhysicalCardProfileServiceAsync
@@ -340,22 +332,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
         RealTimeDecisionServiceAsyncImpl(clientOptionsWithUserAgent)
     }
 
-    private val groups: GroupServiceAsync by lazy {
-        GroupServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val oauthApplications: OAuthApplicationServiceAsync by lazy {
-        OAuthApplicationServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val oauthConnections: OAuthConnectionServiceAsync by lazy {
-        OAuthConnectionServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
-    private val oauthTokens: OAuthTokenServiceAsync by lazy {
-        OAuthTokenServiceAsyncImpl(clientOptionsWithUserAgent)
-    }
-
     private val intrafiAccountEnrollments: IntrafiAccountEnrollmentServiceAsync by lazy {
         IntrafiAccountEnrollmentServiceAsyncImpl(clientOptionsWithUserAgent)
     }
@@ -502,14 +478,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
     override fun eventSubscriptions(): EventSubscriptionServiceAsync = eventSubscriptions
 
     override fun realTimeDecisions(): RealTimeDecisionServiceAsync = realTimeDecisions
-
-    override fun groups(): GroupServiceAsync = groups
-
-    override fun oauthApplications(): OAuthApplicationServiceAsync = oauthApplications
-
-    override fun oauthConnections(): OAuthConnectionServiceAsync = oauthConnections
-
-    override fun oauthTokens(): OAuthTokenServiceAsync = oauthTokens
 
     override fun intrafiAccountEnrollments(): IntrafiAccountEnrollmentServiceAsync =
         intrafiAccountEnrollments
@@ -741,22 +709,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
             RealTimeDecisionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
-        private val groups: GroupServiceAsync.WithRawResponse by lazy {
-            GroupServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val oauthApplications: OAuthApplicationServiceAsync.WithRawResponse by lazy {
-            OAuthApplicationServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val oauthConnections: OAuthConnectionServiceAsync.WithRawResponse by lazy {
-            OAuthConnectionServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
-        private val oauthTokens: OAuthTokenServiceAsync.WithRawResponse by lazy {
-            OAuthTokenServiceAsyncImpl.WithRawResponseImpl(clientOptions)
-        }
-
         private val intrafiAccountEnrollments:
             IntrafiAccountEnrollmentServiceAsync.WithRawResponse by lazy {
             IntrafiAccountEnrollmentServiceAsyncImpl.WithRawResponseImpl(clientOptions)
@@ -926,16 +878,6 @@ class IncreaseClientAsyncImpl(private val clientOptions: ClientOptions) : Increa
 
         override fun realTimeDecisions(): RealTimeDecisionServiceAsync.WithRawResponse =
             realTimeDecisions
-
-        override fun groups(): GroupServiceAsync.WithRawResponse = groups
-
-        override fun oauthApplications(): OAuthApplicationServiceAsync.WithRawResponse =
-            oauthApplications
-
-        override fun oauthConnections(): OAuthConnectionServiceAsync.WithRawResponse =
-            oauthConnections
-
-        override fun oauthTokens(): OAuthTokenServiceAsync.WithRawResponse = oauthTokens
 
         override fun intrafiAccountEnrollments():
             IntrafiAccountEnrollmentServiceAsync.WithRawResponse = intrafiAccountEnrollments
