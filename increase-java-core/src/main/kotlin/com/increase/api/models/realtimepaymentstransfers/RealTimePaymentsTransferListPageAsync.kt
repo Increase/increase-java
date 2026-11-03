@@ -5,7 +5,6 @@ package com.increase.api.models.realtimepaymentstransfers
 import com.increase.api.core.AutoPagerAsync
 import com.increase.api.core.PageAsync
 import com.increase.api.core.checkRequired
-import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import com.increase.api.services.async.RealTimePaymentsTransferServiceAsync
 import java.util.Objects
 import java.util.Optional
