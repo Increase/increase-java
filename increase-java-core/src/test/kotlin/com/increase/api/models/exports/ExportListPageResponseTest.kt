@@ -83,6 +83,7 @@ internal class ExportListPageResponseTest {
                                         )
                                         .build()
                                 )
+                                .feeStatementPeriodStart(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .form1099Int(
@@ -199,6 +200,7 @@ internal class ExportListPageResponseTest {
                                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
+                            .feeStatementPeriodStart(LocalDate.parse("2019-12-27"))
                             .build()
                     )
                     .form1099Int(
@@ -321,6 +323,7 @@ internal class ExportListPageResponseTest {
                                         )
                                         .build()
                                 )
+                                .feeStatementPeriodStart(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .form1099Int(

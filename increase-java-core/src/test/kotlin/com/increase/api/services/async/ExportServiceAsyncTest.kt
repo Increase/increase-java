@@ -75,6 +75,7 @@ internal class ExportServiceAsyncTest {
                                     .onOrBefore(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                     .build()
                             )
+                            .feeStatementPeriodStart(LocalDate.parse("2019-12-27"))
                             .programId("program_id")
                             .build()
                     )

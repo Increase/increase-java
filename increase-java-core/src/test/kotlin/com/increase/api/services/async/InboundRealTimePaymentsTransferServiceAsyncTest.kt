@@ -4,6 +4,7 @@ package com.increase.api.services.async
 
 import com.increase.api.TestServerExtension
 import com.increase.api.client.okhttp.IncreaseOkHttpClientAsync
+import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferReturnParams
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.extension.ExtendWith
 
@@ -41,5 +42,28 @@ internal class InboundRealTimePaymentsTransferServiceAsyncTest {
 
         val page = pageFuture.get()
         page.response().validate()
+    }
+
+    @Test
+    fun return_() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val inboundRealTimePaymentsTransferServiceAsync = client.inboundRealTimePaymentsTransfers()
+
+        val realTimePaymentsTransferFuture =
+            inboundRealTimePaymentsTransferServiceAsync.return_(
+                InboundRealTimePaymentsTransferReturnParams.builder()
+                    .inboundRealTimePaymentsTransferId(
+                        "inbound_real_time_payments_transfer_63hlz498vcxg644hcrzr"
+                    )
+                    .amount(1L)
+                    .build()
+            )
+
+        val realTimePaymentsTransfer = realTimePaymentsTransferFuture.get()
+        realTimePaymentsTransfer.validate()
     }
 }
