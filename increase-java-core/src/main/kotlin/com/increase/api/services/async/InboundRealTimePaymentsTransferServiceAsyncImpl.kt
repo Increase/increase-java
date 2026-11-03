@@ -22,7 +22,7 @@ import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimeP
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferListParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferRetrieveParams
 import com.increase.api.models.inboundrealtimepaymentstransfers.InboundRealTimePaymentsTransferReturnParams
-import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
+import com.increase.api.models.realtimepaymentstransfers.RealTimePaymentsTransfer
 import java.util.concurrent.CompletableFuture
 import java.util.function.Consumer
 import kotlin.jvm.optionals.getOrNull

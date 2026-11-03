@@ -4,7 +4,6 @@ package com.increase.api.models.realtimepaymentstransfers
 
 import com.fasterxml.jackson.module.kotlin.jacksonTypeRef
 import com.increase.api.core.jsonMapper
-import com.increase.api.models.inboundrealtimepaymentstransfers.RealTimePaymentsTransfer
 import java.time.OffsetDateTime
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.jupiter.api.Test
