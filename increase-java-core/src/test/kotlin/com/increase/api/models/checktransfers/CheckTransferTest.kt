@@ -76,6 +76,11 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
+                        .addPayee(
+                            CheckTransfer.PhysicalCheck.Payee.builder()
+                                .contents("Ian Crease")
+                                .build()
+                        )
                         .payer(
                             listOf(
                                 CheckTransfer.PhysicalCheck.Payer.builder()
@@ -90,7 +95,6 @@ internal class CheckTransferTest {
                             )
                         )
                         .physicalCheckBatchId(null)
-                        .recipientName("Ian Crease")
                         .returnAddress(
                             CheckTransfer.PhysicalCheck.ReturnAddress.builder()
                                 .city("New York")
@@ -230,6 +234,9 @@ internal class CheckTransferTest {
                     )
                     .memo("Invoice 29582")
                     .note(null)
+                    .addPayee(
+                        CheckTransfer.PhysicalCheck.Payee.builder().contents("Ian Crease").build()
+                    )
                     .payer(
                         listOf(
                             CheckTransfer.PhysicalCheck.Payer.builder()
@@ -244,7 +251,6 @@ internal class CheckTransferTest {
                         )
                     )
                     .physicalCheckBatchId(null)
-                    .recipientName("Ian Crease")
                     .returnAddress(
                         CheckTransfer.PhysicalCheck.ReturnAddress.builder()
                             .city("New York")
@@ -383,6 +389,11 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
+                        .addPayee(
+                            CheckTransfer.PhysicalCheck.Payee.builder()
+                                .contents("Ian Crease")
+                                .build()
+                        )
                         .payer(
                             listOf(
                                 CheckTransfer.PhysicalCheck.Payer.builder()
@@ -397,7 +408,6 @@ internal class CheckTransferTest {
                             )
                         )
                         .physicalCheckBatchId(null)
-                        .recipientName("Ian Crease")
                         .returnAddress(
                             CheckTransfer.PhysicalCheck.ReturnAddress.builder()
                                 .city("New York")
