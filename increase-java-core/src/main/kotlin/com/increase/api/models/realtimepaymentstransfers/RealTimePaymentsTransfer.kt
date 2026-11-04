@@ -38,6 +38,7 @@ private constructor(
     private val creditorName: JsonField<String>,
     private val currency: JsonField<Currency>,
     private val debtorName: JsonField<String>,
+    private val endToEndIdentification: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val inboundRealTimePaymentsRequestForPaymentId: JsonField<String>,
@@ -84,6 +85,9 @@ private constructor(
         @JsonProperty("debtor_name")
         @ExcludeMissing
         debtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("end_to_end_identification")
+        @ExcludeMissing
+        endToEndIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("external_account_id")
         @ExcludeMissing
         externalAccountId: JsonField<String> = JsonMissing.of(),
@@ -138,6 +142,7 @@ private constructor(
         creditorName,
         currency,
         debtorName,
+        endToEndIdentification,
         externalAccountId,
         idempotencyKey,
         inboundRealTimePaymentsRequestForPaymentId,
@@ -258,6 +263,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun debtorName(): Optional<String> = debtorName.getOptional("debtor_name")
+
+    /**
+     * A free-form reference string set by the sender, to help identify the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endToEndIdentification(): Optional<String> =
+        endToEndIdentification.getOptional("end_to_end_identification")
 
     /**
      * The identifier of the External Account the transfer was made to, if any.
@@ -496,6 +510,16 @@ private constructor(
     @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName(): JsonField<String> = debtorName
 
     /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("end_to_end_identification")
+    @ExcludeMissing
+    fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
+
+    /**
      * Returns the raw JSON value of [externalAccountId].
      *
      * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -665,6 +689,7 @@ private constructor(
          * .creditorName()
          * .currency()
          * .debtorName()
+         * .endToEndIdentification()
          * .externalAccountId()
          * .idempotencyKey()
          * .inboundRealTimePaymentsRequestForPaymentId()
@@ -700,6 +725,7 @@ private constructor(
         private var creditorName: JsonField<String>? = null
         private var currency: JsonField<Currency>? = null
         private var debtorName: JsonField<String>? = null
+        private var endToEndIdentification: JsonField<String>? = null
         private var externalAccountId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var inboundRealTimePaymentsRequestForPaymentId: JsonField<String>? = null
@@ -731,6 +757,7 @@ private constructor(
             creditorName = realTimePaymentsTransfer.creditorName
             currency = realTimePaymentsTransfer.currency
             debtorName = realTimePaymentsTransfer.debtorName
+            endToEndIdentification = realTimePaymentsTransfer.endToEndIdentification
             externalAccountId = realTimePaymentsTransfer.externalAccountId
             idempotencyKey = realTimePaymentsTransfer.idempotencyKey
             inboundRealTimePaymentsRequestForPaymentId =
@@ -941,6 +968,28 @@ private constructor(
          * value.
          */
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
+
+        /** A free-form reference string set by the sender, to help identify the transfer. */
+        fun endToEndIdentification(endToEndIdentification: String?) =
+            endToEndIdentification(JsonField.ofNullable(endToEndIdentification))
+
+        /**
+         * Alias for calling [Builder.endToEndIdentification] with
+         * `endToEndIdentification.orElse(null)`.
+         */
+        fun endToEndIdentification(endToEndIdentification: Optional<String>) =
+            endToEndIdentification(endToEndIdentification.getOrNull())
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            this.endToEndIdentification = endToEndIdentification
+        }
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: String?) =
@@ -1293,6 +1342,7 @@ private constructor(
          * .creditorName()
          * .currency()
          * .debtorName()
+         * .endToEndIdentification()
          * .externalAccountId()
          * .idempotencyKey()
          * .inboundRealTimePaymentsRequestForPaymentId()
@@ -1326,6 +1376,7 @@ private constructor(
                 checkRequired("creditorName", creditorName),
                 checkRequired("currency", currency),
                 checkRequired("debtorName", debtorName),
+                checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("externalAccountId", externalAccountId),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired(
@@ -1381,6 +1432,7 @@ private constructor(
         creditorName()
         currency().validate()
         debtorName()
+        endToEndIdentification()
         externalAccountId()
         idempotencyKey()
         inboundRealTimePaymentsRequestForPaymentId()
@@ -1426,6 +1478,7 @@ private constructor(
             (if (creditorName.asKnown().isPresent) 1 else 0) +
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (debtorName.asKnown().isPresent) 1 else 0) +
+            (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
             (if (externalAccountId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (inboundRealTimePaymentsRequestForPaymentId.asKnown().isPresent) 1 else 0) +
@@ -4636,6 +4689,7 @@ private constructor(
             creditorName == other.creditorName &&
             currency == other.currency &&
             debtorName == other.debtorName &&
+            endToEndIdentification == other.endToEndIdentification &&
             externalAccountId == other.externalAccountId &&
             idempotencyKey == other.idempotencyKey &&
             inboundRealTimePaymentsRequestForPaymentId ==
@@ -4670,6 +4724,7 @@ private constructor(
             creditorName,
             currency,
             debtorName,
+            endToEndIdentification,
             externalAccountId,
             idempotencyKey,
             inboundRealTimePaymentsRequestForPaymentId,
@@ -4692,5 +4747,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, pendingTransactionId=$pendingTransactionId, rejection=$rejection, returnOfInboundRealTimePaymentsTransferId=$returnOfInboundRealTimePaymentsTransferId, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "RealTimePaymentsTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, approval=$approval, cancellation=$cancellation, createdAt=$createdAt, createdBy=$createdBy, creditorName=$creditorName, currency=$currency, debtorName=$debtorName, endToEndIdentification=$endToEndIdentification, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, pendingTransactionId=$pendingTransactionId, rejection=$rejection, returnOfInboundRealTimePaymentsTransferId=$returnOfInboundRealTimePaymentsTransferId, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }

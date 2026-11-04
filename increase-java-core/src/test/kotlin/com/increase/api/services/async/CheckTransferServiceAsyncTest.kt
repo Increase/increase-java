@@ -37,14 +37,19 @@ internal class CheckTransferServiceAsyncTest {
                                 CheckTransferCreateParams.PhysicalCheck.MailingAddress.builder()
                                     .city("New York")
                                     .line1("33 Liberty Street")
+                                    .name("Ian Crease")
                                     .postalCode("10045")
                                     .state("NY")
                                     .line2("line2")
-                                    .name("Ian Crease")
                                     .phone("+16505046304")
                                     .build()
                             )
                             .memo("Check payment")
+                            .addPayee(
+                                CheckTransferCreateParams.PhysicalCheck.Payee.builder()
+                                    .contents("Ian Crease")
+                                    .build()
+                            )
                             .payer(
                                 listOf(
                                     CheckTransferCreateParams.PhysicalCheck.Payer.builder()
@@ -58,7 +63,6 @@ internal class CheckTransferServiceAsyncTest {
                                         .build(),
                                 )
                             )
-                            .recipientName("Ian Crease")
                             .attachmentFileId("attachment_file_id")
                             .checkVoucherImageFileId("check_voucher_image_file_id")
                             .note("note")
