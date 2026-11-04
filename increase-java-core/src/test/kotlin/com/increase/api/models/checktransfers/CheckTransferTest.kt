@@ -76,6 +76,9 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
+                        .addPayee(
+                            CheckTransfer.PhysicalCheck.Payee.builder().contents("contents").build()
+                        )
                         .payer(
                             listOf(
                                 CheckTransfer.PhysicalCheck.Payer.builder()
@@ -230,6 +233,9 @@ internal class CheckTransferTest {
                     )
                     .memo("Invoice 29582")
                     .note(null)
+                    .addPayee(
+                        CheckTransfer.PhysicalCheck.Payee.builder().contents("contents").build()
+                    )
                     .payer(
                         listOf(
                             CheckTransfer.PhysicalCheck.Payer.builder()
@@ -383,6 +389,9 @@ internal class CheckTransferTest {
                         )
                         .memo("Invoice 29582")
                         .note(null)
+                        .addPayee(
+                            CheckTransfer.PhysicalCheck.Payee.builder().contents("contents").build()
+                        )
                         .payer(
                             listOf(
                                 CheckTransfer.PhysicalCheck.Payer.builder()
