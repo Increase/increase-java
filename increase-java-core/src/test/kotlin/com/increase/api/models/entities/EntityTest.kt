@@ -168,12 +168,6 @@ internal class EntityTest {
                         .name("name")
                         .build()
                 )
-                .riskRating(
-                    Entity.RiskRating.builder()
-                        .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .rating(Entity.RiskRating.Rating.LOW)
-                        .build()
-                )
                 .soleProprietorship(
                     Entity.SoleProprietorship.builder()
                         .address(
@@ -517,13 +511,6 @@ internal class EntityTest {
                             .build()
                     )
                     .name("name")
-                    .build()
-            )
-        assertThat(entity.riskRating())
-            .contains(
-                Entity.RiskRating.builder()
-                    .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .rating(Entity.RiskRating.Rating.LOW)
                     .build()
             )
         assertThat(entity.soleProprietorship())
@@ -876,12 +863,6 @@ internal class EntityTest {
                                 .build()
                         )
                         .name("name")
-                        .build()
-                )
-                .riskRating(
-                    Entity.RiskRating.builder()
-                        .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .rating(Entity.RiskRating.Rating.LOW)
                         .build()
                 )
                 .soleProprietorship(
