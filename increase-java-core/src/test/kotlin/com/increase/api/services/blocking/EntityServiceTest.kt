@@ -287,12 +287,6 @@ internal class EntityServiceTest {
                             .confirmedNoUsTaxId(true)
                             .build()
                     )
-                    .riskRating(
-                        EntityCreateParams.RiskRating.builder()
-                            .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .rating(EntityCreateParams.RiskRating.Rating.LOW)
-                            .build()
-                    )
                     .soleProprietorship(
                         EntityCreateParams.SoleProprietorship.builder()
                             .address(
@@ -568,7 +562,7 @@ internal class EntityServiceTest {
                                     .build()
                             )
                             .name("x")
-                            .website("website")
+                            .website("https://company.example.com")
                             .build()
                     )
                     .detailsConfirmedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -637,12 +631,6 @@ internal class EntityServiceTest {
                                     .build()
                             )
                             .name("x")
-                            .build()
-                    )
-                    .riskRating(
-                        EntityUpdateParams.RiskRating.builder()
-                            .ratedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
-                            .rating(EntityUpdateParams.RiskRating.Rating.LOW)
                             .build()
                     )
                     .soleProprietorship(
