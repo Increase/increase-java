@@ -86,7 +86,6 @@ internal class EntityTest {
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .creatingEntityOnboardingSessionId(null)
-                .description(null)
                 .detailsConfirmedAt(null)
                 .governmentAuthority(
                     Entity.GovernmentAuthority.builder()
@@ -166,12 +165,6 @@ internal class EntityTest {
                                 .build()
                         )
                         .name("name")
-                        .build()
-                )
-                .riskRating(
-                    Entity.RiskRating.builder()
-                        .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .rating(Entity.RiskRating.Rating.LOW)
                         .build()
                 )
                 .soleProprietorship(
@@ -435,7 +428,6 @@ internal class EntityTest {
             )
         assertThat(entity.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(entity.creatingEntityOnboardingSessionId()).isEmpty
-        assertThat(entity.description()).isEmpty
         assertThat(entity.detailsConfirmedAt()).isEmpty
         assertThat(entity.governmentAuthority())
             .contains(
@@ -517,13 +509,6 @@ internal class EntityTest {
                             .build()
                     )
                     .name("name")
-                    .build()
-            )
-        assertThat(entity.riskRating())
-            .contains(
-                Entity.RiskRating.builder()
-                    .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                    .rating(Entity.RiskRating.Rating.LOW)
                     .build()
             )
         assertThat(entity.soleProprietorship())
@@ -796,7 +781,6 @@ internal class EntityTest {
                 )
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .creatingEntityOnboardingSessionId(null)
-                .description(null)
                 .detailsConfirmedAt(null)
                 .governmentAuthority(
                     Entity.GovernmentAuthority.builder()
@@ -876,12 +860,6 @@ internal class EntityTest {
                                 .build()
                         )
                         .name("name")
-                        .build()
-                )
-                .riskRating(
-                    Entity.RiskRating.builder()
-                        .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                        .rating(Entity.RiskRating.Rating.LOW)
                         .build()
                 )
                 .soleProprietorship(
