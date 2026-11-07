@@ -27039,6 +27039,10 @@ private constructor(
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
                                 of("electric_vehicle_charging_level_3_480_volt")
 
+                            /** Diesel 1 off-road non-taxable */
+                            @JvmField
+                            val DIESEL_1_OFF_ROAD_NON_TAXABLE = of("diesel_1_off_road_non_taxable")
+
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             @JvmField
                             val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
@@ -27274,6 +27278,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -27488,6 +27494,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -27643,6 +27651,7 @@ private constructor(
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -27794,6 +27803,7 @@ private constructor(
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -42094,6 +42104,10 @@ private constructor(
                             val ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT =
                                 of("electric_vehicle_charging_level_3_480_volt")
 
+                            /** Diesel 1 off-road non-taxable */
+                            @JvmField
+                            val DIESEL_1_OFF_ROAD_NON_TAXABLE = of("diesel_1_off_road_non_taxable")
+
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             @JvmField
                             val RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE =
@@ -42329,6 +42343,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -42543,6 +42559,8 @@ private constructor(
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT,
                             /** Electric vehicle charging level 3 480 volt */
                             ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT,
+                            /** Diesel 1 off-road non-taxable */
+                            DIESEL_1_OFF_ROAD_NON_TAXABLE,
                             /** Renewable diesel R95 or greater off-road non-taxable */
                             RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE,
                             /** Biodiesel blend 1% off-road non-taxable */
@@ -42698,6 +42716,7 @@ private constructor(
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Value.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Value.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Value.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -42849,6 +42868,7 @@ private constructor(
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_2_240_VOLT
                                 ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT ->
                                     Known.ELECTRIC_VEHICLE_CHARGING_LEVEL_3_480_VOLT
+                                DIESEL_1_OFF_ROAD_NON_TAXABLE -> Known.DIESEL_1_OFF_ROAD_NON_TAXABLE
                                 RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE ->
                                     Known.RENEWABLE_DIESEL_R95_OR_GREATER_OFF_ROAD_NON_TAXABLE
                                 BIODIESEL_BLEND_1_OFF_ROAD_NON_TAXABLE ->
@@ -52583,6 +52603,7 @@ private constructor(
         private constructor(
             private val backImageFileId: JsonField<String>,
             private val bankOfFirstDepositRoutingNumber: JsonField<String>,
+            private val checkbookCheckId: JsonField<String>,
             private val depositedAt: JsonField<OffsetDateTime>,
             private val frontImageFileId: JsonField<String>,
             private val inboundCheckDepositId: JsonField<String>,
@@ -52600,6 +52621,9 @@ private constructor(
                 @JsonProperty("bank_of_first_deposit_routing_number")
                 @ExcludeMissing
                 bankOfFirstDepositRoutingNumber: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("checkbook_check_id")
+                @ExcludeMissing
+                checkbookCheckId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("deposited_at")
                 @ExcludeMissing
                 depositedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -52619,6 +52643,7 @@ private constructor(
             ) : this(
                 backImageFileId,
                 bankOfFirstDepositRoutingNumber,
+                checkbookCheckId,
                 depositedAt,
                 frontImageFileId,
                 inboundCheckDepositId,
@@ -52648,6 +52673,15 @@ private constructor(
              */
             fun bankOfFirstDepositRoutingNumber(): Optional<String> =
                 bankOfFirstDepositRoutingNumber.getOptional("bank_of_first_deposit_routing_number")
+
+            /**
+             * The identifier of the Checkbook Check object that was deposited.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun checkbookCheckId(): Optional<String> =
+                checkbookCheckId.getOptional("checkbook_check_id")
 
             /**
              * When the check was deposited.
@@ -52723,6 +52757,16 @@ private constructor(
             @ExcludeMissing
             fun _bankOfFirstDepositRoutingNumber(): JsonField<String> =
                 bankOfFirstDepositRoutingNumber
+
+            /**
+             * Returns the raw JSON value of [checkbookCheckId].
+             *
+             * Unlike [checkbookCheckId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("checkbook_check_id")
+            @ExcludeMissing
+            fun _checkbookCheckId(): JsonField<String> = checkbookCheckId
 
             /**
              * Returns the raw JSON value of [depositedAt].
@@ -52802,6 +52846,7 @@ private constructor(
                  * ```java
                  * .backImageFileId()
                  * .bankOfFirstDepositRoutingNumber()
+                 * .checkbookCheckId()
                  * .depositedAt()
                  * .frontImageFileId()
                  * .inboundCheckDepositId()
@@ -52818,6 +52863,7 @@ private constructor(
 
                 private var backImageFileId: JsonField<String>? = null
                 private var bankOfFirstDepositRoutingNumber: JsonField<String>? = null
+                private var checkbookCheckId: JsonField<String>? = null
                 private var depositedAt: JsonField<OffsetDateTime>? = null
                 private var frontImageFileId: JsonField<String>? = null
                 private var inboundCheckDepositId: JsonField<String>? = null
@@ -52831,6 +52877,7 @@ private constructor(
                     backImageFileId = checkTransferDeposit.backImageFileId
                     bankOfFirstDepositRoutingNumber =
                         checkTransferDeposit.bankOfFirstDepositRoutingNumber
+                    checkbookCheckId = checkTransferDeposit.checkbookCheckId
                     depositedAt = checkTransferDeposit.depositedAt
                     frontImageFileId = checkTransferDeposit.frontImageFileId
                     inboundCheckDepositId = checkTransferDeposit.inboundCheckDepositId
@@ -52892,6 +52939,28 @@ private constructor(
                 fun bankOfFirstDepositRoutingNumber(
                     bankOfFirstDepositRoutingNumber: JsonField<String>
                 ) = apply { this.bankOfFirstDepositRoutingNumber = bankOfFirstDepositRoutingNumber }
+
+                /** The identifier of the Checkbook Check object that was deposited. */
+                fun checkbookCheckId(checkbookCheckId: String?) =
+                    checkbookCheckId(JsonField.ofNullable(checkbookCheckId))
+
+                /**
+                 * Alias for calling [Builder.checkbookCheckId] with
+                 * `checkbookCheckId.orElse(null)`.
+                 */
+                fun checkbookCheckId(checkbookCheckId: Optional<String>) =
+                    checkbookCheckId(checkbookCheckId.getOrNull())
+
+                /**
+                 * Sets [Builder.checkbookCheckId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.checkbookCheckId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun checkbookCheckId(checkbookCheckId: JsonField<String>) = apply {
+                    this.checkbookCheckId = checkbookCheckId
+                }
 
                 /** When the check was deposited. */
                 fun depositedAt(depositedAt: OffsetDateTime) =
@@ -53042,6 +53111,7 @@ private constructor(
                  * ```java
                  * .backImageFileId()
                  * .bankOfFirstDepositRoutingNumber()
+                 * .checkbookCheckId()
                  * .depositedAt()
                  * .frontImageFileId()
                  * .inboundCheckDepositId()
@@ -53059,6 +53129,7 @@ private constructor(
                             "bankOfFirstDepositRoutingNumber",
                             bankOfFirstDepositRoutingNumber,
                         ),
+                        checkRequired("checkbookCheckId", checkbookCheckId),
                         checkRequired("depositedAt", depositedAt),
                         checkRequired("frontImageFileId", frontImageFileId),
                         checkRequired("inboundCheckDepositId", inboundCheckDepositId),
@@ -53088,6 +53159,7 @@ private constructor(
 
                 backImageFileId()
                 bankOfFirstDepositRoutingNumber()
+                checkbookCheckId()
                 depositedAt()
                 frontImageFileId()
                 inboundCheckDepositId()
@@ -53115,6 +53187,7 @@ private constructor(
             internal fun validity(): Int =
                 (if (backImageFileId.asKnown().isPresent) 1 else 0) +
                     (if (bankOfFirstDepositRoutingNumber.asKnown().isPresent) 1 else 0) +
+                    (if (checkbookCheckId.asKnown().isPresent) 1 else 0) +
                     (if (depositedAt.asKnown().isPresent) 1 else 0) +
                     (if (frontImageFileId.asKnown().isPresent) 1 else 0) +
                     (if (inboundCheckDepositId.asKnown().isPresent) 1 else 0) +
@@ -53268,6 +53341,7 @@ private constructor(
                 return other is CheckTransferDeposit &&
                     backImageFileId == other.backImageFileId &&
                     bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
+                    checkbookCheckId == other.checkbookCheckId &&
                     depositedAt == other.depositedAt &&
                     frontImageFileId == other.frontImageFileId &&
                     inboundCheckDepositId == other.inboundCheckDepositId &&
@@ -53281,6 +53355,7 @@ private constructor(
                 Objects.hash(
                     backImageFileId,
                     bankOfFirstDepositRoutingNumber,
+                    checkbookCheckId,
                     depositedAt,
                     frontImageFileId,
                     inboundCheckDepositId,
@@ -53294,7 +53369,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CheckTransferDeposit{backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, depositedAt=$depositedAt, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, transactionId=$transactionId, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
+                "CheckTransferDeposit{backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkbookCheckId=$checkbookCheckId, depositedAt=$depositedAt, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, transactionId=$transactionId, transferId=$transferId, type=$type, additionalProperties=$additionalProperties}"
         }
 
         /**
@@ -56942,6 +57017,7 @@ private constructor(
         class InboundCheckDepositReturnIntention
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
+            private val checkbookCheckId: JsonField<String>,
             private val inboundCheckDepositId: JsonField<String>,
             private val transferId: JsonField<String>,
             private val additionalProperties: MutableMap<String, JsonValue>,
@@ -56949,13 +57025,25 @@ private constructor(
 
             @JsonCreator
             private constructor(
+                @JsonProperty("checkbook_check_id")
+                @ExcludeMissing
+                checkbookCheckId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("inbound_check_deposit_id")
                 @ExcludeMissing
                 inboundCheckDepositId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("transfer_id")
                 @ExcludeMissing
                 transferId: JsonField<String> = JsonMissing.of(),
-            ) : this(inboundCheckDepositId, transferId, mutableMapOf())
+            ) : this(checkbookCheckId, inboundCheckDepositId, transferId, mutableMapOf())
+
+            /**
+             * The identifier of the Checkbook Check object that was deposited.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun checkbookCheckId(): Optional<String> =
+                checkbookCheckId.getOptional("checkbook_check_id")
 
             /**
              * The ID of the Inbound Check Deposit that is being returned.
@@ -56974,6 +57062,16 @@ private constructor(
              *   if the server responded with an unexpected value).
              */
             fun transferId(): Optional<String> = transferId.getOptional("transfer_id")
+
+            /**
+             * Returns the raw JSON value of [checkbookCheckId].
+             *
+             * Unlike [checkbookCheckId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("checkbook_check_id")
+            @ExcludeMissing
+            fun _checkbookCheckId(): JsonField<String> = checkbookCheckId
 
             /**
              * Returns the raw JSON value of [inboundCheckDepositId].
@@ -57015,6 +57113,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
+                 * .checkbookCheckId()
                  * .inboundCheckDepositId()
                  * .transferId()
                  * ```
@@ -57025,6 +57124,7 @@ private constructor(
             /** A builder for [InboundCheckDepositReturnIntention]. */
             class Builder internal constructor() {
 
+                private var checkbookCheckId: JsonField<String>? = null
                 private var inboundCheckDepositId: JsonField<String>? = null
                 private var transferId: JsonField<String>? = null
                 private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
@@ -57033,10 +57133,33 @@ private constructor(
                 internal fun from(
                     inboundCheckDepositReturnIntention: InboundCheckDepositReturnIntention
                 ) = apply {
+                    checkbookCheckId = inboundCheckDepositReturnIntention.checkbookCheckId
                     inboundCheckDepositId = inboundCheckDepositReturnIntention.inboundCheckDepositId
                     transferId = inboundCheckDepositReturnIntention.transferId
                     additionalProperties =
                         inboundCheckDepositReturnIntention.additionalProperties.toMutableMap()
+                }
+
+                /** The identifier of the Checkbook Check object that was deposited. */
+                fun checkbookCheckId(checkbookCheckId: String?) =
+                    checkbookCheckId(JsonField.ofNullable(checkbookCheckId))
+
+                /**
+                 * Alias for calling [Builder.checkbookCheckId] with
+                 * `checkbookCheckId.orElse(null)`.
+                 */
+                fun checkbookCheckId(checkbookCheckId: Optional<String>) =
+                    checkbookCheckId(checkbookCheckId.getOrNull())
+
+                /**
+                 * Sets [Builder.checkbookCheckId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.checkbookCheckId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun checkbookCheckId(checkbookCheckId: JsonField<String>) = apply {
+                    this.checkbookCheckId = checkbookCheckId
                 }
 
                 /** The ID of the Inbound Check Deposit that is being returned. */
@@ -57100,6 +57223,7 @@ private constructor(
                  *
                  * The following fields are required:
                  * ```java
+                 * .checkbookCheckId()
                  * .inboundCheckDepositId()
                  * .transferId()
                  * ```
@@ -57108,6 +57232,7 @@ private constructor(
                  */
                 fun build(): InboundCheckDepositReturnIntention =
                     InboundCheckDepositReturnIntention(
+                        checkRequired("checkbookCheckId", checkbookCheckId),
                         checkRequired("inboundCheckDepositId", inboundCheckDepositId),
                         checkRequired("transferId", transferId),
                         additionalProperties.toMutableMap(),
@@ -57131,6 +57256,7 @@ private constructor(
                     return@apply
                 }
 
+                checkbookCheckId()
                 inboundCheckDepositId()
                 transferId()
                 validated = true
@@ -57152,7 +57278,8 @@ private constructor(
              */
             @JvmSynthetic
             internal fun validity(): Int =
-                (if (inboundCheckDepositId.asKnown().isPresent) 1 else 0) +
+                (if (checkbookCheckId.asKnown().isPresent) 1 else 0) +
+                    (if (inboundCheckDepositId.asKnown().isPresent) 1 else 0) +
                     (if (transferId.asKnown().isPresent) 1 else 0)
 
             override fun equals(other: Any?): Boolean {
@@ -57161,19 +57288,25 @@ private constructor(
                 }
 
                 return other is InboundCheckDepositReturnIntention &&
+                    checkbookCheckId == other.checkbookCheckId &&
                     inboundCheckDepositId == other.inboundCheckDepositId &&
                     transferId == other.transferId &&
                     additionalProperties == other.additionalProperties
             }
 
             private val hashCode: Int by lazy {
-                Objects.hash(inboundCheckDepositId, transferId, additionalProperties)
+                Objects.hash(
+                    checkbookCheckId,
+                    inboundCheckDepositId,
+                    transferId,
+                    additionalProperties,
+                )
             }
 
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "InboundCheckDepositReturnIntention{inboundCheckDepositId=$inboundCheckDepositId, transferId=$transferId, additionalProperties=$additionalProperties}"
+                "InboundCheckDepositReturnIntention{checkbookCheckId=$checkbookCheckId, inboundCheckDepositId=$inboundCheckDepositId, transferId=$transferId, additionalProperties=$additionalProperties}"
         }
 
         /**

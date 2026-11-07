@@ -37,6 +37,8 @@ import com.increase.api.services.async.simulations.CheckDepositServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsyncImpl
 import com.increase.api.services.async.simulations.CheckTransferServiceAsync
 import com.increase.api.services.async.simulations.CheckTransferServiceAsyncImpl
+import com.increase.api.services.async.simulations.CheckbookServiceAsync
+import com.increase.api.services.async.simulations.CheckbookServiceAsyncImpl
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsyncImpl
 import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsync
@@ -176,6 +178,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         CheckTransferServiceAsyncImpl(clientOptions)
     }
 
+    private val checkbooks: CheckbookServiceAsync by lazy {
+        CheckbookServiceAsyncImpl(clientOptions)
+    }
+
     private val inboundCheckDeposits: InboundCheckDepositServiceAsync by lazy {
         InboundCheckDepositServiceAsyncImpl(clientOptions)
     }
@@ -278,6 +284,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
         inboundWireDrawdownRequests
 
     override fun checkTransfers(): CheckTransferServiceAsync = checkTransfers
+
+    override fun checkbooks(): CheckbookServiceAsync = checkbooks
 
     override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync = inboundCheckDeposits
 
@@ -410,6 +418,10 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             CheckTransferServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val checkbooks: CheckbookServiceAsync.WithRawResponse by lazy {
+            CheckbookServiceAsyncImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val inboundCheckDeposits: InboundCheckDepositServiceAsync.WithRawResponse by lazy {
             InboundCheckDepositServiceAsyncImpl.WithRawResponseImpl(clientOptions)
         }
@@ -532,6 +544,8 @@ class SimulationServiceAsyncImpl internal constructor(private val clientOptions:
             InboundWireDrawdownRequestServiceAsync.WithRawResponse = inboundWireDrawdownRequests
 
         override fun checkTransfers(): CheckTransferServiceAsync.WithRawResponse = checkTransfers
+
+        override fun checkbooks(): CheckbookServiceAsync.WithRawResponse = checkbooks
 
         override fun inboundCheckDeposits(): InboundCheckDepositServiceAsync.WithRawResponse =
             inboundCheckDeposits

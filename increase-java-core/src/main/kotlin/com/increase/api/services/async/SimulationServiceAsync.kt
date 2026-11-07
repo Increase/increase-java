@@ -20,6 +20,7 @@ import com.increase.api.services.async.simulations.CardSettlementServiceAsync
 import com.increase.api.services.async.simulations.CardTokenServiceAsync
 import com.increase.api.services.async.simulations.CheckDepositServiceAsync
 import com.increase.api.services.async.simulations.CheckTransferServiceAsync
+import com.increase.api.services.async.simulations.CheckbookServiceAsync
 import com.increase.api.services.async.simulations.DigitalWalletTokenRequestServiceAsync
 import com.increase.api.services.async.simulations.EntityOnboardingSessionServiceAsync
 import com.increase.api.services.async.simulations.EntityServiceAsync
@@ -100,6 +101,8 @@ interface SimulationServiceAsync {
     fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync
 
     fun checkTransfers(): CheckTransferServiceAsync
+
+    fun checkbooks(): CheckbookServiceAsync
 
     fun inboundCheckDeposits(): InboundCheckDepositServiceAsync
 
@@ -187,6 +190,8 @@ interface SimulationServiceAsync {
         fun inboundWireDrawdownRequests(): InboundWireDrawdownRequestServiceAsync.WithRawResponse
 
         fun checkTransfers(): CheckTransferServiceAsync.WithRawResponse
+
+        fun checkbooks(): CheckbookServiceAsync.WithRawResponse
 
         fun inboundCheckDeposits(): InboundCheckDepositServiceAsync.WithRawResponse
 

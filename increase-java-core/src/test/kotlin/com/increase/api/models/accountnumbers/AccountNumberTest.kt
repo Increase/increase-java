@@ -19,20 +19,12 @@ internal class AccountNumberTest {
                 .accountNumber("987654321")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
-                .inboundAch(
-                    AccountNumber.InboundAch.builder()
-                        .debitStatus(AccountNumber.InboundAch.DebitStatus.BLOCKED)
-                        .build()
-                )
-                .inboundChecks(
-                    AccountNumber.InboundChecks.builder()
-                        .status(AccountNumber.InboundChecks.Status.CHECK_TRANSFERS_ONLY)
-                        .build()
-                )
+                .inboundAchDebits(AccountNumber.InboundAchDebits.BLOCKED)
                 .name("ACH")
                 .routingNumber("101050001")
                 .status(AccountNumber.Status.ACTIVE)
                 .type(AccountNumber.Type.ACCOUNT_NUMBER)
+                .unregisteredInboundChecks(AccountNumber.UnregisteredInboundChecks.BLOCKED)
                 .build()
 
         assertThat(accountNumber.id()).isEqualTo("account_number_v18nkfqm6afpsrvy82b2")
@@ -41,22 +33,14 @@ internal class AccountNumberTest {
         assertThat(accountNumber.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(accountNumber.idempotencyKey()).isEmpty
-        assertThat(accountNumber.inboundAch())
-            .isEqualTo(
-                AccountNumber.InboundAch.builder()
-                    .debitStatus(AccountNumber.InboundAch.DebitStatus.BLOCKED)
-                    .build()
-            )
-        assertThat(accountNumber.inboundChecks())
-            .isEqualTo(
-                AccountNumber.InboundChecks.builder()
-                    .status(AccountNumber.InboundChecks.Status.CHECK_TRANSFERS_ONLY)
-                    .build()
-            )
+        assertThat(accountNumber.inboundAchDebits())
+            .isEqualTo(AccountNumber.InboundAchDebits.BLOCKED)
         assertThat(accountNumber.name()).isEqualTo("ACH")
         assertThat(accountNumber.routingNumber()).isEqualTo("101050001")
         assertThat(accountNumber.status()).isEqualTo(AccountNumber.Status.ACTIVE)
         assertThat(accountNumber.type()).isEqualTo(AccountNumber.Type.ACCOUNT_NUMBER)
+        assertThat(accountNumber.unregisteredInboundChecks())
+            .isEqualTo(AccountNumber.UnregisteredInboundChecks.BLOCKED)
     }
 
     @Test
@@ -69,20 +53,12 @@ internal class AccountNumberTest {
                 .accountNumber("987654321")
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .idempotencyKey(null)
-                .inboundAch(
-                    AccountNumber.InboundAch.builder()
-                        .debitStatus(AccountNumber.InboundAch.DebitStatus.BLOCKED)
-                        .build()
-                )
-                .inboundChecks(
-                    AccountNumber.InboundChecks.builder()
-                        .status(AccountNumber.InboundChecks.Status.CHECK_TRANSFERS_ONLY)
-                        .build()
-                )
+                .inboundAchDebits(AccountNumber.InboundAchDebits.BLOCKED)
                 .name("ACH")
                 .routingNumber("101050001")
                 .status(AccountNumber.Status.ACTIVE)
                 .type(AccountNumber.Type.ACCOUNT_NUMBER)
+                .unregisteredInboundChecks(AccountNumber.UnregisteredInboundChecks.BLOCKED)
                 .build()
 
         val roundtrippedAccountNumber =
