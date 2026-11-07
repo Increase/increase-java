@@ -92,7 +92,6 @@ internal class EntityListPageResponseTest {
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .creatingEntityOnboardingSessionId(null)
-                        .description(null)
                         .detailsConfirmedAt(null)
                         .governmentAuthority(
                             Entity.GovernmentAuthority.builder()
@@ -172,12 +171,6 @@ internal class EntityListPageResponseTest {
                                         .build()
                                 )
                                 .name("name")
-                                .build()
-                        )
-                        .riskRating(
-                            Entity.RiskRating.builder()
-                                .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .rating(Entity.RiskRating.Rating.LOW)
                                 .build()
                         )
                         .soleProprietorship(
@@ -460,7 +453,6 @@ internal class EntityListPageResponseTest {
                     )
                     .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                     .creatingEntityOnboardingSessionId(null)
-                    .description(null)
                     .detailsConfirmedAt(null)
                     .governmentAuthority(
                         Entity.GovernmentAuthority.builder()
@@ -540,12 +532,6 @@ internal class EntityListPageResponseTest {
                                     .build()
                             )
                             .name("name")
-                            .build()
-                    )
-                    .riskRating(
-                        Entity.RiskRating.builder()
-                            .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                            .rating(Entity.RiskRating.Rating.LOW)
                             .build()
                     )
                     .soleProprietorship(
@@ -831,7 +817,6 @@ internal class EntityListPageResponseTest {
                         )
                         .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                         .creatingEntityOnboardingSessionId(null)
-                        .description(null)
                         .detailsConfirmedAt(null)
                         .governmentAuthority(
                             Entity.GovernmentAuthority.builder()
@@ -911,12 +896,6 @@ internal class EntityListPageResponseTest {
                                         .build()
                                 )
                                 .name("name")
-                                .build()
-                        )
-                        .riskRating(
-                            Entity.RiskRating.builder()
-                                .ratedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
-                                .rating(Entity.RiskRating.Rating.LOW)
                                 .build()
                         )
                         .soleProprietorship(

@@ -11,18 +11,10 @@ internal class AccountNumberUpdateParamsTest {
     fun create() {
         AccountNumberUpdateParams.builder()
             .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-            .inboundAch(
-                AccountNumberUpdateParams.InboundAch.builder()
-                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
-                    .build()
-            )
-            .inboundChecks(
-                AccountNumberUpdateParams.InboundChecks.builder()
-                    .status(AccountNumberUpdateParams.InboundChecks.Status.ALLOWED)
-                    .build()
-            )
+            .inboundAchDebits(AccountNumberUpdateParams.InboundAchDebits.BLOCKED)
             .name("x")
             .status(AccountNumberUpdateParams.Status.DISABLED)
+            .unregisteredInboundChecks(AccountNumberUpdateParams.UnregisteredInboundChecks.ALLOWED)
             .build()
     }
 
@@ -43,36 +35,22 @@ internal class AccountNumberUpdateParamsTest {
         val params =
             AccountNumberUpdateParams.builder()
                 .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                .inboundAch(
-                    AccountNumberUpdateParams.InboundAch.builder()
-                        .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
-                        .build()
-                )
-                .inboundChecks(
-                    AccountNumberUpdateParams.InboundChecks.builder()
-                        .status(AccountNumberUpdateParams.InboundChecks.Status.ALLOWED)
-                        .build()
-                )
+                .inboundAchDebits(AccountNumberUpdateParams.InboundAchDebits.BLOCKED)
                 .name("x")
                 .status(AccountNumberUpdateParams.Status.DISABLED)
+                .unregisteredInboundChecks(
+                    AccountNumberUpdateParams.UnregisteredInboundChecks.ALLOWED
+                )
                 .build()
 
         val body = params._body()
 
-        assertThat(body.inboundAch())
-            .contains(
-                AccountNumberUpdateParams.InboundAch.builder()
-                    .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
-                    .build()
-            )
-        assertThat(body.inboundChecks())
-            .contains(
-                AccountNumberUpdateParams.InboundChecks.builder()
-                    .status(AccountNumberUpdateParams.InboundChecks.Status.ALLOWED)
-                    .build()
-            )
+        assertThat(body.inboundAchDebits())
+            .contains(AccountNumberUpdateParams.InboundAchDebits.BLOCKED)
         assertThat(body.name()).contains("x")
         assertThat(body.status()).contains(AccountNumberUpdateParams.Status.DISABLED)
+        assertThat(body.unregisteredInboundChecks())
+            .contains(AccountNumberUpdateParams.UnregisteredInboundChecks.ALLOWED)
     }
 
     @Test
