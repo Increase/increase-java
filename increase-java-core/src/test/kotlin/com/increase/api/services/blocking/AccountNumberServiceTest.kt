@@ -26,15 +26,9 @@ internal class AccountNumberServiceTest {
                 AccountNumberCreateParams.builder()
                     .accountId("account_in71c4amph0vgo2qllky")
                     .name("Rent payments")
-                    .inboundAch(
-                        AccountNumberCreateParams.InboundAch.builder()
-                            .debitStatus(AccountNumberCreateParams.InboundAch.DebitStatus.ALLOWED)
-                            .build()
-                    )
-                    .inboundChecks(
-                        AccountNumberCreateParams.InboundChecks.builder()
-                            .status(AccountNumberCreateParams.InboundChecks.Status.ALLOWED)
-                            .build()
+                    .inboundAchDebits(AccountNumberCreateParams.InboundAchDebits.ALLOWED)
+                    .unregisteredInboundChecks(
+                        AccountNumberCreateParams.UnregisteredInboundChecks.ALLOWED
                     )
                     .build()
             )
@@ -69,18 +63,12 @@ internal class AccountNumberServiceTest {
             accountNumberService.update(
                 AccountNumberUpdateParams.builder()
                     .accountNumberId("account_number_v18nkfqm6afpsrvy82b2")
-                    .inboundAch(
-                        AccountNumberUpdateParams.InboundAch.builder()
-                            .debitStatus(AccountNumberUpdateParams.InboundAch.DebitStatus.BLOCKED)
-                            .build()
-                    )
-                    .inboundChecks(
-                        AccountNumberUpdateParams.InboundChecks.builder()
-                            .status(AccountNumberUpdateParams.InboundChecks.Status.ALLOWED)
-                            .build()
-                    )
+                    .inboundAchDebits(AccountNumberUpdateParams.InboundAchDebits.BLOCKED)
                     .name("x")
                     .status(AccountNumberUpdateParams.Status.DISABLED)
+                    .unregisteredInboundChecks(
+                        AccountNumberUpdateParams.UnregisteredInboundChecks.ALLOWED
+                    )
                     .build()
             )
 

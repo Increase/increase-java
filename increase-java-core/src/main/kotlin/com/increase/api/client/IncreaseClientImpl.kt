@@ -36,6 +36,10 @@ import com.increase.api.services.blocking.CheckDepositService
 import com.increase.api.services.blocking.CheckDepositServiceImpl
 import com.increase.api.services.blocking.CheckTransferService
 import com.increase.api.services.blocking.CheckTransferServiceImpl
+import com.increase.api.services.blocking.CheckbookCheckService
+import com.increase.api.services.blocking.CheckbookCheckServiceImpl
+import com.increase.api.services.blocking.CheckbookService
+import com.increase.api.services.blocking.CheckbookServiceImpl
 import com.increase.api.services.blocking.DeclinedTransactionService
 import com.increase.api.services.blocking.DeclinedTransactionServiceImpl
 import com.increase.api.services.blocking.DigitalCardProfileService
@@ -225,6 +229,14 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
         CheckTransferServiceImpl(clientOptionsWithUserAgent)
     }
 
+    private val checkbooks: CheckbookService by lazy {
+        CheckbookServiceImpl(clientOptionsWithUserAgent)
+    }
+
+    private val checkbookChecks: CheckbookCheckService by lazy {
+        CheckbookCheckServiceImpl(clientOptionsWithUserAgent)
+    }
+
     private val inboundCheckDeposits: InboundCheckDepositService by lazy {
         InboundCheckDepositServiceImpl(clientOptionsWithUserAgent)
     }
@@ -408,6 +420,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
     override fun checkTransfers(): CheckTransferService = checkTransfers
 
+    override fun checkbooks(): CheckbookService = checkbooks
+
+    override fun checkbookChecks(): CheckbookCheckService = checkbookChecks
+
     override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
 
     override fun realTimePaymentsTransfers(): RealTimePaymentsTransferService =
@@ -579,6 +595,14 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
 
         private val checkTransfers: CheckTransferService.WithRawResponse by lazy {
             CheckTransferServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val checkbooks: CheckbookService.WithRawResponse by lazy {
+            CheckbookServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
+        private val checkbookChecks: CheckbookCheckService.WithRawResponse by lazy {
+            CheckbookCheckServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
         private val inboundCheckDeposits: InboundCheckDepositService.WithRawResponse by lazy {
@@ -787,6 +811,10 @@ class IncreaseClientImpl(private val clientOptions: ClientOptions) : IncreaseCli
             InboundWireDrawdownRequestService.WithRawResponse = inboundWireDrawdownRequests
 
         override fun checkTransfers(): CheckTransferService.WithRawResponse = checkTransfers
+
+        override fun checkbooks(): CheckbookService.WithRawResponse = checkbooks
+
+        override fun checkbookChecks(): CheckbookCheckService.WithRawResponse = checkbookChecks
 
         override fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse =
             inboundCheckDeposits

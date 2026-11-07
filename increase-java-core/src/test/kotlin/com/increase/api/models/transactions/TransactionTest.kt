@@ -986,6 +986,7 @@ internal class TransactionTest {
                             Transaction.Source.CheckTransferDeposit.builder()
                                 .backImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .bankOfFirstDepositRoutingNumber(null)
+                                .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                 .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
@@ -1074,6 +1075,7 @@ internal class TransactionTest {
                         )
                         .inboundCheckDepositReturnIntention(
                             Transaction.Source.InboundCheckDepositReturnIntention.builder()
+                                .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
@@ -2122,6 +2124,7 @@ internal class TransactionTest {
                         Transaction.Source.CheckTransferDeposit.builder()
                             .backImageFileId("file_makxrc67oh9l6sg7w9yc")
                             .bankOfFirstDepositRoutingNumber(null)
+                            .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                             .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                             .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
@@ -2207,6 +2210,7 @@ internal class TransactionTest {
                     )
                     .inboundCheckDepositReturnIntention(
                         Transaction.Source.InboundCheckDepositReturnIntention.builder()
+                            .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                             .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                             .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                             .build()
@@ -3320,6 +3324,7 @@ internal class TransactionTest {
                             Transaction.Source.CheckTransferDeposit.builder()
                                 .backImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .bankOfFirstDepositRoutingNumber(null)
+                                .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                 .depositedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                                 .frontImageFileId("file_makxrc67oh9l6sg7w9yc")
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
@@ -3408,6 +3413,7 @@ internal class TransactionTest {
                         )
                         .inboundCheckDepositReturnIntention(
                             Transaction.Source.InboundCheckDepositReturnIntention.builder()
+                                .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                 .inboundCheckDepositId("inbound_check_deposit_zoshvqybq0cjjm31mra")
                                 .transferId("check_transfer_30b43acfu9vw8fyc4f5")
                                 .build()
