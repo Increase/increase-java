@@ -13,11 +13,6 @@ internal class AccountNumberListParamsTest {
     fun create() {
         AccountNumberListParams.builder()
             .accountId("account_id")
-            .achDebitStatus(
-                AccountNumberListParams.AchDebitStatus.builder()
-                    .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
-                    .build()
-            )
             .createdAt(
                 AccountNumberListParams.CreatedAt.builder()
                     .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -28,6 +23,11 @@ internal class AccountNumberListParamsTest {
             )
             .cursor("cursor")
             .idempotencyKey("x")
+            .inboundAchDebits(
+                AccountNumberListParams.InboundAchDebits.builder()
+                    .addIn(AccountNumberListParams.InboundAchDebits.In.ALLOWED)
+                    .build()
+            )
             .limit(1L)
             .status(
                 AccountNumberListParams.Status.builder()
@@ -42,11 +42,6 @@ internal class AccountNumberListParamsTest {
         val params =
             AccountNumberListParams.builder()
                 .accountId("account_id")
-                .achDebitStatus(
-                    AccountNumberListParams.AchDebitStatus.builder()
-                        .addIn(AccountNumberListParams.AchDebitStatus.In.ALLOWED)
-                        .build()
-                )
                 .createdAt(
                     AccountNumberListParams.CreatedAt.builder()
                         .after(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
@@ -57,6 +52,11 @@ internal class AccountNumberListParamsTest {
                 )
                 .cursor("cursor")
                 .idempotencyKey("x")
+                .inboundAchDebits(
+                    AccountNumberListParams.InboundAchDebits.builder()
+                        .addIn(AccountNumberListParams.InboundAchDebits.In.ALLOWED)
+                        .build()
+                )
                 .limit(1L)
                 .status(
                     AccountNumberListParams.Status.builder()
@@ -71,13 +71,13 @@ internal class AccountNumberListParamsTest {
             .isEqualTo(
                 QueryParams.builder()
                     .put("account_id", "account_id")
-                    .put("ach_debit_status.in", listOf("allowed").joinToString(","))
                     .put("created_at.after", "2019-12-27T18:11:19.117Z")
                     .put("created_at.before", "2019-12-27T18:11:19.117Z")
                     .put("created_at.on_or_after", "2019-12-27T18:11:19.117Z")
                     .put("created_at.on_or_before", "2019-12-27T18:11:19.117Z")
                     .put("cursor", "cursor")
                     .put("idempotency_key", "x")
+                    .put("inbound_ach_debits.in", listOf("allowed").joinToString(","))
                     .put("limit", "1")
                     .put("status.in", listOf("active").joinToString(","))
                     .build()

@@ -575,7 +575,12 @@ internal class RealTimeDecisionTest {
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .device(
                             RealTimeDecision.DigitalWalletToken.Device.builder()
+                                .deviceType(
+                                    RealTimeDecision.DigitalWalletToken.Device.DeviceType.UNKNOWN
+                                )
                                 .identifier("identifier")
+                                .ipAddress("ip_address")
+                                .name("name")
                                 .build()
                         )
                         .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
@@ -1133,7 +1138,12 @@ internal class RealTimeDecisionTest {
                     .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                     .device(
                         RealTimeDecision.DigitalWalletToken.Device.builder()
+                            .deviceType(
+                                RealTimeDecision.DigitalWalletToken.Device.DeviceType.UNKNOWN
+                            )
                             .identifier("identifier")
+                            .ipAddress("ip_address")
+                            .name("name")
                             .build()
                     )
                     .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
@@ -1711,7 +1721,12 @@ internal class RealTimeDecisionTest {
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .device(
                             RealTimeDecision.DigitalWalletToken.Device.builder()
+                                .deviceType(
+                                    RealTimeDecision.DigitalWalletToken.Device.DeviceType.UNKNOWN
+                                )
                                 .identifier("identifier")
+                                .ipAddress("ip_address")
+                                .name("name")
                                 .build()
                         )
                         .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
