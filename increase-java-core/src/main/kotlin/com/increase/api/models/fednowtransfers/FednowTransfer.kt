@@ -40,6 +40,7 @@ private constructor(
     private val currency: JsonField<Currency>,
     private val debtorAddress: JsonField<DebtorAddress>,
     private val debtorName: JsonField<String>,
+    private val endToEndIdentification: JsonField<String>,
     private val externalAccountId: JsonField<String>,
     private val idempotencyKey: JsonField<String>,
     private val pendingTransactionId: JsonField<String>,
@@ -86,6 +87,9 @@ private constructor(
         @JsonProperty("debtor_name")
         @ExcludeMissing
         debtorName: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("end_to_end_identification")
+        @ExcludeMissing
+        endToEndIdentification: JsonField<String> = JsonMissing.of(),
         @JsonProperty("external_account_id")
         @ExcludeMissing
         externalAccountId: JsonField<String> = JsonMissing.of(),
@@ -134,6 +138,7 @@ private constructor(
         currency,
         debtorAddress,
         debtorName,
+        endToEndIdentification,
         externalAccountId,
         idempotencyKey,
         pendingTransactionId,
@@ -251,6 +256,15 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun debtorName(): String = debtorName.getRequired("debtor_name")
+
+    /**
+     * A free-form reference string set by the sender, to help identify the transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun endToEndIdentification(): Optional<String> =
+        endToEndIdentification.getOptional("end_to_end_identification")
 
     /**
      * The identifier of the External Account the transfer was made to, if any.
@@ -465,6 +479,16 @@ private constructor(
     @JsonProperty("debtor_name") @ExcludeMissing fun _debtorName(): JsonField<String> = debtorName
 
     /**
+     * Returns the raw JSON value of [endToEndIdentification].
+     *
+     * Unlike [endToEndIdentification], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    @JsonProperty("end_to_end_identification")
+    @ExcludeMissing
+    fun _endToEndIdentification(): JsonField<String> = endToEndIdentification
+
+    /**
      * Returns the raw JSON value of [externalAccountId].
      *
      * Unlike [externalAccountId], this method doesn't throw if the JSON field has an unexpected
@@ -610,6 +634,7 @@ private constructor(
          * .currency()
          * .debtorAddress()
          * .debtorName()
+         * .endToEndIdentification()
          * .externalAccountId()
          * .idempotencyKey()
          * .pendingTransactionId()
@@ -643,6 +668,7 @@ private constructor(
         private var currency: JsonField<Currency>? = null
         private var debtorAddress: JsonField<DebtorAddress>? = null
         private var debtorName: JsonField<String>? = null
+        private var endToEndIdentification: JsonField<String>? = null
         private var externalAccountId: JsonField<String>? = null
         private var idempotencyKey: JsonField<String>? = null
         private var pendingTransactionId: JsonField<String>? = null
@@ -672,6 +698,7 @@ private constructor(
             currency = fednowTransfer.currency
             debtorAddress = fednowTransfer.debtorAddress
             debtorName = fednowTransfer.debtorName
+            endToEndIdentification = fednowTransfer.endToEndIdentification
             externalAccountId = fednowTransfer.externalAccountId
             idempotencyKey = fednowTransfer.idempotencyKey
             pendingTransactionId = fednowTransfer.pendingTransactionId
@@ -872,6 +899,28 @@ private constructor(
          * value.
          */
         fun debtorName(debtorName: JsonField<String>) = apply { this.debtorName = debtorName }
+
+        /** A free-form reference string set by the sender, to help identify the transfer. */
+        fun endToEndIdentification(endToEndIdentification: String?) =
+            endToEndIdentification(JsonField.ofNullable(endToEndIdentification))
+
+        /**
+         * Alias for calling [Builder.endToEndIdentification] with
+         * `endToEndIdentification.orElse(null)`.
+         */
+        fun endToEndIdentification(endToEndIdentification: Optional<String>) =
+            endToEndIdentification(endToEndIdentification.getOrNull())
+
+        /**
+         * Sets [Builder.endToEndIdentification] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.endToEndIdentification] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun endToEndIdentification(endToEndIdentification: JsonField<String>) = apply {
+            this.endToEndIdentification = endToEndIdentification
+        }
 
         /** The identifier of the External Account the transfer was made to, if any. */
         fun externalAccountId(externalAccountId: String?) =
@@ -1145,6 +1194,7 @@ private constructor(
          * .currency()
          * .debtorAddress()
          * .debtorName()
+         * .endToEndIdentification()
          * .externalAccountId()
          * .idempotencyKey()
          * .pendingTransactionId()
@@ -1176,6 +1226,7 @@ private constructor(
                 checkRequired("currency", currency),
                 checkRequired("debtorAddress", debtorAddress),
                 checkRequired("debtorName", debtorName),
+                checkRequired("endToEndIdentification", endToEndIdentification),
                 checkRequired("externalAccountId", externalAccountId),
                 checkRequired("idempotencyKey", idempotencyKey),
                 checkRequired("pendingTransactionId", pendingTransactionId),
@@ -1226,6 +1277,7 @@ private constructor(
         currency().validate()
         debtorAddress().ifPresent { it.validate() }
         debtorName()
+        endToEndIdentification()
         externalAccountId()
         idempotencyKey()
         pendingTransactionId()
@@ -1269,6 +1321,7 @@ private constructor(
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (debtorAddress.asKnown().getOrNull()?.validity() ?: 0) +
             (if (debtorName.asKnown().isPresent) 1 else 0) +
+            (if (endToEndIdentification.asKnown().isPresent) 1 else 0) +
             (if (externalAccountId.asKnown().isPresent) 1 else 0) +
             (if (idempotencyKey.asKnown().isPresent) 1 else 0) +
             (if (pendingTransactionId.asKnown().isPresent) 1 else 0) +
@@ -5238,6 +5291,7 @@ private constructor(
             currency == other.currency &&
             debtorAddress == other.debtorAddress &&
             debtorName == other.debtorName &&
+            endToEndIdentification == other.endToEndIdentification &&
             externalAccountId == other.externalAccountId &&
             idempotencyKey == other.idempotencyKey &&
             pendingTransactionId == other.pendingTransactionId &&
@@ -5268,6 +5322,7 @@ private constructor(
             currency,
             debtorAddress,
             debtorName,
+            endToEndIdentification,
             externalAccountId,
             idempotencyKey,
             pendingTransactionId,
@@ -5288,5 +5343,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "FednowTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, createdAt=$createdAt, createdBy=$createdBy, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAddress=$debtorAddress, debtorName=$debtorName, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, returns=$returns, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
+        "FednowTransfer{id=$id, accountId=$accountId, accountNumber=$accountNumber, acknowledgement=$acknowledgement, amount=$amount, createdAt=$createdAt, createdBy=$createdBy, creditorAddress=$creditorAddress, creditorName=$creditorName, currency=$currency, debtorAddress=$debtorAddress, debtorName=$debtorName, endToEndIdentification=$endToEndIdentification, externalAccountId=$externalAccountId, idempotencyKey=$idempotencyKey, pendingTransactionId=$pendingTransactionId, rejection=$rejection, returns=$returns, routingNumber=$routingNumber, sourceAccountNumberId=$sourceAccountNumberId, status=$status, submission=$submission, transactionId=$transactionId, type=$type, uniqueEndToEndTransactionReference=$uniqueEndToEndTransactionReference, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, additionalProperties=$additionalProperties}"
 }
