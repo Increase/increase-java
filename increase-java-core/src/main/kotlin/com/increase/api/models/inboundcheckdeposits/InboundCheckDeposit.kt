@@ -39,6 +39,7 @@ private constructor(
     private val bankOfFirstDepositRoutingNumber: JsonField<String>,
     private val checkNumber: JsonField<String>,
     private val checkTransferId: JsonField<String>,
+    private val checkbookCheckId: JsonField<String>,
     private val createdAt: JsonField<OffsetDateTime>,
     private val currency: JsonField<Currency>,
     private val declinedAt: JsonField<OffsetDateTime>,
@@ -81,6 +82,9 @@ private constructor(
         @JsonProperty("check_transfer_id")
         @ExcludeMissing
         checkTransferId: JsonField<String> = JsonMissing.of(),
+        @JsonProperty("checkbook_check_id")
+        @ExcludeMissing
+        checkbookCheckId: JsonField<String> = JsonMissing.of(),
         @JsonProperty("created_at")
         @ExcludeMissing
         createdAt: JsonField<OffsetDateTime> = JsonMissing.of(),
@@ -117,6 +121,7 @@ private constructor(
         bankOfFirstDepositRoutingNumber,
         checkNumber,
         checkTransferId,
+        checkbookCheckId,
         createdAt,
         currency,
         declinedAt,
@@ -224,6 +229,14 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun checkTransferId(): Optional<String> = checkTransferId.getOptional("check_transfer_id")
+
+    /**
+     * If this deposit is for an existing Checkbook Check, the identifier of that Checkbook Check.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun checkbookCheckId(): Optional<String> = checkbookCheckId.getOptional("checkbook_check_id")
 
     /**
      * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit was
@@ -409,6 +422,16 @@ private constructor(
     fun _checkTransferId(): JsonField<String> = checkTransferId
 
     /**
+     * Returns the raw JSON value of [checkbookCheckId].
+     *
+     * Unlike [checkbookCheckId], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("checkbook_check_id")
+    @ExcludeMissing
+    fun _checkbookCheckId(): JsonField<String> = checkbookCheckId
+
+    /**
      * Returns the raw JSON value of [createdAt].
      *
      * Unlike [createdAt], this method doesn't throw if the JSON field has an unexpected type.
@@ -525,6 +548,7 @@ private constructor(
          * .bankOfFirstDepositRoutingNumber()
          * .checkNumber()
          * .checkTransferId()
+         * .checkbookCheckId()
          * .createdAt()
          * .currency()
          * .declinedAt()
@@ -554,6 +578,7 @@ private constructor(
         private var bankOfFirstDepositRoutingNumber: JsonField<String>? = null
         private var checkNumber: JsonField<String>? = null
         private var checkTransferId: JsonField<String>? = null
+        private var checkbookCheckId: JsonField<String>? = null
         private var createdAt: JsonField<OffsetDateTime>? = null
         private var currency: JsonField<Currency>? = null
         private var declinedAt: JsonField<OffsetDateTime>? = null
@@ -579,6 +604,7 @@ private constructor(
             bankOfFirstDepositRoutingNumber = inboundCheckDeposit.bankOfFirstDepositRoutingNumber
             checkNumber = inboundCheckDeposit.checkNumber
             checkTransferId = inboundCheckDeposit.checkTransferId
+            checkbookCheckId = inboundCheckDeposit.checkbookCheckId
             createdAt = inboundCheckDeposit.createdAt
             currency = inboundCheckDeposit.currency
             declinedAt = inboundCheckDeposit.declinedAt
@@ -792,6 +818,28 @@ private constructor(
         }
 
         /**
+         * If this deposit is for an existing Checkbook Check, the identifier of that Checkbook
+         * Check.
+         */
+        fun checkbookCheckId(checkbookCheckId: String?) =
+            checkbookCheckId(JsonField.ofNullable(checkbookCheckId))
+
+        /** Alias for calling [Builder.checkbookCheckId] with `checkbookCheckId.orElse(null)`. */
+        fun checkbookCheckId(checkbookCheckId: Optional<String>) =
+            checkbookCheckId(checkbookCheckId.getOrNull())
+
+        /**
+         * Sets [Builder.checkbookCheckId] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.checkbookCheckId] with a well-typed [String] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun checkbookCheckId(checkbookCheckId: JsonField<String>) = apply {
+            this.checkbookCheckId = checkbookCheckId
+        }
+
+        /**
          * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which the deposit
          * was attempted.
          */
@@ -1000,6 +1048,7 @@ private constructor(
          * .bankOfFirstDepositRoutingNumber()
          * .checkNumber()
          * .checkTransferId()
+         * .checkbookCheckId()
          * .createdAt()
          * .currency()
          * .declinedAt()
@@ -1027,6 +1076,7 @@ private constructor(
                 checkRequired("bankOfFirstDepositRoutingNumber", bankOfFirstDepositRoutingNumber),
                 checkRequired("checkNumber", checkNumber),
                 checkRequired("checkTransferId", checkTransferId),
+                checkRequired("checkbookCheckId", checkbookCheckId),
                 checkRequired("createdAt", createdAt),
                 checkRequired("currency", currency),
                 checkRequired("declinedAt", declinedAt),
@@ -1067,6 +1117,7 @@ private constructor(
         bankOfFirstDepositRoutingNumber()
         checkNumber()
         checkTransferId()
+        checkbookCheckId()
         createdAt()
         currency().validate()
         declinedAt()
@@ -1106,6 +1157,7 @@ private constructor(
             (if (bankOfFirstDepositRoutingNumber.asKnown().isPresent) 1 else 0) +
             (if (checkNumber.asKnown().isPresent) 1 else 0) +
             (if (checkTransferId.asKnown().isPresent) 1 else 0) +
+            (if (checkbookCheckId.asKnown().isPresent) 1 else 0) +
             (if (createdAt.asKnown().isPresent) 1 else 0) +
             (currency.asKnown().getOrNull()?.validity() ?: 0) +
             (if (declinedAt.asKnown().isPresent) 1 else 0) +
@@ -2655,6 +2707,7 @@ private constructor(
             bankOfFirstDepositRoutingNumber == other.bankOfFirstDepositRoutingNumber &&
             checkNumber == other.checkNumber &&
             checkTransferId == other.checkTransferId &&
+            checkbookCheckId == other.checkbookCheckId &&
             createdAt == other.createdAt &&
             currency == other.currency &&
             declinedAt == other.declinedAt &&
@@ -2681,6 +2734,7 @@ private constructor(
             bankOfFirstDepositRoutingNumber,
             checkNumber,
             checkTransferId,
+            checkbookCheckId,
             createdAt,
             currency,
             declinedAt,
@@ -2698,5 +2752,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "InboundCheckDeposit{id=$id, acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
+        "InboundCheckDeposit{id=$id, acceptedAt=$acceptedAt, accountId=$accountId, accountNumberId=$accountNumberId, adjustments=$adjustments, amount=$amount, automaticallyResolvesAt=$automaticallyResolvesAt, backImageFileId=$backImageFileId, bankOfFirstDepositRoutingNumber=$bankOfFirstDepositRoutingNumber, checkNumber=$checkNumber, checkTransferId=$checkTransferId, checkbookCheckId=$checkbookCheckId, createdAt=$createdAt, currency=$currency, declinedAt=$declinedAt, declinedTransactionId=$declinedTransactionId, depositReturn=$depositReturn, frontImageFileId=$frontImageFileId, payeeNameAnalysis=$payeeNameAnalysis, status=$status, transactionId=$transactionId, type=$type, additionalProperties=$additionalProperties}"
 }

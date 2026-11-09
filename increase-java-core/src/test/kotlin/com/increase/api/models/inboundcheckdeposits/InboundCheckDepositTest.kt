@@ -32,6 +32,7 @@ internal class InboundCheckDepositTest {
                 .bankOfFirstDepositRoutingNumber("101050001")
                 .checkNumber("123")
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                .checkbookCheckId(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(InboundCheckDeposit.Currency.USD)
                 .declinedAt(null)
@@ -73,6 +74,7 @@ internal class InboundCheckDepositTest {
         assertThat(inboundCheckDeposit.checkNumber()).contains("123")
         assertThat(inboundCheckDeposit.checkTransferId())
             .contains("check_transfer_30b43acfu9vw8fyc4f5")
+        assertThat(inboundCheckDeposit.checkbookCheckId()).isEmpty
         assertThat(inboundCheckDeposit.createdAt())
             .isEqualTo(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
         assertThat(inboundCheckDeposit.currency()).isEqualTo(InboundCheckDeposit.Currency.USD)
@@ -118,6 +120,7 @@ internal class InboundCheckDepositTest {
                 .bankOfFirstDepositRoutingNumber("101050001")
                 .checkNumber("123")
                 .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                .checkbookCheckId(null)
                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
                 .currency(InboundCheckDeposit.Currency.USD)
                 .declinedAt(null)

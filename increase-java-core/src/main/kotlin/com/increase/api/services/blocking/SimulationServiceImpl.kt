@@ -37,6 +37,8 @@ import com.increase.api.services.blocking.simulations.CheckDepositService
 import com.increase.api.services.blocking.simulations.CheckDepositServiceImpl
 import com.increase.api.services.blocking.simulations.CheckTransferService
 import com.increase.api.services.blocking.simulations.CheckTransferServiceImpl
+import com.increase.api.services.blocking.simulations.CheckbookService
+import com.increase.api.services.blocking.simulations.CheckbookServiceImpl
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestService
 import com.increase.api.services.blocking.simulations.DigitalWalletTokenRequestServiceImpl
 import com.increase.api.services.blocking.simulations.EntityOnboardingSessionService
@@ -170,6 +172,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         CheckTransferServiceImpl(clientOptions)
     }
 
+    private val checkbooks: CheckbookService by lazy { CheckbookServiceImpl(clientOptions) }
+
     private val inboundCheckDeposits: InboundCheckDepositService by lazy {
         InboundCheckDepositServiceImpl(clientOptions)
     }
@@ -267,6 +271,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
         inboundWireDrawdownRequests
 
     override fun checkTransfers(): CheckTransferService = checkTransfers
+
+    override fun checkbooks(): CheckbookService = checkbooks
 
     override fun inboundCheckDeposits(): InboundCheckDepositService = inboundCheckDeposits
 
@@ -395,6 +401,10 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             CheckTransferServiceImpl.WithRawResponseImpl(clientOptions)
         }
 
+        private val checkbooks: CheckbookService.WithRawResponse by lazy {
+            CheckbookServiceImpl.WithRawResponseImpl(clientOptions)
+        }
+
         private val inboundCheckDeposits: InboundCheckDepositService.WithRawResponse by lazy {
             InboundCheckDepositServiceImpl.WithRawResponseImpl(clientOptions)
         }
@@ -515,6 +525,8 @@ class SimulationServiceImpl internal constructor(private val clientOptions: Clie
             InboundWireDrawdownRequestService.WithRawResponse = inboundWireDrawdownRequests
 
         override fun checkTransfers(): CheckTransferService.WithRawResponse = checkTransfers
+
+        override fun checkbooks(): CheckbookService.WithRawResponse = checkbooks
 
         override fun inboundCheckDeposits(): InboundCheckDepositService.WithRawResponse =
             inboundCheckDeposits

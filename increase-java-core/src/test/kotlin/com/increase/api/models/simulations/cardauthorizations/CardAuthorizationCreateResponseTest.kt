@@ -324,6 +324,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .auxiliaryOnUs("99999")
                                         .backImageFileId(null)
                                         .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                        .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                         .frontImageFileId(null)
                                         .inboundCheckDepositId(
                                             "inbound_check_deposit_zoshvqybq0cjjm31mra"
@@ -1196,6 +1197,7 @@ internal class CardAuthorizationCreateResponseTest {
                                     .auxiliaryOnUs("99999")
                                     .backImageFileId(null)
                                     .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                    .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                     .frontImageFileId(null)
                                     .inboundCheckDepositId(
                                         "inbound_check_deposit_zoshvqybq0cjjm31mra"
@@ -2061,6 +2063,7 @@ internal class CardAuthorizationCreateResponseTest {
                                         .auxiliaryOnUs("99999")
                                         .backImageFileId(null)
                                         .checkTransferId("check_transfer_30b43acfu9vw8fyc4f5")
+                                        .checkbookCheckId("checkbook_check_klgh3z50guf6jcnfhibb")
                                         .frontImageFileId(null)
                                         .inboundCheckDepositId(
                                             "inbound_check_deposit_zoshvqybq0cjjm31mra"

@@ -12,7 +12,6 @@ import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
 import com.increase.api.core.JsonValue
 import com.increase.api.core.Params
-import com.increase.api.core.checkRequired
 import com.increase.api.core.http.Headers
 import com.increase.api.core.http.QueryParams
 import com.increase.api.errors.IncreaseInvalidDataException
@@ -34,20 +33,13 @@ private constructor(
     fun accountNumberId(): Optional<String> = Optional.ofNullable(accountNumberId)
 
     /**
-     * Options related to how this Account Number handles inbound ACH transfers.
+     * Whether inbound ACH debits are allowed against this Account Number. Note that ACH debits will
+     * be declined if this is `allowed` but the Account Number is not active.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
      */
-    fun inboundAch(): Optional<InboundAch> = body.inboundAch()
-
-    /**
-     * Options related to how this Account Number should handle inbound check withdrawals.
-     *
-     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
-     *   server responded with an unexpected value).
-     */
-    fun inboundChecks(): Optional<InboundChecks> = body.inboundChecks()
+    fun inboundAchDebits(): Optional<InboundAchDebits> = body.inboundAchDebits()
 
     /**
      * The name you choose for the Account Number.
@@ -66,18 +58,21 @@ private constructor(
     fun status(): Optional<Status> = body.status()
 
     /**
-     * Returns the raw JSON value of [inboundAch].
+     * Whether unregistered inbound checks for this Account Number can be deposited.
      *
-     * Unlike [inboundAch], this method doesn't throw if the JSON field has an unexpected type.
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
      */
-    fun _inboundAch(): JsonField<InboundAch> = body._inboundAch()
+    fun unregisteredInboundChecks(): Optional<UnregisteredInboundChecks> =
+        body.unregisteredInboundChecks()
 
     /**
-     * Returns the raw JSON value of [inboundChecks].
+     * Returns the raw JSON value of [inboundAchDebits].
      *
-     * Unlike [inboundChecks], this method doesn't throw if the JSON field has an unexpected type.
+     * Unlike [inboundAchDebits], this method doesn't throw if the JSON field has an unexpected
+     * type.
      */
-    fun _inboundChecks(): JsonField<InboundChecks> = body._inboundChecks()
+    fun _inboundAchDebits(): JsonField<InboundAchDebits> = body._inboundAchDebits()
 
     /**
      * Returns the raw JSON value of [name].
@@ -92,6 +87,15 @@ private constructor(
      * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _status(): JsonField<Status> = body._status()
+
+    /**
+     * Returns the raw JSON value of [unregisteredInboundChecks].
+     *
+     * Unlike [unregisteredInboundChecks], this method doesn't throw if the JSON field has an
+     * unexpected type.
+     */
+    fun _unregisteredInboundChecks(): JsonField<UnregisteredInboundChecks> =
+        body._unregisteredInboundChecks()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -143,39 +147,30 @@ private constructor(
          *
          * This is generally only useful if you are already constructing the body separately.
          * Otherwise, it's more convenient to use the top-level setters instead:
-         * - [inboundAch]
-         * - [inboundChecks]
+         * - [inboundAchDebits]
          * - [name]
          * - [status]
+         * - [unregisteredInboundChecks]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
-        /** Options related to how this Account Number handles inbound ACH transfers. */
-        fun inboundAch(inboundAch: InboundAch) = apply { body.inboundAch(inboundAch) }
-
         /**
-         * Sets [Builder.inboundAch] to an arbitrary JSON value.
-         *
-         * You should usually call [Builder.inboundAch] with a well-typed [InboundAch] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * Whether inbound ACH debits are allowed against this Account Number. Note that ACH debits
+         * will be declined if this is `allowed` but the Account Number is not active.
          */
-        fun inboundAch(inboundAch: JsonField<InboundAch>) = apply { body.inboundAch(inboundAch) }
-
-        /** Options related to how this Account Number should handle inbound check withdrawals. */
-        fun inboundChecks(inboundChecks: InboundChecks) = apply {
-            body.inboundChecks(inboundChecks)
+        fun inboundAchDebits(inboundAchDebits: InboundAchDebits) = apply {
+            body.inboundAchDebits(inboundAchDebits)
         }
 
         /**
-         * Sets [Builder.inboundChecks] to an arbitrary JSON value.
+         * Sets [Builder.inboundAchDebits] to an arbitrary JSON value.
          *
-         * You should usually call [Builder.inboundChecks] with a well-typed [InboundChecks] value
-         * instead. This method is primarily for setting the field to an undocumented or not yet
-         * supported value.
+         * You should usually call [Builder.inboundAchDebits] with a well-typed [InboundAchDebits]
+         * value instead. This method is primarily for setting the field to an undocumented or not
+         * yet supported value.
          */
-        fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
-            body.inboundChecks(inboundChecks)
+        fun inboundAchDebits(inboundAchDebits: JsonField<InboundAchDebits>) = apply {
+            body.inboundAchDebits(inboundAchDebits)
         }
 
         /** The name you choose for the Account Number. */
@@ -199,6 +194,23 @@ private constructor(
          * method is primarily for setting the field to an undocumented or not yet supported value.
          */
         fun status(status: JsonField<Status>) = apply { body.status(status) }
+
+        /** Whether unregistered inbound checks for this Account Number can be deposited. */
+        fun unregisteredInboundChecks(unregisteredInboundChecks: UnregisteredInboundChecks) =
+            apply {
+                body.unregisteredInboundChecks(unregisteredInboundChecks)
+            }
+
+        /**
+         * Sets [Builder.unregisteredInboundChecks] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.unregisteredInboundChecks] with a well-typed
+         * [UnregisteredInboundChecks] value instead. This method is primarily for setting the field
+         * to an undocumented or not yet supported value.
+         */
+        fun unregisteredInboundChecks(
+            unregisteredInboundChecks: JsonField<UnregisteredInboundChecks>
+        ) = apply { body.unregisteredInboundChecks(unregisteredInboundChecks) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -346,40 +358,34 @@ private constructor(
     class Body
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
-        private val inboundAch: JsonField<InboundAch>,
-        private val inboundChecks: JsonField<InboundChecks>,
+        private val inboundAchDebits: JsonField<InboundAchDebits>,
         private val name: JsonField<String>,
         private val status: JsonField<Status>,
+        private val unregisteredInboundChecks: JsonField<UnregisteredInboundChecks>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
         @JsonCreator
         private constructor(
-            @JsonProperty("inbound_ach")
+            @JsonProperty("inbound_ach_debits")
             @ExcludeMissing
-            inboundAch: JsonField<InboundAch> = JsonMissing.of(),
-            @JsonProperty("inbound_checks")
-            @ExcludeMissing
-            inboundChecks: JsonField<InboundChecks> = JsonMissing.of(),
+            inboundAchDebits: JsonField<InboundAchDebits> = JsonMissing.of(),
             @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
             @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of(),
-        ) : this(inboundAch, inboundChecks, name, status, mutableMapOf())
+            @JsonProperty("unregistered_inbound_checks")
+            @ExcludeMissing
+            unregisteredInboundChecks: JsonField<UnregisteredInboundChecks> = JsonMissing.of(),
+        ) : this(inboundAchDebits, name, status, unregisteredInboundChecks, mutableMapOf())
 
         /**
-         * Options related to how this Account Number handles inbound ACH transfers.
+         * Whether inbound ACH debits are allowed against this Account Number. Note that ACH debits
+         * will be declined if this is `allowed` but the Account Number is not active.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun inboundAch(): Optional<InboundAch> = inboundAch.getOptional("inbound_ach")
-
-        /**
-         * Options related to how this Account Number should handle inbound check withdrawals.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
-         */
-        fun inboundChecks(): Optional<InboundChecks> = inboundChecks.getOptional("inbound_checks")
+        fun inboundAchDebits(): Optional<InboundAchDebits> =
+            inboundAchDebits.getOptional("inbound_ach_debits")
 
         /**
          * The name you choose for the Account Number.
@@ -398,23 +404,23 @@ private constructor(
         fun status(): Optional<Status> = status.getOptional("status")
 
         /**
-         * Returns the raw JSON value of [inboundAch].
+         * Whether unregistered inbound checks for this Account Number can be deposited.
          *
-         * Unlike [inboundAch], this method doesn't throw if the JSON field has an unexpected type.
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
          */
-        @JsonProperty("inbound_ach")
-        @ExcludeMissing
-        fun _inboundAch(): JsonField<InboundAch> = inboundAch
+        fun unregisteredInboundChecks(): Optional<UnregisteredInboundChecks> =
+            unregisteredInboundChecks.getOptional("unregistered_inbound_checks")
 
         /**
-         * Returns the raw JSON value of [inboundChecks].
+         * Returns the raw JSON value of [inboundAchDebits].
          *
-         * Unlike [inboundChecks], this method doesn't throw if the JSON field has an unexpected
+         * Unlike [inboundAchDebits], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
-        @JsonProperty("inbound_checks")
+        @JsonProperty("inbound_ach_debits")
         @ExcludeMissing
-        fun _inboundChecks(): JsonField<InboundChecks> = inboundChecks
+        fun _inboundAchDebits(): JsonField<InboundAchDebits> = inboundAchDebits
 
         /**
          * Returns the raw JSON value of [name].
@@ -429,6 +435,17 @@ private constructor(
          * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
          */
         @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
+
+        /**
+         * Returns the raw JSON value of [unregisteredInboundChecks].
+         *
+         * Unlike [unregisteredInboundChecks], this method doesn't throw if the JSON field has an
+         * unexpected type.
+         */
+        @JsonProperty("unregistered_inbound_checks")
+        @ExcludeMissing
+        fun _unregisteredInboundChecks(): JsonField<UnregisteredInboundChecks> =
+            unregisteredInboundChecks
 
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -451,50 +468,38 @@ private constructor(
         /** A builder for [Body]. */
         class Builder internal constructor() {
 
-            private var inboundAch: JsonField<InboundAch> = JsonMissing.of()
-            private var inboundChecks: JsonField<InboundChecks> = JsonMissing.of()
+            private var inboundAchDebits: JsonField<InboundAchDebits> = JsonMissing.of()
             private var name: JsonField<String> = JsonMissing.of()
             private var status: JsonField<Status> = JsonMissing.of()
+            private var unregisteredInboundChecks: JsonField<UnregisteredInboundChecks> =
+                JsonMissing.of()
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(body: Body) = apply {
-                inboundAch = body.inboundAch
-                inboundChecks = body.inboundChecks
+                inboundAchDebits = body.inboundAchDebits
                 name = body.name
                 status = body.status
+                unregisteredInboundChecks = body.unregisteredInboundChecks
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
-            /** Options related to how this Account Number handles inbound ACH transfers. */
-            fun inboundAch(inboundAch: InboundAch) = inboundAch(JsonField.of(inboundAch))
+            /**
+             * Whether inbound ACH debits are allowed against this Account Number. Note that ACH
+             * debits will be declined if this is `allowed` but the Account Number is not active.
+             */
+            fun inboundAchDebits(inboundAchDebits: InboundAchDebits) =
+                inboundAchDebits(JsonField.of(inboundAchDebits))
 
             /**
-             * Sets [Builder.inboundAch] to an arbitrary JSON value.
+             * Sets [Builder.inboundAchDebits] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.inboundAch] with a well-typed [InboundAch] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
+             * You should usually call [Builder.inboundAchDebits] with a well-typed
+             * [InboundAchDebits] value instead. This method is primarily for setting the field to
+             * an undocumented or not yet supported value.
              */
-            fun inboundAch(inboundAch: JsonField<InboundAch>) = apply {
-                this.inboundAch = inboundAch
-            }
-
-            /**
-             * Options related to how this Account Number should handle inbound check withdrawals.
-             */
-            fun inboundChecks(inboundChecks: InboundChecks) =
-                inboundChecks(JsonField.of(inboundChecks))
-
-            /**
-             * Sets [Builder.inboundChecks] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.inboundChecks] with a well-typed [InboundChecks]
-             * value instead. This method is primarily for setting the field to an undocumented or
-             * not yet supported value.
-             */
-            fun inboundChecks(inboundChecks: JsonField<InboundChecks>) = apply {
-                this.inboundChecks = inboundChecks
+            fun inboundAchDebits(inboundAchDebits: JsonField<InboundAchDebits>) = apply {
+                this.inboundAchDebits = inboundAchDebits
             }
 
             /** The name you choose for the Account Number. */
@@ -521,6 +526,21 @@ private constructor(
              */
             fun status(status: JsonField<Status>) = apply { this.status = status }
 
+            /** Whether unregistered inbound checks for this Account Number can be deposited. */
+            fun unregisteredInboundChecks(unregisteredInboundChecks: UnregisteredInboundChecks) =
+                unregisteredInboundChecks(JsonField.of(unregisteredInboundChecks))
+
+            /**
+             * Sets [Builder.unregisteredInboundChecks] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.unregisteredInboundChecks] with a well-typed
+             * [UnregisteredInboundChecks] value instead. This method is primarily for setting the
+             * field to an undocumented or not yet supported value.
+             */
+            fun unregisteredInboundChecks(
+                unregisteredInboundChecks: JsonField<UnregisteredInboundChecks>
+            ) = apply { this.unregisteredInboundChecks = unregisteredInboundChecks }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -546,7 +566,13 @@ private constructor(
              * Further updates to this [Builder] will not mutate the returned instance.
              */
             fun build(): Body =
-                Body(inboundAch, inboundChecks, name, status, additionalProperties.toMutableMap())
+                Body(
+                    inboundAchDebits,
+                    name,
+                    status,
+                    unregisteredInboundChecks,
+                    additionalProperties.toMutableMap(),
+                )
         }
 
         private var validated: Boolean = false
@@ -565,10 +591,10 @@ private constructor(
                 return@apply
             }
 
-            inboundAch().ifPresent { it.validate() }
-            inboundChecks().ifPresent { it.validate() }
+            inboundAchDebits().ifPresent { it.validate() }
             name()
             status().ifPresent { it.validate() }
+            unregisteredInboundChecks().ifPresent { it.validate() }
             validated = true
         }
 
@@ -588,10 +614,10 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (inboundAch.asKnown().getOrNull()?.validity() ?: 0) +
-                (inboundChecks.asKnown().getOrNull()?.validity() ?: 0) +
+            (inboundAchDebits.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (name.asKnown().isPresent) 1 else 0) +
-                (status.asKnown().getOrNull()?.validity() ?: 0)
+                (status.asKnown().getOrNull()?.validity() ?: 0) +
+                (unregisteredInboundChecks.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -599,129 +625,138 @@ private constructor(
             }
 
             return other is Body &&
-                inboundAch == other.inboundAch &&
-                inboundChecks == other.inboundChecks &&
+                inboundAchDebits == other.inboundAchDebits &&
                 name == other.name &&
                 status == other.status &&
+                unregisteredInboundChecks == other.unregisteredInboundChecks &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(inboundAch, inboundChecks, name, status, additionalProperties)
+            Objects.hash(
+                inboundAchDebits,
+                name,
+                status,
+                unregisteredInboundChecks,
+                additionalProperties,
+            )
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{inboundAch=$inboundAch, inboundChecks=$inboundChecks, name=$name, status=$status, additionalProperties=$additionalProperties}"
+            "Body{inboundAchDebits=$inboundAchDebits, name=$name, status=$status, unregisteredInboundChecks=$unregisteredInboundChecks, additionalProperties=$additionalProperties}"
     }
 
-    /** Options related to how this Account Number handles inbound ACH transfers. */
-    class InboundAch
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val debitStatus: JsonField<DebitStatus>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("debit_status")
-            @ExcludeMissing
-            debitStatus: JsonField<DebitStatus> = JsonMissing.of()
-        ) : this(debitStatus, mutableMapOf())
+    /**
+     * Whether inbound ACH debits are allowed against this Account Number. Note that ACH debits will
+     * be declined if this is `allowed` but the Account Number is not active.
+     */
+    class InboundAchDebits @JsonCreator private constructor(private val value: JsonField<String>) :
+        Enum {
 
         /**
-         * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
-         * declined if this is `allowed` but the Account Number is not active.
+         * Returns this class instance's raw value.
          *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
-         *   the server responded with an unexpected value).
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
          */
-        fun debitStatus(): Optional<DebitStatus> = debitStatus.getOptional("debit_status")
-
-        /**
-         * Returns the raw JSON value of [debitStatus].
-         *
-         * Unlike [debitStatus], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("debit_status")
-        @ExcludeMissing
-        fun _debitStatus(): JsonField<DebitStatus> = debitStatus
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
 
         companion object {
 
-            /** Returns a mutable builder for constructing an instance of [InboundAch]. */
-            @JvmStatic fun builder() = Builder()
+            /** ACH Debits are allowed. */
+            @JvmField val ALLOWED = of("allowed")
+
+            /**
+             * ACH Debits are blocked. Received debits will be declined and returned with code `R20`
+             * (non-transaction account).
+             */
+            @JvmField val BLOCKED = of("blocked")
+
+            @JvmStatic fun of(value: String) = InboundAchDebits(JsonField.of(value))
         }
 
-        /** A builder for [InboundAch]. */
-        class Builder internal constructor() {
-
-            private var debitStatus: JsonField<DebitStatus> = JsonMissing.of()
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(inboundAch: InboundAch) = apply {
-                debitStatus = inboundAch.debitStatus
-                additionalProperties = inboundAch.additionalProperties.toMutableMap()
-            }
-
+        /** An enum containing [InboundAchDebits]'s known values. */
+        enum class Known {
+            /** ACH Debits are allowed. */
+            ALLOWED,
             /**
-             * Whether ACH debits are allowed against this Account Number. Note that ACH debits will
-             * be declined if this is `allowed` but the Account Number is not active.
+             * ACH Debits are blocked. Received debits will be declined and returned with code `R20`
+             * (non-transaction account).
              */
-            fun debitStatus(debitStatus: DebitStatus) = debitStatus(JsonField.of(debitStatus))
-
-            /**
-             * Sets [Builder.debitStatus] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.debitStatus] with a well-typed [DebitStatus] value
-             * instead. This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun debitStatus(debitStatus: JsonField<DebitStatus>) = apply {
-                this.debitStatus = debitStatus
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [InboundAch].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): InboundAch = InboundAch(debitStatus, additionalProperties.toMutableMap())
+            BLOCKED,
         }
+
+        /**
+         * An enum containing [InboundAchDebits]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [InboundAchDebits] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** ACH Debits are allowed. */
+            ALLOWED,
+            /**
+             * ACH Debits are blocked. Received debits will be declined and returned with code `R20`
+             * (non-transaction account).
+             */
+            BLOCKED,
+            /**
+             * An enum member indicating that [InboundAchDebits] was instantiated with an unknown
+             * value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ALLOWED -> Value.ALLOWED
+                BLOCKED -> Value.BLOCKED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ALLOWED -> Known.ALLOWED
+                BLOCKED -> Known.BLOCKED
+                else -> throw IncreaseInvalidDataException("Unknown InboundAchDebits: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
 
         private var validated: Boolean = false
 
@@ -734,12 +769,12 @@ private constructor(
          * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
          *   expected type.
          */
-        fun validate(): InboundAch = apply {
+        fun validate(): InboundAchDebits = apply {
             if (validated) {
                 return@apply
             }
 
-            debitStatus().ifPresent { it.validate() }
+            known()
             validated = true
         }
 
@@ -757,515 +792,19 @@ private constructor(
          *
          * Used for best match union deserialization.
          */
-        @JvmSynthetic
-        internal fun validity(): Int = (debitStatus.asKnown().getOrNull()?.validity() ?: 0)
-
-        /**
-         * Whether ACH debits are allowed against this Account Number. Note that ACH debits will be
-         * declined if this is `allowed` but the Account Number is not active.
-         */
-        class DebitStatus @JsonCreator private constructor(private val value: JsonField<String>) :
-            Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** ACH Debits are allowed. */
-                @JvmField val ALLOWED = of("allowed")
-
-                /**
-                 * ACH Debits are blocked. Received debits will be declined and returned with code
-                 * `R20` (non-transaction account).
-                 */
-                @JvmField val BLOCKED = of("blocked")
-
-                @JvmStatic fun of(value: String) = DebitStatus(JsonField.of(value))
-            }
-
-            /** An enum containing [DebitStatus]'s known values. */
-            enum class Known {
-                /** ACH Debits are allowed. */
-                ALLOWED,
-                /**
-                 * ACH Debits are blocked. Received debits will be declined and returned with code
-                 * `R20` (non-transaction account).
-                 */
-                BLOCKED,
-            }
-
-            /**
-             * An enum containing [DebitStatus]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [DebitStatus] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** ACH Debits are allowed. */
-                ALLOWED,
-                /**
-                 * ACH Debits are blocked. Received debits will be declined and returned with code
-                 * `R20` (non-transaction account).
-                 */
-                BLOCKED,
-                /**
-                 * An enum member indicating that [DebitStatus] was instantiated with an unknown
-                 * value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ALLOWED -> Value.ALLOWED
-                    BLOCKED -> Value.BLOCKED
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ALLOWED -> Known.ALLOWED
-                    BLOCKED -> Known.BLOCKED
-                    else -> throw IncreaseInvalidDataException("Unknown DebitStatus: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
-             *   its expected type.
-             */
-            fun validate(): DebitStatus = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is DebitStatus && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
                 return true
             }
 
-            return other is InboundAch &&
-                debitStatus == other.debitStatus &&
-                additionalProperties == other.additionalProperties
+            return other is InboundAchDebits && value == other.value
         }
 
-        private val hashCode: Int by lazy { Objects.hash(debitStatus, additionalProperties) }
+        override fun hashCode() = value.hashCode()
 
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "InboundAch{debitStatus=$debitStatus, additionalProperties=$additionalProperties}"
-    }
-
-    /** Options related to how this Account Number should handle inbound check withdrawals. */
-    class InboundChecks
-    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
-    private constructor(
-        private val status: JsonField<Status>,
-        private val additionalProperties: MutableMap<String, JsonValue>,
-    ) {
-
-        @JsonCreator
-        private constructor(
-            @JsonProperty("status") @ExcludeMissing status: JsonField<Status> = JsonMissing.of()
-        ) : this(status, mutableMapOf())
-
-        /**
-         * How Increase should process checks with this account number printed on them.
-         *
-         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
-         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
-         */
-        fun status(): Status = status.getRequired("status")
-
-        /**
-         * Returns the raw JSON value of [status].
-         *
-         * Unlike [status], this method doesn't throw if the JSON field has an unexpected type.
-         */
-        @JsonProperty("status") @ExcludeMissing fun _status(): JsonField<Status> = status
-
-        @JsonAnySetter
-        private fun putAdditionalProperty(key: String, value: JsonValue) {
-            additionalProperties.put(key, value)
-        }
-
-        @JsonAnyGetter
-        @ExcludeMissing
-        fun _additionalProperties(): Map<String, JsonValue> =
-            Collections.unmodifiableMap(additionalProperties)
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /**
-             * Returns a mutable builder for constructing an instance of [InboundChecks].
-             *
-             * The following fields are required:
-             * ```java
-             * .status()
-             * ```
-             */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [InboundChecks]. */
-        class Builder internal constructor() {
-
-            private var status: JsonField<Status>? = null
-            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
-
-            @JvmSynthetic
-            internal fun from(inboundChecks: InboundChecks) = apply {
-                status = inboundChecks.status
-                additionalProperties = inboundChecks.additionalProperties.toMutableMap()
-            }
-
-            /** How Increase should process checks with this account number printed on them. */
-            fun status(status: Status) = status(JsonField.of(status))
-
-            /**
-             * Sets [Builder.status] to an arbitrary JSON value.
-             *
-             * You should usually call [Builder.status] with a well-typed [Status] value instead.
-             * This method is primarily for setting the field to an undocumented or not yet
-             * supported value.
-             */
-            fun status(status: JsonField<Status>) = apply { this.status = status }
-
-            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                keys.forEach(::removeAdditionalProperty)
-            }
-
-            /**
-             * Returns an immutable instance of [InboundChecks].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             *
-             * The following fields are required:
-             * ```java
-             * .status()
-             * ```
-             *
-             * @throws IllegalStateException if any required field is unset.
-             */
-            fun build(): InboundChecks =
-                InboundChecks(checkRequired("status", status), additionalProperties.toMutableMap())
-        }
-
-        private var validated: Boolean = false
-
-        /**
-         * Validates that the types of all values in this object match their expected types
-         * recursively.
-         *
-         * This method is _not_ forwards compatible with new types from the API for existing fields.
-         *
-         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
-         *   expected type.
-         */
-        fun validate(): InboundChecks = apply {
-            if (validated) {
-                return@apply
-            }
-
-            status().validate()
-            validated = true
-        }
-
-        fun isValid(): Boolean =
-            try {
-                validate()
-                true
-            } catch (e: IncreaseInvalidDataException) {
-                false
-            }
-
-        /**
-         * Returns a score indicating how many valid values are contained in this object
-         * recursively.
-         *
-         * Used for best match union deserialization.
-         */
-        @JvmSynthetic internal fun validity(): Int = (status.asKnown().getOrNull()?.validity() ?: 0)
-
-        /** How Increase should process checks with this account number printed on them. */
-        class Status @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /**
-                 * Checks with this Account Number will be processed even if they are not associated
-                 * with a Check Transfer.
-                 */
-                @JvmField val ALLOWED = of("allowed")
-
-                /**
-                 * Checks with this Account Number will be processed only if they can be matched to
-                 * an existing Check Transfer.
-                 */
-                @JvmField val CHECK_TRANSFERS_ONLY = of("check_transfers_only")
-
-                @JvmStatic fun of(value: String) = Status(JsonField.of(value))
-            }
-
-            /** An enum containing [Status]'s known values. */
-            enum class Known {
-                /**
-                 * Checks with this Account Number will be processed even if they are not associated
-                 * with a Check Transfer.
-                 */
-                ALLOWED,
-                /**
-                 * Checks with this Account Number will be processed only if they can be matched to
-                 * an existing Check Transfer.
-                 */
-                CHECK_TRANSFERS_ONLY,
-            }
-
-            /**
-             * An enum containing [Status]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [Status] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /**
-                 * Checks with this Account Number will be processed even if they are not associated
-                 * with a Check Transfer.
-                 */
-                ALLOWED,
-                /**
-                 * Checks with this Account Number will be processed only if they can be matched to
-                 * an existing Check Transfer.
-                 */
-                CHECK_TRANSFERS_ONLY,
-                /**
-                 * An enum member indicating that [Status] was instantiated with an unknown value.
-                 */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ALLOWED -> Value.ALLOWED
-                    CHECK_TRANSFERS_ONLY -> Value.CHECK_TRANSFERS_ONLY
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ALLOWED -> Known.ALLOWED
-                    CHECK_TRANSFERS_ONLY -> Known.CHECK_TRANSFERS_ONLY
-                    else -> throw IncreaseInvalidDataException("Unknown Status: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
-             *   its expected type.
-             */
-            fun validate(): Status = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is Status && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is InboundChecks &&
-                status == other.status &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(status, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "InboundChecks{status=$status, additionalProperties=$additionalProperties}"
+        override fun toString() = value.toString()
     }
 
     /** This indicates if transfers can be made to the Account Number. */
@@ -1413,6 +952,175 @@ private constructor(
             }
 
             return other is Status && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
+    }
+
+    /** Whether unregistered inbound checks for this Account Number can be deposited. */
+    class UnregisteredInboundChecks
+    @JsonCreator
+    private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /**
+             * Accept all Inbound Check Deposits, even if they are not associated with a Check
+             * Transfer or Checkbook Check.
+             */
+            @JvmField val ALLOWED = of("allowed")
+
+            /**
+             * Only accept Inbound Check Deposits if they can be matched to a Check Transfer or
+             * Checkbook Check.
+             */
+            @JvmField val BLOCKED = of("blocked")
+
+            @JvmStatic fun of(value: String) = UnregisteredInboundChecks(JsonField.of(value))
+        }
+
+        /** An enum containing [UnregisteredInboundChecks]'s known values. */
+        enum class Known {
+            /**
+             * Accept all Inbound Check Deposits, even if they are not associated with a Check
+             * Transfer or Checkbook Check.
+             */
+            ALLOWED,
+            /**
+             * Only accept Inbound Check Deposits if they can be matched to a Check Transfer or
+             * Checkbook Check.
+             */
+            BLOCKED,
+        }
+
+        /**
+         * An enum containing [UnregisteredInboundChecks]'s known values, as well as an [_UNKNOWN]
+         * member.
+         *
+         * An instance of [UnregisteredInboundChecks] can contain an unknown value in a couple of
+         * cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /**
+             * Accept all Inbound Check Deposits, even if they are not associated with a Check
+             * Transfer or Checkbook Check.
+             */
+            ALLOWED,
+            /**
+             * Only accept Inbound Check Deposits if they can be matched to a Check Transfer or
+             * Checkbook Check.
+             */
+            BLOCKED,
+            /**
+             * An enum member indicating that [UnregisteredInboundChecks] was instantiated with an
+             * unknown value.
+             */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                ALLOWED -> Value.ALLOWED
+                BLOCKED -> Value.BLOCKED
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                ALLOWED -> Known.ALLOWED
+                BLOCKED -> Known.BLOCKED
+                else ->
+                    throw IncreaseInvalidDataException("Unknown UnregisteredInboundChecks: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): UnregisteredInboundChecks = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is UnregisteredInboundChecks && value == other.value
         }
 
         override fun hashCode() = value.hashCode()

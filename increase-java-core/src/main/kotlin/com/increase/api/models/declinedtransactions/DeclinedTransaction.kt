@@ -14481,6 +14481,7 @@ private constructor(
             private val auxiliaryOnUs: JsonField<String>,
             private val backImageFileId: JsonField<String>,
             private val checkTransferId: JsonField<String>,
+            private val checkbookCheckId: JsonField<String>,
             private val frontImageFileId: JsonField<String>,
             private val inboundCheckDepositId: JsonField<String>,
             private val reason: JsonField<Reason>,
@@ -14499,6 +14500,9 @@ private constructor(
                 @JsonProperty("check_transfer_id")
                 @ExcludeMissing
                 checkTransferId: JsonField<String> = JsonMissing.of(),
+                @JsonProperty("checkbook_check_id")
+                @ExcludeMissing
+                checkbookCheckId: JsonField<String> = JsonMissing.of(),
                 @JsonProperty("front_image_file_id")
                 @ExcludeMissing
                 frontImageFileId: JsonField<String> = JsonMissing.of(),
@@ -14511,6 +14515,7 @@ private constructor(
                 auxiliaryOnUs,
                 backImageFileId,
                 checkTransferId,
+                checkbookCheckId,
                 frontImageFileId,
                 inboundCheckDepositId,
                 reason,
@@ -14554,6 +14559,15 @@ private constructor(
              */
             fun checkTransferId(): Optional<String> =
                 checkTransferId.getOptional("check_transfer_id")
+
+            /**
+             * The identifier of the Checkbook Check object associated with this decline.
+             *
+             * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g.
+             *   if the server responded with an unexpected value).
+             */
+            fun checkbookCheckId(): Optional<String> =
+                checkbookCheckId.getOptional("checkbook_check_id")
 
             /**
              * The identifier of the API File object containing an image of the front of the
@@ -14621,6 +14635,16 @@ private constructor(
             fun _checkTransferId(): JsonField<String> = checkTransferId
 
             /**
+             * Returns the raw JSON value of [checkbookCheckId].
+             *
+             * Unlike [checkbookCheckId], this method doesn't throw if the JSON field has an
+             * unexpected type.
+             */
+            @JsonProperty("checkbook_check_id")
+            @ExcludeMissing
+            fun _checkbookCheckId(): JsonField<String> = checkbookCheckId
+
+            /**
              * Returns the raw JSON value of [frontImageFileId].
              *
              * Unlike [frontImageFileId], this method doesn't throw if the JSON field has an
@@ -14670,6 +14694,7 @@ private constructor(
                  * .auxiliaryOnUs()
                  * .backImageFileId()
                  * .checkTransferId()
+                 * .checkbookCheckId()
                  * .frontImageFileId()
                  * .inboundCheckDepositId()
                  * .reason()
@@ -14685,6 +14710,7 @@ private constructor(
                 private var auxiliaryOnUs: JsonField<String>? = null
                 private var backImageFileId: JsonField<String>? = null
                 private var checkTransferId: JsonField<String>? = null
+                private var checkbookCheckId: JsonField<String>? = null
                 private var frontImageFileId: JsonField<String>? = null
                 private var inboundCheckDepositId: JsonField<String>? = null
                 private var reason: JsonField<Reason>? = null
@@ -14696,6 +14722,7 @@ private constructor(
                     auxiliaryOnUs = checkDecline.auxiliaryOnUs
                     backImageFileId = checkDecline.backImageFileId
                     checkTransferId = checkDecline.checkTransferId
+                    checkbookCheckId = checkDecline.checkbookCheckId
                     frontImageFileId = checkDecline.frontImageFileId
                     inboundCheckDepositId = checkDecline.inboundCheckDepositId
                     reason = checkDecline.reason
@@ -14780,6 +14807,28 @@ private constructor(
                  */
                 fun checkTransferId(checkTransferId: JsonField<String>) = apply {
                     this.checkTransferId = checkTransferId
+                }
+
+                /** The identifier of the Checkbook Check object associated with this decline. */
+                fun checkbookCheckId(checkbookCheckId: String?) =
+                    checkbookCheckId(JsonField.ofNullable(checkbookCheckId))
+
+                /**
+                 * Alias for calling [Builder.checkbookCheckId] with
+                 * `checkbookCheckId.orElse(null)`.
+                 */
+                fun checkbookCheckId(checkbookCheckId: Optional<String>) =
+                    checkbookCheckId(checkbookCheckId.getOrNull())
+
+                /**
+                 * Sets [Builder.checkbookCheckId] to an arbitrary JSON value.
+                 *
+                 * You should usually call [Builder.checkbookCheckId] with a well-typed [String]
+                 * value instead. This method is primarily for setting the field to an undocumented
+                 * or not yet supported value.
+                 */
+                fun checkbookCheckId(checkbookCheckId: JsonField<String>) = apply {
+                    this.checkbookCheckId = checkbookCheckId
                 }
 
                 /**
@@ -14876,6 +14925,7 @@ private constructor(
                  * .auxiliaryOnUs()
                  * .backImageFileId()
                  * .checkTransferId()
+                 * .checkbookCheckId()
                  * .frontImageFileId()
                  * .inboundCheckDepositId()
                  * .reason()
@@ -14889,6 +14939,7 @@ private constructor(
                         checkRequired("auxiliaryOnUs", auxiliaryOnUs),
                         checkRequired("backImageFileId", backImageFileId),
                         checkRequired("checkTransferId", checkTransferId),
+                        checkRequired("checkbookCheckId", checkbookCheckId),
                         checkRequired("frontImageFileId", frontImageFileId),
                         checkRequired("inboundCheckDepositId", inboundCheckDepositId),
                         checkRequired("reason", reason),
@@ -14917,6 +14968,7 @@ private constructor(
                 auxiliaryOnUs()
                 backImageFileId()
                 checkTransferId()
+                checkbookCheckId()
                 frontImageFileId()
                 inboundCheckDepositId()
                 reason().validate()
@@ -14943,6 +14995,7 @@ private constructor(
                     (if (auxiliaryOnUs.asKnown().isPresent) 1 else 0) +
                     (if (backImageFileId.asKnown().isPresent) 1 else 0) +
                     (if (checkTransferId.asKnown().isPresent) 1 else 0) +
+                    (if (checkbookCheckId.asKnown().isPresent) 1 else 0) +
                     (if (frontImageFileId.asKnown().isPresent) 1 else 0) +
                     (if (inboundCheckDepositId.asKnown().isPresent) 1 else 0) +
                     (reason.asKnown().getOrNull()?.validity() ?: 0)
@@ -15258,6 +15311,7 @@ private constructor(
                     auxiliaryOnUs == other.auxiliaryOnUs &&
                     backImageFileId == other.backImageFileId &&
                     checkTransferId == other.checkTransferId &&
+                    checkbookCheckId == other.checkbookCheckId &&
                     frontImageFileId == other.frontImageFileId &&
                     inboundCheckDepositId == other.inboundCheckDepositId &&
                     reason == other.reason &&
@@ -15270,6 +15324,7 @@ private constructor(
                     auxiliaryOnUs,
                     backImageFileId,
                     checkTransferId,
+                    checkbookCheckId,
                     frontImageFileId,
                     inboundCheckDepositId,
                     reason,
@@ -15280,7 +15335,7 @@ private constructor(
             override fun hashCode(): Int = hashCode
 
             override fun toString() =
-                "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, backImageFileId=$backImageFileId, checkTransferId=$checkTransferId, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalProperties=$additionalProperties}"
+                "CheckDecline{amount=$amount, auxiliaryOnUs=$auxiliaryOnUs, backImageFileId=$backImageFileId, checkTransferId=$checkTransferId, checkbookCheckId=$checkbookCheckId, frontImageFileId=$frontImageFileId, inboundCheckDepositId=$inboundCheckDepositId, reason=$reason, additionalProperties=$additionalProperties}"
         }
 
         /**

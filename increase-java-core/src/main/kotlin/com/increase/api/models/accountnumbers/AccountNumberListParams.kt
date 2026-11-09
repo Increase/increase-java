@@ -20,10 +20,10 @@ import kotlin.jvm.optionals.getOrNull
 class AccountNumberListParams
 private constructor(
     private val accountId: String?,
-    private val achDebitStatus: AchDebitStatus?,
     private val createdAt: CreatedAt?,
     private val cursor: String?,
     private val idempotencyKey: String?,
+    private val inboundAchDebits: InboundAchDebits?,
     private val limit: Long?,
     private val status: Status?,
     private val additionalHeaders: Headers,
@@ -32,8 +32,6 @@ private constructor(
 
     /** Filter Account Numbers to those belonging to the specified Account. */
     fun accountId(): Optional<String> = Optional.ofNullable(accountId)
-
-    fun achDebitStatus(): Optional<AchDebitStatus> = Optional.ofNullable(achDebitStatus)
 
     fun createdAt(): Optional<CreatedAt> = Optional.ofNullable(createdAt)
 
@@ -46,6 +44,8 @@ private constructor(
      * once. Learn more about [idempotency](https://increase.com/documentation/idempotency-keys).
      */
     fun idempotencyKey(): Optional<String> = Optional.ofNullable(idempotencyKey)
+
+    fun inboundAchDebits(): Optional<InboundAchDebits> = Optional.ofNullable(inboundAchDebits)
 
     /**
      * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -76,10 +76,10 @@ private constructor(
     class Builder internal constructor() {
 
         private var accountId: String? = null
-        private var achDebitStatus: AchDebitStatus? = null
         private var createdAt: CreatedAt? = null
         private var cursor: String? = null
         private var idempotencyKey: String? = null
+        private var inboundAchDebits: InboundAchDebits? = null
         private var limit: Long? = null
         private var status: Status? = null
         private var additionalHeaders: Headers.Builder = Headers.builder()
@@ -88,10 +88,10 @@ private constructor(
         @JvmSynthetic
         internal fun from(accountNumberListParams: AccountNumberListParams) = apply {
             accountId = accountNumberListParams.accountId
-            achDebitStatus = accountNumberListParams.achDebitStatus
             createdAt = accountNumberListParams.createdAt
             cursor = accountNumberListParams.cursor
             idempotencyKey = accountNumberListParams.idempotencyKey
+            inboundAchDebits = accountNumberListParams.inboundAchDebits
             limit = accountNumberListParams.limit
             status = accountNumberListParams.status
             additionalHeaders = accountNumberListParams.additionalHeaders.toBuilder()
@@ -103,14 +103,6 @@ private constructor(
 
         /** Alias for calling [Builder.accountId] with `accountId.orElse(null)`. */
         fun accountId(accountId: Optional<String>) = accountId(accountId.getOrNull())
-
-        fun achDebitStatus(achDebitStatus: AchDebitStatus?) = apply {
-            this.achDebitStatus = achDebitStatus
-        }
-
-        /** Alias for calling [Builder.achDebitStatus] with `achDebitStatus.orElse(null)`. */
-        fun achDebitStatus(achDebitStatus: Optional<AchDebitStatus>) =
-            achDebitStatus(achDebitStatus.getOrNull())
 
         fun createdAt(createdAt: CreatedAt?) = apply { this.createdAt = createdAt }
 
@@ -134,6 +126,14 @@ private constructor(
         /** Alias for calling [Builder.idempotencyKey] with `idempotencyKey.orElse(null)`. */
         fun idempotencyKey(idempotencyKey: Optional<String>) =
             idempotencyKey(idempotencyKey.getOrNull())
+
+        fun inboundAchDebits(inboundAchDebits: InboundAchDebits?) = apply {
+            this.inboundAchDebits = inboundAchDebits
+        }
+
+        /** Alias for calling [Builder.inboundAchDebits] with `inboundAchDebits.orElse(null)`. */
+        fun inboundAchDebits(inboundAchDebits: Optional<InboundAchDebits>) =
+            inboundAchDebits(inboundAchDebits.getOrNull())
 
         /**
          * Limit the size of the list that is returned. The default (and maximum) is 100 objects.
@@ -263,10 +263,10 @@ private constructor(
         fun build(): AccountNumberListParams =
             AccountNumberListParams(
                 accountId,
-                achDebitStatus,
                 createdAt,
                 cursor,
                 idempotencyKey,
+                inboundAchDebits,
                 limit,
                 status,
                 additionalHeaders.build(),
@@ -280,16 +280,6 @@ private constructor(
         QueryParams.builder()
             .apply {
                 accountId?.let { put("account_id", it) }
-                achDebitStatus?.let {
-                    it.in_().ifPresent {
-                        put("ach_debit_status.in", it.joinToString(",") { it.toString() })
-                    }
-                    it._additionalProperties().keys().forEach { key ->
-                        it._additionalProperties().values(key).forEach { value ->
-                            put("ach_debit_status.$key", value)
-                        }
-                    }
-                }
                 createdAt?.let {
                     it.after().ifPresent {
                         put("created_at.after", DateTimeFormatter.ISO_OFFSET_DATE_TIME.format(it))
@@ -317,6 +307,16 @@ private constructor(
                 }
                 cursor?.let { put("cursor", it) }
                 idempotencyKey?.let { put("idempotency_key", it) }
+                inboundAchDebits?.let {
+                    it.in_().ifPresent {
+                        put("inbound_ach_debits.in", it.joinToString(",") { it.toString() })
+                    }
+                    it._additionalProperties().keys().forEach { key ->
+                        it._additionalProperties().values(key).forEach { value ->
+                            put("inbound_ach_debits.$key", value)
+                        }
+                    }
+                }
                 limit?.let { put("limit", it.toString()) }
                 status?.let {
                     it.in_().ifPresent { put("status.in", it.joinToString(",") { it.toString() }) }
@@ -329,284 +329,6 @@ private constructor(
                 putAll(additionalQueryParams)
             }
             .build()
-
-    class AchDebitStatus
-    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
-
-        /**
-         * The ACH Debit status to retrieve Account Numbers for. For GET requests, this should be
-         * encoded as a comma-delimited string, such as `?in=one,two,three`.
-         */
-        fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
-
-        /** Query params to send with the request. */
-        fun _additionalProperties(): QueryParams = additionalProperties
-
-        fun toBuilder() = Builder().from(this)
-
-        companion object {
-
-            /** Returns a mutable builder for constructing an instance of [AchDebitStatus]. */
-            @JvmStatic fun builder() = Builder()
-        }
-
-        /** A builder for [AchDebitStatus]. */
-        class Builder internal constructor() {
-
-            private var in_: MutableList<In>? = null
-            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
-
-            @JvmSynthetic
-            internal fun from(achDebitStatus: AchDebitStatus) = apply {
-                in_ = achDebitStatus.in_?.toMutableList()
-                additionalProperties = achDebitStatus.additionalProperties.toBuilder()
-            }
-
-            /**
-             * The ACH Debit status to retrieve Account Numbers for. For GET requests, this should
-             * be encoded as a comma-delimited string, such as `?in=one,two,three`.
-             */
-            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
-
-            /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
-            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
-
-            /**
-             * Adds a single [In] to [Builder.in_].
-             *
-             * @throws IllegalStateException if the field was previously set to a non-list.
-             */
-            fun addIn(in_: In) = apply {
-                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
-            }
-
-            fun additionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
-                this.additionalProperties.clear()
-                putAllAdditionalProperties(additionalProperties)
-            }
-
-            fun putAdditionalProperty(key: String, value: String) = apply {
-                additionalProperties.put(key, value)
-            }
-
-            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.put(key, values)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.putAll(additionalProperties)
-            }
-
-            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
-                apply {
-                    this.additionalProperties.putAll(additionalProperties)
-                }
-
-            fun replaceAdditionalProperties(key: String, value: String) = apply {
-                additionalProperties.replace(key, value)
-            }
-
-            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
-                additionalProperties.replace(key, values)
-            }
-
-            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
-                this.additionalProperties.replaceAll(additionalProperties)
-            }
-
-            fun replaceAllAdditionalProperties(
-                additionalProperties: Map<String, Iterable<String>>
-            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
-
-            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
-
-            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
-                additionalProperties.removeAll(keys)
-            }
-
-            /**
-             * Returns an immutable instance of [AchDebitStatus].
-             *
-             * Further updates to this [Builder] will not mutate the returned instance.
-             */
-            fun build(): AchDebitStatus =
-                AchDebitStatus(in_?.toImmutable(), additionalProperties.build())
-        }
-
-        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
-
-            /**
-             * Returns this class instance's raw value.
-             *
-             * This is usually only useful if this instance was deserialized from data that doesn't
-             * match any known member, and you want to know that value. For example, if the SDK is
-             * on an older version than the API, then the API may respond with new members that the
-             * SDK is unaware of.
-             */
-            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
-
-            companion object {
-
-                /** ACH Debits are allowed. */
-                @JvmField val ALLOWED = of("allowed")
-
-                /**
-                 * ACH Debits are blocked. Received debits will be declined and returned with code
-                 * `R20` (non-transaction account).
-                 */
-                @JvmField val BLOCKED = of("blocked")
-
-                @JvmStatic fun of(value: String) = In(JsonField.of(value))
-            }
-
-            /** An enum containing [In]'s known values. */
-            enum class Known {
-                /** ACH Debits are allowed. */
-                ALLOWED,
-                /**
-                 * ACH Debits are blocked. Received debits will be declined and returned with code
-                 * `R20` (non-transaction account).
-                 */
-                BLOCKED,
-            }
-
-            /**
-             * An enum containing [In]'s known values, as well as an [_UNKNOWN] member.
-             *
-             * An instance of [In] can contain an unknown value in a couple of cases:
-             * - It was deserialized from data that doesn't match any known member. For example, if
-             *   the SDK is on an older version than the API, then the API may respond with new
-             *   members that the SDK is unaware of.
-             * - It was constructed with an arbitrary value using the [of] method.
-             */
-            enum class Value {
-                /** ACH Debits are allowed. */
-                ALLOWED,
-                /**
-                 * ACH Debits are blocked. Received debits will be declined and returned with code
-                 * `R20` (non-transaction account).
-                 */
-                BLOCKED,
-                /** An enum member indicating that [In] was instantiated with an unknown value. */
-                _UNKNOWN,
-            }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value, or
-             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
-             *
-             * Use the [known] method instead if you're certain the value is always known or if you
-             * want to throw for the unknown case.
-             */
-            fun value(): Value =
-                when (this) {
-                    ALLOWED -> Value.ALLOWED
-                    BLOCKED -> Value.BLOCKED
-                    else -> Value._UNKNOWN
-                }
-
-            /**
-             * Returns an enum member corresponding to this class instance's value.
-             *
-             * Use the [value] method instead if you're uncertain the value is always known and
-             * don't want to throw for the unknown case.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
-             *   member.
-             */
-            fun known(): Known =
-                when (this) {
-                    ALLOWED -> Known.ALLOWED
-                    BLOCKED -> Known.BLOCKED
-                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
-                }
-
-            /**
-             * Returns this class instance's primitive wire representation.
-             *
-             * This differs from the [toString] method because that method is primarily for
-             * debugging and generally doesn't throw.
-             *
-             * @throws IncreaseInvalidDataException if this class instance's value does not have the
-             *   expected primitive type.
-             */
-            fun asString(): String =
-                _value().asString().orElseThrow {
-                    IncreaseInvalidDataException("Value is not a String")
-                }
-
-            private var validated: Boolean = false
-
-            /**
-             * Validates that the types of all values in this object match their expected types
-             * recursively.
-             *
-             * This method is _not_ forwards compatible with new types from the API for existing
-             * fields.
-             *
-             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
-             *   its expected type.
-             */
-            fun validate(): In = apply {
-                if (validated) {
-                    return@apply
-                }
-
-                known()
-                validated = true
-            }
-
-            fun isValid(): Boolean =
-                try {
-                    validate()
-                    true
-                } catch (e: IncreaseInvalidDataException) {
-                    false
-                }
-
-            /**
-             * Returns a score indicating how many valid values are contained in this object
-             * recursively.
-             *
-             * Used for best match union deserialization.
-             */
-            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
-
-            override fun equals(other: Any?): Boolean {
-                if (this === other) {
-                    return true
-                }
-
-                return other is In && value == other.value
-            }
-
-            override fun hashCode() = value.hashCode()
-
-            override fun toString() = value.toString()
-        }
-
-        override fun equals(other: Any?): Boolean {
-            if (this === other) {
-                return true
-            }
-
-            return other is AchDebitStatus &&
-                in_ == other.in_ &&
-                additionalProperties == other.additionalProperties
-        }
-
-        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
-
-        override fun hashCode(): Int = hashCode
-
-        override fun toString() =
-            "AchDebitStatus{in_=$in_, additionalProperties=$additionalProperties}"
-    }
 
     class CreatedAt
     private constructor(
@@ -784,6 +506,284 @@ private constructor(
 
         override fun toString() =
             "CreatedAt{after=$after, before=$before, onOrAfter=$onOrAfter, onOrBefore=$onOrBefore, additionalProperties=$additionalProperties}"
+    }
+
+    class InboundAchDebits
+    private constructor(private val in_: List<In>?, private val additionalProperties: QueryParams) {
+
+        /**
+         * The inbound ACH debits status to retrieve Account Numbers for. For GET requests, this
+         * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+         */
+        fun in_(): Optional<List<In>> = Optional.ofNullable(in_)
+
+        /** Query params to send with the request. */
+        fun _additionalProperties(): QueryParams = additionalProperties
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /** Returns a mutable builder for constructing an instance of [InboundAchDebits]. */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [InboundAchDebits]. */
+        class Builder internal constructor() {
+
+            private var in_: MutableList<In>? = null
+            private var additionalProperties: QueryParams.Builder = QueryParams.builder()
+
+            @JvmSynthetic
+            internal fun from(inboundAchDebits: InboundAchDebits) = apply {
+                in_ = inboundAchDebits.in_?.toMutableList()
+                additionalProperties = inboundAchDebits.additionalProperties.toBuilder()
+            }
+
+            /**
+             * The inbound ACH debits status to retrieve Account Numbers for. For GET requests, this
+             * should be encoded as a comma-delimited string, such as `?in=one,two,three`.
+             */
+            fun in_(in_: List<In>?) = apply { this.in_ = in_?.toMutableList() }
+
+            /** Alias for calling [Builder.in_] with `in_.orElse(null)`. */
+            fun in_(in_: Optional<List<In>>) = in_(in_.getOrNull())
+
+            /**
+             * Adds a single [In] to [Builder.in_].
+             *
+             * @throws IllegalStateException if the field was previously set to a non-list.
+             */
+            fun addIn(in_: In) = apply {
+                this.in_ = (this.in_ ?: mutableListOf()).apply { add(in_) }
+            }
+
+            fun additionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, Iterable<String>>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: String) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.put(key, values)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, Iterable<String>>) =
+                apply {
+                    this.additionalProperties.putAll(additionalProperties)
+                }
+
+            fun replaceAdditionalProperties(key: String, value: String) = apply {
+                additionalProperties.replace(key, value)
+            }
+
+            fun replaceAdditionalProperties(key: String, values: Iterable<String>) = apply {
+                additionalProperties.replace(key, values)
+            }
+
+            fun replaceAllAdditionalProperties(additionalProperties: QueryParams) = apply {
+                this.additionalProperties.replaceAll(additionalProperties)
+            }
+
+            fun replaceAllAdditionalProperties(
+                additionalProperties: Map<String, Iterable<String>>
+            ) = apply { this.additionalProperties.replaceAll(additionalProperties) }
+
+            fun removeAdditionalProperties(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                additionalProperties.removeAll(keys)
+            }
+
+            /**
+             * Returns an immutable instance of [InboundAchDebits].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             */
+            fun build(): InboundAchDebits =
+                InboundAchDebits(in_?.toImmutable(), additionalProperties.build())
+        }
+
+        class In @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+            /**
+             * Returns this class instance's raw value.
+             *
+             * This is usually only useful if this instance was deserialized from data that doesn't
+             * match any known member, and you want to know that value. For example, if the SDK is
+             * on an older version than the API, then the API may respond with new members that the
+             * SDK is unaware of.
+             */
+            @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+            companion object {
+
+                /** ACH Debits are allowed. */
+                @JvmField val ALLOWED = of("allowed")
+
+                /**
+                 * ACH Debits are blocked. Received debits will be declined and returned with code
+                 * `R20` (non-transaction account).
+                 */
+                @JvmField val BLOCKED = of("blocked")
+
+                @JvmStatic fun of(value: String) = In(JsonField.of(value))
+            }
+
+            /** An enum containing [In]'s known values. */
+            enum class Known {
+                /** ACH Debits are allowed. */
+                ALLOWED,
+                /**
+                 * ACH Debits are blocked. Received debits will be declined and returned with code
+                 * `R20` (non-transaction account).
+                 */
+                BLOCKED,
+            }
+
+            /**
+             * An enum containing [In]'s known values, as well as an [_UNKNOWN] member.
+             *
+             * An instance of [In] can contain an unknown value in a couple of cases:
+             * - It was deserialized from data that doesn't match any known member. For example, if
+             *   the SDK is on an older version than the API, then the API may respond with new
+             *   members that the SDK is unaware of.
+             * - It was constructed with an arbitrary value using the [of] method.
+             */
+            enum class Value {
+                /** ACH Debits are allowed. */
+                ALLOWED,
+                /**
+                 * ACH Debits are blocked. Received debits will be declined and returned with code
+                 * `R20` (non-transaction account).
+                 */
+                BLOCKED,
+                /** An enum member indicating that [In] was instantiated with an unknown value. */
+                _UNKNOWN,
+            }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value, or
+             * [Value._UNKNOWN] if the class was instantiated with an unknown value.
+             *
+             * Use the [known] method instead if you're certain the value is always known or if you
+             * want to throw for the unknown case.
+             */
+            fun value(): Value =
+                when (this) {
+                    ALLOWED -> Value.ALLOWED
+                    BLOCKED -> Value.BLOCKED
+                    else -> Value._UNKNOWN
+                }
+
+            /**
+             * Returns an enum member corresponding to this class instance's value.
+             *
+             * Use the [value] method instead if you're uncertain the value is always known and
+             * don't want to throw for the unknown case.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+             *   member.
+             */
+            fun known(): Known =
+                when (this) {
+                    ALLOWED -> Known.ALLOWED
+                    BLOCKED -> Known.BLOCKED
+                    else -> throw IncreaseInvalidDataException("Unknown In: $value")
+                }
+
+            /**
+             * Returns this class instance's primitive wire representation.
+             *
+             * This differs from the [toString] method because that method is primarily for
+             * debugging and generally doesn't throw.
+             *
+             * @throws IncreaseInvalidDataException if this class instance's value does not have the
+             *   expected primitive type.
+             */
+            fun asString(): String =
+                _value().asString().orElseThrow {
+                    IncreaseInvalidDataException("Value is not a String")
+                }
+
+            private var validated: Boolean = false
+
+            /**
+             * Validates that the types of all values in this object match their expected types
+             * recursively.
+             *
+             * This method is _not_ forwards compatible with new types from the API for existing
+             * fields.
+             *
+             * @throws IncreaseInvalidDataException if any value type in this object doesn't match
+             *   its expected type.
+             */
+            fun validate(): In = apply {
+                if (validated) {
+                    return@apply
+                }
+
+                known()
+                validated = true
+            }
+
+            fun isValid(): Boolean =
+                try {
+                    validate()
+                    true
+                } catch (e: IncreaseInvalidDataException) {
+                    false
+                }
+
+            /**
+             * Returns a score indicating how many valid values are contained in this object
+             * recursively.
+             *
+             * Used for best match union deserialization.
+             */
+            @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+            override fun equals(other: Any?): Boolean {
+                if (this === other) {
+                    return true
+                }
+
+                return other is In && value == other.value
+            }
+
+            override fun hashCode() = value.hashCode()
+
+            override fun toString() = value.toString()
+        }
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is InboundAchDebits &&
+                in_ == other.in_ &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(in_, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "InboundAchDebits{in_=$in_, additionalProperties=$additionalProperties}"
     }
 
     class Status
@@ -1069,10 +1069,10 @@ private constructor(
 
         return other is AccountNumberListParams &&
             accountId == other.accountId &&
-            achDebitStatus == other.achDebitStatus &&
             createdAt == other.createdAt &&
             cursor == other.cursor &&
             idempotencyKey == other.idempotencyKey &&
+            inboundAchDebits == other.inboundAchDebits &&
             limit == other.limit &&
             status == other.status &&
             additionalHeaders == other.additionalHeaders &&
@@ -1082,10 +1082,10 @@ private constructor(
     override fun hashCode(): Int =
         Objects.hash(
             accountId,
-            achDebitStatus,
             createdAt,
             cursor,
             idempotencyKey,
+            inboundAchDebits,
             limit,
             status,
             additionalHeaders,
@@ -1093,5 +1093,5 @@ private constructor(
         )
 
     override fun toString() =
-        "AccountNumberListParams{accountId=$accountId, achDebitStatus=$achDebitStatus, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
+        "AccountNumberListParams{accountId=$accountId, createdAt=$createdAt, cursor=$cursor, idempotencyKey=$idempotencyKey, inboundAchDebits=$inboundAchDebits, limit=$limit, status=$status, additionalHeaders=$additionalHeaders, additionalQueryParams=$additionalQueryParams}"
 }
