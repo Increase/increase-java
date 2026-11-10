@@ -61,6 +61,7 @@ internal class FednowTransferTest {
                         .build()
                 )
                 .debtorName("National Phonograph Company")
+                .endToEndIdentification("Invoice 29582")
                 .externalAccountId(null)
                 .idempotencyKey(null)
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")
@@ -140,6 +141,7 @@ internal class FednowTransferTest {
                     .build()
             )
         assertThat(fednowTransfer.debtorName()).isEqualTo("National Phonograph Company")
+        assertThat(fednowTransfer.endToEndIdentification()).contains("Invoice 29582")
         assertThat(fednowTransfer.externalAccountId()).isEmpty
         assertThat(fednowTransfer.idempotencyKey()).isEmpty
         assertThat(fednowTransfer.pendingTransactionId())
@@ -231,6 +233,7 @@ internal class FednowTransferTest {
                         .build()
                 )
                 .debtorName("National Phonograph Company")
+                .endToEndIdentification("Invoice 29582")
                 .externalAccountId(null)
                 .idempotencyKey(null)
                 .pendingTransactionId("pending_transaction_k1sfetcau2qbvjbzgju4")

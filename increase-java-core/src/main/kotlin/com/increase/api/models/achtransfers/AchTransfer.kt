@@ -479,7 +479,9 @@ private constructor(
         standardEntryClassCode.getRequired("standard_entry_class_code")
 
     /**
-     * The descriptor that will show on the recipient's bank statement.
+     * A description you chose to give the transfer. If `individual_name` and `company_name` were
+     * not explicitly set, the `statement_descriptor` will be sent in those fields to the receiving
+     * bank to help the customer recognize the transfer.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -1544,7 +1546,11 @@ private constructor(
                 this.standardEntryClassCode = standardEntryClassCode
             }
 
-        /** The descriptor that will show on the recipient's bank statement. */
+        /**
+         * A description you chose to give the transfer. If `individual_name` and `company_name`
+         * were not explicitly set, the `statement_descriptor` will be sent in those fields to the
+         * receiving bank to help the customer recognize the transfer.
+         */
         fun statementDescriptor(statementDescriptor: String?) =
             statementDescriptor(JsonField.ofNullable(statementDescriptor))
 
