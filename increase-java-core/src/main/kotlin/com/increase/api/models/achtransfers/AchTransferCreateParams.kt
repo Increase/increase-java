@@ -63,8 +63,7 @@ private constructor(
      * The name by which the recipient knows the counterparty of this transaction. If you're
      * processing payments on behalf of another party, use their name, not your own, so that it's
      * more likely the recipient understands the context of the payment. This value is usually
-     * displayed to the recipient on their bank statement. We recommend setting this on every
-     * transfer; if you do not, we fall back to the `statement_descriptor`.
+     * displayed to the recipient on their bank statement.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -74,8 +73,7 @@ private constructor(
     /**
      * The name of the transfer recipient. This value is informational and generally not verified by
      * the recipient's bank. This value is usually displayed to the recipient on their bank
-     * statement. We recommend setting this on every transfer; if you do not, we fall back to the
-     * `statement_descriptor`.
+     * statement.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -431,8 +429,7 @@ private constructor(
          * The name by which the recipient knows the counterparty of this transaction. If you're
          * processing payments on behalf of another party, use their name, not your own, so that
          * it's more likely the recipient understands the context of the payment. This value is
-         * usually displayed to the recipient on their bank statement. We recommend setting this on
-         * every transfer; if you do not, we fall back to the `statement_descriptor`.
+         * usually displayed to the recipient on their bank statement.
          */
         fun companyName(companyName: String) = apply { body.companyName(companyName) }
 
@@ -448,8 +445,7 @@ private constructor(
         /**
          * The name of the transfer recipient. This value is informational and generally not
          * verified by the recipient's bank. This value is usually displayed to the recipient on
-         * their bank statement. We recommend setting this on every transfer; if you do not, we fall
-         * back to the `statement_descriptor`.
+         * their bank statement.
          */
         fun individualName(individualName: String) = apply { body.individualName(individualName) }
 
@@ -969,8 +965,7 @@ private constructor(
          * The name by which the recipient knows the counterparty of this transaction. If you're
          * processing payments on behalf of another party, use their name, not your own, so that
          * it's more likely the recipient understands the context of the payment. This value is
-         * usually displayed to the recipient on their bank statement. We recommend setting this on
-         * every transfer; if you do not, we fall back to the `statement_descriptor`.
+         * usually displayed to the recipient on their bank statement.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -980,8 +975,7 @@ private constructor(
         /**
          * The name of the transfer recipient. This value is informational and generally not
          * verified by the recipient's bank. This value is usually displayed to the recipient on
-         * their bank statement. We recommend setting this on every transfer; if you do not, we fall
-         * back to the `statement_descriptor`.
+         * their bank statement.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -1394,8 +1388,7 @@ private constructor(
              * The name by which the recipient knows the counterparty of this transaction. If you're
              * processing payments on behalf of another party, use their name, not your own, so that
              * it's more likely the recipient understands the context of the payment. This value is
-             * usually displayed to the recipient on their bank statement. We recommend setting this
-             * on every transfer; if you do not, we fall back to the `statement_descriptor`.
+             * usually displayed to the recipient on their bank statement.
              */
             fun companyName(companyName: String) = companyName(JsonField.of(companyName))
 
@@ -1413,8 +1406,7 @@ private constructor(
             /**
              * The name of the transfer recipient. This value is informational and generally not
              * verified by the recipient's bank. This value is usually displayed to the recipient on
-             * their bank statement. We recommend setting this on every transfer; if you do not, we
-             * fall back to the `statement_descriptor`.
+             * their bank statement.
              */
             fun individualName(individualName: String) =
                 individualName(JsonField.of(individualName))
