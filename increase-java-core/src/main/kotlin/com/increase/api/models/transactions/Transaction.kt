@@ -17964,7 +17964,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         @JvmField
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
@@ -18101,6 +18101,29 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -18172,7 +18195,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -18265,6 +18288,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -18342,7 +18380,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -18436,6 +18474,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -18506,6 +18559,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -18567,6 +18625,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -22385,6 +22448,7 @@ private constructor(
             class Interchange
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val adjustment: JsonField<Adjustment>,
                 private val amount: JsonField<String>,
                 private val code: JsonField<String>,
                 private val currency: JsonField<Currency>,
@@ -22393,6 +22457,9 @@ private constructor(
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("adjustment")
+                    @ExcludeMissing
+                    adjustment: JsonField<Adjustment> = JsonMissing.of(),
                     @JsonProperty("amount")
                     @ExcludeMissing
                     amount: JsonField<String> = JsonMissing.of(),
@@ -22402,7 +22469,16 @@ private constructor(
                     @JsonProperty("currency")
                     @ExcludeMissing
                     currency: JsonField<Currency> = JsonMissing.of(),
-                ) : this(amount, code, currency, mutableMapOf())
+                ) : this(adjustment, amount, code, currency, mutableMapOf())
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun adjustment(): Optional<Adjustment> = adjustment.getOptional("adjustment")
 
                 /**
                  * The interchange amount given as a string containing a decimal number in major
@@ -22433,6 +22509,16 @@ private constructor(
                  *   unexpected value).
                  */
                 fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * Returns the raw JSON value of [adjustment].
+                 *
+                 * Unlike [adjustment], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("adjustment")
+                @ExcludeMissing
+                fun _adjustment(): JsonField<Adjustment> = adjustment
 
                 /**
                  * Returns the raw JSON value of [amount].
@@ -22479,6 +22565,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```java
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -22490,6 +22577,7 @@ private constructor(
                 /** A builder for [Interchange]. */
                 class Builder internal constructor() {
 
+                    private var adjustment: JsonField<Adjustment>? = null
                     private var amount: JsonField<String>? = null
                     private var code: JsonField<String>? = null
                     private var currency: JsonField<Currency>? = null
@@ -22497,10 +22585,33 @@ private constructor(
 
                     @JvmSynthetic
                     internal fun from(interchange: Interchange) = apply {
+                        adjustment = interchange.adjustment
                         amount = interchange.amount
                         code = interchange.code
                         currency = interchange.currency
                         additionalProperties = interchange.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * An adjustment the card network made to the interchange after this transaction
+                     * cleared, if any.
+                     */
+                    fun adjustment(adjustment: Adjustment?) =
+                        adjustment(JsonField.ofNullable(adjustment))
+
+                    /** Alias for calling [Builder.adjustment] with `adjustment.orElse(null)`. */
+                    fun adjustment(adjustment: Optional<Adjustment>) =
+                        adjustment(adjustment.getOrNull())
+
+                    /**
+                     * Sets [Builder.adjustment] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.adjustment] with a well-typed [Adjustment]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun adjustment(adjustment: JsonField<Adjustment>) = apply {
+                        this.adjustment = adjustment
                     }
 
                     /**
@@ -22579,6 +22690,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```java
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -22588,6 +22700,7 @@ private constructor(
                      */
                     fun build(): Interchange =
                         Interchange(
+                            checkRequired("adjustment", adjustment),
                             checkRequired("amount", amount),
                             checkRequired("code", code),
                             checkRequired("currency", currency),
@@ -22612,6 +22725,7 @@ private constructor(
                         return@apply
                     }
 
+                    adjustment().ifPresent { it.validate() }
                     amount()
                     code()
                     currency().validate()
@@ -22634,9 +22748,297 @@ private constructor(
                  */
                 @JvmSynthetic
                 internal fun validity(): Int =
-                    (if (amount.asKnown().isPresent) 1 else 0) +
+                    (adjustment.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (amount.asKnown().isPresent) 1 else 0) +
                         (if (code.asKnown().isPresent) 1 else 0) +
                         (currency.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 */
+                class Adjustment
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val adjustedAt: JsonField<OffsetDateTime>,
+                    private val amount: JsonField<String>,
+                    private val code: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("adjusted_at")
+                        @ExcludeMissing
+                        adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("code")
+                        @ExcludeMissing
+                        code: JsonField<String> = JsonMissing.of(),
+                    ) : this(adjustedAt, amount, code, mutableMapOf())
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the interchange was adjusted.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
+
+                    /**
+                     * The adjustment amount given as a string containing a decimal number in major
+                     * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                     * credited to Increase and a negative number if it is debited.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): String = amount.getRequired("amount")
+
+                    /**
+                     * The card network specific interchange code that applies after the adjustment.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun code(): String = code.getRequired("code")
+
+                    /**
+                     * Returns the raw JSON value of [adjustedAt].
+                     *
+                     * Unlike [adjustedAt], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("adjusted_at")
+                    @ExcludeMissing
+                    fun _adjustedAt(): JsonField<OffsetDateTime> = adjustedAt
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun _amount(): JsonField<String> = amount
+
+                    /**
+                     * Returns the raw JSON value of [code].
+                     *
+                     * Unlike [code], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Adjustment].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Adjustment]. */
+                    class Builder internal constructor() {
+
+                        private var adjustedAt: JsonField<OffsetDateTime>? = null
+                        private var amount: JsonField<String>? = null
+                        private var code: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(adjustment: Adjustment) = apply {
+                            adjustedAt = adjustment.adjustedAt
+                            amount = adjustment.amount
+                            code = adjustment.code
+                            additionalProperties = adjustment.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at
+                         * which the interchange was adjusted.
+                         */
+                        fun adjustedAt(adjustedAt: OffsetDateTime) =
+                            adjustedAt(JsonField.of(adjustedAt))
+
+                        /**
+                         * Sets [Builder.adjustedAt] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.adjustedAt] with a well-typed
+                         * [OffsetDateTime] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
+                            this.adjustedAt = adjustedAt
+                        }
+
+                        /**
+                         * The adjustment amount given as a string containing a decimal number in
+                         * major units (so e.g., "3.14" for $3.14). The amount is a positive number
+                         * if it is credited to Increase and a negative number if it is debited.
+                         */
+                        fun amount(amount: String) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                        /**
+                         * The card network specific interchange code that applies after the
+                         * adjustment.
+                         */
+                        fun code(code: String) = code(JsonField.of(code))
+
+                        /**
+                         * Sets [Builder.code] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.code] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun code(code: JsonField<String>) = apply { this.code = code }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Adjustment].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Adjustment =
+                            Adjustment(
+                                checkRequired("adjustedAt", adjustedAt),
+                                checkRequired("amount", amount),
+                                checkRequired("code", code),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Adjustment = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        adjustedAt()
+                        amount()
+                        code()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (adjustedAt.asKnown().isPresent) 1 else 0) +
+                            (if (amount.asKnown().isPresent) 1 else 0) +
+                            (if (code.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Adjustment &&
+                            adjustedAt == other.adjustedAt &&
+                            amount == other.amount &&
+                            code == other.code &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(adjustedAt, amount, code, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Adjustment{adjustedAt=$adjustedAt, amount=$amount, code=$code, additionalProperties=$additionalProperties}"
+                }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -22790,6 +23192,7 @@ private constructor(
                     }
 
                     return other is Interchange &&
+                        adjustment == other.adjustment &&
                         amount == other.amount &&
                         code == other.code &&
                         currency == other.currency &&
@@ -22797,13 +23200,13 @@ private constructor(
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(amount, code, currency, additionalProperties)
+                    Objects.hash(adjustment, amount, code, currency, additionalProperties)
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+                    "Interchange{adjustment=$adjustment, amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
             /** The card network on which this transaction was processed. */
@@ -34203,7 +34606,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         @JvmField
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
@@ -34340,6 +34743,29 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -34411,7 +34837,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -34504,6 +34930,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -34581,7 +35022,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -34675,6 +35116,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -34745,6 +35201,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -34806,6 +35267,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
@@ -37450,6 +37916,7 @@ private constructor(
             class Interchange
             @JsonCreator(mode = JsonCreator.Mode.DISABLED)
             private constructor(
+                private val adjustment: JsonField<Adjustment>,
                 private val amount: JsonField<String>,
                 private val code: JsonField<String>,
                 private val currency: JsonField<Currency>,
@@ -37458,6 +37925,9 @@ private constructor(
 
                 @JsonCreator
                 private constructor(
+                    @JsonProperty("adjustment")
+                    @ExcludeMissing
+                    adjustment: JsonField<Adjustment> = JsonMissing.of(),
                     @JsonProperty("amount")
                     @ExcludeMissing
                     amount: JsonField<String> = JsonMissing.of(),
@@ -37467,7 +37937,16 @@ private constructor(
                     @JsonProperty("currency")
                     @ExcludeMissing
                     currency: JsonField<Currency> = JsonMissing.of(),
-                ) : this(amount, code, currency, mutableMapOf())
+                ) : this(adjustment, amount, code, currency, mutableMapOf())
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 *
+                 * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                 *   (e.g. if the server responded with an unexpected value).
+                 */
+                fun adjustment(): Optional<Adjustment> = adjustment.getOptional("adjustment")
 
                 /**
                  * The interchange amount given as a string containing a decimal number in major
@@ -37498,6 +37977,16 @@ private constructor(
                  *   unexpected value).
                  */
                 fun currency(): Currency = currency.getRequired("currency")
+
+                /**
+                 * Returns the raw JSON value of [adjustment].
+                 *
+                 * Unlike [adjustment], this method doesn't throw if the JSON field has an
+                 * unexpected type.
+                 */
+                @JsonProperty("adjustment")
+                @ExcludeMissing
+                fun _adjustment(): JsonField<Adjustment> = adjustment
 
                 /**
                  * Returns the raw JSON value of [amount].
@@ -37544,6 +38033,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```java
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -37555,6 +38045,7 @@ private constructor(
                 /** A builder for [Interchange]. */
                 class Builder internal constructor() {
 
+                    private var adjustment: JsonField<Adjustment>? = null
                     private var amount: JsonField<String>? = null
                     private var code: JsonField<String>? = null
                     private var currency: JsonField<Currency>? = null
@@ -37562,10 +38053,33 @@ private constructor(
 
                     @JvmSynthetic
                     internal fun from(interchange: Interchange) = apply {
+                        adjustment = interchange.adjustment
                         amount = interchange.amount
                         code = interchange.code
                         currency = interchange.currency
                         additionalProperties = interchange.additionalProperties.toMutableMap()
+                    }
+
+                    /**
+                     * An adjustment the card network made to the interchange after this transaction
+                     * cleared, if any.
+                     */
+                    fun adjustment(adjustment: Adjustment?) =
+                        adjustment(JsonField.ofNullable(adjustment))
+
+                    /** Alias for calling [Builder.adjustment] with `adjustment.orElse(null)`. */
+                    fun adjustment(adjustment: Optional<Adjustment>) =
+                        adjustment(adjustment.getOrNull())
+
+                    /**
+                     * Sets [Builder.adjustment] to an arbitrary JSON value.
+                     *
+                     * You should usually call [Builder.adjustment] with a well-typed [Adjustment]
+                     * value instead. This method is primarily for setting the field to an
+                     * undocumented or not yet supported value.
+                     */
+                    fun adjustment(adjustment: JsonField<Adjustment>) = apply {
+                        this.adjustment = adjustment
                     }
 
                     /**
@@ -37644,6 +38158,7 @@ private constructor(
                      *
                      * The following fields are required:
                      * ```java
+                     * .adjustment()
                      * .amount()
                      * .code()
                      * .currency()
@@ -37653,6 +38168,7 @@ private constructor(
                      */
                     fun build(): Interchange =
                         Interchange(
+                            checkRequired("adjustment", adjustment),
                             checkRequired("amount", amount),
                             checkRequired("code", code),
                             checkRequired("currency", currency),
@@ -37677,6 +38193,7 @@ private constructor(
                         return@apply
                     }
 
+                    adjustment().ifPresent { it.validate() }
                     amount()
                     code()
                     currency().validate()
@@ -37699,9 +38216,297 @@ private constructor(
                  */
                 @JvmSynthetic
                 internal fun validity(): Int =
-                    (if (amount.asKnown().isPresent) 1 else 0) +
+                    (adjustment.asKnown().getOrNull()?.validity() ?: 0) +
+                        (if (amount.asKnown().isPresent) 1 else 0) +
                         (if (code.asKnown().isPresent) 1 else 0) +
                         (currency.asKnown().getOrNull()?.validity() ?: 0)
+
+                /**
+                 * An adjustment the card network made to the interchange after this transaction
+                 * cleared, if any.
+                 */
+                class Adjustment
+                @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+                private constructor(
+                    private val adjustedAt: JsonField<OffsetDateTime>,
+                    private val amount: JsonField<String>,
+                    private val code: JsonField<String>,
+                    private val additionalProperties: MutableMap<String, JsonValue>,
+                ) {
+
+                    @JsonCreator
+                    private constructor(
+                        @JsonProperty("adjusted_at")
+                        @ExcludeMissing
+                        adjustedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
+                        @JsonProperty("amount")
+                        @ExcludeMissing
+                        amount: JsonField<String> = JsonMissing.of(),
+                        @JsonProperty("code")
+                        @ExcludeMissing
+                        code: JsonField<String> = JsonMissing.of(),
+                    ) : this(adjustedAt, amount, code, mutableMapOf())
+
+                    /**
+                     * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at which
+                     * the interchange was adjusted.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun adjustedAt(): OffsetDateTime = adjustedAt.getRequired("adjusted_at")
+
+                    /**
+                     * The adjustment amount given as a string containing a decimal number in major
+                     * units (so e.g., "3.14" for $3.14). The amount is a positive number if it is
+                     * credited to Increase and a negative number if it is debited.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun amount(): String = amount.getRequired("amount")
+
+                    /**
+                     * The card network specific interchange code that applies after the adjustment.
+                     *
+                     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type
+                     *   or is unexpectedly missing or null (e.g. if the server responded with an
+                     *   unexpected value).
+                     */
+                    fun code(): String = code.getRequired("code")
+
+                    /**
+                     * Returns the raw JSON value of [adjustedAt].
+                     *
+                     * Unlike [adjustedAt], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("adjusted_at")
+                    @ExcludeMissing
+                    fun _adjustedAt(): JsonField<OffsetDateTime> = adjustedAt
+
+                    /**
+                     * Returns the raw JSON value of [amount].
+                     *
+                     * Unlike [amount], this method doesn't throw if the JSON field has an
+                     * unexpected type.
+                     */
+                    @JsonProperty("amount")
+                    @ExcludeMissing
+                    fun _amount(): JsonField<String> = amount
+
+                    /**
+                     * Returns the raw JSON value of [code].
+                     *
+                     * Unlike [code], this method doesn't throw if the JSON field has an unexpected
+                     * type.
+                     */
+                    @JsonProperty("code") @ExcludeMissing fun _code(): JsonField<String> = code
+
+                    @JsonAnySetter
+                    private fun putAdditionalProperty(key: String, value: JsonValue) {
+                        additionalProperties.put(key, value)
+                    }
+
+                    @JsonAnyGetter
+                    @ExcludeMissing
+                    fun _additionalProperties(): Map<String, JsonValue> =
+                        Collections.unmodifiableMap(additionalProperties)
+
+                    fun toBuilder() = Builder().from(this)
+
+                    companion object {
+
+                        /**
+                         * Returns a mutable builder for constructing an instance of [Adjustment].
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         */
+                        @JvmStatic fun builder() = Builder()
+                    }
+
+                    /** A builder for [Adjustment]. */
+                    class Builder internal constructor() {
+
+                        private var adjustedAt: JsonField<OffsetDateTime>? = null
+                        private var amount: JsonField<String>? = null
+                        private var code: JsonField<String>? = null
+                        private var additionalProperties: MutableMap<String, JsonValue> =
+                            mutableMapOf()
+
+                        @JvmSynthetic
+                        internal fun from(adjustment: Adjustment) = apply {
+                            adjustedAt = adjustment.adjustedAt
+                            amount = adjustment.amount
+                            code = adjustment.code
+                            additionalProperties = adjustment.additionalProperties.toMutableMap()
+                        }
+
+                        /**
+                         * The [ISO 8601](https://en.wikipedia.org/wiki/ISO_8601) date and time at
+                         * which the interchange was adjusted.
+                         */
+                        fun adjustedAt(adjustedAt: OffsetDateTime) =
+                            adjustedAt(JsonField.of(adjustedAt))
+
+                        /**
+                         * Sets [Builder.adjustedAt] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.adjustedAt] with a well-typed
+                         * [OffsetDateTime] value instead. This method is primarily for setting the
+                         * field to an undocumented or not yet supported value.
+                         */
+                        fun adjustedAt(adjustedAt: JsonField<OffsetDateTime>) = apply {
+                            this.adjustedAt = adjustedAt
+                        }
+
+                        /**
+                         * The adjustment amount given as a string containing a decimal number in
+                         * major units (so e.g., "3.14" for $3.14). The amount is a positive number
+                         * if it is credited to Increase and a negative number if it is debited.
+                         */
+                        fun amount(amount: String) = amount(JsonField.of(amount))
+
+                        /**
+                         * Sets [Builder.amount] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.amount] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun amount(amount: JsonField<String>) = apply { this.amount = amount }
+
+                        /**
+                         * The card network specific interchange code that applies after the
+                         * adjustment.
+                         */
+                        fun code(code: String) = code(JsonField.of(code))
+
+                        /**
+                         * Sets [Builder.code] to an arbitrary JSON value.
+                         *
+                         * You should usually call [Builder.code] with a well-typed [String] value
+                         * instead. This method is primarily for setting the field to an
+                         * undocumented or not yet supported value.
+                         */
+                        fun code(code: JsonField<String>) = apply { this.code = code }
+
+                        fun additionalProperties(additionalProperties: Map<String, JsonValue>) =
+                            apply {
+                                this.additionalProperties.clear()
+                                putAllAdditionalProperties(additionalProperties)
+                            }
+
+                        fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                            additionalProperties.put(key, value)
+                        }
+
+                        fun putAllAdditionalProperties(
+                            additionalProperties: Map<String, JsonValue>
+                        ) = apply { this.additionalProperties.putAll(additionalProperties) }
+
+                        fun removeAdditionalProperty(key: String) = apply {
+                            additionalProperties.remove(key)
+                        }
+
+                        fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                            keys.forEach(::removeAdditionalProperty)
+                        }
+
+                        /**
+                         * Returns an immutable instance of [Adjustment].
+                         *
+                         * Further updates to this [Builder] will not mutate the returned instance.
+                         *
+                         * The following fields are required:
+                         * ```java
+                         * .adjustedAt()
+                         * .amount()
+                         * .code()
+                         * ```
+                         *
+                         * @throws IllegalStateException if any required field is unset.
+                         */
+                        fun build(): Adjustment =
+                            Adjustment(
+                                checkRequired("adjustedAt", adjustedAt),
+                                checkRequired("amount", amount),
+                                checkRequired("code", code),
+                                additionalProperties.toMutableMap(),
+                            )
+                    }
+
+                    private var validated: Boolean = false
+
+                    /**
+                     * Validates that the types of all values in this object match their expected
+                     * types recursively.
+                     *
+                     * This method is _not_ forwards compatible with new types from the API for
+                     * existing fields.
+                     *
+                     * @throws IncreaseInvalidDataException if any value type in this object doesn't
+                     *   match its expected type.
+                     */
+                    fun validate(): Adjustment = apply {
+                        if (validated) {
+                            return@apply
+                        }
+
+                        adjustedAt()
+                        amount()
+                        code()
+                        validated = true
+                    }
+
+                    fun isValid(): Boolean =
+                        try {
+                            validate()
+                            true
+                        } catch (e: IncreaseInvalidDataException) {
+                            false
+                        }
+
+                    /**
+                     * Returns a score indicating how many valid values are contained in this object
+                     * recursively.
+                     *
+                     * Used for best match union deserialization.
+                     */
+                    @JvmSynthetic
+                    internal fun validity(): Int =
+                        (if (adjustedAt.asKnown().isPresent) 1 else 0) +
+                            (if (amount.asKnown().isPresent) 1 else 0) +
+                            (if (code.asKnown().isPresent) 1 else 0)
+
+                    override fun equals(other: Any?): Boolean {
+                        if (this === other) {
+                            return true
+                        }
+
+                        return other is Adjustment &&
+                            adjustedAt == other.adjustedAt &&
+                            amount == other.amount &&
+                            code == other.code &&
+                            additionalProperties == other.additionalProperties
+                    }
+
+                    private val hashCode: Int by lazy {
+                        Objects.hash(adjustedAt, amount, code, additionalProperties)
+                    }
+
+                    override fun hashCode(): Int = hashCode
+
+                    override fun toString() =
+                        "Adjustment{adjustedAt=$adjustedAt, amount=$amount, code=$code, additionalProperties=$additionalProperties}"
+                }
 
                 /**
                  * The [ISO 4217](https://en.wikipedia.org/wiki/ISO_4217) code for the interchange
@@ -37855,6 +38660,7 @@ private constructor(
                     }
 
                     return other is Interchange &&
+                        adjustment == other.adjustment &&
                         amount == other.amount &&
                         code == other.code &&
                         currency == other.currency &&
@@ -37862,13 +38668,13 @@ private constructor(
                 }
 
                 private val hashCode: Int by lazy {
-                    Objects.hash(amount, code, currency, additionalProperties)
+                    Objects.hash(adjustment, amount, code, currency, additionalProperties)
                 }
 
                 override fun hashCode(): Int = hashCode
 
                 override fun toString() =
-                    "Interchange{amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
+                    "Interchange{adjustment=$adjustment, amount=$amount, code=$code, currency=$currency, additionalProperties=$additionalProperties}"
             }
 
             /** The card network on which this transaction was processed. */
@@ -49268,7 +50074,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         @JvmField
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
@@ -49405,6 +50211,29 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -49476,7 +50305,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -49569,6 +50398,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -49646,7 +50490,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -49740,6 +50584,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -49810,6 +50669,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -49871,6 +50735,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")
