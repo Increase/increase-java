@@ -398,6 +398,19 @@ internal class TransactionListPageResponseTest {
                                         .currency(Transaction.Source.CardRefund.Currency.USD)
                                         .interchange(
                                             Transaction.Source.CardRefund.Interchange.builder()
+                                                .adjustment(
+                                                    Transaction.Source.CardRefund.Interchange
+                                                        .Adjustment
+                                                        .builder()
+                                                        .adjustedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .amount("-16699")
+                                                        .code("code")
+                                                        .build()
+                                                )
                                                 .amount("0.137465")
                                                 .code("271")
                                                 .currency(
@@ -741,6 +754,19 @@ internal class TransactionListPageResponseTest {
                                         .currency(Transaction.Source.CardSettlement.Currency.USD)
                                         .interchange(
                                             Transaction.Source.CardSettlement.Interchange.builder()
+                                                .adjustment(
+                                                    Transaction.Source.CardSettlement.Interchange
+                                                        .Adjustment
+                                                        .builder()
+                                                        .adjustedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .amount("-16699")
+                                                        .code("code")
+                                                        .build()
+                                                )
                                                 .amount("0.137465")
                                                 .code("271")
                                                 .currency(
@@ -1730,6 +1756,18 @@ internal class TransactionListPageResponseTest {
                                     .currency(Transaction.Source.CardRefund.Currency.USD)
                                     .interchange(
                                         Transaction.Source.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                Transaction.Source.CardRefund.Interchange.Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -2051,6 +2089,19 @@ internal class TransactionListPageResponseTest {
                                     .currency(Transaction.Source.CardSettlement.Currency.USD)
                                     .interchange(
                                         Transaction.Source.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                Transaction.Source.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -3033,6 +3084,19 @@ internal class TransactionListPageResponseTest {
                                         .currency(Transaction.Source.CardRefund.Currency.USD)
                                         .interchange(
                                             Transaction.Source.CardRefund.Interchange.builder()
+                                                .adjustment(
+                                                    Transaction.Source.CardRefund.Interchange
+                                                        .Adjustment
+                                                        .builder()
+                                                        .adjustedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .amount("-16699")
+                                                        .code("code")
+                                                        .build()
+                                                )
                                                 .amount("0.137465")
                                                 .code("271")
                                                 .currency(
@@ -3376,6 +3440,19 @@ internal class TransactionListPageResponseTest {
                                         .currency(Transaction.Source.CardSettlement.Currency.USD)
                                         .interchange(
                                             Transaction.Source.CardSettlement.Interchange.builder()
+                                                .adjustment(
+                                                    Transaction.Source.CardSettlement.Interchange
+                                                        .Adjustment
+                                                        .builder()
+                                                        .adjustedAt(
+                                                            OffsetDateTime.parse(
+                                                                "2019-12-27T18:11:19.117Z"
+                                                            )
+                                                        )
+                                                        .amount("-16699")
+                                                        .code("code")
+                                                        .build()
+                                                )
                                                 .amount("0.137465")
                                                 .code("271")
                                                 .currency(
