@@ -12066,7 +12066,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         @JvmField
                         val VISA_ADVANCED_AUTHORIZATION = of("visa_advanced_authorization")
@@ -12203,6 +12203,29 @@ private constructor(
                             of("visa_processing_guarantee_commercial_credit")
 
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_DOMESTIC =
+                            of("visa_atm_cash_withdrawal_domestic")
+
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL =
+                            of("visa_atm_cash_withdrawal_international")
+
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        @JvmField
+                        val VISA_ATM_CASH_DEPOSIT_DOMESTIC = of("visa_atm_cash_deposit_domestic")
+
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -12274,7 +12297,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -12367,6 +12390,21 @@ private constructor(
                         VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM,
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
                         /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
@@ -12444,7 +12482,7 @@ private constructor(
                          * Advanced Authorization is a fraud detection tool that monitors and risk
                          * evaluates 100 percent of US VisaNet authorizations in real-time. Activity
                          * related to Purchase (includes Signature Authenticated Visa and PIN
-                         * Authenticated Visa Debit (PAVD) transactions).
+                         * Authenticated Visa Debit (PAVD) transactions) and ATM transactions.
                          */
                         VISA_ADVANCED_AUTHORIZATION,
                         /**
@@ -12538,6 +12576,21 @@ private constructor(
                         /** Issuer Processing Guarantee for Commercial Credit cards. */
                         VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT,
                         /**
+                         * Activity and fees for the processing of an original cash withdrawal at a
+                         * domestic ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_DOMESTIC,
+                        /**
+                         * Activity and fees for the processing of an original cash withdrawal at an
+                         * international ATM.
+                         */
+                        VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL,
+                        /**
+                         * Activity and fees for the processing of an original deposit at a domestic
+                         * ATM.
+                         */
+                        VISA_ATM_CASH_DEPOSIT_DOMESTIC,
+                        /**
                          * Pulse Switch Fee is a fee charged by the Pulse network for processing
                          * transactions on its network.
                          */
@@ -12608,6 +12661,11 @@ private constructor(
                                 Value.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Value.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Value.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Value.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Value.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Value.PULSE_TOKENIZATION_FEE
                             else -> Value._UNKNOWN
@@ -12669,6 +12727,11 @@ private constructor(
                                 Known.VISA_COMMUNITY_GROWTH_ACCELERATION_PROGRAM
                             VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT ->
                                 Known.VISA_PROCESSING_GUARANTEE_COMMERCIAL_CREDIT
+                            VISA_ATM_CASH_WITHDRAWAL_DOMESTIC ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_DOMESTIC
+                            VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL ->
+                                Known.VISA_ATM_CASH_WITHDRAWAL_INTERNATIONAL
+                            VISA_ATM_CASH_DEPOSIT_DOMESTIC -> Known.VISA_ATM_CASH_DEPOSIT_DOMESTIC
                             PULSE_SWITCH_FEE -> Known.PULSE_SWITCH_FEE
                             PULSE_TOKENIZATION_FEE -> Known.PULSE_TOKENIZATION_FEE
                             else -> throw IncreaseInvalidDataException("Unknown FeeType: $value")

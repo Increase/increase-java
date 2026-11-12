@@ -113,6 +113,21 @@ internal class TransactionTest {
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
+                        .cardDisputeProvisionalCredit(
+                            Transaction.Source.CardDisputeProvisionalCredit.builder()
+                                .amount(1000L)
+                                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                                .cardholderAccountId("account_in71c4amph0vgo2qllky")
+                                .currency(
+                                    Transaction.Source.CardDisputeProvisionalCredit.Currency.USD
+                                )
+                                .eventType(
+                                    Transaction.Source.CardDisputeProvisionalCredit.EventType
+                                        .PROVIDED
+                                )
+                                .provisionalCreditFundingAccountId("account_2w2wmv4blnsd1bjhn3zw")
+                                .build()
+                        )
                         .cardFinancial(
                             Transaction.Source.CardFinancial.builder()
                                 .id("card_financial_di5b98i72ppomo268zfk")
@@ -349,6 +364,16 @@ internal class TransactionTest {
                                 .currency(Transaction.Source.CardRefund.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardRefund.Interchange.builder()
+                                        .adjustment(
+                                            Transaction.Source.CardRefund.Interchange.Adjustment
+                                                .builder()
+                                                .adjustedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .amount("-16699")
+                                                .code("code")
+                                                .build()
+                                        )
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
@@ -650,6 +675,16 @@ internal class TransactionTest {
                                 .currency(Transaction.Source.CardSettlement.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardSettlement.Interchange.builder()
+                                        .adjustment(
+                                            Transaction.Source.CardSettlement.Interchange.Adjustment
+                                                .builder()
+                                                .adjustedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .amount("-16699")
+                                                .code("code")
+                                                .build()
+                                        )
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
@@ -1312,6 +1347,18 @@ internal class TransactionTest {
                             .transactionId("transaction_uyrp7fld2ium70oa7oi")
                             .build()
                     )
+                    .cardDisputeProvisionalCredit(
+                        Transaction.Source.CardDisputeProvisionalCredit.builder()
+                            .amount(1000L)
+                            .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                            .cardholderAccountId("account_in71c4amph0vgo2qllky")
+                            .currency(Transaction.Source.CardDisputeProvisionalCredit.Currency.USD)
+                            .eventType(
+                                Transaction.Source.CardDisputeProvisionalCredit.EventType.PROVIDED
+                            )
+                            .provisionalCreditFundingAccountId("account_2w2wmv4blnsd1bjhn3zw")
+                            .build()
+                    )
                     .cardFinancial(
                         Transaction.Source.CardFinancial.builder()
                             .id("card_financial_di5b98i72ppomo268zfk")
@@ -1535,6 +1582,16 @@ internal class TransactionTest {
                             .currency(Transaction.Source.CardRefund.Currency.USD)
                             .interchange(
                                 Transaction.Source.CardRefund.Interchange.builder()
+                                    .adjustment(
+                                        Transaction.Source.CardRefund.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -1815,6 +1872,16 @@ internal class TransactionTest {
                             .currency(Transaction.Source.CardSettlement.Currency.USD)
                             .interchange(
                                 Transaction.Source.CardSettlement.Interchange.builder()
+                                    .adjustment(
+                                        Transaction.Source.CardSettlement.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -2451,6 +2518,21 @@ internal class TransactionTest {
                                 .transactionId("transaction_uyrp7fld2ium70oa7oi")
                                 .build()
                         )
+                        .cardDisputeProvisionalCredit(
+                            Transaction.Source.CardDisputeProvisionalCredit.builder()
+                                .amount(1000L)
+                                .cardDisputeId("card_dispute_h9sc95nbl1cgltpp7men")
+                                .cardholderAccountId("account_in71c4amph0vgo2qllky")
+                                .currency(
+                                    Transaction.Source.CardDisputeProvisionalCredit.Currency.USD
+                                )
+                                .eventType(
+                                    Transaction.Source.CardDisputeProvisionalCredit.EventType
+                                        .PROVIDED
+                                )
+                                .provisionalCreditFundingAccountId("account_2w2wmv4blnsd1bjhn3zw")
+                                .build()
+                        )
                         .cardFinancial(
                             Transaction.Source.CardFinancial.builder()
                                 .id("card_financial_di5b98i72ppomo268zfk")
@@ -2687,6 +2769,16 @@ internal class TransactionTest {
                                 .currency(Transaction.Source.CardRefund.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardRefund.Interchange.builder()
+                                        .adjustment(
+                                            Transaction.Source.CardRefund.Interchange.Adjustment
+                                                .builder()
+                                                .adjustedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .amount("-16699")
+                                                .code("code")
+                                                .build()
+                                        )
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
@@ -2988,6 +3080,16 @@ internal class TransactionTest {
                                 .currency(Transaction.Source.CardSettlement.Currency.USD)
                                 .interchange(
                                     Transaction.Source.CardSettlement.Interchange.builder()
+                                        .adjustment(
+                                            Transaction.Source.CardSettlement.Interchange.Adjustment
+                                                .builder()
+                                                .adjustedAt(
+                                                    OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                                )
+                                                .amount("-16699")
+                                                .code("code")
+                                                .build()
+                                        )
                                         .amount("0.137465")
                                         .code("271")
                                         .currency(
