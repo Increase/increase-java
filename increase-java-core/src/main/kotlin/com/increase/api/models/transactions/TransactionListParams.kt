@@ -462,6 +462,13 @@ private constructor(
                 @JvmField val CARD_DISPUTE_FINANCIAL = of("card_dispute_financial")
 
                 /**
+                 * Card Dispute Provisional Credit: details will be under the
+                 * `card_dispute_provisional_credit` object.
+                 */
+                @JvmField
+                val CARD_DISPUTE_PROVISIONAL_CREDIT = of("card_dispute_provisional_credit")
+
+                /**
                  * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
                  */
                 @JvmField val CARD_DISPUTE_LOSS = of("card_dispute_loss")
@@ -689,6 +696,11 @@ private constructor(
                  */
                 CARD_DISPUTE_FINANCIAL,
                 /**
+                 * Card Dispute Provisional Credit: details will be under the
+                 * `card_dispute_provisional_credit` object.
+                 */
+                CARD_DISPUTE_PROVISIONAL_CREDIT,
+                /**
                  * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
                  */
                 CARD_DISPUTE_LOSS,
@@ -871,6 +883,11 @@ private constructor(
                  */
                 CARD_DISPUTE_FINANCIAL,
                 /**
+                 * Card Dispute Provisional Credit: details will be under the
+                 * `card_dispute_provisional_credit` object.
+                 */
+                CARD_DISPUTE_PROVISIONAL_CREDIT,
+                /**
                  * Legacy Card Dispute Loss: details will be under the `card_dispute_loss` object.
                  */
                 CARD_DISPUTE_LOSS,
@@ -1031,6 +1048,7 @@ private constructor(
                     CASHBACK_PAYMENT -> Value.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Value.CARD_DISPUTE_ACCEPTANCE
                     CARD_DISPUTE_FINANCIAL -> Value.CARD_DISPUTE_FINANCIAL
+                    CARD_DISPUTE_PROVISIONAL_CREDIT -> Value.CARD_DISPUTE_PROVISIONAL_CREDIT
                     CARD_DISPUTE_LOSS -> Value.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Value.CARD_REFUND
                     CARD_SETTLEMENT -> Value.CARD_SETTLEMENT
@@ -1094,6 +1112,7 @@ private constructor(
                     CASHBACK_PAYMENT -> Known.CASHBACK_PAYMENT
                     CARD_DISPUTE_ACCEPTANCE -> Known.CARD_DISPUTE_ACCEPTANCE
                     CARD_DISPUTE_FINANCIAL -> Known.CARD_DISPUTE_FINANCIAL
+                    CARD_DISPUTE_PROVISIONAL_CREDIT -> Known.CARD_DISPUTE_PROVISIONAL_CREDIT
                     CARD_DISPUTE_LOSS -> Known.CARD_DISPUTE_LOSS
                     CARD_REFUND -> Known.CARD_REFUND
                     CARD_SETTLEMENT -> Known.CARD_SETTLEMENT

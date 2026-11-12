@@ -1343,6 +1343,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -1711,6 +1724,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -3562,6 +3588,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -3930,6 +3969,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -5781,6 +5833,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -6149,6 +6214,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -8000,6 +8078,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -8368,6 +8459,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -10104,6 +10208,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardRefund.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -10429,6 +10543,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardSettlement.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -12086,6 +12210,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardRefund.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -12411,6 +12545,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardSettlement.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -14068,6 +14212,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardRefund.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -14393,6 +14547,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardSettlement.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -16050,6 +16214,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardRefund.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardRefund.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardRefund.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -16375,6 +16549,16 @@ internal class CardPaymentTest {
                             .currency(CardPayment.Element.CardSettlement.Currency.USD)
                             .interchange(
                                 CardPayment.Element.CardSettlement.Interchange.builder()
+                                    .adjustment(
+                                        CardPayment.Element.CardSettlement.Interchange.Adjustment
+                                            .builder()
+                                            .adjustedAt(
+                                                OffsetDateTime.parse("2019-12-27T18:11:19.117Z")
+                                            )
+                                            .amount("-16699")
+                                            .code("code")
+                                            .build()
+                                    )
                                     .amount("0.137465")
                                     .code("271")
                                     .currency(
@@ -18200,6 +18384,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -18568,6 +18765,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -20419,6 +20629,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -20787,6 +21010,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -22638,6 +22874,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -23006,6 +23255,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -24857,6 +25119,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardRefund.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardRefund.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardRefund.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
@@ -25225,6 +25500,19 @@ internal class CardPaymentTest {
                                     .currency(CardPayment.Element.CardSettlement.Currency.USD)
                                     .interchange(
                                         CardPayment.Element.CardSettlement.Interchange.builder()
+                                            .adjustment(
+                                                CardPayment.Element.CardSettlement.Interchange
+                                                    .Adjustment
+                                                    .builder()
+                                                    .adjustedAt(
+                                                        OffsetDateTime.parse(
+                                                            "2019-12-27T18:11:19.117Z"
+                                                        )
+                                                    )
+                                                    .amount("-16699")
+                                                    .code("code")
+                                                    .build()
+                                            )
                                             .amount("0.137465")
                                             .code("271")
                                             .currency(
