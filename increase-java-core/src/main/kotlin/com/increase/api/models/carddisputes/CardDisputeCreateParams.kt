@@ -42,8 +42,8 @@ private constructor(
     fun disputedTransactionId(): String = body.disputedTransactionId()
 
     /**
-     * The network of the disputed transaction. Details specific to the network are required under
-     * the sub-object with the same identifier as the network.
+     * The network of the disputed transaction. Details specific to the network can be provided
+     * under the sub-object with the same identifier as the network.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
@@ -61,7 +61,8 @@ private constructor(
     fun amount(): Optional<Long> = body.amount()
 
     /**
-     * The files to be attached to the initial dispute submission.
+     * The files to be attached to the initial dispute submission. Can only be provided along with
+     * the network-specific details.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -70,7 +71,8 @@ private constructor(
 
     /**
      * The free-form explanation provided to Increase to provide more context for the user
-     * submission. This field is not sent directly to the card networks.
+     * submission. This field is not sent directly to the card networks. Can only be provided along
+     * with the network-specific details.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -78,7 +80,8 @@ private constructor(
     fun explanation(): Optional<String> = body.explanation()
 
     /**
-     * The Visa-specific parameters for the dispute. Required if and only if `network` is `visa`.
+     * The Visa-specific parameters for the initial User Submission. If omitted, a later User
+     * Submission will be required.
      *
      * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
      *   server responded with an unexpected value).
@@ -200,7 +203,7 @@ private constructor(
         }
 
         /**
-         * The network of the disputed transaction. Details specific to the network are required
+         * The network of the disputed transaction. Details specific to the network can be provided
          * under the sub-object with the same identifier as the network.
          */
         fun network(network: Network) = apply { body.network(network) }
@@ -228,7 +231,10 @@ private constructor(
          */
         fun amount(amount: JsonField<Long>) = apply { body.amount(amount) }
 
-        /** The files to be attached to the initial dispute submission. */
+        /**
+         * The files to be attached to the initial dispute submission. Can only be provided along
+         * with the network-specific details.
+         */
         fun attachmentFiles(attachmentFiles: List<AttachmentFile>) = apply {
             body.attachmentFiles(attachmentFiles)
         }
@@ -255,7 +261,8 @@ private constructor(
 
         /**
          * The free-form explanation provided to Increase to provide more context for the user
-         * submission. This field is not sent directly to the card networks.
+         * submission. This field is not sent directly to the card networks. Can only be provided
+         * along with the network-specific details.
          */
         fun explanation(explanation: String) = apply { body.explanation(explanation) }
 
@@ -269,8 +276,8 @@ private constructor(
         fun explanation(explanation: JsonField<String>) = apply { body.explanation(explanation) }
 
         /**
-         * The Visa-specific parameters for the dispute. Required if and only if `network` is
-         * `visa`.
+         * The Visa-specific parameters for the initial User Submission. If omitted, a later User
+         * Submission will be required.
          */
         fun visa(visa: Visa) = apply { body.visa(visa) }
 
@@ -473,7 +480,7 @@ private constructor(
             disputedTransactionId.getRequired("disputed_transaction_id")
 
         /**
-         * The network of the disputed transaction. Details specific to the network are required
+         * The network of the disputed transaction. Details specific to the network can be provided
          * under the sub-object with the same identifier as the network.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
@@ -492,7 +499,8 @@ private constructor(
         fun amount(): Optional<Long> = amount.getOptional("amount")
 
         /**
-         * The files to be attached to the initial dispute submission.
+         * The files to be attached to the initial dispute submission. Can only be provided along
+         * with the network-specific details.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -502,7 +510,8 @@ private constructor(
 
         /**
          * The free-form explanation provided to Increase to provide more context for the user
-         * submission. This field is not sent directly to the card networks.
+         * submission. This field is not sent directly to the card networks. Can only be provided
+         * along with the network-specific details.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -510,8 +519,8 @@ private constructor(
         fun explanation(): Optional<String> = explanation.getOptional("explanation")
 
         /**
-         * The Visa-specific parameters for the dispute. Required if and only if `network` is
-         * `visa`.
+         * The Visa-specific parameters for the initial User Submission. If omitted, a later User
+         * Submission will be required.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -635,8 +644,8 @@ private constructor(
             }
 
             /**
-             * The network of the disputed transaction. Details specific to the network are required
-             * under the sub-object with the same identifier as the network.
+             * The network of the disputed transaction. Details specific to the network can be
+             * provided under the sub-object with the same identifier as the network.
              */
             fun network(network: Network) = network(JsonField.of(network))
 
@@ -665,7 +674,10 @@ private constructor(
              */
             fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
-            /** The files to be attached to the initial dispute submission. */
+            /**
+             * The files to be attached to the initial dispute submission. Can only be provided
+             * along with the network-specific details.
+             */
             fun attachmentFiles(attachmentFiles: List<AttachmentFile>) =
                 attachmentFiles(JsonField.of(attachmentFiles))
 
@@ -694,7 +706,8 @@ private constructor(
 
             /**
              * The free-form explanation provided to Increase to provide more context for the user
-             * submission. This field is not sent directly to the card networks.
+             * submission. This field is not sent directly to the card networks. Can only be
+             * provided along with the network-specific details.
              */
             fun explanation(explanation: String) = explanation(JsonField.of(explanation))
 
@@ -710,8 +723,8 @@ private constructor(
             }
 
             /**
-             * The Visa-specific parameters for the dispute. Required if and only if `network` is
-             * `visa`.
+             * The Visa-specific parameters for the initial User Submission. If omitted, a later
+             * User Submission will be required.
              */
             fun visa(visa: Visa) = visa(JsonField.of(visa))
 
@@ -850,8 +863,8 @@ private constructor(
     }
 
     /**
-     * The network of the disputed transaction. Details specific to the network are required under
-     * the sub-object with the same identifier as the network.
+     * The network of the disputed transaction. Details specific to the network can be provided
+     * under the sub-object with the same identifier as the network.
      */
     class Network @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
 
@@ -1156,7 +1169,8 @@ private constructor(
     }
 
     /**
-     * The Visa-specific parameters for the dispute. Required if and only if `network` is `visa`.
+     * The Visa-specific parameters for the initial User Submission. If omitted, a later User
+     * Submission will be required.
      */
     class Visa
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
