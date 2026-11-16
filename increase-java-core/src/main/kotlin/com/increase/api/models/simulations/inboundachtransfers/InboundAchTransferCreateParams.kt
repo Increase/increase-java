@@ -1310,7 +1310,8 @@ private constructor(
         fun category(): Category = category.getRequired("category")
 
         /**
-         * Unstructured `payment_related_information` passed through with the transfer.
+         * Unstructured `payment_related_information` passed through with the transfer. Required if
+         * and only if `category` is `freeform`.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
@@ -1382,7 +1383,10 @@ private constructor(
              */
             fun category(category: JsonField<Category>) = apply { this.category = category }
 
-            /** Unstructured `payment_related_information` passed through with the transfer. */
+            /**
+             * Unstructured `payment_related_information` passed through with the transfer. Required
+             * if and only if `category` is `freeform`.
+             */
             fun freeform(freeform: Freeform) = freeform(JsonField.of(freeform))
 
             /**
@@ -1611,7 +1615,10 @@ private constructor(
             override fun toString() = value.toString()
         }
 
-        /** Unstructured `payment_related_information` passed through with the transfer. */
+        /**
+         * Unstructured `payment_related_information` passed through with the transfer. Required if
+         * and only if `category` is `freeform`.
+         */
         class Freeform
         @JsonCreator(mode = JsonCreator.Mode.DISABLED)
         private constructor(
