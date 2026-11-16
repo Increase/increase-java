@@ -794,6 +794,38 @@ internal class CardDisputeServiceAsyncTest {
     }
 
     @Test
+    fun provideProvisionalCredit() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardDisputeServiceAsync = client.cardDisputes()
+
+        val cardDisputeFuture =
+            cardDisputeServiceAsync.provideProvisionalCredit("card_dispute_h9sc95nbl1cgltpp7men")
+
+        val cardDispute = cardDisputeFuture.get()
+        cardDispute.validate()
+    }
+
+    @Test
+    fun reverseProvisionalCredit() {
+        val client =
+            IncreaseOkHttpClientAsync.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardDisputeServiceAsync = client.cardDisputes()
+
+        val cardDisputeFuture =
+            cardDisputeServiceAsync.reverseProvisionalCredit("card_dispute_h9sc95nbl1cgltpp7men")
+
+        val cardDispute = cardDisputeFuture.get()
+        cardDispute.validate()
+    }
+
+    @Test
     fun submitUserSubmission() {
         val client =
             IncreaseOkHttpClientAsync.builder()

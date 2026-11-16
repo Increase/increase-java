@@ -790,6 +790,36 @@ internal class CardDisputeServiceTest {
     }
 
     @Test
+    fun provideProvisionalCredit() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardDisputeService = client.cardDisputes()
+
+        val cardDispute =
+            cardDisputeService.provideProvisionalCredit("card_dispute_h9sc95nbl1cgltpp7men")
+
+        cardDispute.validate()
+    }
+
+    @Test
+    fun reverseProvisionalCredit() {
+        val client =
+            IncreaseOkHttpClient.builder()
+                .baseUrl(TestServerExtension.BASE_URL)
+                .apiKey("My API Key")
+                .build()
+        val cardDisputeService = client.cardDisputes()
+
+        val cardDispute =
+            cardDisputeService.reverseProvisionalCredit("card_dispute_h9sc95nbl1cgltpp7men")
+
+        cardDispute.validate()
+    }
+
+    @Test
     fun submitUserSubmission() {
         val client =
             IncreaseOkHttpClient.builder()

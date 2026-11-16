@@ -29,6 +29,26 @@ internal class CardDisputeTest {
                         .build()
                 )
                 .network(CardDispute.Network.VISA)
+                .provisionalCredit(
+                    CardDispute.ProvisionalCredit.builder()
+                        .amount(1000L)
+                        .cardholderAccountTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                        .providedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .provisionalCreditFundingAccountTransactionId(
+                            "transaction_w1uzqgy1g1nu09n7g328"
+                        )
+                        .reversal(
+                            CardDispute.ProvisionalCredit.Reversal.builder()
+                                .amount(1000L)
+                                .cardholderAccountTransactionId("transaction_mtp8fa3lj5caty57gade")
+                                .provisionalCreditFundingAccountTransactionId(
+                                    "transaction_70yvcpgqpsxcattatmfe"
+                                )
+                                .reversedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .rejection(
                     CardDispute.Rejection.builder()
                         .explanation("Card Dispute is not allowed per network rules.")
@@ -51,6 +71,7 @@ internal class CardDisputeTest {
                                     CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_SUBMITTED
                                 )
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .disputeFinancialAccountId(null)
                                 .disputeFinancialTransactionId("transaction_wgk1uqg4mjsn5nurkscv")
                                 .chargebackAccepted(
                                     CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder()
@@ -1243,6 +1264,27 @@ internal class CardDisputeTest {
                     .build()
             )
         assertThat(cardDispute.network()).isEqualTo(CardDispute.Network.VISA)
+        assertThat(cardDispute.provisionalCredit())
+            .contains(
+                CardDispute.ProvisionalCredit.builder()
+                    .amount(1000L)
+                    .cardholderAccountTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                    .providedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .provisionalCreditFundingAccountTransactionId(
+                        "transaction_w1uzqgy1g1nu09n7g328"
+                    )
+                    .reversal(
+                        CardDispute.ProvisionalCredit.Reversal.builder()
+                            .amount(1000L)
+                            .cardholderAccountTransactionId("transaction_mtp8fa3lj5caty57gade")
+                            .provisionalCreditFundingAccountTransactionId(
+                                "transaction_70yvcpgqpsxcattatmfe"
+                            )
+                            .reversedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .build()
+                    )
+                    .build()
+            )
         assertThat(cardDispute.rejection())
             .contains(
                 CardDispute.Rejection.builder()
@@ -1265,6 +1307,7 @@ internal class CardDisputeTest {
                             )
                             .category(CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_SUBMITTED)
                             .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                            .disputeFinancialAccountId(null)
                             .disputeFinancialTransactionId("transaction_wgk1uqg4mjsn5nurkscv")
                             .chargebackAccepted(
                                 CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder().build()
@@ -2414,6 +2457,26 @@ internal class CardDisputeTest {
                         .build()
                 )
                 .network(CardDispute.Network.VISA)
+                .provisionalCredit(
+                    CardDispute.ProvisionalCredit.builder()
+                        .amount(1000L)
+                        .cardholderAccountTransactionId("transaction_uyrp7fld2ium70oa7oi")
+                        .providedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .provisionalCreditFundingAccountTransactionId(
+                            "transaction_w1uzqgy1g1nu09n7g328"
+                        )
+                        .reversal(
+                            CardDispute.ProvisionalCredit.Reversal.builder()
+                                .amount(1000L)
+                                .cardholderAccountTransactionId("transaction_mtp8fa3lj5caty57gade")
+                                .provisionalCreditFundingAccountTransactionId(
+                                    "transaction_70yvcpgqpsxcattatmfe"
+                                )
+                                .reversedAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .build()
+                        )
+                        .build()
+                )
                 .rejection(
                     CardDispute.Rejection.builder()
                         .explanation("Card Dispute is not allowed per network rules.")
@@ -2436,6 +2499,7 @@ internal class CardDisputeTest {
                                     CardDispute.Visa.NetworkEvent.Category.CHARGEBACK_SUBMITTED
                                 )
                                 .createdAt(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                                .disputeFinancialAccountId(null)
                                 .disputeFinancialTransactionId("transaction_wgk1uqg4mjsn5nurkscv")
                                 .chargebackAccepted(
                                     CardDispute.Visa.NetworkEvent.ChargebackAccepted.builder()
