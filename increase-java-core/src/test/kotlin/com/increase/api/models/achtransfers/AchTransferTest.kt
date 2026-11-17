@@ -221,7 +221,7 @@ internal class AchTransferTest {
         assertThat(achTransfer.companyDiscretionaryData()).isEmpty
         assertThat(achTransfer.companyEntryDescription()).isEmpty
         assertThat(achTransfer.companyId()).isEqualTo("1234987601")
-        assertThat(achTransfer.companyName()).contains("National Phonograph Company")
+        assertThat(achTransfer.companyName()).isEqualTo("National Phonograph Company")
         assertThat(achTransfer.createdAt()).isEqualTo(OffsetDateTime.parse("2020-01-31T14:00:00Z"))
         assertThat(achTransfer.createdBy())
             .contains(
@@ -258,7 +258,7 @@ internal class AchTransferTest {
                     .build()
             )
         assertThat(achTransfer.individualId()).isEmpty
-        assertThat(achTransfer.individualName()).contains("Ian Crease")
+        assertThat(achTransfer.individualName()).isEqualTo("Ian Crease")
         assertThat(achTransfer.network()).isEqualTo(AchTransfer.Network.ACH)
         assertThat(achTransfer.notificationsOfChange())
             .containsExactly(

@@ -21,7 +21,9 @@ import com.increase.api.models.carddisputes.CardDisputeCreateParams
 import com.increase.api.models.carddisputes.CardDisputeListPageAsync
 import com.increase.api.models.carddisputes.CardDisputeListPageResponse
 import com.increase.api.models.carddisputes.CardDisputeListParams
+import com.increase.api.models.carddisputes.CardDisputeProvideProvisionalCreditParams
 import com.increase.api.models.carddisputes.CardDisputeRetrieveParams
+import com.increase.api.models.carddisputes.CardDisputeReverseProvisionalCreditParams
 import com.increase.api.models.carddisputes.CardDisputeSubmitUserSubmissionParams
 import com.increase.api.models.carddisputes.CardDisputeWithdrawParams
 import java.util.concurrent.CompletableFuture
@@ -60,6 +62,20 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
     ): CompletableFuture<CardDisputeListPageAsync> =
         // get /card_disputes
         withRawResponse().list(params, requestOptions).thenApply { it.parse() }
+
+    override fun provideProvisionalCredit(
+        params: CardDisputeProvideProvisionalCreditParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDispute> =
+        // post /card_disputes/{card_dispute_id}/provide_provisional_credit
+        withRawResponse().provideProvisionalCredit(params, requestOptions).thenApply { it.parse() }
+
+    override fun reverseProvisionalCredit(
+        params: CardDisputeReverseProvisionalCreditParams,
+        requestOptions: RequestOptions,
+    ): CompletableFuture<CardDispute> =
+        // post /card_disputes/{card_dispute_id}/reverse_provisional_credit
+        withRawResponse().reverseProvisionalCredit(params, requestOptions).thenApply { it.parse() }
 
     override fun submitUserSubmission(
         params: CardDisputeSubmitUserSubmissionParams,
@@ -185,6 +201,82 @@ class CardDisputeServiceAsyncImpl internal constructor(private val clientOptions
                                     .params(params)
                                     .response(it)
                                     .build()
+                            }
+                    }
+                }
+        }
+
+        private val provideProvisionalCreditHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper)
+
+        override fun provideProvisionalCredit(
+            params: CardDisputeProvideProvisionalCreditParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDispute>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardDisputeId", params.cardDisputeId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "card_disputes",
+                        params._pathParam(0),
+                        "provide_provisional_credit",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { provideProvisionalCreditHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
+                            }
+                    }
+                }
+        }
+
+        private val reverseProvisionalCreditHandler: Handler<CardDispute> =
+            jsonHandler<CardDispute>(clientOptions.jsonMapper)
+
+        override fun reverseProvisionalCredit(
+            params: CardDisputeReverseProvisionalCreditParams,
+            requestOptions: RequestOptions,
+        ): CompletableFuture<HttpResponseFor<CardDispute>> {
+            // We check here instead of in the params builder because this can be specified
+            // positionally or in the params class.
+            checkRequired("cardDisputeId", params.cardDisputeId().getOrNull())
+            val request =
+                HttpRequest.builder()
+                    .method(HttpMethod.POST)
+                    .baseUrl(clientOptions.baseUrl())
+                    .addPathSegments(
+                        "card_disputes",
+                        params._pathParam(0),
+                        "reverse_provisional_credit",
+                    )
+                    .apply { params._body().ifPresent { body(json(clientOptions.jsonMapper, it)) } }
+                    .build()
+                    .prepareAsync(clientOptions, params)
+            val requestOptions = requestOptions.applyDefaults(RequestOptions.from(clientOptions))
+            return request
+                .thenComposeAsync { clientOptions.httpClient.executeAsync(it, requestOptions) }
+                .thenApply { response ->
+                    errorHandler.handle(response).parseable {
+                        response
+                            .use { reverseProvisionalCreditHandler.handle(it) }
+                            .also {
+                                if (requestOptions.responseValidation!!) {
+                                    it.validate()
+                                }
                             }
                     }
                 }
