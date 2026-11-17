@@ -108,6 +108,7 @@ internal class EntityCreateParamsTest {
                                 EntityCreateParams.Corporation.LegalIdentifier.Category
                                     .US_EMPLOYER_IDENTIFICATION_NUMBER
                             )
+                            .issuedOn(LocalDate.parse("2019-12-27"))
                             .build()
                     )
                     .name("National Phonograph Company")
@@ -569,6 +570,7 @@ internal class EntityCreateParamsTest {
                                     EntityCreateParams.Corporation.LegalIdentifier.Category
                                         .US_EMPLOYER_IDENTIFICATION_NUMBER
                                 )
+                                .issuedOn(LocalDate.parse("2019-12-27"))
                                 .build()
                         )
                         .name("National Phonograph Company")
@@ -1028,6 +1030,7 @@ internal class EntityCreateParamsTest {
                                 EntityCreateParams.Corporation.LegalIdentifier.Category
                                     .US_EMPLOYER_IDENTIFICATION_NUMBER
                             )
+                            .issuedOn(LocalDate.parse("2019-12-27"))
                             .build()
                     )
                     .name("National Phonograph Company")
