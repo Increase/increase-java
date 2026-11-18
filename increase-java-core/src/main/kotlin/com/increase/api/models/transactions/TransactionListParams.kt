@@ -557,6 +557,14 @@ private constructor(
                     of("inbound_fednow_transfer_confirmation")
 
                 /**
+                 * Inbound FedNow Transfer Return Acknowledgement: details will be under the
+                 * `inbound_fednow_transfer_return_acknowledgement` object.
+                 */
+                @JvmField
+                val INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT =
+                    of("inbound_fednow_transfer_return_acknowledgement")
+
+                /**
                  * Inbound Real-Time Payments Transfer Confirmation: details will be under the
                  * `inbound_real_time_payments_transfer_confirmation` object.
                  */
@@ -766,6 +774,11 @@ private constructor(
                  */
                 INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
                 /**
+                 * Inbound FedNow Transfer Return Acknowledgement: details will be under the
+                 * `inbound_fednow_transfer_return_acknowledgement` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT,
+                /**
                  * Inbound Real-Time Payments Transfer Confirmation: details will be under the
                  * `inbound_real_time_payments_transfer_confirmation` object.
                  */
@@ -953,6 +966,11 @@ private constructor(
                  */
                 INBOUND_FEDNOW_TRANSFER_CONFIRMATION,
                 /**
+                 * Inbound FedNow Transfer Return Acknowledgement: details will be under the
+                 * `inbound_fednow_transfer_return_acknowledgement` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT,
+                /**
                  * Inbound Real-Time Payments Transfer Confirmation: details will be under the
                  * `inbound_real_time_payments_transfer_confirmation` object.
                  */
@@ -1068,6 +1086,8 @@ private constructor(
                     INBOUND_CHECK_ADJUSTMENT -> Value.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
+                    INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT ->
+                        Value.INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Value.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_REVERSAL -> Value.INBOUND_WIRE_REVERSAL
@@ -1132,6 +1152,8 @@ private constructor(
                     INBOUND_CHECK_ADJUSTMENT -> Known.INBOUND_CHECK_ADJUSTMENT
                     INBOUND_FEDNOW_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_FEDNOW_TRANSFER_CONFIRMATION
+                    INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT ->
+                        Known.INBOUND_FEDNOW_TRANSFER_RETURN_ACKNOWLEDGEMENT
                     INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION ->
                         Known.INBOUND_REAL_TIME_PAYMENTS_TRANSFER_CONFIRMATION
                     INBOUND_WIRE_REVERSAL -> Known.INBOUND_WIRE_REVERSAL

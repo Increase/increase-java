@@ -1778,6 +1778,9 @@ private constructor(
             /** The transfer has been declined. */
             @JvmField val DECLINED = of("declined")
 
+            /** The transfer has been returned, in full or in part, to its sender. */
+            @JvmField val RETURNED = of("returned")
+
             /** The transfer requires attention from an Increase operator. */
             @JvmField val REQUIRES_ATTENTION = of("requires_attention")
 
@@ -1794,6 +1797,8 @@ private constructor(
             CONFIRMED,
             /** The transfer has been declined. */
             DECLINED,
+            /** The transfer has been returned, in full or in part, to its sender. */
+            RETURNED,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
         }
@@ -1816,6 +1821,8 @@ private constructor(
             CONFIRMED,
             /** The transfer has been declined. */
             DECLINED,
+            /** The transfer has been returned, in full or in part, to its sender. */
+            RETURNED,
             /** The transfer requires attention from an Increase operator. */
             REQUIRES_ATTENTION,
             /** An enum member indicating that [Status] was instantiated with an unknown value. */
@@ -1835,6 +1842,7 @@ private constructor(
                 TIMED_OUT -> Value.TIMED_OUT
                 CONFIRMED -> Value.CONFIRMED
                 DECLINED -> Value.DECLINED
+                RETURNED -> Value.RETURNED
                 REQUIRES_ATTENTION -> Value.REQUIRES_ATTENTION
                 else -> Value._UNKNOWN
             }
@@ -1854,6 +1862,7 @@ private constructor(
                 TIMED_OUT -> Known.TIMED_OUT
                 CONFIRMED -> Known.CONFIRMED
                 DECLINED -> Known.DECLINED
+                RETURNED -> Known.RETURNED
                 REQUIRES_ATTENTION -> Known.REQUIRES_ATTENTION
                 else -> throw IncreaseInvalidDataException("Unknown Status: $value")
             }
