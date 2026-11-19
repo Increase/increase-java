@@ -473,6 +473,12 @@ private constructor(
                  */
                 @JvmField val FEDNOW_TRANSFER_INSTRUCTION = of("fednow_transfer_instruction")
 
+                /**
+                 * Inbound FedNow Transfer Return: details will be under the
+                 * `inbound_fednow_transfer_return` object.
+                 */
+                @JvmField val INBOUND_FEDNOW_TRANSFER_RETURN = of("inbound_fednow_transfer_return")
+
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 @JvmField val INBOUND_FUNDS_HOLD = of("inbound_funds_hold")
 
@@ -575,6 +581,11 @@ private constructor(
                  * `fednow_transfer_instruction` object.
                  */
                 FEDNOW_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound FedNow Transfer Return: details will be under the
+                 * `inbound_fednow_transfer_return` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_RETURN,
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
@@ -665,6 +676,11 @@ private constructor(
                  * `fednow_transfer_instruction` object.
                  */
                 FEDNOW_TRANSFER_INSTRUCTION,
+                /**
+                 * Inbound FedNow Transfer Return: details will be under the
+                 * `inbound_fednow_transfer_return` object.
+                 */
+                INBOUND_FEDNOW_TRANSFER_RETURN,
                 /** Inbound Funds Hold: details will be under the `inbound_funds_hold` object. */
                 INBOUND_FUNDS_HOLD,
                 /** User Initiated Hold: details will be under the `user_initiated_hold` object. */
@@ -735,6 +751,7 @@ private constructor(
                     CHECK_DEPOSIT_INSTRUCTION -> Value.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Value.CHECK_TRANSFER_INSTRUCTION
                     FEDNOW_TRANSFER_INSTRUCTION -> Value.FEDNOW_TRANSFER_INSTRUCTION
+                    INBOUND_FEDNOW_TRANSFER_RETURN -> Value.INBOUND_FEDNOW_TRANSFER_RETURN
                     INBOUND_FUNDS_HOLD -> Value.INBOUND_FUNDS_HOLD
                     USER_INITIATED_HOLD -> Value.USER_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->
@@ -770,6 +787,7 @@ private constructor(
                     CHECK_DEPOSIT_INSTRUCTION -> Known.CHECK_DEPOSIT_INSTRUCTION
                     CHECK_TRANSFER_INSTRUCTION -> Known.CHECK_TRANSFER_INSTRUCTION
                     FEDNOW_TRANSFER_INSTRUCTION -> Known.FEDNOW_TRANSFER_INSTRUCTION
+                    INBOUND_FEDNOW_TRANSFER_RETURN -> Known.INBOUND_FEDNOW_TRANSFER_RETURN
                     INBOUND_FUNDS_HOLD -> Known.INBOUND_FUNDS_HOLD
                     USER_INITIATED_HOLD -> Known.USER_INITIATED_HOLD
                     REAL_TIME_PAYMENTS_TRANSFER_INSTRUCTION ->

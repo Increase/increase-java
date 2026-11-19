@@ -1228,7 +1228,8 @@ private constructor(
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
         private val accountId: JsonField<String>,
-        private val effectiveDate: JsonField<LocalDate>,
+        private val onOrAfterDate: JsonField<LocalDate>,
+        private val onOrBeforeDate: JsonField<LocalDate>,
         private val programId: JsonField<String>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
@@ -1238,13 +1239,16 @@ private constructor(
             @JsonProperty("account_id")
             @ExcludeMissing
             accountId: JsonField<String> = JsonMissing.of(),
-            @JsonProperty("effective_date")
+            @JsonProperty("on_or_after_date")
             @ExcludeMissing
-            effectiveDate: JsonField<LocalDate> = JsonMissing.of(),
+            onOrAfterDate: JsonField<LocalDate> = JsonMissing.of(),
+            @JsonProperty("on_or_before_date")
+            @ExcludeMissing
+            onOrBeforeDate: JsonField<LocalDate> = JsonMissing.of(),
             @JsonProperty("program_id")
             @ExcludeMissing
             programId: JsonField<String> = JsonMissing.of(),
-        ) : this(accountId, effectiveDate, programId, mutableMapOf())
+        ) : this(accountId, onOrAfterDate, onOrBeforeDate, programId, mutableMapOf())
 
         /**
          * Filter results by Account.
@@ -1255,12 +1259,22 @@ private constructor(
         fun accountId(): Optional<String> = accountId.getOptional("account_id")
 
         /**
-         * The UTC date for which to retrieve the balance.
+         * The first as-of date (UTC) reported in the BAI2 file. If null, the report started from
+         * the earliest included Account.
          *
          * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
          *   the server responded with an unexpected value).
          */
-        fun effectiveDate(): Optional<LocalDate> = effectiveDate.getOptional("effective_date")
+        fun onOrAfterDate(): Optional<LocalDate> = onOrAfterDate.getOptional("on_or_after_date")
+
+        /**
+         * The last as-of date (UTC) reported in the BAI2 file. If null, the report ran through the
+         * date the Export was created.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun onOrBeforeDate(): Optional<LocalDate> = onOrBeforeDate.getOptional("on_or_before_date")
 
         /**
          * Filter results by Program.
@@ -1278,14 +1292,24 @@ private constructor(
         @JsonProperty("account_id") @ExcludeMissing fun _accountId(): JsonField<String> = accountId
 
         /**
-         * Returns the raw JSON value of [effectiveDate].
+         * Returns the raw JSON value of [onOrAfterDate].
          *
-         * Unlike [effectiveDate], this method doesn't throw if the JSON field has an unexpected
+         * Unlike [onOrAfterDate], this method doesn't throw if the JSON field has an unexpected
          * type.
          */
-        @JsonProperty("effective_date")
+        @JsonProperty("on_or_after_date")
         @ExcludeMissing
-        fun _effectiveDate(): JsonField<LocalDate> = effectiveDate
+        fun _onOrAfterDate(): JsonField<LocalDate> = onOrAfterDate
+
+        /**
+         * Returns the raw JSON value of [onOrBeforeDate].
+         *
+         * Unlike [onOrBeforeDate], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("on_or_before_date")
+        @ExcludeMissing
+        fun _onOrBeforeDate(): JsonField<LocalDate> = onOrBeforeDate
 
         /**
          * Returns the raw JSON value of [programId].
@@ -1314,7 +1338,8 @@ private constructor(
              * The following fields are required:
              * ```java
              * .accountId()
-             * .effectiveDate()
+             * .onOrAfterDate()
+             * .onOrBeforeDate()
              * .programId()
              * ```
              */
@@ -1325,14 +1350,16 @@ private constructor(
         class Builder internal constructor() {
 
             private var accountId: JsonField<String>? = null
-            private var effectiveDate: JsonField<LocalDate>? = null
+            private var onOrAfterDate: JsonField<LocalDate>? = null
+            private var onOrBeforeDate: JsonField<LocalDate>? = null
             private var programId: JsonField<String>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(accountStatementBai2: AccountStatementBai2) = apply {
                 accountId = accountStatementBai2.accountId
-                effectiveDate = accountStatementBai2.effectiveDate
+                onOrAfterDate = accountStatementBai2.onOrAfterDate
+                onOrBeforeDate = accountStatementBai2.onOrBeforeDate
                 programId = accountStatementBai2.programId
                 additionalProperties = accountStatementBai2.additionalProperties.toMutableMap()
             }
@@ -1352,23 +1379,48 @@ private constructor(
              */
             fun accountId(accountId: JsonField<String>) = apply { this.accountId = accountId }
 
-            /** The UTC date for which to retrieve the balance. */
-            fun effectiveDate(effectiveDate: LocalDate?) =
-                effectiveDate(JsonField.ofNullable(effectiveDate))
+            /**
+             * The first as-of date (UTC) reported in the BAI2 file. If null, the report started
+             * from the earliest included Account.
+             */
+            fun onOrAfterDate(onOrAfterDate: LocalDate?) =
+                onOrAfterDate(JsonField.ofNullable(onOrAfterDate))
 
-            /** Alias for calling [Builder.effectiveDate] with `effectiveDate.orElse(null)`. */
-            fun effectiveDate(effectiveDate: Optional<LocalDate>) =
-                effectiveDate(effectiveDate.getOrNull())
+            /** Alias for calling [Builder.onOrAfterDate] with `onOrAfterDate.orElse(null)`. */
+            fun onOrAfterDate(onOrAfterDate: Optional<LocalDate>) =
+                onOrAfterDate(onOrAfterDate.getOrNull())
 
             /**
-             * Sets [Builder.effectiveDate] to an arbitrary JSON value.
+             * Sets [Builder.onOrAfterDate] to an arbitrary JSON value.
              *
-             * You should usually call [Builder.effectiveDate] with a well-typed [LocalDate] value
+             * You should usually call [Builder.onOrAfterDate] with a well-typed [LocalDate] value
              * instead. This method is primarily for setting the field to an undocumented or not yet
              * supported value.
              */
-            fun effectiveDate(effectiveDate: JsonField<LocalDate>) = apply {
-                this.effectiveDate = effectiveDate
+            fun onOrAfterDate(onOrAfterDate: JsonField<LocalDate>) = apply {
+                this.onOrAfterDate = onOrAfterDate
+            }
+
+            /**
+             * The last as-of date (UTC) reported in the BAI2 file. If null, the report ran through
+             * the date the Export was created.
+             */
+            fun onOrBeforeDate(onOrBeforeDate: LocalDate?) =
+                onOrBeforeDate(JsonField.ofNullable(onOrBeforeDate))
+
+            /** Alias for calling [Builder.onOrBeforeDate] with `onOrBeforeDate.orElse(null)`. */
+            fun onOrBeforeDate(onOrBeforeDate: Optional<LocalDate>) =
+                onOrBeforeDate(onOrBeforeDate.getOrNull())
+
+            /**
+             * Sets [Builder.onOrBeforeDate] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.onOrBeforeDate] with a well-typed [LocalDate] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun onOrBeforeDate(onOrBeforeDate: JsonField<LocalDate>) = apply {
+                this.onOrBeforeDate = onOrBeforeDate
             }
 
             /** Filter results by Program. */
@@ -1413,7 +1465,8 @@ private constructor(
              * The following fields are required:
              * ```java
              * .accountId()
-             * .effectiveDate()
+             * .onOrAfterDate()
+             * .onOrBeforeDate()
              * .programId()
              * ```
              *
@@ -1422,7 +1475,8 @@ private constructor(
             fun build(): AccountStatementBai2 =
                 AccountStatementBai2(
                     checkRequired("accountId", accountId),
-                    checkRequired("effectiveDate", effectiveDate),
+                    checkRequired("onOrAfterDate", onOrAfterDate),
+                    checkRequired("onOrBeforeDate", onOrBeforeDate),
                     checkRequired("programId", programId),
                     additionalProperties.toMutableMap(),
                 )
@@ -1445,7 +1499,8 @@ private constructor(
             }
 
             accountId()
-            effectiveDate()
+            onOrAfterDate()
+            onOrBeforeDate()
             programId()
             validated = true
         }
@@ -1467,7 +1522,8 @@ private constructor(
         @JvmSynthetic
         internal fun validity(): Int =
             (if (accountId.asKnown().isPresent) 1 else 0) +
-                (if (effectiveDate.asKnown().isPresent) 1 else 0) +
+                (if (onOrAfterDate.asKnown().isPresent) 1 else 0) +
+                (if (onOrBeforeDate.asKnown().isPresent) 1 else 0) +
                 (if (programId.asKnown().isPresent) 1 else 0)
 
         override fun equals(other: Any?): Boolean {
@@ -1477,19 +1533,20 @@ private constructor(
 
             return other is AccountStatementBai2 &&
                 accountId == other.accountId &&
-                effectiveDate == other.effectiveDate &&
+                onOrAfterDate == other.onOrAfterDate &&
+                onOrBeforeDate == other.onOrBeforeDate &&
                 programId == other.programId &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(accountId, effectiveDate, programId, additionalProperties)
+            Objects.hash(accountId, onOrAfterDate, onOrBeforeDate, programId, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "AccountStatementBai2{accountId=$accountId, effectiveDate=$effectiveDate, programId=$programId, additionalProperties=$additionalProperties}"
+            "AccountStatementBai2{accountId=$accountId, onOrAfterDate=$onOrAfterDate, onOrBeforeDate=$onOrBeforeDate, programId=$programId, additionalProperties=$additionalProperties}"
     }
 
     /**
