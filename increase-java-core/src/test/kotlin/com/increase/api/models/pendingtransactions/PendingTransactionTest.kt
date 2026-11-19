@@ -371,6 +371,17 @@ internal class PendingTransactionTest {
                                 .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
                                 .build()
                         )
+                        .inboundFednowTransferReturn(
+                            PendingTransaction.Source.InboundFednowTransferReturn.builder()
+                                .inboundFednowTransferId(
+                                    "inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20"
+                                )
+                                .reason(
+                                    PendingTransaction.Source.InboundFednowTransferReturn.Reason
+                                        .CREDITOR_REQUEST
+                                )
+                                .build()
+                        )
                         .inboundFundsHold(
                             PendingTransaction.Source.InboundFundsHold.builder()
                                 .amount(100L)
@@ -790,6 +801,15 @@ internal class PendingTransactionTest {
                     .fednowTransferInstruction(
                         PendingTransaction.Source.FednowTransferInstruction.builder()
                             .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
+                            .build()
+                    )
+                    .inboundFednowTransferReturn(
+                        PendingTransaction.Source.InboundFednowTransferReturn.builder()
+                            .inboundFednowTransferId("inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20")
+                            .reason(
+                                PendingTransaction.Source.InboundFednowTransferReturn.Reason
+                                    .CREDITOR_REQUEST
+                            )
                             .build()
                     )
                     .inboundFundsHold(
@@ -1222,6 +1242,17 @@ internal class PendingTransactionTest {
                         .fednowTransferInstruction(
                             PendingTransaction.Source.FednowTransferInstruction.builder()
                                 .transferId("fednow_transfer_4i0mptrdu1mueg1196bg")
+                                .build()
+                        )
+                        .inboundFednowTransferReturn(
+                            PendingTransaction.Source.InboundFednowTransferReturn.builder()
+                                .inboundFednowTransferId(
+                                    "inbound_fednow_transfer_ctxxbc07oh5ke5w1hk20"
+                                )
+                                .reason(
+                                    PendingTransaction.Source.InboundFednowTransferReturn.Reason
+                                        .CREDITOR_REQUEST
+                                )
                                 .build()
                         )
                         .inboundFundsHold(

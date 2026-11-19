@@ -29,7 +29,8 @@ internal class ExportServiceTest {
                     .accountStatementBai2(
                         ExportCreateParams.AccountStatementBai2.builder()
                             .accountId("account_id")
-                            .effectiveDate(LocalDate.parse("2019-12-27"))
+                            .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                            .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                             .programId("program_id")
                             .build()
                     )

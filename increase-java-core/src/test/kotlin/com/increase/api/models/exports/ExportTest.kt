@@ -19,7 +19,8 @@ internal class ExportTest {
                 .accountStatementBai2(
                     Export.AccountStatementBai2.builder()
                         .accountId("account_id")
-                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                        .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                         .programId("program_id")
                         .build()
                 )
@@ -131,7 +132,8 @@ internal class ExportTest {
             .contains(
                 Export.AccountStatementBai2.builder()
                     .accountId("account_id")
-                    .effectiveDate(LocalDate.parse("2019-12-27"))
+                    .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                    .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                     .programId("program_id")
                     .build()
             )
@@ -257,7 +259,8 @@ internal class ExportTest {
                 .accountStatementBai2(
                     Export.AccountStatementBai2.builder()
                         .accountId("account_id")
-                        .effectiveDate(LocalDate.parse("2019-12-27"))
+                        .onOrAfterDate(LocalDate.parse("2019-12-27"))
+                        .onOrBeforeDate(LocalDate.parse("2019-12-27"))
                         .programId("program_id")
                         .build()
                 )
