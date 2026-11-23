@@ -37,11 +37,25 @@ internal class DigitalWalletTokenTest {
                 .status(DigitalWalletToken.Status.ACTIVE)
                 .tokenReferenceIdentifier("DNITHE000000000000000000000")
                 .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
+                .tokenRequestorDetails(
+                    DigitalWalletToken.TokenRequestorDetails.builder()
+                        .identifier("40010030273")
+                        .name("Apple Inc.")
+                        .build()
+                )
                 .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                 .addUpdate(
                     DigitalWalletToken.Update.builder()
                         .status(DigitalWalletToken.Update.Status.INACTIVE)
                         .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
+                .wallet(
+                    DigitalWalletToken.Wallet.builder()
+                        .accountIdentifier("0E51EC2F85C4ABF0")
+                        .emailHash(
+                            "0E51EC2F85C4ABF067DFE4B0D30A5F60899C6ACEFD700D3171E7330D542E0834"
+                        )
                         .build()
                 )
                 .build()
@@ -76,6 +90,13 @@ internal class DigitalWalletTokenTest {
             .isEqualTo("DNITHE000000000000000000000")
         assertThat(digitalWalletToken.tokenRequestor())
             .isEqualTo(DigitalWalletToken.TokenRequestor.APPLE_PAY)
+        assertThat(digitalWalletToken.tokenRequestorDetails())
+            .isEqualTo(
+                DigitalWalletToken.TokenRequestorDetails.builder()
+                    .identifier("40010030273")
+                    .name("Apple Inc.")
+                    .build()
+            )
         assertThat(digitalWalletToken.type())
             .isEqualTo(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
         assertThat(digitalWalletToken.updates())
@@ -83,6 +104,13 @@ internal class DigitalWalletTokenTest {
                 DigitalWalletToken.Update.builder()
                     .status(DigitalWalletToken.Update.Status.INACTIVE)
                     .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                    .build()
+            )
+        assertThat(digitalWalletToken.wallet())
+            .isEqualTo(
+                DigitalWalletToken.Wallet.builder()
+                    .accountIdentifier("0E51EC2F85C4ABF0")
+                    .emailHash("0E51EC2F85C4ABF067DFE4B0D30A5F60899C6ACEFD700D3171E7330D542E0834")
                     .build()
             )
     }
@@ -115,11 +143,25 @@ internal class DigitalWalletTokenTest {
                 .status(DigitalWalletToken.Status.ACTIVE)
                 .tokenReferenceIdentifier("DNITHE000000000000000000000")
                 .tokenRequestor(DigitalWalletToken.TokenRequestor.APPLE_PAY)
+                .tokenRequestorDetails(
+                    DigitalWalletToken.TokenRequestorDetails.builder()
+                        .identifier("40010030273")
+                        .name("Apple Inc.")
+                        .build()
+                )
                 .type(DigitalWalletToken.Type.DIGITAL_WALLET_TOKEN)
                 .addUpdate(
                     DigitalWalletToken.Update.builder()
                         .status(DigitalWalletToken.Update.Status.INACTIVE)
                         .timestamp(OffsetDateTime.parse("2020-01-31T23:59:59Z"))
+                        .build()
+                )
+                .wallet(
+                    DigitalWalletToken.Wallet.builder()
+                        .accountIdentifier("0E51EC2F85C4ABF0")
+                        .emailHash(
+                            "0E51EC2F85C4ABF067DFE4B0D30A5F60899C6ACEFD700D3171E7330D542E0834"
+                        )
                         .build()
                 )
                 .build()

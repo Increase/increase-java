@@ -39,8 +39,10 @@ private constructor(
     private val status: JsonField<Status>,
     private val tokenReferenceIdentifier: JsonField<String>,
     private val tokenRequestor: JsonField<TokenRequestor>,
+    private val tokenRequestorDetails: JsonField<TokenRequestorDetails>,
     private val type: JsonField<Type>,
     private val updates: JsonField<List<Update>>,
+    private val wallet: JsonField<Wallet>,
     private val additionalProperties: MutableMap<String, JsonValue>,
 ) {
 
@@ -69,8 +71,14 @@ private constructor(
         @JsonProperty("token_requestor")
         @ExcludeMissing
         tokenRequestor: JsonField<TokenRequestor> = JsonMissing.of(),
+        @JsonProperty("token_requestor_details")
+        @ExcludeMissing
+        tokenRequestorDetails: JsonField<TokenRequestorDetails> = JsonMissing.of(),
         @JsonProperty("type") @ExcludeMissing type: JsonField<Type> = JsonMissing.of(),
-        @JsonProperty("updates") @ExcludeMissing updates: JsonField<List<Update>> = JsonMissing.of(),
+        @JsonProperty("updates")
+        @ExcludeMissing
+        updates: JsonField<List<Update>> = JsonMissing.of(),
+        @JsonProperty("wallet") @ExcludeMissing wallet: JsonField<Wallet> = JsonMissing.of(),
     ) : this(
         id,
         accountId,
@@ -83,8 +91,10 @@ private constructor(
         status,
         tokenReferenceIdentifier,
         tokenRequestor,
+        tokenRequestorDetails,
         type,
         updates,
+        wallet,
         mutableMapOf(),
     )
 
@@ -183,6 +193,15 @@ private constructor(
     fun tokenRequestor(): TokenRequestor = tokenRequestor.getRequired("token_requestor")
 
     /**
+     * The digital wallet or merchant that requested the token.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun tokenRequestorDetails(): TokenRequestorDetails =
+        tokenRequestorDetails.getRequired("token_requestor_details")
+
+    /**
      * A constant representing the object's type. For this resource it will always be
      * `digital_wallet_token`.
      *
@@ -198,6 +217,14 @@ private constructor(
      *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
      */
     fun updates(): List<Update> = updates.getRequired("updates")
+
+    /**
+     * Details about the digital wallet.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun wallet(): Wallet = wallet.getRequired("wallet")
 
     /**
      * Returns the raw JSON value of [id].
@@ -294,6 +321,16 @@ private constructor(
     fun _tokenRequestor(): JsonField<TokenRequestor> = tokenRequestor
 
     /**
+     * Returns the raw JSON value of [tokenRequestorDetails].
+     *
+     * Unlike [tokenRequestorDetails], this method doesn't throw if the JSON field has an unexpected
+     * type.
+     */
+    @JsonProperty("token_requestor_details")
+    @ExcludeMissing
+    fun _tokenRequestorDetails(): JsonField<TokenRequestorDetails> = tokenRequestorDetails
+
+    /**
      * Returns the raw JSON value of [type].
      *
      * Unlike [type], this method doesn't throw if the JSON field has an unexpected type.
@@ -306,6 +343,13 @@ private constructor(
      * Unlike [updates], this method doesn't throw if the JSON field has an unexpected type.
      */
     @JsonProperty("updates") @ExcludeMissing fun _updates(): JsonField<List<Update>> = updates
+
+    /**
+     * Returns the raw JSON value of [wallet].
+     *
+     * Unlike [wallet], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    @JsonProperty("wallet") @ExcludeMissing fun _wallet(): JsonField<Wallet> = wallet
 
     @JsonAnySetter
     private fun putAdditionalProperty(key: String, value: JsonValue) {
@@ -337,8 +381,10 @@ private constructor(
          * .status()
          * .tokenReferenceIdentifier()
          * .tokenRequestor()
+         * .tokenRequestorDetails()
          * .type()
          * .updates()
+         * .wallet()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -358,8 +404,10 @@ private constructor(
         private var status: JsonField<Status>? = null
         private var tokenReferenceIdentifier: JsonField<String>? = null
         private var tokenRequestor: JsonField<TokenRequestor>? = null
+        private var tokenRequestorDetails: JsonField<TokenRequestorDetails>? = null
         private var type: JsonField<Type>? = null
         private var updates: JsonField<MutableList<Update>>? = null
+        private var wallet: JsonField<Wallet>? = null
         private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
         @JvmSynthetic
@@ -376,8 +424,10 @@ private constructor(
             status = digitalWalletToken.status
             tokenReferenceIdentifier = digitalWalletToken.tokenReferenceIdentifier
             tokenRequestor = digitalWalletToken.tokenRequestor
+            tokenRequestorDetails = digitalWalletToken.tokenRequestorDetails
             type = digitalWalletToken.type
             updates = digitalWalletToken.updates.map { it.toMutableList() }
+            wallet = digitalWalletToken.wallet
             additionalProperties = digitalWalletToken.additionalProperties.toMutableMap()
         }
 
@@ -538,6 +588,21 @@ private constructor(
             this.tokenRequestor = tokenRequestor
         }
 
+        /** The digital wallet or merchant that requested the token. */
+        fun tokenRequestorDetails(tokenRequestorDetails: TokenRequestorDetails) =
+            tokenRequestorDetails(JsonField.of(tokenRequestorDetails))
+
+        /**
+         * Sets [Builder.tokenRequestorDetails] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.tokenRequestorDetails] with a well-typed
+         * [TokenRequestorDetails] value instead. This method is primarily for setting the field to
+         * an undocumented or not yet supported value.
+         */
+        fun tokenRequestorDetails(tokenRequestorDetails: JsonField<TokenRequestorDetails>) = apply {
+            this.tokenRequestorDetails = tokenRequestorDetails
+        }
+
         /**
          * A constant representing the object's type. For this resource it will always be
          * `digital_wallet_token`.
@@ -578,6 +643,17 @@ private constructor(
                 }
         }
 
+        /** Details about the digital wallet. */
+        fun wallet(wallet: Wallet) = wallet(JsonField.of(wallet))
+
+        /**
+         * Sets [Builder.wallet] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.wallet] with a well-typed [Wallet] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun wallet(wallet: JsonField<Wallet>) = apply { this.wallet = wallet }
+
         fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
             this.additionalProperties.clear()
             putAllAdditionalProperties(additionalProperties)
@@ -615,8 +691,10 @@ private constructor(
          * .status()
          * .tokenReferenceIdentifier()
          * .tokenRequestor()
+         * .tokenRequestorDetails()
          * .type()
          * .updates()
+         * .wallet()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -637,8 +715,10 @@ private constructor(
                 checkRequired("status", status),
                 checkRequired("tokenReferenceIdentifier", tokenReferenceIdentifier),
                 checkRequired("tokenRequestor", tokenRequestor),
+                checkRequired("tokenRequestorDetails", tokenRequestorDetails),
                 checkRequired("type", type),
                 checkRequired("updates", updates).map { it.toImmutable() },
+                checkRequired("wallet", wallet),
                 additionalProperties.toMutableMap(),
             )
     }
@@ -669,8 +749,10 @@ private constructor(
         status().validate()
         tokenReferenceIdentifier()
         tokenRequestor().validate()
+        tokenRequestorDetails().validate()
         type().validate()
         updates().forEach { it.validate() }
+        wallet().validate()
         validated = true
     }
 
@@ -700,8 +782,10 @@ private constructor(
             (status.asKnown().getOrNull()?.validity() ?: 0) +
             (if (tokenReferenceIdentifier.asKnown().isPresent) 1 else 0) +
             (tokenRequestor.asKnown().getOrNull()?.validity() ?: 0) +
+            (tokenRequestorDetails.asKnown().getOrNull()?.validity() ?: 0) +
             (type.asKnown().getOrNull()?.validity() ?: 0) +
-            (updates.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+            (updates.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+            (wallet.asKnown().getOrNull()?.validity() ?: 0)
 
     /** The cardholder information given when the Digital Wallet Token was created. */
     class Cardholder
@@ -1962,6 +2046,221 @@ private constructor(
         override fun toString() = value.toString()
     }
 
+    /** The digital wallet or merchant that requested the token. */
+    class TokenRequestorDetails
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val identifier: JsonField<String>,
+        private val name: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("identifier")
+            @ExcludeMissing
+            identifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("name") @ExcludeMissing name: JsonField<String> = JsonMissing.of(),
+        ) : this(identifier, name, mutableMapOf())
+
+        /**
+         * The identifier assigned to the token requestor by the card network.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun identifier(): String = identifier.getRequired("identifier")
+
+        /**
+         * The name of the token requestor, for example "Apple Inc.".
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun name(): Optional<String> = name.getOptional("name")
+
+        /**
+         * Returns the raw JSON value of [identifier].
+         *
+         * Unlike [identifier], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("identifier")
+        @ExcludeMissing
+        fun _identifier(): JsonField<String> = identifier
+
+        /**
+         * Returns the raw JSON value of [name].
+         *
+         * Unlike [name], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("name") @ExcludeMissing fun _name(): JsonField<String> = name
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [TokenRequestorDetails].
+             *
+             * The following fields are required:
+             * ```java
+             * .identifier()
+             * .name()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [TokenRequestorDetails]. */
+        class Builder internal constructor() {
+
+            private var identifier: JsonField<String>? = null
+            private var name: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(tokenRequestorDetails: TokenRequestorDetails) = apply {
+                identifier = tokenRequestorDetails.identifier
+                name = tokenRequestorDetails.name
+                additionalProperties = tokenRequestorDetails.additionalProperties.toMutableMap()
+            }
+
+            /** The identifier assigned to the token requestor by the card network. */
+            fun identifier(identifier: String) = identifier(JsonField.of(identifier))
+
+            /**
+             * Sets [Builder.identifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.identifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun identifier(identifier: JsonField<String>) = apply { this.identifier = identifier }
+
+            /** The name of the token requestor, for example "Apple Inc.". */
+            fun name(name: String?) = name(JsonField.ofNullable(name))
+
+            /** Alias for calling [Builder.name] with `name.orElse(null)`. */
+            fun name(name: Optional<String>) = name(name.getOrNull())
+
+            /**
+             * Sets [Builder.name] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.name] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun name(name: JsonField<String>) = apply { this.name = name }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [TokenRequestorDetails].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .identifier()
+             * .name()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): TokenRequestorDetails =
+                TokenRequestorDetails(
+                    checkRequired("identifier", identifier),
+                    checkRequired("name", name),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): TokenRequestorDetails = apply {
+            if (validated) {
+                return@apply
+            }
+
+            identifier()
+            name()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (identifier.asKnown().isPresent) 1 else 0) +
+                (if (name.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is TokenRequestorDetails &&
+                identifier == other.identifier &&
+                name == other.name &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy { Objects.hash(identifier, name, additionalProperties) }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "TokenRequestorDetails{identifier=$identifier, name=$name, additionalProperties=$additionalProperties}"
+    }
+
     /**
      * A constant representing the object's type. For this resource it will always be
      * `digital_wallet_token`.
@@ -2504,6 +2803,236 @@ private constructor(
             "Update{status=$status, timestamp=$timestamp, additionalProperties=$additionalProperties}"
     }
 
+    /** Details about the digital wallet. */
+    class Wallet
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val accountIdentifier: JsonField<String>,
+        private val emailHash: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("account_identifier")
+            @ExcludeMissing
+            accountIdentifier: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("email_hash")
+            @ExcludeMissing
+            emailHash: JsonField<String> = JsonMissing.of(),
+        ) : this(accountIdentifier, emailHash, mutableMapOf())
+
+        /**
+         * An identifier for the cardholder's account with the digital wallet.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun accountIdentifier(): Optional<String> =
+            accountIdentifier.getOptional("account_identifier")
+
+        /**
+         * A hash of the email address on the cardholder's digital wallet account.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun emailHash(): Optional<String> = emailHash.getOptional("email_hash")
+
+        /**
+         * Returns the raw JSON value of [accountIdentifier].
+         *
+         * Unlike [accountIdentifier], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("account_identifier")
+        @ExcludeMissing
+        fun _accountIdentifier(): JsonField<String> = accountIdentifier
+
+        /**
+         * Returns the raw JSON value of [emailHash].
+         *
+         * Unlike [emailHash], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("email_hash") @ExcludeMissing fun _emailHash(): JsonField<String> = emailHash
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [Wallet].
+             *
+             * The following fields are required:
+             * ```java
+             * .accountIdentifier()
+             * .emailHash()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [Wallet]. */
+        class Builder internal constructor() {
+
+            private var accountIdentifier: JsonField<String>? = null
+            private var emailHash: JsonField<String>? = null
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(wallet: Wallet) = apply {
+                accountIdentifier = wallet.accountIdentifier
+                emailHash = wallet.emailHash
+                additionalProperties = wallet.additionalProperties.toMutableMap()
+            }
+
+            /** An identifier for the cardholder's account with the digital wallet. */
+            fun accountIdentifier(accountIdentifier: String?) =
+                accountIdentifier(JsonField.ofNullable(accountIdentifier))
+
+            /**
+             * Alias for calling [Builder.accountIdentifier] with `accountIdentifier.orElse(null)`.
+             */
+            fun accountIdentifier(accountIdentifier: Optional<String>) =
+                accountIdentifier(accountIdentifier.getOrNull())
+
+            /**
+             * Sets [Builder.accountIdentifier] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.accountIdentifier] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun accountIdentifier(accountIdentifier: JsonField<String>) = apply {
+                this.accountIdentifier = accountIdentifier
+            }
+
+            /** A hash of the email address on the cardholder's digital wallet account. */
+            fun emailHash(emailHash: String?) = emailHash(JsonField.ofNullable(emailHash))
+
+            /** Alias for calling [Builder.emailHash] with `emailHash.orElse(null)`. */
+            fun emailHash(emailHash: Optional<String>) = emailHash(emailHash.getOrNull())
+
+            /**
+             * Sets [Builder.emailHash] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.emailHash] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun emailHash(emailHash: JsonField<String>) = apply { this.emailHash = emailHash }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [Wallet].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .accountIdentifier()
+             * .emailHash()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): Wallet =
+                Wallet(
+                    checkRequired("accountIdentifier", accountIdentifier),
+                    checkRequired("emailHash", emailHash),
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Wallet = apply {
+            if (validated) {
+                return@apply
+            }
+
+            accountIdentifier()
+            emailHash()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (accountIdentifier.asKnown().isPresent) 1 else 0) +
+                (if (emailHash.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Wallet &&
+                accountIdentifier == other.accountIdentifier &&
+                emailHash == other.emailHash &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(accountIdentifier, emailHash, additionalProperties)
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "Wallet{accountIdentifier=$accountIdentifier, emailHash=$emailHash, additionalProperties=$additionalProperties}"
+    }
+
     override fun equals(other: Any?): Boolean {
         if (this === other) {
             return true
@@ -2522,8 +3051,10 @@ private constructor(
             status == other.status &&
             tokenReferenceIdentifier == other.tokenReferenceIdentifier &&
             tokenRequestor == other.tokenRequestor &&
+            tokenRequestorDetails == other.tokenRequestorDetails &&
             type == other.type &&
             updates == other.updates &&
+            wallet == other.wallet &&
             additionalProperties == other.additionalProperties
     }
 
@@ -2540,8 +3071,10 @@ private constructor(
             status,
             tokenReferenceIdentifier,
             tokenRequestor,
+            tokenRequestorDetails,
             type,
             updates,
+            wallet,
             additionalProperties,
         )
     }
@@ -2549,5 +3082,5 @@ private constructor(
     override fun hashCode(): Int = hashCode
 
     override fun toString() =
-        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, primaryAccountNumberReferenceIdentifier=$primaryAccountNumberReferenceIdentifier, status=$status, tokenReferenceIdentifier=$tokenReferenceIdentifier, tokenRequestor=$tokenRequestor, type=$type, updates=$updates, additionalProperties=$additionalProperties}"
+        "DigitalWalletToken{id=$id, accountId=$accountId, cardId=$cardId, cardholder=$cardholder, createdAt=$createdAt, device=$device, dynamicPrimaryAccountNumber=$dynamicPrimaryAccountNumber, primaryAccountNumberReferenceIdentifier=$primaryAccountNumberReferenceIdentifier, status=$status, tokenReferenceIdentifier=$tokenReferenceIdentifier, tokenRequestor=$tokenRequestor, tokenRequestorDetails=$tokenRequestorDetails, type=$type, updates=$updates, wallet=$wallet, additionalProperties=$additionalProperties}"
 }
