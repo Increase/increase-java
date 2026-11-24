@@ -572,6 +572,11 @@ internal class RealTimeDecisionTest {
                 .digitalWalletToken(
                     RealTimeDecision.DigitalWalletToken.builder()
                         .cardId("card_id")
+                        .cardholder(
+                            RealTimeDecision.DigitalWalletToken.Cardholder.builder()
+                                .name("name")
+                                .build()
+                        )
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .device(
                             RealTimeDecision.DigitalWalletToken.Device.builder()
@@ -584,6 +589,52 @@ internal class RealTimeDecisionTest {
                                 .build()
                         )
                         .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
+                        .network(RealTimeDecision.DigitalWalletToken.Network.VISA)
+                        .primaryAccountNumberSource(
+                            RealTimeDecision.DigitalWalletToken.PrimaryAccountNumberSource
+                                .KEY_ENTERED
+                        )
+                        .tokenRequestorDetails(
+                            RealTimeDecision.DigitalWalletToken.TokenRequestorDetails.builder()
+                                .identifier("identifier")
+                                .name("name")
+                                .build()
+                        )
+                        .verification(
+                            RealTimeDecision.DigitalWalletToken.Verification.builder()
+                                .cardholderAddress(
+                                    RealTimeDecision.DigitalWalletToken.Verification
+                                        .CardholderAddress
+                                        .builder()
+                                        .actualLine1("actual_line1")
+                                        .actualPostalCode("actual_postal_code")
+                                        .providedLine1("provided_line1")
+                                        .providedPostalCode("provided_postal_code")
+                                        .result(
+                                            RealTimeDecision.DigitalWalletToken.Verification
+                                                .CardholderAddress
+                                                .Result
+                                                .NOT_CHECKED
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .visa(
+                            RealTimeDecision.DigitalWalletToken.Visa.builder()
+                                .networkRiskScore(0L)
+                                .provisioningRiskScore(0L)
+                                .build()
+                        )
+                        .wallet(
+                            RealTimeDecision.DigitalWalletToken.Wallet.builder()
+                                .accountEmailAgeDays(0L)
+                                .accountIdentifier("account_identifier")
+                                .accountScore(0L)
+                                .deviceScore(0L)
+                                .emailHash("email_hash")
+                                .build()
+                        )
                         .build()
                 )
                 .status(RealTimeDecision.Status.PENDING)
@@ -1135,6 +1186,11 @@ internal class RealTimeDecisionTest {
             .contains(
                 RealTimeDecision.DigitalWalletToken.builder()
                     .cardId("card_id")
+                    .cardholder(
+                        RealTimeDecision.DigitalWalletToken.Cardholder.builder()
+                            .name("name")
+                            .build()
+                    )
                     .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                     .device(
                         RealTimeDecision.DigitalWalletToken.Device.builder()
@@ -1147,6 +1203,50 @@ internal class RealTimeDecisionTest {
                             .build()
                     )
                     .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
+                    .network(RealTimeDecision.DigitalWalletToken.Network.VISA)
+                    .primaryAccountNumberSource(
+                        RealTimeDecision.DigitalWalletToken.PrimaryAccountNumberSource.KEY_ENTERED
+                    )
+                    .tokenRequestorDetails(
+                        RealTimeDecision.DigitalWalletToken.TokenRequestorDetails.builder()
+                            .identifier("identifier")
+                            .name("name")
+                            .build()
+                    )
+                    .verification(
+                        RealTimeDecision.DigitalWalletToken.Verification.builder()
+                            .cardholderAddress(
+                                RealTimeDecision.DigitalWalletToken.Verification.CardholderAddress
+                                    .builder()
+                                    .actualLine1("actual_line1")
+                                    .actualPostalCode("actual_postal_code")
+                                    .providedLine1("provided_line1")
+                                    .providedPostalCode("provided_postal_code")
+                                    .result(
+                                        RealTimeDecision.DigitalWalletToken.Verification
+                                            .CardholderAddress
+                                            .Result
+                                            .NOT_CHECKED
+                                    )
+                                    .build()
+                            )
+                            .build()
+                    )
+                    .visa(
+                        RealTimeDecision.DigitalWalletToken.Visa.builder()
+                            .networkRiskScore(0L)
+                            .provisioningRiskScore(0L)
+                            .build()
+                    )
+                    .wallet(
+                        RealTimeDecision.DigitalWalletToken.Wallet.builder()
+                            .accountEmailAgeDays(0L)
+                            .accountIdentifier("account_identifier")
+                            .accountScore(0L)
+                            .deviceScore(0L)
+                            .emailHash("email_hash")
+                            .build()
+                    )
                     .build()
             )
         assertThat(realTimeDecision.status()).isEqualTo(RealTimeDecision.Status.PENDING)
@@ -1718,6 +1818,11 @@ internal class RealTimeDecisionTest {
                 .digitalWalletToken(
                     RealTimeDecision.DigitalWalletToken.builder()
                         .cardId("card_id")
+                        .cardholder(
+                            RealTimeDecision.DigitalWalletToken.Cardholder.builder()
+                                .name("name")
+                                .build()
+                        )
                         .decision(RealTimeDecision.DigitalWalletToken.Decision.APPROVE)
                         .device(
                             RealTimeDecision.DigitalWalletToken.Device.builder()
@@ -1730,6 +1835,52 @@ internal class RealTimeDecisionTest {
                                 .build()
                         )
                         .digitalWallet(RealTimeDecision.DigitalWalletToken.DigitalWallet.APPLE_PAY)
+                        .network(RealTimeDecision.DigitalWalletToken.Network.VISA)
+                        .primaryAccountNumberSource(
+                            RealTimeDecision.DigitalWalletToken.PrimaryAccountNumberSource
+                                .KEY_ENTERED
+                        )
+                        .tokenRequestorDetails(
+                            RealTimeDecision.DigitalWalletToken.TokenRequestorDetails.builder()
+                                .identifier("identifier")
+                                .name("name")
+                                .build()
+                        )
+                        .verification(
+                            RealTimeDecision.DigitalWalletToken.Verification.builder()
+                                .cardholderAddress(
+                                    RealTimeDecision.DigitalWalletToken.Verification
+                                        .CardholderAddress
+                                        .builder()
+                                        .actualLine1("actual_line1")
+                                        .actualPostalCode("actual_postal_code")
+                                        .providedLine1("provided_line1")
+                                        .providedPostalCode("provided_postal_code")
+                                        .result(
+                                            RealTimeDecision.DigitalWalletToken.Verification
+                                                .CardholderAddress
+                                                .Result
+                                                .NOT_CHECKED
+                                        )
+                                        .build()
+                                )
+                                .build()
+                        )
+                        .visa(
+                            RealTimeDecision.DigitalWalletToken.Visa.builder()
+                                .networkRiskScore(0L)
+                                .provisioningRiskScore(0L)
+                                .build()
+                        )
+                        .wallet(
+                            RealTimeDecision.DigitalWalletToken.Wallet.builder()
+                                .accountEmailAgeDays(0L)
+                                .accountIdentifier("account_identifier")
+                                .accountScore(0L)
+                                .deviceScore(0L)
+                                .emailHash("email_hash")
+                                .build()
+                        )
                         .build()
                 )
                 .status(RealTimeDecision.Status.PENDING)
