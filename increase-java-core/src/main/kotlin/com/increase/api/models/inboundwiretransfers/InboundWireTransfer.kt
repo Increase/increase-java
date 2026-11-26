@@ -1764,6 +1764,7 @@ private constructor(
     class Reversal
     @JsonCreator(mode = JsonCreator.Mode.DISABLED)
     private constructor(
+        private val amount: JsonField<Long>,
         private val reason: JsonField<Reason>,
         private val reversedAt: JsonField<OffsetDateTime>,
         private val additionalProperties: MutableMap<String, JsonValue>,
@@ -1771,11 +1772,20 @@ private constructor(
 
         @JsonCreator
         private constructor(
+            @JsonProperty("amount") @ExcludeMissing amount: JsonField<Long> = JsonMissing.of(),
             @JsonProperty("reason") @ExcludeMissing reason: JsonField<Reason> = JsonMissing.of(),
             @JsonProperty("reversed_at")
             @ExcludeMissing
             reversedAt: JsonField<OffsetDateTime> = JsonMissing.of(),
-        ) : this(reason, reversedAt, mutableMapOf())
+        ) : this(amount, reason, reversedAt, mutableMapOf())
+
+        /**
+         * The amount that was reversed in USD cents.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun amount(): Long = amount.getRequired("amount")
 
         /**
          * The reason for the reversal.
@@ -1793,6 +1803,13 @@ private constructor(
          *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
          */
         fun reversedAt(): OffsetDateTime = reversedAt.getRequired("reversed_at")
+
+        /**
+         * Returns the raw JSON value of [amount].
+         *
+         * Unlike [amount], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("amount") @ExcludeMissing fun _amount(): JsonField<Long> = amount
 
         /**
          * Returns the raw JSON value of [reason].
@@ -1829,6 +1846,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .amount()
              * .reason()
              * .reversedAt()
              * ```
@@ -1839,16 +1857,30 @@ private constructor(
         /** A builder for [Reversal]. */
         class Builder internal constructor() {
 
+            private var amount: JsonField<Long>? = null
             private var reason: JsonField<Reason>? = null
             private var reversedAt: JsonField<OffsetDateTime>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
             internal fun from(reversal: Reversal) = apply {
+                amount = reversal.amount
                 reason = reversal.reason
                 reversedAt = reversal.reversedAt
                 additionalProperties = reversal.additionalProperties.toMutableMap()
             }
+
+            /** The amount that was reversed in USD cents. */
+            fun amount(amount: Long) = amount(JsonField.of(amount))
+
+            /**
+             * Sets [Builder.amount] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.amount] with a well-typed [Long] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun amount(amount: JsonField<Long>) = apply { this.amount = amount }
 
             /** The reason for the reversal. */
             fun reason(reason: Reason) = reason(JsonField.of(reason))
@@ -1905,6 +1937,7 @@ private constructor(
              *
              * The following fields are required:
              * ```java
+             * .amount()
              * .reason()
              * .reversedAt()
              * ```
@@ -1913,6 +1946,7 @@ private constructor(
              */
             fun build(): Reversal =
                 Reversal(
+                    checkRequired("amount", amount),
                     checkRequired("reason", reason),
                     checkRequired("reversedAt", reversedAt),
                     additionalProperties.toMutableMap(),
@@ -1935,6 +1969,7 @@ private constructor(
                 return@apply
             }
 
+            amount()
             reason().validate()
             reversedAt()
             validated = true
@@ -1956,7 +1991,8 @@ private constructor(
          */
         @JvmSynthetic
         internal fun validity(): Int =
-            (reason.asKnown().getOrNull()?.validity() ?: 0) +
+            (if (amount.asKnown().isPresent) 1 else 0) +
+                (reason.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (reversedAt.asKnown().isPresent) 1 else 0)
 
         /** The reason for the reversal. */
@@ -1985,6 +2021,9 @@ private constructor(
                 /** The account cannot currently receive inbound wires. */
                 @JvmField val TRANSACTION_FORBIDDEN = of("transaction_forbidden")
 
+                /** The inbound wire transfer was fraudulent. */
+                @JvmField val FRAUD = of("fraud")
+
                 @JvmStatic fun of(value: String) = Reason(JsonField.of(value))
             }
 
@@ -1998,6 +2037,8 @@ private constructor(
                 CREDITOR_REQUEST,
                 /** The account cannot currently receive inbound wires. */
                 TRANSACTION_FORBIDDEN,
+                /** The inbound wire transfer was fraudulent. */
+                FRAUD,
             }
 
             /**
@@ -2018,6 +2059,8 @@ private constructor(
                 CREDITOR_REQUEST,
                 /** The account cannot currently receive inbound wires. */
                 TRANSACTION_FORBIDDEN,
+                /** The inbound wire transfer was fraudulent. */
+                FRAUD,
                 /**
                  * An enum member indicating that [Reason] was instantiated with an unknown value.
                  */
@@ -2036,6 +2079,7 @@ private constructor(
                     DUPLICATE -> Value.DUPLICATE
                     CREDITOR_REQUEST -> Value.CREDITOR_REQUEST
                     TRANSACTION_FORBIDDEN -> Value.TRANSACTION_FORBIDDEN
+                    FRAUD -> Value.FRAUD
                     else -> Value._UNKNOWN
                 }
 
@@ -2053,6 +2097,7 @@ private constructor(
                     DUPLICATE -> Known.DUPLICATE
                     CREDITOR_REQUEST -> Known.CREDITOR_REQUEST
                     TRANSACTION_FORBIDDEN -> Known.TRANSACTION_FORBIDDEN
+                    FRAUD -> Known.FRAUD
                     else -> throw IncreaseInvalidDataException("Unknown Reason: $value")
                 }
 
@@ -2126,17 +2171,20 @@ private constructor(
             }
 
             return other is Reversal &&
+                amount == other.amount &&
                 reason == other.reason &&
                 reversedAt == other.reversedAt &&
                 additionalProperties == other.additionalProperties
         }
 
-        private val hashCode: Int by lazy { Objects.hash(reason, reversedAt, additionalProperties) }
+        private val hashCode: Int by lazy {
+            Objects.hash(amount, reason, reversedAt, additionalProperties)
+        }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Reversal{reason=$reason, reversedAt=$reversedAt, additionalProperties=$additionalProperties}"
+            "Reversal{amount=$amount, reason=$reason, reversedAt=$reversedAt, additionalProperties=$additionalProperties}"
     }
 
     /** The status of the transfer. */
