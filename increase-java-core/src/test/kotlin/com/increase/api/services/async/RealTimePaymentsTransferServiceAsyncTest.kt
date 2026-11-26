@@ -28,6 +28,17 @@ internal class RealTimePaymentsTransferServiceAsyncTest {
                     .sourceAccountNumberId("account_number_v18nkfqm6afpsrvy82b2")
                     .unstructuredRemittanceInformation("Invoice 29582")
                     .accountNumber("987654321")
+                    .debtorAddress(
+                        RealTimePaymentsTransferCreateParams.DebtorAddress.builder()
+                            .city("city")
+                            .country("x")
+                            .postalCode("postal_code")
+                            .state("xx")
+                            .streetName("street_name")
+                            .addressLine2("address_line2")
+                            .buildingNumber("building_number")
+                            .build()
+                    )
                     .debtorName("debtor_name")
                     .externalAccountId("external_account_id")
                     .inboundRealTimePaymentsRequestForPaymentId(
