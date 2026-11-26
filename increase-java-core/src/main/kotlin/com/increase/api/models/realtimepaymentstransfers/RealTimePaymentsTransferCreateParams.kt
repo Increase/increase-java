@@ -18,6 +18,7 @@ import com.increase.api.errors.IncreaseInvalidDataException
 import java.util.Collections
 import java.util.Objects
 import java.util.Optional
+import kotlin.jvm.optionals.getOrNull
 
 /** Create a Real-Time Payments Transfer */
 class RealTimePaymentsTransferCreateParams
@@ -66,6 +67,15 @@ private constructor(
      *   server responded with an unexpected value).
      */
     fun accountNumber(): Optional<String> = body.accountNumber()
+
+    /**
+     * The address of the transfer's sender. If not provided, no debtor address is sent with the
+     * transfer.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if the
+     *   server responded with an unexpected value).
+     */
+    fun debtorAddress(): Optional<DebtorAddress> = body.debtorAddress()
 
     /**
      * The name of the transfer's sender. If not provided, defaults to the name of the account's
@@ -166,6 +176,13 @@ private constructor(
      * Unlike [accountNumber], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _accountNumber(): JsonField<String> = body._accountNumber()
+
+    /**
+     * Returns the raw JSON value of [debtorAddress].
+     *
+     * Unlike [debtorAddress], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _debtorAddress(): JsonField<DebtorAddress> = body._debtorAddress()
 
     /**
      * Returns the raw JSON value of [debtorName].
@@ -348,6 +365,25 @@ private constructor(
          */
         fun accountNumber(accountNumber: JsonField<String>) = apply {
             body.accountNumber(accountNumber)
+        }
+
+        /**
+         * The address of the transfer's sender. If not provided, no debtor address is sent with the
+         * transfer.
+         */
+        fun debtorAddress(debtorAddress: DebtorAddress) = apply {
+            body.debtorAddress(debtorAddress)
+        }
+
+        /**
+         * Sets [Builder.debtorAddress] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.debtorAddress] with a well-typed [DebtorAddress] value
+         * instead. This method is primarily for setting the field to an undocumented or not yet
+         * supported value.
+         */
+        fun debtorAddress(debtorAddress: JsonField<DebtorAddress>) = apply {
+            body.debtorAddress(debtorAddress)
         }
 
         /**
@@ -633,6 +669,7 @@ private constructor(
         private val sourceAccountNumberId: JsonField<String>,
         private val unstructuredRemittanceInformation: JsonField<String>,
         private val accountNumber: JsonField<String>,
+        private val debtorAddress: JsonField<DebtorAddress>,
         private val debtorName: JsonField<String>,
         private val externalAccountId: JsonField<String>,
         private val inboundRealTimePaymentsRequestForPaymentId: JsonField<String>,
@@ -658,6 +695,9 @@ private constructor(
             @JsonProperty("account_number")
             @ExcludeMissing
             accountNumber: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("debtor_address")
+            @ExcludeMissing
+            debtorAddress: JsonField<DebtorAddress> = JsonMissing.of(),
             @JsonProperty("debtor_name")
             @ExcludeMissing
             debtorName: JsonField<String> = JsonMissing.of(),
@@ -685,6 +725,7 @@ private constructor(
             sourceAccountNumberId,
             unstructuredRemittanceInformation,
             accountNumber,
+            debtorAddress,
             debtorName,
             externalAccountId,
             inboundRealTimePaymentsRequestForPaymentId,
@@ -736,6 +777,15 @@ private constructor(
          *   the server responded with an unexpected value).
          */
         fun accountNumber(): Optional<String> = accountNumber.getOptional("account_number")
+
+        /**
+         * The address of the transfer's sender. If not provided, no debtor address is sent with the
+         * transfer.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun debtorAddress(): Optional<DebtorAddress> = debtorAddress.getOptional("debtor_address")
 
         /**
          * The name of the transfer's sender. If not provided, defaults to the name of the account's
@@ -853,6 +903,16 @@ private constructor(
         fun _accountNumber(): JsonField<String> = accountNumber
 
         /**
+         * Returns the raw JSON value of [debtorAddress].
+         *
+         * Unlike [debtorAddress], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("debtor_address")
+        @ExcludeMissing
+        fun _debtorAddress(): JsonField<DebtorAddress> = debtorAddress
+
+        /**
          * Returns the raw JSON value of [debtorName].
          *
          * Unlike [debtorName], this method doesn't throw if the JSON field has an unexpected type.
@@ -958,6 +1018,7 @@ private constructor(
             private var sourceAccountNumberId: JsonField<String>? = null
             private var unstructuredRemittanceInformation: JsonField<String>? = null
             private var accountNumber: JsonField<String> = JsonMissing.of()
+            private var debtorAddress: JsonField<DebtorAddress> = JsonMissing.of()
             private var debtorName: JsonField<String> = JsonMissing.of()
             private var externalAccountId: JsonField<String> = JsonMissing.of()
             private var inboundRealTimePaymentsRequestForPaymentId: JsonField<String> =
@@ -975,6 +1036,7 @@ private constructor(
                 sourceAccountNumberId = body.sourceAccountNumberId
                 unstructuredRemittanceInformation = body.unstructuredRemittanceInformation
                 accountNumber = body.accountNumber
+                debtorAddress = body.debtorAddress
                 debtorName = body.debtorName
                 externalAccountId = body.externalAccountId
                 inboundRealTimePaymentsRequestForPaymentId =
@@ -1056,6 +1118,24 @@ private constructor(
              */
             fun accountNumber(accountNumber: JsonField<String>) = apply {
                 this.accountNumber = accountNumber
+            }
+
+            /**
+             * The address of the transfer's sender. If not provided, no debtor address is sent with
+             * the transfer.
+             */
+            fun debtorAddress(debtorAddress: DebtorAddress) =
+                debtorAddress(JsonField.of(debtorAddress))
+
+            /**
+             * Sets [Builder.debtorAddress] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.debtorAddress] with a well-typed [DebtorAddress]
+             * value instead. This method is primarily for setting the field to an undocumented or
+             * not yet supported value.
+             */
+            fun debtorAddress(debtorAddress: JsonField<DebtorAddress>) = apply {
+                this.debtorAddress = debtorAddress
             }
 
             /**
@@ -1225,6 +1305,7 @@ private constructor(
                         unstructuredRemittanceInformation,
                     ),
                     accountNumber,
+                    debtorAddress,
                     debtorName,
                     externalAccountId,
                     inboundRealTimePaymentsRequestForPaymentId,
@@ -1257,6 +1338,7 @@ private constructor(
             sourceAccountNumberId()
             unstructuredRemittanceInformation()
             accountNumber()
+            debtorAddress().ifPresent { it.validate() }
             debtorName()
             externalAccountId()
             inboundRealTimePaymentsRequestForPaymentId()
@@ -1288,6 +1370,7 @@ private constructor(
                 (if (sourceAccountNumberId.asKnown().isPresent) 1 else 0) +
                 (if (unstructuredRemittanceInformation.asKnown().isPresent) 1 else 0) +
                 (if (accountNumber.asKnown().isPresent) 1 else 0) +
+                (debtorAddress.asKnown().getOrNull()?.validity() ?: 0) +
                 (if (debtorName.asKnown().isPresent) 1 else 0) +
                 (if (externalAccountId.asKnown().isPresent) 1 else 0) +
                 (if (inboundRealTimePaymentsRequestForPaymentId.asKnown().isPresent) 1 else 0) +
@@ -1307,6 +1390,7 @@ private constructor(
                 sourceAccountNumberId == other.sourceAccountNumberId &&
                 unstructuredRemittanceInformation == other.unstructuredRemittanceInformation &&
                 accountNumber == other.accountNumber &&
+                debtorAddress == other.debtorAddress &&
                 debtorName == other.debtorName &&
                 externalAccountId == other.externalAccountId &&
                 inboundRealTimePaymentsRequestForPaymentId ==
@@ -1325,6 +1409,7 @@ private constructor(
                 sourceAccountNumberId,
                 unstructuredRemittanceInformation,
                 accountNumber,
+                debtorAddress,
                 debtorName,
                 externalAccountId,
                 inboundRealTimePaymentsRequestForPaymentId,
@@ -1339,7 +1424,452 @@ private constructor(
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{amount=$amount, creditorName=$creditorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, debtorName=$debtorName, externalAccountId=$externalAccountId, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, requireApproval=$requireApproval, routingNumber=$routingNumber, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+            "Body{amount=$amount, creditorName=$creditorName, sourceAccountNumberId=$sourceAccountNumberId, unstructuredRemittanceInformation=$unstructuredRemittanceInformation, accountNumber=$accountNumber, debtorAddress=$debtorAddress, debtorName=$debtorName, externalAccountId=$externalAccountId, inboundRealTimePaymentsRequestForPaymentId=$inboundRealTimePaymentsRequestForPaymentId, requireApproval=$requireApproval, routingNumber=$routingNumber, ultimateCreditorName=$ultimateCreditorName, ultimateDebtorName=$ultimateDebtorName, additionalProperties=$additionalProperties}"
+    }
+
+    /**
+     * The address of the transfer's sender. If not provided, no debtor address is sent with the
+     * transfer.
+     */
+    class DebtorAddress
+    @JsonCreator(mode = JsonCreator.Mode.DISABLED)
+    private constructor(
+        private val city: JsonField<String>,
+        private val country: JsonField<String>,
+        private val postalCode: JsonField<String>,
+        private val state: JsonField<String>,
+        private val streetName: JsonField<String>,
+        private val addressLine2: JsonField<String>,
+        private val buildingNumber: JsonField<String>,
+        private val additionalProperties: MutableMap<String, JsonValue>,
+    ) {
+
+        @JsonCreator
+        private constructor(
+            @JsonProperty("city") @ExcludeMissing city: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("country") @ExcludeMissing country: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("postal_code")
+            @ExcludeMissing
+            postalCode: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("state") @ExcludeMissing state: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("street_name")
+            @ExcludeMissing
+            streetName: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("address_line2")
+            @ExcludeMissing
+            addressLine2: JsonField<String> = JsonMissing.of(),
+            @JsonProperty("building_number")
+            @ExcludeMissing
+            buildingNumber: JsonField<String> = JsonMissing.of(),
+        ) : this(
+            city,
+            country,
+            postalCode,
+            state,
+            streetName,
+            addressLine2,
+            buildingNumber,
+            mutableMapOf(),
+        )
+
+        /**
+         * The town or city.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun city(): String = city.getRequired("city")
+
+        /**
+         * The ISO 3166, Alpha-2 country code.
+         *
+         * Defaults to `US`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun country(): String = country.getRequired("country")
+
+        /**
+         * The postal code or zip.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun postalCode(): String = postalCode.getRequired("postal_code")
+
+        /**
+         * The US state component of the address.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun state(): String = state.getRequired("state")
+
+        /**
+         * The street name without the street number.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun streetName(): String = streetName.getRequired("street_name")
+
+        /**
+         * A second address line, such as an apartment or suite number. The first address line is
+         * separated into `building_number` and `street_name`.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun addressLine2(): Optional<String> = addressLine2.getOptional("address_line2")
+
+        /**
+         * The number identifying the position of the building on the street.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type (e.g. if
+         *   the server responded with an unexpected value).
+         */
+        fun buildingNumber(): Optional<String> = buildingNumber.getOptional("building_number")
+
+        /**
+         * Returns the raw JSON value of [city].
+         *
+         * Unlike [city], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("city") @ExcludeMissing fun _city(): JsonField<String> = city
+
+        /**
+         * Returns the raw JSON value of [country].
+         *
+         * Unlike [country], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("country") @ExcludeMissing fun _country(): JsonField<String> = country
+
+        /**
+         * Returns the raw JSON value of [postalCode].
+         *
+         * Unlike [postalCode], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("postal_code")
+        @ExcludeMissing
+        fun _postalCode(): JsonField<String> = postalCode
+
+        /**
+         * Returns the raw JSON value of [state].
+         *
+         * Unlike [state], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("state") @ExcludeMissing fun _state(): JsonField<String> = state
+
+        /**
+         * Returns the raw JSON value of [streetName].
+         *
+         * Unlike [streetName], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("street_name")
+        @ExcludeMissing
+        fun _streetName(): JsonField<String> = streetName
+
+        /**
+         * Returns the raw JSON value of [addressLine2].
+         *
+         * Unlike [addressLine2], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("address_line2")
+        @ExcludeMissing
+        fun _addressLine2(): JsonField<String> = addressLine2
+
+        /**
+         * Returns the raw JSON value of [buildingNumber].
+         *
+         * Unlike [buildingNumber], this method doesn't throw if the JSON field has an unexpected
+         * type.
+         */
+        @JsonProperty("building_number")
+        @ExcludeMissing
+        fun _buildingNumber(): JsonField<String> = buildingNumber
+
+        @JsonAnySetter
+        private fun putAdditionalProperty(key: String, value: JsonValue) {
+            additionalProperties.put(key, value)
+        }
+
+        @JsonAnyGetter
+        @ExcludeMissing
+        fun _additionalProperties(): Map<String, JsonValue> =
+            Collections.unmodifiableMap(additionalProperties)
+
+        fun toBuilder() = Builder().from(this)
+
+        companion object {
+
+            /**
+             * Returns a mutable builder for constructing an instance of [DebtorAddress].
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .country()
+             * .postalCode()
+             * .state()
+             * .streetName()
+             * ```
+             */
+            @JvmStatic fun builder() = Builder()
+        }
+
+        /** A builder for [DebtorAddress]. */
+        class Builder internal constructor() {
+
+            private var city: JsonField<String>? = null
+            private var country: JsonField<String>? = null
+            private var postalCode: JsonField<String>? = null
+            private var state: JsonField<String>? = null
+            private var streetName: JsonField<String>? = null
+            private var addressLine2: JsonField<String> = JsonMissing.of()
+            private var buildingNumber: JsonField<String> = JsonMissing.of()
+            private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
+
+            @JvmSynthetic
+            internal fun from(debtorAddress: DebtorAddress) = apply {
+                city = debtorAddress.city
+                country = debtorAddress.country
+                postalCode = debtorAddress.postalCode
+                state = debtorAddress.state
+                streetName = debtorAddress.streetName
+                addressLine2 = debtorAddress.addressLine2
+                buildingNumber = debtorAddress.buildingNumber
+                additionalProperties = debtorAddress.additionalProperties.toMutableMap()
+            }
+
+            /** The town or city. */
+            fun city(city: String) = city(JsonField.of(city))
+
+            /**
+             * Sets [Builder.city] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.city] with a well-typed [String] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun city(city: JsonField<String>) = apply { this.city = city }
+
+            /**
+             * The ISO 3166, Alpha-2 country code.
+             *
+             * Defaults to `US`.
+             */
+            fun country(country: String) = country(JsonField.of(country))
+
+            /**
+             * Sets [Builder.country] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.country] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun country(country: JsonField<String>) = apply { this.country = country }
+
+            /** The postal code or zip. */
+            fun postalCode(postalCode: String) = postalCode(JsonField.of(postalCode))
+
+            /**
+             * Sets [Builder.postalCode] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.postalCode] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun postalCode(postalCode: JsonField<String>) = apply { this.postalCode = postalCode }
+
+            /** The US state component of the address. */
+            fun state(state: String) = state(JsonField.of(state))
+
+            /**
+             * Sets [Builder.state] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.state] with a well-typed [String] value instead.
+             * This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun state(state: JsonField<String>) = apply { this.state = state }
+
+            /** The street name without the street number. */
+            fun streetName(streetName: String) = streetName(JsonField.of(streetName))
+
+            /**
+             * Sets [Builder.streetName] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.streetName] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun streetName(streetName: JsonField<String>) = apply { this.streetName = streetName }
+
+            /**
+             * A second address line, such as an apartment or suite number. The first address line
+             * is separated into `building_number` and `street_name`.
+             */
+            fun addressLine2(addressLine2: String) = addressLine2(JsonField.of(addressLine2))
+
+            /**
+             * Sets [Builder.addressLine2] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.addressLine2] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun addressLine2(addressLine2: JsonField<String>) = apply {
+                this.addressLine2 = addressLine2
+            }
+
+            /** The number identifying the position of the building on the street. */
+            fun buildingNumber(buildingNumber: String) =
+                buildingNumber(JsonField.of(buildingNumber))
+
+            /**
+             * Sets [Builder.buildingNumber] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.buildingNumber] with a well-typed [String] value
+             * instead. This method is primarily for setting the field to an undocumented or not yet
+             * supported value.
+             */
+            fun buildingNumber(buildingNumber: JsonField<String>) = apply {
+                this.buildingNumber = buildingNumber
+            }
+
+            fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.clear()
+                putAllAdditionalProperties(additionalProperties)
+            }
+
+            fun putAdditionalProperty(key: String, value: JsonValue) = apply {
+                additionalProperties.put(key, value)
+            }
+
+            fun putAllAdditionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
+                this.additionalProperties.putAll(additionalProperties)
+            }
+
+            fun removeAdditionalProperty(key: String) = apply { additionalProperties.remove(key) }
+
+            fun removeAllAdditionalProperties(keys: Set<String>) = apply {
+                keys.forEach(::removeAdditionalProperty)
+            }
+
+            /**
+             * Returns an immutable instance of [DebtorAddress].
+             *
+             * Further updates to this [Builder] will not mutate the returned instance.
+             *
+             * The following fields are required:
+             * ```java
+             * .city()
+             * .country()
+             * .postalCode()
+             * .state()
+             * .streetName()
+             * ```
+             *
+             * @throws IllegalStateException if any required field is unset.
+             */
+            fun build(): DebtorAddress =
+                DebtorAddress(
+                    checkRequired("city", city),
+                    checkRequired("country", country),
+                    checkRequired("postalCode", postalCode),
+                    checkRequired("state", state),
+                    checkRequired("streetName", streetName),
+                    addressLine2,
+                    buildingNumber,
+                    additionalProperties.toMutableMap(),
+                )
+        }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): DebtorAddress = apply {
+            if (validated) {
+                return@apply
+            }
+
+            city()
+            country()
+            postalCode()
+            state()
+            streetName()
+            addressLine2()
+            buildingNumber()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic
+        internal fun validity(): Int =
+            (if (city.asKnown().isPresent) 1 else 0) +
+                (if (country.asKnown().isPresent) 1 else 0) +
+                (if (postalCode.asKnown().isPresent) 1 else 0) +
+                (if (state.asKnown().isPresent) 1 else 0) +
+                (if (streetName.asKnown().isPresent) 1 else 0) +
+                (if (addressLine2.asKnown().isPresent) 1 else 0) +
+                (if (buildingNumber.asKnown().isPresent) 1 else 0)
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is DebtorAddress &&
+                city == other.city &&
+                country == other.country &&
+                postalCode == other.postalCode &&
+                state == other.state &&
+                streetName == other.streetName &&
+                addressLine2 == other.addressLine2 &&
+                buildingNumber == other.buildingNumber &&
+                additionalProperties == other.additionalProperties
+        }
+
+        private val hashCode: Int by lazy {
+            Objects.hash(
+                city,
+                country,
+                postalCode,
+                state,
+                streetName,
+                addressLine2,
+                buildingNumber,
+                additionalProperties,
+            )
+        }
+
+        override fun hashCode(): Int = hashCode
+
+        override fun toString() =
+            "DebtorAddress{city=$city, country=$country, postalCode=$postalCode, state=$state, streetName=$streetName, addressLine2=$addressLine2, buildingNumber=$buildingNumber, additionalProperties=$additionalProperties}"
     }
 
     override fun equals(other: Any?): Boolean {

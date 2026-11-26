@@ -44,6 +44,7 @@ internal class InboundWireTransferTest {
                 .purpose("CASH")
                 .reversal(
                     InboundWireTransfer.Reversal.builder()
+                        .amount(0L)
                         .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
                         .reversedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
@@ -90,6 +91,7 @@ internal class InboundWireTransferTest {
         assertThat(inboundWireTransfer.reversal())
             .contains(
                 InboundWireTransfer.Reversal.builder()
+                    .amount(0L)
                     .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
                     .reversedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                     .build()
@@ -138,6 +140,7 @@ internal class InboundWireTransferTest {
                 .purpose("CASH")
                 .reversal(
                     InboundWireTransfer.Reversal.builder()
+                        .amount(0L)
                         .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
                         .reversedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                         .build()
