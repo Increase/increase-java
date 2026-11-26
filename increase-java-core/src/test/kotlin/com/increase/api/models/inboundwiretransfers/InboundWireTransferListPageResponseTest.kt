@@ -46,6 +46,7 @@ internal class InboundWireTransferListPageResponseTest {
                         .purpose("CASH")
                         .reversal(
                             InboundWireTransfer.Reversal.builder()
+                                .amount(0L)
                                 .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
                                 .reversedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
@@ -93,6 +94,7 @@ internal class InboundWireTransferListPageResponseTest {
                     .purpose("CASH")
                     .reversal(
                         InboundWireTransfer.Reversal.builder()
+                            .amount(0L)
                             .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
                             .reversedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                             .build()
@@ -144,6 +146,7 @@ internal class InboundWireTransferListPageResponseTest {
                         .purpose("CASH")
                         .reversal(
                             InboundWireTransfer.Reversal.builder()
+                                .amount(0L)
                                 .reason(InboundWireTransfer.Reversal.Reason.DUPLICATE)
                                 .reversedAt(OffsetDateTime.parse("2019-12-27T18:11:19.117Z"))
                                 .build()
