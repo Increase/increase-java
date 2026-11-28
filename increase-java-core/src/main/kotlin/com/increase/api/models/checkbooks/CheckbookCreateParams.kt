@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonAnyGetter
 import com.fasterxml.jackson.annotation.JsonAnySetter
 import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonProperty
+import com.increase.api.core.Enum
 import com.increase.api.core.ExcludeMissing
 import com.increase.api.core.JsonField
 import com.increase.api.core.JsonMissing
@@ -57,6 +58,14 @@ private constructor(
     fun payer(): List<Payer> = body.payer()
 
     /**
+     * The physical format of the Checkbook.
+     *
+     * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+     *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+     */
+    fun style(): Style = body.style()
+
+    /**
      * Returns the raw JSON value of [accountNumberId].
      *
      * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected type.
@@ -76,6 +85,13 @@ private constructor(
      * Unlike [payer], this method doesn't throw if the JSON field has an unexpected type.
      */
     fun _payer(): JsonField<List<Payer>> = body._payer()
+
+    /**
+     * Returns the raw JSON value of [style].
+     *
+     * Unlike [style], this method doesn't throw if the JSON field has an unexpected type.
+     */
+    fun _style(): JsonField<Style> = body._style()
 
     fun _additionalBodyProperties(): Map<String, JsonValue> = body._additionalProperties()
 
@@ -97,6 +113,7 @@ private constructor(
          * .accountNumberId()
          * .mailingAddress()
          * .payer()
+         * .style()
          * ```
          */
         @JvmStatic fun builder() = Builder()
@@ -124,6 +141,7 @@ private constructor(
          * - [accountNumberId]
          * - [mailingAddress]
          * - [payer]
+         * - [style]
          */
         fun body(body: Body) = apply { this.body = body.toBuilder() }
 
@@ -183,6 +201,17 @@ private constructor(
          * @throws IllegalStateException if the field was previously set to a non-list.
          */
         fun addPayer(payer: Payer) = apply { body.addPayer(payer) }
+
+        /** The physical format of the Checkbook. */
+        fun style(style: Style) = apply { body.style(style) }
+
+        /**
+         * Sets [Builder.style] to an arbitrary JSON value.
+         *
+         * You should usually call [Builder.style] with a well-typed [Style] value instead. This
+         * method is primarily for setting the field to an undocumented or not yet supported value.
+         */
+        fun style(style: JsonField<Style>) = apply { body.style(style) }
 
         fun additionalBodyProperties(additionalBodyProperties: Map<String, JsonValue>) = apply {
             body.additionalProperties(additionalBodyProperties)
@@ -311,6 +340,7 @@ private constructor(
          * .accountNumberId()
          * .mailingAddress()
          * .payer()
+         * .style()
          * ```
          *
          * @throws IllegalStateException if any required field is unset.
@@ -335,6 +365,7 @@ private constructor(
         private val accountNumberId: JsonField<String>,
         private val mailingAddress: JsonField<MailingAddress>,
         private val payer: JsonField<List<Payer>>,
+        private val style: JsonField<Style>,
         private val additionalProperties: MutableMap<String, JsonValue>,
     ) {
 
@@ -347,7 +378,8 @@ private constructor(
             @ExcludeMissing
             mailingAddress: JsonField<MailingAddress> = JsonMissing.of(),
             @JsonProperty("payer") @ExcludeMissing payer: JsonField<List<Payer>> = JsonMissing.of(),
-        ) : this(accountNumberId, mailingAddress, payer, mutableMapOf())
+            @JsonProperty("style") @ExcludeMissing style: JsonField<Style> = JsonMissing.of(),
+        ) : this(accountNumberId, mailingAddress, payer, style, mutableMapOf())
 
         /**
          * The identifier of the Account Number that the checks will draw from. The Account Number
@@ -376,6 +408,14 @@ private constructor(
         fun payer(): List<Payer> = payer.getRequired("payer")
 
         /**
+         * The physical format of the Checkbook.
+         *
+         * @throws IncreaseInvalidDataException if the JSON field has an unexpected type or is
+         *   unexpectedly missing or null (e.g. if the server responded with an unexpected value).
+         */
+        fun style(): Style = style.getRequired("style")
+
+        /**
          * Returns the raw JSON value of [accountNumberId].
          *
          * Unlike [accountNumberId], this method doesn't throw if the JSON field has an unexpected
@@ -402,6 +442,13 @@ private constructor(
          */
         @JsonProperty("payer") @ExcludeMissing fun _payer(): JsonField<List<Payer>> = payer
 
+        /**
+         * Returns the raw JSON value of [style].
+         *
+         * Unlike [style], this method doesn't throw if the JSON field has an unexpected type.
+         */
+        @JsonProperty("style") @ExcludeMissing fun _style(): JsonField<Style> = style
+
         @JsonAnySetter
         private fun putAdditionalProperty(key: String, value: JsonValue) {
             additionalProperties.put(key, value)
@@ -424,6 +471,7 @@ private constructor(
              * .accountNumberId()
              * .mailingAddress()
              * .payer()
+             * .style()
              * ```
              */
             @JvmStatic fun builder() = Builder()
@@ -435,6 +483,7 @@ private constructor(
             private var accountNumberId: JsonField<String>? = null
             private var mailingAddress: JsonField<MailingAddress>? = null
             private var payer: JsonField<MutableList<Payer>>? = null
+            private var style: JsonField<Style>? = null
             private var additionalProperties: MutableMap<String, JsonValue> = mutableMapOf()
 
             @JvmSynthetic
@@ -442,6 +491,7 @@ private constructor(
                 accountNumberId = body.accountNumberId
                 mailingAddress = body.mailingAddress
                 payer = body.payer.map { it.toMutableList() }
+                style = body.style
                 additionalProperties = body.additionalProperties.toMutableMap()
             }
 
@@ -508,6 +558,18 @@ private constructor(
                     }
             }
 
+            /** The physical format of the Checkbook. */
+            fun style(style: Style) = style(JsonField.of(style))
+
+            /**
+             * Sets [Builder.style] to an arbitrary JSON value.
+             *
+             * You should usually call [Builder.style] with a well-typed [Style] value instead. This
+             * method is primarily for setting the field to an undocumented or not yet supported
+             * value.
+             */
+            fun style(style: JsonField<Style>) = apply { this.style = style }
+
             fun additionalProperties(additionalProperties: Map<String, JsonValue>) = apply {
                 this.additionalProperties.clear()
                 putAllAdditionalProperties(additionalProperties)
@@ -537,6 +599,7 @@ private constructor(
              * .accountNumberId()
              * .mailingAddress()
              * .payer()
+             * .style()
              * ```
              *
              * @throws IllegalStateException if any required field is unset.
@@ -546,6 +609,7 @@ private constructor(
                     checkRequired("accountNumberId", accountNumberId),
                     checkRequired("mailingAddress", mailingAddress),
                     checkRequired("payer", payer).map { it.toImmutable() },
+                    checkRequired("style", style),
                     additionalProperties.toMutableMap(),
                 )
         }
@@ -569,6 +633,7 @@ private constructor(
             accountNumberId()
             mailingAddress().validate()
             payer().forEach { it.validate() }
+            style().validate()
             validated = true
         }
 
@@ -590,7 +655,8 @@ private constructor(
         internal fun validity(): Int =
             (if (accountNumberId.asKnown().isPresent) 1 else 0) +
                 (mailingAddress.asKnown().getOrNull()?.validity() ?: 0) +
-                (payer.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0)
+                (payer.asKnown().getOrNull()?.sumOf { it.validity().toInt() } ?: 0) +
+                (style.asKnown().getOrNull()?.validity() ?: 0)
 
         override fun equals(other: Any?): Boolean {
             if (this === other) {
@@ -601,17 +667,18 @@ private constructor(
                 accountNumberId == other.accountNumberId &&
                 mailingAddress == other.mailingAddress &&
                 payer == other.payer &&
+                style == other.style &&
                 additionalProperties == other.additionalProperties
         }
 
         private val hashCode: Int by lazy {
-            Objects.hash(accountNumberId, mailingAddress, payer, additionalProperties)
+            Objects.hash(accountNumberId, mailingAddress, payer, style, additionalProperties)
         }
 
         override fun hashCode(): Int = hashCode
 
         override fun toString() =
-            "Body{accountNumberId=$accountNumberId, mailingAddress=$mailingAddress, payer=$payer, additionalProperties=$additionalProperties}"
+            "Body{accountNumberId=$accountNumberId, mailingAddress=$mailingAddress, payer=$payer, style=$style, additionalProperties=$additionalProperties}"
     }
 
     /** The destination address that the Checkbook will be mailed to. */
@@ -1137,6 +1204,149 @@ private constructor(
 
         override fun toString() =
             "Payer{contents=$contents, additionalProperties=$additionalProperties}"
+    }
+
+    /** The physical format of the Checkbook. */
+    class Style @JsonCreator private constructor(private val value: JsonField<String>) : Enum {
+
+        /**
+         * Returns this class instance's raw value.
+         *
+         * This is usually only useful if this instance was deserialized from data that doesn't
+         * match any known member, and you want to know that value. For example, if the SDK is on an
+         * older version than the API, then the API may respond with new members that the SDK is
+         * unaware of.
+         */
+        @com.fasterxml.jackson.annotation.JsonValue fun _value(): JsonField<String> = value
+
+        companion object {
+
+            /** A 3x6 inch pad of 25 checks, each torn off along a perforation at the top. */
+            @JvmField val TOP_TEAR_PAD = of("top_tear_pad")
+
+            /** A half-inch three-ring binder holding 75 pages of checks with 3 checks per page. */
+            @JvmField val THREE_RING_BINDER = of("three_ring_binder")
+
+            @JvmStatic fun of(value: String) = Style(JsonField.of(value))
+        }
+
+        /** An enum containing [Style]'s known values. */
+        enum class Known {
+            /** A 3x6 inch pad of 25 checks, each torn off along a perforation at the top. */
+            TOP_TEAR_PAD,
+            /** A half-inch three-ring binder holding 75 pages of checks with 3 checks per page. */
+            THREE_RING_BINDER,
+        }
+
+        /**
+         * An enum containing [Style]'s known values, as well as an [_UNKNOWN] member.
+         *
+         * An instance of [Style] can contain an unknown value in a couple of cases:
+         * - It was deserialized from data that doesn't match any known member. For example, if the
+         *   SDK is on an older version than the API, then the API may respond with new members that
+         *   the SDK is unaware of.
+         * - It was constructed with an arbitrary value using the [of] method.
+         */
+        enum class Value {
+            /** A 3x6 inch pad of 25 checks, each torn off along a perforation at the top. */
+            TOP_TEAR_PAD,
+            /** A half-inch three-ring binder holding 75 pages of checks with 3 checks per page. */
+            THREE_RING_BINDER,
+            /** An enum member indicating that [Style] was instantiated with an unknown value. */
+            _UNKNOWN,
+        }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value, or [Value._UNKNOWN]
+         * if the class was instantiated with an unknown value.
+         *
+         * Use the [known] method instead if you're certain the value is always known or if you want
+         * to throw for the unknown case.
+         */
+        fun value(): Value =
+            when (this) {
+                TOP_TEAR_PAD -> Value.TOP_TEAR_PAD
+                THREE_RING_BINDER -> Value.THREE_RING_BINDER
+                else -> Value._UNKNOWN
+            }
+
+        /**
+         * Returns an enum member corresponding to this class instance's value.
+         *
+         * Use the [value] method instead if you're uncertain the value is always known and don't
+         * want to throw for the unknown case.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value is a not a known
+         *   member.
+         */
+        fun known(): Known =
+            when (this) {
+                TOP_TEAR_PAD -> Known.TOP_TEAR_PAD
+                THREE_RING_BINDER -> Known.THREE_RING_BINDER
+                else -> throw IncreaseInvalidDataException("Unknown Style: $value")
+            }
+
+        /**
+         * Returns this class instance's primitive wire representation.
+         *
+         * This differs from the [toString] method because that method is primarily for debugging
+         * and generally doesn't throw.
+         *
+         * @throws IncreaseInvalidDataException if this class instance's value does not have the
+         *   expected primitive type.
+         */
+        fun asString(): String =
+            _value().asString().orElseThrow {
+                IncreaseInvalidDataException("Value is not a String")
+            }
+
+        private var validated: Boolean = false
+
+        /**
+         * Validates that the types of all values in this object match their expected types
+         * recursively.
+         *
+         * This method is _not_ forwards compatible with new types from the API for existing fields.
+         *
+         * @throws IncreaseInvalidDataException if any value type in this object doesn't match its
+         *   expected type.
+         */
+        fun validate(): Style = apply {
+            if (validated) {
+                return@apply
+            }
+
+            known()
+            validated = true
+        }
+
+        fun isValid(): Boolean =
+            try {
+                validate()
+                true
+            } catch (e: IncreaseInvalidDataException) {
+                false
+            }
+
+        /**
+         * Returns a score indicating how many valid values are contained in this object
+         * recursively.
+         *
+         * Used for best match union deserialization.
+         */
+        @JvmSynthetic internal fun validity(): Int = if (value() == Value._UNKNOWN) 0 else 1
+
+        override fun equals(other: Any?): Boolean {
+            if (this === other) {
+                return true
+            }
+
+            return other is Style && value == other.value
+        }
+
+        override fun hashCode() = value.hashCode()
+
+        override fun toString() = value.toString()
     }
 
     override fun equals(other: Any?): Boolean {

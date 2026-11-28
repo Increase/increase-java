@@ -30,6 +30,7 @@ internal class CheckbookCreateParamsTest {
                     CheckbookCreateParams.Payer.builder().contents("New York, NY 10045").build(),
                 )
             )
+            .style(CheckbookCreateParams.Style.THREE_RING_BINDER)
             .build()
     }
 
@@ -57,6 +58,7 @@ internal class CheckbookCreateParamsTest {
                         CheckbookCreateParams.Payer.builder().contents("New York, NY 10045").build(),
                     )
                 )
+                .style(CheckbookCreateParams.Style.THREE_RING_BINDER)
                 .build()
 
         val body = params._body()
@@ -81,6 +83,7 @@ internal class CheckbookCreateParamsTest {
                 CheckbookCreateParams.Payer.builder().contents("33 Liberty Street").build(),
                 CheckbookCreateParams.Payer.builder().contents("New York, NY 10045").build(),
             )
+        assertThat(body.style()).isEqualTo(CheckbookCreateParams.Style.THREE_RING_BINDER)
     }
 
     @Test
@@ -106,6 +109,7 @@ internal class CheckbookCreateParamsTest {
                         CheckbookCreateParams.Payer.builder().contents("New York, NY 10045").build(),
                     )
                 )
+                .style(CheckbookCreateParams.Style.THREE_RING_BINDER)
                 .build()
 
         val body = params._body()
@@ -129,5 +133,6 @@ internal class CheckbookCreateParamsTest {
                 CheckbookCreateParams.Payer.builder().contents("33 Liberty Street").build(),
                 CheckbookCreateParams.Payer.builder().contents("New York, NY 10045").build(),
             )
+        assertThat(body.style()).isEqualTo(CheckbookCreateParams.Style.THREE_RING_BINDER)
     }
 }

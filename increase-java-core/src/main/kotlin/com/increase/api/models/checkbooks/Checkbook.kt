@@ -1693,6 +1693,9 @@ private constructor(
 
         companion object {
 
+            /** A 3x6 inch pad of 25 checks, each torn off along a perforation at the top. */
+            @JvmField val TOP_TEAR_PAD = of("top_tear_pad")
+
             /** A half-inch three-ring binder holding 75 pages of checks with 3 checks per page. */
             @JvmField val THREE_RING_BINDER = of("three_ring_binder")
 
@@ -1704,6 +1707,8 @@ private constructor(
 
         /** An enum containing [Style]'s known values. */
         enum class Known {
+            /** A 3x6 inch pad of 25 checks, each torn off along a perforation at the top. */
+            TOP_TEAR_PAD,
             /** A half-inch three-ring binder holding 75 pages of checks with 3 checks per page. */
             THREE_RING_BINDER,
             /** A folder holding 15 pages of checks with 3 checks per page. */
@@ -1720,6 +1725,8 @@ private constructor(
          * - It was constructed with an arbitrary value using the [of] method.
          */
         enum class Value {
+            /** A 3x6 inch pad of 25 checks, each torn off along a perforation at the top. */
+            TOP_TEAR_PAD,
             /** A half-inch three-ring binder holding 75 pages of checks with 3 checks per page. */
             THREE_RING_BINDER,
             /** A folder holding 15 pages of checks with 3 checks per page. */
@@ -1737,6 +1744,7 @@ private constructor(
          */
         fun value(): Value =
             when (this) {
+                TOP_TEAR_PAD -> Value.TOP_TEAR_PAD
                 THREE_RING_BINDER -> Value.THREE_RING_BINDER
                 FOLDER -> Value.FOLDER
                 else -> Value._UNKNOWN
@@ -1753,6 +1761,7 @@ private constructor(
          */
         fun known(): Known =
             when (this) {
+                TOP_TEAR_PAD -> Known.TOP_TEAR_PAD
                 THREE_RING_BINDER -> Known.THREE_RING_BINDER
                 FOLDER -> Known.FOLDER
                 else -> throw IncreaseInvalidDataException("Unknown Style: $value")
