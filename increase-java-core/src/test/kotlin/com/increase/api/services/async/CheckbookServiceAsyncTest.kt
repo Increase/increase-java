@@ -47,6 +47,7 @@ internal class CheckbookServiceAsyncTest {
                                 .build(),
                         )
                     )
+                    .style(CheckbookCreateParams.Style.THREE_RING_BINDER)
                     .build()
             )
 

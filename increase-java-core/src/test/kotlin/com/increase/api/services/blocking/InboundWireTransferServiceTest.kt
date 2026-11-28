@@ -54,6 +54,7 @@ internal class InboundWireTransferServiceTest {
                 InboundWireTransferReverseParams.builder()
                     .inboundWireTransferId("inbound_wire_transfer_f228m6bmhtcxjco9pwp0")
                     .reason(InboundWireTransferReverseParams.Reason.CREDITOR_REQUEST)
+                    .amount(1L)
                     .build()
             )
 
